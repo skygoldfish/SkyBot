@@ -5117,7 +5117,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if row == 2 and col == Futures_column.OLOH.value:
                 
                 if float(fut_txt) != plot_drate_scale_factor:
-                    plot_drate_scale_factor = int(float(fut_txt) / 근월물_선물_시가등락율)
+
+                    if 근월물_선물_시가등락율 != 0:
+                        plot_drate_scale_factor = int(float(fut_txt) / 근월물_선물_시가등락율)
+                    else:
+                        plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
+
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
                     self.parent.textBrowser.append(txt)
 
@@ -11075,7 +11080,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_cm_drate_scale_factor_set = True
             else:
-                pass            
+                plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)            
         else:
             pass            
     
@@ -11222,7 +11227,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_nm_drate_scale_factor_set = True
             else:
-                pass            
+                plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)            
         else:
             pass
         
@@ -46928,7 +46933,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_cm_drate_scale_factor_set = True
                 else:
-                    pass                
+                    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)                
 
                 if abs(근월물_선물_종가대비_등락율) > abs(SP500_등락율):
                     flag_fut_vs_sp500_drate_direction = True
@@ -46978,7 +46983,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_nm_drate_scale_factor_set = True
                 else:
-                    pass
+                    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
 
                 df_futures_nm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
 
@@ -47523,7 +47528,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_cm_drate_scale_factor_set = True
                 else:
-                    pass
+                    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
             else:
                 pass
 
