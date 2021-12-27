@@ -45351,6 +45351,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def yj_update(self, tickdata):
 
         global df_futures_cm_graph, df_kp200_graph, KP200_당일시가
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -45442,6 +45443,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         global 근월물_선물_저가, 근월물_선물_고가, 근월물_선물_피봇
         global 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇
+        global plot_time_index
         
         try:
             dt = datetime.now()
@@ -45957,6 +45959,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_low, flag_kp200_high
         global kospi_price, kosdaq_price, KP200_당일시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -46646,6 +46649,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 선물_총순매수, 현물_총순매수
         global 수급방향, 과거_수급방향
         global df_supply_demand_graph
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -46812,6 +46816,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open
         global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -47148,6 +47153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global quote_count_ratio, quote_remainder_ratio
         global flag_under_call, flag_over_call
         global 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -47496,6 +47502,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 콜_현재가, 풋_현재가
         global flag_cm_drate_scale_factor_set
         global flag_nm_oloh_direction_call_set, flag_nm_oloh_direction_put_set
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -47805,6 +47812,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 옵션_잔량비차
         global 콜_잔량비_최소, 콜_잔량비_최대, 풋_잔량비_최소, 풋_잔량비_최대
         global 옵션_잔량비_최소, 옵션_잔량비_최대
+        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -47997,7 +48005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ovc_update(self, tickdata):
 
         global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
-        global old_cme_time_index, plot_time_index
+        global old_cme_time_index
         global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph        
 
         global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
@@ -48023,6 +48031,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비, ADI_시가대비
         global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EUROFX_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
         global SP500_시가대비_등락율
+        global plot_time_index
 
         try:
             dt = datetime.now()
