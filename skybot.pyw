@@ -33013,7 +33013,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(put_volume_power)
                 self.label_16.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -33025,7 +33025,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_17.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(call_volume_power)
                 self.label_18.setText(txt)
 
                 if DayTime:
@@ -34680,7 +34680,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(put_volume_power)
                 self.label_26.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -34692,7 +34692,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_27.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(call_volume_power)
                 self.label_28.setText(txt)
 
                 if DayTime:
@@ -36345,7 +36345,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(put_volume_power)
                 self.label_36.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -36357,7 +36357,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_37.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(call_volume_power)
                 self.label_38.setText(txt)
 
                 if DayTime:
@@ -38007,7 +38007,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(put_volume_power)
                 self.label_46.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -38019,7 +38019,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_47.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(call_volume_power)
                 self.label_48.setText(txt)                      
 
                 if DayTime:
@@ -39672,7 +39672,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(put_volume_power)
                 self.label_56.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -39684,7 +39684,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_57.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(call_volume_power)
                 self.label_58.setText(txt)
 
                 if DayTime:
@@ -41334,7 +41334,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
                 
-                txt = " {0:.0f} ".format(df_put_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(put_volume_power)
                 self.label_66.setText(txt)
 
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
@@ -41346,7 +41346,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_67.setText(txt)
                 
-                txt = " {0:.0f} ".format(df_call_information_graph.at[plot_time_index, 'volume'])
+                txt = " {0:.0f} ".format(call_volume_power)
                 self.label_68.setText(txt)
 
                 if DayTime:
