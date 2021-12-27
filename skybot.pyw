@@ -15314,6 +15314,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if DayTime:
 
                     df_futures_cm_graph.at[0, 'drate'] = 0
+                    df_futures_nm_graph.at[0, 'drate'] = 0
                     df_sp500_graph.at[0, 'drate'] = 0
                     df_dow_graph.at[0, 'drate'] = 0
                     df_nasdaq_graph.at[0, 'drate'] = 0
@@ -16451,6 +16452,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_cm_graph.at[0, 'n_quote_remainder_ratio'] = 1.0
 
                 df_futures_cm_graph.at[0, 'drate'] = 0
+                df_futures_nm_graph.at[0, 'drate'] = 0
 
                 # 해외선물 호가 초기화
                 df_sp500_graph.at[0, 'quote_remainder_ratio'] = 1.0
@@ -33153,7 +33155,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
-                    if not np.isnan(plot1_fut_nm_drate_curve.at[plot_time_index, 'drate']):
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot1_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
@@ -34819,7 +34821,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
-                    if not np.isnan(plot2_fut_nm_drate_curve.at[plot_time_index, 'drate']):
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot2_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
@@ -36481,7 +36483,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
-                    if not np.isnan(plot3_fut_nm_drate_curve.at[plot_time_index, 'drate']):
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot3_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
@@ -38144,7 +38146,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
-                    if not np.isnan(plot4_fut_nm_drate_curve.at[plot_time_index, 'drate']):
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot4_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass 
@@ -39805,7 +39807,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
-                    if not np.isnan(plot5_fut_nm_drate_curve.at[plot_time_index, 'drate']):
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot5_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
@@ -41466,7 +41468,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
-                    if not np.isnan(plot6_fut_nm_drate_curve.at[plot_time_index, 'drate']):
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot6_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass 
