@@ -33159,6 +33159,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                                
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'])
+
+                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -33171,46 +33173,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot1_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
-                    pass
-
-                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'])              
+                    pass                              
             
             elif comboindex1 == 10:
                 
-                self.plot1_time_line.setValue(plot_time_index)               
-
-                if not np.isnan(프로그램_순매수):
-                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
-                
-                    if 프로그램_순매수 <= 0:
-                        self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_16.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_17.setText(txt)
-                
-                if not np.isnan(현물_총순매수):
-                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
-
-                    if 현물_총순매수 <= 0:
-                        self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_18.setText(txt)
-                else:
-                    pass
+                self.plot1_time_line.setValue(plot_time_index)                
 
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
@@ -33224,6 +33191,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_14.setText(txt)
+
+                    if not np.isnan(프로그램_순매수):
+                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+
+                        if 프로그램_순매수 <= 0:
+                            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_16.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+
+                    if not np.isnan(현물_총순매수):
+                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+
+                        if 현물_총순매수 <= 0:
+                            self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_18.setText(txt)
+                    else:
+                        pass
 
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot1_program_curve.setData(df_supply_demand_graph['program'])
@@ -33235,39 +33235,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                if not np.isnan(외인현물_순매수):
-                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
-
-                    if 외인현물_순매수 <= 0:
-                        self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_16.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_17.setText(txt)
-                
-                if not np.isnan(외인선물_순매수):
-                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
-
-                    if 외인선물_순매수 <= 0:
-                        self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_18.setText(txt)
-                else:
-                    pass
-
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
                     self.label_11.setText(txt)
@@ -33280,6 +33247,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_14.setText(txt)
+
+                    if not np.isnan(외인현물_순매수):
+                        txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
+
+                        if 외인현물_순매수 <= 0:
+                            self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_16.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_17.setText(txt)
+                    
+                    if not np.isnan(외인선물_순매수):
+                        txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
+
+                        if 외인선물_순매수 <= 0:
+                            self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_18.setText(txt)
+                    else:
+                        pass
 
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
@@ -34825,6 +34825,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot2_put_drate_curve.setData(df_put_information_graph['drate'])
+
+                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -34838,45 +34840,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.plot2_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
-
-                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex2 == 10:
                 
                 self.plot2_time_line.setValue(plot_time_index)
-
-                if not np.isnan(프로그램_순매수):
-                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
-
-                    if 프로그램_순매수 <= 0:
-                        self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_26.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_27.setText(txt)
-                
-                if not np.isnan(현물_총순매수):
-                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
-
-                    if 현물_총순매수 <= 0:
-                        self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_28.setText(txt)
-                else:
-                    pass
 
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
@@ -34890,6 +34857,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_24.setText(txt)
+
+                    if not np.isnan(프로그램_순매수):
+                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+
+                        if 프로그램_순매수 <= 0:
+                            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_26.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+                    
+                    if not np.isnan(현물_총순매수):
+                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+
+                        if 현물_총순매수 <= 0:
+                            self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_28.setText(txt)
+                    else:
+                        pass
 
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot2_program_curve.setData(df_supply_demand_graph['program'])
@@ -34901,39 +34901,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                if not np.isnan(외인현물_순매수):
-                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
-
-                    if 외인현물_순매수 <= 0:
-                        self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_26.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_27.setText(txt)
-                
-                if not np.isnan(외인선물_순매수):
-                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
-
-                    if 외인선물_순매수 <= 0:
-                        self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_28.setText(txt)
-                else:
-                    pass
-
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
                     self.label_21.setText(txt)
@@ -34946,6 +34913,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_24.setText(txt)
+
+                    if not np.isnan(외인현물_순매수):
+                        txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
+
+                        if 외인현물_순매수 <= 0:
+                            self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_26.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_27.setText(txt)
+                    
+                    if not np.isnan(외인선물_순매수):
+                        txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
+
+                        if 외인선물_순매수 <= 0:
+                            self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_28.setText(txt)
+                    else:
+                        pass
 
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
@@ -36488,6 +36488,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot3_put_drate_curve.setData(df_put_information_graph['drate'])
                 
+                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'])
+                
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
@@ -36500,45 +36502,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.plot3_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
-
-                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex3 == 10:
                 
                 self.plot3_time_line.setValue(plot_time_index)
-
-                if not np.isnan(프로그램_순매수):
-                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
-
-                    if 프로그램_순매수 <= 0:
-                        self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_36.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_37.setText(txt)
-                
-                if not np.isnan(현물_총순매수):
-                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
-
-                    if 현물_총순매수 <= 0:
-                        self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_38.setText(txt)
-                else:
-                    pass
 
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
@@ -36552,6 +36519,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_34.setText(txt)
+
+                    if not np.isnan(프로그램_순매수):
+                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+
+                        if 프로그램_순매수 <= 0:
+                            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_36.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+                    
+                    if not np.isnan(현물_총순매수):
+                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+
+                        if 현물_총순매수 <= 0:
+                            self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_38.setText(txt)
+                    else:
+                        pass
 
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot3_program_curve.setData(df_supply_demand_graph['program'])
@@ -36563,39 +36563,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                if not np.isnan(외인현물_순매수):
-                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
-
-                    if 외인현물_순매수 <= 0:
-                        self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_36.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_37.setText(txt)
-                
-                if not np.isnan(외인선물_순매수):
-                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
-
-                    if 외인선물_순매수 <= 0:
-                        self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_38.setText(txt)
-                else:
-                    pass
-
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
                     self.label_31.setText(txt)
@@ -36608,6 +36575,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_34.setText(txt)
+
+                    if not np.isnan(외인현물_순매수):
+                        txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
+
+                        if 외인현물_순매수 <= 0:
+                            self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_36.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_37.setText(txt)
+                    
+                    if not np.isnan(외인선물_순매수):
+                        txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
+
+                        if 외인선물_순매수 <= 0:
+                            self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_38.setText(txt)
+                    else:
+                        pass
 
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
@@ -38151,6 +38151,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot4_put_drate_curve.setData(df_put_information_graph['drate'])
                 
+                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'])
+                
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
@@ -38163,45 +38165,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.plot4_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass 
-
-                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex4 == 10:
                 
                 self.plot4_time_line.setValue(plot_time_index)
-
-                if not np.isnan(프로그램_순매수):
-                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
-
-                    if 프로그램_순매수 <= 0:
-                        self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_46.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_47.setText(txt)
-                
-                if not np.isnan(현물_총순매수):
-                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
-
-                    if 현물_총순매수 <= 0:
-                        self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_48.setText(txt)
-                else:
-                    pass
 
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
@@ -38215,6 +38182,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_44.setText(txt)
+
+                    if not np.isnan(프로그램_순매수):
+                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+
+                        if 프로그램_순매수 <= 0:
+                            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_46.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+                    
+                    if not np.isnan(현물_총순매수):
+                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+
+                        if 현물_총순매수 <= 0:
+                            self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_48.setText(txt)
+                    else:
+                        pass
 
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot4_program_curve.setData(df_supply_demand_graph['program'])
@@ -38226,39 +38226,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                if not np.isnan(외인현물_순매수):
-                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
-
-                    if 외인현물_순매수 <= 0:
-                        self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_46.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_47.setText(txt)
-                
-                if not np.isnan(외인선물_순매수):
-                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
-
-                    if 외인선물_순매수 <= 0:
-                        self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_48.setText(txt)
-                else:
-                    pass
-
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
                     self.label_41.setText(txt)
@@ -38271,6 +38238,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_44.setText(txt)
+
+                    if not np.isnan(외인현물_순매수):
+                        txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
+
+                        if 외인현물_순매수 <= 0:
+                            self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_46.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_47.setText(txt)
+                    
+                    if not np.isnan(외인선물_순매수):
+                        txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
+
+                        if 외인선물_순매수 <= 0:
+                            self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_48.setText(txt)
+                    else:
+                        pass
 
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
@@ -39812,6 +39812,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot5_put_drate_curve.setData(df_put_information_graph['drate'])
                 
+                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'])
+                
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
@@ -39824,45 +39826,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.plot5_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass
-
-                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex5 == 10:
                 
                 self.plot5_time_line.setValue(plot_time_index)
-
-                if not np.isnan(프로그램_순매수):
-                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
-
-                    if 프로그램_순매수 <= 0:
-                        self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_56.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_57.setText(txt)
-                
-                if not np.isnan(현물_총순매수):
-                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
-
-                    if 현물_총순매수 <= 0:
-                        self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_58.setText(txt)
-                else:
-                    pass
 
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
@@ -39876,6 +39843,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_54.setText(txt)
+
+                    if not np.isnan(프로그램_순매수):
+                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+
+                        if 프로그램_순매수 <= 0:
+                            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_56.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+                    
+                    if not np.isnan(현물_총순매수):
+                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+
+                        if 현물_총순매수 <= 0:
+                            self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_58.setText(txt)
+                    else:
+                        pass
 
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot5_program_curve.setData(df_supply_demand_graph['program'])
@@ -39887,39 +39887,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                if not np.isnan(외인현물_순매수):
-                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
-
-                    if 외인현물_순매수 <= 0:
-                        self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_56.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_57.setText(txt)
-                
-                if not np.isnan(외인선물_순매수):
-                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
-
-                    if 외인선물_순매수 <= 0:
-                        self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_58.setText(txt)
-                else:
-                    pass
-
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
                     self.label_51.setText(txt)
@@ -39932,6 +39899,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_54.setText(txt)
+
+                    if not np.isnan(외인현물_순매수):
+                        txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
+
+                        if 외인현물_순매수 <= 0:
+                            self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_56.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_57.setText(txt)
+                    
+                    if not np.isnan(외인선물_순매수):
+                        txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
+
+                        if 외인선물_순매수 <= 0:
+                            self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_58.setText(txt)
+                    else:
+                        pass
 
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
@@ -41473,6 +41473,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot6_put_drate_curve.setData(df_put_information_graph['drate'])
                 
+                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'])
+                
                 if DayTime:
 
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
@@ -41485,45 +41487,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.plot6_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
                 else:
                     pass 
-
-                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'])
             
             elif comboindex6 == 10:
                 
                 self.plot6_time_line.setValue(plot_time_index)
-
-                if not np.isnan(프로그램_순매수):
-                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
-
-                    if 프로그램_순매수 <= 0:
-                        self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_66.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_67.setText(txt)
-                
-                if not np.isnan(현물_총순매수):
-                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
-
-                    if 현물_총순매수 <= 0:
-                        self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_68.setText(txt)
-                else:
-                    pass
 
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
@@ -41537,6 +41504,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_64.setText(txt)
+
+                    if not np.isnan(프로그램_순매수):
+                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+
+                        if 프로그램_순매수 <= 0:
+                            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_66.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                    
+                    if not np.isnan(현물_총순매수):
+                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+
+                        if 현물_총순매수 <= 0:
+                            self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_68.setText(txt)
+                    else:
+                        pass
 
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot6_program_curve.setData(df_supply_demand_graph['program'])
@@ -41548,39 +41548,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                if not np.isnan(외인현물_순매수):
-                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
-
-                    if 외인현물_순매수 <= 0:
-                        self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_66.setText(txt)
-                else:
-                    pass
-
-                txt = " {0:.0f} ".format(fut_cm_volume_power)
-
-                if fut_cm_volume_power > 0:
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                else:
-                    self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                self.label_67.setText(txt)
-                
-                if not np.isnan(외인선물_순매수):
-                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
-
-                    if 외인선물_순매수 <= 0:
-                        self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    self.label_68.setText(txt)
-                else:
-                    pass
-
                 if DayTime:
                     txt = " 기관현물 : {0} ".format(기관현물_순매수)
                     self.label_61.setText(txt)
@@ -41593,6 +41560,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_64.setText(txt)
+
+                    if not np.isnan(외인현물_순매수):
+                        txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
+
+                        if 외인현물_순매수 <= 0:
+                            self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_66.setText(txt)
+                    else:
+                        pass
+
+                    txt = " {0:.0f} ".format(fut_cm_volume_power)
+
+                    if fut_cm_volume_power > 0:
+                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    self.label_67.setText(txt)
+                    
+                    if not np.isnan(외인선물_순매수):
+                        txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
+
+                        if 외인선물_순매수 <= 0:
+                            self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        self.label_68.setText(txt)
+                    else:
+                        pass
                     
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
                     self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
