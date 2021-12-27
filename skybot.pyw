@@ -793,7 +793,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        SP500_종가 = float(temp[5])
+        SP500_전일종가 = float(temp[5])
         print('SP500 종가 =', SP500_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -808,7 +808,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        DOW_종가 = int(temp[4])
+        DOW_전일종가 = int(temp[4])
         print('DOW 종가 =', DOW_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -823,7 +823,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        NASDAQ_종가 = float(temp[4])
+        NASDAQ_전일종가 = float(temp[4])
         print('NASDAQ 종가 =', NASDAQ_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -838,7 +838,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_종가 = int(temp[4])
+        HANGSENG_전일종가 = int(temp[4])
         print('HANGSENG 종가 =', HANGSENG_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -853,7 +853,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        WTI_종가 = float(temp[4])
+        WTI_전일종가 = float(temp[4])
         print('WTI 종가 =', WTI_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -868,7 +868,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        GOLD_종가 = float(temp[4])
+        GOLD_전일종가 = float(temp[4])
         print('GOLD 종가 =', GOLD_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -883,7 +883,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_종가 = float(temp[4])
+        EUROFX_전일종가 = float(temp[4])
         print('EUROFX 종가 =', EUROFX_종가)
 
         tmp = nighttime_file.readline().strip()
@@ -898,7 +898,7 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        YEN_종가 = float(temp[4])
+        YEN_전일종가 = float(temp[4])
         print('YEN 종가 =', YEN_종가)        
 
         tmp = nighttime_file.readline().strip()
@@ -913,37 +913,37 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        ADI_종가 = float(temp[4])
+        ADI_전일종가 = float(temp[4])
         print('ADI 종가 =', ADI_종가)       
 else:
     FUT_전일종가 = 0
     SP500_전저 = 0
     SP500_전고 = 0
-    SP500_종가 = 0
+    SP500_전일종가 = 0
     DOW_전저 = 0
     DOW_전고 = 0
-    DOW_종가 = 0
+    DOW_전일종가 = 0
     NASDAQ_전저 = 0
     NASDAQ_전고 = 0
-    NASDAQ_종가 = 0
+    NASDAQ_전일종가 = 0
     HANGSENG_전저 = 0
     HANGSENG_전고 = 0
-    HANGSENG_종가 = 0
+    HANGSENG_전일종가 = 0
     WTI_전저 = 0
     WTI_전고 = 0
-    WTI_종가 = 0
+    WTI_전일종가 = 0
     GOLD_전저 = 0
     GOLD_전고 = 0
-    GOLD_종가 = 0
+    GOLD_전일종가 = 0
     EUROFX_전저 = 0
     EUROFX_전고 = 0
-    EUROFX_종가 = 0
+    EUROFX_전일종가 = 0
     YEN_전저 = 0
     YEN_전고 = 0
-    YEN_종가 = 0
+    YEN_전일종가 = 0
     ADI_전저 = 0
     ADI_전고 = 0
-    ADI_종가 = 0        
+    ADI_전일종가 = 0        
 
 if os.path.isfile('daytime.txt'):
 
@@ -996,39 +996,39 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        SP500_전일종가 = float(temp[4])
+        SP500_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        DOW_전일종가 = float(temp[4])
+        DOW_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        NASDAQ_전일종가 = float(temp[4])
+        NASDAQ_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_전일종가 = float(temp[4])
+        HANGSENG_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        WTI_전일종가 = float(temp[4])
+        WTI_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        GOLD_전일종가 = float(temp[4])
+        GOLD_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_전일종가 = float(temp[4])
+        EUROFX_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        YEN_전일종가 = float(temp[4])
+        YEN_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        ADI_전일종가 = float(temp[4])                
+        ADI_종가 = float(temp[4])                
 else:
     장시작_중심가 = 0
     KP200_전일종가 = 0
@@ -1036,15 +1036,15 @@ else:
     KP200_전고 = 0
     KP200_전저 = 0    
     KP200_종가 = 0
-    SP500_전일종가 = 0
-    DOW_전일종가 = 0
-    NASDAQ_전일종가 = 0
-    HANGSENG_전일종가 = 0
-    WTI_전일종가 = 0
-    GOLD_전일종가 = 0
-    EUROFX_전일종가 = 0
-    YEN_전일종가 = 0
-    ADI_전일종가 = 0    
+    SP500_종가 = 0
+    DOW_종가 = 0
+    NASDAQ_종가 = 0
+    HANGSENG_종가 = 0
+    WTI_종가 = 0
+    GOLD_종가 = 0
+    EUROFX_종가 = 0
+    YEN_종가 = 0
+    ADI_종가 = 0    
 
 if FUT_전일종가 > 0:
     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
@@ -5122,6 +5122,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         plot_drate_scale_factor = int(float(fut_txt) / 근월물_선물_시가등락율)
                     else:
                         plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3} {4} {5}\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_시가등락율, SP500_전일종가, FUT_전일종가)
+                    self.parent.textBrowser.append(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
                     self.parent.textBrowser.append(txt)
