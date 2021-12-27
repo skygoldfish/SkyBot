@@ -990,61 +990,61 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_종가 = float(temp[3])
+        KP200_Day_종가 = float(temp[3])
 
         tmp = daytime_file.readline().strip()
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        SP500_종가 = float(temp[4])
+        SP500_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        DOW_종가 = float(temp[4])
+        DOW_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        NASDAQ_종가 = float(temp[4])
+        NASDAQ_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_종가 = float(temp[4])
+        HANGSENG_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        WTI_종가 = float(temp[4])
+        WTI_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        GOLD_종가 = float(temp[4])
+        GOLD_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_종가 = float(temp[4])
+        EUROFX_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        YEN_종가 = float(temp[4])
+        YEN_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        ADI_종가 = float(temp[4])                
+        ADI_Day_종가 = float(temp[4])                
 else:
     장시작_중심가 = 0
     KP200_전일종가 = 0
     KP200_전일시가 = 0    
     KP200_전고 = 0
     KP200_전저 = 0    
-    KP200_종가 = 0
-    SP500_종가 = 0
-    DOW_종가 = 0
-    NASDAQ_종가 = 0
-    HANGSENG_종가 = 0
-    WTI_종가 = 0
-    GOLD_종가 = 0
-    EUROFX_종가 = 0
-    YEN_종가 = 0
-    ADI_종가 = 0    
+    KP200_Day_종가 = 0
+    SP500_Day_종가 = 0
+    DOW_Day_종가 = 0
+    NASDAQ_Day_종가 = 0
+    HANGSENG_Day_종가 = 0
+    WTI_Day_종가 = 0
+    GOLD_Day_종가 = 0
+    EUROFX_Day_종가 = 0
+    YEN_Day_종가 = 0
+    ADI_Day_종가 = 0    
 
 if FUT_전일종가 > 0:
     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
@@ -1091,7 +1091,7 @@ else:
     OPT_HO = 'OPT_HO_OH0'
 
 if DayTime:
-    KP200_전일종가 = KP200_종가
+    KP200_전일종가 = KP200_Day_종가
 else:
     KP200_당일시가 = KP200_전일시가
 
@@ -15352,32 +15352,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_supply_demand_graph.at[0, 'kospi_foreigner'] = 0
                     df_supply_demand_graph.at[0, 'futures_foreigner'] = 0
 
-                    if SP500_종가 > 0:
-                        df_sp500_graph.at[0, 'price'] = SP500_종가
+                    if SP500_전일종가 > 0:
+                        df_sp500_graph.at[0, 'price'] = SP500_전일종가
 
-                    if DOW_종가 > 0:
-                        df_dow_graph.at[0, 'price'] = DOW_종가
+                    if DOW_전일종가 > 0:
+                        df_dow_graph.at[0, 'price'] = DOW_전일종가
 
-                    if NASDAQ_종가 > 0:
-                        df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
+                    if NASDAQ_전일종가 > 0:
+                        df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
 
-                    if HANGSENG_종가 > 0:
-                        df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+                    if HANGSENG_전일종가 > 0:
+                        df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
 
-                    if WTI_종가 > 0:
-                        df_wti_graph.at[0, 'price'] = WTI_종가
+                    if WTI_전일종가 > 0:
+                        df_wti_graph.at[0, 'price'] = WTI_전일종가
 
-                    if GOLD_종가 > 0:
-                        df_gold_graph.at[0, 'price'] = GOLD_종가
+                    if GOLD_전일종가 > 0:
+                        df_gold_graph.at[0, 'price'] = GOLD_전일종가
 
-                    if EUROFX_종가 > 0:
-                        df_eurofx_graph.at[0, 'price'] = EUROFX_종가
+                    if EUROFX_전일종가 > 0:
+                        df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
 
-                    if YEN_종가 > 0:
-                        df_yen_graph.at[0, 'price'] = YEN_종가
+                    if YEN_전일종가 > 0:
+                        df_yen_graph.at[0, 'price'] = YEN_전일종가
 
-                    if ADI_종가 > 0:
-                        df_adi_graph.at[0, 'price'] = ADI_종가
+                    if ADI_전일종가 > 0:
+                        df_adi_graph.at[0, 'price'] = ADI_전일종가
 
                     if self.fut_realdata['시가'] > 0:
                         df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -20051,7 +20051,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if os.path.isfile('daytime.txt'):
 
                 if DayTime:
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_Day_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -20093,7 +20093,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_Day_종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -25139,61 +25139,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 13:
 
             if SP500_전저 == 0:
-                sp500_전저 = SP500_종가
+                sp500_전저 = SP500_전일종가
             else:
                 sp500_전저 = SP500_전저
 
             if SP500_전고 == 0:
-                sp500_전고 = SP500_종가
+                sp500_전고 = SP500_전일종가
             else:
                 sp500_전고 = SP500_전고
 
-            sp500_종가 = SP500_종가                
+            SP500_전일종가 = SP500_전일종가                
 
             if SP500_피봇 == 0:
-                sp500_피봇 = SP500_종가
+                sp500_피봇 = SP500_전일종가
             else:
                 sp500_피봇 = SP500_피봇            
 
             if SP500_시가 == 0:
-                sp500_시가 = SP500_종가
+                sp500_시가 = SP500_전일종가
             else:
                 sp500_시가 = SP500_시가
 
             if SP500_저가 == 0:
-                sp500_저가 = SP500_종가
+                sp500_저가 = SP500_전일종가
             else:
                 sp500_저가 = SP500_저가
 
             if SP500_고가 == 0:
-                sp500_고가 = SP500_종가
+                sp500_고가 = SP500_전일종가
             else:
                 sp500_고가 = SP500_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(sp500_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(SP500_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(sp500_종가)
+                self.plot1_kp200_line[i].setValue(SP500_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(sp500_종가)
+                self.plot1_mv_line[i].setValue(SP500_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(sp500_종가)
-            self.plot1_center_val_line.setValue(sp500_종가)
-            self.plot1_center_val_upper_line.setValue(sp500_종가)
+            self.plot1_center_val_lower_line.setValue(SP500_전일종가)
+            self.plot1_center_val_line.setValue(SP500_전일종가)
+            self.plot1_center_val_upper_line.setValue(SP500_전일종가)
             
-            self.plot1_fut_jl_line.setValue(sp500_종가)
-            self.plot1_fut_jh_line.setValue(sp500_종가)
-            self.plot1_fut_close_line.setValue(sp500_종가)
-            self.plot1_fut_pivot_line.setValue(sp500_종가)
-            self.plot1_fut_open_line.setValue(sp500_종가)
-            self.plot1_fut_low_line.setValue(sp500_종가)
-            self.plot1_fut_high_line.setValue(sp500_종가)
+            self.plot1_fut_jl_line.setValue(SP500_전일종가)
+            self.plot1_fut_jh_line.setValue(SP500_전일종가)
+            self.plot1_fut_close_line.setValue(SP500_전일종가)
+            self.plot1_fut_pivot_line.setValue(SP500_전일종가)
+            self.plot1_fut_open_line.setValue(SP500_전일종가)
+            self.plot1_fut_low_line.setValue(SP500_전일종가)
+            self.plot1_fut_high_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_11.setText(txt)
@@ -25203,9 +25203,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(sp500_전고)
             
-            txt = ' {0} '.format(format(sp500_종가, ','))
+            txt = ' {0} '.format(format(SP500_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(sp500_종가)
+            self.plot1_ovc_close_line.setValue(SP500_전일종가)
 
             txt = ' {0} '.format(format(sp500_피봇, ','))
             self.label_14.setText(txt)
@@ -25231,61 +25231,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 14:
             
             if DOW_전저 == 0:
-                dow_전저 = DOW_종가
+                dow_전저 = DOW_전일종가
             else:
                 dow_전저 = DOW_전저
 
             if DOW_전고 == 0:
-                dow_전고 = DOW_종가
+                dow_전고 = DOW_전일종가
             else:
                 dow_전고 = DOW_전고
 
-            dow_종가 = DOW_종가
+            DOW_전일종가 = DOW_전일종가
 
             if DOW_피봇 == 0:
-                dow_피봇 = DOW_종가
+                dow_피봇 = DOW_전일종가
             else:
                 dow_피봇 = DOW_피봇
 
             if DOW_시가 == 0:
-                dow_시가 = DOW_종가
+                dow_시가 = DOW_전일종가
             else:
                 dow_시가 = DOW_시가
 
             if DOW_저가 == 0:
-                dow_저가 = DOW_종가
+                dow_저가 = DOW_전일종가
             else:
                 dow_저가 = DOW_저가
 
             if DOW_고가 == 0:
-                dow_고가 = DOW_종가
+                dow_고가 = DOW_전일종가
             else:
                 dow_고가 = DOW_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(dow_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(DOW_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(dow_종가)
+                self.plot1_kp200_line[i].setValue(DOW_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(dow_종가)
+                self.plot1_mv_line[i].setValue(DOW_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(dow_종가)
-            self.plot1_center_val_line.setValue(dow_종가)
-            self.plot1_center_val_upper_line.setValue(dow_종가)
+            self.plot1_center_val_lower_line.setValue(DOW_전일종가)
+            self.plot1_center_val_line.setValue(DOW_전일종가)
+            self.plot1_center_val_upper_line.setValue(DOW_전일종가)
             
-            self.plot1_fut_jl_line.setValue(dow_종가)
-            self.plot1_fut_jh_line.setValue(dow_종가)
-            self.plot1_fut_close_line.setValue(dow_종가)
-            self.plot1_fut_pivot_line.setValue(dow_종가)
-            self.plot1_fut_open_line.setValue(dow_종가)
-            self.plot1_fut_low_line.setValue(dow_종가)
-            self.plot1_fut_high_line.setValue(dow_종가)
+            self.plot1_fut_jl_line.setValue(DOW_전일종가)
+            self.plot1_fut_jh_line.setValue(DOW_전일종가)
+            self.plot1_fut_close_line.setValue(DOW_전일종가)
+            self.plot1_fut_pivot_line.setValue(DOW_전일종가)
+            self.plot1_fut_open_line.setValue(DOW_전일종가)
+            self.plot1_fut_low_line.setValue(DOW_전일종가)
+            self.plot1_fut_high_line.setValue(DOW_전일종가)
                             
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_11.setText(txt)
@@ -25295,9 +25295,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(dow_전고)
             
-            txt = ' {0} '.format(format(dow_종가, ','))
+            txt = ' {0} '.format(format(DOW_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(dow_종가)
+            self.plot1_ovc_close_line.setValue(DOW_전일종가)
 
             txt = ' {0} '.format(format(dow_피봇, ','))
             self.label_14.setText(txt)
@@ -25323,61 +25323,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 15:
 
             if NASDAQ_전저 == 0:
-                nasdaq_전저 = NASDAQ_종가
+                nasdaq_전저 = NASDAQ_전일종가
             else:
                 nasdaq_전저 = NASDAQ_전저
 
             if NASDAQ_전고 == 0:
-                nasdaq_전고 = NASDAQ_종가
+                nasdaq_전고 = NASDAQ_전일종가
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            nasdaq_종가 = NASDAQ_종가
+            NASDAQ_전일종가 = NASDAQ_전일종가
 
             if NASDAQ_피봇 == 0:
-                nasdaq_피봇 = NASDAQ_종가
+                nasdaq_피봇 = NASDAQ_전일종가
             else:
                 nasdaq_피봇 = NASDAQ_피봇
 
             if NASDAQ_시가 == 0:
-                nasdaq_시가 = NASDAQ_종가
+                nasdaq_시가 = NASDAQ_전일종가
             else:
                 nasdaq_시가 = NASDAQ_시가
 
             if NASDAQ_저가 == 0:
-                nasdaq_저가 = NASDAQ_종가
+                nasdaq_저가 = NASDAQ_전일종가
             else:
                 nasdaq_저가 = NASDAQ_저가
 
             if NASDAQ_고가 == 0:
-                nasdaq_고가 = NASDAQ_종가
+                nasdaq_고가 = NASDAQ_전일종가
             else:
                 nasdaq_고가 = NASDAQ_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(nasdaq_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(NASDAQ_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(nasdaq_종가)
+                self.plot1_kp200_line[i].setValue(NASDAQ_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(nasdaq_종가)
+                self.plot1_mv_line[i].setValue(NASDAQ_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(nasdaq_종가)
-            self.plot1_center_val_line.setValue(nasdaq_종가)
-            self.plot1_center_val_upper_line.setValue(nasdaq_종가)
+            self.plot1_center_val_lower_line.setValue(NASDAQ_전일종가)
+            self.plot1_center_val_line.setValue(NASDAQ_전일종가)
+            self.plot1_center_val_upper_line.setValue(NASDAQ_전일종가)
             
-            self.plot1_fut_jl_line.setValue(nasdaq_종가)
-            self.plot1_fut_jh_line.setValue(nasdaq_종가)
-            self.plot1_fut_close_line.setValue(nasdaq_종가)
-            self.plot1_fut_pivot_line.setValue(nasdaq_종가)
-            self.plot1_fut_open_line.setValue(nasdaq_종가)
-            self.plot1_fut_low_line.setValue(nasdaq_종가)
-            self.plot1_fut_high_line.setValue(nasdaq_종가)            
+            self.plot1_fut_jl_line.setValue(NASDAQ_전일종가)
+            self.plot1_fut_jh_line.setValue(NASDAQ_전일종가)
+            self.plot1_fut_close_line.setValue(NASDAQ_전일종가)
+            self.plot1_fut_pivot_line.setValue(NASDAQ_전일종가)
+            self.plot1_fut_open_line.setValue(NASDAQ_전일종가)
+            self.plot1_fut_low_line.setValue(NASDAQ_전일종가)
+            self.plot1_fut_high_line.setValue(NASDAQ_전일종가)            
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_11.setText(txt)
@@ -25387,9 +25387,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(nasdaq_전고)
             
-            txt = ' {0} '.format(format(nasdaq_종가, ','))
+            txt = ' {0} '.format(format(NASDAQ_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(nasdaq_종가)
+            self.plot1_ovc_close_line.setValue(NASDAQ_전일종가)
 
             txt = ' {0} '.format(format(nasdaq_피봇, ','))
             self.label_14.setText(txt)
@@ -25414,61 +25414,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 16:
             
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_종가
+                hangseng_전저 = HANGSENG_전일종가
             else:
                 hangseng_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_종가
+                hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
 
-            hangseng_종가 = HANGSENG_종가
+            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_종가
+                hangseng_피봇 = HANGSENG_전일종가
             else:
                 hangseng_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_종가
+                hangseng_시가 = HANGSENG_전일종가
             else:
                 hangseng_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_종가
+                hangseng_저가 = HANGSENG_전일종가
             else:
                 hangseng_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_종가
+                hangseng_고가 = HANGSENG_전일종가
             else:
                 hangseng_고가 = HANGSENG_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(hangseng_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(hangseng_종가)
+                self.plot1_kp200_line[i].setValue(HANGSENG_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(hangseng_종가)
+                self.plot1_mv_line[i].setValue(HANGSENG_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(hangseng_종가)
-            self.plot1_center_val_line.setValue(hangseng_종가)
-            self.plot1_center_val_upper_line.setValue(hangseng_종가)
+            self.plot1_center_val_lower_line.setValue(HANGSENG_전일종가)
+            self.plot1_center_val_line.setValue(HANGSENG_전일종가)
+            self.plot1_center_val_upper_line.setValue(HANGSENG_전일종가)
             
-            self.plot1_fut_jl_line.setValue(hangseng_종가)
-            self.plot1_fut_jh_line.setValue(hangseng_종가)
-            self.plot1_fut_close_line.setValue(hangseng_종가)
-            self.plot1_fut_pivot_line.setValue(hangseng_종가)
-            self.plot1_fut_open_line.setValue(hangseng_종가)
-            self.plot1_fut_low_line.setValue(hangseng_종가)
-            self.plot1_fut_high_line.setValue(hangseng_종가)
+            self.plot1_fut_jl_line.setValue(HANGSENG_전일종가)
+            self.plot1_fut_jh_line.setValue(HANGSENG_전일종가)
+            self.plot1_fut_close_line.setValue(HANGSENG_전일종가)
+            self.plot1_fut_pivot_line.setValue(HANGSENG_전일종가)
+            self.plot1_fut_open_line.setValue(HANGSENG_전일종가)
+            self.plot1_fut_low_line.setValue(HANGSENG_전일종가)
+            self.plot1_fut_high_line.setValue(HANGSENG_전일종가)
                             
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_11.setText(txt)
@@ -25478,9 +25478,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(hangseng_전고)
             
-            txt = ' {0} '.format(format(hangseng_종가, ','))
+            txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(hangseng_종가)
+            self.plot1_ovc_close_line.setValue(HANGSENG_전일종가)
 
             txt = ' {0} '.format(format(hangseng_피봇, ','))
             self.label_14.setText(txt)
@@ -25506,61 +25506,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 17:
 
             if WTI_전저 == 0:
-                wti_전저 = WTI_종가
+                wti_전저 = WTI_전일종가
             else:
                 wti_전저 = WTI_전저
 
             if WTI_전고 == 0:
-                wti_전고 = WTI_종가
+                wti_전고 = WTI_전일종가
             else:
                 wti_전고 = WTI_전고
 
-            wti_종가 = WTI_종가
+            WTI_전일종가 = WTI_전일종가
 
             if WTI_피봇 == 0:
-                wti_피봇 = WTI_종가
+                wti_피봇 = WTI_전일종가
             else:
                 wti_피봇 = WTI_피봇
 
             if WTI_시가 == 0:
-                wti_시가 = WTI_종가
+                wti_시가 = WTI_전일종가
             else:
                 wti_시가 = WTI_시가
 
             if WTI_저가 == 0:
-                wti_저가 = WTI_종가
+                wti_저가 = WTI_전일종가
             else:
                 wti_저가 = WTI_저가
 
             if WTI_고가 == 0:
-                wti_고가 = WTI_종가
+                wti_고가 = WTI_전일종가
             else:
                 wti_고가 = WTI_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(wti_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(WTI_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(wti_종가)
+                self.plot1_kp200_line[i].setValue(WTI_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(wti_종가)
+                self.plot1_mv_line[i].setValue(WTI_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(wti_종가)
-            self.plot1_center_val_line.setValue(wti_종가)
-            self.plot1_center_val_upper_line.setValue(wti_종가)
+            self.plot1_center_val_lower_line.setValue(WTI_전일종가)
+            self.plot1_center_val_line.setValue(WTI_전일종가)
+            self.plot1_center_val_upper_line.setValue(WTI_전일종가)
             
-            self.plot1_fut_jl_line.setValue(wti_종가)
-            self.plot1_fut_jh_line.setValue(wti_종가)
-            self.plot1_fut_close_line.setValue(wti_종가)
-            self.plot1_fut_pivot_line.setValue(wti_종가)
-            self.plot1_fut_open_line.setValue(wti_종가)
-            self.plot1_fut_low_line.setValue(wti_종가)
-            self.plot1_fut_high_line.setValue(wti_종가)            
+            self.plot1_fut_jl_line.setValue(WTI_전일종가)
+            self.plot1_fut_jh_line.setValue(WTI_전일종가)
+            self.plot1_fut_close_line.setValue(WTI_전일종가)
+            self.plot1_fut_pivot_line.setValue(WTI_전일종가)
+            self.plot1_fut_open_line.setValue(WTI_전일종가)
+            self.plot1_fut_low_line.setValue(WTI_전일종가)
+            self.plot1_fut_high_line.setValue(WTI_전일종가)            
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_11.setText(txt)
@@ -25570,9 +25570,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(wti_전고)
             
-            txt = ' {0} '.format(format(wti_종가, ','))
+            txt = ' {0} '.format(format(WTI_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(wti_종가)
+            self.plot1_ovc_close_line.setValue(WTI_전일종가)
 
             txt = ' {0} '.format(format(wti_피봇, ','))
             self.label_14.setText(txt)
@@ -25597,61 +25597,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 18:
 
             if GOLD_전저 == 0:
-                gold_전저 = GOLD_종가
+                gold_전저 = GOLD_전일종가
             else:
                 gold_전저 = GOLD_전저
 
             if GOLD_전고 == 0:
-                gold_전고 = GOLD_종가
+                gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
 
-            gold_종가 = GOLD_종가
+            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
-                gold_피봇 = GOLD_종가
+                gold_피봇 = GOLD_전일종가
             else:
                 gold_피봇 = GOLD_피봇
 
             if GOLD_시가 == 0:
-                gold_시가 = GOLD_종가
+                gold_시가 = GOLD_전일종가
             else:
                 gold_시가 = GOLD_시가
 
             if GOLD_저가 == 0:
-                gold_저가 = GOLD_종가
+                gold_저가 = GOLD_전일종가
             else:
                 gold_저가 = GOLD_저가
 
             if GOLD_고가 == 0:
-                gold_고가 = GOLD_종가
+                gold_고가 = GOLD_전일종가
             else:
                 gold_고가 = GOLD_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(gold_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(GOLD_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(gold_종가)
+                self.plot1_kp200_line[i].setValue(GOLD_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(gold_종가)
+                self.plot1_mv_line[i].setValue(GOLD_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(gold_종가)
-            self.plot1_center_val_line.setValue(gold_종가)
-            self.plot1_center_val_upper_line.setValue(gold_종가)
+            self.plot1_center_val_lower_line.setValue(GOLD_전일종가)
+            self.plot1_center_val_line.setValue(GOLD_전일종가)
+            self.plot1_center_val_upper_line.setValue(GOLD_전일종가)
             
-            self.plot1_fut_jl_line.setValue(gold_종가)
-            self.plot1_fut_jh_line.setValue(gold_종가)
-            self.plot1_fut_close_line.setValue(gold_종가)
-            self.plot1_fut_pivot_line.setValue(gold_종가)
-            self.plot1_fut_open_line.setValue(gold_종가)
-            self.plot1_fut_low_line.setValue(gold_종가)
-            self.plot1_fut_high_line.setValue(gold_종가)            
+            self.plot1_fut_jl_line.setValue(GOLD_전일종가)
+            self.plot1_fut_jh_line.setValue(GOLD_전일종가)
+            self.plot1_fut_close_line.setValue(GOLD_전일종가)
+            self.plot1_fut_pivot_line.setValue(GOLD_전일종가)
+            self.plot1_fut_open_line.setValue(GOLD_전일종가)
+            self.plot1_fut_low_line.setValue(GOLD_전일종가)
+            self.plot1_fut_high_line.setValue(GOLD_전일종가)            
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_11.setText(txt)
@@ -25661,9 +25661,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(gold_전고)
             
-            txt = ' {0} '.format(format(gold_종가, ','))
+            txt = ' {0} '.format(format(GOLD_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(gold_종가)
+            self.plot1_ovc_close_line.setValue(GOLD_전일종가)
 
             txt = ' {0} '.format(format(gold_피봇, ','))
             self.label_14.setText(txt)
@@ -25688,61 +25688,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 19:
             
             if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_종가
+                eurofx_전저 = EUROFX_전일종가
             else:
                 eurofx_전저 = EUROFX_전저
 
             if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_종가
+                eurofx_전고 = EUROFX_전일종가
             else:
                 eurofx_전고 = EUROFX_전고
 
-            eurofx_종가 = EUROFX_종가
+            EUROFX_전일종가 = EUROFX_전일종가
 
             if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_종가
+                eurofx_피봇 = EUROFX_전일종가
             else:
                 eurofx_피봇 = EUROFX_피봇
 
             if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_종가
+                eurofx_시가 = EUROFX_전일종가
             else:
                 eurofx_시가 = EUROFX_시가
 
             if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_종가
+                eurofx_저가 = EUROFX_전일종가
             else:
                 eurofx_저가 = EUROFX_저가
 
             if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_종가
+                eurofx_고가 = EUROFX_전일종가
             else:
                 eurofx_고가 = EUROFX_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(eurofx_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(eurofx_종가)
+                self.plot1_kp200_line[i].setValue(EUROFX_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(eurofx_종가)
+                self.plot1_mv_line[i].setValue(EUROFX_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(eurofx_종가)
-            self.plot1_center_val_line.setValue(eurofx_종가)
-            self.plot1_center_val_upper_line.setValue(eurofx_종가)
+            self.plot1_center_val_lower_line.setValue(EUROFX_전일종가)
+            self.plot1_center_val_line.setValue(EUROFX_전일종가)
+            self.plot1_center_val_upper_line.setValue(EUROFX_전일종가)
             
-            self.plot1_fut_jl_line.setValue(eurofx_종가)
-            self.plot1_fut_jh_line.setValue(eurofx_종가)
-            self.plot1_fut_close_line.setValue(eurofx_종가)
-            self.plot1_fut_pivot_line.setValue(eurofx_종가)
-            self.plot1_fut_open_line.setValue(eurofx_종가)
-            self.plot1_fut_low_line.setValue(eurofx_종가)
-            self.plot1_fut_high_line.setValue(eurofx_종가)
+            self.plot1_fut_jl_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_jh_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_close_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_pivot_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_open_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_low_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_high_line.setValue(EUROFX_전일종가)
                             
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_11.setText(txt)
@@ -25752,9 +25752,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(eurofx_종가, ','))
+            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(eurofx_종가)
+            self.plot1_ovc_close_line.setValue(EUROFX_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_14.setText(txt)
@@ -25779,61 +25779,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 20:
             
             if YEN_전저 == 0:
-                yen_전저 = YEN_종가
+                yen_전저 = YEN_전일종가
             else:
                 yen_전저 = YEN_전저
 
             if YEN_전고 == 0:
-                yen_전고 = YEN_종가
+                yen_전고 = YEN_전일종가
             else:
                 yen_전고 = YEN_전고
 
-            yen_종가 = YEN_종가
+            YEN_전일종가 = YEN_전일종가
 
             if YEN_피봇 == 0:
-                yen_피봇 = YEN_종가
+                yen_피봇 = YEN_전일종가
             else:
                 yen_피봇 = YEN_피봇
 
             if YEN_시가 == 0:
-                yen_시가 = YEN_종가
+                yen_시가 = YEN_전일종가
             else:
                 yen_시가 = YEN_시가
 
             if YEN_저가 == 0:
-                yen_저가 = YEN_종가
+                yen_저가 = YEN_전일종가
             else:
                 yen_저가 = YEN_저가
 
             if YEN_고가 == 0:
-                yen_고가 = YEN_종가
+                yen_고가 = YEN_전일종가
             else:
                 yen_고가 = YEN_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(yen_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(YEN_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(yen_종가)
+                self.plot1_kp200_line[i].setValue(YEN_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(yen_종가)
+                self.plot1_mv_line[i].setValue(YEN_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(yen_종가)
-            self.plot1_center_val_line.setValue(yen_종가)
-            self.plot1_center_val_upper_line.setValue(yen_종가)
+            self.plot1_center_val_lower_line.setValue(YEN_전일종가)
+            self.plot1_center_val_line.setValue(YEN_전일종가)
+            self.plot1_center_val_upper_line.setValue(YEN_전일종가)
             
-            self.plot1_fut_jl_line.setValue(yen_종가)
-            self.plot1_fut_jh_line.setValue(yen_종가)
-            self.plot1_fut_close_line.setValue(yen_종가)
-            self.plot1_fut_pivot_line.setValue(yen_종가)
-            self.plot1_fut_open_line.setValue(yen_종가)
-            self.plot1_fut_low_line.setValue(yen_종가)
-            self.plot1_fut_high_line.setValue(yen_종가)
+            self.plot1_fut_jl_line.setValue(YEN_전일종가)
+            self.plot1_fut_jh_line.setValue(YEN_전일종가)
+            self.plot1_fut_close_line.setValue(YEN_전일종가)
+            self.plot1_fut_pivot_line.setValue(YEN_전일종가)
+            self.plot1_fut_open_line.setValue(YEN_전일종가)
+            self.plot1_fut_low_line.setValue(YEN_전일종가)
+            self.plot1_fut_high_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_11.setText(txt)
@@ -25843,9 +25843,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(yen_전고)
             
-            txt = ' {0} '.format(format(yen_종가, ','))
+            txt = ' {0} '.format(format(YEN_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(yen_종가)
+            self.plot1_ovc_close_line.setValue(YEN_전일종가)
 
             txt = ' {0} '.format(format(yen_피봇, ','))
             self.label_14.setText(txt)
@@ -25870,61 +25870,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 21:
             
             if ADI_전저 == 0:
-                adi_전저 = ADI_종가
+                adi_전저 = ADI_전일종가
             else:
                 adi_전저 = ADI_전저
 
             if ADI_전고 == 0:
-                adi_전고 = ADI_종가
+                adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
 
-            adi_종가 = ADI_종가
+            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
-                adi_피봇 = ADI_종가
+                adi_피봇 = ADI_전일종가
             else:
                 adi_피봇 = ADI_피봇
 
             if ADI_시가 == 0:
-                adi_시가 = ADI_종가
+                adi_시가 = ADI_전일종가
             else:
                 adi_시가 = ADI_시가
 
             if ADI_저가 == 0:
-                adi_저가 = ADI_종가
+                adi_저가 = ADI_전일종가
             else:
                 adi_저가 = ADI_저가
 
             if ADI_고가 == 0:
-                adi_고가 = ADI_종가
+                adi_고가 = ADI_전일종가
             else:
                 adi_고가 = ADI_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(adi_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(ADI_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(adi_종가)
+                self.plot1_kp200_line[i].setValue(ADI_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(adi_종가)
+                self.plot1_mv_line[i].setValue(ADI_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(adi_종가)
-            self.plot1_center_val_line.setValue(adi_종가)
-            self.plot1_center_val_upper_line.setValue(adi_종가)
+            self.plot1_center_val_lower_line.setValue(ADI_전일종가)
+            self.plot1_center_val_line.setValue(ADI_전일종가)
+            self.plot1_center_val_upper_line.setValue(ADI_전일종가)
             
-            self.plot1_fut_jl_line.setValue(adi_종가)
-            self.plot1_fut_jh_line.setValue(adi_종가)
-            self.plot1_fut_close_line.setValue(adi_종가)
-            self.plot1_fut_pivot_line.setValue(adi_종가)
-            self.plot1_fut_open_line.setValue(adi_종가)
-            self.plot1_fut_low_line.setValue(adi_종가)
-            self.plot1_fut_high_line.setValue(adi_종가)                        
+            self.plot1_fut_jl_line.setValue(ADI_전일종가)
+            self.plot1_fut_jh_line.setValue(ADI_전일종가)
+            self.plot1_fut_close_line.setValue(ADI_전일종가)
+            self.plot1_fut_pivot_line.setValue(ADI_전일종가)
+            self.plot1_fut_open_line.setValue(ADI_전일종가)
+            self.plot1_fut_low_line.setValue(ADI_전일종가)
+            self.plot1_fut_high_line.setValue(ADI_전일종가)                        
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_11.setText(txt)
@@ -25934,9 +25934,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(adi_종가, ','))
+            txt = ' {0} '.format(format(ADI_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(adi_종가)
+            self.plot1_ovc_close_line.setValue(ADI_전일종가)
 
             txt = ' {0} '.format(format(adi_피봇, ','))
             self.label_14.setText(txt)
@@ -26437,61 +26437,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 13:
 
             if SP500_전저 == 0:
-                sp500_전저 = SP500_종가
+                sp500_전저 = SP500_전일종가
             else:
                 sp500_전저 = SP500_전저
 
             if SP500_전고 == 0:
-                sp500_전고 = SP500_종가
+                sp500_전고 = SP500_전일종가
             else:
                 sp500_전고 = SP500_전고
 
-            sp500_종가 = SP500_종가                
+            SP500_전일종가 = SP500_전일종가                
 
             if SP500_피봇 == 0:
-                sp500_피봇 = SP500_종가
+                sp500_피봇 = SP500_전일종가
             else:
                 sp500_피봇 = SP500_피봇            
 
             if SP500_시가 == 0:
-                sp500_시가 = SP500_종가
+                sp500_시가 = SP500_전일종가
             else:
                 sp500_시가 = SP500_시가
 
             if SP500_저가 == 0:
-                sp500_저가 = SP500_종가
+                sp500_저가 = SP500_전일종가
             else:
                 sp500_저가 = SP500_저가
 
             if SP500_고가 == 0:
-                sp500_고가 = SP500_종가
+                sp500_고가 = SP500_전일종가
             else:
                 sp500_고가 = SP500_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(sp500_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(SP500_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(sp500_종가)
+                self.plot2_kp200_line[i].setValue(SP500_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(sp500_종가)
+                self.plot2_mv_line[i].setValue(SP500_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(sp500_종가)
-            self.plot2_center_val_line.setValue(sp500_종가)
-            self.plot2_center_val_upper_line.setValue(sp500_종가)
+            self.plot2_center_val_lower_line.setValue(SP500_전일종가)
+            self.plot2_center_val_line.setValue(SP500_전일종가)
+            self.plot2_center_val_upper_line.setValue(SP500_전일종가)
             
-            self.plot2_fut_jl_line.setValue(sp500_종가)
-            self.plot2_fut_jh_line.setValue(sp500_종가)
-            self.plot2_fut_close_line.setValue(sp500_종가)
-            self.plot2_fut_pivot_line.setValue(sp500_종가)
-            self.plot2_fut_open_line.setValue(sp500_종가)
-            self.plot2_fut_low_line.setValue(sp500_종가)
-            self.plot2_fut_high_line.setValue(sp500_종가)
+            self.plot2_fut_jl_line.setValue(SP500_전일종가)
+            self.plot2_fut_jh_line.setValue(SP500_전일종가)
+            self.plot2_fut_close_line.setValue(SP500_전일종가)
+            self.plot2_fut_pivot_line.setValue(SP500_전일종가)
+            self.plot2_fut_open_line.setValue(SP500_전일종가)
+            self.plot2_fut_low_line.setValue(SP500_전일종가)
+            self.plot2_fut_high_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_21.setText(txt)
@@ -26501,9 +26501,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(sp500_전고)
             
-            txt = ' {0} '.format(format(sp500_종가, ','))
+            txt = ' {0} '.format(format(SP500_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(sp500_종가)
+            self.plot2_ovc_close_line.setValue(SP500_전일종가)
 
             txt = ' {0} '.format(format(sp500_피봇, ','))
             self.label_24.setText(txt)
@@ -26529,61 +26529,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 14:
 
             if DOW_전저 == 0:
-                dow_전저 = DOW_종가
+                dow_전저 = DOW_전일종가
             else:
                 dow_전저 = DOW_전저
 
             if DOW_전고 == 0:
-                dow_전고 = DOW_종가
+                dow_전고 = DOW_전일종가
             else:
                 dow_전고 = DOW_전고
 
-            dow_종가 = DOW_종가
+            DOW_전일종가 = DOW_전일종가
 
             if DOW_피봇 == 0:
-                dow_피봇 = DOW_종가
+                dow_피봇 = DOW_전일종가
             else:
                 dow_피봇 = DOW_피봇
 
             if DOW_시가 == 0:
-                dow_시가 = DOW_종가
+                dow_시가 = DOW_전일종가
             else:
                 dow_시가 = DOW_시가
 
             if DOW_저가 == 0:
-                dow_저가 = DOW_종가
+                dow_저가 = DOW_전일종가
             else:
                 dow_저가 = DOW_저가
 
             if DOW_고가 == 0:
-                dow_고가 = DOW_종가
+                dow_고가 = DOW_전일종가
             else:
                 dow_고가 = DOW_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(dow_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(DOW_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(dow_종가)
+                self.plot2_kp200_line[i].setValue(DOW_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(dow_종가)
+                self.plot2_mv_line[i].setValue(DOW_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(dow_종가)
-            self.plot2_center_val_line.setValue(dow_종가)
-            self.plot2_center_val_upper_line.setValue(dow_종가)
+            self.plot2_center_val_lower_line.setValue(DOW_전일종가)
+            self.plot2_center_val_line.setValue(DOW_전일종가)
+            self.plot2_center_val_upper_line.setValue(DOW_전일종가)
             
-            self.plot2_fut_jl_line.setValue(dow_종가)
-            self.plot2_fut_jh_line.setValue(dow_종가)
-            self.plot2_fut_close_line.setValue(dow_종가)
-            self.plot2_fut_pivot_line.setValue(dow_종가)
-            self.plot2_fut_open_line.setValue(dow_종가)
-            self.plot2_fut_low_line.setValue(dow_종가)
-            self.plot2_fut_high_line.setValue(dow_종가)
+            self.plot2_fut_jl_line.setValue(DOW_전일종가)
+            self.plot2_fut_jh_line.setValue(DOW_전일종가)
+            self.plot2_fut_close_line.setValue(DOW_전일종가)
+            self.plot2_fut_pivot_line.setValue(DOW_전일종가)
+            self.plot2_fut_open_line.setValue(DOW_전일종가)
+            self.plot2_fut_low_line.setValue(DOW_전일종가)
+            self.plot2_fut_high_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_21.setText(txt)
@@ -26593,9 +26593,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(dow_전고)
             
-            txt = ' {0} '.format(format(dow_종가, ','))
+            txt = ' {0} '.format(format(DOW_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(dow_종가)
+            self.plot2_ovc_close_line.setValue(DOW_전일종가)
 
             txt = ' {0} '.format(format(dow_피봇, ','))
             self.label_24.setText(txt)
@@ -26621,61 +26621,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 15:
 
             if NASDAQ_전저 == 0:
-                nasdaq_전저 = NASDAQ_종가
+                nasdaq_전저 = NASDAQ_전일종가
             else:
                 nasdaq_전저 = NASDAQ_전저
 
             if NASDAQ_전고 == 0:
-                nasdaq_전고 = NASDAQ_종가
+                nasdaq_전고 = NASDAQ_전일종가
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            nasdaq_종가 = NASDAQ_종가
+            NASDAQ_전일종가 = NASDAQ_전일종가
 
             if NASDAQ_피봇 == 0:
-                nasdaq_피봇 = NASDAQ_종가
+                nasdaq_피봇 = NASDAQ_전일종가
             else:
                 nasdaq_피봇 = NASDAQ_피봇
 
             if NASDAQ_시가 == 0:
-                nasdaq_시가 = NASDAQ_종가
+                nasdaq_시가 = NASDAQ_전일종가
             else:
                 nasdaq_시가 = NASDAQ_시가
 
             if NASDAQ_저가 == 0:
-                nasdaq_저가 = NASDAQ_종가
+                nasdaq_저가 = NASDAQ_전일종가
             else:
                 nasdaq_저가 = NASDAQ_저가
 
             if NASDAQ_고가 == 0:
-                nasdaq_고가 = NASDAQ_종가
+                nasdaq_고가 = NASDAQ_전일종가
             else:
                 nasdaq_고가 = NASDAQ_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(nasdaq_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(NASDAQ_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(nasdaq_종가)
+                self.plot2_kp200_line[i].setValue(NASDAQ_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(nasdaq_종가)
+                self.plot2_mv_line[i].setValue(NASDAQ_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(nasdaq_종가)
-            self.plot2_center_val_line.setValue(nasdaq_종가)
-            self.plot2_center_val_upper_line.setValue(nasdaq_종가)
+            self.plot2_center_val_lower_line.setValue(NASDAQ_전일종가)
+            self.plot2_center_val_line.setValue(NASDAQ_전일종가)
+            self.plot2_center_val_upper_line.setValue(NASDAQ_전일종가)
             
-            self.plot2_fut_jl_line.setValue(nasdaq_종가)
-            self.plot2_fut_jh_line.setValue(nasdaq_종가)
-            self.plot2_fut_close_line.setValue(nasdaq_종가)
-            self.plot2_fut_pivot_line.setValue(nasdaq_종가)
-            self.plot2_fut_open_line.setValue(nasdaq_종가)
-            self.plot2_fut_low_line.setValue(nasdaq_종가)
-            self.plot2_fut_high_line.setValue(nasdaq_종가)
+            self.plot2_fut_jl_line.setValue(NASDAQ_전일종가)
+            self.plot2_fut_jh_line.setValue(NASDAQ_전일종가)
+            self.plot2_fut_close_line.setValue(NASDAQ_전일종가)
+            self.plot2_fut_pivot_line.setValue(NASDAQ_전일종가)
+            self.plot2_fut_open_line.setValue(NASDAQ_전일종가)
+            self.plot2_fut_low_line.setValue(NASDAQ_전일종가)
+            self.plot2_fut_high_line.setValue(NASDAQ_전일종가)
             
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_21.setText(txt)
@@ -26685,9 +26685,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(nasdaq_전고)
             
-            txt = ' {0} '.format(format(nasdaq_종가, ','))
+            txt = ' {0} '.format(format(NASDAQ_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(nasdaq_종가)
+            self.plot2_ovc_close_line.setValue(NASDAQ_전일종가)
 
             txt = ' {0} '.format(format(nasdaq_피봇, ','))
             self.label_24.setText(txt)
@@ -26712,61 +26712,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_종가
+                hangseng_전저 = HANGSENG_전일종가
             else:
                 hangseng_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_종가
+                hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
 
-            hangseng_종가 = HANGSENG_종가
+            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_종가
+                hangseng_피봇 = HANGSENG_전일종가
             else:
                 hangseng_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_종가
+                hangseng_시가 = HANGSENG_전일종가
             else:
                 hangseng_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_종가
+                hangseng_저가 = HANGSENG_전일종가
             else:
                 hangseng_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_종가
+                hangseng_고가 = HANGSENG_전일종가
             else:
                 hangseng_고가 = HANGSENG_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(hangseng_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(hangseng_종가)
+                self.plot2_kp200_line[i].setValue(HANGSENG_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(hangseng_종가)
+                self.plot2_mv_line[i].setValue(HANGSENG_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(hangseng_종가)
-            self.plot2_center_val_line.setValue(hangseng_종가)
-            self.plot2_center_val_upper_line.setValue(hangseng_종가)
+            self.plot2_center_val_lower_line.setValue(HANGSENG_전일종가)
+            self.plot2_center_val_line.setValue(HANGSENG_전일종가)
+            self.plot2_center_val_upper_line.setValue(HANGSENG_전일종가)
             
-            self.plot2_fut_jl_line.setValue(hangseng_종가)
-            self.plot2_fut_jh_line.setValue(hangseng_종가)
-            self.plot2_fut_close_line.setValue(hangseng_종가)
-            self.plot2_fut_pivot_line.setValue(hangseng_종가)
-            self.plot2_fut_open_line.setValue(hangseng_종가)
-            self.plot2_fut_low_line.setValue(hangseng_종가)
-            self.plot2_fut_high_line.setValue(hangseng_종가)
+            self.plot2_fut_jl_line.setValue(HANGSENG_전일종가)
+            self.plot2_fut_jh_line.setValue(HANGSENG_전일종가)
+            self.plot2_fut_close_line.setValue(HANGSENG_전일종가)
+            self.plot2_fut_pivot_line.setValue(HANGSENG_전일종가)
+            self.plot2_fut_open_line.setValue(HANGSENG_전일종가)
+            self.plot2_fut_low_line.setValue(HANGSENG_전일종가)
+            self.plot2_fut_high_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_21.setText(txt)
@@ -26776,9 +26776,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(hangseng_전고)
             
-            txt = ' {0} '.format(format(hangseng_종가, ','))
+            txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(hangseng_종가)
+            self.plot2_ovc_close_line.setValue(HANGSENG_전일종가)
 
             txt = ' {0} '.format(format(hangseng_피봇, ','))
             self.label_24.setText(txt)
@@ -26804,61 +26804,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 17:
 
             if WTI_전저 == 0:
-                wti_전저 = WTI_종가
+                wti_전저 = WTI_전일종가
             else:
                 wti_전저 = WTI_전저
 
             if WTI_전고 == 0:
-                wti_전고 = WTI_종가
+                wti_전고 = WTI_전일종가
             else:
                 wti_전고 = WTI_전고
 
-            wti_종가 = WTI_종가
+            WTI_전일종가 = WTI_전일종가
 
             if WTI_피봇 == 0:
-                wti_피봇 = WTI_종가
+                wti_피봇 = WTI_전일종가
             else:
                 wti_피봇 = WTI_피봇
 
             if WTI_시가 == 0:
-                wti_시가 = WTI_종가
+                wti_시가 = WTI_전일종가
             else:
                 wti_시가 = WTI_시가
 
             if WTI_저가 == 0:
-                wti_저가 = WTI_종가
+                wti_저가 = WTI_전일종가
             else:
                 wti_저가 = WTI_저가
 
             if WTI_고가 == 0:
-                wti_고가 = WTI_종가
+                wti_고가 = WTI_전일종가
             else:
                 wti_고가 = WTI_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(wti_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(WTI_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(wti_종가)
+                self.plot2_kp200_line[i].setValue(WTI_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(wti_종가)
+                self.plot2_mv_line[i].setValue(WTI_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(wti_종가)
-            self.plot2_center_val_line.setValue(wti_종가)
-            self.plot2_center_val_upper_line.setValue(wti_종가)
+            self.plot2_center_val_lower_line.setValue(WTI_전일종가)
+            self.plot2_center_val_line.setValue(WTI_전일종가)
+            self.plot2_center_val_upper_line.setValue(WTI_전일종가)
             
-            self.plot2_fut_jl_line.setValue(wti_종가)
-            self.plot2_fut_jh_line.setValue(wti_종가)
-            self.plot2_fut_close_line.setValue(wti_종가)
-            self.plot2_fut_pivot_line.setValue(wti_종가)
-            self.plot2_fut_open_line.setValue(wti_종가)
-            self.plot2_fut_low_line.setValue(wti_종가)
-            self.plot2_fut_high_line.setValue(wti_종가)
+            self.plot2_fut_jl_line.setValue(WTI_전일종가)
+            self.plot2_fut_jh_line.setValue(WTI_전일종가)
+            self.plot2_fut_close_line.setValue(WTI_전일종가)
+            self.plot2_fut_pivot_line.setValue(WTI_전일종가)
+            self.plot2_fut_open_line.setValue(WTI_전일종가)
+            self.plot2_fut_low_line.setValue(WTI_전일종가)
+            self.plot2_fut_high_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_21.setText(txt)
@@ -26868,9 +26868,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(wti_전고)
             
-            txt = ' {0} '.format(format(wti_종가, ','))
+            txt = ' {0} '.format(format(WTI_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(wti_종가)
+            self.plot2_ovc_close_line.setValue(WTI_전일종가)
 
             txt = ' {0} '.format(format(wti_피봇, ','))
             self.label_24.setText(txt)
@@ -26895,61 +26895,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 18:
 
             if GOLD_전저 == 0:
-                gold_전저 = GOLD_종가
+                gold_전저 = GOLD_전일종가
             else:
                 gold_전저 = GOLD_전저
 
             if GOLD_전고 == 0:
-                gold_전고 = GOLD_종가
+                gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
 
-            gold_종가 = GOLD_종가
+            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
-                gold_피봇 = GOLD_종가
+                gold_피봇 = GOLD_전일종가
             else:
                 gold_피봇 = GOLD_피봇
 
             if GOLD_시가 == 0:
-                gold_시가 = GOLD_종가
+                gold_시가 = GOLD_전일종가
             else:
                 gold_시가 = GOLD_시가
 
             if GOLD_저가 == 0:
-                gold_저가 = GOLD_종가
+                gold_저가 = GOLD_전일종가
             else:
                 gold_저가 = GOLD_저가
 
             if GOLD_고가 == 0:
-                gold_고가 = GOLD_종가
+                gold_고가 = GOLD_전일종가
             else:
                 gold_고가 = GOLD_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(gold_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(GOLD_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(gold_종가)
+                self.plot2_kp200_line[i].setValue(GOLD_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(gold_종가)
+                self.plot2_mv_line[i].setValue(GOLD_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(gold_종가)
-            self.plot2_center_val_line.setValue(gold_종가)
-            self.plot2_center_val_upper_line.setValue(gold_종가)
+            self.plot2_center_val_lower_line.setValue(GOLD_전일종가)
+            self.plot2_center_val_line.setValue(GOLD_전일종가)
+            self.plot2_center_val_upper_line.setValue(GOLD_전일종가)
             
-            self.plot2_fut_jl_line.setValue(gold_종가)
-            self.plot2_fut_jh_line.setValue(gold_종가)
-            self.plot2_fut_close_line.setValue(gold_종가)
-            self.plot2_fut_pivot_line.setValue(gold_종가)
-            self.plot2_fut_open_line.setValue(gold_종가)
-            self.plot2_fut_low_line.setValue(gold_종가)
-            self.plot2_fut_high_line.setValue(gold_종가) 
+            self.plot2_fut_jl_line.setValue(GOLD_전일종가)
+            self.plot2_fut_jh_line.setValue(GOLD_전일종가)
+            self.plot2_fut_close_line.setValue(GOLD_전일종가)
+            self.plot2_fut_pivot_line.setValue(GOLD_전일종가)
+            self.plot2_fut_open_line.setValue(GOLD_전일종가)
+            self.plot2_fut_low_line.setValue(GOLD_전일종가)
+            self.plot2_fut_high_line.setValue(GOLD_전일종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_21.setText(txt)
@@ -26959,9 +26959,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(gold_전고)
             
-            txt = ' {0} '.format(format(gold_종가, ','))
+            txt = ' {0} '.format(format(GOLD_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(gold_종가)
+            self.plot2_ovc_close_line.setValue(GOLD_전일종가)
 
             txt = ' {0} '.format(format(gold_피봇, ','))
             self.label_24.setText(txt)
@@ -26986,61 +26986,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 19:
 
             if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_종가
+                eurofx_전저 = EUROFX_전일종가
             else:
                 eurofx_전저 = EUROFX_전저
 
             if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_종가
+                eurofx_전고 = EUROFX_전일종가
             else:
                 eurofx_전고 = EUROFX_전고
 
-            eurofx_종가 = EUROFX_종가
+            EUROFX_전일종가 = EUROFX_전일종가
 
             if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_종가
+                eurofx_피봇 = EUROFX_전일종가
             else:
                 eurofx_피봇 = EUROFX_피봇
 
             if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_종가
+                eurofx_시가 = EUROFX_전일종가
             else:
                 eurofx_시가 = EUROFX_시가
 
             if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_종가
+                eurofx_저가 = EUROFX_전일종가
             else:
                 eurofx_저가 = EUROFX_저가
 
             if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_종가
+                eurofx_고가 = EUROFX_전일종가
             else:
                 eurofx_고가 = EUROFX_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(eurofx_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(eurofx_종가)
+                self.plot2_kp200_line[i].setValue(EUROFX_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(eurofx_종가)
+                self.plot2_mv_line[i].setValue(EUROFX_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(eurofx_종가)
-            self.plot2_center_val_line.setValue(eurofx_종가)
-            self.plot2_center_val_upper_line.setValue(eurofx_종가)
+            self.plot2_center_val_lower_line.setValue(EUROFX_전일종가)
+            self.plot2_center_val_line.setValue(EUROFX_전일종가)
+            self.plot2_center_val_upper_line.setValue(EUROFX_전일종가)
             
-            self.plot2_fut_jl_line.setValue(eurofx_종가)
-            self.plot2_fut_jh_line.setValue(eurofx_종가)
-            self.plot2_fut_close_line.setValue(eurofx_종가)
-            self.plot2_fut_pivot_line.setValue(eurofx_종가)
-            self.plot2_fut_open_line.setValue(eurofx_종가)
-            self.plot2_fut_low_line.setValue(eurofx_종가)
-            self.plot2_fut_high_line.setValue(eurofx_종가)
+            self.plot2_fut_jl_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_jh_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_close_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_pivot_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_open_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_low_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_high_line.setValue(EUROFX_전일종가)
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_21.setText(txt)
@@ -27050,9 +27050,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(eurofx_종가, ','))
+            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(eurofx_종가)
+            self.plot2_ovc_close_line.setValue(EUROFX_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_24.setText(txt)
@@ -27077,61 +27077,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 20:
 
             if YEN_전저 == 0:
-                yen_전저 = YEN_종가
+                yen_전저 = YEN_전일종가
             else:
                 yen_전저 = YEN_전저
 
             if YEN_전고 == 0:
-                yen_전고 = YEN_종가
+                yen_전고 = YEN_전일종가
             else:
                 yen_전고 = YEN_전고
 
-            yen_종가 = YEN_종가
+            YEN_전일종가 = YEN_전일종가
 
             if YEN_피봇 == 0:
-                yen_피봇 = YEN_종가
+                yen_피봇 = YEN_전일종가
             else:
                 yen_피봇 = YEN_피봇
 
             if YEN_시가 == 0:
-                yen_시가 = YEN_종가
+                yen_시가 = YEN_전일종가
             else:
                 yen_시가 = YEN_시가
 
             if YEN_저가 == 0:
-                yen_저가 = YEN_종가
+                yen_저가 = YEN_전일종가
             else:
                 yen_저가 = YEN_저가
 
             if YEN_고가 == 0:
-                yen_고가 = YEN_종가
+                yen_고가 = YEN_전일종가
             else:
                 yen_고가 = YEN_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(yen_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(YEN_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(yen_종가)
+                self.plot2_kp200_line[i].setValue(YEN_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(yen_종가)
+                self.plot2_mv_line[i].setValue(YEN_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(yen_종가)
-            self.plot2_center_val_line.setValue(yen_종가)
-            self.plot2_center_val_upper_line.setValue(yen_종가)
+            self.plot2_center_val_lower_line.setValue(YEN_전일종가)
+            self.plot2_center_val_line.setValue(YEN_전일종가)
+            self.plot2_center_val_upper_line.setValue(YEN_전일종가)
             
-            self.plot2_fut_jl_line.setValue(yen_종가)
-            self.plot2_fut_jh_line.setValue(yen_종가)
-            self.plot2_fut_close_line.setValue(yen_종가)
-            self.plot2_fut_pivot_line.setValue(yen_종가)
-            self.plot2_fut_open_line.setValue(yen_종가)
-            self.plot2_fut_low_line.setValue(yen_종가)
-            self.plot2_fut_high_line.setValue(yen_종가) 
+            self.plot2_fut_jl_line.setValue(YEN_전일종가)
+            self.plot2_fut_jh_line.setValue(YEN_전일종가)
+            self.plot2_fut_close_line.setValue(YEN_전일종가)
+            self.plot2_fut_pivot_line.setValue(YEN_전일종가)
+            self.plot2_fut_open_line.setValue(YEN_전일종가)
+            self.plot2_fut_low_line.setValue(YEN_전일종가)
+            self.plot2_fut_high_line.setValue(YEN_전일종가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_21.setText(txt)
@@ -27141,9 +27141,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(yen_전고)
             
-            txt = ' {0} '.format(format(yen_종가, ','))
+            txt = ' {0} '.format(format(YEN_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(yen_종가)
+            self.plot2_ovc_close_line.setValue(YEN_전일종가)
 
             txt = ' {0} '.format(format(yen_피봇, ','))
             self.label_24.setText(txt)
@@ -27168,61 +27168,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 21:
 
             if ADI_전저 == 0:
-                adi_전저 = ADI_종가
+                adi_전저 = ADI_전일종가
             else:
                 adi_전저 = ADI_전저
 
             if ADI_전고 == 0:
-                adi_전고 = ADI_종가
+                adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
 
-            adi_종가 = ADI_종가
+            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
-                adi_피봇 = ADI_종가
+                adi_피봇 = ADI_전일종가
             else:
                 adi_피봇 = ADI_피봇
 
             if ADI_시가 == 0:
-                adi_시가 = ADI_종가
+                adi_시가 = ADI_전일종가
             else:
                 adi_시가 = ADI_시가
 
             if ADI_저가 == 0:
-                adi_저가 = ADI_종가
+                adi_저가 = ADI_전일종가
             else:
                 adi_저가 = ADI_저가
 
             if ADI_고가 == 0:
-                adi_고가 = ADI_종가
+                adi_고가 = ADI_전일종가
             else:
                 adi_고가 = ADI_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(adi_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(ADI_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(adi_종가)
+                self.plot2_kp200_line[i].setValue(ADI_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(adi_종가)
+                self.plot2_mv_line[i].setValue(ADI_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(adi_종가)
-            self.plot2_center_val_line.setValue(adi_종가)
-            self.plot2_center_val_upper_line.setValue(adi_종가)
+            self.plot2_center_val_lower_line.setValue(ADI_전일종가)
+            self.plot2_center_val_line.setValue(ADI_전일종가)
+            self.plot2_center_val_upper_line.setValue(ADI_전일종가)
             
-            self.plot2_fut_jl_line.setValue(adi_종가)
-            self.plot2_fut_jh_line.setValue(adi_종가)
-            self.plot2_fut_close_line.setValue(adi_종가)
-            self.plot2_fut_pivot_line.setValue(adi_종가)
-            self.plot2_fut_open_line.setValue(adi_종가)
-            self.plot2_fut_low_line.setValue(adi_종가)
-            self.plot2_fut_high_line.setValue(adi_종가)             
+            self.plot2_fut_jl_line.setValue(ADI_전일종가)
+            self.plot2_fut_jh_line.setValue(ADI_전일종가)
+            self.plot2_fut_close_line.setValue(ADI_전일종가)
+            self.plot2_fut_pivot_line.setValue(ADI_전일종가)
+            self.plot2_fut_open_line.setValue(ADI_전일종가)
+            self.plot2_fut_low_line.setValue(ADI_전일종가)
+            self.plot2_fut_high_line.setValue(ADI_전일종가)             
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_21.setText(txt)
@@ -27232,9 +27232,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(adi_종가, ','))
+            txt = ' {0} '.format(format(ADI_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(adi_종가)
+            self.plot2_ovc_close_line.setValue(ADI_전일종가)
 
             txt = ' {0} '.format(format(adi_피봇, ','))
             self.label_24.setText(txt)
@@ -27735,61 +27735,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 13:
 
             if SP500_전저 == 0:
-                sp500_전저 = SP500_종가
+                sp500_전저 = SP500_전일종가
             else:
                 sp500_전저 = SP500_전저
 
             if SP500_전고 == 0:
-                sp500_전고 = SP500_종가
+                sp500_전고 = SP500_전일종가
             else:
                 sp500_전고 = SP500_전고
 
-            sp500_종가 = SP500_종가                
+            SP500_전일종가 = SP500_전일종가                
 
             if SP500_피봇 == 0:
-                sp500_피봇 = SP500_종가
+                sp500_피봇 = SP500_전일종가
             else:
                 sp500_피봇 = SP500_피봇            
 
             if SP500_시가 == 0:
-                sp500_시가 = SP500_종가
+                sp500_시가 = SP500_전일종가
             else:
                 sp500_시가 = SP500_시가
 
             if SP500_저가 == 0:
-                sp500_저가 = SP500_종가
+                sp500_저가 = SP500_전일종가
             else:
                 sp500_저가 = SP500_저가
 
             if SP500_고가 == 0:
-                sp500_고가 = SP500_종가
+                sp500_고가 = SP500_전일종가
             else:
                 sp500_고가 = SP500_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(sp500_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(SP500_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(sp500_종가)
+                self.plot3_kp200_line[i].setValue(SP500_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(sp500_종가)
+                self.plot3_mv_line[i].setValue(SP500_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(sp500_종가)
-            self.plot3_center_val_line.setValue(sp500_종가)
-            self.plot3_center_val_upper_line.setValue(sp500_종가)
+            self.plot3_center_val_lower_line.setValue(SP500_전일종가)
+            self.plot3_center_val_line.setValue(SP500_전일종가)
+            self.plot3_center_val_upper_line.setValue(SP500_전일종가)
             
-            self.plot3_fut_jl_line.setValue(sp500_종가)
-            self.plot3_fut_jh_line.setValue(sp500_종가)
-            self.plot3_fut_close_line.setValue(sp500_종가)
-            self.plot3_fut_pivot_line.setValue(sp500_종가)
-            self.plot3_fut_open_line.setValue(sp500_종가)
-            self.plot3_fut_low_line.setValue(sp500_종가)
-            self.plot3_fut_high_line.setValue(sp500_종가)
+            self.plot3_fut_jl_line.setValue(SP500_전일종가)
+            self.plot3_fut_jh_line.setValue(SP500_전일종가)
+            self.plot3_fut_close_line.setValue(SP500_전일종가)
+            self.plot3_fut_pivot_line.setValue(SP500_전일종가)
+            self.plot3_fut_open_line.setValue(SP500_전일종가)
+            self.plot3_fut_low_line.setValue(SP500_전일종가)
+            self.plot3_fut_high_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_31.setText(txt)
@@ -27799,9 +27799,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(sp500_전고)
             
-            txt = ' {0} '.format(format(sp500_종가, ','))
+            txt = ' {0} '.format(format(SP500_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(sp500_종가)
+            self.plot3_ovc_close_line.setValue(SP500_전일종가)
 
             txt = ' {0} '.format(format(sp500_피봇, ','))
             self.label_34.setText(txt)
@@ -27827,61 +27827,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 14:
 
             if DOW_전저 == 0:
-                dow_전저 = DOW_종가
+                dow_전저 = DOW_전일종가
             else:
                 dow_전저 = DOW_전저
 
             if DOW_전고 == 0:
-                dow_전고 = DOW_종가
+                dow_전고 = DOW_전일종가
             else:
                 dow_전고 = DOW_전고
 
-            dow_종가 = DOW_종가
+            DOW_전일종가 = DOW_전일종가
 
             if DOW_피봇 == 0:
-                dow_피봇 = DOW_종가
+                dow_피봇 = DOW_전일종가
             else:
                 dow_피봇 = DOW_피봇
 
             if DOW_시가 == 0:
-                dow_시가 = DOW_종가
+                dow_시가 = DOW_전일종가
             else:
                 dow_시가 = DOW_시가
 
             if DOW_저가 == 0:
-                dow_저가 = DOW_종가
+                dow_저가 = DOW_전일종가
             else:
                 dow_저가 = DOW_저가
 
             if DOW_고가 == 0:
-                dow_고가 = DOW_종가
+                dow_고가 = DOW_전일종가
             else:
                 dow_고가 = DOW_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(dow_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(DOW_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(dow_종가)
+                self.plot3_kp200_line[i].setValue(DOW_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(dow_종가)
+                self.plot3_mv_line[i].setValue(DOW_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(dow_종가)
-            self.plot3_center_val_line.setValue(dow_종가)
-            self.plot3_center_val_upper_line.setValue(dow_종가)
+            self.plot3_center_val_lower_line.setValue(DOW_전일종가)
+            self.plot3_center_val_line.setValue(DOW_전일종가)
+            self.plot3_center_val_upper_line.setValue(DOW_전일종가)
             
-            self.plot3_fut_jl_line.setValue(dow_종가)
-            self.plot3_fut_jh_line.setValue(dow_종가)
-            self.plot3_fut_close_line.setValue(dow_종가)
-            self.plot3_fut_pivot_line.setValue(dow_종가)
-            self.plot3_fut_open_line.setValue(dow_종가)
-            self.plot3_fut_low_line.setValue(dow_종가)
-            self.plot3_fut_high_line.setValue(dow_종가)
+            self.plot3_fut_jl_line.setValue(DOW_전일종가)
+            self.plot3_fut_jh_line.setValue(DOW_전일종가)
+            self.plot3_fut_close_line.setValue(DOW_전일종가)
+            self.plot3_fut_pivot_line.setValue(DOW_전일종가)
+            self.plot3_fut_open_line.setValue(DOW_전일종가)
+            self.plot3_fut_low_line.setValue(DOW_전일종가)
+            self.plot3_fut_high_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_31.setText(txt)
@@ -27891,9 +27891,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(dow_전고)
             
-            txt = ' {0} '.format(format(dow_종가, ','))
+            txt = ' {0} '.format(format(DOW_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(dow_종가)
+            self.plot3_ovc_close_line.setValue(DOW_전일종가)
 
             txt = ' {0} '.format(format(dow_피봇, ','))
             self.label_34.setText(txt)
@@ -27919,61 +27919,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 15:
 
             if NASDAQ_전저 == 0:
-                nasdaq_전저 = NASDAQ_종가
+                nasdaq_전저 = NASDAQ_전일종가
             else:
                 nasdaq_전저 = NASDAQ_전저
 
             if NASDAQ_전고 == 0:
-                nasdaq_전고 = NASDAQ_종가
+                nasdaq_전고 = NASDAQ_전일종가
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            nasdaq_종가 = NASDAQ_종가
+            NASDAQ_전일종가 = NASDAQ_전일종가
 
             if NASDAQ_피봇 == 0:
-                nasdaq_피봇 = NASDAQ_종가
+                nasdaq_피봇 = NASDAQ_전일종가
             else:
                 nasdaq_피봇 = NASDAQ_피봇
 
             if NASDAQ_시가 == 0:
-                nasdaq_시가 = NASDAQ_종가
+                nasdaq_시가 = NASDAQ_전일종가
             else:
                 nasdaq_시가 = NASDAQ_시가
 
             if NASDAQ_저가 == 0:
-                nasdaq_저가 = NASDAQ_종가
+                nasdaq_저가 = NASDAQ_전일종가
             else:
                 nasdaq_저가 = NASDAQ_저가
 
             if NASDAQ_고가 == 0:
-                nasdaq_고가 = NASDAQ_종가
+                nasdaq_고가 = NASDAQ_전일종가
             else:
                 nasdaq_고가 = NASDAQ_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(nasdaq_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(NASDAQ_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(nasdaq_종가)
+                self.plot3_kp200_line[i].setValue(NASDAQ_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(nasdaq_종가)
+                self.plot3_mv_line[i].setValue(NASDAQ_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(nasdaq_종가)
-            self.plot3_center_val_line.setValue(nasdaq_종가)
-            self.plot3_center_val_upper_line.setValue(nasdaq_종가)
+            self.plot3_center_val_lower_line.setValue(NASDAQ_전일종가)
+            self.plot3_center_val_line.setValue(NASDAQ_전일종가)
+            self.plot3_center_val_upper_line.setValue(NASDAQ_전일종가)
             
-            self.plot3_fut_jl_line.setValue(nasdaq_종가)
-            self.plot3_fut_jh_line.setValue(nasdaq_종가)
-            self.plot3_fut_close_line.setValue(nasdaq_종가)
-            self.plot3_fut_pivot_line.setValue(nasdaq_종가)
-            self.plot3_fut_open_line.setValue(nasdaq_종가)
-            self.plot3_fut_low_line.setValue(nasdaq_종가)
-            self.plot3_fut_high_line.setValue(nasdaq_종가)
+            self.plot3_fut_jl_line.setValue(NASDAQ_전일종가)
+            self.plot3_fut_jh_line.setValue(NASDAQ_전일종가)
+            self.plot3_fut_close_line.setValue(NASDAQ_전일종가)
+            self.plot3_fut_pivot_line.setValue(NASDAQ_전일종가)
+            self.plot3_fut_open_line.setValue(NASDAQ_전일종가)
+            self.plot3_fut_low_line.setValue(NASDAQ_전일종가)
+            self.plot3_fut_high_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_31.setText(txt)
@@ -27983,9 +27983,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(nasdaq_전고)
             
-            txt = ' {0} '.format(format(nasdaq_종가, ','))
+            txt = ' {0} '.format(format(NASDAQ_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(nasdaq_종가)
+            self.plot3_ovc_close_line.setValue(NASDAQ_전일종가)
 
             txt = ' {0} '.format(format(nasdaq_피봇, ','))
             self.label_34.setText(txt)
@@ -28010,61 +28010,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_종가
+                hangseng_전저 = HANGSENG_전일종가
             else:
                 hangseng_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_종가
+                hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
 
-            hangseng_종가 = HANGSENG_종가
+            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_종가
+                hangseng_피봇 = HANGSENG_전일종가
             else:
                 hangseng_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_종가
+                hangseng_시가 = HANGSENG_전일종가
             else:
                 hangseng_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_종가
+                hangseng_저가 = HANGSENG_전일종가
             else:
                 hangseng_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_종가
+                hangseng_고가 = HANGSENG_전일종가
             else:
                 hangseng_고가 = HANGSENG_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(hangseng_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(hangseng_종가)
+                self.plot3_kp200_line[i].setValue(HANGSENG_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(hangseng_종가)
+                self.plot3_mv_line[i].setValue(HANGSENG_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(hangseng_종가)
-            self.plot3_center_val_line.setValue(hangseng_종가)
-            self.plot3_center_val_upper_line.setValue(hangseng_종가)
+            self.plot3_center_val_lower_line.setValue(HANGSENG_전일종가)
+            self.plot3_center_val_line.setValue(HANGSENG_전일종가)
+            self.plot3_center_val_upper_line.setValue(HANGSENG_전일종가)
             
-            self.plot3_fut_jl_line.setValue(hangseng_종가)
-            self.plot3_fut_jh_line.setValue(hangseng_종가)
-            self.plot3_fut_close_line.setValue(hangseng_종가)
-            self.plot3_fut_pivot_line.setValue(hangseng_종가)
-            self.plot3_fut_open_line.setValue(hangseng_종가)
-            self.plot3_fut_low_line.setValue(hangseng_종가)
-            self.plot3_fut_high_line.setValue(hangseng_종가)
+            self.plot3_fut_jl_line.setValue(HANGSENG_전일종가)
+            self.plot3_fut_jh_line.setValue(HANGSENG_전일종가)
+            self.plot3_fut_close_line.setValue(HANGSENG_전일종가)
+            self.plot3_fut_pivot_line.setValue(HANGSENG_전일종가)
+            self.plot3_fut_open_line.setValue(HANGSENG_전일종가)
+            self.plot3_fut_low_line.setValue(HANGSENG_전일종가)
+            self.plot3_fut_high_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_31.setText(txt)
@@ -28074,9 +28074,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(hangseng_전고)
             
-            txt = ' {0} '.format(format(hangseng_종가, ','))
+            txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(hangseng_종가)
+            self.plot3_ovc_close_line.setValue(HANGSENG_전일종가)
 
             txt = ' {0} '.format(format(hangseng_피봇, ','))
             self.label_34.setText(txt)
@@ -28102,61 +28102,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 17:
 
             if WTI_전저 == 0:
-                wti_전저 = WTI_종가
+                wti_전저 = WTI_전일종가
             else:
                 wti_전저 = WTI_전저
 
             if WTI_전고 == 0:
-                wti_전고 = WTI_종가
+                wti_전고 = WTI_전일종가
             else:
                 wti_전고 = WTI_전고
 
-            wti_종가 = WTI_종가
+            WTI_전일종가 = WTI_전일종가
 
             if WTI_피봇 == 0:
-                wti_피봇 = WTI_종가
+                wti_피봇 = WTI_전일종가
             else:
                 wti_피봇 = WTI_피봇
 
             if WTI_시가 == 0:
-                wti_시가 = WTI_종가
+                wti_시가 = WTI_전일종가
             else:
                 wti_시가 = WTI_시가
 
             if WTI_저가 == 0:
-                wti_저가 = WTI_종가
+                wti_저가 = WTI_전일종가
             else:
                 wti_저가 = WTI_저가
 
             if WTI_고가 == 0:
-                wti_고가 = WTI_종가
+                wti_고가 = WTI_전일종가
             else:
                 wti_고가 = WTI_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(wti_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(WTI_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(wti_종가)
+                self.plot3_kp200_line[i].setValue(WTI_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(wti_종가)
+                self.plot3_mv_line[i].setValue(WTI_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(wti_종가)
-            self.plot3_center_val_line.setValue(wti_종가)
-            self.plot3_center_val_upper_line.setValue(wti_종가)
+            self.plot3_center_val_lower_line.setValue(WTI_전일종가)
+            self.plot3_center_val_line.setValue(WTI_전일종가)
+            self.plot3_center_val_upper_line.setValue(WTI_전일종가)
             
-            self.plot3_fut_jl_line.setValue(wti_종가)
-            self.plot3_fut_jh_line.setValue(wti_종가)
-            self.plot3_fut_close_line.setValue(wti_종가)
-            self.plot3_fut_pivot_line.setValue(wti_종가)
-            self.plot3_fut_open_line.setValue(wti_종가)
-            self.plot3_fut_low_line.setValue(wti_종가)
-            self.plot3_fut_high_line.setValue(wti_종가)
+            self.plot3_fut_jl_line.setValue(WTI_전일종가)
+            self.plot3_fut_jh_line.setValue(WTI_전일종가)
+            self.plot3_fut_close_line.setValue(WTI_전일종가)
+            self.plot3_fut_pivot_line.setValue(WTI_전일종가)
+            self.plot3_fut_open_line.setValue(WTI_전일종가)
+            self.plot3_fut_low_line.setValue(WTI_전일종가)
+            self.plot3_fut_high_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_31.setText(txt)
@@ -28166,9 +28166,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(wti_전고)
             
-            txt = ' {0} '.format(format(wti_종가, ','))
+            txt = ' {0} '.format(format(WTI_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(wti_종가)
+            self.plot3_ovc_close_line.setValue(WTI_전일종가)
 
             txt = ' {0} '.format(format(wti_피봇, ','))
             self.label_34.setText(txt)
@@ -28193,61 +28193,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 18:
 
             if GOLD_전저 == 0:
-                gold_전저 = GOLD_종가
+                gold_전저 = GOLD_전일종가
             else:
                 gold_전저 = GOLD_전저
 
             if GOLD_전고 == 0:
-                gold_전고 = GOLD_종가
+                gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
 
-            gold_종가 = GOLD_종가
+            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
-                gold_피봇 = GOLD_종가
+                gold_피봇 = GOLD_전일종가
             else:
                 gold_피봇 = GOLD_피봇
 
             if GOLD_시가 == 0:
-                gold_시가 = GOLD_종가
+                gold_시가 = GOLD_전일종가
             else:
                 gold_시가 = GOLD_시가
 
             if GOLD_저가 == 0:
-                gold_저가 = GOLD_종가
+                gold_저가 = GOLD_전일종가
             else:
                 gold_저가 = GOLD_저가
 
             if GOLD_고가 == 0:
-                gold_고가 = GOLD_종가
+                gold_고가 = GOLD_전일종가
             else:
                 gold_고가 = GOLD_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(gold_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(GOLD_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(gold_종가)
+                self.plot3_kp200_line[i].setValue(GOLD_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(gold_종가)
+                self.plot3_mv_line[i].setValue(GOLD_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(gold_종가)
-            self.plot3_center_val_line.setValue(gold_종가)
-            self.plot3_center_val_upper_line.setValue(gold_종가)
+            self.plot3_center_val_lower_line.setValue(GOLD_전일종가)
+            self.plot3_center_val_line.setValue(GOLD_전일종가)
+            self.plot3_center_val_upper_line.setValue(GOLD_전일종가)
             
-            self.plot3_fut_jl_line.setValue(gold_종가)
-            self.plot3_fut_jh_line.setValue(gold_종가)
-            self.plot3_fut_close_line.setValue(gold_종가)
-            self.plot3_fut_pivot_line.setValue(gold_종가)
-            self.plot3_fut_open_line.setValue(gold_종가)
-            self.plot3_fut_low_line.setValue(gold_종가)
-            self.plot3_fut_high_line.setValue(gold_종가) 
+            self.plot3_fut_jl_line.setValue(GOLD_전일종가)
+            self.plot3_fut_jh_line.setValue(GOLD_전일종가)
+            self.plot3_fut_close_line.setValue(GOLD_전일종가)
+            self.plot3_fut_pivot_line.setValue(GOLD_전일종가)
+            self.plot3_fut_open_line.setValue(GOLD_전일종가)
+            self.plot3_fut_low_line.setValue(GOLD_전일종가)
+            self.plot3_fut_high_line.setValue(GOLD_전일종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_31.setText(txt)
@@ -28257,9 +28257,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(gold_전고)
             
-            txt = ' {0} '.format(format(gold_종가, ','))
+            txt = ' {0} '.format(format(GOLD_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(gold_종가)
+            self.plot3_ovc_close_line.setValue(GOLD_전일종가)
 
             txt = ' {0} '.format(format(gold_피봇, ','))
             self.label_34.setText(txt)
@@ -28284,61 +28284,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 19:
 
             if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_종가
+                eurofx_전저 = EUROFX_전일종가
             else:
                 eurofx_전저 = EUROFX_전저
 
             if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_종가
+                eurofx_전고 = EUROFX_전일종가
             else:
                 eurofx_전고 = EUROFX_전고
 
-            eurofx_종가 = EUROFX_종가
+            EUROFX_전일종가 = EUROFX_전일종가
 
             if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_종가
+                eurofx_피봇 = EUROFX_전일종가
             else:
                 eurofx_피봇 = EUROFX_피봇
 
             if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_종가
+                eurofx_시가 = EUROFX_전일종가
             else:
                 eurofx_시가 = EUROFX_시가
 
             if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_종가
+                eurofx_저가 = EUROFX_전일종가
             else:
                 eurofx_저가 = EUROFX_저가
 
             if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_종가
+                eurofx_고가 = EUROFX_전일종가
             else:
                 eurofx_고가 = EUROFX_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(eurofx_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(eurofx_종가)
+                self.plot3_kp200_line[i].setValue(EUROFX_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(eurofx_종가)
+                self.plot3_mv_line[i].setValue(EUROFX_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(eurofx_종가)
-            self.plot3_center_val_line.setValue(eurofx_종가)
-            self.plot3_center_val_upper_line.setValue(eurofx_종가)
+            self.plot3_center_val_lower_line.setValue(EUROFX_전일종가)
+            self.plot3_center_val_line.setValue(EUROFX_전일종가)
+            self.plot3_center_val_upper_line.setValue(EUROFX_전일종가)
             
-            self.plot3_fut_jl_line.setValue(eurofx_종가)
-            self.plot3_fut_jh_line.setValue(eurofx_종가)
-            self.plot3_fut_close_line.setValue(eurofx_종가)
-            self.plot3_fut_pivot_line.setValue(eurofx_종가)
-            self.plot3_fut_open_line.setValue(eurofx_종가)
-            self.plot3_fut_low_line.setValue(eurofx_종가)
-            self.plot3_fut_high_line.setValue(eurofx_종가) 
+            self.plot3_fut_jl_line.setValue(EUROFX_전일종가)
+            self.plot3_fut_jh_line.setValue(EUROFX_전일종가)
+            self.plot3_fut_close_line.setValue(EUROFX_전일종가)
+            self.plot3_fut_pivot_line.setValue(EUROFX_전일종가)
+            self.plot3_fut_open_line.setValue(EUROFX_전일종가)
+            self.plot3_fut_low_line.setValue(EUROFX_전일종가)
+            self.plot3_fut_high_line.setValue(EUROFX_전일종가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_31.setText(txt)
@@ -28348,9 +28348,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(eurofx_종가, ','))
+            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(eurofx_종가)
+            self.plot3_ovc_close_line.setValue(EUROFX_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_34.setText(txt)
@@ -28375,61 +28375,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 20:
 
             if YEN_전저 == 0:
-                yen_전저 = YEN_종가
+                yen_전저 = YEN_전일종가
             else:
                 yen_전저 = YEN_전저
 
             if YEN_전고 == 0:
-                yen_전고 = YEN_종가
+                yen_전고 = YEN_전일종가
             else:
                 yen_전고 = YEN_전고
 
-            yen_종가 = YEN_종가
+            YEN_전일종가 = YEN_전일종가
 
             if YEN_피봇 == 0:
-                yen_피봇 = YEN_종가
+                yen_피봇 = YEN_전일종가
             else:
                 yen_피봇 = YEN_피봇
 
             if YEN_시가 == 0:
-                yen_시가 = YEN_종가
+                yen_시가 = YEN_전일종가
             else:
                 yen_시가 = YEN_시가
 
             if YEN_저가 == 0:
-                yen_저가 = YEN_종가
+                yen_저가 = YEN_전일종가
             else:
                 yen_저가 = YEN_저가
 
             if YEN_고가 == 0:
-                yen_고가 = YEN_종가
+                yen_고가 = YEN_전일종가
             else:
                 yen_고가 = YEN_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(yen_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(YEN_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(yen_종가)
+                self.plot3_kp200_line[i].setValue(YEN_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(yen_종가)
+                self.plot3_mv_line[i].setValue(YEN_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(yen_종가)
-            self.plot3_center_val_line.setValue(yen_종가)
-            self.plot3_center_val_upper_line.setValue(yen_종가)
+            self.plot3_center_val_lower_line.setValue(YEN_전일종가)
+            self.plot3_center_val_line.setValue(YEN_전일종가)
+            self.plot3_center_val_upper_line.setValue(YEN_전일종가)
             
-            self.plot3_fut_jl_line.setValue(yen_종가)
-            self.plot3_fut_jh_line.setValue(yen_종가)
-            self.plot3_fut_close_line.setValue(yen_종가)
-            self.plot3_fut_pivot_line.setValue(yen_종가)
-            self.plot3_fut_open_line.setValue(yen_종가)
-            self.plot3_fut_low_line.setValue(yen_종가)
-            self.plot3_fut_high_line.setValue(yen_종가)
+            self.plot3_fut_jl_line.setValue(YEN_전일종가)
+            self.plot3_fut_jh_line.setValue(YEN_전일종가)
+            self.plot3_fut_close_line.setValue(YEN_전일종가)
+            self.plot3_fut_pivot_line.setValue(YEN_전일종가)
+            self.plot3_fut_open_line.setValue(YEN_전일종가)
+            self.plot3_fut_low_line.setValue(YEN_전일종가)
+            self.plot3_fut_high_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_31.setText(txt)
@@ -28439,9 +28439,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(yen_전고)
             
-            txt = ' {0} '.format(format(yen_종가, ','))
+            txt = ' {0} '.format(format(YEN_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(yen_종가)
+            self.plot3_ovc_close_line.setValue(YEN_전일종가)
 
             txt = ' {0} '.format(format(yen_피봇, ','))
             self.label_34.setText(txt)
@@ -28466,61 +28466,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 21:
 
             if ADI_전저 == 0:
-                adi_전저 = ADI_종가
+                adi_전저 = ADI_전일종가
             else:
                 adi_전저 = ADI_전저
 
             if ADI_전고 == 0:
-                adi_전고 = ADI_종가
+                adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
 
-            adi_종가 = ADI_종가
+            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
-                adi_피봇 = ADI_종가
+                adi_피봇 = ADI_전일종가
             else:
                 adi_피봇 = ADI_피봇
 
             if ADI_시가 == 0:
-                adi_시가 = ADI_종가
+                adi_시가 = ADI_전일종가
             else:
                 adi_시가 = ADI_시가
 
             if ADI_저가 == 0:
-                adi_저가 = ADI_종가
+                adi_저가 = ADI_전일종가
             else:
                 adi_저가 = ADI_저가
 
             if ADI_고가 == 0:
-                adi_고가 = ADI_종가
+                adi_고가 = ADI_전일종가
             else:
                 adi_고가 = ADI_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(adi_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(ADI_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(adi_종가)
+                self.plot3_kp200_line[i].setValue(ADI_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(adi_종가)
+                self.plot3_mv_line[i].setValue(ADI_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(adi_종가)
-            self.plot3_center_val_line.setValue(adi_종가)
-            self.plot3_center_val_upper_line.setValue(adi_종가)
+            self.plot3_center_val_lower_line.setValue(ADI_전일종가)
+            self.plot3_center_val_line.setValue(ADI_전일종가)
+            self.plot3_center_val_upper_line.setValue(ADI_전일종가)
             
-            self.plot3_fut_jl_line.setValue(adi_종가)
-            self.plot3_fut_jh_line.setValue(adi_종가)
-            self.plot3_fut_close_line.setValue(adi_종가)
-            self.plot3_fut_pivot_line.setValue(adi_종가)
-            self.plot3_fut_open_line.setValue(adi_종가)
-            self.plot3_fut_low_line.setValue(adi_종가)
-            self.plot3_fut_high_line.setValue(adi_종가)             
+            self.plot3_fut_jl_line.setValue(ADI_전일종가)
+            self.plot3_fut_jh_line.setValue(ADI_전일종가)
+            self.plot3_fut_close_line.setValue(ADI_전일종가)
+            self.plot3_fut_pivot_line.setValue(ADI_전일종가)
+            self.plot3_fut_open_line.setValue(ADI_전일종가)
+            self.plot3_fut_low_line.setValue(ADI_전일종가)
+            self.plot3_fut_high_line.setValue(ADI_전일종가)             
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_31.setText(txt)
@@ -28530,9 +28530,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(adi_종가, ','))
+            txt = ' {0} '.format(format(ADI_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(adi_종가)
+            self.plot3_ovc_close_line.setValue(ADI_전일종가)
 
             txt = ' {0} '.format(format(adi_피봇, ','))
             self.label_34.setText(txt)
@@ -29033,61 +29033,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 13:
 
             if SP500_전저 == 0:
-                sp500_전저 = SP500_종가
+                sp500_전저 = SP500_전일종가
             else:
                 sp500_전저 = SP500_전저
 
             if SP500_전고 == 0:
-                sp500_전고 = SP500_종가
+                sp500_전고 = SP500_전일종가
             else:
                 sp500_전고 = SP500_전고
 
-            sp500_종가 = SP500_종가                
+            SP500_전일종가 = SP500_전일종가                
 
             if SP500_피봇 == 0:
-                sp500_피봇 = SP500_종가
+                sp500_피봇 = SP500_전일종가
             else:
                 sp500_피봇 = SP500_피봇            
 
             if SP500_시가 == 0:
-                sp500_시가 = SP500_종가
+                sp500_시가 = SP500_전일종가
             else:
                 sp500_시가 = SP500_시가
 
             if SP500_저가 == 0:
-                sp500_저가 = SP500_종가
+                sp500_저가 = SP500_전일종가
             else:
                 sp500_저가 = SP500_저가
 
             if SP500_고가 == 0:
-                sp500_고가 = SP500_종가
+                sp500_고가 = SP500_전일종가
             else:
                 sp500_고가 = SP500_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(sp500_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(SP500_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(sp500_종가)
+                self.plot4_kp200_line[i].setValue(SP500_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(sp500_종가)
+                self.plot4_mv_line[i].setValue(SP500_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(sp500_종가)
-            self.plot4_center_val_line.setValue(sp500_종가)
-            self.plot4_center_val_upper_line.setValue(sp500_종가)
+            self.plot4_center_val_lower_line.setValue(SP500_전일종가)
+            self.plot4_center_val_line.setValue(SP500_전일종가)
+            self.plot4_center_val_upper_line.setValue(SP500_전일종가)
             
-            self.plot4_fut_jl_line.setValue(sp500_종가)
-            self.plot4_fut_jh_line.setValue(sp500_종가)
-            self.plot4_fut_close_line.setValue(sp500_종가)
-            self.plot4_fut_pivot_line.setValue(sp500_종가)
-            self.plot4_fut_open_line.setValue(sp500_종가)
-            self.plot4_fut_low_line.setValue(sp500_종가)
-            self.plot4_fut_high_line.setValue(sp500_종가)
+            self.plot4_fut_jl_line.setValue(SP500_전일종가)
+            self.plot4_fut_jh_line.setValue(SP500_전일종가)
+            self.plot4_fut_close_line.setValue(SP500_전일종가)
+            self.plot4_fut_pivot_line.setValue(SP500_전일종가)
+            self.plot4_fut_open_line.setValue(SP500_전일종가)
+            self.plot4_fut_low_line.setValue(SP500_전일종가)
+            self.plot4_fut_high_line.setValue(SP500_전일종가)
                             
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_41.setText(txt)
@@ -29097,9 +29097,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(sp500_전고)
             
-            txt = ' {0} '.format(format(sp500_종가, ','))
+            txt = ' {0} '.format(format(SP500_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(sp500_종가)
+            self.plot4_ovc_close_line.setValue(SP500_전일종가)
 
             txt = ' {0} '.format(format(sp500_피봇, ','))
             self.label_44.setText(txt)
@@ -29125,61 +29125,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 14:
 
             if DOW_전저 == 0:
-                dow_전저 = DOW_종가
+                dow_전저 = DOW_전일종가
             else:
                 dow_전저 = DOW_전저
 
             if DOW_전고 == 0:
-                dow_전고 = DOW_종가
+                dow_전고 = DOW_전일종가
             else:
                 dow_전고 = DOW_전고
 
-            dow_종가 = DOW_종가
+            DOW_전일종가 = DOW_전일종가
 
             if DOW_피봇 == 0:
-                dow_피봇 = DOW_종가
+                dow_피봇 = DOW_전일종가
             else:
                 dow_피봇 = DOW_피봇
 
             if DOW_시가 == 0:
-                dow_시가 = DOW_종가
+                dow_시가 = DOW_전일종가
             else:
                 dow_시가 = DOW_시가
 
             if DOW_저가 == 0:
-                dow_저가 = DOW_종가
+                dow_저가 = DOW_전일종가
             else:
                 dow_저가 = DOW_저가
 
             if DOW_고가 == 0:
-                dow_고가 = DOW_종가
+                dow_고가 = DOW_전일종가
             else:
                 dow_고가 = DOW_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(dow_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(DOW_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(dow_종가)
+                self.plot4_kp200_line[i].setValue(DOW_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(dow_종가)
+                self.plot4_mv_line[i].setValue(DOW_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(dow_종가)
-            self.plot4_center_val_line.setValue(dow_종가)
-            self.plot4_center_val_upper_line.setValue(dow_종가)
+            self.plot4_center_val_lower_line.setValue(DOW_전일종가)
+            self.plot4_center_val_line.setValue(DOW_전일종가)
+            self.plot4_center_val_upper_line.setValue(DOW_전일종가)
             
-            self.plot4_fut_jl_line.setValue(dow_종가)
-            self.plot4_fut_jh_line.setValue(dow_종가)
-            self.plot4_fut_close_line.setValue(dow_종가)
-            self.plot4_fut_pivot_line.setValue(dow_종가)
-            self.plot4_fut_open_line.setValue(dow_종가)
-            self.plot4_fut_low_line.setValue(dow_종가)
-            self.plot4_fut_high_line.setValue(dow_종가)
+            self.plot4_fut_jl_line.setValue(DOW_전일종가)
+            self.plot4_fut_jh_line.setValue(DOW_전일종가)
+            self.plot4_fut_close_line.setValue(DOW_전일종가)
+            self.plot4_fut_pivot_line.setValue(DOW_전일종가)
+            self.plot4_fut_open_line.setValue(DOW_전일종가)
+            self.plot4_fut_low_line.setValue(DOW_전일종가)
+            self.plot4_fut_high_line.setValue(DOW_전일종가)
                             
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_41.setText(txt)
@@ -29189,9 +29189,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(dow_전고)
             
-            txt = ' {0} '.format(format(dow_종가, ','))
+            txt = ' {0} '.format(format(DOW_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(dow_종가)
+            self.plot4_ovc_close_line.setValue(DOW_전일종가)
 
             txt = ' {0} '.format(format(dow_피봇, ','))
             self.label_44.setText(txt)
@@ -29217,61 +29217,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 15:
 
             if NASDAQ_전저 == 0:
-                nasdaq_전저 = NASDAQ_종가
+                nasdaq_전저 = NASDAQ_전일종가
             else:
                 nasdaq_전저 = NASDAQ_전저
 
             if NASDAQ_전고 == 0:
-                nasdaq_전고 = NASDAQ_종가
+                nasdaq_전고 = NASDAQ_전일종가
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            nasdaq_종가 = NASDAQ_종가
+            NASDAQ_전일종가 = NASDAQ_전일종가
 
             if NASDAQ_피봇 == 0:
-                nasdaq_피봇 = NASDAQ_종가
+                nasdaq_피봇 = NASDAQ_전일종가
             else:
                 nasdaq_피봇 = NASDAQ_피봇
 
             if NASDAQ_시가 == 0:
-                nasdaq_시가 = NASDAQ_종가
+                nasdaq_시가 = NASDAQ_전일종가
             else:
                 nasdaq_시가 = NASDAQ_시가
 
             if NASDAQ_저가 == 0:
-                nasdaq_저가 = NASDAQ_종가
+                nasdaq_저가 = NASDAQ_전일종가
             else:
                 nasdaq_저가 = NASDAQ_저가
 
             if NASDAQ_고가 == 0:
-                nasdaq_고가 = NASDAQ_종가
+                nasdaq_고가 = NASDAQ_전일종가
             else:
                 nasdaq_고가 = NASDAQ_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(nasdaq_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(NASDAQ_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(nasdaq_종가)
+                self.plot4_kp200_line[i].setValue(NASDAQ_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(nasdaq_종가)
+                self.plot4_mv_line[i].setValue(NASDAQ_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(nasdaq_종가)
-            self.plot4_center_val_line.setValue(nasdaq_종가)
-            self.plot4_center_val_upper_line.setValue(nasdaq_종가)
+            self.plot4_center_val_lower_line.setValue(NASDAQ_전일종가)
+            self.plot4_center_val_line.setValue(NASDAQ_전일종가)
+            self.plot4_center_val_upper_line.setValue(NASDAQ_전일종가)
             
-            self.plot4_fut_jl_line.setValue(nasdaq_종가)
-            self.plot4_fut_jh_line.setValue(nasdaq_종가)
-            self.plot4_fut_close_line.setValue(nasdaq_종가)
-            self.plot4_fut_pivot_line.setValue(nasdaq_종가)
-            self.plot4_fut_open_line.setValue(nasdaq_종가)
-            self.plot4_fut_low_line.setValue(nasdaq_종가)
-            self.plot4_fut_high_line.setValue(nasdaq_종가)
+            self.plot4_fut_jl_line.setValue(NASDAQ_전일종가)
+            self.plot4_fut_jh_line.setValue(NASDAQ_전일종가)
+            self.plot4_fut_close_line.setValue(NASDAQ_전일종가)
+            self.plot4_fut_pivot_line.setValue(NASDAQ_전일종가)
+            self.plot4_fut_open_line.setValue(NASDAQ_전일종가)
+            self.plot4_fut_low_line.setValue(NASDAQ_전일종가)
+            self.plot4_fut_high_line.setValue(NASDAQ_전일종가)
                             
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_41.setText(txt)
@@ -29281,9 +29281,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(nasdaq_전고)
             
-            txt = ' {0} '.format(format(nasdaq_종가, ','))
+            txt = ' {0} '.format(format(NASDAQ_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(nasdaq_종가)
+            self.plot4_ovc_close_line.setValue(NASDAQ_전일종가)
 
             txt = ' {0} '.format(format(nasdaq_피봇, ','))
             self.label_44.setText(txt)
@@ -29308,61 +29308,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_종가
+                hangseng_전저 = HANGSENG_전일종가
             else:
                 hangseng_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_종가
+                hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
 
-            hangseng_종가 = HANGSENG_종가
+            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_종가
+                hangseng_피봇 = HANGSENG_전일종가
             else:
                 hangseng_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_종가
+                hangseng_시가 = HANGSENG_전일종가
             else:
                 hangseng_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_종가
+                hangseng_저가 = HANGSENG_전일종가
             else:
                 hangseng_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_종가
+                hangseng_고가 = HANGSENG_전일종가
             else:
                 hangseng_고가 = HANGSENG_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(hangseng_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(hangseng_종가)
+                self.plot4_kp200_line[i].setValue(HANGSENG_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(hangseng_종가)
+                self.plot4_mv_line[i].setValue(HANGSENG_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(hangseng_종가)
-            self.plot4_center_val_line.setValue(hangseng_종가)
-            self.plot4_center_val_upper_line.setValue(hangseng_종가)
+            self.plot4_center_val_lower_line.setValue(HANGSENG_전일종가)
+            self.plot4_center_val_line.setValue(HANGSENG_전일종가)
+            self.plot4_center_val_upper_line.setValue(HANGSENG_전일종가)
             
-            self.plot4_fut_jl_line.setValue(hangseng_종가)
-            self.plot4_fut_jh_line.setValue(hangseng_종가)
-            self.plot4_fut_close_line.setValue(hangseng_종가)
-            self.plot4_fut_pivot_line.setValue(hangseng_종가)
-            self.plot4_fut_open_line.setValue(hangseng_종가)
-            self.plot4_fut_low_line.setValue(hangseng_종가)
-            self.plot4_fut_high_line.setValue(hangseng_종가)
+            self.plot4_fut_jl_line.setValue(HANGSENG_전일종가)
+            self.plot4_fut_jh_line.setValue(HANGSENG_전일종가)
+            self.plot4_fut_close_line.setValue(HANGSENG_전일종가)
+            self.plot4_fut_pivot_line.setValue(HANGSENG_전일종가)
+            self.plot4_fut_open_line.setValue(HANGSENG_전일종가)
+            self.plot4_fut_low_line.setValue(HANGSENG_전일종가)
+            self.plot4_fut_high_line.setValue(HANGSENG_전일종가)
                             
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_41.setText(txt)
@@ -29372,9 +29372,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(hangseng_전고)
             
-            txt = ' {0} '.format(format(hangseng_종가, ','))
+            txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(hangseng_종가)
+            self.plot4_ovc_close_line.setValue(HANGSENG_전일종가)
 
             txt = ' {0} '.format(format(hangseng_피봇, ','))
             self.label_44.setText(txt)
@@ -29400,61 +29400,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 17:
 
             if WTI_전저 == 0:
-                wti_전저 = WTI_종가
+                wti_전저 = WTI_전일종가
             else:
                 wti_전저 = WTI_전저
 
             if WTI_전고 == 0:
-                wti_전고 = WTI_종가
+                wti_전고 = WTI_전일종가
             else:
                 wti_전고 = WTI_전고
 
-            wti_종가 = WTI_종가
+            WTI_전일종가 = WTI_전일종가
 
             if WTI_피봇 == 0:
-                wti_피봇 = WTI_종가
+                wti_피봇 = WTI_전일종가
             else:
                 wti_피봇 = WTI_피봇
 
             if WTI_시가 == 0:
-                wti_시가 = WTI_종가
+                wti_시가 = WTI_전일종가
             else:
                 wti_시가 = WTI_시가
 
             if WTI_저가 == 0:
-                wti_저가 = WTI_종가
+                wti_저가 = WTI_전일종가
             else:
                 wti_저가 = WTI_저가
 
             if WTI_고가 == 0:
-                wti_고가 = WTI_종가
+                wti_고가 = WTI_전일종가
             else:
                 wti_고가 = WTI_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(wti_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(WTI_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(wti_종가)
+                self.plot4_kp200_line[i].setValue(WTI_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(wti_종가)
+                self.plot4_mv_line[i].setValue(WTI_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(wti_종가)
-            self.plot4_center_val_line.setValue(wti_종가)
-            self.plot4_center_val_upper_line.setValue(wti_종가)
+            self.plot4_center_val_lower_line.setValue(WTI_전일종가)
+            self.plot4_center_val_line.setValue(WTI_전일종가)
+            self.plot4_center_val_upper_line.setValue(WTI_전일종가)
             
-            self.plot4_fut_jl_line.setValue(wti_종가)
-            self.plot4_fut_jh_line.setValue(wti_종가)
-            self.plot4_fut_close_line.setValue(wti_종가)
-            self.plot4_fut_pivot_line.setValue(wti_종가)
-            self.plot4_fut_open_line.setValue(wti_종가)
-            self.plot4_fut_low_line.setValue(wti_종가)
-            self.plot4_fut_high_line.setValue(wti_종가)
+            self.plot4_fut_jl_line.setValue(WTI_전일종가)
+            self.plot4_fut_jh_line.setValue(WTI_전일종가)
+            self.plot4_fut_close_line.setValue(WTI_전일종가)
+            self.plot4_fut_pivot_line.setValue(WTI_전일종가)
+            self.plot4_fut_open_line.setValue(WTI_전일종가)
+            self.plot4_fut_low_line.setValue(WTI_전일종가)
+            self.plot4_fut_high_line.setValue(WTI_전일종가)
                             
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_41.setText(txt)
@@ -29464,9 +29464,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(wti_전고)
             
-            txt = ' {0} '.format(format(wti_종가, ','))
+            txt = ' {0} '.format(format(WTI_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(wti_종가)
+            self.plot4_ovc_close_line.setValue(WTI_전일종가)
 
             txt = ' {0} '.format(format(wti_피봇, ','))
             self.label_44.setText(txt)
@@ -29491,61 +29491,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 18:
 
             if GOLD_전저 == 0:
-                gold_전저 = GOLD_종가
+                gold_전저 = GOLD_전일종가
             else:
                 gold_전저 = GOLD_전저
 
             if GOLD_전고 == 0:
-                gold_전고 = GOLD_종가
+                gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
 
-            gold_종가 = GOLD_종가
+            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
-                gold_피봇 = GOLD_종가
+                gold_피봇 = GOLD_전일종가
             else:
                 gold_피봇 = GOLD_피봇
 
             if GOLD_시가 == 0:
-                gold_시가 = GOLD_종가
+                gold_시가 = GOLD_전일종가
             else:
                 gold_시가 = GOLD_시가
 
             if GOLD_저가 == 0:
-                gold_저가 = GOLD_종가
+                gold_저가 = GOLD_전일종가
             else:
                 gold_저가 = GOLD_저가
 
             if GOLD_고가 == 0:
-                gold_고가 = GOLD_종가
+                gold_고가 = GOLD_전일종가
             else:
                 gold_고가 = GOLD_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(gold_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(GOLD_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(gold_종가)
+                self.plot4_kp200_line[i].setValue(GOLD_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(gold_종가)
+                self.plot4_mv_line[i].setValue(GOLD_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(gold_종가)
-            self.plot4_center_val_line.setValue(gold_종가)
-            self.plot4_center_val_upper_line.setValue(gold_종가)
+            self.plot4_center_val_lower_line.setValue(GOLD_전일종가)
+            self.plot4_center_val_line.setValue(GOLD_전일종가)
+            self.plot4_center_val_upper_line.setValue(GOLD_전일종가)
             
-            self.plot4_fut_jl_line.setValue(gold_종가)
-            self.plot4_fut_jh_line.setValue(gold_종가)
-            self.plot4_fut_close_line.setValue(gold_종가)
-            self.plot4_fut_pivot_line.setValue(gold_종가)
-            self.plot4_fut_open_line.setValue(gold_종가)
-            self.plot4_fut_low_line.setValue(gold_종가)
-            self.plot4_fut_high_line.setValue(gold_종가)
+            self.plot4_fut_jl_line.setValue(GOLD_전일종가)
+            self.plot4_fut_jh_line.setValue(GOLD_전일종가)
+            self.plot4_fut_close_line.setValue(GOLD_전일종가)
+            self.plot4_fut_pivot_line.setValue(GOLD_전일종가)
+            self.plot4_fut_open_line.setValue(GOLD_전일종가)
+            self.plot4_fut_low_line.setValue(GOLD_전일종가)
+            self.plot4_fut_high_line.setValue(GOLD_전일종가)
                             
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_41.setText(txt)
@@ -29555,9 +29555,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(gold_전고)
             
-            txt = ' {0} '.format(format(gold_종가, ','))
+            txt = ' {0} '.format(format(GOLD_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(gold_종가)
+            self.plot4_ovc_close_line.setValue(GOLD_전일종가)
 
             txt = ' {0} '.format(format(gold_피봇, ','))
             self.label_44.setText(txt)
@@ -29582,61 +29582,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 19:
 
             if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_종가
+                eurofx_전저 = EUROFX_전일종가
             else:
                 eurofx_전저 = EUROFX_전저
 
             if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_종가
+                eurofx_전고 = EUROFX_전일종가
             else:
                 eurofx_전고 = EUROFX_전고
 
-            eurofx_종가 = EUROFX_종가
+            EUROFX_전일종가 = EUROFX_전일종가
 
             if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_종가
+                eurofx_피봇 = EUROFX_전일종가
             else:
                 eurofx_피봇 = EUROFX_피봇
 
             if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_종가
+                eurofx_시가 = EUROFX_전일종가
             else:
                 eurofx_시가 = EUROFX_시가
 
             if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_종가
+                eurofx_저가 = EUROFX_전일종가
             else:
                 eurofx_저가 = EUROFX_저가
 
             if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_종가
+                eurofx_고가 = EUROFX_전일종가
             else:
                 eurofx_고가 = EUROFX_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(eurofx_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(eurofx_종가)
+                self.plot4_kp200_line[i].setValue(EUROFX_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(eurofx_종가)
+                self.plot4_mv_line[i].setValue(EUROFX_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(eurofx_종가)
-            self.plot4_center_val_line.setValue(eurofx_종가)
-            self.plot4_center_val_upper_line.setValue(eurofx_종가)
+            self.plot4_center_val_lower_line.setValue(EUROFX_전일종가)
+            self.plot4_center_val_line.setValue(EUROFX_전일종가)
+            self.plot4_center_val_upper_line.setValue(EUROFX_전일종가)
             
-            self.plot4_fut_jl_line.setValue(eurofx_종가)
-            self.plot4_fut_jh_line.setValue(eurofx_종가)
-            self.plot4_fut_close_line.setValue(eurofx_종가)
-            self.plot4_fut_pivot_line.setValue(eurofx_종가)
-            self.plot4_fut_open_line.setValue(eurofx_종가)
-            self.plot4_fut_low_line.setValue(eurofx_종가)
-            self.plot4_fut_high_line.setValue(eurofx_종가)
+            self.plot4_fut_jl_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_jh_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_close_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_pivot_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_open_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_low_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_high_line.setValue(EUROFX_전일종가)
                             
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_41.setText(txt)
@@ -29646,9 +29646,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(eurofx_종가, ','))
+            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(eurofx_종가)
+            self.plot4_ovc_close_line.setValue(EUROFX_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_44.setText(txt)
@@ -29673,61 +29673,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 20:
 
             if YEN_전저 == 0:
-                yen_전저 = YEN_종가
+                yen_전저 = YEN_전일종가
             else:
                 yen_전저 = YEN_전저
 
             if YEN_전고 == 0:
-                yen_전고 = YEN_종가
+                yen_전고 = YEN_전일종가
             else:
                 yen_전고 = YEN_전고
 
-            yen_종가 = YEN_종가
+            YEN_전일종가 = YEN_전일종가
 
             if YEN_피봇 == 0:
-                yen_피봇 = YEN_종가
+                yen_피봇 = YEN_전일종가
             else:
                 yen_피봇 = YEN_피봇
 
             if YEN_시가 == 0:
-                yen_시가 = YEN_종가
+                yen_시가 = YEN_전일종가
             else:
                 yen_시가 = YEN_시가
 
             if YEN_저가 == 0:
-                yen_저가 = YEN_종가
+                yen_저가 = YEN_전일종가
             else:
                 yen_저가 = YEN_저가
 
             if YEN_고가 == 0:
-                yen_고가 = YEN_종가
+                yen_고가 = YEN_전일종가
             else:
                 yen_고가 = YEN_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(yen_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(YEN_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(yen_종가)
+                self.plot4_kp200_line[i].setValue(YEN_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(yen_종가)
+                self.plot4_mv_line[i].setValue(YEN_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(yen_종가)
-            self.plot4_center_val_line.setValue(yen_종가)
-            self.plot4_center_val_upper_line.setValue(yen_종가)
+            self.plot4_center_val_lower_line.setValue(YEN_전일종가)
+            self.plot4_center_val_line.setValue(YEN_전일종가)
+            self.plot4_center_val_upper_line.setValue(YEN_전일종가)
             
-            self.plot4_fut_jl_line.setValue(yen_종가)
-            self.plot4_fut_jh_line.setValue(yen_종가)
-            self.plot4_fut_close_line.setValue(yen_종가)
-            self.plot4_fut_pivot_line.setValue(yen_종가)
-            self.plot4_fut_open_line.setValue(yen_종가)
-            self.plot4_fut_low_line.setValue(yen_종가)
-            self.plot4_fut_high_line.setValue(yen_종가)
+            self.plot4_fut_jl_line.setValue(YEN_전일종가)
+            self.plot4_fut_jh_line.setValue(YEN_전일종가)
+            self.plot4_fut_close_line.setValue(YEN_전일종가)
+            self.plot4_fut_pivot_line.setValue(YEN_전일종가)
+            self.plot4_fut_open_line.setValue(YEN_전일종가)
+            self.plot4_fut_low_line.setValue(YEN_전일종가)
+            self.plot4_fut_high_line.setValue(YEN_전일종가)
                             
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_41.setText(txt)
@@ -29737,9 +29737,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(yen_전고)
             
-            txt = ' {0} '.format(format(yen_종가, ','))
+            txt = ' {0} '.format(format(YEN_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(yen_종가)
+            self.plot4_ovc_close_line.setValue(YEN_전일종가)
 
             txt = ' {0} '.format(format(yen_피봇, ','))
             self.label_44.setText(txt)
@@ -29764,61 +29764,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 21:
 
             if ADI_전저 == 0:
-                adi_전저 = ADI_종가
+                adi_전저 = ADI_전일종가
             else:
                 adi_전저 = ADI_전저
 
             if ADI_전고 == 0:
-                adi_전고 = ADI_종가
+                adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
 
-            adi_종가 = ADI_종가
+            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
-                adi_피봇 = ADI_종가
+                adi_피봇 = ADI_전일종가
             else:
                 adi_피봇 = ADI_피봇
 
             if ADI_시가 == 0:
-                adi_시가 = ADI_종가
+                adi_시가 = ADI_전일종가
             else:
                 adi_시가 = ADI_시가
 
             if ADI_저가 == 0:
-                adi_저가 = ADI_종가
+                adi_저가 = ADI_전일종가
             else:
                 adi_저가 = ADI_저가
 
             if ADI_고가 == 0:
-                adi_고가 = ADI_종가
+                adi_고가 = ADI_전일종가
             else:
                 adi_고가 = ADI_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(adi_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(ADI_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(adi_종가)
+                self.plot4_kp200_line[i].setValue(ADI_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(adi_종가)
+                self.plot4_mv_line[i].setValue(ADI_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(adi_종가)
-            self.plot4_center_val_line.setValue(adi_종가)
-            self.plot4_center_val_upper_line.setValue(adi_종가)
+            self.plot4_center_val_lower_line.setValue(ADI_전일종가)
+            self.plot4_center_val_line.setValue(ADI_전일종가)
+            self.plot4_center_val_upper_line.setValue(ADI_전일종가)
             
-            self.plot4_fut_jl_line.setValue(adi_종가)
-            self.plot4_fut_jh_line.setValue(adi_종가)
-            self.plot4_fut_close_line.setValue(adi_종가)
-            self.plot4_fut_pivot_line.setValue(adi_종가)
-            self.plot4_fut_open_line.setValue(adi_종가)
-            self.plot4_fut_low_line.setValue(adi_종가)
-            self.plot4_fut_high_line.setValue(adi_종가)
+            self.plot4_fut_jl_line.setValue(ADI_전일종가)
+            self.plot4_fut_jh_line.setValue(ADI_전일종가)
+            self.plot4_fut_close_line.setValue(ADI_전일종가)
+            self.plot4_fut_pivot_line.setValue(ADI_전일종가)
+            self.plot4_fut_open_line.setValue(ADI_전일종가)
+            self.plot4_fut_low_line.setValue(ADI_전일종가)
+            self.plot4_fut_high_line.setValue(ADI_전일종가)
                             
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_41.setText(txt)
@@ -29828,9 +29828,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(adi_종가, ','))
+            txt = ' {0} '.format(format(ADI_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(adi_종가)
+            self.plot4_ovc_close_line.setValue(ADI_전일종가)
 
             txt = ' {0} '.format(format(adi_피봇, ','))
             self.label_44.setText(txt)
@@ -30331,61 +30331,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 13:
 
             if SP500_전저 == 0:
-                sp500_전저 = SP500_종가
+                sp500_전저 = SP500_전일종가
             else:
                 sp500_전저 = SP500_전저
 
             if SP500_전고 == 0:
-                sp500_전고 = SP500_종가
+                sp500_전고 = SP500_전일종가
             else:
                 sp500_전고 = SP500_전고
 
-            sp500_종가 = SP500_종가                
+            SP500_전일종가 = SP500_전일종가                
 
             if SP500_피봇 == 0:
-                sp500_피봇 = SP500_종가
+                sp500_피봇 = SP500_전일종가
             else:
                 sp500_피봇 = SP500_피봇            
 
             if SP500_시가 == 0:
-                sp500_시가 = SP500_종가
+                sp500_시가 = SP500_전일종가
             else:
                 sp500_시가 = SP500_시가
 
             if SP500_저가 == 0:
-                sp500_저가 = SP500_종가
+                sp500_저가 = SP500_전일종가
             else:
                 sp500_저가 = SP500_저가
 
             if SP500_고가 == 0:
-                sp500_고가 = SP500_종가
+                sp500_고가 = SP500_전일종가
             else:
                 sp500_고가 = SP500_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(sp500_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(SP500_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(sp500_종가)
+                self.plot5_kp200_line[i].setValue(SP500_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(sp500_종가)
+                self.plot5_mv_line[i].setValue(SP500_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(sp500_종가)
-            self.plot5_center_val_line.setValue(sp500_종가)
-            self.plot5_center_val_upper_line.setValue(sp500_종가)
+            self.plot5_center_val_lower_line.setValue(SP500_전일종가)
+            self.plot5_center_val_line.setValue(SP500_전일종가)
+            self.plot5_center_val_upper_line.setValue(SP500_전일종가)
             
-            self.plot5_fut_jl_line.setValue(sp500_종가)
-            self.plot5_fut_jh_line.setValue(sp500_종가)
-            self.plot5_fut_close_line.setValue(sp500_종가)
-            self.plot5_fut_pivot_line.setValue(sp500_종가)
-            self.plot5_fut_open_line.setValue(sp500_종가)
-            self.plot5_fut_low_line.setValue(sp500_종가)
-            self.plot5_fut_high_line.setValue(sp500_종가)
+            self.plot5_fut_jl_line.setValue(SP500_전일종가)
+            self.plot5_fut_jh_line.setValue(SP500_전일종가)
+            self.plot5_fut_close_line.setValue(SP500_전일종가)
+            self.plot5_fut_pivot_line.setValue(SP500_전일종가)
+            self.plot5_fut_open_line.setValue(SP500_전일종가)
+            self.plot5_fut_low_line.setValue(SP500_전일종가)
+            self.plot5_fut_high_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_51.setText(txt)
@@ -30395,9 +30395,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(sp500_전고)
             
-            txt = ' {0} '.format(format(sp500_종가, ','))
+            txt = ' {0} '.format(format(SP500_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(sp500_종가)
+            self.plot5_ovc_close_line.setValue(SP500_전일종가)
 
             txt = ' {0} '.format(format(sp500_피봇, ','))
             self.label_54.setText(txt)
@@ -30423,61 +30423,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 14:
 
             if DOW_전저 == 0:
-                dow_전저 = DOW_종가
+                dow_전저 = DOW_전일종가
             else:
                 dow_전저 = DOW_전저
 
             if DOW_전고 == 0:
-                dow_전고 = DOW_종가
+                dow_전고 = DOW_전일종가
             else:
                 dow_전고 = DOW_전고
 
-            dow_종가 = DOW_종가
+            DOW_전일종가 = DOW_전일종가
 
             if DOW_피봇 == 0:
-                dow_피봇 = DOW_종가
+                dow_피봇 = DOW_전일종가
             else:
                 dow_피봇 = DOW_피봇
 
             if DOW_시가 == 0:
-                dow_시가 = DOW_종가
+                dow_시가 = DOW_전일종가
             else:
                 dow_시가 = DOW_시가
 
             if DOW_저가 == 0:
-                dow_저가 = DOW_종가
+                dow_저가 = DOW_전일종가
             else:
                 dow_저가 = DOW_저가
 
             if DOW_고가 == 0:
-                dow_고가 = DOW_종가
+                dow_고가 = DOW_전일종가
             else:
                 dow_고가 = DOW_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(dow_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(DOW_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(dow_종가)
+                self.plot5_kp200_line[i].setValue(DOW_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(dow_종가)
+                self.plot5_mv_line[i].setValue(DOW_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(dow_종가)
-            self.plot5_center_val_line.setValue(dow_종가)
-            self.plot5_center_val_upper_line.setValue(dow_종가)
+            self.plot5_center_val_lower_line.setValue(DOW_전일종가)
+            self.plot5_center_val_line.setValue(DOW_전일종가)
+            self.plot5_center_val_upper_line.setValue(DOW_전일종가)
             
-            self.plot5_fut_jl_line.setValue(dow_종가)
-            self.plot5_fut_jh_line.setValue(dow_종가)
-            self.plot5_fut_close_line.setValue(dow_종가)
-            self.plot5_fut_pivot_line.setValue(dow_종가)
-            self.plot5_fut_open_line.setValue(dow_종가)
-            self.plot5_fut_low_line.setValue(dow_종가)
-            self.plot5_fut_high_line.setValue(dow_종가)
+            self.plot5_fut_jl_line.setValue(DOW_전일종가)
+            self.plot5_fut_jh_line.setValue(DOW_전일종가)
+            self.plot5_fut_close_line.setValue(DOW_전일종가)
+            self.plot5_fut_pivot_line.setValue(DOW_전일종가)
+            self.plot5_fut_open_line.setValue(DOW_전일종가)
+            self.plot5_fut_low_line.setValue(DOW_전일종가)
+            self.plot5_fut_high_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_51.setText(txt)
@@ -30487,9 +30487,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(dow_전고)
             
-            txt = ' {0} '.format(format(dow_종가, ','))
+            txt = ' {0} '.format(format(DOW_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(dow_종가)
+            self.plot5_ovc_close_line.setValue(DOW_전일종가)
 
             txt = ' {0} '.format(format(dow_피봇, ','))
             self.label_54.setText(txt)
@@ -30515,61 +30515,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 15:
 
             if NASDAQ_전저 == 0:
-                nasdaq_전저 = NASDAQ_종가
+                nasdaq_전저 = NASDAQ_전일종가
             else:
                 nasdaq_전저 = NASDAQ_전저
 
             if NASDAQ_전고 == 0:
-                nasdaq_전고 = NASDAQ_종가
+                nasdaq_전고 = NASDAQ_전일종가
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            nasdaq_종가 = NASDAQ_종가
+            NASDAQ_전일종가 = NASDAQ_전일종가
 
             if NASDAQ_피봇 == 0:
-                nasdaq_피봇 = NASDAQ_종가
+                nasdaq_피봇 = NASDAQ_전일종가
             else:
                 nasdaq_피봇 = NASDAQ_피봇
 
             if NASDAQ_시가 == 0:
-                nasdaq_시가 = NASDAQ_종가
+                nasdaq_시가 = NASDAQ_전일종가
             else:
                 nasdaq_시가 = NASDAQ_시가
 
             if NASDAQ_저가 == 0:
-                nasdaq_저가 = NASDAQ_종가
+                nasdaq_저가 = NASDAQ_전일종가
             else:
                 nasdaq_저가 = NASDAQ_저가
 
             if NASDAQ_고가 == 0:
-                nasdaq_고가 = NASDAQ_종가
+                nasdaq_고가 = NASDAQ_전일종가
             else:
                 nasdaq_고가 = NASDAQ_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(nasdaq_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(NASDAQ_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(nasdaq_종가)
+                self.plot5_kp200_line[i].setValue(NASDAQ_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(nasdaq_종가)
+                self.plot5_mv_line[i].setValue(NASDAQ_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(nasdaq_종가)
-            self.plot5_center_val_line.setValue(nasdaq_종가)
-            self.plot5_center_val_upper_line.setValue(nasdaq_종가)
+            self.plot5_center_val_lower_line.setValue(NASDAQ_전일종가)
+            self.plot5_center_val_line.setValue(NASDAQ_전일종가)
+            self.plot5_center_val_upper_line.setValue(NASDAQ_전일종가)
             
-            self.plot5_fut_jl_line.setValue(nasdaq_종가)
-            self.plot5_fut_jh_line.setValue(nasdaq_종가)
-            self.plot5_fut_close_line.setValue(nasdaq_종가)
-            self.plot5_fut_pivot_line.setValue(nasdaq_종가)
-            self.plot5_fut_open_line.setValue(nasdaq_종가)
-            self.plot5_fut_low_line.setValue(nasdaq_종가)
-            self.plot5_fut_high_line.setValue(nasdaq_종가)
+            self.plot5_fut_jl_line.setValue(NASDAQ_전일종가)
+            self.plot5_fut_jh_line.setValue(NASDAQ_전일종가)
+            self.plot5_fut_close_line.setValue(NASDAQ_전일종가)
+            self.plot5_fut_pivot_line.setValue(NASDAQ_전일종가)
+            self.plot5_fut_open_line.setValue(NASDAQ_전일종가)
+            self.plot5_fut_low_line.setValue(NASDAQ_전일종가)
+            self.plot5_fut_high_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_51.setText(txt)
@@ -30579,9 +30579,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(nasdaq_전고)
             
-            txt = ' {0} '.format(format(nasdaq_종가, ','))
+            txt = ' {0} '.format(format(NASDAQ_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(nasdaq_종가)
+            self.plot5_ovc_close_line.setValue(NASDAQ_전일종가)
 
             txt = ' {0} '.format(format(nasdaq_피봇, ','))
             self.label_54.setText(txt)
@@ -30606,61 +30606,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_종가
+                hangseng_전저 = HANGSENG_전일종가
             else:
                 hangseng_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_종가
+                hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
 
-            hangseng_종가 = HANGSENG_종가
+            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_종가
+                hangseng_피봇 = HANGSENG_전일종가
             else:
                 hangseng_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_종가
+                hangseng_시가 = HANGSENG_전일종가
             else:
                 hangseng_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_종가
+                hangseng_저가 = HANGSENG_전일종가
             else:
                 hangseng_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_종가
+                hangseng_고가 = HANGSENG_전일종가
             else:
                 hangseng_고가 = HANGSENG_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(hangseng_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(hangseng_종가)
+                self.plot5_kp200_line[i].setValue(HANGSENG_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(hangseng_종가)
+                self.plot5_mv_line[i].setValue(HANGSENG_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(hangseng_종가)
-            self.plot5_center_val_line.setValue(hangseng_종가)
-            self.plot5_center_val_upper_line.setValue(hangseng_종가)
+            self.plot5_center_val_lower_line.setValue(HANGSENG_전일종가)
+            self.plot5_center_val_line.setValue(HANGSENG_전일종가)
+            self.plot5_center_val_upper_line.setValue(HANGSENG_전일종가)
             
-            self.plot5_fut_jl_line.setValue(hangseng_종가)
-            self.plot5_fut_jh_line.setValue(hangseng_종가)
-            self.plot5_fut_close_line.setValue(hangseng_종가)
-            self.plot5_fut_pivot_line.setValue(hangseng_종가)
-            self.plot5_fut_open_line.setValue(hangseng_종가)
-            self.plot5_fut_low_line.setValue(hangseng_종가)
-            self.plot5_fut_high_line.setValue(hangseng_종가)
+            self.plot5_fut_jl_line.setValue(HANGSENG_전일종가)
+            self.plot5_fut_jh_line.setValue(HANGSENG_전일종가)
+            self.plot5_fut_close_line.setValue(HANGSENG_전일종가)
+            self.plot5_fut_pivot_line.setValue(HANGSENG_전일종가)
+            self.plot5_fut_open_line.setValue(HANGSENG_전일종가)
+            self.plot5_fut_low_line.setValue(HANGSENG_전일종가)
+            self.plot5_fut_high_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_51.setText(txt)
@@ -30670,9 +30670,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(hangseng_전고)
             
-            txt = ' {0} '.format(format(hangseng_종가, ','))
+            txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(hangseng_종가)
+            self.plot5_ovc_close_line.setValue(HANGSENG_전일종가)
 
             txt = ' {0} '.format(format(hangseng_피봇, ','))
             self.label_54.setText(txt)
@@ -30698,61 +30698,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 17:
 
             if WTI_전저 == 0:
-                wti_전저 = WTI_종가
+                wti_전저 = WTI_전일종가
             else:
                 wti_전저 = WTI_전저
 
             if WTI_전고 == 0:
-                wti_전고 = WTI_종가
+                wti_전고 = WTI_전일종가
             else:
                 wti_전고 = WTI_전고
 
-            wti_종가 = WTI_종가
+            WTI_전일종가 = WTI_전일종가
 
             if WTI_피봇 == 0:
-                wti_피봇 = WTI_종가
+                wti_피봇 = WTI_전일종가
             else:
                 wti_피봇 = WTI_피봇
 
             if WTI_시가 == 0:
-                wti_시가 = WTI_종가
+                wti_시가 = WTI_전일종가
             else:
                 wti_시가 = WTI_시가
 
             if WTI_저가 == 0:
-                wti_저가 = WTI_종가
+                wti_저가 = WTI_전일종가
             else:
                 wti_저가 = WTI_저가
 
             if WTI_고가 == 0:
-                wti_고가 = WTI_종가
+                wti_고가 = WTI_전일종가
             else:
                 wti_고가 = WTI_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(wti_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(WTI_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(wti_종가)
+                self.plot5_kp200_line[i].setValue(WTI_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(wti_종가)
+                self.plot5_mv_line[i].setValue(WTI_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(wti_종가)
-            self.plot5_center_val_line.setValue(wti_종가)
-            self.plot5_center_val_upper_line.setValue(wti_종가)
+            self.plot5_center_val_lower_line.setValue(WTI_전일종가)
+            self.plot5_center_val_line.setValue(WTI_전일종가)
+            self.plot5_center_val_upper_line.setValue(WTI_전일종가)
             
-            self.plot5_fut_jl_line.setValue(wti_종가)
-            self.plot5_fut_jh_line.setValue(wti_종가)
-            self.plot5_fut_close_line.setValue(wti_종가)
-            self.plot5_fut_pivot_line.setValue(wti_종가)
-            self.plot5_fut_open_line.setValue(wti_종가)
-            self.plot5_fut_low_line.setValue(wti_종가)
-            self.plot5_fut_high_line.setValue(wti_종가)
+            self.plot5_fut_jl_line.setValue(WTI_전일종가)
+            self.plot5_fut_jh_line.setValue(WTI_전일종가)
+            self.plot5_fut_close_line.setValue(WTI_전일종가)
+            self.plot5_fut_pivot_line.setValue(WTI_전일종가)
+            self.plot5_fut_open_line.setValue(WTI_전일종가)
+            self.plot5_fut_low_line.setValue(WTI_전일종가)
+            self.plot5_fut_high_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_51.setText(txt)
@@ -30762,9 +30762,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(wti_전고)
             
-            txt = ' {0} '.format(format(wti_종가, ','))
+            txt = ' {0} '.format(format(WTI_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(wti_종가)
+            self.plot5_ovc_close_line.setValue(WTI_전일종가)
 
             txt = ' {0} '.format(format(wti_피봇, ','))
             self.label_54.setText(txt)
@@ -30789,61 +30789,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 18:
 
             if GOLD_전저 == 0:
-                gold_전저 = GOLD_종가
+                gold_전저 = GOLD_전일종가
             else:
                 gold_전저 = GOLD_전저
 
             if GOLD_전고 == 0:
-                gold_전고 = GOLD_종가
+                gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
 
-            gold_종가 = GOLD_종가
+            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
-                gold_피봇 = GOLD_종가
+                gold_피봇 = GOLD_전일종가
             else:
                 gold_피봇 = GOLD_피봇
 
             if GOLD_시가 == 0:
-                gold_시가 = GOLD_종가
+                gold_시가 = GOLD_전일종가
             else:
                 gold_시가 = GOLD_시가
 
             if GOLD_저가 == 0:
-                gold_저가 = GOLD_종가
+                gold_저가 = GOLD_전일종가
             else:
                 gold_저가 = GOLD_저가
 
             if GOLD_고가 == 0:
-                gold_고가 = GOLD_종가
+                gold_고가 = GOLD_전일종가
             else:
                 gold_고가 = GOLD_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(gold_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(GOLD_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(gold_종가)
+                self.plot5_kp200_line[i].setValue(GOLD_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(gold_종가)
+                self.plot5_mv_line[i].setValue(GOLD_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(gold_종가)
-            self.plot5_center_val_line.setValue(gold_종가)
-            self.plot5_center_val_upper_line.setValue(gold_종가)
+            self.plot5_center_val_lower_line.setValue(GOLD_전일종가)
+            self.plot5_center_val_line.setValue(GOLD_전일종가)
+            self.plot5_center_val_upper_line.setValue(GOLD_전일종가)
             
-            self.plot5_fut_jl_line.setValue(gold_종가)
-            self.plot5_fut_jh_line.setValue(gold_종가)
-            self.plot5_fut_close_line.setValue(gold_종가)
-            self.plot5_fut_pivot_line.setValue(gold_종가)
-            self.plot5_fut_open_line.setValue(gold_종가)
-            self.plot5_fut_low_line.setValue(gold_종가)
-            self.plot5_fut_high_line.setValue(gold_종가) 
+            self.plot5_fut_jl_line.setValue(GOLD_전일종가)
+            self.plot5_fut_jh_line.setValue(GOLD_전일종가)
+            self.plot5_fut_close_line.setValue(GOLD_전일종가)
+            self.plot5_fut_pivot_line.setValue(GOLD_전일종가)
+            self.plot5_fut_open_line.setValue(GOLD_전일종가)
+            self.plot5_fut_low_line.setValue(GOLD_전일종가)
+            self.plot5_fut_high_line.setValue(GOLD_전일종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_51.setText(txt)
@@ -30853,9 +30853,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(gold_전고)
             
-            txt = ' {0} '.format(format(gold_종가, ','))
+            txt = ' {0} '.format(format(GOLD_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(gold_종가)
+            self.plot5_ovc_close_line.setValue(GOLD_전일종가)
 
             txt = ' {0} '.format(format(gold_피봇, ','))
             self.label_54.setText(txt)
@@ -30880,61 +30880,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 19:
 
             if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_종가
+                eurofx_전저 = EUROFX_전일종가
             else:
                 eurofx_전저 = EUROFX_전저
 
             if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_종가
+                eurofx_전고 = EUROFX_전일종가
             else:
                 eurofx_전고 = EUROFX_전고
 
-            eurofx_종가 = EUROFX_종가
+            EUROFX_전일종가 = EUROFX_전일종가
 
             if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_종가
+                eurofx_피봇 = EUROFX_전일종가
             else:
                 eurofx_피봇 = EUROFX_피봇
 
             if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_종가
+                eurofx_시가 = EUROFX_전일종가
             else:
                 eurofx_시가 = EUROFX_시가
 
             if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_종가
+                eurofx_저가 = EUROFX_전일종가
             else:
                 eurofx_저가 = EUROFX_저가
 
             if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_종가
+                eurofx_고가 = EUROFX_전일종가
             else:
                 eurofx_고가 = EUROFX_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(eurofx_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(eurofx_종가)
+                self.plot5_kp200_line[i].setValue(EUROFX_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(eurofx_종가)
+                self.plot5_mv_line[i].setValue(EUROFX_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(eurofx_종가)
-            self.plot5_center_val_line.setValue(eurofx_종가)
-            self.plot5_center_val_upper_line.setValue(eurofx_종가)
+            self.plot5_center_val_lower_line.setValue(EUROFX_전일종가)
+            self.plot5_center_val_line.setValue(EUROFX_전일종가)
+            self.plot5_center_val_upper_line.setValue(EUROFX_전일종가)
             
-            self.plot5_fut_jl_line.setValue(eurofx_종가)
-            self.plot5_fut_jh_line.setValue(eurofx_종가)
-            self.plot5_fut_close_line.setValue(eurofx_종가)
-            self.plot5_fut_pivot_line.setValue(eurofx_종가)
-            self.plot5_fut_open_line.setValue(eurofx_종가)
-            self.plot5_fut_low_line.setValue(eurofx_종가)
-            self.plot5_fut_high_line.setValue(eurofx_종가)
+            self.plot5_fut_jl_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_jh_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_close_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_pivot_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_open_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_low_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_high_line.setValue(EUROFX_전일종가)
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_51.setText(txt)
@@ -30944,9 +30944,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(eurofx_종가, ','))
+            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(eurofx_종가)
+            self.plot5_ovc_close_line.setValue(EUROFX_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_54.setText(txt)
@@ -30971,61 +30971,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 20:
 
             if YEN_전저 == 0:
-                yen_전저 = YEN_종가
+                yen_전저 = YEN_전일종가
             else:
                 yen_전저 = YEN_전저
 
             if YEN_전고 == 0:
-                yen_전고 = YEN_종가
+                yen_전고 = YEN_전일종가
             else:
                 yen_전고 = YEN_전고
 
-            yen_종가 = YEN_종가
+            YEN_전일종가 = YEN_전일종가
 
             if YEN_피봇 == 0:
-                yen_피봇 = YEN_종가
+                yen_피봇 = YEN_전일종가
             else:
                 yen_피봇 = YEN_피봇
 
             if YEN_시가 == 0:
-                yen_시가 = YEN_종가
+                yen_시가 = YEN_전일종가
             else:
                 yen_시가 = YEN_시가
 
             if YEN_저가 == 0:
-                yen_저가 = YEN_종가
+                yen_저가 = YEN_전일종가
             else:
                 yen_저가 = YEN_저가
 
             if YEN_고가 == 0:
-                yen_고가 = YEN_종가
+                yen_고가 = YEN_전일종가
             else:
                 yen_고가 = YEN_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(yen_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(YEN_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(yen_종가)
+                self.plot5_kp200_line[i].setValue(YEN_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(yen_종가)
+                self.plot5_mv_line[i].setValue(YEN_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(yen_종가)
-            self.plot5_center_val_line.setValue(yen_종가)
-            self.plot5_center_val_upper_line.setValue(yen_종가)
+            self.plot5_center_val_lower_line.setValue(YEN_전일종가)
+            self.plot5_center_val_line.setValue(YEN_전일종가)
+            self.plot5_center_val_upper_line.setValue(YEN_전일종가)
             
-            self.plot5_fut_jl_line.setValue(yen_종가)
-            self.plot5_fut_jh_line.setValue(yen_종가)
-            self.plot5_fut_close_line.setValue(yen_종가)
-            self.plot5_fut_pivot_line.setValue(yen_종가)
-            self.plot5_fut_open_line.setValue(yen_종가)
-            self.plot5_fut_low_line.setValue(yen_종가)
-            self.plot5_fut_high_line.setValue(yen_종가) 
+            self.plot5_fut_jl_line.setValue(YEN_전일종가)
+            self.plot5_fut_jh_line.setValue(YEN_전일종가)
+            self.plot5_fut_close_line.setValue(YEN_전일종가)
+            self.plot5_fut_pivot_line.setValue(YEN_전일종가)
+            self.plot5_fut_open_line.setValue(YEN_전일종가)
+            self.plot5_fut_low_line.setValue(YEN_전일종가)
+            self.plot5_fut_high_line.setValue(YEN_전일종가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_51.setText(txt)
@@ -31035,9 +31035,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(yen_전고)
             
-            txt = ' {0} '.format(format(yen_종가, ','))
+            txt = ' {0} '.format(format(YEN_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(yen_종가)
+            self.plot5_ovc_close_line.setValue(YEN_전일종가)
 
             txt = ' {0} '.format(format(yen_피봇, ','))
             self.label_54.setText(txt)
@@ -31062,61 +31062,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 21:
 
             if ADI_전저 == 0:
-                adi_전저 = ADI_종가
+                adi_전저 = ADI_전일종가
             else:
                 adi_전저 = ADI_전저
 
             if ADI_전고 == 0:
-                adi_전고 = ADI_종가
+                adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
 
-            adi_종가 = ADI_종가
+            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
-                adi_피봇 = ADI_종가
+                adi_피봇 = ADI_전일종가
             else:
                 adi_피봇 = ADI_피봇
 
             if ADI_시가 == 0:
-                adi_시가 = ADI_종가
+                adi_시가 = ADI_전일종가
             else:
                 adi_시가 = ADI_시가
 
             if ADI_저가 == 0:
-                adi_저가 = ADI_종가
+                adi_저가 = ADI_전일종가
             else:
                 adi_저가 = ADI_저가
 
             if ADI_고가 == 0:
-                adi_고가 = ADI_종가
+                adi_고가 = ADI_전일종가
             else:
                 adi_고가 = ADI_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(adi_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(ADI_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(adi_종가)
+                self.plot5_kp200_line[i].setValue(ADI_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(adi_종가)
+                self.plot5_mv_line[i].setValue(ADI_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(adi_종가)
-            self.plot5_center_val_line.setValue(adi_종가)
-            self.plot5_center_val_upper_line.setValue(adi_종가)
+            self.plot5_center_val_lower_line.setValue(ADI_전일종가)
+            self.plot5_center_val_line.setValue(ADI_전일종가)
+            self.plot5_center_val_upper_line.setValue(ADI_전일종가)
             
-            self.plot5_fut_jl_line.setValue(adi_종가)
-            self.plot5_fut_jh_line.setValue(adi_종가)
-            self.plot5_fut_close_line.setValue(adi_종가)
-            self.plot5_fut_pivot_line.setValue(adi_종가)
-            self.plot5_fut_open_line.setValue(adi_종가)
-            self.plot5_fut_low_line.setValue(adi_종가)
-            self.plot5_fut_high_line.setValue(adi_종가)            
+            self.plot5_fut_jl_line.setValue(ADI_전일종가)
+            self.plot5_fut_jh_line.setValue(ADI_전일종가)
+            self.plot5_fut_close_line.setValue(ADI_전일종가)
+            self.plot5_fut_pivot_line.setValue(ADI_전일종가)
+            self.plot5_fut_open_line.setValue(ADI_전일종가)
+            self.plot5_fut_low_line.setValue(ADI_전일종가)
+            self.plot5_fut_high_line.setValue(ADI_전일종가)            
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_51.setText(txt)
@@ -31126,9 +31126,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(adi_종가, ','))
+            txt = ' {0} '.format(format(ADI_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(adi_종가)
+            self.plot5_ovc_close_line.setValue(ADI_전일종가)
 
             txt = ' {0} '.format(format(adi_피봇, ','))
             self.label_54.setText(txt)
@@ -31629,61 +31629,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 13:
 
             if SP500_전저 == 0:
-                sp500_전저 = SP500_종가
+                sp500_전저 = SP500_전일종가
             else:
                 sp500_전저 = SP500_전저
 
             if SP500_전고 == 0:
-                sp500_전고 = SP500_종가
+                sp500_전고 = SP500_전일종가
             else:
                 sp500_전고 = SP500_전고
 
-            sp500_종가 = SP500_종가                
+            SP500_전일종가 = SP500_전일종가                
 
             if SP500_피봇 == 0:
-                sp500_피봇 = SP500_종가
+                sp500_피봇 = SP500_전일종가
             else:
                 sp500_피봇 = SP500_피봇            
 
             if SP500_시가 == 0:
-                sp500_시가 = SP500_종가
+                sp500_시가 = SP500_전일종가
             else:
                 sp500_시가 = SP500_시가
 
             if SP500_저가 == 0:
-                sp500_저가 = SP500_종가
+                sp500_저가 = SP500_전일종가
             else:
                 sp500_저가 = SP500_저가
 
             if SP500_고가 == 0:
-                sp500_고가 = SP500_종가
+                sp500_고가 = SP500_전일종가
             else:
                 sp500_고가 = SP500_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(sp500_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(SP500_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(sp500_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(sp500_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(SP500_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(SP500_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(sp500_종가)
+                self.plot6_kp200_line[i].setValue(SP500_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(sp500_종가)
+                self.plot6_mv_line[i].setValue(SP500_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(sp500_종가)
-            self.plot6_center_val_line.setValue(sp500_종가)
-            self.plot6_center_val_upper_line.setValue(sp500_종가)
+            self.plot6_center_val_lower_line.setValue(SP500_전일종가)
+            self.plot6_center_val_line.setValue(SP500_전일종가)
+            self.plot6_center_val_upper_line.setValue(SP500_전일종가)
             
-            self.plot6_fut_jl_line.setValue(sp500_종가)
-            self.plot6_fut_jh_line.setValue(sp500_종가)
-            self.plot6_fut_close_line.setValue(sp500_종가)
-            self.plot6_fut_pivot_line.setValue(sp500_종가)
-            self.plot6_fut_open_line.setValue(sp500_종가)
-            self.plot6_fut_low_line.setValue(sp500_종가)
-            self.plot6_fut_high_line.setValue(sp500_종가)
+            self.plot6_fut_jl_line.setValue(SP500_전일종가)
+            self.plot6_fut_jh_line.setValue(SP500_전일종가)
+            self.plot6_fut_close_line.setValue(SP500_전일종가)
+            self.plot6_fut_pivot_line.setValue(SP500_전일종가)
+            self.plot6_fut_open_line.setValue(SP500_전일종가)
+            self.plot6_fut_low_line.setValue(SP500_전일종가)
+            self.plot6_fut_high_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_61.setText(txt)
@@ -31693,9 +31693,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(sp500_전고)
             
-            txt = ' {0} '.format(format(sp500_종가, ','))
+            txt = ' {0} '.format(format(SP500_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(sp500_종가)
+            self.plot6_ovc_close_line.setValue(SP500_전일종가)
 
             txt = ' {0} '.format(format(sp500_피봇, ','))
             self.label_64.setText(txt)
@@ -31721,61 +31721,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 14:
 
             if DOW_전저 == 0:
-                dow_전저 = DOW_종가
+                dow_전저 = DOW_전일종가
             else:
                 dow_전저 = DOW_전저
 
             if DOW_전고 == 0:
-                dow_전고 = DOW_종가
+                dow_전고 = DOW_전일종가
             else:
                 dow_전고 = DOW_전고
 
-            dow_종가 = DOW_종가
+            DOW_전일종가 = DOW_전일종가
 
             if DOW_피봇 == 0:
-                dow_피봇 = DOW_종가
+                dow_피봇 = DOW_전일종가
             else:
                 dow_피봇 = DOW_피봇
 
             if DOW_시가 == 0:
-                dow_시가 = DOW_종가
+                dow_시가 = DOW_전일종가
             else:
                 dow_시가 = DOW_시가
 
             if DOW_저가 == 0:
-                dow_저가 = DOW_종가
+                dow_저가 = DOW_전일종가
             else:
                 dow_저가 = DOW_저가
 
             if DOW_고가 == 0:
-                dow_고가 = DOW_종가
+                dow_고가 = DOW_전일종가
             else:
                 dow_고가 = DOW_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(dow_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(DOW_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(dow_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(dow_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(DOW_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(DOW_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(dow_종가)
+                self.plot6_kp200_line[i].setValue(DOW_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(dow_종가)
+                self.plot6_mv_line[i].setValue(DOW_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(dow_종가)
-            self.plot6_center_val_line.setValue(dow_종가)
-            self.plot6_center_val_upper_line.setValue(dow_종가)
+            self.plot6_center_val_lower_line.setValue(DOW_전일종가)
+            self.plot6_center_val_line.setValue(DOW_전일종가)
+            self.plot6_center_val_upper_line.setValue(DOW_전일종가)
             
-            self.plot6_fut_jl_line.setValue(dow_종가)
-            self.plot6_fut_jh_line.setValue(dow_종가)
-            self.plot6_fut_close_line.setValue(dow_종가)
-            self.plot6_fut_pivot_line.setValue(dow_종가)
-            self.plot6_fut_open_line.setValue(dow_종가)
-            self.plot6_fut_low_line.setValue(dow_종가)
-            self.plot6_fut_high_line.setValue(dow_종가)
+            self.plot6_fut_jl_line.setValue(DOW_전일종가)
+            self.plot6_fut_jh_line.setValue(DOW_전일종가)
+            self.plot6_fut_close_line.setValue(DOW_전일종가)
+            self.plot6_fut_pivot_line.setValue(DOW_전일종가)
+            self.plot6_fut_open_line.setValue(DOW_전일종가)
+            self.plot6_fut_low_line.setValue(DOW_전일종가)
+            self.plot6_fut_high_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_61.setText(txt)
@@ -31785,9 +31785,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(dow_전고)
             
-            txt = ' {0} '.format(format(dow_종가, ','))
+            txt = ' {0} '.format(format(DOW_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(dow_종가)
+            self.plot6_ovc_close_line.setValue(DOW_전일종가)
 
             txt = ' {0} '.format(format(dow_피봇, ','))
             self.label_64.setText(txt)
@@ -31813,61 +31813,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 15:
 
             if NASDAQ_전저 == 0:
-                nasdaq_전저 = NASDAQ_종가
+                nasdaq_전저 = NASDAQ_전일종가
             else:
                 nasdaq_전저 = NASDAQ_전저
 
             if NASDAQ_전고 == 0:
-                nasdaq_전고 = NASDAQ_종가
+                nasdaq_전고 = NASDAQ_전일종가
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            nasdaq_종가 = NASDAQ_종가
+            NASDAQ_전일종가 = NASDAQ_전일종가
 
             if NASDAQ_피봇 == 0:
-                nasdaq_피봇 = NASDAQ_종가
+                nasdaq_피봇 = NASDAQ_전일종가
             else:
                 nasdaq_피봇 = NASDAQ_피봇
 
             if NASDAQ_시가 == 0:
-                nasdaq_시가 = NASDAQ_종가
+                nasdaq_시가 = NASDAQ_전일종가
             else:
                 nasdaq_시가 = NASDAQ_시가
 
             if NASDAQ_저가 == 0:
-                nasdaq_저가 = NASDAQ_종가
+                nasdaq_저가 = NASDAQ_전일종가
             else:
                 nasdaq_저가 = NASDAQ_저가
 
             if NASDAQ_고가 == 0:
-                nasdaq_고가 = NASDAQ_종가
+                nasdaq_고가 = NASDAQ_전일종가
             else:
                 nasdaq_고가 = NASDAQ_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(nasdaq_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(NASDAQ_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(nasdaq_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(nasdaq_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(NASDAQ_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(NASDAQ_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(nasdaq_종가)
+                self.plot6_kp200_line[i].setValue(NASDAQ_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(nasdaq_종가)
+                self.plot6_mv_line[i].setValue(NASDAQ_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(nasdaq_종가)
-            self.plot6_center_val_line.setValue(nasdaq_종가)
-            self.plot6_center_val_upper_line.setValue(nasdaq_종가)
+            self.plot6_center_val_lower_line.setValue(NASDAQ_전일종가)
+            self.plot6_center_val_line.setValue(NASDAQ_전일종가)
+            self.plot6_center_val_upper_line.setValue(NASDAQ_전일종가)
             
-            self.plot6_fut_jl_line.setValue(nasdaq_종가)
-            self.plot6_fut_jh_line.setValue(nasdaq_종가)
-            self.plot6_fut_close_line.setValue(nasdaq_종가)
-            self.plot6_fut_pivot_line.setValue(nasdaq_종가)
-            self.plot6_fut_open_line.setValue(nasdaq_종가)
-            self.plot6_fut_low_line.setValue(nasdaq_종가)
-            self.plot6_fut_high_line.setValue(nasdaq_종가)
+            self.plot6_fut_jl_line.setValue(NASDAQ_전일종가)
+            self.plot6_fut_jh_line.setValue(NASDAQ_전일종가)
+            self.plot6_fut_close_line.setValue(NASDAQ_전일종가)
+            self.plot6_fut_pivot_line.setValue(NASDAQ_전일종가)
+            self.plot6_fut_open_line.setValue(NASDAQ_전일종가)
+            self.plot6_fut_low_line.setValue(NASDAQ_전일종가)
+            self.plot6_fut_high_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_61.setText(txt)
@@ -31877,9 +31877,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(nasdaq_전고)
             
-            txt = ' {0} '.format(format(nasdaq_종가, ','))
+            txt = ' {0} '.format(format(NASDAQ_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(nasdaq_종가)
+            self.plot6_ovc_close_line.setValue(NASDAQ_전일종가)
 
             txt = ' {0} '.format(format(nasdaq_피봇, ','))
             self.label_64.setText(txt)
@@ -31904,61 +31904,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_종가
+                hangseng_전저 = HANGSENG_전일종가
             else:
                 hangseng_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_종가
+                hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
 
-            hangseng_종가 = HANGSENG_종가
+            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_종가
+                hangseng_피봇 = HANGSENG_전일종가
             else:
                 hangseng_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_종가
+                hangseng_시가 = HANGSENG_전일종가
             else:
                 hangseng_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_종가
+                hangseng_저가 = HANGSENG_전일종가
             else:
                 hangseng_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_종가
+                hangseng_고가 = HANGSENG_전일종가
             else:
                 hangseng_고가 = HANGSENG_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(hangseng_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(hangseng_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(hangseng_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(HANGSENG_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(hangseng_종가)
+                self.plot6_kp200_line[i].setValue(HANGSENG_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(hangseng_종가)
+                self.plot6_mv_line[i].setValue(HANGSENG_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(hangseng_종가)
-            self.plot6_center_val_line.setValue(hangseng_종가)
-            self.plot6_center_val_upper_line.setValue(hangseng_종가)
+            self.plot6_center_val_lower_line.setValue(HANGSENG_전일종가)
+            self.plot6_center_val_line.setValue(HANGSENG_전일종가)
+            self.plot6_center_val_upper_line.setValue(HANGSENG_전일종가)
             
-            self.plot6_fut_jl_line.setValue(hangseng_종가)
-            self.plot6_fut_jh_line.setValue(hangseng_종가)
-            self.plot6_fut_close_line.setValue(hangseng_종가)
-            self.plot6_fut_pivot_line.setValue(hangseng_종가)
-            self.plot6_fut_open_line.setValue(hangseng_종가)
-            self.plot6_fut_low_line.setValue(hangseng_종가)
-            self.plot6_fut_high_line.setValue(hangseng_종가)
+            self.plot6_fut_jl_line.setValue(HANGSENG_전일종가)
+            self.plot6_fut_jh_line.setValue(HANGSENG_전일종가)
+            self.plot6_fut_close_line.setValue(HANGSENG_전일종가)
+            self.plot6_fut_pivot_line.setValue(HANGSENG_전일종가)
+            self.plot6_fut_open_line.setValue(HANGSENG_전일종가)
+            self.plot6_fut_low_line.setValue(HANGSENG_전일종가)
+            self.plot6_fut_high_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_61.setText(txt)
@@ -31968,9 +31968,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(hangseng_전고)
             
-            txt = ' {0} '.format(format(hangseng_종가, ','))
+            txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(hangseng_종가)
+            self.plot6_ovc_close_line.setValue(HANGSENG_전일종가)
 
             txt = ' {0} '.format(format(hangseng_피봇, ','))
             self.label_64.setText(txt)
@@ -31996,61 +31996,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 17:
 
             if WTI_전저 == 0:
-                wti_전저 = WTI_종가
+                wti_전저 = WTI_전일종가
             else:
                 wti_전저 = WTI_전저
 
             if WTI_전고 == 0:
-                wti_전고 = WTI_종가
+                wti_전고 = WTI_전일종가
             else:
                 wti_전고 = WTI_전고
 
-            wti_종가 = WTI_종가
+            WTI_전일종가 = WTI_전일종가
 
             if WTI_피봇 == 0:
-                wti_피봇 = WTI_종가
+                wti_피봇 = WTI_전일종가
             else:
                 wti_피봇 = WTI_피봇
 
             if WTI_시가 == 0:
-                wti_시가 = WTI_종가
+                wti_시가 = WTI_전일종가
             else:
                 wti_시가 = WTI_시가
 
             if WTI_저가 == 0:
-                wti_저가 = WTI_종가
+                wti_저가 = WTI_전일종가
             else:
                 wti_저가 = WTI_저가
 
             if WTI_고가 == 0:
-                wti_고가 = WTI_종가
+                wti_고가 = WTI_전일종가
             else:
                 wti_고가 = WTI_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(wti_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(WTI_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(wti_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(wti_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(WTI_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(WTI_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(wti_종가)
+                self.plot6_kp200_line[i].setValue(WTI_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(wti_종가)
+                self.plot6_mv_line[i].setValue(WTI_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(wti_종가)
-            self.plot6_center_val_line.setValue(wti_종가)
-            self.plot6_center_val_upper_line.setValue(wti_종가)
+            self.plot6_center_val_lower_line.setValue(WTI_전일종가)
+            self.plot6_center_val_line.setValue(WTI_전일종가)
+            self.plot6_center_val_upper_line.setValue(WTI_전일종가)
             
-            self.plot6_fut_jl_line.setValue(wti_종가)
-            self.plot6_fut_jh_line.setValue(wti_종가)
-            self.plot6_fut_close_line.setValue(wti_종가)
-            self.plot6_fut_pivot_line.setValue(wti_종가)
-            self.plot6_fut_open_line.setValue(wti_종가)
-            self.plot6_fut_low_line.setValue(wti_종가)
-            self.plot6_fut_high_line.setValue(wti_종가) 
+            self.plot6_fut_jl_line.setValue(WTI_전일종가)
+            self.plot6_fut_jh_line.setValue(WTI_전일종가)
+            self.plot6_fut_close_line.setValue(WTI_전일종가)
+            self.plot6_fut_pivot_line.setValue(WTI_전일종가)
+            self.plot6_fut_open_line.setValue(WTI_전일종가)
+            self.plot6_fut_low_line.setValue(WTI_전일종가)
+            self.plot6_fut_high_line.setValue(WTI_전일종가) 
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_61.setText(txt)
@@ -32060,9 +32060,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(wti_전고)
             
-            txt = ' {0} '.format(format(wti_종가, ','))
+            txt = ' {0} '.format(format(WTI_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(wti_종가)
+            self.plot6_ovc_close_line.setValue(WTI_전일종가)
 
             txt = ' {0} '.format(format(wti_피봇, ','))
             self.label_64.setText(txt)
@@ -32087,61 +32087,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 18:
 
             if GOLD_전저 == 0:
-                gold_전저 = GOLD_종가
+                gold_전저 = GOLD_전일종가
             else:
                 gold_전저 = GOLD_전저
 
             if GOLD_전고 == 0:
-                gold_전고 = GOLD_종가
+                gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
 
-            gold_종가 = GOLD_종가
+            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
-                gold_피봇 = GOLD_종가
+                gold_피봇 = GOLD_전일종가
             else:
                 gold_피봇 = GOLD_피봇
 
             if GOLD_시가 == 0:
-                gold_시가 = GOLD_종가
+                gold_시가 = GOLD_전일종가
             else:
                 gold_시가 = GOLD_시가
 
             if GOLD_저가 == 0:
-                gold_저가 = GOLD_종가
+                gold_저가 = GOLD_전일종가
             else:
                 gold_저가 = GOLD_저가
 
             if GOLD_고가 == 0:
-                gold_고가 = GOLD_종가
+                gold_고가 = GOLD_전일종가
             else:
                 gold_고가 = GOLD_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(gold_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(GOLD_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(gold_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(gold_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(GOLD_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(GOLD_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(gold_종가)
+                self.plot6_kp200_line[i].setValue(GOLD_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(gold_종가)
+                self.plot6_mv_line[i].setValue(GOLD_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(gold_종가)
-            self.plot6_center_val_line.setValue(gold_종가)
-            self.plot6_center_val_upper_line.setValue(gold_종가)
+            self.plot6_center_val_lower_line.setValue(GOLD_전일종가)
+            self.plot6_center_val_line.setValue(GOLD_전일종가)
+            self.plot6_center_val_upper_line.setValue(GOLD_전일종가)
             
-            self.plot6_fut_jl_line.setValue(gold_종가)
-            self.plot6_fut_jh_line.setValue(gold_종가)
-            self.plot6_fut_close_line.setValue(gold_종가)
-            self.plot6_fut_pivot_line.setValue(gold_종가)
-            self.plot6_fut_open_line.setValue(gold_종가)
-            self.plot6_fut_low_line.setValue(gold_종가)
-            self.plot6_fut_high_line.setValue(gold_종가) 
+            self.plot6_fut_jl_line.setValue(GOLD_전일종가)
+            self.plot6_fut_jh_line.setValue(GOLD_전일종가)
+            self.plot6_fut_close_line.setValue(GOLD_전일종가)
+            self.plot6_fut_pivot_line.setValue(GOLD_전일종가)
+            self.plot6_fut_open_line.setValue(GOLD_전일종가)
+            self.plot6_fut_low_line.setValue(GOLD_전일종가)
+            self.plot6_fut_high_line.setValue(GOLD_전일종가) 
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_61.setText(txt)
@@ -32151,9 +32151,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(gold_전고)
             
-            txt = ' {0} '.format(format(gold_종가, ','))
+            txt = ' {0} '.format(format(GOLD_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(gold_종가)
+            self.plot6_ovc_close_line.setValue(GOLD_전일종가)
 
             txt = ' {0} '.format(format(gold_피봇, ','))
             self.label_64.setText(txt)
@@ -32178,61 +32178,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 19:
 
             if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_종가
+                eurofx_전저 = EUROFX_전일종가
             else:
                 eurofx_전저 = EUROFX_전저
 
             if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_종가
+                eurofx_전고 = EUROFX_전일종가
             else:
                 eurofx_전고 = EUROFX_전고
 
-            eurofx_종가 = EUROFX_종가
+            EUROFX_전일종가 = EUROFX_전일종가
 
             if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_종가
+                eurofx_피봇 = EUROFX_전일종가
             else:
                 eurofx_피봇 = EUROFX_피봇
 
             if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_종가
+                eurofx_시가 = EUROFX_전일종가
             else:
                 eurofx_시가 = EUROFX_시가
 
             if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_종가
+                eurofx_저가 = EUROFX_전일종가
             else:
                 eurofx_저가 = EUROFX_저가
 
             if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_종가
+                eurofx_고가 = EUROFX_전일종가
             else:
                 eurofx_고가 = EUROFX_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(eurofx_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(eurofx_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(eurofx_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(eurofx_종가)
+                self.plot6_kp200_line[i].setValue(EUROFX_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(eurofx_종가)
+                self.plot6_mv_line[i].setValue(EUROFX_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(eurofx_종가)
-            self.plot6_center_val_line.setValue(eurofx_종가)
-            self.plot6_center_val_upper_line.setValue(eurofx_종가)
+            self.plot6_center_val_lower_line.setValue(EUROFX_전일종가)
+            self.plot6_center_val_line.setValue(EUROFX_전일종가)
+            self.plot6_center_val_upper_line.setValue(EUROFX_전일종가)
             
-            self.plot6_fut_jl_line.setValue(eurofx_종가)
-            self.plot6_fut_jh_line.setValue(eurofx_종가)
-            self.plot6_fut_close_line.setValue(eurofx_종가)
-            self.plot6_fut_pivot_line.setValue(eurofx_종가)
-            self.plot6_fut_open_line.setValue(eurofx_종가)
-            self.plot6_fut_low_line.setValue(eurofx_종가)
-            self.plot6_fut_high_line.setValue(eurofx_종가) 
+            self.plot6_fut_jl_line.setValue(EUROFX_전일종가)
+            self.plot6_fut_jh_line.setValue(EUROFX_전일종가)
+            self.plot6_fut_close_line.setValue(EUROFX_전일종가)
+            self.plot6_fut_pivot_line.setValue(EUROFX_전일종가)
+            self.plot6_fut_open_line.setValue(EUROFX_전일종가)
+            self.plot6_fut_low_line.setValue(EUROFX_전일종가)
+            self.plot6_fut_high_line.setValue(EUROFX_전일종가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_61.setText(txt)
@@ -32242,9 +32242,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(eurofx_종가, ','))
+            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(eurofx_종가)
+            self.plot6_ovc_close_line.setValue(EUROFX_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_64.setText(txt)
@@ -32269,61 +32269,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 20:
 
             if YEN_전저 == 0:
-                yen_전저 = YEN_종가
+                yen_전저 = YEN_전일종가
             else:
                 yen_전저 = YEN_전저
 
             if YEN_전고 == 0:
-                yen_전고 = YEN_종가
+                yen_전고 = YEN_전일종가
             else:
                 yen_전고 = YEN_전고
 
-            yen_종가 = YEN_종가
+            YEN_전일종가 = YEN_전일종가
 
             if YEN_피봇 == 0:
-                yen_피봇 = YEN_종가
+                yen_피봇 = YEN_전일종가
             else:
                 yen_피봇 = YEN_피봇
 
             if YEN_시가 == 0:
-                yen_시가 = YEN_종가
+                yen_시가 = YEN_전일종가
             else:
                 yen_시가 = YEN_시가
 
             if YEN_저가 == 0:
-                yen_저가 = YEN_종가
+                yen_저가 = YEN_전일종가
             else:
                 yen_저가 = YEN_저가
 
             if YEN_고가 == 0:
-                yen_고가 = YEN_종가
+                yen_고가 = YEN_전일종가
             else:
                 yen_고가 = YEN_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(yen_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(YEN_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(yen_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(yen_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(YEN_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(YEN_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(yen_종가)
+                self.plot6_kp200_line[i].setValue(YEN_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(yen_종가)
+                self.plot6_mv_line[i].setValue(YEN_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(yen_종가)
-            self.plot6_center_val_line.setValue(yen_종가)
-            self.plot6_center_val_upper_line.setValue(yen_종가)
+            self.plot6_center_val_lower_line.setValue(YEN_전일종가)
+            self.plot6_center_val_line.setValue(YEN_전일종가)
+            self.plot6_center_val_upper_line.setValue(YEN_전일종가)
             
-            self.plot6_fut_jl_line.setValue(yen_종가)
-            self.plot6_fut_jh_line.setValue(yen_종가)
-            self.plot6_fut_close_line.setValue(yen_종가)
-            self.plot6_fut_pivot_line.setValue(yen_종가)
-            self.plot6_fut_open_line.setValue(yen_종가)
-            self.plot6_fut_low_line.setValue(yen_종가)
-            self.plot6_fut_high_line.setValue(yen_종가) 
+            self.plot6_fut_jl_line.setValue(YEN_전일종가)
+            self.plot6_fut_jh_line.setValue(YEN_전일종가)
+            self.plot6_fut_close_line.setValue(YEN_전일종가)
+            self.plot6_fut_pivot_line.setValue(YEN_전일종가)
+            self.plot6_fut_open_line.setValue(YEN_전일종가)
+            self.plot6_fut_low_line.setValue(YEN_전일종가)
+            self.plot6_fut_high_line.setValue(YEN_전일종가) 
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_61.setText(txt)
@@ -32333,9 +32333,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(yen_전고)
             
-            txt = ' {0} '.format(format(yen_종가, ','))
+            txt = ' {0} '.format(format(YEN_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(yen_종가)
+            self.plot6_ovc_close_line.setValue(YEN_전일종가)
 
             txt = ' {0} '.format(format(yen_피봇, ','))
             self.label_64.setText(txt)
@@ -32360,61 +32360,61 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 21:
 
             if ADI_전저 == 0:
-                adi_전저 = ADI_종가
+                adi_전저 = ADI_전일종가
             else:
                 adi_전저 = ADI_전저
 
             if ADI_전고 == 0:
-                adi_전고 = ADI_종가
+                adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
 
-            adi_종가 = ADI_종가
+            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
-                adi_피봇 = ADI_종가
+                adi_피봇 = ADI_전일종가
             else:
                 adi_피봇 = ADI_피봇
 
             if ADI_시가 == 0:
-                adi_시가 = ADI_종가
+                adi_시가 = ADI_전일종가
             else:
                 adi_시가 = ADI_시가
 
             if ADI_저가 == 0:
-                adi_저가 = ADI_종가
+                adi_저가 = ADI_전일종가
             else:
                 adi_저가 = ADI_저가
 
             if ADI_고가 == 0:
-                adi_고가 = ADI_종가
+                adi_고가 = ADI_전일종가
             else:
                 adi_고가 = ADI_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(adi_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(ADI_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(adi_종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(adi_종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(ADI_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(ADI_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(adi_종가)
+                self.plot6_kp200_line[i].setValue(ADI_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(adi_종가)
+                self.plot6_mv_line[i].setValue(ADI_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(adi_종가)
-            self.plot6_center_val_line.setValue(adi_종가)
-            self.plot6_center_val_upper_line.setValue(adi_종가) 
+            self.plot6_center_val_lower_line.setValue(ADI_전일종가)
+            self.plot6_center_val_line.setValue(ADI_전일종가)
+            self.plot6_center_val_upper_line.setValue(ADI_전일종가) 
             
-            self.plot6_fut_jl_line.setValue(adi_종가)
-            self.plot6_fut_jh_line.setValue(adi_종가)
-            self.plot6_fut_close_line.setValue(adi_종가)
-            self.plot6_fut_pivot_line.setValue(adi_종가)
-            self.plot6_fut_open_line.setValue(adi_종가)
-            self.plot6_fut_low_line.setValue(adi_종가)
-            self.plot6_fut_high_line.setValue(adi_종가)            
+            self.plot6_fut_jl_line.setValue(ADI_전일종가)
+            self.plot6_fut_jh_line.setValue(ADI_전일종가)
+            self.plot6_fut_close_line.setValue(ADI_전일종가)
+            self.plot6_fut_pivot_line.setValue(ADI_전일종가)
+            self.plot6_fut_open_line.setValue(ADI_전일종가)
+            self.plot6_fut_low_line.setValue(ADI_전일종가)
+            self.plot6_fut_high_line.setValue(ADI_전일종가)            
                 
             txt = ' {0} '.format(format(adi_전저, ','))
             self.label_61.setText(txt)
@@ -32424,9 +32424,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(adi_종가, ','))
+            txt = ' {0} '.format(format(ADI_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(adi_종가)
+            self.plot6_ovc_close_line.setValue(ADI_전일종가)
 
             txt = ' {0} '.format(format(adi_피봇, ','))
             self.label_64.setText(txt)
@@ -33330,7 +33330,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(SP500_전저)
                 self.plot1_ovc_jh_line.setValue(SP500_전고)
-                self.plot1_ovc_close_line.setValue(SP500_종가)
+                self.plot1_ovc_close_line.setValue(SP500_전일종가)
                 self.plot1_ovc_open_line.setValue(SP500_시가)
                 self.plot1_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot1_ovc_low_line.setValue(SP500_저가)
@@ -33458,7 +33458,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(DOW_전저)
                 self.plot1_ovc_jh_line.setValue(DOW_전고)
-                self.plot1_ovc_close_line.setValue(DOW_종가)
+                self.plot1_ovc_close_line.setValue(DOW_전일종가)
                 self.plot1_ovc_open_line.setValue(DOW_시가)
                 self.plot1_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot1_ovc_low_line.setValue(DOW_저가)
@@ -33586,7 +33586,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot1_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot1_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot1_ovc_close_line.setValue(NASDAQ_전일종가)
                 self.plot1_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot1_ovc_low_line.setValue(NASDAQ_저가)
@@ -33714,7 +33714,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot1_ovc_jh_line.setValue(HANGSENG_전고)
-                self.plot1_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot1_ovc_close_line.setValue(HANGSENG_전일종가)
                 self.plot1_ovc_open_line.setValue(HANGSENG_시가)
                 self.plot1_ovc_pivot_line.setValue(HANGSENG_피봇)
                 self.plot1_ovc_low_line.setValue(HANGSENG_저가)
@@ -33842,7 +33842,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(WTI_전저)
                 self.plot1_ovc_jh_line.setValue(WTI_전고)
-                self.plot1_ovc_close_line.setValue(WTI_종가)
+                self.plot1_ovc_close_line.setValue(WTI_전일종가)
                 self.plot1_ovc_open_line.setValue(WTI_시가)
                 self.plot1_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot1_ovc_low_line.setValue(WTI_저가)
@@ -33970,7 +33970,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(GOLD_전저)
                 self.plot1_ovc_jh_line.setValue(GOLD_전고)
-                self.plot1_ovc_close_line.setValue(GOLD_종가)
+                self.plot1_ovc_close_line.setValue(GOLD_전일종가)
                 self.plot1_ovc_open_line.setValue(GOLD_시가)
                 self.plot1_ovc_pivot_line.setValue(GOLD_피봇)
                 self.plot1_ovc_low_line.setValue(GOLD_저가)
@@ -34097,7 +34097,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot1_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot1_ovc_close_line.setValue(EUROFX_종가)
+                self.plot1_ovc_close_line.setValue(EUROFX_전일종가)
                 self.plot1_ovc_open_line.setValue(EUROFX_시가)
                 self.plot1_ovc_pivot_line.setValue(EUROFX_피봇)
                 self.plot1_ovc_low_line.setValue(EUROFX_저가)
@@ -34225,7 +34225,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_ovc_jl_line.setValue(YEN_전저)
                 self.plot1_ovc_jh_line.setValue(YEN_전고)
-                self.plot1_ovc_close_line.setValue(YEN_종가)
+                self.plot1_ovc_close_line.setValue(YEN_전일종가)
                 self.plot1_ovc_open_line.setValue(YEN_시가)
                 self.plot1_ovc_pivot_line.setValue(YEN_피봇)
                 self.plot1_ovc_low_line.setValue(YEN_저가)
@@ -34356,7 +34356,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if ADI_전고 > 0:
                     self.plot1_ovc_jh_line.setValue(ADI_전고)
 
-                self.plot1_ovc_close_line.setValue(ADI_종가)
+                self.plot1_ovc_close_line.setValue(ADI_전일종가)
                 self.plot1_ovc_open_line.setValue(ADI_시가)
 
                 if ADI_피봇 > 0:
@@ -34996,7 +34996,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(SP500_전저)
                 self.plot2_ovc_jh_line.setValue(SP500_전고)
-                self.plot2_ovc_close_line.setValue(SP500_종가)
+                self.plot2_ovc_close_line.setValue(SP500_전일종가)
                 self.plot2_ovc_open_line.setValue(SP500_시가)
                 self.plot2_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot2_ovc_low_line.setValue(SP500_저가)
@@ -35124,7 +35124,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(DOW_전저)
                 self.plot2_ovc_jh_line.setValue(DOW_전고)
-                self.plot2_ovc_close_line.setValue(DOW_종가)
+                self.plot2_ovc_close_line.setValue(DOW_전일종가)
                 self.plot2_ovc_open_line.setValue(DOW_시가)
                 self.plot2_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot2_ovc_low_line.setValue(DOW_저가)
@@ -35252,7 +35252,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot2_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot2_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot2_ovc_close_line.setValue(NASDAQ_전일종가)
                 self.plot2_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot2_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot2_ovc_low_line.setValue(NASDAQ_저가)
@@ -35380,7 +35380,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot2_ovc_jh_line.setValue(HANGSENG_전고)
-                self.plot2_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot2_ovc_close_line.setValue(HANGSENG_전일종가)
                 self.plot2_ovc_open_line.setValue(HANGSENG_시가)
                 self.plot2_ovc_pivot_line.setValue(HANGSENG_피봇)
                 self.plot2_ovc_low_line.setValue(HANGSENG_저가)
@@ -35508,7 +35508,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(WTI_전저)
                 self.plot2_ovc_jh_line.setValue(WTI_전고)
-                self.plot2_ovc_close_line.setValue(WTI_종가)
+                self.plot2_ovc_close_line.setValue(WTI_전일종가)
                 self.plot2_ovc_open_line.setValue(WTI_시가)
                 self.plot2_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot2_ovc_low_line.setValue(WTI_저가)
@@ -35636,7 +35636,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(GOLD_전저)
                 self.plot2_ovc_jh_line.setValue(GOLD_전고)
-                self.plot2_ovc_close_line.setValue(GOLD_종가)
+                self.plot2_ovc_close_line.setValue(GOLD_전일종가)
                 self.plot2_ovc_open_line.setValue(GOLD_시가)
                 self.plot2_ovc_pivot_line.setValue(GOLD_피봇)
                 self.plot2_ovc_low_line.setValue(GOLD_저가)
@@ -35763,7 +35763,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot2_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot2_ovc_close_line.setValue(EUROFX_종가)
+                self.plot2_ovc_close_line.setValue(EUROFX_전일종가)
                 self.plot2_ovc_open_line.setValue(EUROFX_시가)
                 self.plot2_ovc_pivot_line.setValue(EUROFX_피봇)
                 self.plot2_ovc_low_line.setValue(EUROFX_저가)
@@ -35891,7 +35891,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_ovc_jl_line.setValue(YEN_전저)
                 self.plot2_ovc_jh_line.setValue(YEN_전고)
-                self.plot2_ovc_close_line.setValue(YEN_종가)
+                self.plot2_ovc_close_line.setValue(YEN_전일종가)
                 self.plot2_ovc_open_line.setValue(YEN_시가)
                 self.plot2_ovc_pivot_line.setValue(YEN_피봇)
                 self.plot2_ovc_low_line.setValue(YEN_저가)
@@ -36022,7 +36022,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if ADI_전고 > 0:
                     self.plot2_ovc_jh_line.setValue(ADI_전고)
 
-                self.plot2_ovc_close_line.setValue(ADI_종가)
+                self.plot2_ovc_close_line.setValue(ADI_전일종가)
                 self.plot2_ovc_open_line.setValue(ADI_시가)
 
                 if ADI_피봇 > 0:
@@ -36658,7 +36658,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(SP500_전저)
                 self.plot3_ovc_jh_line.setValue(SP500_전고)
-                self.plot3_ovc_close_line.setValue(SP500_종가)
+                self.plot3_ovc_close_line.setValue(SP500_전일종가)
                 self.plot3_ovc_open_line.setValue(SP500_시가)
                 self.plot3_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot3_ovc_low_line.setValue(SP500_저가)
@@ -36786,7 +36786,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(DOW_전저)
                 self.plot3_ovc_jh_line.setValue(DOW_전고)
-                self.plot3_ovc_close_line.setValue(DOW_종가)
+                self.plot3_ovc_close_line.setValue(DOW_전일종가)
                 self.plot3_ovc_open_line.setValue(DOW_시가)
                 self.plot3_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot3_ovc_low_line.setValue(DOW_저가)
@@ -36914,7 +36914,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot3_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot3_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot3_ovc_close_line.setValue(NASDAQ_전일종가)
                 self.plot3_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot3_ovc_low_line.setValue(NASDAQ_저가)
@@ -37042,7 +37042,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot3_ovc_jh_line.setValue(HANGSENG_전고)
-                self.plot3_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot3_ovc_close_line.setValue(HANGSENG_전일종가)
                 self.plot3_ovc_open_line.setValue(HANGSENG_시가)
                 self.plot3_ovc_pivot_line.setValue(HANGSENG_피봇)
                 self.plot3_ovc_low_line.setValue(HANGSENG_저가)
@@ -37170,7 +37170,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(WTI_전저)
                 self.plot3_ovc_jh_line.setValue(WTI_전고)
-                self.plot3_ovc_close_line.setValue(WTI_종가)
+                self.plot3_ovc_close_line.setValue(WTI_전일종가)
                 self.plot3_ovc_open_line.setValue(WTI_시가)
                 self.plot3_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot3_ovc_low_line.setValue(WTI_저가)
@@ -37298,7 +37298,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(GOLD_전저)
                 self.plot3_ovc_jh_line.setValue(GOLD_전고)
-                self.plot3_ovc_close_line.setValue(GOLD_종가)
+                self.plot3_ovc_close_line.setValue(GOLD_전일종가)
                 self.plot3_ovc_open_line.setValue(GOLD_시가)
                 self.plot3_ovc_pivot_line.setValue(GOLD_피봇)
                 self.plot3_ovc_low_line.setValue(GOLD_저가)
@@ -37425,7 +37425,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot3_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot3_ovc_close_line.setValue(EUROFX_종가)
+                self.plot3_ovc_close_line.setValue(EUROFX_전일종가)
                 self.plot3_ovc_open_line.setValue(EUROFX_시가)
                 self.plot3_ovc_pivot_line.setValue(EUROFX_피봇)
                 self.plot3_ovc_low_line.setValue(EUROFX_저가)
@@ -37553,7 +37553,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_ovc_jl_line.setValue(YEN_전저)
                 self.plot3_ovc_jh_line.setValue(YEN_전고)
-                self.plot3_ovc_close_line.setValue(YEN_종가)
+                self.plot3_ovc_close_line.setValue(YEN_전일종가)
                 self.plot3_ovc_open_line.setValue(YEN_시가)
                 self.plot3_ovc_pivot_line.setValue(YEN_피봇)
                 self.plot3_ovc_low_line.setValue(YEN_저가)
@@ -37684,7 +37684,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if ADI_전고 > 0:
                     self.plot3_ovc_jh_line.setValue(ADI_전고)
 
-                self.plot3_ovc_close_line.setValue(ADI_종가)
+                self.plot3_ovc_close_line.setValue(ADI_전일종가)
                 self.plot3_ovc_open_line.setValue(ADI_시가)
 
                 if ADI_피봇 > 0:
@@ -38321,7 +38321,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(SP500_전저)
                 self.plot4_ovc_jh_line.setValue(SP500_전고)
-                self.plot4_ovc_close_line.setValue(SP500_종가)
+                self.plot4_ovc_close_line.setValue(SP500_전일종가)
                 self.plot4_ovc_open_line.setValue(SP500_시가)
                 self.plot4_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot4_ovc_low_line.setValue(SP500_저가)
@@ -38449,7 +38449,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(DOW_전저)
                 self.plot4_ovc_jh_line.setValue(DOW_전고)
-                self.plot4_ovc_close_line.setValue(DOW_종가)
+                self.plot4_ovc_close_line.setValue(DOW_전일종가)
                 self.plot4_ovc_open_line.setValue(DOW_시가)
                 self.plot4_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot4_ovc_low_line.setValue(DOW_저가)
@@ -38577,7 +38577,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot4_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot4_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot4_ovc_close_line.setValue(NASDAQ_전일종가)
                 self.plot4_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot4_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot4_ovc_low_line.setValue(NASDAQ_저가)
@@ -38705,7 +38705,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot4_ovc_jh_line.setValue(HANGSENG_전고)
-                self.plot4_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot4_ovc_close_line.setValue(HANGSENG_전일종가)
                 self.plot4_ovc_open_line.setValue(HANGSENG_시가)
                 self.plot4_ovc_pivot_line.setValue(HANGSENG_피봇)
                 self.plot4_ovc_low_line.setValue(HANGSENG_저가)
@@ -38833,7 +38833,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(WTI_전저)
                 self.plot4_ovc_jh_line.setValue(WTI_전고)
-                self.plot4_ovc_close_line.setValue(WTI_종가)
+                self.plot4_ovc_close_line.setValue(WTI_전일종가)
                 self.plot4_ovc_open_line.setValue(WTI_시가)
                 self.plot4_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot4_ovc_low_line.setValue(WTI_저가)
@@ -38961,7 +38961,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(GOLD_전저)
                 self.plot4_ovc_jh_line.setValue(GOLD_전고)
-                self.plot4_ovc_close_line.setValue(GOLD_종가)
+                self.plot4_ovc_close_line.setValue(GOLD_전일종가)
                 self.plot4_ovc_open_line.setValue(GOLD_시가)
                 self.plot4_ovc_pivot_line.setValue(GOLD_피봇)
                 self.plot4_ovc_low_line.setValue(GOLD_저가)
@@ -39088,7 +39088,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot4_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot4_ovc_close_line.setValue(EUROFX_종가)
+                self.plot4_ovc_close_line.setValue(EUROFX_전일종가)
                 self.plot4_ovc_open_line.setValue(EUROFX_시가)
                 self.plot4_ovc_pivot_line.setValue(EUROFX_피봇)
                 self.plot4_ovc_low_line.setValue(EUROFX_저가)
@@ -39216,7 +39216,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_ovc_jl_line.setValue(YEN_전저)
                 self.plot4_ovc_jh_line.setValue(YEN_전고)
-                self.plot4_ovc_close_line.setValue(YEN_종가)
+                self.plot4_ovc_close_line.setValue(YEN_전일종가)
                 self.plot4_ovc_open_line.setValue(YEN_시가)
                 self.plot4_ovc_pivot_line.setValue(YEN_피봇)
                 self.plot4_ovc_low_line.setValue(YEN_저가)
@@ -39347,7 +39347,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if ADI_전고 > 0:
                     self.plot4_ovc_jh_line.setValue(ADI_전고)
 
-                self.plot4_ovc_close_line.setValue(ADI_종가)
+                self.plot4_ovc_close_line.setValue(ADI_전일종가)
                 self.plot4_ovc_open_line.setValue(ADI_시가)
 
                 if ADI_피봇 > 0:
@@ -39982,7 +39982,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(SP500_전저)
                 self.plot5_ovc_jh_line.setValue(SP500_전고)
-                self.plot5_ovc_close_line.setValue(SP500_종가)
+                self.plot5_ovc_close_line.setValue(SP500_전일종가)
                 self.plot5_ovc_open_line.setValue(SP500_시가)
                 self.plot5_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot5_ovc_low_line.setValue(SP500_저가)
@@ -40110,7 +40110,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(DOW_전저)
                 self.plot5_ovc_jh_line.setValue(DOW_전고)
-                self.plot5_ovc_close_line.setValue(DOW_종가)
+                self.plot5_ovc_close_line.setValue(DOW_전일종가)
                 self.plot5_ovc_open_line.setValue(DOW_시가)
                 self.plot5_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot5_ovc_low_line.setValue(DOW_저가)
@@ -40238,7 +40238,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot5_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot5_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot5_ovc_close_line.setValue(NASDAQ_전일종가)
                 self.plot5_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot5_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot5_ovc_low_line.setValue(NASDAQ_저가)
@@ -40366,7 +40366,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot5_ovc_jh_line.setValue(HANGSENG_전고)
-                self.plot5_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot5_ovc_close_line.setValue(HANGSENG_전일종가)
                 self.plot5_ovc_open_line.setValue(HANGSENG_시가)
                 self.plot5_ovc_pivot_line.setValue(HANGSENG_피봇)
                 self.plot5_ovc_low_line.setValue(HANGSENG_저가)
@@ -40494,7 +40494,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(WTI_전저)
                 self.plot5_ovc_jh_line.setValue(WTI_전고)
-                self.plot5_ovc_close_line.setValue(WTI_종가)
+                self.plot5_ovc_close_line.setValue(WTI_전일종가)
                 self.plot5_ovc_open_line.setValue(WTI_시가)
                 self.plot5_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot5_ovc_low_line.setValue(WTI_저가)
@@ -40622,7 +40622,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(GOLD_전저)
                 self.plot5_ovc_jh_line.setValue(GOLD_전고)
-                self.plot5_ovc_close_line.setValue(GOLD_종가)
+                self.plot5_ovc_close_line.setValue(GOLD_전일종가)
                 self.plot5_ovc_open_line.setValue(GOLD_시가)
                 self.plot5_ovc_pivot_line.setValue(GOLD_피봇)
                 self.plot5_ovc_low_line.setValue(GOLD_저가)
@@ -40749,7 +40749,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot5_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot5_ovc_close_line.setValue(EUROFX_종가)
+                self.plot5_ovc_close_line.setValue(EUROFX_전일종가)
                 self.plot5_ovc_open_line.setValue(EUROFX_시가)
                 self.plot5_ovc_pivot_line.setValue(EUROFX_피봇)
                 self.plot5_ovc_low_line.setValue(EUROFX_저가)
@@ -40877,7 +40877,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_ovc_jl_line.setValue(YEN_전저)
                 self.plot5_ovc_jh_line.setValue(YEN_전고)
-                self.plot5_ovc_close_line.setValue(YEN_종가)
+                self.plot5_ovc_close_line.setValue(YEN_전일종가)
                 self.plot5_ovc_open_line.setValue(YEN_시가)
                 self.plot5_ovc_pivot_line.setValue(YEN_피봇)
                 self.plot5_ovc_low_line.setValue(YEN_저가)
@@ -41008,7 +41008,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if ADI_전고 > 0:
                     self.plot5_ovc_jh_line.setValue(ADI_전고)
 
-                self.plot5_ovc_close_line.setValue(ADI_종가)
+                self.plot5_ovc_close_line.setValue(ADI_전일종가)
                 self.plot5_ovc_open_line.setValue(ADI_시가)
 
                 if ADI_피봇 > 0:
@@ -41643,7 +41643,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(SP500_전저)
                 self.plot6_ovc_jh_line.setValue(SP500_전고)
-                self.plot6_ovc_close_line.setValue(SP500_종가)
+                self.plot6_ovc_close_line.setValue(SP500_전일종가)
                 self.plot6_ovc_open_line.setValue(SP500_시가)
                 self.plot6_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot6_ovc_low_line.setValue(SP500_저가)
@@ -41771,7 +41771,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(DOW_전저)
                 self.plot6_ovc_jh_line.setValue(DOW_전고)
-                self.plot6_ovc_close_line.setValue(DOW_종가)
+                self.plot6_ovc_close_line.setValue(DOW_전일종가)
                 self.plot6_ovc_open_line.setValue(DOW_시가)
                 self.plot6_ovc_pivot_line.setValue(DOW_피봇)
                 self.plot6_ovc_low_line.setValue(DOW_저가)
@@ -41899,7 +41899,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(NASDAQ_전저)
                 self.plot6_ovc_jh_line.setValue(NASDAQ_전고)
-                self.plot6_ovc_close_line.setValue(NASDAQ_종가)
+                self.plot6_ovc_close_line.setValue(NASDAQ_전일종가)
                 self.plot6_ovc_open_line.setValue(NASDAQ_시가)
                 self.plot6_ovc_pivot_line.setValue(NASDAQ_피봇)
                 self.plot6_ovc_low_line.setValue(NASDAQ_저가)
@@ -42027,7 +42027,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(HANGSENG_전저)
                 self.plot6_ovc_jh_line.setValue(HANGSENG_전고)
-                self.plot6_ovc_close_line.setValue(HANGSENG_종가)
+                self.plot6_ovc_close_line.setValue(HANGSENG_전일종가)
                 self.plot6_ovc_open_line.setValue(HANGSENG_시가)
                 self.plot6_ovc_pivot_line.setValue(HANGSENG_피봇)
                 self.plot6_ovc_low_line.setValue(HANGSENG_저가)
@@ -42155,7 +42155,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(WTI_전저)
                 self.plot6_ovc_jh_line.setValue(WTI_전고)
-                self.plot6_ovc_close_line.setValue(WTI_종가)
+                self.plot6_ovc_close_line.setValue(WTI_전일종가)
                 self.plot6_ovc_open_line.setValue(WTI_시가)
                 self.plot6_ovc_pivot_line.setValue(WTI_피봇)
                 self.plot6_ovc_low_line.setValue(WTI_저가)
@@ -42283,7 +42283,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(GOLD_전저)
                 self.plot6_ovc_jh_line.setValue(GOLD_전고)
-                self.plot6_ovc_close_line.setValue(GOLD_종가)
+                self.plot6_ovc_close_line.setValue(GOLD_전일종가)
                 self.plot6_ovc_open_line.setValue(GOLD_시가)
                 self.plot6_ovc_pivot_line.setValue(GOLD_피봇)
                 self.plot6_ovc_low_line.setValue(GOLD_저가)
@@ -42410,7 +42410,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(EUROFX_전저)
                 self.plot6_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot6_ovc_close_line.setValue(EUROFX_종가)
+                self.plot6_ovc_close_line.setValue(EUROFX_전일종가)
                 self.plot6_ovc_open_line.setValue(EUROFX_시가)
                 self.plot6_ovc_pivot_line.setValue(EUROFX_피봇)
                 self.plot6_ovc_low_line.setValue(EUROFX_저가)
@@ -42538,7 +42538,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_ovc_jl_line.setValue(YEN_전저)
                 self.plot6_ovc_jh_line.setValue(YEN_전고)
-                self.plot6_ovc_close_line.setValue(YEN_종가)
+                self.plot6_ovc_close_line.setValue(YEN_전일종가)
                 self.plot6_ovc_open_line.setValue(YEN_시가)
                 self.plot6_ovc_pivot_line.setValue(YEN_피봇)
                 self.plot6_ovc_low_line.setValue(YEN_저가)
@@ -42669,7 +42669,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if ADI_전고 > 0:
                     self.plot6_ovc_jh_line.setValue(ADI_전고)
 
-                self.plot6_ovc_close_line.setValue(ADI_종가)
+                self.plot6_ovc_close_line.setValue(ADI_전일종가)
                 self.plot6_ovc_open_line.setValue(ADI_시가)
 
                 if ADI_피봇 > 0:
@@ -45547,7 +45547,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
                 if SP500_전일종가 > 0:
-                    SP500_기준_예상시가 = (근월물_선물_종가 * SP500_현재가) / SP500_전일종가
+                    SP500_기준_예상시가 = (근월물_선물_종가 * SP500_현재가) / SP500_Day_종가
                 else:
                     pass            
 
@@ -48015,15 +48015,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global old_cme_time_index
         global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph        
 
-        global SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
-        global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
-        global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
-        global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
-        global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
-        global YEN_종가, YEN_피봇, YEN_시가, YEN_저가, YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭, YEN_고가
-        global ADI_종가, ADI_피봇, ADI_시가, ADI_저가, ADI_현재가, ADI_전일대비, ADI_등락율, ADI_진폭, ADI_고가
-        global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
-        global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
+        global SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
+        global DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
+        global NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
+        global WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
+        global EUROFX_전일종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+        global YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭, YEN_고가
+        global ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_현재가, ADI_전일대비, ADI_등락율, ADI_진폭, ADI_고가
+        global HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
+        global GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
         global DOW_현재가_버퍼, SP500_현재가_버퍼, NASDAQ_현재가_버퍼, WTI_현재가_버퍼
         global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, YEN_과거가, ADI_과거가, HANGSENG_과거가, GOLD_과거가
         global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EUROFX_진폭비, YEN_진폭비, ADI_진폭비
@@ -48108,10 +48108,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    SP500_종가 = SP500_현재가 + SP500_전일대비
+                    SP500_전일종가 = SP500_현재가 + SP500_전일대비
                     SP500_종가대비 = -SP500_전일대비
                 else:
-                    SP500_종가 = SP500_현재가 - SP500_전일대비
+                    SP500_전일종가 = SP500_현재가 - SP500_전일대비
                     SP500_종가대비 = SP500_전일대비
 
                 SP500_등락율 = float(tickdata['등락율'])
@@ -48125,7 +48125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 SP500_시가대비 = int((SP500_현재가 - SP500_시가) / 0.25)
 
-                df_sp500_graph.at[0, 'price'] = SP500_종가
+                df_sp500_graph.at[0, 'price'] = SP500_전일종가
                 df_sp500_graph.at[1, 'price'] = SP500_시가
 
                 SP500_진폭비 = SP500_진폭 / SP500_시가           
@@ -48201,7 +48201,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if SP500_피봇 == 0:
 
                     if SP500_전저 > 0 and SP500_전고 > 0:
-                        SP500_피봇 = calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가, 2)
+                        SP500_피봇 = calc_pivot(SP500_전저, SP500_전고, SP500_전일종가, SP500_시가, 2)
                     else:
                         pass
                 else:
@@ -48225,8 +48225,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.2f}".format(SP500_종가) != self.tableWidget_cme.item(0, 3).text():
-                    item = QTableWidgetItem("{0:.2f}".format(SP500_종가))
+                if "{0:.2f}".format(SP500_전일종가) != self.tableWidget_cme.item(0, 3).text():
+                    item = QTableWidgetItem("{0:.2f}".format(SP500_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48341,10 +48341,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 DOW_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    DOW_종가 = int(DOW_현재가 + DOW_전일대비)
+                    DOW_전일종가 = int(DOW_현재가 + DOW_전일대비)
                     DOW_종가대비 = -DOW_전일대비
                 else:
-                    DOW_종가 = int(DOW_현재가 - DOW_전일대비)
+                    DOW_전일종가 = int(DOW_현재가 - DOW_전일대비)
                     DOW_종가대비 = DOW_전일대비
 
                 DOW_등락율 = float(tickdata['등락율'])                
@@ -48357,7 +48357,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 DOW_시가대비 = DOW_현재가 - DOW_시가
 
-                df_dow_graph.at[0, 'price'] = DOW_종가
+                df_dow_graph.at[0, 'price'] = DOW_전일종가
                 df_dow_graph.at[1, 'price'] = DOW_시가
                 
                 DOW_진폭비 = DOW_진폭 / DOW_시가
@@ -48421,7 +48421,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if DOW_피봇 == 0:
 
                     if DOW_전저 > 0 and DOW_전고 > 0:
-                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가, 0))
+                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_전일종가, DOW_시가, 0))
                     else:
                         pass
                 else:
@@ -48445,8 +48445,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(DOW_종가) != self.tableWidget_cme.item(1, 3).text():
-                    item = QTableWidgetItem("{0}".format(DOW_종가))
+                if "{0}".format(DOW_전일종가) != self.tableWidget_cme.item(1, 3).text():
+                    item = QTableWidgetItem("{0}".format(DOW_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48561,10 +48561,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 NASDAQ_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    NASDAQ_종가 = NASDAQ_현재가 + NASDAQ_전일대비
+                    NASDAQ_전일종가 = NASDAQ_현재가 + NASDAQ_전일대비
                     NASDAQ_종가대비 = -NASDAQ_전일대비
                 else:
-                    NASDAQ_종가 = NASDAQ_현재가 - NASDAQ_전일대비
+                    NASDAQ_전일종가 = NASDAQ_현재가 - NASDAQ_전일대비
                     NASDAQ_종가대비 = NASDAQ_전일대비
 
                 NASDAQ_등락율 = float(tickdata['등락율'])                 
@@ -48577,7 +48577,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 NASDAQ_시가대비 = int((NASDAQ_현재가 - NASDAQ_시가) / 0.25)                
 
-                df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
+                df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
                 df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
 
                 NASDAQ_진폭비 = NASDAQ_진폭 / NASDAQ_시가
@@ -48640,7 +48640,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if NASDAQ_피봇 == 0:
 
                     if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-                        NASDAQ_피봇 = calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가, 2)
+                        NASDAQ_피봇 = calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_시가, 2)
                     else:
                         pass
                 else:
@@ -48664,8 +48664,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.2f}".format(NASDAQ_종가) != self.tableWidget_cme.item(2, 3).text():
-                    item = QTableWidgetItem("{0:.2f}".format(NASDAQ_종가))
+                if "{0:.2f}".format(NASDAQ_전일종가) != self.tableWidget_cme.item(2, 3).text():
+                    item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48781,10 +48781,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 HANGSENG_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    HANGSENG_종가 = int(HANGSENG_현재가 + HANGSENG_전일대비)
+                    HANGSENG_전일종가 = int(HANGSENG_현재가 + HANGSENG_전일대비)
                     HANGSENG_종가대비 = -HANGSENG_전일대비
                 else:
-                    HANGSENG_종가 = int(HANGSENG_현재가 - HANGSENG_전일대비)
+                    HANGSENG_전일종가 = int(HANGSENG_현재가 - HANGSENG_전일대비)
                     HANGSENG_종가대비 = -HANGSENG_전일대비
               
                 HANGSENG_등락율 = float(tickdata['등락율'])
@@ -48797,7 +48797,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 HANGSENG_시가대비 = HANGSENG_현재가 - HANGSENG_시가                
 
-                df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+                df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
                 df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
 
                 HANGSENG_진폭비 = HANGSENG_진폭 / HANGSENG_시가
@@ -48807,7 +48807,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if HANGSENG_피봇 == 0:
 
                     if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                        HANGSENG_피봇 = int(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가, 0))
+                        HANGSENG_피봇 = int(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_시가, 0))
                     else:
                         pass
                 else:
@@ -48831,8 +48831,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0}".format(HANGSENG_종가) != self.tableWidget_cme.item(3, 3).text():
-                    item = QTableWidgetItem("{0}".format(HANGSENG_종가))
+                if "{0}".format(HANGSENG_전일종가) != self.tableWidget_cme.item(3, 3).text():
+                    item = QTableWidgetItem("{0}".format(HANGSENG_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -48947,10 +48947,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 WTI_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    WTI_종가 = round((WTI_현재가 + WTI_전일대비), 2)
+                    WTI_전일종가 = round((WTI_현재가 + WTI_전일대비), 2)
                     WTI_종가대비 = -WTI_전일대비
                 else:
-                    WTI_종가 = round((WTI_현재가 - WTI_전일대비), 2)
+                    WTI_전일종가 = round((WTI_현재가 - WTI_전일대비), 2)
                     WTI_종가대비 = WTI_전일대비
                 
                 WTI_등락율 = float(tickdata['등락율'])
@@ -48963,7 +48963,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 WTI_시가대비 = int((WTI_현재가 - WTI_시가) / 0.01)                
 
-                df_wti_graph.at[0, 'price'] = WTI_종가
+                df_wti_graph.at[0, 'price'] = WTI_전일종가
                 df_wti_graph.at[1, 'price'] = WTI_시가
 
                 WTI_진폭비 = WTI_진폭 / WTI_시가
@@ -49026,7 +49026,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if WTI_피봇 == 0:
 
                     if WTI_전저 > 0 and WTI_전고 > 0:
-                        WTI_피봇 = calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가, 2)
+                        WTI_피봇 = calc_pivot(WTI_전저, WTI_전고, WTI_전일종가, WTI_시가, 2)
                     else:
                         pass
                 else:
@@ -49050,8 +49050,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.2f}".format(WTI_종가) != self.tableWidget_cme.item(4, 3).text():
-                    item = QTableWidgetItem("{0:.2f}".format(WTI_종가))
+                if "{0:.2f}".format(WTI_전일종가) != self.tableWidget_cme.item(4, 3).text():
+                    item = QTableWidgetItem("{0:.2f}".format(WTI_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49166,10 +49166,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    GOLD_종가 = round((GOLD_현재가 + GOLD_전일대비), 1)
+                    GOLD_전일종가 = round((GOLD_현재가 + GOLD_전일대비), 1)
                     GOLD_종가대비 = -GOLD_전일대비
                 else:
-                    GOLD_종가 = round((GOLD_현재가 - GOLD_전일대비), 1)
+                    GOLD_전일종가 = round((GOLD_현재가 - GOLD_전일대비), 1)
                     GOLD_종가대비 = GOLD_전일대비
 
                 GOLD_등락율 = float(tickdata['등락율'])
@@ -49182,7 +49182,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 GOLD_시가대비 = int((GOLD_현재가 - GOLD_시가) / 0.1)                
 
-                df_gold_graph.at[0, 'price'] = GOLD_종가
+                df_gold_graph.at[0, 'price'] = GOLD_전일종가
                 df_gold_graph.at[1, 'price'] = GOLD_시가
 
                 GOLD_진폭비 = GOLD_진폭 / GOLD_시가
@@ -49190,7 +49190,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if GOLD_피봇 == 0:
 
                     if GOLD_전저 > 0 and GOLD_전고 > 0:
-                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가, 1)
+                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_시가, 1)
                     else:
                         pass
                 else:
@@ -49214,8 +49214,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(GOLD_종가) != self.tableWidget_cme.item(5, 3).text():
-                    item = QTableWidgetItem("{0:.1f}".format(GOLD_종가))
+                if "{0:.1f}".format(GOLD_전일종가) != self.tableWidget_cme.item(5, 3).text():
+                    item = QTableWidgetItem("{0:.1f}".format(GOLD_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49330,10 +49330,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EUROFX_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    EUROFX_종가 = round((EUROFX_현재가 + EUROFX_전일대비), 5)
+                    EUROFX_전일종가 = round((EUROFX_현재가 + EUROFX_전일대비), 5)
                     EUROFX_종가대비 = -EUROFX_전일대비
                 else:
-                    EUROFX_종가 = round((EUROFX_현재가 - EUROFX_전일대비), 5)
+                    EUROFX_전일종가 = round((EUROFX_현재가 - EUROFX_전일대비), 5)
                     EUROFX_종가대비 = EUROFX_전일대비
 
                 EUROFX_등락율 = float(tickdata['등락율'])
@@ -49346,7 +49346,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 EUROFX_시가대비 = int((EUROFX_현재가 - EUROFX_시가) / 0.00005)                
 
-                df_eurofx_graph.at[0, 'price'] = EUROFX_종가
+                df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
                 df_eurofx_graph.at[1, 'price'] = EUROFX_시가
 
                 EUROFX_진폭비 = EUROFX_진폭 / EUROFX_시가 
@@ -49354,7 +49354,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if EUROFX_피봇 == 0:
 
                     if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-                        EUROFX_피봇 = calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가, 5)
+                        EUROFX_피봇 = calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_전일종가, EUROFX_시가, 5)
                     else:
                         pass
                 else:
@@ -49378,8 +49378,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_종가) != self.tableWidget_cme.item(6, 3).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_종가))
+                if "{0:.5f}".format(EUROFX_전일종가) != self.tableWidget_cme.item(6, 3).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49494,10 +49494,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    YEN_종가 = round((YEN_현재가 + YEN_전일대비), 1)
+                    YEN_전일종가 = round((YEN_현재가 + YEN_전일대비), 1)
                     YEN_종가대비 = -YEN_전일대비
                 else:
-                    YEN_종가 = round((YEN_현재가 - YEN_전일대비), 1)
+                    YEN_전일종가 = round((YEN_현재가 - YEN_전일대비), 1)
                     YEN_종가대비 = YEN_전일대비
 
                 YEN_등락율 = float(tickdata['등락율'])
@@ -49510,7 +49510,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 YEN_시가대비 = int((YEN_현재가 - YEN_시가) / 0.5)
 
-                df_yen_graph.at[0, 'price'] = YEN_종가
+                df_yen_graph.at[0, 'price'] = YEN_전일종가
                 df_yen_graph.at[1, 'price'] = YEN_시가
 
                 YEN_진폭비 = YEN_진폭 / YEN_시가                                          
@@ -49518,7 +49518,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if YEN_피봇 == 0:
 
                     if YEN_전저 > 0 and YEN_전고 > 0:
-                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_종가, YEN_시가, 1)
+                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_전일종가, YEN_시가, 1)
                     else:
                         pass
                 else:
@@ -49542,8 +49542,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.1f}".format(YEN_종가) != self.tableWidget_cme.item(7, 3).text():
-                    item = QTableWidgetItem("{0:.1f}".format(YEN_종가))
+                if "{0:.1f}".format(YEN_전일종가) != self.tableWidget_cme.item(7, 3).text():
+                    item = QTableWidgetItem("{0:.1f}".format(YEN_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49659,10 +49659,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ADI_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    ADI_종가 = round((ADI_현재가 + ADI_전일대비), 5)
+                    ADI_전일종가 = round((ADI_현재가 + ADI_전일대비), 5)
                     ADI_종가대비 = -ADI_전일대비
                 else:
-                    ADI_종가 = round((ADI_현재가 - ADI_전일대비), 5)
+                    ADI_전일종가 = round((ADI_현재가 - ADI_전일대비), 5)
                     ADI_종가대비 = ADI_전일대비
 
                 ADI_등락율 = float(tickdata['등락율'])
@@ -49675,7 +49675,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 ADI_시가대비 = int((ADI_현재가 - ADI_시가) / 0.00005)
 
-                df_adi_graph.at[0, 'price'] = ADI_종가
+                df_adi_graph.at[0, 'price'] = ADI_전일종가
                 df_adi_graph.at[1, 'price'] = ADI_시가
 
                 ADI_진폭비 = ADI_진폭 / ADI_시가
@@ -49683,7 +49683,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if ADI_피봇 == 0:
 
                     if ADI_전저 > 0 and ADI_전고 > 0:
-                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_종가, ADI_시가, 5)
+                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_전일종가, ADI_시가, 5)
                     else:
                         pass
                 else:
@@ -49707,8 +49707,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(ADI_종가) != self.tableWidget_cme.item(8, 3).text():
-                    item = QTableWidgetItem("{0:.5f}".format(ADI_종가))
+                if "{0:.5f}".format(ADI_전일종가) != self.tableWidget_cme.item(8, 3).text():
+                    item = QTableWidgetItem("{0:.5f}".format(ADI_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49857,7 +49857,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if SP500_종가 - 0.25 * 5 <= SP500_저가 <= SP500_종가 + 0.25 * 5:
+        if SP500_전일종가 - 0.25 * 5 <= SP500_저가 <= SP500_전일종가 + 0.25 * 5:
             self.tableWidget_cme.item(0, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(0, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(0, 6).setBackground(QBrush(대맥점색))
@@ -49897,7 +49897,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if SP500_종가 - 0.25 * 5 <= SP500_고가 <= SP500_종가 + 0.25 * 5:
+        if SP500_전일종가 - 0.25 * 5 <= SP500_고가 <= SP500_전일종가 + 0.25 * 5:
             self.tableWidget_cme.item(0, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(0, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(0, 8).setBackground(QBrush(대맥점색))
@@ -49954,7 +49954,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if DOW_종가 - 1 * 5 <= DOW_저가 <= DOW_종가 + 1 * 5:
+        if DOW_전일종가 - 1 * 5 <= DOW_저가 <= DOW_전일종가 + 1 * 5:
             self.tableWidget_cme.item(1, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(1, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(1, 6).setBackground(QBrush(대맥점색))
@@ -49994,7 +49994,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if DOW_종가 - 1 * 5 <= DOW_고가 <= DOW_종가 + 1 * 5:
+        if DOW_전일종가 - 1 * 5 <= DOW_고가 <= DOW_전일종가 + 1 * 5:
             self.tableWidget_cme.item(1, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(1, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(1, 8).setBackground(QBrush(대맥점색))
@@ -50051,7 +50051,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if NASDAQ_종가 - 0.25 * 5 <= NASDAQ_저가 <= NASDAQ_종가 + 0.25 * 5:
+        if NASDAQ_전일종가 - 0.25 * 5 <= NASDAQ_저가 <= NASDAQ_전일종가 + 0.25 * 5:
             self.tableWidget_cme.item(2, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(2, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(2, 6).setBackground(QBrush(대맥점색))
@@ -50091,7 +50091,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if NASDAQ_종가 - 0.25 * 5 <= NASDAQ_고가 <= NASDAQ_종가 + 0.25 * 5:
+        if NASDAQ_전일종가 - 0.25 * 5 <= NASDAQ_고가 <= NASDAQ_전일종가 + 0.25 * 5:
             self.tableWidget_cme.item(2, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(2, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(2, 8).setBackground(QBrush(대맥점색))
@@ -50148,7 +50148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if HANGSENG_종가 - 1 * 5 <= HANGSENG_저가 <= HANGSENG_종가 + 1 * 5:
+        if HANGSENG_전일종가 - 1 * 5 <= HANGSENG_저가 <= HANGSENG_전일종가 + 1 * 5:
             self.tableWidget_cme.item(3, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(3, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(3, 6).setBackground(QBrush(대맥점색))
@@ -50188,7 +50188,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if HANGSENG_종가 - 1 * 5 <= HANGSENG_고가 <= HANGSENG_종가 + 1 * 5:
+        if HANGSENG_전일종가 - 1 * 5 <= HANGSENG_고가 <= HANGSENG_전일종가 + 1 * 5:
             self.tableWidget_cme.item(3, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(3, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(3, 8).setBackground(QBrush(대맥점색))
@@ -50245,7 +50245,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if WTI_종가 - 0.01 * 5 <= WTI_저가 <= WTI_종가 + 0.01 * 5:
+        if WTI_전일종가 - 0.01 * 5 <= WTI_저가 <= WTI_전일종가 + 0.01 * 5:
             self.tableWidget_cme.item(4, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(4, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(4, 6).setBackground(QBrush(대맥점색))
@@ -50285,7 +50285,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if WTI_종가 - 0.01 * 5 <= WTI_고가 <= WTI_종가 + 0.01 * 5:
+        if WTI_전일종가 - 0.01 * 5 <= WTI_고가 <= WTI_전일종가 + 0.01 * 5:
             self.tableWidget_cme.item(4, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(4, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(4, 8).setBackground(QBrush(대맥점색))
@@ -50342,7 +50342,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if GOLD_종가 - 0.1 * 5 <= GOLD_저가 <= GOLD_종가 + 0.1 * 5:
+        if GOLD_전일종가 - 0.1 * 5 <= GOLD_저가 <= GOLD_전일종가 + 0.1 * 5:
             self.tableWidget_cme.item(5, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(5, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(5, 6).setBackground(QBrush(대맥점색))
@@ -50382,7 +50382,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if GOLD_종가 - 0.1 * 5 <= GOLD_고가 <= GOLD_종가 + 0.1 * 5:
+        if GOLD_전일종가 - 0.1 * 5 <= GOLD_고가 <= GOLD_전일종가 + 0.1 * 5:
             self.tableWidget_cme.item(5, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(5, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(5, 8).setBackground(QBrush(대맥점색))
@@ -50439,7 +50439,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_종가 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_종가 + 0.00005 * 5:
+        if EUROFX_전일종가 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_전일종가 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 6).setBackground(QBrush(대맥점색))
@@ -50479,7 +50479,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_종가 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_종가 + 0.00005 * 5:
+        if EUROFX_전일종가 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_전일종가 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 8).setBackground(QBrush(대맥점색))
@@ -50536,7 +50536,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if YEN_종가 - 0.5 * 5 <= YEN_저가 <= YEN_종가 + 0.5 * 5:
+        if YEN_전일종가 - 0.5 * 5 <= YEN_저가 <= YEN_전일종가 + 0.5 * 5:
             self.tableWidget_cme.item(7, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(7, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(7, 6).setBackground(QBrush(대맥점색))
@@ -50576,7 +50576,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if YEN_종가 - 0.5 * 5 <= YEN_고가 <= YEN_종가 + 0.5 * 5:
+        if YEN_전일종가 - 0.5 * 5 <= YEN_고가 <= YEN_전일종가 + 0.5 * 5:
             self.tableWidget_cme.item(7, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(7, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(7, 8).setBackground(QBrush(대맥점색))
@@ -50633,7 +50633,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if ADI_종가 - 0.00005 * 5 <= ADI_저가 <= ADI_종가 + 0.00005 * 5:
+        if ADI_전일종가 - 0.00005 * 5 <= ADI_저가 <= ADI_전일종가 + 0.00005 * 5:
             self.tableWidget_cme.item(8, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(8, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(8, 6).setBackground(QBrush(대맥점색))
@@ -50673,7 +50673,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if ADI_종가 - 0.00005 * 5 <= ADI_고가 <= ADI_종가 + 0.00005 * 5:
+        if ADI_전일종가 - 0.00005 * 5 <= ADI_고가 <= ADI_전일종가 + 0.00005 * 5:
             self.tableWidget_cme.item(8, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(8, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(8, 8).setBackground(QBrush(대맥점색))
