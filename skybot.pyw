@@ -794,7 +794,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         SP500_전일종가 = float(temp[5])
-        print('SP500 종가 =', SP500_종가)
+        print('SP500 종가 =', SP500_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -809,7 +809,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         DOW_전일종가 = int(temp[4])
-        print('DOW 종가 =', DOW_종가)
+        print('DOW 종가 =', DOW_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -824,7 +824,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         NASDAQ_전일종가 = float(temp[4])
-        print('NASDAQ 종가 =', NASDAQ_종가)
+        print('NASDAQ 종가 =', NASDAQ_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -839,7 +839,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_전일종가 = int(temp[4])
-        print('HANGSENG 종가 =', HANGSENG_종가)
+        print('HANGSENG 종가 =', HANGSENG_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -854,7 +854,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         WTI_전일종가 = float(temp[4])
-        print('WTI 종가 =', WTI_종가)
+        print('WTI 종가 =', WTI_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -869,7 +869,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         GOLD_전일종가 = float(temp[4])
-        print('GOLD 종가 =', GOLD_종가)
+        print('GOLD 종가 =', GOLD_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -884,7 +884,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         EUROFX_전일종가 = float(temp[4])
-        print('EUROFX 종가 =', EUROFX_종가)
+        print('EUROFX 종가 =', EUROFX_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -899,7 +899,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         YEN_전일종가 = float(temp[4])
-        print('YEN 종가 =', YEN_종가)        
+        print('YEN 종가 =', YEN_전일종가)        
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -914,7 +914,7 @@ if os.path.isfile('nighttime.txt'):
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         ADI_전일종가 = float(temp[4])
-        print('ADI 종가 =', ADI_종가)       
+        print('ADI 종가 =', ADI_전일종가)       
 else:
     FUT_전일종가 = 0
     SP500_전저 = 0
