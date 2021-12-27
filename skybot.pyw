@@ -6102,7 +6102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if not dongsi_quote:
+                    if True:
                     
                         # 진성 의미가인 경우 blinking(매우 중요 !!!)
                         if flag_call_open_in_fixed_coreval:
@@ -6156,7 +6156,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                                      
 
                     # 비대칭장 탐색
-                    if not dongsi_quote and abs(call_otm_cdb_percent_mean) > 0 and abs(put_otm_cdb_percent_mean) > 0:
+                    if abs(call_otm_cdb_percent_mean) > 0 and abs(put_otm_cdb_percent_mean) > 0:
                         self.asym_detect(self.alternate_flag)
                     else:
                         pass                                                                  
