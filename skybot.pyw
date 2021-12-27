@@ -25146,9 +25146,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if SP500_전고 == 0:
                 sp500_전고 = SP500_전일종가
             else:
-                sp500_전고 = SP500_전고
-
-            SP500_전일종가 = SP500_전일종가                
+                sp500_전고 = SP500_전고              
 
             if SP500_피봇 == 0:
                 sp500_피봇 = SP500_전일종가
@@ -25240,8 +25238,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 dow_전고 = DOW_전고
 
-            DOW_전일종가 = DOW_전일종가
-
             if DOW_피봇 == 0:
                 dow_피봇 = DOW_전일종가
             else:
@@ -25332,8 +25328,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            NASDAQ_전일종가 = NASDAQ_전일종가
-
             if NASDAQ_피봇 == 0:
                 nasdaq_피봇 = NASDAQ_전일종가
             else:
@@ -25422,8 +25416,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
-
-            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
                 hangseng_피봇 = HANGSENG_전일종가
@@ -25515,8 +25507,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 wti_전고 = WTI_전고
 
-            WTI_전일종가 = WTI_전일종가
-
             if WTI_피봇 == 0:
                 wti_피봇 = WTI_전일종가
             else:
@@ -25605,8 +25595,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
-
-            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
                 gold_피봇 = GOLD_전일종가
@@ -25697,8 +25685,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 eurofx_전고 = EUROFX_전고
 
-            EUROFX_전일종가 = EUROFX_전일종가
-
             if EUROFX_피봇 == 0:
                 eurofx_피봇 = EUROFX_전일종가
             else:
@@ -25788,8 +25774,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 yen_전고 = YEN_전고
 
-            YEN_전일종가 = YEN_전일종가
-
             if YEN_피봇 == 0:
                 yen_피봇 = YEN_전일종가
             else:
@@ -25878,8 +25862,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
-
-            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
                 adi_피봇 = ADI_전일종가
@@ -26444,9 +26426,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if SP500_전고 == 0:
                 sp500_전고 = SP500_전일종가
             else:
-                sp500_전고 = SP500_전고
-
-            SP500_전일종가 = SP500_전일종가                
+                sp500_전고 = SP500_전고              
 
             if SP500_피봇 == 0:
                 sp500_피봇 = SP500_전일종가
@@ -26538,8 +26518,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 dow_전고 = DOW_전고
 
-            DOW_전일종가 = DOW_전일종가
-
             if DOW_피봇 == 0:
                 dow_피봇 = DOW_전일종가
             else:
@@ -26630,8 +26608,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            NASDAQ_전일종가 = NASDAQ_전일종가
-
             if NASDAQ_피봇 == 0:
                 nasdaq_피봇 = NASDAQ_전일종가
             else:
@@ -26720,8 +26696,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
-
-            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
                 hangseng_피봇 = HANGSENG_전일종가
@@ -26813,8 +26787,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 wti_전고 = WTI_전고
 
-            WTI_전일종가 = WTI_전일종가
-
             if WTI_피봇 == 0:
                 wti_피봇 = WTI_전일종가
             else:
@@ -26903,8 +26875,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
-
-            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
                 gold_피봇 = GOLD_전일종가
@@ -26995,8 +26965,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 eurofx_전고 = EUROFX_전고
 
-            EUROFX_전일종가 = EUROFX_전일종가
-
             if EUROFX_피봇 == 0:
                 eurofx_피봇 = EUROFX_전일종가
             else:
@@ -27086,8 +27054,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 yen_전고 = YEN_전고
 
-            YEN_전일종가 = YEN_전일종가
-
             if YEN_피봇 == 0:
                 yen_피봇 = YEN_전일종가
             else:
@@ -27176,8 +27142,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
-
-            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
                 adi_피봇 = ADI_전일종가
@@ -27742,9 +27706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if SP500_전고 == 0:
                 sp500_전고 = SP500_전일종가
             else:
-                sp500_전고 = SP500_전고
-
-            SP500_전일종가 = SP500_전일종가                
+                sp500_전고 = SP500_전고              
 
             if SP500_피봇 == 0:
                 sp500_피봇 = SP500_전일종가
@@ -27836,8 +27798,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 dow_전고 = DOW_전고
 
-            DOW_전일종가 = DOW_전일종가
-
             if DOW_피봇 == 0:
                 dow_피봇 = DOW_전일종가
             else:
@@ -27928,8 +27888,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            NASDAQ_전일종가 = NASDAQ_전일종가
-
             if NASDAQ_피봇 == 0:
                 nasdaq_피봇 = NASDAQ_전일종가
             else:
@@ -28018,8 +27976,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
-
-            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
                 hangseng_피봇 = HANGSENG_전일종가
@@ -28111,8 +28067,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 wti_전고 = WTI_전고
 
-            WTI_전일종가 = WTI_전일종가
-
             if WTI_피봇 == 0:
                 wti_피봇 = WTI_전일종가
             else:
@@ -28201,8 +28155,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
-
-            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
                 gold_피봇 = GOLD_전일종가
@@ -28293,8 +28245,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 eurofx_전고 = EUROFX_전고
 
-            EUROFX_전일종가 = EUROFX_전일종가
-
             if EUROFX_피봇 == 0:
                 eurofx_피봇 = EUROFX_전일종가
             else:
@@ -28384,8 +28334,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 yen_전고 = YEN_전고
 
-            YEN_전일종가 = YEN_전일종가
-
             if YEN_피봇 == 0:
                 yen_피봇 = YEN_전일종가
             else:
@@ -28474,8 +28422,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
-
-            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
                 adi_피봇 = ADI_전일종가
@@ -29040,9 +28986,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if SP500_전고 == 0:
                 sp500_전고 = SP500_전일종가
             else:
-                sp500_전고 = SP500_전고
-
-            SP500_전일종가 = SP500_전일종가                
+                sp500_전고 = SP500_전고               
 
             if SP500_피봇 == 0:
                 sp500_피봇 = SP500_전일종가
@@ -29134,8 +29078,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 dow_전고 = DOW_전고
 
-            DOW_전일종가 = DOW_전일종가
-
             if DOW_피봇 == 0:
                 dow_피봇 = DOW_전일종가
             else:
@@ -29226,8 +29168,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            NASDAQ_전일종가 = NASDAQ_전일종가
-
             if NASDAQ_피봇 == 0:
                 nasdaq_피봇 = NASDAQ_전일종가
             else:
@@ -29316,8 +29256,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
-
-            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
                 hangseng_피봇 = HANGSENG_전일종가
@@ -29409,8 +29347,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 wti_전고 = WTI_전고
 
-            WTI_전일종가 = WTI_전일종가
-
             if WTI_피봇 == 0:
                 wti_피봇 = WTI_전일종가
             else:
@@ -29499,8 +29435,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
-
-            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
                 gold_피봇 = GOLD_전일종가
@@ -29591,8 +29525,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 eurofx_전고 = EUROFX_전고
 
-            EUROFX_전일종가 = EUROFX_전일종가
-
             if EUROFX_피봇 == 0:
                 eurofx_피봇 = EUROFX_전일종가
             else:
@@ -29682,8 +29614,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 yen_전고 = YEN_전고
 
-            YEN_전일종가 = YEN_전일종가
-
             if YEN_피봇 == 0:
                 yen_피봇 = YEN_전일종가
             else:
@@ -29772,8 +29702,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
-
-            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
                 adi_피봇 = ADI_전일종가
@@ -30338,9 +30266,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if SP500_전고 == 0:
                 sp500_전고 = SP500_전일종가
             else:
-                sp500_전고 = SP500_전고
-
-            SP500_전일종가 = SP500_전일종가                
+                sp500_전고 = SP500_전고               
 
             if SP500_피봇 == 0:
                 sp500_피봇 = SP500_전일종가
@@ -30432,8 +30358,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 dow_전고 = DOW_전고
 
-            DOW_전일종가 = DOW_전일종가
-
             if DOW_피봇 == 0:
                 dow_피봇 = DOW_전일종가
             else:
@@ -30524,8 +30448,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            NASDAQ_전일종가 = NASDAQ_전일종가
-
             if NASDAQ_피봇 == 0:
                 nasdaq_피봇 = NASDAQ_전일종가
             else:
@@ -30614,8 +30536,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
-
-            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
                 hangseng_피봇 = HANGSENG_전일종가
@@ -30707,8 +30627,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 wti_전고 = WTI_전고
 
-            WTI_전일종가 = WTI_전일종가
-
             if WTI_피봇 == 0:
                 wti_피봇 = WTI_전일종가
             else:
@@ -30797,8 +30715,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
-
-            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
                 gold_피봇 = GOLD_전일종가
@@ -30889,8 +30805,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 eurofx_전고 = EUROFX_전고
 
-            EUROFX_전일종가 = EUROFX_전일종가
-
             if EUROFX_피봇 == 0:
                 eurofx_피봇 = EUROFX_전일종가
             else:
@@ -30980,8 +30894,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 yen_전고 = YEN_전고
 
-            YEN_전일종가 = YEN_전일종가
-
             if YEN_피봇 == 0:
                 yen_피봇 = YEN_전일종가
             else:
@@ -31070,8 +30982,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
-
-            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
                 adi_피봇 = ADI_전일종가
@@ -31636,9 +31546,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if SP500_전고 == 0:
                 sp500_전고 = SP500_전일종가
             else:
-                sp500_전고 = SP500_전고
-
-            SP500_전일종가 = SP500_전일종가                
+                sp500_전고 = SP500_전고              
 
             if SP500_피봇 == 0:
                 sp500_피봇 = SP500_전일종가
@@ -31730,8 +31638,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 dow_전고 = DOW_전고
 
-            DOW_전일종가 = DOW_전일종가
-
             if DOW_피봇 == 0:
                 dow_피봇 = DOW_전일종가
             else:
@@ -31822,8 +31728,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 nasdaq_전고 = NASDAQ_전고
 
-            NASDAQ_전일종가 = NASDAQ_전일종가
-
             if NASDAQ_피봇 == 0:
                 nasdaq_피봇 = NASDAQ_전일종가
             else:
@@ -31912,8 +31816,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 hangseng_전고 = HANGSENG_전일종가
             else:
                 hangseng_전고 = HANGSENG_전고
-
-            HANGSENG_전일종가 = HANGSENG_전일종가
 
             if HANGSENG_피봇 == 0:
                 hangseng_피봇 = HANGSENG_전일종가
@@ -32005,8 +31907,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 wti_전고 = WTI_전고
 
-            WTI_전일종가 = WTI_전일종가
-
             if WTI_피봇 == 0:
                 wti_피봇 = WTI_전일종가
             else:
@@ -32095,8 +31995,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 gold_전고 = GOLD_전일종가
             else:
                 gold_전고 = GOLD_전고
-
-            GOLD_전일종가 = GOLD_전일종가
 
             if GOLD_피봇 == 0:
                 gold_피봇 = GOLD_전일종가
@@ -32187,8 +32085,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 eurofx_전고 = EUROFX_전고
 
-            EUROFX_전일종가 = EUROFX_전일종가
-
             if EUROFX_피봇 == 0:
                 eurofx_피봇 = EUROFX_전일종가
             else:
@@ -32278,8 +32174,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 yen_전고 = YEN_전고
 
-            YEN_전일종가 = YEN_전일종가
-
             if YEN_피봇 == 0:
                 yen_피봇 = YEN_전일종가
             else:
@@ -32368,8 +32262,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 adi_전고 = ADI_전일종가
             else:
                 adi_전고 = ADI_전고
-
-            ADI_전일종가 = ADI_전일종가
 
             if ADI_피봇 == 0:
                 adi_피봇 = ADI_전일종가
