@@ -33161,7 +33161,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_17.setText(txt)
 
-                    self.plot1_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
+                        self.plot1_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot1_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
@@ -34827,7 +34828,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_27.setText(txt)
 
-                    self.plot2_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
+                        self.plot2_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot2_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
@@ -36489,7 +36491,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_37.setText(txt)
 
-                    self.plot3_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
+                        self.plot3_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot3_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
@@ -38152,7 +38155,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_47.setText(txt)
 
-                    self.plot4_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
+                        self.plot4_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot4_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
@@ -39813,7 +39817,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_57.setText(txt)
 
-                    self.plot5_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
+                        self.plot5_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot5_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
@@ -41474,7 +41479,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
                     self.label_67.setText(txt)
 
-                    self.plot6_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
+                        self.plot6_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
                         self.plot6_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
