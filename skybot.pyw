@@ -2197,6 +2197,11 @@ remove_set = {0, nan, NaN}
 flag_under_call = False
 flag_over_call = False
 
+근월물_매수호가_총수량 = 0
+근월물_매도호가_총수량 = 0
+차월물_매수호가_총수량 = 0
+차월물_매도호가_총수량 = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -32982,9 +32987,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_16.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'n_md_quote'], \
-                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+                    선물_근월물_호가_잔량비, 근월물_매수호가_총수량, 근월물_매도호가_총수량, 선물_차월물_호가_잔량비, \
+                    차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
                     self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33131,10 +33135,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[plot_time_index, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(풋_수정미결퍼센트, put_oi_init_percent)
                 self.label_16.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[plot_time_index, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(콜_수정미결퍼센트, call_oi_init_percent)
                 self.label_18.setText(txt)
 
                 self.plot1_call_oi_curve.setData(df_call_information_graph['open_interest'])
@@ -33175,10 +33179,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)               
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'program'])
+                if not np.isnan(프로그램_순매수):
+                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
                 
-                    if df_supply_demand_graph.at[plot_time_index, 'program'] <= 0:
+                    if 프로그램_순매수 <= 0:
                         self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33196,10 +33200,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_17.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_total'])
+                if not np.isnan(현물_총순매수):
+                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_total'] <= 0:
+                    if 현물_총순매수 <= 0:
                         self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33231,10 +33235,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'])
+                if not np.isnan(외인현물_순매수):
+                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] <= 0:
+                    if 외인현물_순매수 <= 0:
                         self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33252,10 +33256,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_17.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'])
+                if not np.isnan(외인선물_순매수):
+                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] <= 0:
+                    if 외인선물_순매수 <= 0:
                         self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34649,9 +34653,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_26.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'n_md_quote'], \
-                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+                    선물_근월물_호가_잔량비, 근월물_매수호가_총수량, 근월물_매도호가_총수량, 선물_차월물_호가_잔량비, \
+                    차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
                     self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34798,10 +34801,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[plot_time_index, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(풋_수정미결퍼센트, put_oi_init_percent)
                 self.label_26.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[plot_time_index, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(콜_수정미결퍼센트, call_oi_init_percent)
                 self.label_28.setText(txt)
 
                 self.plot2_call_oi_curve.setData(df_call_information_graph['open_interest'])
@@ -34842,10 +34845,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'program'])
+                if not np.isnan(프로그램_순매수):
+                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'program'] <= 0:
+                    if 프로그램_순매수 <= 0:
                         self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34863,10 +34866,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_27.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_total'])
+                if not np.isnan(현물_총순매수):
+                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_total'] <= 0:
+                    if 현물_총순매수 <= 0:
                         self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34898,10 +34901,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'])
+                if not np.isnan(외인현물_순매수):
+                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] <= 0:
+                    if 외인현물_순매수 <= 0:
                         self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34919,10 +34922,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_27.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'])
+                if not np.isnan(외인선물_순매수):
+                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] <= 0:
+                    if 외인선물_순매수 <= 0:
                         self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36314,9 +36317,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_36.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'n_md_quote'], \
-                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+                    선물_근월물_호가_잔량비, 근월물_매수호가_총수량, 근월물_매도호가_총수량, 선물_차월물_호가_잔량비, \
+                    차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
                     self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36461,10 +36463,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[plot_time_index, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(풋_수정미결퍼센트, put_oi_init_percent)
                 self.label_36.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[plot_time_index, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(콜_수정미결퍼센트, call_oi_init_percent)
                 self.label_38.setText(txt)
 
                 self.plot3_call_oi_curve.setData(df_call_information_graph['open_interest'])
@@ -36505,10 +36507,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'program'])
+                if not np.isnan(프로그램_순매수):
+                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'program'] <= 0:
+                    if 프로그램_순매수 <= 0:
                         self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36526,10 +36528,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_37.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_total'])
+                if not np.isnan(현물_총순매수):
+                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_total'] <= 0:
+                    if 현물_총순매수 <= 0:
                         self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36561,10 +36563,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'])
+                if not np.isnan(외인현물_순매수):
+                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] <= 0:
+                    if 외인현물_순매수 <= 0:
                         self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36582,10 +36584,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_37.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'])
+                if not np.isnan(외인선물_순매수):
+                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] <= 0:
+                    if 외인선물_순매수 <= 0:
                         self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37976,9 +37978,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_46.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'n_md_quote'], \
-                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+                    선물_근월물_호가_잔량비, 근월물_매수호가_총수량, 근월물_매도호가_총수량, 선물_차월물_호가_잔량비, \
+                    차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
                     self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38125,10 +38126,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[plot_time_index, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(풋_수정미결퍼센트, put_oi_init_percent)
                 self.label_46.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[plot_time_index, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(콜_수정미결퍼센트, call_oi_init_percent)
                 self.label_48.setText(txt)
 
                 self.plot4_call_oi_curve.setData(df_call_information_graph['open_interest'])
@@ -38169,10 +38170,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'program'])
+                if not np.isnan(프로그램_순매수):
+                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'program'] <= 0:
+                    if 프로그램_순매수 <= 0:
                         self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38190,10 +38191,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_47.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_total'])
+                if not np.isnan(현물_총순매수):
+                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_total'] <= 0:
+                    if 현물_총순매수 <= 0:
                         self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38225,10 +38226,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'])
+                if not np.isnan(외인현물_순매수):
+                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] <= 0:
+                    if 외인현물_순매수 <= 0:
                         self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38246,10 +38247,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_47.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'])
+                if not np.isnan(외인선물_순매수):
+                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] <= 0:
+                    if 외인선물_순매수 <= 0:
                         self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39641,9 +39642,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_56.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'n_md_quote'], \
-                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+                    선물_근월물_호가_잔량비, 근월물_매수호가_총수량, 근월물_매도호가_총수량, 선물_차월물_호가_잔량비, \
+                    차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
                     self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39787,10 +39787,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[plot_time_index, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(풋_수정미결퍼센트, put_oi_init_percent)
                 self.label_56.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[plot_time_index, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(콜_수정미결퍼센트, call_oi_init_percent)
                 self.label_58.setText(txt)
 
                 self.plot5_call_oi_curve.setData(df_call_information_graph['open_interest'])
@@ -39831,10 +39831,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'program'])
+                if not np.isnan(프로그램_순매수):
+                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'program'] <= 0:
+                    if 프로그램_순매수 <= 0:
                         self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39852,10 +39852,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_57.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_total'])
+                if not np.isnan(현물_총순매수):
+                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_total'] <= 0:
+                    if 현물_총순매수 <= 0:
                         self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39887,10 +39887,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'])
+                if not np.isnan(외인현물_순매수):
+                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] <= 0:
+                    if 외인현물_순매수 <= 0:
                         self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39908,10 +39908,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_57.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'])
+                if not np.isnan(외인선물_순매수):
+                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] <= 0:
+                    if 외인선물_순매수 <= 0:
                         self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41303,9 +41303,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_66.setText(txt)
 
                 txt = " CM: {0:.2f}({1:.0f}/{2:.0f}), NM: {3:.2f}({4:.0f}/{5:.0f}), [▼: {6:.2f}, ▲: {7:.2f}] ".format(\
-                    선물_근월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'c_md_quote'], \
-                    선물_차월물_호가_잔량비, df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'], df_futures_cm_graph.at[plot_time_index, 'n_md_quote'], \
-                    차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
+                    선물_근월물_호가_잔량비, 근월물_매수호가_총수량, 근월물_매도호가_총수량, 선물_차월물_호가_잔량비, \
+                    차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
                     self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41449,10 +41448,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1:.2f}) ".format(df_put_information_graph.at[plot_time_index, 'open_interest'], put_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(풋_수정미결퍼센트, put_oi_init_percent)
                 self.label_66.setText(txt)
                 
-                txt = " {0:.2f}({1:.2f}) ".format(df_call_information_graph.at[plot_time_index, 'open_interest'], call_oi_init_percent)
+                txt = " {0:.2f}({1:.2f}) ".format(콜_수정미결퍼센트, call_oi_init_percent)
                 self.label_68.setText(txt)
 
                 self.plot6_call_oi_curve.setData(df_call_information_graph['open_interest'])
@@ -41493,10 +41492,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'program']):
-                    txt = " 프로그램 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'program'])
+                if not np.isnan(프로그램_순매수):
+                    txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'program'] <= 0:
+                    if 프로그램_순매수 <= 0:
                         self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41514,10 +41513,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_67.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_total']):
-                    txt = " 현물합 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_total'])
+                if not np.isnan(현물_총순매수):
+                    txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_total'] <= 0:
+                    if 현물_총순매수 <= 0:
                         self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41549,10 +41548,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner']):
-                    txt = " 외인현물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'])
+                if not np.isnan(외인현물_순매수):
+                    txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] <= 0:
+                    if 외인현물_순매수 <= 0:
                         self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41570,10 +41569,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.label_67.setText(txt)
                 
-                if not np.isnan(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner']):
-                    txt = " 외인선물 : {0:.0f} ".format(df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'])
+                if not np.isnan(외인선물_순매수):
+                    txt = " 외인선물 : {0:.0f} ".format(외인선물_순매수)
 
-                    if df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] <= 0:
+                    if 외인선물_순매수 <= 0:
                         self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47154,6 +47153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_under_call, flag_over_call
         global 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대
         global plot_time_index
+        global 근월물_매수호가_총수량, 근월물_매도호가_총수량, 차월물_매수호가_총수량, 차월물_매도호가_총수량
 
         try:
             dt = datetime.now()
@@ -47171,20 +47171,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if tickdata['단축코드'] == GMSHCODE:
 
+                근월물_매수호가_총수량 = int(tickdata['매수호가총수량'])
+                근월물_매도호가_총수량 = int(tickdata['매도호가총수량'])
+
                 # 그래프관련 처리 먼저...
                 if int(tickdata['매도호가총건수']) > 0:
                     fut_quote_count_ratio = int(tickdata['매수호가총건수']) / int(tickdata['매도호가총건수'])
                 else:
                     pass
 
-                선물_호가순매수 = int(tickdata['매수호가총수량']) - int(tickdata['매도호가총수량'])
+                선물_호가순매수 = 근월물_매수호가_총수량 - 근월물_매도호가_총수량
+                
+                df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'] = 근월물_매수호가_총수량
+                df_futures_cm_graph.at[plot_time_index, 'c_md_quote'] = 근월물_매도호가_총수량
 
-                df_futures_cm_graph.at[plot_time_index, 'c_ms_quote'] = int(tickdata['매수호가총수량'])
-                df_futures_cm_graph.at[plot_time_index, 'c_md_quote'] = int(tickdata['매도호가총수량'])
+                if 근월물_매수호가_총수량 > 0 and 근월물_매도호가_총수량 > 0:
 
-                if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
-
-                    선물_근월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
+                    선물_근월물_호가_잔량비 = 근월물_매수호가_총수량 / 근월물_매도호가_총수량
                     df_futures_cm_graph.at[plot_time_index, 'c_quote_remainder_ratio'] = 선물_근월물_호가_잔량비
 
                     cm_fut_quote_min = df_futures_cm_graph['c_quote_remainder_ratio'].min()
@@ -47223,7 +47226,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.매도건수.value)
 
-                item = QTableWidgetItem("{0}".format(format(int(tickdata['매수호가총수량']), ',')))
+                item = QTableWidgetItem("{0}".format(format(근월물_매수호가_총수량, ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
@@ -47233,7 +47236,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnToContents(Futures_column.매수잔량.value)
 
-                item = QTableWidgetItem("{0}".format(format(int(tickdata['매도호가총수량']), ',')))
+                item = QTableWidgetItem("{0}".format(format(근월물_매도호가_총수량, ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
@@ -47246,18 +47249,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 차월물 처리
             elif tickdata['단축코드'] == CMSHCODE:
 
+                차월물_매수호가_총수량 = int(tickdata['매수호가총수량'])
+                차월물_매도호가_총수량 = int(tickdata['매도호가총수량'])
+
                 # 그래프관련 처리 먼저...
                 if int(tickdata['매도호가총건수']) > 0:
                     fut_cms_quote_count_ratio = int(tickdata['매수호가총건수']) / int(tickdata['매도호가총건수'])
                 else:
                     pass
 
-                df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'] = int(tickdata['매수호가총수량'])
-                df_futures_cm_graph.at[plot_time_index, 'n_md_quote'] = int(tickdata['매도호가총수량'])
+                df_futures_cm_graph.at[plot_time_index, 'n_ms_quote'] = 차월물_매수호가_총수량
+                df_futures_cm_graph.at[plot_time_index, 'n_md_quote'] = 차월물_매도호가_총수량
 
-                if int(tickdata['매수호가총수량']) > 0 and int(tickdata['매도호가총수량']) > 0:
+                if 차월물_매수호가_총수량 > 0 and 차월물_매도호가_총수량 > 0:
 
-                    선물_차월물_호가_잔량비 = int(tickdata['매수호가총수량']) / int(tickdata['매도호가총수량'])
+                    선물_차월물_호가_잔량비 = 차월물_매수호가_총수량 / 차월물_매도호가_총수량
                     df_futures_cm_graph.at[plot_time_index, 'n_quote_remainder_ratio'] = 선물_차월물_호가_잔량비
 
                     if flag_market_service:
@@ -47316,7 +47322,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
 
-                item = QTableWidgetItem("{0}".format(format(int(tickdata['매수호가총수량']), ',')))
+                item = QTableWidgetItem("{0}".format(format(차월물_매수호가_총수량, ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
@@ -47324,7 +47330,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
 
-                item = QTableWidgetItem("{0}".format(format(int(tickdata['매도호가총수량']), ',')))
+                item = QTableWidgetItem("{0}".format(format(차월물_매도호가_총수량, ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
