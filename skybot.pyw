@@ -33052,7 +33052,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'])
 
-                self.plot1_cme_drate_curve.setData(df_sp500_graph['drate'])
+                self.plot1_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -33060,10 +33060,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_17.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot1_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                        self.plot1_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot1_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
+                        self.plot1_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'])                        
                 else:
                     pass                              
             
@@ -34718,7 +34718,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot2_put_drate_curve.setData(df_put_information_graph['drate'])
 
-                self.plot2_cme_drate_curve.setData(df_sp500_graph['drate'])
+                self.plot2_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -34726,10 +34726,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_27.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot2_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                        self.plot2_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot2_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
+                        self.plot2_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'])                        
                 else:
                     pass
             
@@ -36380,7 +36380,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot3_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot3_cme_drate_curve.setData(df_sp500_graph['drate'])
+                self.plot3_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -36388,10 +36388,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_37.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot3_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                        self.plot3_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot3_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
+                        self.plot3_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'])                        
                 else:
                     pass
             
@@ -38043,7 +38043,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot4_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot4_cme_drate_curve.setData(df_sp500_graph['drate'])
+                self.plot4_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -38051,10 +38051,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_47.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot4_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                        self.plot4_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot4_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
+                        self.plot4_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'])                        
                 else:
                     pass 
             
@@ -39704,7 +39704,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot5_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot5_cme_drate_curve.setData(df_sp500_graph['drate'])
+                self.plot5_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -39712,10 +39712,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_57.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot5_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                        self.plot5_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot5_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
+                        self.plot5_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'])                        
                 else:
                     pass
             
@@ -41365,7 +41365,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot6_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot6_cme_drate_curve.setData(df_sp500_graph['drate'])
+                self.plot6_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -41373,10 +41373,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_67.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot6_fut_cm_drate_curve.setData(df_futures_cm_graph['drate'])
+                        self.plot6_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'])
 
                     if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot6_fut_nm_drate_curve.setData(df_futures_nm_graph['drate'])                        
+                        self.plot6_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'])                        
                 else:
                     pass 
             
@@ -45467,7 +45467,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(검정색))
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-                df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+                #df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+                df_futures_cm_graph.at[plot_time_index, 'drate'] = 근월물_선물_종가대비_등락율
 
                 if fut_quote_energy_direction == 'call':
 
@@ -46846,7 +46847,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_fut_vs_sp500_drate_direction = False
 
                 #df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
-                df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_시가대비_등락율                
+                df_futures_cm_graph.at[plot_time_index, 'drate'] = 근월물_선물_시가대비_등락율                
 
                 self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
@@ -46890,7 +46891,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
 
-                df_futures_nm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
+                #df_futures_nm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
+                df_futures_nm_graph.at[plot_time_index, 'drate'] = 차월물_선물_시가대비_등락율
 
                 # 1T OHLC 생성
                 if plot_time_index != old_cme_time_index:
@@ -48020,20 +48022,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_sp500_graph.at[0, 'price'] = SP500_전일종가
                 df_sp500_graph.at[1, 'price'] = SP500_시가
 
-                SP500_진폭비 = SP500_진폭 / SP500_시가           
-
-                drate_temp = plot_drate_scale_factor * SP500_시가대비_등락율                    
+                SP500_진폭비 = SP500_진폭 / SP500_시가                                    
 
                 # 등락율에 스파이크 발생하는 문제 임시해결
+                '''
+                drate_temp = plot_drate_scale_factor * SP500_시가대비_등락율
+
                 if drate_temp > 50:
                     drate_temp = 50.0
                 elif drate_temp < -50:
                     drate_temp = -50.0
                 else:
                     pass
+                '''
                 
                 # 그래프 등락율 가격갱신
-                df_sp500_graph.at[plot_time_index, 'drate'] = drate_temp
+                #df_sp500_graph.at[plot_time_index, 'drate'] = drate_temp
+                df_sp500_graph.at[plot_time_index, 'drate'] = SP500_시가대비_등락율
 
                 SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
