@@ -33065,7 +33065,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if drate_gap > 0:
                         self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif drate_gap < 0':
+                    elif drate_gap < 0:
                         self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34739,7 +34739,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if drate_gap > 0:
                         self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif drate_gap < 0':
+                    elif drate_gap < 0:
                         self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36409,7 +36409,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if drate_gap > 0:
                         self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif drate_gap < 0':
+                    elif drate_gap < 0:
                         self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38080,7 +38080,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if drate_gap > 0:
                         self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif drate_gap < 0':
+                    elif drate_gap < 0:
                         self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39749,7 +39749,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if drate_gap > 0:
                         self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif drate_gap < 0':
+                    elif drate_gap < 0:
                         self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41418,7 +41418,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if drate_gap > 0:
                         self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif drate_gap < 0':
+                    elif drate_gap < 0:
                         self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
