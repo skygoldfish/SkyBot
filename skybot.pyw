@@ -43105,22 +43105,22 @@ class Xing(object):
                         if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
                             
                             if flag_call_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, call_low_val_in_fixed_coreval)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_call_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, call_high_val_in_fixed_coreval)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, put_low_val_in_fixed_coreval)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                             if flag_put_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, put_high_val_in_fixed_coreval)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 
