@@ -6733,14 +6733,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if call_ms_oneway:
 
                 if blink:
-                    self.label_main_time.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.label_main_time.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                 else:
                     self.label_main_time.setStyleSheet('background-color: white; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
 
             # 콜 매수 비대칭장
             elif call_ms_asymmetric:
 
-                self.label_main_time.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                self.label_main_time.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
 
             # 콜 매도 비대칭장
             elif call_md_asymmetric:
@@ -8541,7 +8541,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = call_저가.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))  
+            self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))  
         else:
             pass
 
@@ -8552,7 +8552,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = call_고가.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))  
+            self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))  
         else:
             pass
 
@@ -8700,7 +8700,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = call_시가.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))     
+            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
         else:
             pass
 
@@ -8711,7 +8711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = call_시가.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))     
+            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
         else:
             pass
 
@@ -8722,7 +8722,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = call_시가.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))     
+            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
         else:
             pass
 
@@ -8733,7 +8733,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = call_시가.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))     
+            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
         else:
             pass
 
@@ -8899,13 +8899,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 저가 in call_시가_node_list:
                         self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if 고가 in call_시가_node_list:
                         self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                     else:
                         pass                   
                 else:
@@ -9240,25 +9240,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 시가 in put_저가_node_list:
                         self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if 시가 in put_고가_node_list:
                         self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if 시가 in call_저가_node_list:
                         self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if 시가 in call_고가_node_list:
                         self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                     else:
                         pass     
                 else:
@@ -9315,7 +9315,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = put_저가.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))            
+            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))            
         else:
             pass
 
@@ -9326,7 +9326,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             i = put_고가.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
-            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))            
+            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))            
         else:
             pass
 
@@ -9613,13 +9613,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 저가 in call_시가_node_list:
                         self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if 고가 in call_시가_node_list:
                         self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
-                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                     else:
                         pass                    
                 else:
@@ -22303,7 +22303,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_14.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_14.setText(" 피봇 ")
         
-        self.label_15.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_15.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_15.setText(" 시가 ")
         
         self.label_16.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -22340,7 +22340,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_24.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_24.setText(" 피봇 ")
         
-        self.label_25.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_25.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_25.setText(" 시가 ")
         
         self.label_26.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -22377,7 +22377,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_34.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_34.setText(" 피봇 ")
         
-        self.label_35.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_35.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_35.setText(" 시가 ")
         
         self.label_36.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -22414,7 +22414,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_44.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_44.setText(" 피봇 ")
         
-        self.label_45.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_45.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_45.setText(" 시가 ")
         
         self.label_46.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -22451,7 +22451,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_54.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_54.setText(" 피봇 ")
         
-        self.label_55.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_55.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_55.setText(" 시가 ")
         
         self.label_56.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -22488,7 +22488,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_64.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_64.setText(" 피봇 ")
         
-        self.label_65.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+        self.label_65.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_65.setText(" 시가 ")
         
         self.label_66.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -24943,7 +24943,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_17.setText(" - ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 콜잔량비 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -24976,7 +24976,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_17.setText(" 선물체결량 ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 콜체결량 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25032,7 +25032,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_17.setText(" - ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 콜잔량비 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25065,7 +25065,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_17.setText(" - ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 콜미결 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25094,7 +25094,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_17.setText(" 선물등락율 ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 콜등락율 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -25120,7 +25120,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_17.setText(" 선물체결량 ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 현물합 ")
 
         # 외인수급
@@ -25137,7 +25137,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_17.setText(" 선물체결량 ")
 
-            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 외인선물 ")
 
         # SP500
@@ -26223,7 +26223,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_27.setText(" 선물잔량비 ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 콜잔량비 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26256,7 +26256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_27.setText(" 선물체결량 ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 콜체결량 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26312,7 +26312,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_27.setText(" - ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 콜잔량비 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26345,7 +26345,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_27.setText(" - ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 콜미결 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26374,7 +26374,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_27.setText(" 선물등락율 ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 콜등락율 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -26400,7 +26400,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_27.setText(" 선물체결량 ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 현물합 ")
 
         # 외인수급
@@ -26417,7 +26417,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_27.setText(" 선물체결량 ")
 
-            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 외인선물 ")
 
         # SP500
@@ -27503,7 +27503,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_37.setText(" 선물잔량비 ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 콜잔량비 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27536,7 +27536,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_37.setText(" 선물체결량 ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 콜체결량 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27592,7 +27592,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_37.setText(" - ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 콜잔량비 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27625,7 +27625,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_37.setText(" - ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 콜미결 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27654,7 +27654,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_37.setText(" 선물등락율 ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 콜등락율 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -27680,7 +27680,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_37.setText(" 선물체결량 ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 현물합 ")
 
         # 외인수급
@@ -27697,7 +27697,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_37.setText(" 선물체결량 ")
 
-            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 외인선물 ")
 
         # SP500
@@ -28783,7 +28783,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_47.setText(" 선물잔량비 ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 콜잔량비 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28816,7 +28816,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_47.setText(" 선물체결량 ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 콜체결량 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28872,7 +28872,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_47.setText(" - ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 콜잔량비 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28905,7 +28905,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_47.setText(" - ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 콜미결 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28934,7 +28934,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_47.setText(" 선물등락율 ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 콜등락율 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -28960,7 +28960,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_47.setText(" 선물체결량 ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 현물합 ")
 
         # 외인수급
@@ -28977,7 +28977,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_47.setText(" 선물체결량 ")
 
-            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 외인선물 ")
 
         # SP500
@@ -30063,7 +30063,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_57.setText(" 선물잔량비 ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 콜잔량비 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30096,7 +30096,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_57.setText(" 선물체결량 ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 콜체결량 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30152,7 +30152,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_57.setText(" - ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 콜잔량비 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30185,7 +30185,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_57.setText(" - ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 콜미결 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30214,7 +30214,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_57.setText(" 선물등락율 ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 콜등락율 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -30240,7 +30240,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_57.setText(" 선물체결량 ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 현물합 ")
 
         # 외인수급
@@ -30257,7 +30257,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_57.setText(" 선물체결량 ")
 
-            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 외인선물 ")
 
         # SP500
@@ -31343,7 +31343,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_67.setText(" 선물잔량비 ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 콜잔량비 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31376,7 +31376,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_67.setText(" 선물체결량 ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 콜체결량 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31432,7 +31432,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_67.setText(" - ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 콜잔량비 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31465,7 +31465,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_67.setText(" - ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 콜미결 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31494,7 +31494,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_67.setText(" 선물등락율 ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 콜등락율 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -31520,7 +31520,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_67.setText(" 선물체결량 ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 현물합 ")
 
         # 외인수급
@@ -31537,7 +31537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_67.setText(" 선물체결량 ")
 
-            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 외인선물 ")
 
         # SP500
@@ -32812,7 +32812,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass               
 
@@ -32821,7 +32821,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_graph.at[plot_time_index, 'PSAR'], 선물_호가순매수)
                         self.label_p1_2.setText(txt)
@@ -32844,7 +32844,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:                        
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -32867,7 +32867,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -32888,7 +32888,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_17.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 elif fut_quote_energy_direction == 'put':
                     self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
@@ -32920,7 +32920,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                 if fut_cm_volume_power > 0:
-                    self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_17.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33064,7 +33064,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
 
                     if drate_gap > 0:
-                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_17.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     elif drate_gap < 0:
                         self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
@@ -33103,7 +33103,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 프로그램_순매수 <= 0:
                             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_16.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_16.setText(txt)
                     else:
@@ -33112,7 +33112,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_17.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33124,7 +33124,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 현물_총순매수 <= 0:
                             self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_18.setText(txt)
                     else:
@@ -33159,7 +33159,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인현물_순매수 <= 0:
                             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_16.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_16.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_16.setText(txt)
                     else:
@@ -33168,7 +33168,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_17.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33180,7 +33180,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인선물_순매수 <= 0:
                             self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_18.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_18.setText(txt)
                     else:
@@ -33256,7 +33256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -33265,7 +33265,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'PSAR'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'BBMiddle'], df_sp500_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -33288,7 +33288,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_sp500_graph.at[plot_time_index, 'MAMA'] < df_sp500_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33311,7 +33311,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'OE_CONV'], df_sp500_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -33384,7 +33384,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -33393,7 +33393,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'PSAR'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -33416,7 +33416,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_dow_graph.at[plot_time_index, 'MAMA'] < df_dow_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33439,7 +33439,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'OE_CONV'] < df_dow_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -33512,7 +33512,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -33521,7 +33521,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -33544,7 +33544,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_nasdaq_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33567,7 +33567,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -33641,7 +33641,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -33650,7 +33650,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -33673,7 +33673,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_hangseng_graph.at[plot_time_index, 'MAMA'] < df_hangseng_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33696,7 +33696,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -33768,7 +33768,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -33777,7 +33777,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'PSAR'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'BBMiddle'], df_wti_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -33800,7 +33800,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_wti_graph.at[plot_time_index, 'MAMA'] < df_wti_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33823,7 +33823,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'OE_CONV'] < df_wti_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'OE_CONV'], df_wti_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -33896,7 +33896,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -33905,7 +33905,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'PSAR'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'BBMiddle'], df_gold_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -33928,7 +33928,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_gold_graph.at[plot_time_index, 'MAMA'] < df_gold_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -33951,7 +33951,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'OE_CONV'] < df_gold_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'OE_CONV'], df_gold_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -34023,7 +34023,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -34032,7 +34032,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -34055,7 +34055,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34078,7 +34078,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -34151,7 +34151,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -34160,7 +34160,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'PSAR'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'BBMiddle'], df_yen_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -34183,7 +34183,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_yen_graph.at[plot_time_index, 'MAMA'] < df_yen_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34206,7 +34206,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'OE_CONV'] < df_yen_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'OE_CONV'], df_yen_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -34285,7 +34285,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -34294,7 +34294,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'PSAR'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
@@ -34317,7 +34317,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_adi_graph.at[plot_time_index, 'MAMA'] < df_adi_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p1_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34340,7 +34340,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'OE_CONV'] < df_adi_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'OE_CONV'], df_adi_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
@@ -34486,7 +34486,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass               
 
@@ -34495,7 +34495,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_graph.at[plot_time_index, 'PSAR'], 선물_호가순매수)
                         self.label_p2_2.setText(txt)
@@ -34518,7 +34518,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:                        
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34541,7 +34541,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -34562,7 +34562,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_27.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 elif fut_quote_energy_direction == 'put':
                     self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
@@ -34594,7 +34594,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                 if fut_cm_volume_power > 0:
-                    self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_27.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34738,7 +34738,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
 
                     if drate_gap > 0:
-                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_27.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     elif drate_gap < 0:
                         self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
@@ -34777,7 +34777,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 프로그램_순매수 <= 0:
                             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_26.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_26.setText(txt)
                     else:
@@ -34786,7 +34786,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_27.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34798,7 +34798,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 현물_총순매수 <= 0:
                             self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_28.setText(txt)
                     else:
@@ -34833,7 +34833,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인현물_순매수 <= 0:
                             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_26.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_26.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_26.setText(txt)
                     else:
@@ -34842,7 +34842,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_27.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34854,7 +34854,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인선물_순매수 <= 0:
                             self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_28.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_28.setText(txt)
                     else:
@@ -34930,7 +34930,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -34939,7 +34939,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'PSAR'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'BBMiddle'], df_sp500_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -34962,7 +34962,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_sp500_graph.at[plot_time_index, 'MAMA'] < df_sp500_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -34985,7 +34985,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'OE_CONV'], df_sp500_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35058,7 +35058,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -35067,7 +35067,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'PSAR'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35090,7 +35090,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_dow_graph.at[plot_time_index, 'MAMA'] < df_dow_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35113,7 +35113,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'OE_CONV'] < df_dow_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35186,7 +35186,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -35195,7 +35195,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35218,7 +35218,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_nasdaq_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35241,7 +35241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35315,7 +35315,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -35324,7 +35324,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35347,7 +35347,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_hangseng_graph.at[plot_time_index, 'MAMA'] < df_hangseng_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35370,7 +35370,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35442,7 +35442,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -35451,7 +35451,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'PSAR'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'BBMiddle'], df_wti_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35474,7 +35474,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_wti_graph.at[plot_time_index, 'MAMA'] < df_wti_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35497,7 +35497,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'OE_CONV'] < df_wti_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'OE_CONV'], df_wti_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35570,7 +35570,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -35579,7 +35579,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'PSAR'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'BBMiddle'], df_gold_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35602,7 +35602,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_gold_graph.at[plot_time_index, 'MAMA'] < df_gold_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35625,7 +35625,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'OE_CONV'] < df_gold_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'OE_CONV'], df_gold_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35697,7 +35697,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -35706,7 +35706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35729,7 +35729,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35752,7 +35752,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35825,7 +35825,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -35834,7 +35834,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'PSAR'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'BBMiddle'], df_yen_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35857,7 +35857,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_yen_graph.at[plot_time_index, 'MAMA'] < df_yen_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -35880,7 +35880,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'OE_CONV'] < df_yen_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'OE_CONV'], df_yen_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -35959,7 +35959,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -35968,7 +35968,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'PSAR'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
@@ -35991,7 +35991,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_adi_graph.at[plot_time_index, 'MAMA'] < df_adi_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p2_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36014,7 +36014,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'OE_CONV'] < df_adi_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'OE_CONV'], df_adi_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
@@ -36158,7 +36158,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass               
 
@@ -36167,7 +36167,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_graph.at[plot_time_index, 'PSAR'], 선물_호가순매수)
                         self.label_p3_2.setText(txt)
@@ -36190,7 +36190,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:                        
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36213,7 +36213,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -36234,7 +36234,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_37.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 elif fut_quote_energy_direction == 'put':
                     self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
@@ -36266,7 +36266,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                 if fut_cm_volume_power > 0:
-                    self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_37.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36408,7 +36408,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
 
                     if drate_gap > 0:
-                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_37.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     elif drate_gap < 0:
                         self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
@@ -36447,7 +36447,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 프로그램_순매수 <= 0:
                             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_36.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_36.setText(txt)
                     else:
@@ -36456,7 +36456,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_37.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36468,7 +36468,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 현물_총순매수 <= 0:
                             self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_38.setText(txt)
                     else:
@@ -36503,7 +36503,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인현물_순매수 <= 0:
                             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_36.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_36.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_36.setText(txt)
                     else:
@@ -36512,7 +36512,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_37.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36524,7 +36524,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인선물_순매수 <= 0:
                             self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_38.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_38.setText(txt)
                     else:
@@ -36600,7 +36600,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -36609,7 +36609,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'PSAR'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'BBMiddle'], df_sp500_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -36632,7 +36632,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_sp500_graph.at[plot_time_index, 'MAMA'] < df_sp500_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36655,7 +36655,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'OE_CONV'], df_sp500_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -36728,7 +36728,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass
 
@@ -36737,7 +36737,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'PSAR'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -36760,7 +36760,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_dow_graph.at[plot_time_index, 'MAMA'] < df_dow_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36783,7 +36783,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'OE_CONV'] < df_dow_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -36856,7 +36856,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass
 
@@ -36865,7 +36865,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -36888,7 +36888,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_nasdaq_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -36911,7 +36911,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -36985,7 +36985,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -36994,7 +36994,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -37017,7 +37017,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_hangseng_graph.at[plot_time_index, 'MAMA'] < df_hangseng_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37040,7 +37040,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -37112,7 +37112,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass
 
@@ -37121,7 +37121,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'PSAR'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'BBMiddle'], df_wti_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -37144,7 +37144,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_wti_graph.at[plot_time_index, 'MAMA'] < df_wti_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37167,7 +37167,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'OE_CONV'] < df_wti_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'OE_CONV'], df_wti_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -37240,7 +37240,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -37249,7 +37249,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'PSAR'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'BBMiddle'], df_gold_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -37272,7 +37272,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_gold_graph.at[plot_time_index, 'MAMA'] < df_gold_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37295,7 +37295,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'OE_CONV'] < df_gold_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'OE_CONV'], df_gold_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -37367,7 +37367,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -37376,7 +37376,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -37399,7 +37399,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37422,7 +37422,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -37495,7 +37495,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -37504,7 +37504,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'PSAR'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'BBMiddle'], df_yen_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -37527,7 +37527,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_yen_graph.at[plot_time_index, 'MAMA'] < df_yen_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37550,7 +37550,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'OE_CONV'] < df_yen_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'OE_CONV'], df_yen_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -37629,7 +37629,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -37638,7 +37638,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'PSAR'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
@@ -37661,7 +37661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_adi_graph.at[plot_time_index, 'MAMA'] < df_adi_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p3_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37684,7 +37684,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'OE_CONV'] < df_adi_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'OE_CONV'], df_adi_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
@@ -37827,7 +37827,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass               
 
@@ -37836,7 +37836,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_graph.at[plot_time_index, 'PSAR'], 선물_호가순매수)
                         self.label_p4_2.setText(txt)
@@ -37859,7 +37859,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -37882,7 +37882,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -37903,7 +37903,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_47.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 elif fut_quote_energy_direction == 'put':
                     self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
@@ -37935,7 +37935,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                 if fut_cm_volume_power > 0:
-                    self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_47.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38079,7 +38079,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
 
                     if drate_gap > 0:
-                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_47.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     elif drate_gap < 0:
                         self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
@@ -38118,7 +38118,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 프로그램_순매수 <= 0:
                             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_46.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_46.setText(txt)
                     else:
@@ -38127,7 +38127,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_47.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38139,7 +38139,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 현물_총순매수 <= 0:
                             self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_48.setText(txt)
                     else:
@@ -38174,7 +38174,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인현물_순매수 <= 0:
                             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_46.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_46.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_46.setText(txt)
                     else:
@@ -38183,7 +38183,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_47.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38195,7 +38195,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인선물_순매수 <= 0:
                             self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_48.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_48.setText(txt)
                     else:
@@ -38271,7 +38271,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -38280,7 +38280,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'PSAR'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'BBMiddle'], df_sp500_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -38303,7 +38303,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_sp500_graph.at[plot_time_index, 'MAMA'] < df_sp500_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38326,7 +38326,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'OE_CONV'], df_sp500_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -38399,7 +38399,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -38408,7 +38408,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'PSAR'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -38431,7 +38431,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_dow_graph.at[plot_time_index, 'MAMA'] < df_dow_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38454,7 +38454,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'OE_CONV'] < df_dow_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -38527,7 +38527,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -38536,7 +38536,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -38559,7 +38559,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_nasdaq_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38582,7 +38582,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -38656,7 +38656,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -38665,7 +38665,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -38688,7 +38688,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_hangseng_graph.at[plot_time_index, 'MAMA'] < df_hangseng_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38711,7 +38711,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -38783,7 +38783,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -38792,7 +38792,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'PSAR'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'BBMiddle'], df_wti_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -38815,7 +38815,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_wti_graph.at[plot_time_index, 'MAMA'] < df_wti_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38838,7 +38838,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'OE_CONV'] < df_wti_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'OE_CONV'], df_wti_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -38911,7 +38911,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -38920,7 +38920,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'PSAR'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'BBMiddle'], df_gold_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -38943,7 +38943,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_gold_graph.at[plot_time_index, 'MAMA'] < df_gold_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -38966,7 +38966,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'OE_CONV'] < df_gold_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'OE_CONV'], df_gold_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -39038,7 +39038,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -39047,7 +39047,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -39070,7 +39070,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39093,7 +39093,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -39166,7 +39166,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -39175,7 +39175,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'PSAR'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'BBMiddle'], df_yen_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -39198,7 +39198,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_yen_graph.at[plot_time_index, 'MAMA'] < df_yen_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39221,7 +39221,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'OE_CONV'] < df_yen_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'OE_CONV'], df_yen_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -39300,7 +39300,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -39309,7 +39309,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'PSAR'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
@@ -39332,7 +39332,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_adi_graph.at[plot_time_index, 'MAMA'] < df_adi_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39355,7 +39355,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'OE_CONV'] < df_adi_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'OE_CONV'], df_adi_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
@@ -39499,7 +39499,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass               
 
@@ -39508,7 +39508,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_graph.at[plot_time_index, 'PSAR'], 선물_호가순매수)
                         self.label_p5_2.setText(txt)
@@ -39531,7 +39531,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:                        
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39554,7 +39554,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -39575,7 +39575,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_57.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 elif fut_quote_energy_direction == 'put':
                     self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
@@ -39607,7 +39607,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                 if fut_cm_volume_power > 0:
-                    self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_57.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39748,7 +39748,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
 
                     if drate_gap > 0:
-                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_57.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     elif drate_gap < 0:
                         self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
@@ -39787,7 +39787,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 프로그램_순매수 <= 0:
                             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_56.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_56.setText(txt)
                     else:
@@ -39796,7 +39796,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_57.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39808,7 +39808,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 현물_총순매수 <= 0:
                             self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_58.setText(txt)
                     else:
@@ -39843,7 +39843,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인현물_순매수 <= 0:
                             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_56.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_56.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_56.setText(txt)
                     else:
@@ -39852,7 +39852,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_57.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39864,7 +39864,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인선물_순매수 <= 0:
                             self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_58.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_58.setText(txt)
                     else:
@@ -39940,7 +39940,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -39949,7 +39949,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'PSAR'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'BBMiddle'], df_sp500_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -39972,7 +39972,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_sp500_graph.at[plot_time_index, 'MAMA'] < df_sp500_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -39995,7 +39995,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'OE_CONV'], df_sp500_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40068,7 +40068,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -40077,7 +40077,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'PSAR'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40100,7 +40100,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_dow_graph.at[plot_time_index, 'MAMA'] < df_dow_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40123,7 +40123,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'OE_CONV'] < df_dow_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40196,7 +40196,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -40205,7 +40205,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40228,7 +40228,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_nasdaq_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40251,7 +40251,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40325,7 +40325,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -40334,7 +40334,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40357,7 +40357,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_hangseng_graph.at[plot_time_index, 'MAMA'] < df_hangseng_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40380,7 +40380,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40452,7 +40452,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                
 
@@ -40461,7 +40461,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'PSAR'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'BBMiddle'], df_wti_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40484,7 +40484,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_wti_graph.at[plot_time_index, 'MAMA'] < df_wti_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40507,7 +40507,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'OE_CONV'] < df_wti_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'OE_CONV'], df_wti_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40580,7 +40580,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -40589,7 +40589,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'PSAR'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'BBMiddle'], df_gold_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40612,7 +40612,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_gold_graph.at[plot_time_index, 'MAMA'] < df_gold_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40635,7 +40635,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'OE_CONV'] < df_gold_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'OE_CONV'], df_gold_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40707,7 +40707,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -40716,7 +40716,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40739,7 +40739,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40762,7 +40762,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40835,7 +40835,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -40844,7 +40844,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'PSAR'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'BBMiddle'], df_yen_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -40867,7 +40867,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_yen_graph.at[plot_time_index, 'MAMA'] < df_yen_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -40890,7 +40890,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'OE_CONV'] < df_yen_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'OE_CONV'], df_yen_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -40969,7 +40969,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -40978,7 +40978,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'PSAR'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
@@ -41001,7 +41001,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_adi_graph.at[plot_time_index, 'MAMA'] < df_adi_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p5_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41024,7 +41024,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'OE_CONV'] < df_adi_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'OE_CONV'], df_adi_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
@@ -41168,7 +41168,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass               
 
@@ -41177,7 +41177,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f}\n HG: {2:.0f} ".format(df_futures_cm_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_graph.at[plot_time_index, 'PSAR'], 선물_호가순매수)
                         self.label_p6_2.setText(txt)
@@ -41200,7 +41200,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:                        
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41223,7 +41223,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_futures_cm_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -41244,7 +41244,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     차월물_매수호가_총수량, 차월물_매도호가_총수량, 차월물_선물_호가잔량비_최소, 차월물_선물_호가잔량비_최대)
 
                 if fut_quote_energy_direction == 'call':
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_67.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 elif fut_quote_energy_direction == 'put':
                     self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
@@ -41276,7 +41276,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                 if fut_cm_volume_power > 0:
-                    self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_67.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41417,7 +41417,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
 
                     if drate_gap > 0:
-                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_67.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     elif drate_gap < 0:
                         self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
@@ -41456,7 +41456,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 프로그램_순매수 <= 0:
                             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_66.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_66.setText(txt)
                     else:
@@ -41465,7 +41465,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_67.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41477,7 +41477,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 현물_총순매수 <= 0:
                             self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_68.setText(txt)
                     else:
@@ -41512,7 +41512,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인현물_순매수 <= 0:
                             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_66.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_66.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_66.setText(txt)
                     else:
@@ -41521,7 +41521,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " {0:.0f} ".format(fut_cm_volume_power)
 
                     if fut_cm_volume_power > 0:
-                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_67.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41533,7 +41533,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if 외인선물_순매수 <= 0:
                             self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_68.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         self.label_68.setText(txt)
                     else:
@@ -41609,7 +41609,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -41618,7 +41618,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'PSAR'] >= df_sp500_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'BBMiddle'], df_sp500_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -41641,7 +41641,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_sp500_graph.at[plot_time_index, 'MAMA'] < df_sp500_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41664,7 +41664,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_sp500_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_graph.at[plot_time_index, 'OE_CONV'], df_sp500_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -41737,7 +41737,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass
 
@@ -41746,7 +41746,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'PSAR'] >= df_dow_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -41769,7 +41769,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_dow_graph.at[plot_time_index, 'MAMA'] < df_dow_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41792,7 +41792,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_dow_graph.at[plot_time_index, 'OE_CONV'] < df_dow_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -41865,7 +41865,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass
 
@@ -41874,7 +41874,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -41897,7 +41897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_nasdaq_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -41920,7 +41920,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_nasdaq_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -41994,7 +41994,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -42003,7 +42003,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -42026,7 +42026,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_hangseng_graph.at[plot_time_index, 'MAMA'] < df_hangseng_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -42049,7 +42049,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_hangseng_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -42121,7 +42121,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass
 
@@ -42130,7 +42130,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'PSAR'] >= df_wti_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'BBMiddle'], df_wti_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -42153,7 +42153,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_wti_graph.at[plot_time_index, 'MAMA'] < df_wti_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -42176,7 +42176,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_wti_graph.at[plot_time_index, 'OE_CONV'] < df_wti_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_graph.at[plot_time_index, 'OE_CONV'], df_wti_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -42249,7 +42249,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -42258,7 +42258,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'PSAR'] >= df_gold_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'BBMiddle'], df_gold_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -42281,7 +42281,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_gold_graph.at[plot_time_index, 'MAMA'] < df_gold_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -42304,7 +42304,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_gold_graph.at[plot_time_index, 'OE_CONV'] < df_gold_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_graph.at[plot_time_index, 'OE_CONV'], df_gold_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -42376,7 +42376,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -42385,7 +42385,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -42408,7 +42408,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -42431,7 +42431,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -42504,7 +42504,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -42513,7 +42513,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'PSAR'] >= df_yen_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'BBMiddle'], df_yen_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -42536,7 +42536,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_yen_graph.at[plot_time_index, 'MAMA'] < df_yen_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -42559,7 +42559,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_yen_graph.at[plot_time_index, 'OE_CONV'] < df_yen_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_graph.at[plot_time_index, 'OE_CONV'], df_yen_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -42638,7 +42638,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_1.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
@@ -42647,7 +42647,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'PSAR'] >= df_adi_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
@@ -42670,7 +42670,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             if df_adi_graph.at[plot_time_index, 'MAMA'] < df_adi_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
-                                self.label_p6_4.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                                self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
@@ -42693,7 +42693,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         if df_adi_graph.at[plot_time_index, 'OE_CONV'] < df_adi_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_adi_graph.at[plot_time_index, 'OE_CONV'], df_adi_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
@@ -44184,7 +44184,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) > abs(put_otm_cdb_percent_mean):
 
             # 콜매수
-            self.label_5th.setStyleSheet("background-color: red; color: white; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+            self.label_5th.setStyleSheet("background-color: red; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             flag_call_strong = True
             flag_call_weak = False
             flag_put_strong = False
@@ -45719,7 +45719,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     jisu_txt = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
-                    self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                     self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                 else:
@@ -45741,7 +45741,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     jisu_txt = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(int(tickdata['예상체결가전일종가대비']), ','), float(tickdata['예상체결가전일종가등락율']))
 
-                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
+                    self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: white; border-radius: 5px')
                     self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
 
                 else:
