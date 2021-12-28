@@ -42838,7 +42838,7 @@ class Xing(object):
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')
 
-        self.caller.pushButton_reset.setText(' Reset ')
+        self.caller.pushButton_reset.setText(' Clear ')
           
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
@@ -43536,7 +43536,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.tableWidget_cme.resizeColumnsToContents()
 
-        self.pushButton_reset.setText(' Reset ')
+        self.pushButton_reset.setText(' Clear ')
         self.pushButton_reset.clicked.connect(self.reset_button_clicked)
 
         self.exceptionOccurred.connect(self.on_exceptionOccurred)
@@ -43675,7 +43675,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     #@pyqtCatchExceptionSlot("bool", on_exception_emit="exceptionOccurred")
-    def reset_button_clicked(self, checked):
+    def reset_button_clicked(self):
 
         global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3, flag_drop_reset4
 
@@ -43683,6 +43683,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         flag_drop_reset2 = True
         flag_drop_reset3 = True
         flag_drop_reset4 = True
+
+        self.textBrowser.clear()
 
         #playsound('Resources/click.wav')
         winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
