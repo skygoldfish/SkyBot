@@ -33062,6 +33062,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DayTime:
 
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
+
+                    if drate_gap > 0:
+                        self.label_17.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif drate_gap < 0':
+                        self.label_17.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     self.label_17.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -34728,6 +34736,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DayTime:
 
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
+
+                    if drate_gap > 0:
+                        self.label_27.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif drate_gap < 0':
+                        self.label_27.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     self.label_27.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -36390,6 +36406,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DayTime:
 
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
+
+                    if drate_gap > 0:
+                        self.label_37.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif drate_gap < 0':
+                        self.label_37.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     self.label_37.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -38053,6 +38077,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DayTime:
 
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
+
+                    if drate_gap > 0:
+                        self.label_47.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif drate_gap < 0':
+                        self.label_47.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     self.label_47.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -39714,6 +39746,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DayTime:
 
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
+
+                    if drate_gap > 0:
+                        self.label_57.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif drate_gap < 0':
+                        self.label_57.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     self.label_57.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -41375,6 +41415,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 if DayTime:
 
                     txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
+
+                    if drate_gap > 0:
+                        self.label_67.setStyleSheet('background-color: red; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif drate_gap < 0':
+                        self.label_67.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     self.label_67.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
