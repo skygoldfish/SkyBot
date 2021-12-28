@@ -32583,7 +32583,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             pass
 
-        if True:
+        if self.timer1.isActive():
             if not flag_screen_update_is_running and not flag_plot1_update_is_running:
                 self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
@@ -32592,18 +32592,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 self.label_time_1.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
-            if not flag_plot1_update_is_running:
-                self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                QApplication.processEvents()
-                self.update_plot1()
-                QApplication.processEvents()
-            else:
-                self.label_time_1.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')            
+            self.label_time_1.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_1.setText('Timer1 is dead...')                            
 
     @pyqtSlot()    
     def plot2_update(self):
 
-        if True:
+        if self.timer2.isActive():
             if not flag_screen_update_is_running and not flag_plot2_update_is_running:
                 self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
@@ -32612,18 +32607,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 self.label_time_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
-            if not flag_plot2_update_is_running:
-                self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                QApplication.processEvents()
-                self.update_plot2()
-                QApplication.processEvents()
-            else:
-                self.label_time_2.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_2.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_2.setText('Timer2 is dead...')
 
     @pyqtSlot()    
     def plot3_update(self):
 
-        if True:
+        if self.timer3.isActive():
             if not flag_screen_update_is_running and not flag_plot3_update_is_running:
                 self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
@@ -32632,18 +32622,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 self.label_time_3.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
-            if not flag_plot3_update_is_running:
-                self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                QApplication.processEvents()
-                self.update_plot3()
-                QApplication.processEvents()
-            else:
-                self.label_time_3.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_3.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_3.setText('Timer3 is dead...')
 
     @pyqtSlot()    
     def plot4_update(self):
 
-        if True:
+        if self.timer4.isActive():
             if not flag_screen_update_is_running and not flag_plot4_update_is_running:
                 self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
@@ -32652,18 +32637,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 self.label_time_4.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
-            if not flag_plot4_update_is_running:
-                self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                QApplication.processEvents()
-                self.update_plot4()
-                QApplication.processEvents()
-            else:
-                self.label_time_4.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_4.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_4.setText('Timer4 is dead...')
 
     @pyqtSlot()    
     def plot5_update(self):
 
-        if True:
+        if self.timer5.isActive():
             if not flag_screen_update_is_running and not flag_plot5_update_is_running:
                 self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
@@ -32672,18 +32652,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 self.label_time_5.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
-            if not flag_plot5_update_is_running:
-                self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                QApplication.processEvents()
-                self.update_plot5()
-                QApplication.processEvents()
-            else:
-                self.label_time_5.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_5.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_5.setText('Timer5 is dead...')
 
     @pyqtSlot()    
     def plot6_update(self):
 
-        if True:
+        if self.timer6.isActive():
             if not flag_screen_update_is_running and not flag_plot6_update_is_running:
                 self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 QApplication.processEvents()
@@ -32692,13 +32667,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 self.label_time_6.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
         else:
-            if not flag_plot6_update_is_running:
-                self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                QApplication.processEvents()
-                self.update_plot6()
-                QApplication.processEvents()
-            else:
-                self.label_time_6.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_6.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+            self.label_time_6.setText('Timer6 is dead...')
 
     @logging_time_plot1  
     #@pyqtSlot()    
@@ -42860,6 +42830,15 @@ class Xing(object):
 
         # 예외처리 표시
         #patch_excepthook()
+
+        self.caller.pushButton_reset.setStyleSheet('QPushButton \
+                                            {background-color: \
+                                            qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+                                            color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
+                                            QPushButton:hover {background-color: black; color: white} \
+                                            QPushButton:pressed {background-color: gold}')
+
+        self.caller.pushButton_reset.setText(' Reset ')
           
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
@@ -43312,21 +43291,12 @@ class Xing(object):
 
             plot_time_index = server_x_idx            
 
-            if self.caller.dialog['SkyChart'] is not None and self.caller.dialog['SkyChart'].flag_big_chart_open:
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
+            #self.caller.textBrowser.append(txt)
+            #print(txt)
 
-                if self.caller.dialog['SkyChart'].timer1.isActive() and self.caller.dialog['SkyChart'].timer2.isActive() and self.caller.dialog['SkyChart'].timer3.isActive() and \
-                    self.caller.dialog['SkyChart'].timer4.isActive() and self.caller.dialog['SkyChart'].timer5.isActive() and self.caller.dialog['SkyChart'].timer6.isActive():
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] All Timers of the Chart are Active...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.caller.textBrowser.append(txt)                    
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.caller.textBrowser.append(txt)
-                    print(txt)
-            else:
-                txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
-                self.caller.textBrowser.append(txt)
-                print(txt)
+            self.caller.pushButton_reset.setStyleSheet('QPushButton {background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px}')                
+            self.caller.pushButton_reset.setText(' HB OK! ')
 
         elif szTrCode == 't8432':
             pass                            
