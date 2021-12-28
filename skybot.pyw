@@ -2202,6 +2202,8 @@ flag_over_call = False
 차월물_매수호가_총수량 = 0
 차월물_매도호가_총수량 = 0
 
+drate_gap = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -11687,7 +11689,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
-                item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_종가대비_등락율))
+                item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(근월물_선물_시가대비, 근월물_선물_시가대비_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if 근월물_선물_종가대비_등락율 > 0 and SP500_등락율 > 0 and flag_fut_vs_sp500_drate_direction:
@@ -11708,6 +11710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.resizeRowToContents(1)
 
                 self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
             else:
                 pass
 
@@ -11913,7 +11916,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
 
-                item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(차월물_선물_시가대비, 차월물_선물_종가대비_등락율))
+                item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(차월물_선물_시가대비, 차월물_선물_시가대비_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if 차월물_선물_종가대비_등락율:
@@ -12759,6 +12762,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_진폭, 콜대비합, df_call_information_graph
         global call_otm_cdb_mean, call_otm_cdb_percent_mean, call_otm_jdb_mean, call_otm_jdb_percent_mean
+        global drate_gap
         
         진폭최대값 = df_call['진폭'].max()
 
@@ -12799,6 +12803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if flag_market_service:
             df_call_information_graph.at[plot_time_index, 'drate'] = call_otm_cdb_percent_mean
+            drate_gap = call_otm_cdb_percent_mean - plot_drate_scale_factor * 근월물_선물_시가대비_등락율
         else:
             pass
 
@@ -33040,7 +33045,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
                 self.label_15.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -33056,7 +33061,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
                     self.label_17.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -34706,7 +34711,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
                 self.label_25.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -34722,7 +34727,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
                     self.label_27.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -36368,7 +36373,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
                 self.label_35.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -36384,7 +36389,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
                     self.label_37.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -38031,7 +38036,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
                 self.label_45.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -38047,7 +38052,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
                     self.label_47.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -39692,7 +39697,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
                 self.label_55.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -39708,7 +39713,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
                     self.label_57.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -41353,7 +41358,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
                 self.label_65.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -41369,7 +41374,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if DayTime:
 
-                    txt = " {0:.2f}({1}) ".format(plot_drate_scale_factor * 근월물_선물_시가대비_등락율, 근월물_선물_현재가)
+                    txt = " {0:.2f}({1}), Gap : {2:.2f} ".format(근월물_선물_시가대비_등락율, 근월물_선물_현재가, drate_gap)
                     self.label_67.setText(txt)
 
                     if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
@@ -45902,7 +45907,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
-                    item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_등락율))
+                    item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_시가대비_등락율))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
