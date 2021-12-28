@@ -1998,6 +1998,7 @@ WTI_현재가_버퍼 = []
 GOLD_현재가_버퍼 = []
 EUROFX_현재가_버퍼 = []
 YEN_현재가_버퍼 = []
+ADI_현재가_버퍼 = []
 
 flag_futures_cm_ohlc_open = False
 flag_futures_nm_ohlc_open = False
@@ -15329,25 +15330,62 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                if DayTime:
+                df_futures_cm_graph.at[0, 'drate'] = 0
+                df_futures_nm_graph.at[0, 'drate'] = 0
+                df_sp500_graph.at[0, 'drate'] = 0
+                df_dow_graph.at[0, 'drate'] = 0
+                df_nasdaq_graph.at[0, 'drate'] = 0
+                df_hangseng_graph.at[0, 'drate'] = 0
+                df_wti_graph.at[0, 'drate'] = 0
+                df_gold_graph.at[0, 'drate'] = 0
+                df_eurofx_graph.at[0, 'drate'] = 0
+                df_yen_graph.at[0, 'drate'] = 0
+                df_adi_graph.at[0, 'drate'] = 0
 
-                    df_futures_cm_graph.at[0, 'drate'] = 0
-                    df_futures_nm_graph.at[0, 'drate'] = 0
-                    df_sp500_graph.at[0, 'drate'] = 0
-                    df_dow_graph.at[0, 'drate'] = 0
-                    df_nasdaq_graph.at[0, 'drate'] = 0
-                    df_hangseng_graph.at[0, 'drate'] = 0
-                    df_wti_graph.at[0, 'drate'] = 0
-                    df_gold_graph.at[0, 'drate'] = 0
-                    df_eurofx_graph.at[0, 'drate'] = 0
-                    df_yen_graph.at[0, 'drate'] = 0
-                    df_adi_graph.at[0, 'drate'] = 0
+                df_call_information_graph.at[0, 'drate'] = 0
+                df_put_information_graph.at[0, 'drate'] = 0
 
-                    df_call_information_graph.at[0, 'drate'] = 0
-                    df_put_information_graph.at[0, 'drate'] = 0
+                df_call_information_graph.at[0, 'centerval'] = 장시작_중심가
 
-                    df_call_information_graph.at[0, 'centerval'] = 장시작_중심가
+                if SP500_전일종가 > 0:
+                    df_sp500_graph.at[0, 'price'] = SP500_전일종가
+                    df_sp500_graph.at[1, 'price'] = SP500_시가
 
+                if DOW_전일종가 > 0:
+                    df_dow_graph.at[0, 'price'] = DOW_전일종가
+                    df_dow_graph.at[1, 'price'] = DOW_시가
+
+                if NASDAQ_전일종가 > 0:
+                    df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
+                    df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
+
+                if HANGSENG_전일종가 > 0:
+                    df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
+                    df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
+
+                if WTI_전일종가 > 0:
+                    df_wti_graph.at[0, 'price'] = WTI_전일종가
+                    df_wti_graph.at[1, 'price'] = WTI_시가
+
+                if GOLD_전일종가 > 0:
+                    df_gold_graph.at[0, 'price'] = GOLD_전일종가
+                    df_gold_graph.at[1, 'price'] = GOLD_시가
+
+                if EUROFX_전일종가 > 0:
+                    df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
+                    df_eurofx_graph.at[1, 'price'] = EUROFX_시가
+
+                if YEN_전일종가 > 0:
+                    df_yen_graph.at[0, 'price'] = YEN_전일종가
+                    df_yen_graph.at[1, 'price'] = YEN_시가
+
+                if ADI_전일종가 > 0:
+                    df_adi_graph.at[0, 'price'] = ADI_전일종가
+                    df_adi_graph.at[1, 'price'] = ADI_시가
+
+                if DayTime:                    
+
+                    df_futures_cm_graph.at[0, 'volume'] = 0
                     df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                     df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
                     df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
@@ -15357,39 +15395,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_supply_demand_graph.at[0, 'kospi_foreigner'] = 0
                     df_supply_demand_graph.at[0, 'futures_foreigner'] = 0
 
-                    if SP500_전일종가 > 0:
-                        df_sp500_graph.at[0, 'price'] = SP500_전일종가
-
-                    if DOW_전일종가 > 0:
-                        df_dow_graph.at[0, 'price'] = DOW_전일종가
-
-                    if NASDAQ_전일종가 > 0:
-                        df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
-
-                    if HANGSENG_전일종가 > 0:
-                        df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
-
-                    if WTI_전일종가 > 0:
-                        df_wti_graph.at[0, 'price'] = WTI_전일종가
-
-                    if GOLD_전일종가 > 0:
-                        df_gold_graph.at[0, 'price'] = GOLD_전일종가
-
-                    if EUROFX_전일종가 > 0:
-                        df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
-
-                    if YEN_전일종가 > 0:
-                        df_yen_graph.at[0, 'price'] = YEN_전일종가
-
-                    if ADI_전일종가 > 0:
-                        df_adi_graph.at[0, 'price'] = ADI_전일종가
-
                     if self.fut_realdata['시가'] > 0:
                         df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
                     else:
-                        pass
-
-                    df_futures_cm_graph.at[0, 'volume'] = 0
+                        pass                    
                 else:
                     FUT_당일종가 = df['현재가']
 
@@ -32363,19 +32372,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_futures_cm_graph['BBUpper'] = upper
             df_futures_cm_graph['BBMiddle'] = middle
             df_futures_cm_graph['BBLower'] = lower
-
-        elif type == 'DOW':
-
-            # Parabolic SAR
-            df_dow_graph['PSAR'] = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_dow_graph['BBUpper'] = upper
-            df_dow_graph['BBMiddle'] = middle
-            df_dow_graph['BBLower'] = lower
-
+            
         elif type == 'SP500':
 
             # Parabolic SAR
@@ -32388,6 +32385,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_sp500_graph['BBMiddle'] = middle
             df_sp500_graph['BBLower'] = lower
 
+        elif type == 'DOW':
+
+            # Parabolic SAR
+            df_dow_graph['PSAR'] = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+            # Bollinger Bands                
+            upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+            df_dow_graph['BBUpper'] = upper
+            df_dow_graph['BBMiddle'] = middle
+            df_dow_graph['BBLower'] = lower
 
         elif type == 'NASDAQ':
 
@@ -47943,15 +47951,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_현재가, ADI_전일대비, ADI_등락율, ADI_진폭, ADI_고가
         global HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
         global GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
-        global DOW_현재가_버퍼, SP500_현재가_버퍼, NASDAQ_현재가_버퍼, WTI_현재가_버퍼
+        global SP500_현재가_버퍼, DOW_현재가_버퍼, NASDAQ_현재가_버퍼, HANGSENG_현재가_버퍼, WTI_현재가_버퍼, GOLD_현재가_버퍼, EUROFX_현재가_버퍼, YEN_현재가_버퍼, ADI_현재가_버퍼
         global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, YEN_과거가, ADI_과거가, HANGSENG_과거가, GOLD_과거가
         global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EUROFX_진폭비, YEN_진폭비, ADI_진폭비
 
         global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, YEN_당일종가, ADI_당일종가, HANGSENG_당일종가, GOLD_당일종가
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
-        global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open
-        global flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open, flag_adi_ohlc_open
+        global flag_sp500_ohlc_open, flag_dow_ohlc_open, flag_nasdaq_ohlc_open, flag_hangseng_ohlc_open
+        global flag_wti_ohlc_open, flag_gold_ohlc_open, flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_adi_ohlc_open
 
         global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비, ADI_종가대비
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비, ADI_시가대비
@@ -47992,6 +48000,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
             if plot_time_index != old_cme_time_index:
 
+                df_sp500_graph.at[plot_time_index, 'high'] = df_sp500_graph.at[plot_time_index - 1, 'high']
+                df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
+                df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
+                df_sp500_graph.at[plot_time_index, 'close'] = df_sp500_graph.at[plot_time_index - 1, 'close']
+                df_sp500_graph.at[plot_time_index, 'price'] = df_sp500_graph.at[plot_time_index - 1, 'close']
+
                 df_dow_graph.at[plot_time_index, 'high'] = df_dow_graph.at[plot_time_index - 1, 'high']
                 df_dow_graph.at[plot_time_index, 'low'] = df_dow_graph.at[plot_time_index - 1, 'low']
                 df_dow_graph.at[plot_time_index, 'middle'] = df_dow_graph.at[plot_time_index - 1, 'middle']
@@ -48004,17 +48018,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_nasdaq_graph.at[plot_time_index, 'close'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
                 df_nasdaq_graph.at[plot_time_index, 'price'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
 
-                df_sp500_graph.at[plot_time_index, 'high'] = df_sp500_graph.at[plot_time_index - 1, 'high']
-                df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
-                df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
-                df_sp500_graph.at[plot_time_index, 'close'] = df_sp500_graph.at[plot_time_index - 1, 'close']
-                df_sp500_graph.at[plot_time_index, 'price'] = df_sp500_graph.at[plot_time_index - 1, 'close']
+                df_hangseng_graph.at[plot_time_index, 'high'] = df_hangseng_graph.at[plot_time_index - 1, 'high']
+                df_hangseng_graph.at[plot_time_index, 'low'] = df_hangseng_graph.at[plot_time_index - 1, 'low']
+                df_hangseng_graph.at[plot_time_index, 'middle'] = df_hangseng_graph.at[plot_time_index - 1, 'middle']
+                df_hangseng_graph.at[plot_time_index, 'close'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
+                df_hangseng_graph.at[plot_time_index, 'price'] = df_hangseng_graph.at[plot_time_index - 1, 'close']             
 
                 df_wti_graph.at[plot_time_index, 'high'] = df_wti_graph.at[plot_time_index - 1, 'high']
                 df_wti_graph.at[plot_time_index, 'low'] = df_wti_graph.at[plot_time_index - 1, 'low']
                 df_wti_graph.at[plot_time_index, 'middle'] = df_wti_graph.at[plot_time_index - 1, 'middle']
                 df_wti_graph.at[plot_time_index, 'close'] = df_wti_graph.at[plot_time_index - 1, 'close']
                 df_wti_graph.at[plot_time_index, 'price'] = df_wti_graph.at[plot_time_index - 1, 'close']
+
+                df_gold_graph.at[plot_time_index, 'high'] = df_gold_graph.at[plot_time_index - 1, 'high']
+                df_gold_graph.at[plot_time_index, 'low'] = df_gold_graph.at[plot_time_index - 1, 'low']
+                df_gold_graph.at[plot_time_index, 'middle'] = df_gold_graph.at[plot_time_index - 1, 'middle']
+                df_gold_graph.at[plot_time_index, 'close'] = df_gold_graph.at[plot_time_index - 1, 'close']
+                df_gold_graph.at[plot_time_index, 'price'] = df_gold_graph.at[plot_time_index - 1, 'close']
+
+                df_eurofx_graph.at[plot_time_index, 'high'] = df_eurofx_graph.at[plot_time_index - 1, 'high']
+                df_eurofx_graph.at[plot_time_index, 'low'] = df_eurofx_graph.at[plot_time_index - 1, 'low']
+                df_eurofx_graph.at[plot_time_index, 'middle'] = df_eurofx_graph.at[plot_time_index - 1, 'middle']
+                df_eurofx_graph.at[plot_time_index, 'close'] = df_eurofx_graph.at[plot_time_index - 1, 'close']
+                df_eurofx_graph.at[plot_time_index, 'price'] = df_eurofx_graph.at[plot_time_index - 1, 'close']
+
+                df_yen_graph.at[plot_time_index, 'high'] = df_yen_graph.at[plot_time_index - 1, 'high']
+                df_yen_graph.at[plot_time_index, 'low'] = df_yen_graph.at[plot_time_index - 1, 'low']
+                df_yen_graph.at[plot_time_index, 'middle'] = df_yen_graph.at[plot_time_index - 1, 'middle']
+                df_yen_graph.at[plot_time_index, 'close'] = df_yen_graph.at[plot_time_index - 1, 'close']
+                df_yen_graph.at[plot_time_index, 'price'] = df_yen_graph.at[plot_time_index - 1, 'close']
+
+                df_adi_graph.at[plot_time_index, 'high'] = df_adi_graph.at[plot_time_index - 1, 'high']
+                df_adi_graph.at[plot_time_index, 'low'] = df_adi_graph.at[plot_time_index - 1, 'low']
+                df_adi_graph.at[plot_time_index, 'middle'] = df_adi_graph.at[plot_time_index - 1, 'middle']
+                df_adi_graph.at[plot_time_index, 'close'] = df_adi_graph.at[plot_time_index - 1, 'close']
+                df_adi_graph.at[plot_time_index, 'price'] = df_adi_graph.at[plot_time_index - 1, 'close']
             else:
                 pass
 
@@ -48044,8 +48082,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 SP500_시가대비 = int((SP500_현재가 - SP500_시가) / 0.25)
 
-                df_sp500_graph.at[0, 'price'] = SP500_전일종가
-                df_sp500_graph.at[1, 'price'] = SP500_시가
+                #df_sp500_graph.at[0, 'price'] = SP500_전일종가
+
+                if df_sp500_graph.at[1, 'price'] == 0:
+                    df_sp500_graph.at[1, 'price'] = SP500_시가
 
                 SP500_진폭비 = SP500_진폭 / SP500_시가                                    
 
@@ -48279,8 +48319,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 DOW_시가대비 = DOW_현재가 - DOW_시가
 
-                df_dow_graph.at[0, 'price'] = DOW_전일종가
-                df_dow_graph.at[1, 'price'] = DOW_시가
+                #df_dow_graph.at[0, 'price'] = DOW_전일종가
+
+                if df_dow_graph.at[1, 'price'] == 0:
+                    df_dow_graph.at[1, 'price'] = DOW_시가
                 
                 DOW_진폭비 = DOW_진폭 / DOW_시가
                 
@@ -48499,8 +48541,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 NASDAQ_시가대비 = int((NASDAQ_현재가 - NASDAQ_시가) / 0.25)                
 
-                df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
-                df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
+                #df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
+
+                if df_nasdaq_graph.at[1, 'price'] == 0:
+                    df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
 
                 NASDAQ_진폭비 = NASDAQ_진폭 / NASDAQ_시가
 
@@ -48719,12 +48763,65 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 HANGSENG_시가대비 = HANGSENG_현재가 - HANGSENG_시가                
 
-                df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
-                df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
+                #df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
+
+                if df_hangseng_graph.at[1, 'price'] == 0:
+                    df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
 
                 HANGSENG_진폭비 = HANGSENG_진폭 / HANGSENG_시가
 
-                #HANGSENG_체결가격 = locale.format('%d', float(tickdata['체결가격']), 1)                  
+                # 1T OHLC 생성
+                df_hangseng_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+
+                if HANGSENG_현재가 > 0:
+
+                    if CME_SEC == 0:
+
+                        if not flag_hangseng_ohlc_open:
+
+                            df_hangseng_graph.at[plot_time_index, 'open'] = HANGSENG_현재가
+                            df_hangseng_graph.at[plot_time_index, 'high'] = HANGSENG_현재가
+                            df_hangseng_graph.at[plot_time_index, 'low'] = HANGSENG_현재가
+                            df_hangseng_graph.at[plot_time_index, 'middle'] = HANGSENG_현재가
+                            df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
+                            df_hangseng_graph.at[plot_time_index, 'price'] = HANGSENG_현재가
+
+                            del HANGSENG_현재가_버퍼[:]
+
+                            flag_hangseng_ohlc_open = True
+                        else:
+                            HANGSENG_현재가_버퍼.append(HANGSENG_현재가)                        
+                    else:
+                        #if df_hangseng_graph.at[plot_time_index, 'open'] != df_hangseng_graph.at[plot_time_index, 'open']:
+                        if not np.isnan(df_hangseng_graph.at[plot_time_index, 'open']):
+                            df_hangseng_graph.at[plot_time_index, 'open'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
+                            del HANGSENG_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
+
+                        if max(HANGSENG_현재가_버퍼) > 0:
+                            df_hangseng_graph.at[plot_time_index, 'high'] = max(HANGSENG_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(HANGSENG_현재가_버퍼) == 0:
+
+                            if max(HANGSENG_현재가_버퍼) > 0:
+                                df_hangseng_graph.at[plot_time_index, 'low'] = max(HANGSENG_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_hangseng_graph.at[plot_time_index, 'low'] = min(HANGSENG_현재가_버퍼)
+
+                        df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
+
+                        flag_hangseng_ohlc_open = False
+
+                    df_hangseng_graph.at[plot_time_index, 'middle'] = (df_hangseng_graph.at[plot_time_index, 'high'] + df_hangseng_graph.at[plot_time_index, 'low']) / 2  
+                else:
+                    pass                  
 
                 if HANGSENG_피봇 == 0:
 
@@ -48885,8 +48982,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 WTI_시가대비 = int((WTI_현재가 - WTI_시가) / 0.01)                
 
-                df_wti_graph.at[0, 'price'] = WTI_전일종가
-                df_wti_graph.at[1, 'price'] = WTI_시가
+                #df_wti_graph.at[0, 'price'] = WTI_전일종가
+
+                if df_wti_graph.at[1, 'price'] == 0:
+                    df_wti_graph.at[1, 'price'] = WTI_시가
 
                 WTI_진폭비 = WTI_진폭 / WTI_시가
                 
@@ -49104,8 +49203,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 GOLD_시가대비 = int((GOLD_현재가 - GOLD_시가) / 0.1)                
 
-                df_gold_graph.at[0, 'price'] = GOLD_전일종가
-                df_gold_graph.at[1, 'price'] = GOLD_시가
+                #df_gold_graph.at[0, 'price'] = GOLD_전일종가
+
+                if df_gold_graph.at[1, 'price'] == 0:
+                    df_gold_graph.at[1, 'price'] = GOLD_시가
 
                 GOLD_진폭비 = GOLD_진폭 / GOLD_시가
 
@@ -49268,8 +49369,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 EUROFX_시가대비 = int((EUROFX_현재가 - EUROFX_시가) / 0.00005)                
 
-                df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
-                df_eurofx_graph.at[1, 'price'] = EUROFX_시가
+                #df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
+
+                if df_eurofx_graph.at[1, 'price'] == 0:
+                    df_eurofx_graph.at[1, 'price'] = EUROFX_시가
 
                 EUROFX_진폭비 = EUROFX_진폭 / EUROFX_시가 
                 
@@ -49432,8 +49535,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 YEN_시가대비 = int((YEN_현재가 - YEN_시가) / 0.5)
 
-                df_yen_graph.at[0, 'price'] = YEN_전일종가
-                df_yen_graph.at[1, 'price'] = YEN_시가
+                #df_yen_graph.at[0, 'price'] = YEN_전일종가
+
+                if df_yen_graph.at[1, 'price'] == 0:
+                    df_yen_graph.at[1, 'price'] = YEN_시가
 
                 YEN_진폭비 = YEN_진폭 / YEN_시가                                          
                 
@@ -49571,12 +49676,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == ADI:
-
-                ADI_현재가 = float(tickdata['체결가격'])
+            elif tickdata['종목코드'] == ADI:                
 
                 # 그래프 가격갱신                
-                df_adi_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])                
+                df_adi_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
+
+                ADI_현재가 = float(tickdata['체결가격'])             
 
                 ADI_전일대비 = float(tickdata['전일대비'])
 
@@ -49597,8 +49702,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 ADI_시가대비 = int((ADI_현재가 - ADI_시가) / 0.00005)
 
-                df_adi_graph.at[0, 'price'] = ADI_전일종가
-                df_adi_graph.at[1, 'price'] = ADI_시가
+                #df_adi_graph.at[0, 'price'] = ADI_전일종가
+
+                if df_adi_graph.at[1, 'price'] == 0:
+                    df_adi_graph.at[1, 'price'] = ADI_시가
 
                 ADI_진폭비 = ADI_진폭 / ADI_시가
 
