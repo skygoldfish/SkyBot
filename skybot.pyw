@@ -3478,7 +3478,7 @@ class RealTime_Option_Quote_MP_DataWorker(QThread):
 
                         elif szTrCode == 'EH0':
 
-                            print('EH0 수신시간 = {0}\r'.format(tickdata['수신시간']))
+                            #print('EH0 수신시간 = {0}\r'.format(tickdata['수신시간']))
 
                             if int(tickdata['수신시간'][0:2]) >= 24:
                                 realtime_hour = int(tickdata['수신시간'][0:2]) - 24
