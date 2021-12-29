@@ -1485,7 +1485,7 @@ df_nasdaq_graph = pd.DataFrame()
 df_hangseng_graph = pd.DataFrame()
 df_wti_graph = pd.DataFrame()
 df_gold_graph = pd.DataFrame()
-df_eurofx_graph = pd.DataFrame()
+df_euro_graph = pd.DataFrame()
 df_yen_graph = pd.DataFrame()
 df_adi_graph = pd.DataFrame()
 
@@ -1973,12 +1973,12 @@ df_gold_ohlc_5min = pd.DataFrame()
 df_gold_ohlc_15min = pd.DataFrame()
 
 # EURO OHLC 연산
-eurofx_tick_list = []
-eurofx_value_list = []
-df_eurofx_ohlc = pd.DataFrame()
-df_eurofx_ohlc_1min = pd.DataFrame()
-df_eurofx_ohlc_5min = pd.DataFrame()
-df_eurofx_ohlc_15min = pd.DataFrame()
+euro_tick_list = []
+euro_value_list = []
+df_euro_ohlc = pd.DataFrame()
+df_euro_ohlc_1min = pd.DataFrame()
+df_euro_ohlc_5min = pd.DataFrame()
+df_euro_ohlc_15min = pd.DataFrame()
 
 # YEN OHLC 연산
 yen_tick_list = []
@@ -2012,7 +2012,7 @@ flag_nasdaq_ohlc_open = False
 flag_hangseng_ohlc_open = False
 flag_wti_ohlc_open = False
 flag_gold_ohlc_open = False
-flag_eurofx_ohlc_open = False
+flag_euro_ohlc_open = False
 flag_yen_ohlc_open = False
 flag_adi_ohlc_open = False
 
@@ -5624,7 +5624,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global dow_tick_list, dow_value_list, df_dow_ohlc, df_dow_ohlc_1min, df_dow_ohlc_5min, df_dow_ohlc_15min
         global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
         global wti_tick_list, wti_value_list, df_wti_ohlc, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
-        global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min, df_eurofx_ohlc_15min
+        global euro_tick_list, euro_value_list, df_euro_ohlc, df_euro_ohlc_1min, df_euro_ohlc_5min, df_euro_ohlc_15min
         global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
         global gold_tick_list, gold_value_list, df_gold_ohlc, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
 
@@ -5741,21 +5741,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
-        eurofx_tick_list.append(chetime)
-        eurofx_value_list.append(EURO_현재가)
+        euro_tick_list.append(chetime)
+        euro_value_list.append(EURO_현재가)
 
-        temp_dict = {"value": eurofx_value_list}
-        df = pd.DataFrame(temp_dict, index=eurofx_tick_list)
+        temp_dict = {"value": euro_value_list}
+        df = pd.DataFrame(temp_dict, index=euro_tick_list)
 
         # Converting the index as DatetimeIndex
         df.index = pd.to_datetime(df.index)
 
         # 1 Minute resample
-        df_eurofx_ohlc_1min = df.resample('1T').ohlc()
+        df_euro_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        #df_eurofx_ohlc_5min = df.resample('5T').ohlc()
+        #df_euro_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        #df_eurofx_ohlc_15min = df.resample('15T').ohlc()
+        #df_euro_ohlc_15min = df.resample('15T').ohlc()
         
         # HANGSENG OHLC 데이타프레임 생성        
         time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
@@ -15053,7 +15053,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global start_time_txt, end_time_txt
 
-        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_adi_graph, df_hangseng_graph
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph, df_hangseng_graph
         global view_actval
         
         global call_itm_count, call_max_actval
@@ -15341,7 +15341,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_hangseng_graph.at[0, 'drate'] = 0
                 df_wti_graph.at[0, 'drate'] = 0
                 df_gold_graph.at[0, 'drate'] = 0
-                df_eurofx_graph.at[0, 'drate'] = 0
+                df_euro_graph.at[0, 'drate'] = 0
                 df_yen_graph.at[0, 'drate'] = 0
                 df_adi_graph.at[0, 'drate'] = 0
 
@@ -15375,8 +15375,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_gold_graph.at[1, 'price'] = GOLD_시가
 
                 if EURO_전일종가 > 0:
-                    df_eurofx_graph.at[0, 'price'] = EURO_전일종가
-                    df_eurofx_graph.at[1, 'price'] = EURO_시가
+                    df_euro_graph.at[0, 'price'] = EURO_전일종가
+                    df_euro_graph.at[1, 'price'] = EURO_시가
 
                 if YEN_전일종가 > 0:
                     df_yen_graph.at[0, 'price'] = YEN_전일종가
@@ -16490,7 +16490,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_nasdaq_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_wti_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_gold_graph.at[0, 'quote_remainder_ratio'] = 1.0
-                df_eurofx_graph.at[0, 'quote_remainder_ratio'] = 1.0
+                df_euro_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_yen_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_adi_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0                
@@ -20280,7 +20280,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
+            df_euro_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
             df_yen_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate', \
                 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
@@ -21080,7 +21080,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
         self.checkBox_oil.stateChanged.connect(self.checkBox_oil_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
-        self.checkBox_eurofx.stateChanged.connect(self.checkBox_eurofx_checkState)
+        self.checkBox_eurofx.stateChanged.connect(self.checkBox_euro_checkState)
         self.checkBox_yen.stateChanged.connect(self.checkBox_yen_checkState)
         self.checkBox_adi.stateChanged.connect(self.checkBox_adi_checkState)
         
@@ -21928,7 +21928,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 pass
 
-    def checkBox_eurofx_checkState(self):
+    def checkBox_euro_checkState(self):
 
         dt = datetime.now()
 
@@ -21951,9 +21951,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                eurofx_ljust = EURO.ljust(8)
+                euro_ljust = EURO.ljust(8)
 
-                self.parent.realtime_thread_dataworker.CancelRealData('OVC', eurofx_ljust)
+                self.parent.realtime_thread_dataworker.CancelRealData('OVC', euro_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EURO 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22649,7 +22649,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_hangseng_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_wti_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_gold_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_eurofx_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_euro_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_yen_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_adi_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -22752,7 +22752,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_hangseng_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_wti_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_gold_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_eurofx_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_euro_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_yen_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_adi_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -22855,7 +22855,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_hangseng_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_wti_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_gold_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_eurofx_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_euro_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_yen_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_adi_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -22958,7 +22958,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_hangseng_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot4_wti_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_gold_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_eurofx_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_euro_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_yen_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_adi_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -23061,7 +23061,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_hangseng_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_wti_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_gold_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_eurofx_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_euro_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_yen_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_adi_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -23164,7 +23164,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_hangseng_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot6_wti_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_gold_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_eurofx_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_euro_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_yen_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_adi_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -23509,12 +23509,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 19:
                 
-                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
                     
-                    Open = df_eurofx_graph.at[plot_x, 'open']                    
-                    High = df_eurofx_graph.at[plot_x, 'high']
-                    Low = df_eurofx_graph.at[plot_x, 'low']
-                    Close = df_eurofx_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'open']                    
+                    High = df_euro_graph.at[plot_x, 'high']
+                    Low = df_euro_graph.at[plot_x, 'low']
+                    Close = df_euro_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23687,12 +23687,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 19:
                 
-                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
                     
-                    Open = df_eurofx_graph.at[plot_x, 'open']                    
-                    High = df_eurofx_graph.at[plot_x, 'high']
-                    Low = df_eurofx_graph.at[plot_x, 'low']
-                    Close = df_eurofx_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'open']                    
+                    High = df_euro_graph.at[plot_x, 'high']
+                    Low = df_euro_graph.at[plot_x, 'low']
+                    Close = df_euro_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -23865,12 +23865,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 19:
                 
-                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
                     
-                    Open = df_eurofx_graph.at[plot_x, 'open']                    
-                    High = df_eurofx_graph.at[plot_x, 'high']
-                    Low = df_eurofx_graph.at[plot_x, 'low']
-                    Close = df_eurofx_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'open']                    
+                    High = df_euro_graph.at[plot_x, 'high']
+                    Low = df_euro_graph.at[plot_x, 'low']
+                    Close = df_euro_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24043,12 +24043,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 19:
                 
-                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
                     
-                    Open = df_eurofx_graph.at[plot_x, 'open']                    
-                    High = df_eurofx_graph.at[plot_x, 'high']
-                    Low = df_eurofx_graph.at[plot_x, 'low']
-                    Close = df_eurofx_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'open']                    
+                    High = df_euro_graph.at[plot_x, 'high']
+                    Low = df_euro_graph.at[plot_x, 'low']
+                    Close = df_euro_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24219,12 +24219,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 19:
                 
-                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
                     
-                    Open = df_eurofx_graph.at[plot_x, 'open']                    
-                    High = df_eurofx_graph.at[plot_x, 'high']
-                    Low = df_eurofx_graph.at[plot_x, 'low']
-                    Close = df_eurofx_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'open']                    
+                    High = df_euro_graph.at[plot_x, 'high']
+                    Low = df_euro_graph.at[plot_x, 'low']
+                    Close = df_euro_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24397,12 +24397,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 19:
                 
-                if not np.isnan(df_eurofx_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
                     
-                    Open = df_eurofx_graph.at[plot_x, 'open']                    
-                    High = df_eurofx_graph.at[plot_x, 'high']
-                    Low = df_eurofx_graph.at[plot_x, 'low']
-                    Close = df_eurofx_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'open']                    
+                    High = df_euro_graph.at[plot_x, 'high']
+                    Low = df_euro_graph.at[plot_x, 'low']
+                    Close = df_euro_graph.at[plot_x, 'close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L: {3:.2f}\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24758,7 +24758,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_wti_curve.clear()
         self.plot1_gold_curve.clear()
 
-        self.plot1_eurofx_curve.clear()
+        self.plot1_euro_curve.clear()
         self.plot1_yen_curve.clear()
         self.plot1_adi_curve.clear()
 
@@ -25693,34 +25693,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 19:
             
             if EURO_전저 == 0:
-                eurofx_전저 = EURO_전일종가
+                euro_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EURO_전저
+                euro_전저 = EURO_전저
 
             if EURO_전고 == 0:
-                eurofx_전고 = EURO_전일종가
+                euro_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EURO_전고
+                euro_전고 = EURO_전고
 
             if EURO_피봇 == 0:
-                eurofx_피봇 = EURO_전일종가
+                euro_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EURO_피봇
+                euro_피봇 = EURO_피봇
 
             if EURO_시가 == 0:
-                eurofx_시가 = EURO_전일종가
+                euro_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EURO_시가
+                euro_시가 = EURO_시가
 
             if EURO_저가 == 0:
-                eurofx_저가 = EURO_전일종가
+                euro_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EURO_저가
+                euro_저가 = EURO_저가
 
             if EURO_고가 == 0:
-                eurofx_고가 = EURO_전일종가
+                euro_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EURO_고가
+                euro_고가 = EURO_고가
 
             self.plot1_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
             self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
@@ -25747,37 +25747,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_low_line.setValue(EURO_전일종가)
             self.plot1_fut_high_line.setValue(EURO_전일종가)
                             
-            txt = ' {0} '.format(format(eurofx_전저, ','))
+            txt = ' {0} '.format(format(euro_전저, ','))
             self.label_11.setText(txt)
-            self.plot1_ovc_jl_line.setValue(eurofx_전저)
+            self.plot1_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(eurofx_전고, ','))
+            txt = ' {0} '.format(format(euro_전고, ','))
             self.label_12.setText(txt)
-            self.plot1_ovc_jh_line.setValue(eurofx_전고)
+            self.plot1_ovc_jh_line.setValue(euro_전고)
             
             txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_13.setText(txt)
             self.plot1_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(eurofx_피봇, ','))
+            txt = ' {0} '.format(format(euro_피봇, ','))
             self.label_14.setText(txt)
-            self.plot1_ovc_pivot_line.setValue(eurofx_피봇)
+            self.plot1_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(eurofx_시가, ','))
+            txt = ' {0} '.format(format(euro_시가, ','))
             self.label_15.setText(txt)
-            self.plot1_ovc_open_line.setValue(eurofx_시가)
+            self.plot1_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(eurofx_저가, ','))
+            txt = ' {0} '.format(format(euro_저가, ','))
             self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_16.setText(txt)
-            self.plot1_ovc_low_line.setValue(eurofx_저가)
+            self.plot1_ovc_low_line.setValue(euro_저가)
 
             self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(eurofx_고가, ','))
+            txt = ' {0} '.format(format(euro_고가, ','))
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
-            self.plot1_ovc_high_line.setValue(eurofx_고가)
+            self.plot1_ovc_high_line.setValue(euro_고가)
 
         elif comboindex1 == 20:
             
@@ -26038,7 +26038,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_wti_curve.clear()
         self.plot2_gold_curve.clear()
 
-        self.plot2_eurofx_curve.clear()
+        self.plot2_euro_curve.clear()
         self.plot2_yen_curve.clear()
         self.plot2_adi_curve.clear()
 
@@ -26973,34 +26973,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 19:
 
             if EURO_전저 == 0:
-                eurofx_전저 = EURO_전일종가
+                euro_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EURO_전저
+                euro_전저 = EURO_전저
 
             if EURO_전고 == 0:
-                eurofx_전고 = EURO_전일종가
+                euro_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EURO_전고
+                euro_전고 = EURO_전고
 
             if EURO_피봇 == 0:
-                eurofx_피봇 = EURO_전일종가
+                euro_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EURO_피봇
+                euro_피봇 = EURO_피봇
 
             if EURO_시가 == 0:
-                eurofx_시가 = EURO_전일종가
+                euro_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EURO_시가
+                euro_시가 = EURO_시가
 
             if EURO_저가 == 0:
-                eurofx_저가 = EURO_전일종가
+                euro_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EURO_저가
+                euro_저가 = EURO_저가
 
             if EURO_고가 == 0:
-                eurofx_고가 = EURO_전일종가
+                euro_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EURO_고가
+                euro_고가 = EURO_고가
 
             self.plot2_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
             self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
@@ -27027,37 +27027,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_low_line.setValue(EURO_전일종가)
             self.plot2_fut_high_line.setValue(EURO_전일종가)
                 
-            txt = ' {0} '.format(format(eurofx_전저, ','))
+            txt = ' {0} '.format(format(euro_전저, ','))
             self.label_21.setText(txt)
-            self.plot2_ovc_jl_line.setValue(eurofx_전저)
+            self.plot2_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(eurofx_전고, ','))
+            txt = ' {0} '.format(format(euro_전고, ','))
             self.label_22.setText(txt)
-            self.plot2_ovc_jh_line.setValue(eurofx_전고)
+            self.plot2_ovc_jh_line.setValue(euro_전고)
             
             txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_23.setText(txt)
             self.plot2_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(eurofx_피봇, ','))
+            txt = ' {0} '.format(format(euro_피봇, ','))
             self.label_24.setText(txt)
-            self.plot2_ovc_pivot_line.setValue(eurofx_피봇)
+            self.plot2_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(eurofx_시가, ','))
+            txt = ' {0} '.format(format(euro_시가, ','))
             self.label_25.setText(txt)
-            self.plot2_ovc_open_line.setValue(eurofx_시가)
+            self.plot2_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(eurofx_저가, ','))
+            txt = ' {0} '.format(format(euro_저가, ','))
             self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_26.setText(txt)
-            self.plot2_ovc_low_line.setValue(eurofx_저가)
+            self.plot2_ovc_low_line.setValue(euro_저가)
 
             self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(eurofx_고가, ','))
+            txt = ' {0} '.format(format(euro_고가, ','))
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
-            self.plot2_ovc_high_line.setValue(eurofx_고가)
+            self.plot2_ovc_high_line.setValue(euro_고가)
 
         elif comboindex2 == 20:
 
@@ -27318,7 +27318,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_wti_curve.clear()
         self.plot3_gold_curve.clear()
 
-        self.plot3_eurofx_curve.clear()
+        self.plot3_euro_curve.clear()
         self.plot3_yen_curve.clear()
         self.plot3_adi_curve.clear()
 
@@ -28253,34 +28253,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 19:
 
             if EURO_전저 == 0:
-                eurofx_전저 = EURO_전일종가
+                euro_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EURO_전저
+                euro_전저 = EURO_전저
 
             if EURO_전고 == 0:
-                eurofx_전고 = EURO_전일종가
+                euro_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EURO_전고
+                euro_전고 = EURO_전고
 
             if EURO_피봇 == 0:
-                eurofx_피봇 = EURO_전일종가
+                euro_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EURO_피봇
+                euro_피봇 = EURO_피봇
 
             if EURO_시가 == 0:
-                eurofx_시가 = EURO_전일종가
+                euro_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EURO_시가
+                euro_시가 = EURO_시가
 
             if EURO_저가 == 0:
-                eurofx_저가 = EURO_전일종가
+                euro_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EURO_저가
+                euro_저가 = EURO_저가
 
             if EURO_고가 == 0:
-                eurofx_고가 = EURO_전일종가
+                euro_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EURO_고가
+                euro_고가 = EURO_고가
 
             self.plot3_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
             self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
@@ -28307,37 +28307,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_low_line.setValue(EURO_전일종가)
             self.plot3_fut_high_line.setValue(EURO_전일종가) 
                 
-            txt = ' {0} '.format(format(eurofx_전저, ','))
+            txt = ' {0} '.format(format(euro_전저, ','))
             self.label_31.setText(txt)
-            self.plot3_ovc_jl_line.setValue(eurofx_전저)
+            self.plot3_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(eurofx_전고, ','))
+            txt = ' {0} '.format(format(euro_전고, ','))
             self.label_32.setText(txt)
-            self.plot3_ovc_jh_line.setValue(eurofx_전고)
+            self.plot3_ovc_jh_line.setValue(euro_전고)
             
             txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_33.setText(txt)
             self.plot3_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(eurofx_피봇, ','))
+            txt = ' {0} '.format(format(euro_피봇, ','))
             self.label_34.setText(txt)
-            self.plot3_ovc_pivot_line.setValue(eurofx_피봇)
+            self.plot3_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(eurofx_시가, ','))
+            txt = ' {0} '.format(format(euro_시가, ','))
             self.label_35.setText(txt)
-            self.plot3_ovc_open_line.setValue(eurofx_시가)
+            self.plot3_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(eurofx_저가, ','))
+            txt = ' {0} '.format(format(euro_저가, ','))
             self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_36.setText(txt)
-            self.plot3_ovc_low_line.setValue(eurofx_저가)
+            self.plot3_ovc_low_line.setValue(euro_저가)
 
             self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(eurofx_고가, ','))
+            txt = ' {0} '.format(format(euro_고가, ','))
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
-            self.plot3_ovc_high_line.setValu(eurofx_고가)
+            self.plot3_ovc_high_line.setValue(euro_고가)
 
         elif comboindex3 == 20:
 
@@ -28598,7 +28598,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_wti_curve.clear()
         self.plot4_gold_curve.clear()
 
-        self.plot4_eurofx_curve.clear()
+        self.plot4_euro_curve.clear()
         self.plot4_yen_curve.clear()
         self.plot4_adi_curve.clear()
 
@@ -29533,34 +29533,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 19:
 
             if EURO_전저 == 0:
-                eurofx_전저 = EURO_전일종가
+                euro_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EURO_전저
+                euro_전저 = EURO_전저
 
             if EURO_전고 == 0:
-                eurofx_전고 = EURO_전일종가
+                euro_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EURO_전고
+                euro_전고 = EURO_전고
 
             if EURO_피봇 == 0:
-                eurofx_피봇 = EURO_전일종가
+                euro_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EURO_피봇
+                euro_피봇 = EURO_피봇
 
             if EURO_시가 == 0:
-                eurofx_시가 = EURO_전일종가
+                euro_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EURO_시가
+                euro_시가 = EURO_시가
 
             if EURO_저가 == 0:
-                eurofx_저가 = EURO_전일종가
+                euro_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EURO_저가
+                euro_저가 = EURO_저가
 
             if EURO_고가 == 0:
-                eurofx_고가 = EURO_전일종가
+                euro_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EURO_고가
+                euro_고가 = EURO_고가
 
             self.plot4_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
             self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
@@ -29587,37 +29587,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_low_line.setValue(EURO_전일종가)
             self.plot4_fut_high_line.setValue(EURO_전일종가)
                             
-            txt = ' {0} '.format(format(eurofx_전저, ','))
+            txt = ' {0} '.format(format(euro_전저, ','))
             self.label_41.setText(txt)
-            self.plot4_ovc_jl_line.setValue(eurofx_전저)
+            self.plot4_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(eurofx_전고, ','))
+            txt = ' {0} '.format(format(euro_전고, ','))
             self.label_42.setText(txt)
-            self.plot4_ovc_jh_line.setValue(eurofx_전고)
+            self.plot4_ovc_jh_line.setValue(euro_전고)
             
             txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_43.setText(txt)
             self.plot4_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(eurofx_피봇, ','))
+            txt = ' {0} '.format(format(euro_피봇, ','))
             self.label_44.setText(txt)
-            self.plot4_ovc_pivot_line.setValue(eurofx_피봇)
+            self.plot4_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(eurofx_시가, ','))
+            txt = ' {0} '.format(format(euro_시가, ','))
             self.label_45.setText(txt)
-            self.plot4_ovc_open_line.setValue(eurofx_시가)
+            self.plot4_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(eurofx_저가, ','))
+            txt = ' {0} '.format(format(euro_저가, ','))
             self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_46.setText(txt)
-            self.plot4_ovc_low_line.setValue(eurofx_저가)
+            self.plot4_ovc_low_line.setValue(euro_저가)
 
             self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(eurofx_고가, ','))
+            txt = ' {0} '.format(format(euro_고가, ','))
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(txt)
-            self.plot4_ovc_high_line.setValue(eurofx_고가)
+            self.plot4_ovc_high_line.setValue(euro_고가)
 
         elif comboindex4 == 20:
 
@@ -29878,7 +29878,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_wti_curve.clear()
         self.plot5_gold_curve.clear()
 
-        self.plot5_eurofx_curve.clear()
+        self.plot5_euro_curve.clear()
         self.plot5_yen_curve.clear()
         self.plot5_adi_curve.clear()
 
@@ -30813,34 +30813,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 19:
 
             if EURO_전저 == 0:
-                eurofx_전저 = EURO_전일종가
+                euro_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EURO_전저
+                euro_전저 = EURO_전저
 
             if EURO_전고 == 0:
-                eurofx_전고 = EURO_전일종가
+                euro_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EURO_전고
+                euro_전고 = EURO_전고
 
             if EURO_피봇 == 0:
-                eurofx_피봇 = EURO_전일종가
+                euro_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EURO_피봇
+                euro_피봇 = EURO_피봇
 
             if EURO_시가 == 0:
-                eurofx_시가 = EURO_전일종가
+                euro_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EURO_시가
+                euro_시가 = EURO_시가
 
             if EURO_저가 == 0:
-                eurofx_저가 = EURO_전일종가
+                euro_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EURO_저가
+                euro_저가 = EURO_저가
 
             if EURO_고가 == 0:
-                eurofx_고가 = EURO_전일종가
+                euro_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EURO_고가
+                euro_고가 = EURO_고가
 
             self.plot5_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
             self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
@@ -30867,37 +30867,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_low_line.setValue(EURO_전일종가)
             self.plot5_fut_high_line.setValue(EURO_전일종가)
                 
-            txt = ' {0} '.format(format(eurofx_전저, ','))
+            txt = ' {0} '.format(format(euro_전저, ','))
             self.label_51.setText(txt)
-            self.plot5_ovc_jl_line.setValue(eurofx_전저)
+            self.plot5_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(eurofx_전고, ','))
+            txt = ' {0} '.format(format(euro_전고, ','))
             self.label_52.setText(txt)
-            self.plot5_ovc_jh_line.setValue(eurofx_전고)
+            self.plot5_ovc_jh_line.setValue(euro_전고)
             
             txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_53.setText(txt)
             self.plot5_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(eurofx_피봇, ','))
+            txt = ' {0} '.format(format(euro_피봇, ','))
             self.label_54.setText(txt)
-            self.plot5_ovc_pivot_line.setValue(eurofx_피봇)
+            self.plot5_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(eurofx_시가, ','))
+            txt = ' {0} '.format(format(euro_시가, ','))
             self.label_55.setText(txt)
-            self.plot5_ovc_open_line.setValue(eurofx_시가)
+            self.plot5_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(eurofx_저가, ','))
+            txt = ' {0} '.format(format(euro_저가, ','))
             self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_56.setText(txt)
-            self.plot5_ovc_low_line.setValue(eurofx_저가)
+            self.plot5_ovc_low_line.setValue(euro_저가)
 
             self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(eurofx_고가, ','))
+            txt = ' {0} '.format(format(euro_고가, ','))
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
-            self.plot5_ovc_high_line.setValue(eurofx_고가)
+            self.plot5_ovc_high_line.setValue(euro_고가)
 
         elif comboindex5 == 20:
 
@@ -31158,7 +31158,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_wti_curve.clear()
         self.plot6_gold_curve.clear()
 
-        self.plot6_eurofx_curve.clear()
+        self.plot6_euro_curve.clear()
         self.plot6_yen_curve.clear()
         self.plot6_adi_curve.clear()
 
@@ -32093,34 +32093,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 19:
 
             if EURO_전저 == 0:
-                eurofx_전저 = EURO_전일종가
+                euro_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EURO_전저
+                euro_전저 = EURO_전저
 
             if EURO_전고 == 0:
-                eurofx_전고 = EURO_전일종가
+                euro_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EURO_전고
+                euro_전고 = EURO_전고
 
             if EURO_피봇 == 0:
-                eurofx_피봇 = EURO_전일종가
+                euro_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EURO_피봇
+                euro_피봇 = EURO_피봇
 
             if EURO_시가 == 0:
-                eurofx_시가 = EURO_전일종가
+                euro_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EURO_시가
+                euro_시가 = EURO_시가
 
             if EURO_저가 == 0:
-                eurofx_저가 = EURO_전일종가
+                euro_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EURO_저가
+                euro_저가 = EURO_저가
 
             if EURO_고가 == 0:
-                eurofx_고가 = EURO_전일종가
+                euro_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EURO_고가
+                euro_고가 = EURO_고가
 
             self.plot6_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
             self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
@@ -32147,37 +32147,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_low_line.setValue(EURO_전일종가)
             self.plot6_fut_high_line.setValue(EURO_전일종가) 
                 
-            txt = ' {0} '.format(format(eurofx_전저, ','))
+            txt = ' {0} '.format(format(euro_전저, ','))
             self.label_61.setText(txt)
-            self.plot6_ovc_jl_line.setValue(eurofx_전저)
+            self.plot6_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(eurofx_전고, ','))
+            txt = ' {0} '.format(format(euro_전고, ','))
             self.label_62.setText(txt)
-            self.plot6_ovc_jh_line.setValue(eurofx_전고)
+            self.plot6_ovc_jh_line.setValue(euro_전고)
             
             txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_63.setText(txt)
             self.plot6_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(eurofx_피봇, ','))
+            txt = ' {0} '.format(format(euro_피봇, ','))
             self.label_64.setText(txt)
-            self.plot6_ovc_pivot_line.setValue(eurofx_피봇)
+            self.plot6_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(eurofx_시가, ','))
+            txt = ' {0} '.format(format(euro_시가, ','))
             self.label_65.setText(txt)
-            self.plot6_ovc_open_line.setValue(eurofx_시가)
+            self.plot6_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(eurofx_저가, ','))
+            txt = ' {0} '.format(format(euro_저가, ','))
             self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_66.setText(txt)
-            self.plot6_ovc_low_line.setValue(eurofx_저가)
+            self.plot6_ovc_low_line.setValue(euro_저가)
 
             self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(eurofx_고가, ','))
+            txt = ' {0} '.format(format(euro_고가, ','))
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
-            self.plot6_ovc_high_line.setValue(eurofx_고가)
+            self.plot6_ovc_high_line.setValue(euro_고가)
 
         elif comboindex6 == 20:
 
@@ -34007,33 +34007,33 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(EURO_저가)
                 self.plot1_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot1_eurofx_curve.setData(df_eurofx_graph['price'])
+                self.plot1_euro_curve.setData(df_euro_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot1_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
-                    self.plot1_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
-                    self.plot1_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+                    self.plot1_bollinger_upper_curve.setData(df_euro_graph['BBUpper'])
+                    self.plot1_bollinger_middle_curve.setData(df_euro_graph['BBMiddle'])
+                    self.plot1_bollinger_lower_curve.setData(df_euro_graph['BBLower'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'BBMiddle']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'BBMiddle']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p1_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'PSAR']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'PSAR']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'PSAR'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
                         pass
@@ -34044,21 +34044,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot1_mama_curve.setData(df_eurofx_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+                    self.plot1_mama_curve.setData(df_euro_graph['MAMA'])
+                    self.plot1_fama_curve.setData(df_euro_graph['A_FAMA'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'FAMA']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'FAMA'] >= df_eurofx_graph.at[plot_time_index, 'BBLower']:
+                        if df_euro_graph.at[plot_time_index, 'FAMA'] >= df_euro_graph.at[plot_time_index, 'BBLower']:
 
-                            if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
+                            if df_euro_graph.at[plot_time_index, 'MAMA'] < df_euro_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
                                 self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'MAMA'], df_eurofx_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'MAMA'], df_euro_graph.at[plot_time_index, 'FAMA'])
                         self.label_p1_4.setText(txt)
                     else:
                         pass
@@ -34069,17 +34069,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot1_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+                    self.plot1_oe_conv_curve.setData(df_euro_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_euro_graph['OE_BASE'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_BASE']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_graph.at[plot_time_index, 'OE_BASE']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
+                        if df_euro_graph.at[plot_time_index, 'OE_CONV'] < df_euro_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'OE_CONV'], df_euro_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
                         pass
@@ -35699,33 +35699,33 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(EURO_저가)
                 self.plot2_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot2_eurofx_curve.setData(df_eurofx_graph['price'])
+                self.plot2_euro_curve.setData(df_euro_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot2_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
-                    self.plot2_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
-                    self.plot2_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+                    self.plot2_bollinger_upper_curve.setData(df_euro_graph['BBUpper'])
+                    self.plot2_bollinger_middle_curve.setData(df_euro_graph['BBMiddle'])
+                    self.plot2_bollinger_lower_curve.setData(df_euro_graph['BBLower'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'BBMiddle']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'BBMiddle']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p2_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'PSAR']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'PSAR']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'PSAR'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
                         pass
@@ -35736,21 +35736,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot2_mama_curve.setData(df_eurofx_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+                    self.plot2_mama_curve.setData(df_euro_graph['MAMA'])
+                    self.plot2_fama_curve.setData(df_euro_graph['A_FAMA'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'FAMA']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'FAMA'] >= df_eurofx_graph.at[plot_time_index, 'BBLower']:
+                        if df_euro_graph.at[plot_time_index, 'FAMA'] >= df_euro_graph.at[plot_time_index, 'BBLower']:
 
-                            if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
+                            if df_euro_graph.at[plot_time_index, 'MAMA'] < df_euro_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
                                 self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'MAMA'], df_eurofx_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'MAMA'], df_euro_graph.at[plot_time_index, 'FAMA'])
                         self.label_p2_4.setText(txt)
                     else:
                         pass
@@ -35761,17 +35761,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot2_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+                    self.plot2_oe_conv_curve.setData(df_euro_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_euro_graph['OE_BASE'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_BASE']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_graph.at[plot_time_index, 'OE_BASE']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
+                        if df_euro_graph.at[plot_time_index, 'OE_CONV'] < df_euro_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'OE_CONV'], df_euro_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
                     else:
                         pass
@@ -37387,33 +37387,33 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(EURO_저가)
                 self.plot3_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot3_eurofx_curve.setData(df_eurofx_graph['price'])
+                self.plot3_euro_curve.setData(df_euro_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot3_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
-                    self.plot3_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
-                    self.plot3_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+                    self.plot3_bollinger_upper_curve.setData(df_euro_graph['BBUpper'])
+                    self.plot3_bollinger_middle_curve.setData(df_euro_graph['BBMiddle'])
+                    self.plot3_bollinger_lower_curve.setData(df_euro_graph['BBLower'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'BBMiddle']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'BBMiddle']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p3_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'PSAR']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'PSAR']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'PSAR'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
                         pass
@@ -37424,21 +37424,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot3_mama_curve.setData(df_eurofx_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+                    self.plot3_mama_curve.setData(df_euro_graph['MAMA'])
+                    self.plot3_fama_curve.setData(df_euro_graph['A_FAMA'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'FAMA']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'FAMA'] >= df_eurofx_graph.at[plot_time_index, 'BBLower']:
+                        if df_euro_graph.at[plot_time_index, 'FAMA'] >= df_euro_graph.at[plot_time_index, 'BBLower']:
 
-                            if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
+                            if df_euro_graph.at[plot_time_index, 'MAMA'] < df_euro_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
                                 self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'MAMA'], df_eurofx_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'MAMA'], df_euro_graph.at[plot_time_index, 'FAMA'])
                         self.label_p3_4.setText(txt)
                     else:
                         pass
@@ -37449,17 +37449,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot3_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+                    self.plot3_oe_conv_curve.setData(df_euro_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_euro_graph['OE_BASE'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_BASE']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_graph.at[plot_time_index, 'OE_BASE']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
+                        if df_euro_graph.at[plot_time_index, 'OE_CONV'] < df_euro_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'OE_CONV'], df_euro_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
                     else:
                         pass
@@ -39076,33 +39076,33 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(EURO_저가)
                 self.plot4_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot4_eurofx_curve.setData(df_eurofx_graph['price'])
+                self.plot4_euro_curve.setData(df_euro_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot4_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
-                    self.plot4_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
-                    self.plot4_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+                    self.plot4_bollinger_upper_curve.setData(df_euro_graph['BBUpper'])
+                    self.plot4_bollinger_middle_curve.setData(df_euro_graph['BBMiddle'])
+                    self.plot4_bollinger_lower_curve.setData(df_euro_graph['BBLower'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'BBMiddle']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'BBMiddle']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p4_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'PSAR']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'PSAR']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'PSAR'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
                         pass
@@ -39113,21 +39113,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot4_mama_curve.setData(df_eurofx_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+                    self.plot4_mama_curve.setData(df_euro_graph['MAMA'])
+                    self.plot4_fama_curve.setData(df_euro_graph['A_FAMA'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'FAMA']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'FAMA'] >= df_eurofx_graph.at[plot_time_index, 'BBLower']:
+                        if df_euro_graph.at[plot_time_index, 'FAMA'] >= df_euro_graph.at[plot_time_index, 'BBLower']:
 
-                            if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
+                            if df_euro_graph.at[plot_time_index, 'MAMA'] < df_euro_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
                                 self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'MAMA'], df_eurofx_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'MAMA'], df_euro_graph.at[plot_time_index, 'FAMA'])
                         self.label_p4_4.setText(txt)
                     else:
                         pass
@@ -39138,17 +39138,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot4_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+                    self.plot4_oe_conv_curve.setData(df_euro_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_euro_graph['OE_BASE'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_BASE']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_graph.at[plot_time_index, 'OE_BASE']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
+                        if df_euro_graph.at[plot_time_index, 'OE_CONV'] < df_euro_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'OE_CONV'], df_euro_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
                     else:
                         pass
@@ -40763,33 +40763,33 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(EURO_저가)
                 self.plot5_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot5_eurofx_curve.setData(df_eurofx_graph['price'])
+                self.plot5_euro_curve.setData(df_euro_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot5_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
-                    self.plot5_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
-                    self.plot5_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+                    self.plot5_bollinger_upper_curve.setData(df_euro_graph['BBUpper'])
+                    self.plot5_bollinger_middle_curve.setData(df_euro_graph['BBMiddle'])
+                    self.plot5_bollinger_lower_curve.setData(df_euro_graph['BBLower'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'BBMiddle']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'BBMiddle']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p5_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'PSAR']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'PSAR']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'PSAR'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
                         pass
@@ -40800,21 +40800,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot5_mama_curve.setData(df_eurofx_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+                    self.plot5_mama_curve.setData(df_euro_graph['MAMA'])
+                    self.plot5_fama_curve.setData(df_euro_graph['A_FAMA'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'FAMA']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'FAMA'] >= df_eurofx_graph.at[plot_time_index, 'BBLower']:
+                        if df_euro_graph.at[plot_time_index, 'FAMA'] >= df_euro_graph.at[plot_time_index, 'BBLower']:
 
-                            if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
+                            if df_euro_graph.at[plot_time_index, 'MAMA'] < df_euro_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
                                 self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'MAMA'], df_eurofx_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'MAMA'], df_euro_graph.at[plot_time_index, 'FAMA'])
                         self.label_p5_4.setText(txt)
                     else:
                         pass
@@ -40825,17 +40825,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot5_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+                    self.plot5_oe_conv_curve.setData(df_euro_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_euro_graph['OE_BASE'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_BASE']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_graph.at[plot_time_index, 'OE_BASE']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
+                        if df_euro_graph.at[plot_time_index, 'OE_CONV'] < df_euro_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'OE_CONV'], df_euro_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
                     else:
                         pass
@@ -42450,33 +42450,33 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(EURO_저가)
                 self.plot6_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot6_eurofx_curve.setData(df_eurofx_graph['price'])
+                self.plot6_euro_curve.setData(df_euro_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_SAR_BBand('EURO')
 
-                    self.plot6_bollinger_upper_curve.setData(df_eurofx_graph['BBUpper'])
-                    self.plot6_bollinger_middle_curve.setData(df_eurofx_graph['BBMiddle'])
-                    self.plot6_bollinger_lower_curve.setData(df_eurofx_graph['BBLower'])
+                    self.plot6_bollinger_upper_curve.setData(df_euro_graph['BBUpper'])
+                    self.plot6_bollinger_middle_curve.setData(df_euro_graph['BBMiddle'])
+                    self.plot6_bollinger_lower_curve.setData(df_euro_graph['BBLower'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'BBMiddle']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'BBMiddle']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'BBMiddle'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p6_1.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_1.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         pass                 
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'PSAR']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'PSAR']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'PSAR'] >= df_eurofx_graph.at[plot_time_index, 'price']:
+                        if df_euro_graph.at[plot_time_index, 'PSAR'] >= df_euro_graph.at[plot_time_index, 'price']:
                             self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'BBMiddle'], df_eurofx_graph.at[plot_time_index, 'PSAR'])
+                        txt = " BB Mid: {0:.2f}\n PSAR: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
                         pass
@@ -42487,21 +42487,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('EURO')
 
-                    self.plot6_mama_curve.setData(df_eurofx_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_eurofx_graph['A_FAMA'])
+                    self.plot6_mama_curve.setData(df_euro_graph['MAMA'])
+                    self.plot6_fama_curve.setData(df_euro_graph['A_FAMA'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'FAMA']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'FAMA'] >= df_eurofx_graph.at[plot_time_index, 'BBLower']:
+                        if df_euro_graph.at[plot_time_index, 'FAMA'] >= df_euro_graph.at[plot_time_index, 'BBLower']:
 
-                            if df_eurofx_graph.at[plot_time_index, 'MAMA'] < df_eurofx_graph.at[plot_time_index, 'FAMA']:
+                            if df_euro_graph.at[plot_time_index, 'MAMA'] < df_euro_graph.at[plot_time_index, 'FAMA']:
                                 self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                             else:
                                 self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'MAMA'], df_eurofx_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'MAMA'], df_euro_graph.at[plot_time_index, 'FAMA'])
                         self.label_p6_4.setText(txt)
                     else:
                         pass
@@ -42512,17 +42512,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Ichimoku('EURO')
 
-                    self.plot6_oe_conv_curve.setData(df_eurofx_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_eurofx_graph['OE_BASE'])
+                    self.plot6_oe_conv_curve.setData(df_euro_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_euro_graph['OE_BASE'])
 
-                    if not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_eurofx_graph.at[plot_time_index, 'OE_BASE']):
+                    if not np.isnan(df_euro_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_graph.at[plot_time_index, 'OE_BASE']):
 
-                        if df_eurofx_graph.at[plot_time_index, 'OE_CONV'] < df_eurofx_graph.at[plot_time_index, 'OE_BASE']:
+                        if df_euro_graph.at[plot_time_index, 'OE_CONV'] < df_euro_graph.at[plot_time_index, 'OE_BASE']:
                             self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
                             self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_eurofx_graph.at[plot_time_index, 'OE_CONV'], df_eurofx_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_euro_graph.at[plot_time_index, 'OE_CONV'], df_euro_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
                     else:
                         pass
@@ -46781,13 +46781,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
                         수급방향 = 'C-Cross1'
-                        item.setBackground(QBrush(chocolate))
-                        item.setForeground(QBrush(검정색))
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(chocolate))
 
                     if 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
                         수급방향 = 'C-Cross2'
-                        item.setBackground(QBrush(chocolate))
-                        item.setForeground(QBrush(검정색)) 
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(chocolate)) 
 
                     if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                         수급방향 = 'Call'
@@ -46803,13 +46803,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if 외인선물_순매수 > 0 and 외인현물_순매수 < 0:
                         수급방향 = 'P-Cross1'
-                        item.setBackground(QBrush(deepskyblue))
-                        item.setForeground(QBrush(검정색))
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(deepskyblue))
 
                     if 외인선물_순매수 < 0 and 외인현물_순매수 > 0:
                         수급방향 = 'P-Cross2'
-                        item.setBackground(QBrush(deepskyblue))
-                        item.setForeground(QBrush(검정색))                
+                        item.setBackground(QBrush(검정색))
+                        item.setForeground(QBrush(deepskyblue))                
 
                     if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
                         수급방향 = 'Put'
@@ -48051,7 +48051,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index
-        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_eurofx_graph, df_yen_graph, df_hangseng_graph        
+        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_hangseng_graph        
 
         global SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
         global DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
@@ -48070,7 +48070,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_sp500_ohlc_open, flag_dow_ohlc_open, flag_nasdaq_ohlc_open, flag_hangseng_ohlc_open
-        global flag_wti_ohlc_open, flag_gold_ohlc_open, flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_adi_ohlc_open
+        global flag_wti_ohlc_open, flag_gold_ohlc_open, flag_euro_ohlc_open, flag_yen_ohlc_open, flag_adi_ohlc_open
 
         global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EURO_종가대비, YEN_종가대비, ADI_종가대비
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EURO_시가대비, YEN_시가대비, ADI_시가대비
@@ -48147,11 +48147,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_gold_graph.at[plot_time_index, 'close'] = df_gold_graph.at[plot_time_index - 1, 'close']
                 df_gold_graph.at[plot_time_index, 'price'] = df_gold_graph.at[plot_time_index - 1, 'close']
 
-                df_eurofx_graph.at[plot_time_index, 'high'] = df_eurofx_graph.at[plot_time_index - 1, 'high']
-                df_eurofx_graph.at[plot_time_index, 'low'] = df_eurofx_graph.at[plot_time_index - 1, 'low']
-                df_eurofx_graph.at[plot_time_index, 'middle'] = df_eurofx_graph.at[plot_time_index - 1, 'middle']
-                df_eurofx_graph.at[plot_time_index, 'close'] = df_eurofx_graph.at[plot_time_index - 1, 'close']
-                df_eurofx_graph.at[plot_time_index, 'price'] = df_eurofx_graph.at[plot_time_index - 1, 'close']
+                df_euro_graph.at[plot_time_index, 'high'] = df_euro_graph.at[plot_time_index - 1, 'high']
+                df_euro_graph.at[plot_time_index, 'low'] = df_euro_graph.at[plot_time_index - 1, 'low']
+                df_euro_graph.at[plot_time_index, 'middle'] = df_euro_graph.at[plot_time_index - 1, 'middle']
+                df_euro_graph.at[plot_time_index, 'close'] = df_euro_graph.at[plot_time_index - 1, 'close']
+                df_euro_graph.at[plot_time_index, 'price'] = df_euro_graph.at[plot_time_index - 1, 'close']
 
                 df_yen_graph.at[plot_time_index, 'high'] = df_yen_graph.at[plot_time_index - 1, 'high']
                 df_yen_graph.at[plot_time_index, 'low'] = df_yen_graph.at[plot_time_index - 1, 'low']
@@ -49468,7 +49468,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == EURO:
 
                 # 그래프 가격갱신
-                df_eurofx_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])                    
+                df_euro_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])                    
 
                 EURO_현재가 = float(tickdata['체결가격'])
                 EURO_전일대비 = float(tickdata['전일대비'])
@@ -49490,10 +49490,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 EURO_시가대비 = int((EURO_현재가 - EURO_시가) / 0.00005)                
 
-                #df_eurofx_graph.at[0, 'price'] = EURO_전일종가
+                #df_euro_graph.at[0, 'price'] = EURO_전일종가
 
-                if df_eurofx_graph.at[1, 'price'] == 0:
-                    df_eurofx_graph.at[1, 'price'] = EURO_시가
+                if df_euro_graph.at[1, 'price'] == 0:
+                    df_euro_graph.at[1, 'price'] = EURO_시가
 
                 EURO_진폭비 = EURO_진폭 / EURO_시가 
                 
