@@ -228,12 +228,15 @@ SP500_대비 = 0
 SP500_전일대비 = 0
 SP500_종가대비 = 0
 SP500_시가대비 = 0
+SP500_시가_등락율 = 0
 SP500_시가대비_등락율 = 0
 SP500_등락율 = 0
 
 SP500_고가 = 0
 SP500_진폭 = 0
 SP500_진폭_틱 = 0
+
+SP500_FUT_시가_등락율비 = 0
 
 DOW_전저 = 0
 DOW_전고 = 0
@@ -33035,7 +33038,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'])
 
-                self.plot1_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
+                self.plot1_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -34709,7 +34712,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot2_put_drate_curve.setData(df_put_information_graph['drate'])
 
-                self.plot2_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
+                self.plot2_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -36379,7 +36382,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot3_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot3_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
+                self.plot3_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -38050,7 +38053,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot4_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot4_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
+                self.plot4_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -39719,7 +39722,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot5_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot5_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
+                self.plot5_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -41388,7 +41391,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_call_drate_curve.setData(df_call_information_graph['drate'])
                 self.plot6_put_drate_curve.setData(df_put_information_graph['drate'])
                 
-                self.plot6_cme_drate_curve.setData(plot_drate_scale_factor * df_sp500_graph['drate'])
+                self.plot6_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
                 
                 if DayTime:
 
@@ -47964,7 +47967,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비, ADI_종가대비
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비, ADI_시가대비
         global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EUROFX_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
-        global SP500_시가대비_등락율
+        global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
         global plot_time_index
 
         try:
@@ -48071,16 +48074,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     SP500_전일종가 = SP500_현재가 - SP500_전일대비
                     SP500_종가대비 = SP500_전일대비
 
-                SP500_등락율 = float(tickdata['등락율'])
+                SP500_등락율 = float(tickdata['등락율'])                
                 SP500_시가대비_등락율 = ((float(tickdata['체결가격']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
 
                 SP500_시가 = float(tickdata['시가'])
                 SP500_저가 =  float(tickdata['저가'])
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
-                SP500_진폭_틱 = int(SP500_진폭 / 0.25)
+                SP500_진폭_틱 = int(SP500_진폭 / 0.25)                
                 
                 SP500_시가대비 = int((SP500_현재가 - SP500_시가) / 0.25)
+
+                SP500_시가_등락율 = ((SP500_시가 - SP500_전일종가) / SP500_전일종가) * 100
+
+                if DayTime:
+                    if abs(SP500_시가_등락율) > 0:
+                        SP500_FUT_시가_등락율비 = abs(근월물_선물_시가등락율 / SP500_시가_등락율)
+                    else:
+                        SP500_FUT_시가_등락율비 = plot_drate_scale_factor
+                else:
+                    SP500_FUT_시가_등락율비 = plot_drate_scale_factor
 
                 #df_sp500_graph.at[0, 'price'] = SP500_전일종가
 
