@@ -32440,16 +32440,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_futures_cm_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
             df_futures_cm_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
 
-        elif type == 'DOW':
-
-            # Ichimoku Indicator
-            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
-
-            df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
-            df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-            df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
-            df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
-
         elif type == 'SP500':
 
             # Ichimoku Indicator
@@ -32458,7 +32448,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
             df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
             df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-            df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line() 
+            df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'DOW':
+
+            # Ichimoku Indicator
+            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+
+            df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
+            df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
+            df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
+            df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()         
 
         elif type == 'NASDAQ':
 
@@ -32470,6 +32470,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
             df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
 
+        elif type == 'HSI':
+
+            # Ichimoku Indicator
+            hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_graph['high'], df_hangseng_graph['low'])
+
+            df_hangseng_graph['SPAN_A'] = hsi_Ichimoku.ichimoku_a()
+            df_hangseng_graph['SPAN_B'] = hsi_Ichimoku.ichimoku_b()
+            df_hangseng_graph['OE_BASE'] = hsi_Ichimoku.ichimoku_base_line()
+            df_hangseng_graph['OE_CONV'] = hsi_Ichimoku.ichimoku_conversion_line()
+
         elif type == 'WTI':
 
             # Ichimoku Indicator
@@ -32479,6 +32489,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
             df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
             df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'GOLD':
+
+            # Ichimoku Indicator
+            gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_graph['high'], df_gold_graph['low'])
+
+            df_gold_graph['SPAN_A'] = gold_Ichimoku.ichimoku_a()
+            df_gold_graph['SPAN_B'] = gold_Ichimoku.ichimoku_b()
+            df_gold_graph['OE_BASE'] = gold_Ichimoku.ichimoku_base_line()
+            df_gold_graph['OE_CONV'] = gold_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'EURO':
+
+            # Ichimoku Indicator
+            euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_graph['high'], df_euro_graph['low'])
+
+            df_euro_graph['SPAN_A'] = euro_Ichimoku.ichimoku_a()
+            df_euro_graph['SPAN_B'] = euro_Ichimoku.ichimoku_b()
+            df_euro_graph['OE_BASE'] = euro_Ichimoku.ichimoku_base_line()
+            df_euro_graph['OE_CONV'] = euro_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'YEN':
+
+            # Ichimoku Indicator
+            yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_graph['high'], df_yen_graph['low'])
+
+            df_yen_graph['SPAN_A'] = yen_Ichimoku.ichimoku_a()
+            df_yen_graph['SPAN_B'] = yen_Ichimoku.ichimoku_b()
+            df_yen_graph['OE_BASE'] = yen_Ichimoku.ichimoku_base_line()
+            df_yen_graph['OE_CONV'] = yen_Ichimoku.ichimoku_conversion_line()
+
+        elif type == 'ADI':
+
+            # Ichimoku Indicator
+            adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_graph['high'], df_adi_graph['low'])
+
+            df_adi_graph['SPAN_A'] = adi_Ichimoku.ichimoku_a()
+            df_adi_graph['SPAN_B'] = adi_Ichimoku.ichimoku_b()
+            df_adi_graph['OE_BASE'] = adi_Ichimoku.ichimoku_base_line()
+            df_adi_graph['OE_CONV'] = adi_Ichimoku.ichimoku_conversion_line()
         else:
             pass
     #####################################################################################################################################################################
@@ -32503,24 +32553,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 pass
 
-        elif type == 'DOW':
-
-            # MAMA(약 32 샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-            df_dow_graph['MAMA'] = mama
-            df_dow_graph['FAMA'] = fama
-            #df_dow_graph['A_FAMA'] = fama
-
-            if df_dow_graph.at[plot_time_index, 'FAMA'] == df_dow_graph.at[plot_time_index, 'FAMA'] and df_dow_graph.at[plot_time_index, 'BBLower'] == df_dow_graph.at[plot_time_index, 'BBLower']:
-
-                if df_dow_graph.at[plot_time_index, 'FAMA'] < df_dow_graph.at[plot_time_index, 'BBLower']:
-                    df_dow_graph.at[plot_time_index, 'A_FAMA'] = df_dow_graph.at[plot_time_index, 'BBLower']
-                else:
-                    df_dow_graph.at[plot_time_index, 'A_FAMA'] = df_dow_graph.at[plot_time_index, 'FAMA']
-            else:
-                pass
-
         elif type == 'SP500':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
@@ -32537,6 +32569,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df_sp500_graph.at[plot_time_index, 'A_FAMA'] = df_sp500_graph.at[plot_time_index, 'FAMA']
             else:
                 pass
+
+        elif type == 'DOW':
+
+            # MAMA(약 32 샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_dow_graph['MAMA'] = mama
+            df_dow_graph['FAMA'] = fama
+            #df_dow_graph['A_FAMA'] = fama
+
+            if df_dow_graph.at[plot_time_index, 'FAMA'] == df_dow_graph.at[plot_time_index, 'FAMA'] and df_dow_graph.at[plot_time_index, 'BBLower'] == df_dow_graph.at[plot_time_index, 'BBLower']:
+
+                if df_dow_graph.at[plot_time_index, 'FAMA'] < df_dow_graph.at[plot_time_index, 'BBLower']:
+                    df_dow_graph.at[plot_time_index, 'A_FAMA'] = df_dow_graph.at[plot_time_index, 'BBLower']
+                else:
+                    df_dow_graph.at[plot_time_index, 'A_FAMA'] = df_dow_graph.at[plot_time_index, 'FAMA']
+            else:
+                pass        
 
         elif type == 'NASDAQ':
 
@@ -32555,6 +32605,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 pass
 
+        elif type == 'HSI':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_hangseng_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_hangseng_graph['MAMA'] = mama
+            df_hangseng_graph['FAMA'] = fama
+
+            if df_hangseng_graph.at[plot_time_index, 'FAMA'] == df_hangseng_graph.at[plot_time_index, 'FAMA'] and df_hangseng_graph.at[plot_time_index, 'BBLower'] == df_hangseng_graph.at[plot_time_index, 'BBLower']:
+
+                if df_hangseng_graph.at[plot_time_index, 'FAMA'] < df_hangseng_graph.at[plot_time_index, 'BBLower']:
+                    df_hangseng_graph.at[plot_time_index, 'A_FAMA'] = df_hangseng_graph.at[plot_time_index, 'BBLower']
+                else:
+                    df_hangseng_graph.at[plot_time_index, 'A_FAMA'] = df_hangseng_graph.at[plot_time_index, 'FAMA']
+            else:
+                pass
+
         elif type == 'WTI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
@@ -32569,6 +32636,74 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df_wti_graph.at[plot_time_index, 'A_FAMA'] = df_wti_graph.at[plot_time_index, 'BBLower']
                 else:
                     df_wti_graph.at[plot_time_index, 'A_FAMA'] = df_wti_graph.at[plot_time_index, 'FAMA']
+            else:
+                pass
+
+        elif type == 'GOLD':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_gold_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_gold_graph['MAMA'] = mama
+            df_gold_graph['FAMA'] = fama
+
+            if df_gold_graph.at[plot_time_index, 'FAMA'] == df_gold_graph.at[plot_time_index, 'FAMA'] and df_gold_graph.at[plot_time_index, 'BBLower'] == df_gold_graph.at[plot_time_index, 'BBLower']:
+
+                if df_gold_graph.at[plot_time_index, 'FAMA'] < df_gold_graph.at[plot_time_index, 'BBLower']:
+                    df_gold_graph.at[plot_time_index, 'A_FAMA'] = df_gold_graph.at[plot_time_index, 'BBLower']
+                else:
+                    df_gold_graph.at[plot_time_index, 'A_FAMA'] = df_gold_graph.at[plot_time_index, 'FAMA']
+            else:
+                pass
+
+        elif type == 'EURO':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_euro_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_euro_graph['MAMA'] = mama
+            df_euro_graph['FAMA'] = fama
+
+            if df_euro_graph.at[plot_time_index, 'FAMA'] == df_euro_graph.at[plot_time_index, 'FAMA'] and df_euro_graph.at[plot_time_index, 'BBLower'] == df_euro_graph.at[plot_time_index, 'BBLower']:
+
+                if df_euro_graph.at[plot_time_index, 'FAMA'] < df_euro_graph.at[plot_time_index, 'BBLower']:
+                    df_euro_graph.at[plot_time_index, 'A_FAMA'] = df_euro_graph.at[plot_time_index, 'BBLower']
+                else:
+                    df_euro_graph.at[plot_time_index, 'A_FAMA'] = df_euro_graph.at[plot_time_index, 'FAMA']
+            else:
+                pass
+
+        elif type == 'YEN':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_yen_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_yen_graph['MAMA'] = mama
+            df_yen_graph['FAMA'] = fama
+
+            if df_yen_graph.at[plot_time_index, 'FAMA'] == df_yen_graph.at[plot_time_index, 'FAMA'] and df_yen_graph.at[plot_time_index, 'BBLower'] == df_yen_graph.at[plot_time_index, 'BBLower']:
+
+                if df_yen_graph.at[plot_time_index, 'FAMA'] < df_yen_graph.at[plot_time_index, 'BBLower']:
+                    df_yen_graph.at[plot_time_index, 'A_FAMA'] = df_yen_graph.at[plot_time_index, 'BBLower']
+                else:
+                    df_yen_graph.at[plot_time_index, 'A_FAMA'] = df_yen_graph.at[plot_time_index, 'FAMA']
+            else:
+                pass
+
+        elif type == 'ADI':
+
+            # MAMA(약 32샘플후에 출력값이 나옴)
+            mama, fama = talib.MAMA(np.array(df_adi_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+            df_adi_graph['MAMA'] = mama
+            df_adi_graph['FAMA'] = fama
+
+            if df_adi_graph.at[plot_time_index, 'FAMA'] == df_adi_graph.at[plot_time_index, 'FAMA'] and df_adi_graph.at[plot_time_index, 'BBLower'] == df_adi_graph.at[plot_time_index, 'BBLower']:
+
+                if df_adi_graph.at[plot_time_index, 'FAMA'] < df_adi_graph.at[plot_time_index, 'BBLower']:
+                    df_adi_graph.at[plot_time_index, 'A_FAMA'] = df_adi_graph.at[plot_time_index, 'BBLower']
+                else:
+                    df_adi_graph.at[plot_time_index, 'A_FAMA'] = df_adi_graph.at[plot_time_index, 'FAMA']
             else:
                 pass
         else:
@@ -49163,7 +49298,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_wti_graph.at[plot_time_index, 'middle'] = (df_wti_graph.at[plot_time_index, 'high'] + df_wti_graph.at[plot_time_index, 'low']) / 2
                 else:
-                    pass             
+                    pass                             
 
                 if WTI_피봇 == 0:
 
@@ -49331,6 +49466,59 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 GOLD_진폭비 = GOLD_진폭 / GOLD_시가
 
+                # 1T OHLC 생성
+                df_gold_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+
+                if GOLD_현재가 > 0:
+
+                    if CME_SEC == 0:
+
+                        if not flag_gold_ohlc_open:
+                        
+                            df_gold_graph.at[plot_time_index, 'open'] = GOLD_현재가
+                            df_gold_graph.at[plot_time_index, 'high'] = GOLD_현재가
+                            df_gold_graph.at[plot_time_index, 'low'] = GOLD_현재가
+                            df_gold_graph.at[plot_time_index, 'middle'] = GOLD_현재가
+                            df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
+                            df_gold_graph.at[plot_time_index, 'price'] = GOLD_현재가
+
+                            del GOLD_현재가_버퍼[:]
+
+                            flag_gold_ohlc_open = True
+                        else:
+                            GOLD_현재가_버퍼.append(GOLD_현재가)                        
+                    else:
+                        #if df_gold_graph.at[plot_time_index, 'open'] != df_gold_graph.at[plot_time_index, 'open']:
+                        if not np.isnan(df_gold_graph.at[plot_time_index, 'open']):
+                            df_gold_graph.at[plot_time_index, 'open'] = df_gold_graph.at[plot_time_index - 1, 'close']
+                            del GOLD_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        GOLD_현재가_버퍼.append(GOLD_현재가)
+
+                        if max(GOLD_현재가_버퍼) > 0:
+                            df_gold_graph.at[plot_time_index, 'high'] = max(GOLD_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(GOLD_현재가_버퍼) == 0:
+
+                            if max(GOLD_현재가_버퍼) > 0:
+                                df_gold_graph.at[plot_time_index, 'low'] = max(GOLD_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_gold_graph.at[plot_time_index, 'low'] = min(GOLD_현재가_버퍼)
+
+                        df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
+
+                        flag_gold_ohlc_open = False
+
+                    df_gold_graph.at[plot_time_index, 'middle'] = (df_gold_graph.at[plot_time_index, 'high'] + df_gold_graph.at[plot_time_index, 'low']) / 2
+                else:
+                    pass
+
                 if GOLD_피봇 == 0:
 
                     if GOLD_전저 > 0 and GOLD_전고 > 0:
@@ -49495,7 +49683,60 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if df_euro_graph.at[1, 'price'] == 0:
                     df_euro_graph.at[1, 'price'] = EURO_시가
 
-                EURO_진폭비 = EURO_진폭 / EURO_시가 
+                EURO_진폭비 = EURO_진폭 / EURO_시가
+
+                # 1T OHLC 생성
+                df_euro_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+
+                if EURO_현재가 > 0:
+
+                    if CME_SEC == 0:
+
+                        if not flag_euro_ohlc_open:
+                        
+                            df_euro_graph.at[plot_time_index, 'open'] = EURO_현재가
+                            df_euro_graph.at[plot_time_index, 'high'] = EURO_현재가
+                            df_euro_graph.at[plot_time_index, 'low'] = EURO_현재가
+                            df_euro_graph.at[plot_time_index, 'middle'] = EURO_현재가
+                            df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
+                            df_euro_graph.at[plot_time_index, 'price'] = EURO_현재가
+
+                            del EURO_현재가_버퍼[:]
+
+                            flag_euro_ohlc_open = True
+                        else:
+                            EURO_현재가_버퍼.append(EURO_현재가)                        
+                    else:
+                        #if df_euro_graph.at[plot_time_index, 'open'] != df_euro_graph.at[plot_time_index, 'open']:
+                        if not np.isnan(df_euro_graph.at[plot_time_index, 'open']):
+                            df_euro_graph.at[plot_time_index, 'open'] = df_euro_graph.at[plot_time_index - 1, 'close']
+                            del EURO_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        EURO_현재가_버퍼.append(EURO_현재가)
+
+                        if max(EURO_현재가_버퍼) > 0:
+                            df_euro_graph.at[plot_time_index, 'high'] = max(EURO_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(EURO_현재가_버퍼) == 0:
+
+                            if max(EURO_현재가_버퍼) > 0:
+                                df_euro_graph.at[plot_time_index, 'low'] = max(EURO_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_euro_graph.at[plot_time_index, 'low'] = min(EURO_현재가_버퍼)
+
+                        df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
+
+                        flag_euro_ohlc_open = False
+
+                    df_euro_graph.at[plot_time_index, 'middle'] = (df_euro_graph.at[plot_time_index, 'high'] + df_euro_graph.at[plot_time_index, 'low']) / 2
+                else:
+                    pass
                 
                 if EURO_피봇 == 0:
 
@@ -49661,7 +49902,60 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if df_yen_graph.at[1, 'price'] == 0:
                     df_yen_graph.at[1, 'price'] = YEN_시가
 
-                YEN_진폭비 = YEN_진폭 / YEN_시가                                          
+                YEN_진폭비 = YEN_진폭 / YEN_시가
+
+                # 1T OHLC 생성
+                df_yen_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+
+                if YEN_현재가 > 0:
+
+                    if CME_SEC == 0:
+
+                        if not flag_yen_ohlc_open:
+                        
+                            df_yen_graph.at[plot_time_index, 'open'] = YEN_현재가
+                            df_yen_graph.at[plot_time_index, 'high'] = YEN_현재가
+                            df_yen_graph.at[plot_time_index, 'low'] = YEN_현재가
+                            df_yen_graph.at[plot_time_index, 'middle'] = YEN_현재가
+                            df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
+                            df_yen_graph.at[plot_time_index, 'price'] = YEN_현재가
+
+                            del YEN_현재가_버퍼[:]
+
+                            flag_yen_ohlc_open = True
+                        else:
+                            YEN_현재가_버퍼.append(YEN_현재가)                        
+                    else:
+                        #if df_yen_graph.at[plot_time_index, 'open'] != df_yen_graph.at[plot_time_index, 'open']:
+                        if not np.isnan(df_yen_graph.at[plot_time_index, 'open']):
+                            df_yen_graph.at[plot_time_index, 'open'] = df_yen_graph.at[plot_time_index - 1, 'close']
+                            del YEN_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        YEN_현재가_버퍼.append(YEN_현재가)
+
+                        if max(YEN_현재가_버퍼) > 0:
+                            df_yen_graph.at[plot_time_index, 'high'] = max(YEN_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(YEN_현재가_버퍼) == 0:
+
+                            if max(YEN_현재가_버퍼) > 0:
+                                df_yen_graph.at[plot_time_index, 'low'] = max(YEN_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_yen_graph.at[plot_time_index, 'low'] = min(YEN_현재가_버퍼)
+
+                        df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
+
+                        flag_yen_ohlc_open = False
+
+                    df_yen_graph.at[plot_time_index, 'middle'] = (df_yen_graph.at[plot_time_index, 'high'] + df_yen_graph.at[plot_time_index, 'low']) / 2
+                else:
+                    pass                                         
                 
                 if YEN_피봇 == 0:
 
@@ -49829,6 +50123,59 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_adi_graph.at[1, 'price'] = ADI_시가
 
                 ADI_진폭비 = ADI_진폭 / ADI_시가
+
+                # 1T OHLC 생성
+                df_adi_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+
+                if ADI_현재가 > 0:
+
+                    if CME_SEC == 0:
+
+                        if not flag_adi_ohlc_open:
+                        
+                            df_adi_graph.at[plot_time_index, 'open'] = ADI_현재가
+                            df_adi_graph.at[plot_time_index, 'high'] = ADI_현재가
+                            df_adi_graph.at[plot_time_index, 'low'] = ADI_현재가
+                            df_adi_graph.at[plot_time_index, 'middle'] = ADI_현재가
+                            df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
+                            df_adi_graph.at[plot_time_index, 'price'] = ADI_현재가
+
+                            del ADI_현재가_버퍼[:]
+
+                            flag_adi_ohlc_open = True
+                        else:
+                            ADI_현재가_버퍼.append(ADI_현재가)                        
+                    else:
+                        #if df_adi_graph.at[plot_time_index, 'open'] != df_adi_graph.at[plot_time_index, 'open']:
+                        if not np.isnan(df_adi_graph.at[plot_time_index, 'open']):
+                            df_adi_graph.at[plot_time_index, 'open'] = df_adi_graph.at[plot_time_index - 1, 'close']
+                            del ADI_현재가_버퍼[:]
+                        else:
+                            pass
+
+                        ADI_현재가_버퍼.append(ADI_현재가)
+
+                        if max(ADI_현재가_버퍼) > 0:
+                            df_adi_graph.at[plot_time_index, 'high'] = max(ADI_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(ADI_현재가_버퍼) == 0:
+
+                            if max(ADI_현재가_버퍼) > 0:
+                                df_adi_graph.at[plot_time_index, 'low'] = max(ADI_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_adi_graph.at[plot_time_index, 'low'] = min(ADI_현재가_버퍼)
+
+                        df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
+
+                        flag_adi_ohlc_open = False
+
+                    df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
+                else:
+                    pass
 
                 if ADI_피봇 == 0:
 
