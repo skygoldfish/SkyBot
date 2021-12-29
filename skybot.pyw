@@ -33026,7 +33026,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) {2:.2f} ".format(SP500_시가대비_등락율, SP500_현재가, SP500_FUT_시가_등락율비)
                 self.label_15.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -34700,7 +34700,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) {2:.2f} ".format(SP500_시가대비_등락율, SP500_현재가, SP500_FUT_시가_등락율비)
                 self.label_25.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -36370,7 +36370,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) {2:.2f} ".format(SP500_시가대비_등락율, SP500_현재가, SP500_FUT_시가_등락율비)
                 self.label_35.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -38041,7 +38041,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) {2:.2f} ".format(SP500_시가대비_등락율, SP500_현재가, SP500_FUT_시가_등락율비)
                 self.label_45.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -39710,7 +39710,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) {2:.2f} ".format(SP500_시가대비_등락율, SP500_현재가, SP500_FUT_시가_등락율비)
                 self.label_55.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
@@ -41379,7 +41379,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = " {0:.2f}({1}) ".format(SP500_시가대비_등락율, SP500_현재가)
+                txt = " {0:.2f}({1}) {2:.2f} ".format(SP500_시가대비_등락율, SP500_현재가, SP500_FUT_시가_등락율비)
                 self.label_65.setText(txt)
 
                 txt = " {0:.2f}({1}) ".format(put_otm_cdb_percent_mean, put_atm_value)
