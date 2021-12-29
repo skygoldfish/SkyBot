@@ -22295,7 +22295,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_1.setText(" 좌표 ")
         
         self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_2.setText(" BB Middle\n PSAR ")
+        self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
         
         self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p1_3.setText(" OneEye ")
@@ -22332,7 +22332,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_1.setText(" 좌표 ")
         
         self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_2.setText(" BB Middle\n PSAR ")
+        self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
         
         self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p2_3.setText(" OneEye ")
@@ -22369,7 +22369,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_1.setText(" 좌표 ")
         
         self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_2.setText(" BB Middle\n PSAR ")
+        self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
         
         self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p3_3.setText(" OneEye ")
@@ -22406,7 +22406,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_1.setText(" 좌표 ")
         
         self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_2.setText(" BB Middle\n PSAR ")
+        self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
         
         self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p4_3.setText(" OneEye ")
@@ -22443,7 +22443,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_1.setText(" 좌표 ")
         
         self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_2.setText(" BB Middle\n PSAR ")
+        self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
         
         self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p5_3.setText(" OneEye ")
@@ -22480,7 +22480,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_1.setText(" 좌표 ")
         
         self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_2.setText(" BB Middle\n PSAR ")
+        self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
         
         self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p6_3.setText(" OneEye ")
@@ -24785,7 +24785,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_1.setText(" 좌표 ")
 
         self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_2.setText(" BB Middle\n PSAR ")
+        self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
         self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p1_3.setText(" OneEye ")
@@ -24959,7 +24959,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(" 콜잔량비 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_3.setText(" OneEye ")
@@ -24992,7 +24992,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(" 콜체결량 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_3.setText(" OneEye ")
@@ -25013,7 +25013,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(" 콜현재가 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_3.setText(" OneEye ")
@@ -25048,7 +25048,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(" 콜잔량비 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_3.setText(" OneEye ")
@@ -25081,7 +25081,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(" 콜미결 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_3.setText(" OneEye ")
@@ -25110,7 +25110,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_18.setText(" 콜등락율 ")
             
             self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_3.setText(" OneEye ")
@@ -26065,7 +26065,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_1.setText(" 좌표 ")
 
         self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_2.setText(" BB Middle\n PSAR ")
+        self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
         self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p2_3.setText(" OneEye ")
@@ -26239,7 +26239,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(" 콜잔량비 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_3.setText(" OneEye ")
@@ -26272,7 +26272,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(" 콜체결량 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_3.setText(" OneEye ")
@@ -26293,7 +26293,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(" 콜현재가 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_3.setText(" OneEye ")
@@ -26328,7 +26328,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(" 콜잔량비 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_3.setText(" OneEye ")
@@ -26361,7 +26361,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(" 콜미결 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_3.setText(" OneEye ")
@@ -26390,7 +26390,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setText(" 콜등락율 ")
             
             self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_3.setText(" OneEye ")
@@ -27345,7 +27345,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_1.setText(" 좌표 ")
 
         self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_2.setText(" BB Middle\n PSAR ")
+        self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
         self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p3_3.setText(" OneEye ")
@@ -27519,7 +27519,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(" 콜잔량비 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_3.setText(" OneEye ")
@@ -27552,7 +27552,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(" 콜체결량 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_3.setText(" OneEye ")
@@ -27573,7 +27573,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(" 콜현재가 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_3.setText(" OneEye ")
@@ -27608,7 +27608,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(" 콜잔량비 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_3.setText(" OneEye ")
@@ -27641,7 +27641,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(" 콜미결 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_3.setText(" OneEye ")
@@ -27670,7 +27670,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_38.setText(" 콜등락율 ")
             
             self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_3.setText(" OneEye ")
@@ -28625,7 +28625,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_1.setText(" 좌표 ")
 
         self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_2.setText(" BB Middle\n PSAR ")
+        self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
         self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p4_3.setText(" OneEye ")
@@ -28799,7 +28799,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(" 콜잔량비 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_3.setText(" OneEye ")
@@ -28832,7 +28832,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(" 콜체결량 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_3.setText(" OneEye ")
@@ -28853,7 +28853,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(" 콜현재가 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_3.setText(" OneEye ")
@@ -28888,7 +28888,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(" 콜잔량비 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_3.setText(" OneEye ")
@@ -28921,7 +28921,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(" 콜미결 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_3.setText(" OneEye ")
@@ -28950,7 +28950,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_48.setText(" 콜등락율 ")
             
             self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_3.setText(" OneEye ")
@@ -29905,7 +29905,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_1.setText(" 좌표 ")
 
         self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_2.setText(" BB Middle\n PSAR ")
+        self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
         self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p5_3.setText(" OneEye ")
@@ -30079,7 +30079,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(" 콜잔량비 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_3.setText(" OneEye ")
@@ -30112,7 +30112,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(" 콜체결량 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_3.setText(" OneEye ")
@@ -30133,7 +30133,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(" 콜현재가 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_3.setText(" OneEye ")
@@ -30168,7 +30168,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(" 콜잔량비 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_3.setText(" OneEye ")
@@ -30201,7 +30201,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(" 콜미결 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_3.setText(" OneEye ")
@@ -30230,7 +30230,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setText(" 콜등락율 ")
             
             self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_3.setText(" OneEye ")
@@ -31185,7 +31185,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_1.setText(" 좌표 ")
 
         self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_2.setText(" BB Middle\n PSAR ")
+        self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
         self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p6_3.setText(" OneEye ")
@@ -31359,7 +31359,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(" 콜잔량비 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_3.setText(" OneEye ")
@@ -31392,7 +31392,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(" 콜체결량 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_3.setText(" OneEye ")
@@ -31413,7 +31413,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(" 콜현재가 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_3.setText(" OneEye ")
@@ -31448,7 +31448,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(" 콜잔량비 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_3.setText(" OneEye ")
@@ -31481,7 +31481,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(" 콜미결 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_3.setText(" OneEye ")
@@ -31510,7 +31510,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_68.setText(" 콜등락율 ")
             
             self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_3.setText(" OneEye ")
