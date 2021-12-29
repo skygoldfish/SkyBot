@@ -338,25 +338,25 @@ GOLD_고가 = 0
 GOLD_진폭 = 0
 GOLD_진폭_틱 = 0
 
-EUROFX_전저 = 0
-EUROFX_전고 = 0
-EUROFX_종가 = 0
-EUROFX_피봇 = 0
-EUROFX_시가 = 0
+EURO_전저 = 0
+EURO_전고 = 0
+EURO_종가 = 0
+EURO_피봇 = 0
+EURO_시가 = 0
 
-EUROFX_저가 = 0
+EURO_저가 = 0
 
-EUROFX_현재가 = 0
-EUROFX_과거가 = 0
-EUROFX_대비 = 0
-EUROFX_전일대비 = 0
-EUROFX_종가대비 = 0
-EUROFX_시가대비 = 0
-EUROFX_등락율 = 0
+EURO_현재가 = 0
+EURO_과거가 = 0
+EURO_대비 = 0
+EURO_전일대비 = 0
+EURO_종가대비 = 0
+EURO_시가대비 = 0
+EURO_등락율 = 0
 
-EUROFX_고가 = 0
-EUROFX_진폭 = 0
-EUROFX_진폭_틱 = 0
+EURO_고가 = 0
+EURO_진폭 = 0
+EURO_진폭_틱 = 0
 
 YEN_전저 = 0
 YEN_전고 = 0
@@ -406,7 +406,7 @@ NASDAQ_당일종가 = 0
 HANGSENG_당일종가 = 0
 WTI_당일종가 = 0
 GOLD_당일종가 = 0
-EUROFX_당일종가 = 0
+EURO_당일종가 = 0
 YEN_당일종가 = 0
 ADI_당일종가 = 0
 
@@ -483,7 +483,7 @@ NASDAQ_CHK = parser.getboolean('RealTime Request Item Switch', 'NASDAQ')
 HANGSENG_CHK = parser.getboolean('RealTime Request Item Switch', 'HANGSENG')
 WTI_CHK = parser.getboolean('RealTime Request Item Switch', 'WTI OIL')
 GOLD_CHK = parser.getboolean('RealTime Request Item Switch', 'GOLD')
-EUROFX_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
+EURO_CHK = parser.getboolean('RealTime Request Item Switch', 'EUROFX')
 YEN_CHK = parser.getboolean('RealTime Request Item Switch', 'YEN')
 ADI_CHK = parser.getboolean('RealTime Request Item Switch', 'ADI')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
@@ -525,7 +525,7 @@ NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 WTI = parser.get('Code of the Foreign Futures', 'WTI')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
+EURO = parser.get('Code of the Foreign Futures', 'EUROFX')
 YEN = parser.get('Code of the Foreign Futures', 'YEN')
 ADI = parser.get('Code of the Foreign Futures', 'ADI')
 
@@ -876,18 +876,18 @@ if os.path.isfile('nighttime.txt'):
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_전저 = float(temp[4])
-        print('EUROFX 전저 =', EUROFX_전저)
+        EURO_전저 = float(temp[4])
+        print('EURO 전저 =', EURO_전저)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_전고 = float(temp[4])
-        print('EUROFX 전고 =', EUROFX_전고)
+        EURO_전고 = float(temp[4])
+        print('EURO 전고 =', EURO_전고)
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_전일종가 = float(temp[4])
-        print('EUROFX 종가 =', EUROFX_전일종가)
+        EURO_전일종가 = float(temp[4])
+        print('EURO 종가 =', EURO_전일종가)
 
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
@@ -938,9 +938,9 @@ else:
     GOLD_전저 = 0
     GOLD_전고 = 0
     GOLD_전일종가 = 0
-    EUROFX_전저 = 0
-    EUROFX_전고 = 0
-    EUROFX_전일종가 = 0
+    EURO_전저 = 0
+    EURO_전고 = 0
+    EURO_전일종가 = 0
     YEN_전저 = 0
     YEN_전고 = 0
     YEN_전일종가 = 0
@@ -1023,7 +1023,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        EUROFX_Day_종가 = float(temp[4])
+        EURO_Day_종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
@@ -1045,7 +1045,7 @@ else:
     HANGSENG_Day_종가 = 0
     WTI_Day_종가 = 0
     GOLD_Day_종가 = 0
-    EUROFX_Day_종가 = 0
+    EURO_Day_종가 = 0
     YEN_Day_종가 = 0
     ADI_Day_종가 = 0    
 
@@ -1873,7 +1873,7 @@ NASDAQ_진폭비 = 0
 HANGSENG_진폭비 = 0
 WTI_진폭비 = 0
 GOLD_진폭비 = 0
-EUROFX_진폭비 = 0
+EURO_진폭비 = 0
 YEN_진폭비 = 0
 
 flag_first_search = False
@@ -1910,8 +1910,8 @@ WTI_체결잔량비 = 0
 GOLD_체결순매수 = 0
 GOLD_체결잔량비 = 0
 
-EUROFX_체결순매수 = 0
-EUROFX_체결잔량비 = 0
+EURO_체결순매수 = 0
+EURO_체결잔량비 = 0
 
 YEN_체결순매수 = 0
 YEN_체결잔량비 = 0
@@ -1972,7 +1972,7 @@ df_gold_ohlc_1min = pd.DataFrame()
 df_gold_ohlc_5min = pd.DataFrame()
 df_gold_ohlc_15min = pd.DataFrame()
 
-# EUROFX OHLC 연산
+# EURO OHLC 연산
 eurofx_tick_list = []
 eurofx_value_list = []
 df_eurofx_ohlc = pd.DataFrame()
@@ -1999,7 +1999,7 @@ NASDAQ_현재가_버퍼 = []
 HANGSENG_현재가_버퍼 = []
 WTI_현재가_버퍼 = []
 GOLD_현재가_버퍼 = []
-EUROFX_현재가_버퍼 = []
+EURO_현재가_버퍼 = []
 YEN_현재가_버퍼 = []
 ADI_현재가_버퍼 = []
 
@@ -5737,12 +5737,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_wti_ohlc_15min = df.resample('15T').ohlc()
         
-        # EUROFX OHLC 데이타프레임 생성        
+        # EURO OHLC 데이타프레임 생성        
         time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
         eurofx_tick_list.append(chetime)
-        eurofx_value_list.append(EUROFX_현재가)
+        eurofx_value_list.append(EURO_현재가)
 
         temp_dict = {"value": eurofx_value_list}
         df = pd.DataFrame(temp_dict, index=eurofx_tick_list)
@@ -5811,7 +5811,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_offline            
 
         global call_plot_data, put_plot_data, centerval_plot_data
-        global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
+        global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EURO_당일종가, HANGSENG_당일종가, GOLD_당일종가 
         global flag_logfile, flag_broken_capture
         
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
@@ -6199,7 +6199,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             HANGSENG_당일종가 = HANGSENG_현재가
                             WTI_당일종가 = WTI_현재가
                             GOLD_당일종가 = GOLD_현재가
-                            EUROFX_당일종가 = EUROFX_현재가
+                            EURO_당일종가 = EURO_현재가
                             YEN_당일종가 = YEN_현재가
                             ADI_당일종가 = ADI_현재가
 
@@ -6239,7 +6239,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] EURO Low = {3:.2f}, EURO High = {4:.2f}, EURO Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, EUROFX_저가, EUROFX_고가, EUROFX_당일종가)
+                                (dt.hour, dt.minute, dt.second, EURO_저가, EURO_고가, EURO_당일종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6311,11 +6311,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                                file_txt = 'EURO Last Low = {0}\n'.format(EURO_저가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
+                                file_txt = 'EURO Last High = {0}\n'.format(EURO_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
+                                file_txt = 'EURO Last Close = {0}\n'.format(EURO_당일종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
                                 nighttime_file.write(file_txt)
@@ -15374,9 +15374,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_gold_graph.at[0, 'price'] = GOLD_전일종가
                     df_gold_graph.at[1, 'price'] = GOLD_시가
 
-                if EUROFX_전일종가 > 0:
-                    df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
-                    df_eurofx_graph.at[1, 'price'] = EUROFX_시가
+                if EURO_전일종가 > 0:
+                    df_eurofx_graph.at[0, 'price'] = EURO_전일종가
+                    df_eurofx_graph.at[1, 'price'] = EURO_시가
 
                 if YEN_전일종가 > 0:
                     df_yen_graph.at[0, 'price'] = YEN_전일종가
@@ -20795,14 +20795,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 실시간 해외선물 EUROFX 요청
-        if EUROFX_CHK:
+        # 실시간 해외선물 EURO 요청
+        if EURO_CHK:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EURO을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', EUROFX)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', EURO)
 
             self.realdata_request_number += 1                    
         else:
@@ -21029,7 +21029,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_hangseng.setChecked(HANGSENG_CHK)
         self.checkBox_oil.setChecked(WTI_CHK)
         self.checkBox_gold.setChecked(GOLD_CHK)
-        self.checkBox_eurofx.setChecked(EUROFX_CHK)
+        self.checkBox_eurofx.setChecked(EURO_CHK)
         self.checkBox_yen.setChecked(YEN_CHK)
         self.checkBox_adi.setChecked(ADI_CHK)        
 
@@ -21932,30 +21932,30 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         dt = datetime.now()
 
-        global EUROFX_CHK
+        global EURO_CHK
 
         if self.checkBox_eurofx.isChecked() == True:
 
-            EUROFX_CHK = True
+            EURO_CHK = True
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', EUROFX)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', EURO)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EURO을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
         else:
-            EUROFX_CHK = False
+            EURO_CHK = False
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                eurofx_ljust = EUROFX.ljust(8)
+                eurofx_ljust = EURO.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', eurofx_ljust)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EUROFX 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EURO 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
             else:
                 pass
@@ -22512,37 +22512,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(9)
         self.comboBox1.insertSeparator(12)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(9)
         self.comboBox2.insertSeparator(12)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(9)
         self.comboBox3.insertSeparator(12)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(9)
         self.comboBox4.insertSeparator(12)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(9)
         self.comboBox5.insertSeparator(12)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EUROFX', 'YEN', 'ADI'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(9)
         self.comboBox6.insertSeparator(12)
@@ -25692,60 +25692,60 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex1 == 19:
             
-            if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_전일종가
+            if EURO_전저 == 0:
+                eurofx_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EUROFX_전저
+                eurofx_전저 = EURO_전저
 
-            if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_전일종가
+            if EURO_전고 == 0:
+                eurofx_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EUROFX_전고
+                eurofx_전고 = EURO_전고
 
-            if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_전일종가
+            if EURO_피봇 == 0:
+                eurofx_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EUROFX_피봇
+                eurofx_피봇 = EURO_피봇
 
-            if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_전일종가
+            if EURO_시가 == 0:
+                eurofx_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EUROFX_시가
+                eurofx_시가 = EURO_시가
 
-            if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_전일종가
+            if EURO_저가 == 0:
+                eurofx_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EUROFX_저가
+                eurofx_저가 = EURO_저가
 
-            if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_전일종가
+            if EURO_고가 == 0:
+                eurofx_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EUROFX_고가
+                eurofx_고가 = EURO_고가
 
-            self.plot1_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
-            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot1_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot1_nm_futures_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
 
-            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot1_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot1_option_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot1_option_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
             
             for i in range(10):
-                self.plot1_kp200_line[i].setValue(EUROFX_전일종가)
+                self.plot1_kp200_line[i].setValue(EURO_전일종가)
 
             for i in range(9):
-                self.plot1_mv_line[i].setValue(EUROFX_전일종가)
+                self.plot1_mv_line[i].setValue(EURO_전일종가)
 
-            self.plot1_center_val_lower_line.setValue(EUROFX_전일종가)
-            self.plot1_center_val_line.setValue(EUROFX_전일종가)
-            self.plot1_center_val_upper_line.setValue(EUROFX_전일종가)
+            self.plot1_center_val_lower_line.setValue(EURO_전일종가)
+            self.plot1_center_val_line.setValue(EURO_전일종가)
+            self.plot1_center_val_upper_line.setValue(EURO_전일종가)
             
-            self.plot1_fut_jl_line.setValue(EUROFX_전일종가)
-            self.plot1_fut_jh_line.setValue(EUROFX_전일종가)
-            self.plot1_fut_close_line.setValue(EUROFX_전일종가)
-            self.plot1_fut_pivot_line.setValue(EUROFX_전일종가)
-            self.plot1_fut_open_line.setValue(EUROFX_전일종가)
-            self.plot1_fut_low_line.setValue(EUROFX_전일종가)
-            self.plot1_fut_high_line.setValue(EUROFX_전일종가)
+            self.plot1_fut_jl_line.setValue(EURO_전일종가)
+            self.plot1_fut_jh_line.setValue(EURO_전일종가)
+            self.plot1_fut_close_line.setValue(EURO_전일종가)
+            self.plot1_fut_pivot_line.setValue(EURO_전일종가)
+            self.plot1_fut_open_line.setValue(EURO_전일종가)
+            self.plot1_fut_low_line.setValue(EURO_전일종가)
+            self.plot1_fut_high_line.setValue(EURO_전일종가)
                             
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_11.setText(txt)
@@ -25755,9 +25755,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
+            txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_13.setText(txt)
-            self.plot1_ovc_close_line.setValue(EUROFX_전일종가)
+            self.plot1_ovc_close_line.setValue(EURO_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_14.setText(txt)
@@ -26972,60 +26972,60 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex2 == 19:
 
-            if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_전일종가
+            if EURO_전저 == 0:
+                eurofx_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EUROFX_전저
+                eurofx_전저 = EURO_전저
 
-            if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_전일종가
+            if EURO_전고 == 0:
+                eurofx_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EUROFX_전고
+                eurofx_전고 = EURO_전고
 
-            if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_전일종가
+            if EURO_피봇 == 0:
+                eurofx_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EUROFX_피봇
+                eurofx_피봇 = EURO_피봇
 
-            if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_전일종가
+            if EURO_시가 == 0:
+                eurofx_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EUROFX_시가
+                eurofx_시가 = EURO_시가
 
-            if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_전일종가
+            if EURO_저가 == 0:
+                eurofx_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EUROFX_저가
+                eurofx_저가 = EURO_저가
 
-            if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_전일종가
+            if EURO_고가 == 0:
+                eurofx_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EUROFX_고가
+                eurofx_고가 = EURO_고가
 
-            self.plot2_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
-            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot2_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot2_nm_futures_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
 
-            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot2_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot2_option_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot2_option_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
             
             for i in range(10):
-                self.plot2_kp200_line[i].setValue(EUROFX_전일종가)
+                self.plot2_kp200_line[i].setValue(EURO_전일종가)
 
             for i in range(9):
-                self.plot2_mv_line[i].setValue(EUROFX_전일종가)
+                self.plot2_mv_line[i].setValue(EURO_전일종가)
 
-            self.plot2_center_val_lower_line.setValue(EUROFX_전일종가)
-            self.plot2_center_val_line.setValue(EUROFX_전일종가)
-            self.plot2_center_val_upper_line.setValue(EUROFX_전일종가)
+            self.plot2_center_val_lower_line.setValue(EURO_전일종가)
+            self.plot2_center_val_line.setValue(EURO_전일종가)
+            self.plot2_center_val_upper_line.setValue(EURO_전일종가)
             
-            self.plot2_fut_jl_line.setValue(EUROFX_전일종가)
-            self.plot2_fut_jh_line.setValue(EUROFX_전일종가)
-            self.plot2_fut_close_line.setValue(EUROFX_전일종가)
-            self.plot2_fut_pivot_line.setValue(EUROFX_전일종가)
-            self.plot2_fut_open_line.setValue(EUROFX_전일종가)
-            self.plot2_fut_low_line.setValue(EUROFX_전일종가)
-            self.plot2_fut_high_line.setValue(EUROFX_전일종가)
+            self.plot2_fut_jl_line.setValue(EURO_전일종가)
+            self.plot2_fut_jh_line.setValue(EURO_전일종가)
+            self.plot2_fut_close_line.setValue(EURO_전일종가)
+            self.plot2_fut_pivot_line.setValue(EURO_전일종가)
+            self.plot2_fut_open_line.setValue(EURO_전일종가)
+            self.plot2_fut_low_line.setValue(EURO_전일종가)
+            self.plot2_fut_high_line.setValue(EURO_전일종가)
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_21.setText(txt)
@@ -27035,9 +27035,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
+            txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_23.setText(txt)
-            self.plot2_ovc_close_line.setValue(EUROFX_전일종가)
+            self.plot2_ovc_close_line.setValue(EURO_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_24.setText(txt)
@@ -28252,60 +28252,60 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex3 == 19:
 
-            if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_전일종가
+            if EURO_전저 == 0:
+                eurofx_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EUROFX_전저
+                eurofx_전저 = EURO_전저
 
-            if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_전일종가
+            if EURO_전고 == 0:
+                eurofx_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EUROFX_전고
+                eurofx_전고 = EURO_전고
 
-            if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_전일종가
+            if EURO_피봇 == 0:
+                eurofx_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EUROFX_피봇
+                eurofx_피봇 = EURO_피봇
 
-            if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_전일종가
+            if EURO_시가 == 0:
+                eurofx_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EUROFX_시가
+                eurofx_시가 = EURO_시가
 
-            if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_전일종가
+            if EURO_저가 == 0:
+                eurofx_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EUROFX_저가
+                eurofx_저가 = EURO_저가
 
-            if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_전일종가
+            if EURO_고가 == 0:
+                eurofx_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EUROFX_고가
+                eurofx_고가 = EURO_고가
 
-            self.plot3_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
-            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot3_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot3_nm_futures_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
 
-            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot3_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot3_option_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot3_option_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
             
             for i in range(10):
-                self.plot3_kp200_line[i].setValue(EUROFX_전일종가)
+                self.plot3_kp200_line[i].setValue(EURO_전일종가)
 
             for i in range(9):
-                self.plot3_mv_line[i].setValue(EUROFX_전일종가)
+                self.plot3_mv_line[i].setValue(EURO_전일종가)
 
-            self.plot3_center_val_lower_line.setValue(EUROFX_전일종가)
-            self.plot3_center_val_line.setValue(EUROFX_전일종가)
-            self.plot3_center_val_upper_line.setValue(EUROFX_전일종가)
+            self.plot3_center_val_lower_line.setValue(EURO_전일종가)
+            self.plot3_center_val_line.setValue(EURO_전일종가)
+            self.plot3_center_val_upper_line.setValue(EURO_전일종가)
             
-            self.plot3_fut_jl_line.setValue(EUROFX_전일종가)
-            self.plot3_fut_jh_line.setValue(EUROFX_전일종가)
-            self.plot3_fut_close_line.setValue(EUROFX_전일종가)
-            self.plot3_fut_pivot_line.setValue(EUROFX_전일종가)
-            self.plot3_fut_open_line.setValue(EUROFX_전일종가)
-            self.plot3_fut_low_line.setValue(EUROFX_전일종가)
-            self.plot3_fut_high_line.setValue(EUROFX_전일종가) 
+            self.plot3_fut_jl_line.setValue(EURO_전일종가)
+            self.plot3_fut_jh_line.setValue(EURO_전일종가)
+            self.plot3_fut_close_line.setValue(EURO_전일종가)
+            self.plot3_fut_pivot_line.setValue(EURO_전일종가)
+            self.plot3_fut_open_line.setValue(EURO_전일종가)
+            self.plot3_fut_low_line.setValue(EURO_전일종가)
+            self.plot3_fut_high_line.setValue(EURO_전일종가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_31.setText(txt)
@@ -28315,9 +28315,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
+            txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_33.setText(txt)
-            self.plot3_ovc_close_line.setValue(EUROFX_전일종가)
+            self.plot3_ovc_close_line.setValue(EURO_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_34.setText(txt)
@@ -29532,60 +29532,60 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex4 == 19:
 
-            if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_전일종가
+            if EURO_전저 == 0:
+                eurofx_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EUROFX_전저
+                eurofx_전저 = EURO_전저
 
-            if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_전일종가
+            if EURO_전고 == 0:
+                eurofx_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EUROFX_전고
+                eurofx_전고 = EURO_전고
 
-            if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_전일종가
+            if EURO_피봇 == 0:
+                eurofx_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EUROFX_피봇
+                eurofx_피봇 = EURO_피봇
 
-            if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_전일종가
+            if EURO_시가 == 0:
+                eurofx_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EUROFX_시가
+                eurofx_시가 = EURO_시가
 
-            if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_전일종가
+            if EURO_저가 == 0:
+                eurofx_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EUROFX_저가
+                eurofx_저가 = EURO_저가
 
-            if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_전일종가
+            if EURO_고가 == 0:
+                eurofx_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EUROFX_고가
+                eurofx_고가 = EURO_고가
 
-            self.plot4_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
-            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot4_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot4_nm_futures_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
 
-            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot4_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot4_option_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot4_option_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
             
             for i in range(10):
-                self.plot4_kp200_line[i].setValue(EUROFX_전일종가)
+                self.plot4_kp200_line[i].setValue(EURO_전일종가)
 
             for i in range(9):
-                self.plot4_mv_line[i].setValue(EUROFX_전일종가)
+                self.plot4_mv_line[i].setValue(EURO_전일종가)
 
-            self.plot4_center_val_lower_line.setValue(EUROFX_전일종가)
-            self.plot4_center_val_line.setValue(EUROFX_전일종가)
-            self.plot4_center_val_upper_line.setValue(EUROFX_전일종가)
+            self.plot4_center_val_lower_line.setValue(EURO_전일종가)
+            self.plot4_center_val_line.setValue(EURO_전일종가)
+            self.plot4_center_val_upper_line.setValue(EURO_전일종가)
             
-            self.plot4_fut_jl_line.setValue(EUROFX_전일종가)
-            self.plot4_fut_jh_line.setValue(EUROFX_전일종가)
-            self.plot4_fut_close_line.setValue(EUROFX_전일종가)
-            self.plot4_fut_pivot_line.setValue(EUROFX_전일종가)
-            self.plot4_fut_open_line.setValue(EUROFX_전일종가)
-            self.plot4_fut_low_line.setValue(EUROFX_전일종가)
-            self.plot4_fut_high_line.setValue(EUROFX_전일종가)
+            self.plot4_fut_jl_line.setValue(EURO_전일종가)
+            self.plot4_fut_jh_line.setValue(EURO_전일종가)
+            self.plot4_fut_close_line.setValue(EURO_전일종가)
+            self.plot4_fut_pivot_line.setValue(EURO_전일종가)
+            self.plot4_fut_open_line.setValue(EURO_전일종가)
+            self.plot4_fut_low_line.setValue(EURO_전일종가)
+            self.plot4_fut_high_line.setValue(EURO_전일종가)
                             
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_41.setText(txt)
@@ -29595,9 +29595,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
+            txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_43.setText(txt)
-            self.plot4_ovc_close_line.setValue(EUROFX_전일종가)
+            self.plot4_ovc_close_line.setValue(EURO_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_44.setText(txt)
@@ -30812,60 +30812,60 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex5 == 19:
 
-            if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_전일종가
+            if EURO_전저 == 0:
+                eurofx_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EUROFX_전저
+                eurofx_전저 = EURO_전저
 
-            if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_전일종가
+            if EURO_전고 == 0:
+                eurofx_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EUROFX_전고
+                eurofx_전고 = EURO_전고
 
-            if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_전일종가
+            if EURO_피봇 == 0:
+                eurofx_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EUROFX_피봇
+                eurofx_피봇 = EURO_피봇
 
-            if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_전일종가
+            if EURO_시가 == 0:
+                eurofx_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EUROFX_시가
+                eurofx_시가 = EURO_시가
 
-            if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_전일종가
+            if EURO_저가 == 0:
+                eurofx_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EUROFX_저가
+                eurofx_저가 = EURO_저가
 
-            if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_전일종가
+            if EURO_고가 == 0:
+                eurofx_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EUROFX_고가
+                eurofx_고가 = EURO_고가
 
-            self.plot5_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
-            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot5_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot5_nm_futures_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
 
-            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot5_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot5_option_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot5_option_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
             
             for i in range(10):
-                self.plot5_kp200_line[i].setValue(EUROFX_전일종가)
+                self.plot5_kp200_line[i].setValue(EURO_전일종가)
 
             for i in range(9):
-                self.plot5_mv_line[i].setValue(EUROFX_전일종가)
+                self.plot5_mv_line[i].setValue(EURO_전일종가)
 
-            self.plot5_center_val_lower_line.setValue(EUROFX_전일종가)
-            self.plot5_center_val_line.setValue(EUROFX_전일종가)
-            self.plot5_center_val_upper_line.setValue(EUROFX_전일종가)
+            self.plot5_center_val_lower_line.setValue(EURO_전일종가)
+            self.plot5_center_val_line.setValue(EURO_전일종가)
+            self.plot5_center_val_upper_line.setValue(EURO_전일종가)
             
-            self.plot5_fut_jl_line.setValue(EUROFX_전일종가)
-            self.plot5_fut_jh_line.setValue(EUROFX_전일종가)
-            self.plot5_fut_close_line.setValue(EUROFX_전일종가)
-            self.plot5_fut_pivot_line.setValue(EUROFX_전일종가)
-            self.plot5_fut_open_line.setValue(EUROFX_전일종가)
-            self.plot5_fut_low_line.setValue(EUROFX_전일종가)
-            self.plot5_fut_high_line.setValue(EUROFX_전일종가)
+            self.plot5_fut_jl_line.setValue(EURO_전일종가)
+            self.plot5_fut_jh_line.setValue(EURO_전일종가)
+            self.plot5_fut_close_line.setValue(EURO_전일종가)
+            self.plot5_fut_pivot_line.setValue(EURO_전일종가)
+            self.plot5_fut_open_line.setValue(EURO_전일종가)
+            self.plot5_fut_low_line.setValue(EURO_전일종가)
+            self.plot5_fut_high_line.setValue(EURO_전일종가)
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_51.setText(txt)
@@ -30875,9 +30875,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
+            txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_53.setText(txt)
-            self.plot5_ovc_close_line.setValue(EUROFX_전일종가)
+            self.plot5_ovc_close_line.setValue(EURO_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_54.setText(txt)
@@ -32092,60 +32092,60 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         elif comboindex6 == 19:
 
-            if EUROFX_전저 == 0:
-                eurofx_전저 = EUROFX_전일종가
+            if EURO_전저 == 0:
+                eurofx_전저 = EURO_전일종가
             else:
-                eurofx_전저 = EUROFX_전저
+                eurofx_전저 = EURO_전저
 
-            if EUROFX_전고 == 0:
-                eurofx_전고 = EUROFX_전일종가
+            if EURO_전고 == 0:
+                eurofx_전고 = EURO_전일종가
             else:
-                eurofx_전고 = EUROFX_전고
+                eurofx_전고 = EURO_전고
 
-            if EUROFX_피봇 == 0:
-                eurofx_피봇 = EUROFX_전일종가
+            if EURO_피봇 == 0:
+                eurofx_피봇 = EURO_전일종가
             else:
-                eurofx_피봇 = EUROFX_피봇
+                eurofx_피봇 = EURO_피봇
 
-            if EUROFX_시가 == 0:
-                eurofx_시가 = EUROFX_전일종가
+            if EURO_시가 == 0:
+                eurofx_시가 = EURO_전일종가
             else:
-                eurofx_시가 = EUROFX_시가
+                eurofx_시가 = EURO_시가
 
-            if EUROFX_저가 == 0:
-                eurofx_저가 = EUROFX_전일종가
+            if EURO_저가 == 0:
+                eurofx_저가 = EURO_전일종가
             else:
-                eurofx_저가 = EUROFX_저가
+                eurofx_저가 = EURO_저가
 
-            if EUROFX_고가 == 0:
-                eurofx_고가 = EUROFX_전일종가
+            if EURO_고가 == 0:
+                eurofx_고가 = EURO_전일종가
             else:
-                eurofx_고가 = EUROFX_고가
+                eurofx_고가 = EURO_고가
 
-            self.plot6_quote_remainder_ratio_base_line.setValue(EUROFX_전일종가)
-            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot6_quote_remainder_ratio_base_line.setValue(EURO_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot6_nm_futures_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
 
-            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(EUROFX_전일종가)
-            self.plot6_option_quote_remainder_ratio_upper_line.setValue(EUROFX_전일종가)
+            self.plot6_option_quote_remainder_ratio_bottom_line.setValue(EURO_전일종가)
+            self.plot6_option_quote_remainder_ratio_upper_line.setValue(EURO_전일종가)
             
             for i in range(10):
-                self.plot6_kp200_line[i].setValue(EUROFX_전일종가)
+                self.plot6_kp200_line[i].setValue(EURO_전일종가)
 
             for i in range(9):
-                self.plot6_mv_line[i].setValue(EUROFX_전일종가)
+                self.plot6_mv_line[i].setValue(EURO_전일종가)
 
-            self.plot6_center_val_lower_line.setValue(EUROFX_전일종가)
-            self.plot6_center_val_line.setValue(EUROFX_전일종가)
-            self.plot6_center_val_upper_line.setValue(EUROFX_전일종가)
+            self.plot6_center_val_lower_line.setValue(EURO_전일종가)
+            self.plot6_center_val_line.setValue(EURO_전일종가)
+            self.plot6_center_val_upper_line.setValue(EURO_전일종가)
             
-            self.plot6_fut_jl_line.setValue(EUROFX_전일종가)
-            self.plot6_fut_jh_line.setValue(EUROFX_전일종가)
-            self.plot6_fut_close_line.setValue(EUROFX_전일종가)
-            self.plot6_fut_pivot_line.setValue(EUROFX_전일종가)
-            self.plot6_fut_open_line.setValue(EUROFX_전일종가)
-            self.plot6_fut_low_line.setValue(EUROFX_전일종가)
-            self.plot6_fut_high_line.setValue(EUROFX_전일종가) 
+            self.plot6_fut_jl_line.setValue(EURO_전일종가)
+            self.plot6_fut_jh_line.setValue(EURO_전일종가)
+            self.plot6_fut_close_line.setValue(EURO_전일종가)
+            self.plot6_fut_pivot_line.setValue(EURO_전일종가)
+            self.plot6_fut_open_line.setValue(EURO_전일종가)
+            self.plot6_fut_low_line.setValue(EURO_전일종가)
+            self.plot6_fut_high_line.setValue(EURO_전일종가) 
                 
             txt = ' {0} '.format(format(eurofx_전저, ','))
             self.label_61.setText(txt)
@@ -32155,9 +32155,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(eurofx_전고)
             
-            txt = ' {0} '.format(format(EUROFX_전일종가, ','))
+            txt = ' {0} '.format(format(EURO_전일종가, ','))
             self.label_63.setText(txt)
-            self.plot6_ovc_close_line.setValue(EUROFX_전일종가)
+            self.plot6_ovc_close_line.setValue(EURO_전일종가)
 
             txt = ' {0} '.format(format(eurofx_피봇, ','))
             self.label_64.setText(txt)
@@ -33963,31 +33963,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EUROFX_저가, ','))
+                txt = ' {0} '.format(format(EURO_저가, ','))
                 self.label_16.setText(txt)
 
                 과거가 =  self.label_17.text().split()[0]     
 
-                if EUROFX_현재가 > float(과거가):
+                if EURO_현재가 > float(과거가):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_17.setText(txt)
 
-                elif EUROFX_현재가 < float(과거가):
+                elif EURO_현재가 < float(과거가):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33996,16 +33996,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUROFX_고가, ','))
+                txt = ' {0} '.format(format(EURO_고가, ','))
                 self.label_18.setText(txt)
 
-                self.plot1_ovc_jl_line.setValue(EUROFX_전저)
-                self.plot1_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot1_ovc_close_line.setValue(EUROFX_전일종가)
-                self.plot1_ovc_open_line.setValue(EUROFX_시가)
-                self.plot1_ovc_pivot_line.setValue(EUROFX_피봇)
-                self.plot1_ovc_low_line.setValue(EUROFX_저가)
-                self.plot1_ovc_high_line.setValue(EUROFX_고가)                 
+                self.plot1_ovc_jl_line.setValue(EURO_전저)
+                self.plot1_ovc_jh_line.setValue(EURO_전고)
+                self.plot1_ovc_close_line.setValue(EURO_전일종가)
+                self.plot1_ovc_open_line.setValue(EURO_시가)
+                self.plot1_ovc_pivot_line.setValue(EURO_피봇)
+                self.plot1_ovc_low_line.setValue(EURO_저가)
+                self.plot1_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot1_eurofx_curve.setData(df_eurofx_graph['price'])
 
@@ -35655,31 +35655,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EUROFX_저가, ','))
+                txt = ' {0} '.format(format(EURO_저가, ','))
                 self.label_26.setText(txt)
 
                 과거가 =  self.label_27.text().split()[0]     
 
-                if EUROFX_현재가 > float(과거가):
+                if EURO_현재가 > float(과거가):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_27.setText(txt)
 
-                elif EUROFX_현재가 < float(과거가):
+                elif EURO_현재가 < float(과거가):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35688,16 +35688,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUROFX_고가, ','))
+                txt = ' {0} '.format(format(EURO_고가, ','))
                 self.label_28.setText(txt)
 
-                self.plot2_ovc_jl_line.setValue(EUROFX_전저)
-                self.plot2_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot2_ovc_close_line.setValue(EUROFX_전일종가)
-                self.plot2_ovc_open_line.setValue(EUROFX_시가)
-                self.plot2_ovc_pivot_line.setValue(EUROFX_피봇)
-                self.plot2_ovc_low_line.setValue(EUROFX_저가)
-                self.plot2_ovc_high_line.setValue(EUROFX_고가)                 
+                self.plot2_ovc_jl_line.setValue(EURO_전저)
+                self.plot2_ovc_jh_line.setValue(EURO_전고)
+                self.plot2_ovc_close_line.setValue(EURO_전일종가)
+                self.plot2_ovc_open_line.setValue(EURO_시가)
+                self.plot2_ovc_pivot_line.setValue(EURO_피봇)
+                self.plot2_ovc_low_line.setValue(EURO_저가)
+                self.plot2_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot2_eurofx_curve.setData(df_eurofx_graph['price'])
 
@@ -37343,31 +37343,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EUROFX_저가, ','))
+                txt = ' {0} '.format(format(EURO_저가, ','))
                 self.label_36.setText(txt)
 
                 과거가 =  self.label_37.text().split()[0]     
 
-                if EUROFX_현재가 > float(과거가):
+                if EURO_현재가 > float(과거가):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_37.setText(txt)
 
-                elif EUROFX_현재가 < float(과거가):
+                elif EURO_현재가 < float(과거가):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37376,16 +37376,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUROFX_고가, ','))
+                txt = ' {0} '.format(format(EURO_고가, ','))
                 self.label_38.setText(txt)
 
-                self.plot3_ovc_jl_line.setValue(EUROFX_전저)
-                self.plot3_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot3_ovc_close_line.setValue(EUROFX_전일종가)
-                self.plot3_ovc_open_line.setValue(EUROFX_시가)
-                self.plot3_ovc_pivot_line.setValue(EUROFX_피봇)
-                self.plot3_ovc_low_line.setValue(EUROFX_저가)
-                self.plot3_ovc_high_line.setValue(EUROFX_고가)                 
+                self.plot3_ovc_jl_line.setValue(EURO_전저)
+                self.plot3_ovc_jh_line.setValue(EURO_전고)
+                self.plot3_ovc_close_line.setValue(EURO_전일종가)
+                self.plot3_ovc_open_line.setValue(EURO_시가)
+                self.plot3_ovc_pivot_line.setValue(EURO_피봇)
+                self.plot3_ovc_low_line.setValue(EURO_저가)
+                self.plot3_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot3_eurofx_curve.setData(df_eurofx_graph['price'])
 
@@ -39032,31 +39032,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EUROFX_저가, ','))
+                txt = ' {0} '.format(format(EURO_저가, ','))
                 self.label_46.setText(txt)
 
                 과거가 =  self.label_47.text().split()[0]     
 
-                if EUROFX_현재가 > float(과거가):
+                if EURO_현재가 > float(과거가):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_47.setText(txt)
 
-                elif EUROFX_현재가 < float(과거가):
+                elif EURO_현재가 < float(과거가):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39065,16 +39065,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUROFX_고가, ','))
+                txt = ' {0} '.format(format(EURO_고가, ','))
                 self.label_48.setText(txt)
 
-                self.plot4_ovc_jl_line.setValue(EUROFX_전저)
-                self.plot4_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot4_ovc_close_line.setValue(EUROFX_전일종가)
-                self.plot4_ovc_open_line.setValue(EUROFX_시가)
-                self.plot4_ovc_pivot_line.setValue(EUROFX_피봇)
-                self.plot4_ovc_low_line.setValue(EUROFX_저가)
-                self.plot4_ovc_high_line.setValue(EUROFX_고가)                 
+                self.plot4_ovc_jl_line.setValue(EURO_전저)
+                self.plot4_ovc_jh_line.setValue(EURO_전고)
+                self.plot4_ovc_close_line.setValue(EURO_전일종가)
+                self.plot4_ovc_open_line.setValue(EURO_시가)
+                self.plot4_ovc_pivot_line.setValue(EURO_피봇)
+                self.plot4_ovc_low_line.setValue(EURO_저가)
+                self.plot4_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot4_eurofx_curve.setData(df_eurofx_graph['price'])
 
@@ -40719,31 +40719,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EUROFX_저가, ','))
+                txt = ' {0} '.format(format(EURO_저가, ','))
                 self.label_56.setText(txt)
 
                 과거가 =  self.label_57.text().split()[0]     
 
-                if EUROFX_현재가 > float(과거가):
+                if EURO_현재가 > float(과거가):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_57.setText(txt)
 
-                elif EUROFX_현재가 < float(과거가):
+                elif EURO_현재가 < float(과거가):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40752,16 +40752,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUROFX_고가, ','))
+                txt = ' {0} '.format(format(EURO_고가, ','))
                 self.label_58.setText(txt)
 
-                self.plot5_ovc_jl_line.setValue(EUROFX_전저)
-                self.plot5_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot5_ovc_close_line.setValue(EUROFX_전일종가)
-                self.plot5_ovc_open_line.setValue(EUROFX_시가)
-                self.plot5_ovc_pivot_line.setValue(EUROFX_피봇)
-                self.plot5_ovc_low_line.setValue(EUROFX_저가)
-                self.plot5_ovc_high_line.setValue(EUROFX_고가)                 
+                self.plot5_ovc_jl_line.setValue(EURO_전저)
+                self.plot5_ovc_jh_line.setValue(EURO_전고)
+                self.plot5_ovc_close_line.setValue(EURO_전일종가)
+                self.plot5_ovc_open_line.setValue(EURO_시가)
+                self.plot5_ovc_pivot_line.setValue(EURO_피봇)
+                self.plot5_ovc_low_line.setValue(EURO_저가)
+                self.plot5_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot5_eurofx_curve.setData(df_eurofx_graph['price'])
 
@@ -42406,31 +42406,31 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EUROFX_저가, ','))
+                txt = ' {0} '.format(format(EURO_저가, ','))
                 self.label_66.setText(txt)
 
                 과거가 =  self.label_67.text().split()[0]     
 
-                if EUROFX_현재가 > float(과거가):
+                if EURO_현재가 > float(과거가):
 
-                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     self.label_67.setText(txt)
 
-                elif EUROFX_현재가 < float(과거가):
+                elif EURO_현재가 < float(과거가):
 
-                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EUROFX_현재가, EUROFX_종가대비, EUROFX_등락율, EUROFX_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:0.1f}%, {3}) ".format(EURO_현재가, EURO_종가대비, EURO_등락율, EURO_진폭_틱)
 
-                    if EUROFX_종가대비 > 0:
+                    if EURO_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif EUROFX_종가대비 < 0:
+                    elif EURO_종가대비 < 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42439,16 +42439,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EUROFX_고가, ','))
+                txt = ' {0} '.format(format(EURO_고가, ','))
                 self.label_68.setText(txt)
 
-                self.plot6_ovc_jl_line.setValue(EUROFX_전저)
-                self.plot6_ovc_jh_line.setValue(EUROFX_전고)
-                self.plot6_ovc_close_line.setValue(EUROFX_전일종가)
-                self.plot6_ovc_open_line.setValue(EUROFX_시가)
-                self.plot6_ovc_pivot_line.setValue(EUROFX_피봇)
-                self.plot6_ovc_low_line.setValue(EUROFX_저가)
-                self.plot6_ovc_high_line.setValue(EUROFX_고가)                 
+                self.plot6_ovc_jl_line.setValue(EURO_전저)
+                self.plot6_ovc_jh_line.setValue(EURO_전고)
+                self.plot6_ovc_close_line.setValue(EURO_전일종가)
+                self.plot6_ovc_open_line.setValue(EURO_시가)
+                self.plot6_ovc_pivot_line.setValue(EURO_피봇)
+                self.plot6_ovc_low_line.setValue(EURO_저가)
+                self.plot6_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot6_eurofx_curve.setData(df_eurofx_graph['price'])
 
@@ -45261,7 +45261,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         daytime_file.write(file_txt)
                         file_txt = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
                         daytime_file.write(file_txt)
-                        file_txt = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
+                        file_txt = 'EURO Day Close = {0}\n'.format(EURO_현재가)
                         daytime_file.write(file_txt)
                         file_txt = 'YEN Day Close = {0}\n'.format(YEN_현재가)
                         daytime_file.write(file_txt)
@@ -48057,24 +48057,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
         global NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
         global WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
-        global EUROFX_전일종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+        global EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_현재가, EURO_전일대비, EURO_등락율, EURO_진폭, EURO_고가
         global YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_현재가, YEN_전일대비, YEN_등락율, YEN_진폭, YEN_고가
         global ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_현재가, ADI_전일대비, ADI_등락율, ADI_진폭, ADI_고가
         global HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
         global GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
-        global SP500_현재가_버퍼, DOW_현재가_버퍼, NASDAQ_현재가_버퍼, HANGSENG_현재가_버퍼, WTI_현재가_버퍼, GOLD_현재가_버퍼, EUROFX_현재가_버퍼, YEN_현재가_버퍼, ADI_현재가_버퍼
-        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, YEN_과거가, ADI_과거가, HANGSENG_과거가, GOLD_과거가
-        global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EUROFX_진폭비, YEN_진폭비, ADI_진폭비
+        global SP500_현재가_버퍼, DOW_현재가_버퍼, NASDAQ_현재가_버퍼, HANGSENG_현재가_버퍼, WTI_현재가_버퍼, GOLD_현재가_버퍼, EURO_현재가_버퍼, YEN_현재가_버퍼, ADI_현재가_버퍼
+        global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EURO_과거가, YEN_과거가, ADI_과거가, HANGSENG_과거가, GOLD_과거가
+        global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EURO_진폭비, YEN_진폭비, ADI_진폭비
 
-        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, YEN_당일종가, ADI_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EURO_당일종가, YEN_당일종가, ADI_당일종가, HANGSENG_당일종가, GOLD_당일종가
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_sp500_ohlc_open, flag_dow_ohlc_open, flag_nasdaq_ohlc_open, flag_hangseng_ohlc_open
         global flag_wti_ohlc_open, flag_gold_ohlc_open, flag_eurofx_ohlc_open, flag_yen_ohlc_open, flag_adi_ohlc_open
 
-        global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EUROFX_종가대비, YEN_종가대비, ADI_종가대비
-        global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EUROFX_시가대비, YEN_시가대비, ADI_시가대비
-        global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EUROFX_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
+        global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EURO_종가대비, YEN_종가대비, ADI_종가대비
+        global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EURO_시가대비, YEN_시가대비, ADI_시가대비
+        global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EURO_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
         global plot_time_index
 
@@ -49465,49 +49465,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass            
             
-            elif tickdata['종목코드'] == EUROFX:
+            elif tickdata['종목코드'] == EURO:
 
                 # 그래프 가격갱신
                 df_eurofx_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])                    
 
-                EUROFX_현재가 = float(tickdata['체결가격'])
-                EUROFX_전일대비 = float(tickdata['전일대비'])
+                EURO_현재가 = float(tickdata['체결가격'])
+                EURO_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
-                    EUROFX_전일종가 = round((EUROFX_현재가 + EUROFX_전일대비), 5)
-                    EUROFX_종가대비 = -EUROFX_전일대비
+                    EURO_전일종가 = round((EURO_현재가 + EURO_전일대비), 5)
+                    EURO_종가대비 = -EURO_전일대비
                 else:
-                    EUROFX_전일종가 = round((EUROFX_현재가 - EUROFX_전일대비), 5)
-                    EUROFX_종가대비 = EUROFX_전일대비
+                    EURO_전일종가 = round((EURO_현재가 - EURO_전일대비), 5)
+                    EURO_종가대비 = EURO_전일대비
 
-                EUROFX_등락율 = float(tickdata['등락율'])
+                EURO_등락율 = float(tickdata['등락율'])
 
-                EUROFX_시가 = float(tickdata['시가'])
-                EUROFX_저가 =  float(tickdata['저가'])
-                EUROFX_고가 =  float(tickdata['고가'])                    
-                EUROFX_진폭 = EUROFX_고가 - EUROFX_저가
-                EUROFX_진폭_틱 = int(EUROFX_진폭 / 0.00005)
+                EURO_시가 = float(tickdata['시가'])
+                EURO_저가 =  float(tickdata['저가'])
+                EURO_고가 =  float(tickdata['고가'])                    
+                EURO_진폭 = EURO_고가 - EURO_저가
+                EURO_진폭_틱 = int(EURO_진폭 / 0.00005)
 
-                EUROFX_시가대비 = int((EUROFX_현재가 - EUROFX_시가) / 0.00005)                
+                EURO_시가대비 = int((EURO_현재가 - EURO_시가) / 0.00005)                
 
-                #df_eurofx_graph.at[0, 'price'] = EUROFX_전일종가
+                #df_eurofx_graph.at[0, 'price'] = EURO_전일종가
 
                 if df_eurofx_graph.at[1, 'price'] == 0:
-                    df_eurofx_graph.at[1, 'price'] = EUROFX_시가
+                    df_eurofx_graph.at[1, 'price'] = EURO_시가
 
-                EUROFX_진폭비 = EUROFX_진폭 / EUROFX_시가 
+                EURO_진폭비 = EURO_진폭 / EURO_시가 
                 
-                if EUROFX_피봇 == 0:
+                if EURO_피봇 == 0:
 
-                    if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-                        EUROFX_피봇 = calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_전일종가, EUROFX_시가, 5)
+                    if EURO_전저 > 0 and EURO_전고 > 0:
+                        EURO_피봇 = calc_pivot(EURO_전저, EURO_전고, EURO_전일종가, EURO_시가, 5)
                     else:
                         pass
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_전저) != self.tableWidget_cme.item(6, 1).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_전저))
+                if "{0:.5f}".format(EURO_전저) != self.tableWidget_cme.item(6, 1).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49515,8 +49515,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_전고) != self.tableWidget_cme.item(6, 2).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_전고))
+                if "{0:.5f}".format(EURO_전고) != self.tableWidget_cme.item(6, 2).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_전고))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49524,8 +49524,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_전일종가) != self.tableWidget_cme.item(6, 3).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_전일종가))
+                if "{0:.5f}".format(EURO_전일종가) != self.tableWidget_cme.item(6, 3).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49533,8 +49533,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_피봇) != self.tableWidget_cme.item(6, 4).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_피봇))
+                if "{0:.5f}".format(EURO_피봇) != self.tableWidget_cme.item(6, 4).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_피봇))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49542,8 +49542,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_시가) != self.tableWidget_cme.item(6, 5).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_시가))
+                if "{0:.5f}".format(EURO_시가) != self.tableWidget_cme.item(6, 5).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -49551,14 +49551,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_저가) != self.tableWidget_cme.item(6, 6).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_저가))
+                if "{0:.5f}".format(EURO_저가) != self.tableWidget_cme.item(6, 6).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(청색))
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(6, 6, item)
                     
-                    item = QTableWidgetItem('{0}'.format(EUROFX_진폭_틱))
+                    item = QTableWidgetItem('{0}'.format(EURO_진폭_틱))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -49568,14 +49568,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                if "{0:.5f}".format(EUROFX_고가) != self.tableWidget_cme.item(6, 8).text():
-                    item = QTableWidgetItem("{0:.5f}".format(EUROFX_고가))
+                if "{0:.5f}".format(EURO_고가) != self.tableWidget_cme.item(6, 8).text():
+                    item = QTableWidgetItem("{0:.5f}".format(EURO_고가))
                     item.setTextAlignment(Qt.AlignCenter)                    
                     item.setBackground(QBrush(적색))
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_cme.setItem(6, 8, item)
 
-                    item = QTableWidgetItem('{0}'.format(EUROFX_진폭_틱))
+                    item = QTableWidgetItem('{0}'.format(EURO_진폭_틱))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -49585,18 +49585,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                EUROFX_과거가 = float(self.tableWidget_cme.item(6, 7).text().split('\n')[0])              
+                EURO_과거가 = float(self.tableWidget_cme.item(6, 7).text().split('\n')[0])              
                 
-                if EUROFX_현재가 != EUROFX_과거가:                       
+                if EURO_현재가 != EURO_과거가:                       
 
-                    if EUROFX_현재가 > EUROFX_과거가:
+                    if EURO_현재가 > EURO_과거가:
 
                         item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▲')
                         item.setBackground(QBrush(pink))
 
-                        if EUROFX_시가 < EUROFX_현재가:
+                        if EURO_시가 < EURO_현재가:
                             item.setForeground(QBrush(적색))
-                        elif EUROFX_시가 > EUROFX_현재가:
+                        elif EURO_시가 > EURO_현재가:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
@@ -49604,14 +49604,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_cme.setItem(6, 7, item)
                         
-                    elif EUROFX_현재가 < EUROFX_과거가:
+                    elif EURO_현재가 < EURO_과거가:
 
                         item = QTableWidgetItem(tickdata['체결가격'] + '\n' + '▼')
                         item.setBackground(QBrush(lightskyblue))
 
-                        if EUROFX_시가 < EUROFX_현재가:
+                        if EURO_시가 < EURO_현재가:
                             item.setForeground(QBrush(적색))
-                        elif EUROFX_시가 > EUROFX_현재가:
+                        elif EURO_시가 > EURO_현재가:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
@@ -49621,7 +49621,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass                    
 
-                    item = QTableWidgetItem('{0}'.format(EUROFX_시가대비))
+                    item = QTableWidgetItem('{0}'.format(EURO_시가대비))
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -50573,7 +50573,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_cme.item(6, 8).setBackground(QBrush(흰색))
         self.tableWidget_cme.item(6, 8).setForeground(QBrush(검정색))
 
-        if EUROFX_전저 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_전저 + 0.00005 * 5:
+        if EURO_전저 - 0.00005 * 5 <= EURO_저가 <= EURO_전저 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 1).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 1).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 6).setBackground(QBrush(대맥점색))
@@ -50581,7 +50581,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_전고 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_전고 + 0.00005 * 5:
+        if EURO_전고 - 0.00005 * 5 <= EURO_저가 <= EURO_전고 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 2).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 2).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 6).setBackground(QBrush(대맥점색))
@@ -50589,7 +50589,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_전일종가 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_전일종가 + 0.00005 * 5:
+        if EURO_전일종가 - 0.00005 * 5 <= EURO_저가 <= EURO_전일종가 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 6).setBackground(QBrush(대맥점색))
@@ -50597,7 +50597,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_피봇 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_피봇 + 0.00005 * 5:
+        if EURO_피봇 - 0.00005 * 5 <= EURO_저가 <= EURO_피봇 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 4).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 4).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 6).setBackground(QBrush(대맥점색))
@@ -50605,7 +50605,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_시가 - 0.00005 * 5 <= EUROFX_저가 <= EUROFX_시가 + 0.00005 * 5:
+        if EURO_시가 - 0.00005 * 5 <= EURO_저가 <= EURO_시가 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 5).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 5).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 6).setBackground(QBrush(대맥점색))
@@ -50613,7 +50613,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_전저 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_전저 + 0.00005 * 5:
+        if EURO_전저 - 0.00005 * 5 <= EURO_고가 <= EURO_전저 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 1).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 1).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 8).setBackground(QBrush(대맥점색))
@@ -50621,7 +50621,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_전고 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_전고 + 0.00005 * 5:
+        if EURO_전고 - 0.00005 * 5 <= EURO_고가 <= EURO_전고 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 2).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 2).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 8).setBackground(QBrush(대맥점색))
@@ -50629,7 +50629,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_전일종가 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_전일종가 + 0.00005 * 5:
+        if EURO_전일종가 - 0.00005 * 5 <= EURO_고가 <= EURO_전일종가 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 8).setBackground(QBrush(대맥점색))
@@ -50637,7 +50637,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_피봇 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_피봇 + 0.00005 * 5:
+        if EURO_피봇 - 0.00005 * 5 <= EURO_고가 <= EURO_피봇 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 4).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 4).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 8).setBackground(QBrush(대맥점색))
@@ -50645,7 +50645,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if EUROFX_시가 - 0.00005 * 5 <= EUROFX_고가 <= EUROFX_시가 + 0.00005 * 5:
+        if EURO_시가 - 0.00005 * 5 <= EURO_고가 <= EURO_시가 + 0.00005 * 5:
             self.tableWidget_cme.item(6, 5).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(6, 5).setForeground(QBrush(적색))
             self.tableWidget_cme.item(6, 8).setBackground(QBrush(대맥점색))
