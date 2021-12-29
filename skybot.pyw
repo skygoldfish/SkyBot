@@ -15391,7 +15391,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_cm_graph.at[0, 'volume'] = 0
                     df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                     df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
-                    df_kp200_graph.at[0, 'price'] = self.fut_realdata['KP200']
+                    df_kp200_graph.at[0, 'price'] = KP200_전일종가
                     
                     df_supply_demand_graph.at[0, 'program'] = 0
                     df_supply_demand_graph.at[0, 'kospi_total'] = 0
@@ -20068,7 +20068,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if os.path.isfile('daytime.txt'):
 
                 if DayTime:
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_Day_종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
