@@ -15191,6 +15191,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.fut_realdata['KP200'] = df['KOSPI200지수']
 
+                print('\r')
+                print('************************************* t2101 kp200 전일종가 = {0}\r'.format(df['KOSPI200지수']))
+                print('************************************* KP200_전일종가 = {0}\r'.format(KP200_전일종가))
+                print('\r')
+
                 atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
 
                 if atm_txt[-1] == '2' or atm_txt[-1] == '7':
@@ -34229,7 +34234,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_euro_graph.at[plot_time_index, 'BBUpper'], df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'BBLower'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
@@ -34493,7 +34498,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_adi_graph.at[plot_time_index, 'BBUpper'], df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'BBLower'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
@@ -35931,7 +35936,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_euro_graph.at[plot_time_index, 'BBUpper'], df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'BBLower'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
@@ -36195,7 +36200,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_adi_graph.at[plot_time_index, 'BBUpper'], df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'BBLower'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
@@ -37629,7 +37634,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_euro_graph.at[plot_time_index, 'BBUpper'], df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'BBLower'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
@@ -37893,7 +37898,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_adi_graph.at[plot_time_index, 'BBUpper'], df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'BBLower'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
@@ -39328,7 +39333,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_euro_graph.at[plot_time_index, 'BBUpper'], df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'BBLower'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
@@ -39592,7 +39597,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_adi_graph.at[plot_time_index, 'BBUpper'], df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'BBLower'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
@@ -41025,7 +41030,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_euro_graph.at[plot_time_index, 'BBUpper'], df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'BBLower'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
@@ -41289,7 +41294,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_adi_graph.at[plot_time_index, 'BBUpper'], df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'BBLower'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
@@ -42722,7 +42727,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_euro_graph.at[plot_time_index, 'BBUpper'], df_euro_graph.at[plot_time_index, 'BBMiddle'], df_euro_graph.at[plot_time_index, 'BBLower'], df_euro_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
@@ -42986,7 +42991,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f}\n PSAR: {3:.5f} ".format\
                             (df_adi_graph.at[plot_time_index, 'BBUpper'], df_adi_graph.at[plot_time_index, 'BBMiddle'], df_adi_graph.at[plot_time_index, 'BBLower'], df_adi_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
