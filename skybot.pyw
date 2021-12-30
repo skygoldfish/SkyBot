@@ -12972,7 +12972,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -13001,7 +13001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -14076,7 +14076,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -14105,7 +14105,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -33596,7 +33596,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_dow_graph.at[plot_time_index, 'BBUpper'], df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'BBLower'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
@@ -33622,7 +33622,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
                         self.label_p1_4.setText(txt)
                     else:
                         pass
@@ -33643,7 +33643,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
                         pass
@@ -33855,7 +33855,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_hangseng_graph.at[plot_time_index, 'BBUpper'], df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'BBLower'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
@@ -33881,7 +33881,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
                         self.label_p1_4.setText(txt)
                     else:
                         pass
@@ -33902,7 +33902,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
                         pass
@@ -35298,7 +35298,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_dow_graph.at[plot_time_index, 'BBUpper'], df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'BBLower'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
@@ -35324,7 +35324,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
                         self.label_p2_4.setText(txt)
                     else:
                         pass
@@ -35345,7 +35345,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
                     else:
                         pass
@@ -35557,7 +35557,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_hangseng_graph.at[plot_time_index, 'BBUpper'], df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'BBLower'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
@@ -35583,7 +35583,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
                         self.label_p2_4.setText(txt)
                     else:
                         pass
@@ -35604,7 +35604,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
                     else:
                         pass
@@ -36996,7 +36996,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_dow_graph.at[plot_time_index, 'BBUpper'], df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'BBLower'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
@@ -37022,7 +37022,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
                         self.label_p3_4.setText(txt)
                     else:
                         pass
@@ -37043,7 +37043,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
                     else:
                         pass
@@ -37255,7 +37255,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_hangseng_graph.at[plot_time_index, 'BBUpper'], df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'BBLower'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
@@ -37281,7 +37281,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
                         self.label_p3_4.setText(txt)
                     else:
                         pass
@@ -37302,7 +37302,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
                     else:
                         pass
@@ -38695,7 +38695,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_dow_graph.at[plot_time_index, 'BBUpper'], df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'BBLower'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
@@ -38721,7 +38721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
                         self.label_p4_4.setText(txt)
                     else:
                         pass
@@ -38742,7 +38742,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
                     else:
                         pass
@@ -38954,7 +38954,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_hangseng_graph.at[plot_time_index, 'BBUpper'], df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'BBLower'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
@@ -38980,7 +38980,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
                         self.label_p4_4.setText(txt)
                     else:
                         pass
@@ -39001,7 +39001,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
                     else:
                         pass
@@ -40392,7 +40392,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_dow_graph.at[plot_time_index, 'BBUpper'], df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'BBLower'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
@@ -40418,7 +40418,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
                         self.label_p5_4.setText(txt)
                     else:
                         pass
@@ -40439,7 +40439,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
                     else:
                         pass
@@ -40651,7 +40651,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_hangseng_graph.at[plot_time_index, 'BBUpper'], df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'BBLower'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
@@ -40677,7 +40677,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
                         self.label_p5_4.setText(txt)
                     else:
                         pass
@@ -40698,7 +40698,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
                     else:
                         pass
@@ -42089,7 +42089,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_dow_graph.at[plot_time_index, 'BBUpper'], df_dow_graph.at[plot_time_index, 'BBMiddle'], df_dow_graph.at[plot_time_index, 'BBLower'], df_dow_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
@@ -42115,7 +42115,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'MAMA'], df_dow_graph.at[plot_time_index, 'FAMA'])
                         self.label_p6_4.setText(txt)
                     else:
                         pass
@@ -42136,7 +42136,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_graph.at[plot_time_index, 'OE_CONV'], df_dow_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
                     else:
                         pass
@@ -42348,7 +42348,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f}\n PSAR: {3:.0f} ".format\
                             (df_hangseng_graph.at[plot_time_index, 'BBUpper'], df_hangseng_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_graph.at[plot_time_index, 'BBLower'], df_hangseng_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
@@ -42374,7 +42374,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'MAMA'], df_hangseng_graph.at[plot_time_index, 'FAMA'])
                         self.label_p6_4.setText(txt)
                     else:
                         pass
@@ -42395,7 +42395,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
                     else:
                         pass
@@ -48310,7 +48310,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ovc_update(self, tickdata):
 
         global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
-        global old_cme_time_index
+        global old_cme_time_index, plot_time_index
         global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph        
 
         global SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
@@ -48336,7 +48336,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EURO_시가대비, YEN_시가대비, ADI_시가대비
         global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EURO_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
-        global plot_time_index
 
         try:
             dt = datetime.now()
@@ -48366,66 +48365,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 plot_time_index = (night_time - NightTime_PreStart_Hour) * 60 + CME_MIN + 1         
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
-                plot_time_index = (CME_HOUR - DayTime_PreStart_Hour) * 60 + CME_MIN + 1
-
-            # 갱신된 현재값을 과거값과 비교(NaN 방지를 위해)
-            if plot_time_index != old_cme_time_index:
-
-                df_sp500_graph.at[plot_time_index, 'high'] = df_sp500_graph.at[plot_time_index - 1, 'high']
-                df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
-                df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
-                df_sp500_graph.at[plot_time_index, 'close'] = df_sp500_graph.at[plot_time_index - 1, 'close']
-                df_sp500_graph.at[plot_time_index, 'price'] = df_sp500_graph.at[plot_time_index - 1, 'close']
-
-                df_dow_graph.at[plot_time_index, 'high'] = df_dow_graph.at[plot_time_index - 1, 'high']
-                df_dow_graph.at[plot_time_index, 'low'] = df_dow_graph.at[plot_time_index - 1, 'low']
-                df_dow_graph.at[plot_time_index, 'middle'] = df_dow_graph.at[plot_time_index - 1, 'middle']
-                df_dow_graph.at[plot_time_index, 'close'] = df_dow_graph.at[plot_time_index - 1, 'close']
-                df_dow_graph.at[plot_time_index, 'price'] = df_dow_graph.at[plot_time_index - 1, 'close']
-
-                df_nasdaq_graph.at[plot_time_index, 'high'] = df_nasdaq_graph.at[plot_time_index - 1, 'high']
-                df_nasdaq_graph.at[plot_time_index, 'low'] = df_nasdaq_graph.at[plot_time_index - 1, 'low']
-                df_nasdaq_graph.at[plot_time_index, 'middle'] = df_nasdaq_graph.at[plot_time_index - 1, 'middle']
-                df_nasdaq_graph.at[plot_time_index, 'close'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
-                df_nasdaq_graph.at[plot_time_index, 'price'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
-
-                df_hangseng_graph.at[plot_time_index, 'high'] = df_hangseng_graph.at[plot_time_index - 1, 'high']
-                df_hangseng_graph.at[plot_time_index, 'low'] = df_hangseng_graph.at[plot_time_index - 1, 'low']
-                df_hangseng_graph.at[plot_time_index, 'middle'] = df_hangseng_graph.at[plot_time_index - 1, 'middle']
-                df_hangseng_graph.at[plot_time_index, 'close'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
-                df_hangseng_graph.at[plot_time_index, 'price'] = df_hangseng_graph.at[plot_time_index - 1, 'close']             
-
-                df_wti_graph.at[plot_time_index, 'high'] = df_wti_graph.at[plot_time_index - 1, 'high']
-                df_wti_graph.at[plot_time_index, 'low'] = df_wti_graph.at[plot_time_index - 1, 'low']
-                df_wti_graph.at[plot_time_index, 'middle'] = df_wti_graph.at[plot_time_index - 1, 'middle']
-                df_wti_graph.at[plot_time_index, 'close'] = df_wti_graph.at[plot_time_index - 1, 'close']
-                df_wti_graph.at[plot_time_index, 'price'] = df_wti_graph.at[plot_time_index - 1, 'close']
-
-                df_gold_graph.at[plot_time_index, 'high'] = df_gold_graph.at[plot_time_index - 1, 'high']
-                df_gold_graph.at[plot_time_index, 'low'] = df_gold_graph.at[plot_time_index - 1, 'low']
-                df_gold_graph.at[plot_time_index, 'middle'] = df_gold_graph.at[plot_time_index - 1, 'middle']
-                df_gold_graph.at[plot_time_index, 'close'] = df_gold_graph.at[plot_time_index - 1, 'close']
-                df_gold_graph.at[plot_time_index, 'price'] = df_gold_graph.at[plot_time_index - 1, 'close']
-
-                df_euro_graph.at[plot_time_index, 'high'] = df_euro_graph.at[plot_time_index - 1, 'high']
-                df_euro_graph.at[plot_time_index, 'low'] = df_euro_graph.at[plot_time_index - 1, 'low']
-                df_euro_graph.at[plot_time_index, 'middle'] = df_euro_graph.at[plot_time_index - 1, 'middle']
-                df_euro_graph.at[plot_time_index, 'close'] = df_euro_graph.at[plot_time_index - 1, 'close']
-                df_euro_graph.at[plot_time_index, 'price'] = df_euro_graph.at[plot_time_index - 1, 'close']
-
-                df_yen_graph.at[plot_time_index, 'high'] = df_yen_graph.at[plot_time_index - 1, 'high']
-                df_yen_graph.at[plot_time_index, 'low'] = df_yen_graph.at[plot_time_index - 1, 'low']
-                df_yen_graph.at[plot_time_index, 'middle'] = df_yen_graph.at[plot_time_index - 1, 'middle']
-                df_yen_graph.at[plot_time_index, 'close'] = df_yen_graph.at[plot_time_index - 1, 'close']
-                df_yen_graph.at[plot_time_index, 'price'] = df_yen_graph.at[plot_time_index - 1, 'close']
-
-                df_adi_graph.at[plot_time_index, 'high'] = df_adi_graph.at[plot_time_index - 1, 'high']
-                df_adi_graph.at[plot_time_index, 'low'] = df_adi_graph.at[plot_time_index - 1, 'low']
-                df_adi_graph.at[plot_time_index, 'middle'] = df_adi_graph.at[plot_time_index - 1, 'middle']
-                df_adi_graph.at[plot_time_index, 'close'] = df_adi_graph.at[plot_time_index - 1, 'close']
-                df_adi_graph.at[plot_time_index, 'price'] = df_adi_graph.at[plot_time_index - 1, 'close']
-            else:
-                pass
+                plot_time_index = (CME_HOUR - DayTime_PreStart_Hour) * 60 + CME_MIN + 1            
 
             if tickdata['종목코드'] == SP500:
 
@@ -48491,7 +48431,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_sp500_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if SP500_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_sp500_graph.at[plot_time_index, 'high'] = df_sp500_graph.at[plot_time_index - 1, 'high']
+                    df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
+                    df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
+                    df_sp500_graph.at[plot_time_index, 'close'] = df_sp500_graph.at[plot_time_index - 1, 'close']
+                    df_sp500_graph.at[plot_time_index, 'price'] = df_sp500_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(SP500_현재가):
 
                     if CME_SEC == 0:
 
@@ -48711,9 +48660,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_graph.at[plot_time_index, 'drate'] = DOW_등락율
 
                 # 1T OHLC 생성
-                df_dow_graph.at[plot_time_index, 'ctime'] = CME_체결시간                
+                df_dow_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if DOW_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_dow_graph.at[plot_time_index, 'high'] = df_dow_graph.at[plot_time_index - 1, 'high']
+                    df_dow_graph.at[plot_time_index, 'low'] = df_dow_graph.at[plot_time_index - 1, 'low']
+                    df_dow_graph.at[plot_time_index, 'middle'] = df_dow_graph.at[plot_time_index - 1, 'middle']
+                    df_dow_graph.at[plot_time_index, 'close'] = df_dow_graph.at[plot_time_index - 1, 'close']
+                    df_dow_graph.at[plot_time_index, 'price'] = df_dow_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass                
+
+                if not np.isnan(DOW_현재가):
 
                     if CME_SEC == 0:
 
@@ -48759,7 +48717,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_dow_ohlc_open = False
 
                     if not np.isnan(df_dow_graph.at[plot_time_index, 'high']) and not np.isnan(df_dow_graph.at[plot_time_index, 'low']):
-                        df_dow_graph.at[plot_time_index, 'middle'] = (df_dow_graph.at[plot_time_index, 'high'] + df_dow_graph.at[plot_time_index, 'low']) / 2
+                        df_dow_graph.at[plot_time_index, 'middle'] = int(df_dow_graph.at[plot_time_index, 'high'] + df_dow_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass
 
@@ -48932,9 +48890,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_nasdaq_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
+                #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
 
-                if NASDAQ_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_nasdaq_graph.at[plot_time_index, 'high'] = df_nasdaq_graph.at[plot_time_index - 1, 'high']
+                    df_nasdaq_graph.at[plot_time_index, 'low'] = df_nasdaq_graph.at[plot_time_index - 1, 'low']
+                    df_nasdaq_graph.at[plot_time_index, 'middle'] = df_nasdaq_graph.at[plot_time_index - 1, 'middle']
+                    df_nasdaq_graph.at[plot_time_index, 'close'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
+                    df_nasdaq_graph.at[plot_time_index, 'price'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass 
+
+                if not np.isnan(NASDAQ_현재가):
 
                     if CME_SEC == 0:
 
@@ -49154,7 +49121,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_hangseng_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if HANGSENG_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_hangseng_graph.at[plot_time_index, 'high'] = df_hangseng_graph.at[plot_time_index - 1, 'high']
+                    df_hangseng_graph.at[plot_time_index, 'low'] = df_hangseng_graph.at[plot_time_index - 1, 'low']
+                    df_hangseng_graph.at[plot_time_index, 'middle'] = df_hangseng_graph.at[plot_time_index - 1, 'middle']
+                    df_hangseng_graph.at[plot_time_index, 'close'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
+                    df_hangseng_graph.at[plot_time_index, 'price'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(HANGSENG_현재가):
 
                     if CME_SEC == 0:
 
@@ -49200,7 +49176,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_hangseng_ohlc_open = False
 
                     if not np.isnan(df_hangseng_graph.at[plot_time_index, 'high']) and not np.isnan(df_hangseng_graph.at[plot_time_index, 'low']):
-                        df_hangseng_graph.at[plot_time_index, 'middle'] = (df_hangseng_graph.at[plot_time_index, 'high'] + df_hangseng_graph.at[plot_time_index, 'low']) / 2  
+                        df_hangseng_graph.at[plot_time_index, 'middle'] = int(df_hangseng_graph.at[plot_time_index, 'high'] + df_hangseng_graph.at[plot_time_index, 'low']) / 2  
                 else:
                     pass                  
 
@@ -49375,7 +49351,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_wti_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if WTI_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_wti_graph.at[plot_time_index, 'high'] = df_wti_graph.at[plot_time_index - 1, 'high']
+                    df_wti_graph.at[plot_time_index, 'low'] = df_wti_graph.at[plot_time_index - 1, 'low']
+                    df_wti_graph.at[plot_time_index, 'middle'] = df_wti_graph.at[plot_time_index - 1, 'middle']
+                    df_wti_graph.at[plot_time_index, 'close'] = df_wti_graph.at[plot_time_index - 1, 'close']
+                    df_wti_graph.at[plot_time_index, 'price'] = df_wti_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(WTI_현재가):
 
                     if CME_SEC == 0:
 
@@ -49594,7 +49579,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_gold_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if GOLD_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_gold_graph.at[plot_time_index, 'high'] = df_gold_graph.at[plot_time_index - 1, 'high']
+                    df_gold_graph.at[plot_time_index, 'low'] = df_gold_graph.at[plot_time_index - 1, 'low']
+                    df_gold_graph.at[plot_time_index, 'middle'] = df_gold_graph.at[plot_time_index - 1, 'middle']
+                    df_gold_graph.at[plot_time_index, 'close'] = df_gold_graph.at[plot_time_index - 1, 'close']
+                    df_gold_graph.at[plot_time_index, 'price'] = df_gold_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(GOLD_현재가):
 
                     if CME_SEC == 0:
 
@@ -49813,7 +49807,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_euro_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if EURO_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_euro_graph.at[plot_time_index, 'high'] = df_euro_graph.at[plot_time_index - 1, 'high']
+                    df_euro_graph.at[plot_time_index, 'low'] = df_euro_graph.at[plot_time_index - 1, 'low']
+                    df_euro_graph.at[plot_time_index, 'middle'] = df_euro_graph.at[plot_time_index - 1, 'middle']
+                    df_euro_graph.at[plot_time_index, 'close'] = df_euro_graph.at[plot_time_index - 1, 'close']
+                    df_euro_graph.at[plot_time_index, 'price'] = df_euro_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(EURO_현재가):
 
                     if CME_SEC == 0:
 
@@ -50032,7 +50035,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_yen_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if YEN_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_yen_graph.at[plot_time_index, 'high'] = df_yen_graph.at[plot_time_index - 1, 'high']
+                    df_yen_graph.at[plot_time_index, 'low'] = df_yen_graph.at[plot_time_index - 1, 'low']
+                    df_yen_graph.at[plot_time_index, 'middle'] = df_yen_graph.at[plot_time_index - 1, 'middle']
+                    df_yen_graph.at[plot_time_index, 'close'] = df_yen_graph.at[plot_time_index - 1, 'close']
+                    df_yen_graph.at[plot_time_index, 'price'] = df_yen_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(YEN_현재가):
 
                     if CME_SEC == 0:
 
@@ -50252,7 +50264,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_adi_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if ADI_현재가 > 0:
+                if plot_time_index != old_cme_time_index:
+                    df_adi_graph.at[plot_time_index, 'high'] = df_adi_graph.at[plot_time_index - 1, 'high']
+                    df_adi_graph.at[plot_time_index, 'low'] = df_adi_graph.at[plot_time_index - 1, 'low']
+                    df_adi_graph.at[plot_time_index, 'middle'] = df_adi_graph.at[plot_time_index - 1, 'middle']
+                    df_adi_graph.at[plot_time_index, 'close'] = df_adi_graph.at[plot_time_index - 1, 'close']
+                    df_adi_graph.at[plot_time_index, 'price'] = df_adi_graph.at[plot_time_index - 1, 'close']
+                else:
+                    pass
+
+                if not np.isnan(ADI_현재가):
 
                     if CME_SEC == 0:
 
@@ -50300,16 +50321,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
                         df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
 
+                    '''
                     upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
                     print('\r')
                     #print('****************************** adi low = {0}\r'.format(df_adi_graph.at[plot_time_index, 'low']))
                     #print('****************************** adi high = {0}\r'.format(df_adi_graph.at[plot_time_index, 'high']))
-                    print('****************************** adi mid = {0}\r'.format(df_adi_graph.at[plot_time_index, 'middle']))
-                    #print('****************************** upper = {0}\r'.format(upper))
-                    print('****************************** adi middle = {0}\r'.format(df_adi_graph['middle']))
-                    #print('****************************** lower = {0}\r'.format(lower))
+                    #print('****************************** adi mid = {0}\r'.format(df_adi_graph.at[plot_time_index, 'middle']))
+                    print('****************************** upper = {0}\r'.format(upper))
+                    print('****************************** middle = {0}\r'.format(middle))
+                    print('****************************** lower = {0}\r'.format(lower))
                     print('\r')
+                    '''
 
                 else:
                     pass
