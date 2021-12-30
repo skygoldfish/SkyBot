@@ -48311,7 +48311,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index
-        global df_futures_cm_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_hangseng_graph        
+        global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph        
 
         global SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
         global DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
@@ -50296,9 +50296,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
 
                         flag_adi_ohlc_open = False
-
+                    
                     if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
                         df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
+
+                    upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                    print('\r')
+                    #print('****************************** adi low = {0}\r'.format(df_adi_graph.at[plot_time_index, 'low']))
+                    #print('****************************** adi high = {0}\r'.format(df_adi_graph.at[plot_time_index, 'high']))
+                    print('****************************** adi mid = {0}\r'.format(df_adi_graph.at[plot_time_index, 'middle']))
+                    #print('****************************** upper = {0}\r'.format(upper))
+                    print('****************************** adi middle = {0}\r'.format(df_adi_graph['middle']))
+                    #print('****************************** lower = {0}\r'.format(lower))
+                    print('\r')
+
                 else:
                     pass
 
