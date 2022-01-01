@@ -48436,7 +48436,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
                     df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
                     df_sp500_graph.at[plot_time_index, 'close'] = df_sp500_graph.at[plot_time_index - 1, 'close']
-                    df_sp500_graph.at[plot_time_index, 'price'] = df_sp500_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -48451,7 +48450,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_sp500_graph.at[plot_time_index, 'low'] = SP500_현재가
                             df_sp500_graph.at[plot_time_index, 'middle'] = SP500_현재가
                             df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가
-                            df_sp500_graph.at[plot_time_index, 'price'] = SP500_현재가
 
                             del SP500_현재가_버퍼[:]
 
@@ -48667,7 +48665,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_dow_graph.at[plot_time_index, 'low'] = df_dow_graph.at[plot_time_index - 1, 'low']
                     df_dow_graph.at[plot_time_index, 'middle'] = df_dow_graph.at[plot_time_index - 1, 'middle']
                     df_dow_graph.at[plot_time_index, 'close'] = df_dow_graph.at[plot_time_index - 1, 'close']
-                    df_dow_graph.at[plot_time_index, 'price'] = df_dow_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass                
 
@@ -48682,7 +48679,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_dow_graph.at[plot_time_index, 'low'] = DOW_현재가
                             df_dow_graph.at[plot_time_index, 'middle'] = DOW_현재가
                             df_dow_graph.at[plot_time_index, 'close'] = DOW_현재가
-                            df_dow_graph.at[plot_time_index, 'price'] = DOW_현재가
 
                             del DOW_현재가_버퍼[:]
 
@@ -48897,7 +48893,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_nasdaq_graph.at[plot_time_index, 'low'] = df_nasdaq_graph.at[plot_time_index - 1, 'low']
                     df_nasdaq_graph.at[plot_time_index, 'middle'] = df_nasdaq_graph.at[plot_time_index - 1, 'middle']
                     df_nasdaq_graph.at[plot_time_index, 'close'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
-                    df_nasdaq_graph.at[plot_time_index, 'price'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass 
 
@@ -48912,7 +48907,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_nasdaq_graph.at[plot_time_index, 'low'] = NASDAQ_현재가
                             df_nasdaq_graph.at[plot_time_index, 'middle'] = NASDAQ_현재가
                             df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[plot_time_index, 'price'] = NASDAQ_현재가
 
                             del NASDAQ_현재가_버퍼[:]
 
@@ -49126,7 +49120,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_hangseng_graph.at[plot_time_index, 'low'] = df_hangseng_graph.at[plot_time_index - 1, 'low']
                     df_hangseng_graph.at[plot_time_index, 'middle'] = df_hangseng_graph.at[plot_time_index - 1, 'middle']
                     df_hangseng_graph.at[plot_time_index, 'close'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
-                    df_hangseng_graph.at[plot_time_index, 'price'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -49141,7 +49134,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_hangseng_graph.at[plot_time_index, 'low'] = HANGSENG_현재가
                             df_hangseng_graph.at[plot_time_index, 'middle'] = HANGSENG_현재가
                             df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
-                            df_hangseng_graph.at[plot_time_index, 'price'] = HANGSENG_현재가
 
                             del HANGSENG_현재가_버퍼[:]
 
@@ -49356,7 +49348,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_wti_graph.at[plot_time_index, 'low'] = df_wti_graph.at[plot_time_index - 1, 'low']
                     df_wti_graph.at[plot_time_index, 'middle'] = df_wti_graph.at[plot_time_index - 1, 'middle']
                     df_wti_graph.at[plot_time_index, 'close'] = df_wti_graph.at[plot_time_index - 1, 'close']
-                    df_wti_graph.at[plot_time_index, 'price'] = df_wti_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -49371,7 +49362,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_wti_graph.at[plot_time_index, 'low'] = WTI_현재가
                             df_wti_graph.at[plot_time_index, 'middle'] = WTI_현재가
                             df_wti_graph.at[plot_time_index, 'close'] = WTI_현재가
-                            df_wti_graph.at[plot_time_index, 'price'] = WTI_현재가
 
                             del WTI_현재가_버퍼[:]
 
@@ -49584,7 +49574,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_gold_graph.at[plot_time_index, 'low'] = df_gold_graph.at[plot_time_index - 1, 'low']
                     df_gold_graph.at[plot_time_index, 'middle'] = df_gold_graph.at[plot_time_index - 1, 'middle']
                     df_gold_graph.at[plot_time_index, 'close'] = df_gold_graph.at[plot_time_index - 1, 'close']
-                    df_gold_graph.at[plot_time_index, 'price'] = df_gold_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -49599,7 +49588,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_gold_graph.at[plot_time_index, 'low'] = GOLD_현재가
                             df_gold_graph.at[plot_time_index, 'middle'] = GOLD_현재가
                             df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
-                            df_gold_graph.at[plot_time_index, 'price'] = GOLD_현재가
 
                             del GOLD_현재가_버퍼[:]
 
@@ -49812,7 +49800,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_euro_graph.at[plot_time_index, 'low'] = df_euro_graph.at[plot_time_index - 1, 'low']
                     df_euro_graph.at[plot_time_index, 'middle'] = df_euro_graph.at[plot_time_index - 1, 'middle']
                     df_euro_graph.at[plot_time_index, 'close'] = df_euro_graph.at[plot_time_index - 1, 'close']
-                    df_euro_graph.at[plot_time_index, 'price'] = df_euro_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -49827,7 +49814,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_euro_graph.at[plot_time_index, 'low'] = EURO_현재가
                             df_euro_graph.at[plot_time_index, 'middle'] = EURO_현재가
                             df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
-                            df_euro_graph.at[plot_time_index, 'price'] = EURO_현재가
 
                             del EURO_현재가_버퍼[:]
 
@@ -50040,7 +50026,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_yen_graph.at[plot_time_index, 'low'] = df_yen_graph.at[plot_time_index - 1, 'low']
                     df_yen_graph.at[plot_time_index, 'middle'] = df_yen_graph.at[plot_time_index - 1, 'middle']
                     df_yen_graph.at[plot_time_index, 'close'] = df_yen_graph.at[plot_time_index - 1, 'close']
-                    df_yen_graph.at[plot_time_index, 'price'] = df_yen_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -50055,7 +50040,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_yen_graph.at[plot_time_index, 'low'] = YEN_현재가
                             df_yen_graph.at[plot_time_index, 'middle'] = YEN_현재가
                             df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
-                            df_yen_graph.at[plot_time_index, 'price'] = YEN_현재가
 
                             del YEN_현재가_버퍼[:]
 
@@ -50269,7 +50253,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_adi_graph.at[plot_time_index, 'low'] = df_adi_graph.at[plot_time_index - 1, 'low']
                     df_adi_graph.at[plot_time_index, 'middle'] = df_adi_graph.at[plot_time_index - 1, 'middle']
                     df_adi_graph.at[plot_time_index, 'close'] = df_adi_graph.at[plot_time_index - 1, 'close']
-                    df_adi_graph.at[plot_time_index, 'price'] = df_adi_graph.at[plot_time_index - 1, 'close']
                 else:
                     pass
 
@@ -50284,7 +50267,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_adi_graph.at[plot_time_index, 'low'] = ADI_현재가
                             df_adi_graph.at[plot_time_index, 'middle'] = ADI_현재가
                             df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
-                            df_adi_graph.at[plot_time_index, 'price'] = ADI_현재가
 
                             del ADI_현재가_버퍼[:]
 
