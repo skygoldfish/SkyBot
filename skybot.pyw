@@ -2210,6 +2210,16 @@ flag_over_call = False
 
 drate_gap = 0
 
+sp500_tick_value = 0.25
+dow_tick_value = 1
+nasdaq_tick_value = 0.25
+hsi_tick_value = 1
+wti_tick_value = 0.01
+gold_tick_value = 0.1
+euro_tick_value = 0.00005
+yen_tick_value = 0.5
+adi_tick_value = 0.00005
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -48558,7 +48568,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(0, 10, item)
 
                     #self.sp500_node_coloring()
-                    self.ovc_node_coloring(0, 0.25, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
+                    self.ovc_node_coloring(0, sp500_tick_value, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
                 else:
                     pass
 
@@ -48576,7 +48586,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(0, 10, item)
 
                     #self.sp500_node_coloring()
-                    self.ovc_node_coloring(0, 0.25, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
+                    self.ovc_node_coloring(0, sp500_tick_value, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
                 else:
                     pass
 
@@ -48789,7 +48799,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(1, 10, item)
 
                     #self.dow_node_coloring()
-                    self.ovc_node_coloring(1, 1, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
+                    self.ovc_node_coloring(1, dow_tick_value, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
                 else:
                     pass
 
@@ -48807,7 +48817,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(1, 10, item)
 
                     #self.dow_node_coloring()
-                    self.ovc_node_coloring(1, 1, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
+                    self.ovc_node_coloring(1, dow_tick_value, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
                 else:
                     pass
 
@@ -49019,7 +49029,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(2, 10, item)
 
                     #self.nasdaq_node_coloring()
-                    self.ovc_node_coloring(2, 0.25, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
+                    self.ovc_node_coloring(2, nasdaq_tick_value, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
                 else:
                     pass
 
@@ -49037,7 +49047,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(2, 10, item)
 
                     #self.nasdaq_node_coloring()
-                    self.ovc_node_coloring(2, 0.25, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
+                    self.ovc_node_coloring(2, nasdaq_tick_value, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
                 else:
                     pass
 
@@ -49247,7 +49257,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(3, 10, item)
 
                     #self.hsi_node_coloring()
-                    self.ovc_node_coloring(3, 1, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
+                    self.ovc_node_coloring(3, hsi_tick_value, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
 
@@ -49265,7 +49275,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(3, 10, item)
 
                     #self.hsi_node_coloring()
-                    self.ovc_node_coloring(3, 1, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
+                    self.ovc_node_coloring(3, hsi_tick_value, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
 
@@ -49477,7 +49487,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(4, 10, item)
 
                     #self.wti_node_coloring()
-                    self.ovc_node_coloring(4, 0.01, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
+                    self.ovc_node_coloring(4, wti_tick_value, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
                 else:
                     pass
 
@@ -49495,7 +49505,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(4, 10, item)
 
                     #self.wti_node_coloring()
-                    self.ovc_node_coloring(4, 0.01, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
+                    self.ovc_node_coloring(4, wti_tick_value, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
                 else:
                     pass
 
@@ -49705,7 +49715,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(5, 10, item)
 
                     #self.gold_node_coloring()
-                    self.ovc_node_coloring(5, 0.1, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
+                    self.ovc_node_coloring(5, gold_tick_value, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
                 else:
                     pass
 
@@ -49723,7 +49733,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(5, 10, item)
 
                     #self.gold_node_coloring()
-                    self.ovc_node_coloring(5, 0.1, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
+                    self.ovc_node_coloring(5, gold_tick_value, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
                 else:
                     pass
 
@@ -49933,7 +49943,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(6, 10, item)
 
                     #self.euro_node_coloring()
-                    self.ovc_node_coloring(6, 0.00005, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
+                    self.ovc_node_coloring(6, euro_tick_value, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
                 else:
                     pass
 
@@ -49951,7 +49961,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(6, 10, item)
 
                     #self.euro_node_coloring()
-                    self.ovc_node_coloring(6, 0.00005, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
+                    self.ovc_node_coloring(6, euro_tick_value, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
                 else:
                     pass
 
@@ -50161,7 +50171,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(7, 10, item)
 
                     #self.yen_node_coloring()
-                    self.ovc_node_coloring(7, 0.5, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
+                    self.ovc_node_coloring(7, yen_tick_value, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
                 else:
                     pass
 
@@ -50179,7 +50189,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(7, 10, item)
 
                     #self.yen_node_coloring()
-                    self.ovc_node_coloring(7, 0.5, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
+                    self.ovc_node_coloring(7, yen_tick_value, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
                 else:
                     pass
 
@@ -50403,7 +50413,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(8, 10, item)
 
                     #self.adi_node_coloring()
-                    self.ovc_node_coloring(8, 0.00005, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
+                    self.ovc_node_coloring(8, adi_tick_value, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
                 else:
                     pass
 
@@ -50421,7 +50431,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(8, 10, item)
 
                     #self.adi_node_coloring()
-                    self.ovc_node_coloring(8, 0.00005, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
+                    self.ovc_node_coloring(8, adi_tick_value, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
                 else:
                     pass
                 
