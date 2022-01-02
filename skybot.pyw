@@ -32383,7 +32383,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_futures_cm_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_graph['high'], dtype=float), np.array(df_futures_cm_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands            
-            upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_futures_cm_graph['BBUpper'] = upper
             df_futures_cm_graph['BBMiddle'] = middle
@@ -32395,7 +32395,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_sp500_graph['PSAR'] = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_sp500_graph['BBUpper'] = upper
             df_sp500_graph['BBMiddle'] = middle
@@ -32407,7 +32407,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_dow_graph['PSAR'] = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_dow_graph['BBUpper'] = upper
             df_dow_graph['BBMiddle'] = middle
@@ -32419,7 +32419,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_nasdaq_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_nasdaq_graph['BBUpper'] = upper
             df_nasdaq_graph['BBMiddle'] = middle
@@ -32431,7 +32431,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_hangseng_graph['PSAR'] = talib.SAR(np.array(df_hangseng_graph['high'], dtype=float), np.array(df_hangseng_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_hangseng_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_hangseng_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_hangseng_graph['BBUpper'] = upper
             df_hangseng_graph['BBMiddle'] = middle
@@ -32443,7 +32443,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_wti_graph['PSAR'] = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_wti_graph['BBUpper'] = upper
             df_wti_graph['BBMiddle'] = middle
@@ -32455,7 +32455,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_gold_graph['PSAR'] = talib.SAR(np.array(df_gold_graph['high'], dtype=float), np.array(df_gold_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_gold_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_gold_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_gold_graph['BBUpper'] = upper
             df_gold_graph['BBMiddle'] = middle
@@ -32467,7 +32467,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_euro_graph['PSAR'] = talib.SAR(np.array(df_euro_graph['high'], dtype=float), np.array(df_euro_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_euro_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_euro_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_euro_graph['BBUpper'] = upper
             df_euro_graph['BBMiddle'] = middle
@@ -32479,7 +32479,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_yen_graph['PSAR'] = talib.SAR(np.array(df_yen_graph['high'], dtype=float), np.array(df_yen_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_yen_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_yen_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_yen_graph['BBUpper'] = upper
             df_yen_graph['BBMiddle'] = middle
@@ -32491,7 +32491,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_adi_graph['PSAR'] = talib.SAR(np.array(df_adi_graph['high'], dtype=float), np.array(df_adi_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_adi_graph['BBUpper'] = upper
             df_adi_graph['BBMiddle'] = middle
