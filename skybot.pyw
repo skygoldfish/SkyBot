@@ -48557,7 +48557,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(0, 10, item)
 
-                    self.sp500_node_coloring()
+                    #self.sp500_node_coloring()
+                    self.ovc_node_coloring(0, 0.25, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
                 else:
                     pass
 
@@ -48574,7 +48575,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(0, 10, item)
 
-                    self.sp500_node_coloring()
+                    #self.sp500_node_coloring()
+                    self.ovc_node_coloring(0, 0.25, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
                 else:
                     pass
 
@@ -48786,7 +48788,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(1, 10, item)
 
-                    self.dow_node_coloring()
+                    #self.dow_node_coloring()
+                    self.ovc_node_coloring(1, 1, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
                 else:
                     pass
 
@@ -48803,7 +48806,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(1, 10, item)
 
-                    self.dow_node_coloring()
+                    #self.dow_node_coloring()
+                    self.ovc_node_coloring(1, 1, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
                 else:
                     pass
 
@@ -49014,7 +49018,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(2, 10, item)
 
-                    self.nasdaq_node_coloring()
+                    #self.nasdaq_node_coloring()
+                    self.ovc_node_coloring(2, 0.25, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
                 else:
                     pass
 
@@ -49031,7 +49036,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(2, 10, item)
 
-                    self.nasdaq_node_coloring()
+                    #self.nasdaq_node_coloring()
+                    self.ovc_node_coloring(2, 0.25, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
                 else:
                     pass
 
@@ -49240,7 +49246,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 10, item)
 
-                    self.hsi_node_coloring()
+                    #self.hsi_node_coloring()
+                    self.ovc_node_coloring(3, 1, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
 
@@ -49257,7 +49264,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 10, item)
 
-                    self.hsi_node_coloring()
+                    #self.hsi_node_coloring()
+                    self.ovc_node_coloring(3, 1, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
 
@@ -49468,7 +49476,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(4, 10, item)
 
-                    self.wti_node_coloring()
+                    #self.wti_node_coloring()
+                    self.ovc_node_coloring(4, 0.01, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
                 else:
                     pass
 
@@ -49485,7 +49494,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(4, 10, item)
 
-                    self.wti_node_coloring()
+                    #self.wti_node_coloring()
+                    self.ovc_node_coloring(4, 0.01, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
                 else:
                     pass
 
@@ -49694,7 +49704,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(5, 10, item)
 
-                    self.gold_node_coloring()
+                    #self.gold_node_coloring()
+                    self.ovc_node_coloring(5, 0.1, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
                 else:
                     pass
 
@@ -49711,7 +49722,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(5, 10, item)
 
-                    self.gold_node_coloring()
+                    #self.gold_node_coloring()
+                    self.ovc_node_coloring(5, 0.1, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
                 else:
                     pass
 
@@ -49920,7 +49932,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(6, 10, item)
 
-                    self.euro_node_coloring()
+                    #self.euro_node_coloring()
+                    self.ovc_node_coloring(6, 0.00005, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
                 else:
                     pass
 
@@ -49937,7 +49950,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(6, 10, item)
 
-                    self.euro_node_coloring()
+                    #self.euro_node_coloring()
+                    self.ovc_node_coloring(6, 0.00005, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
                 else:
                     pass
 
@@ -50146,7 +50160,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(7, 10, item)
 
-                    self.yen_node_coloring()
+                    #self.yen_node_coloring()
+                    self.ovc_node_coloring(7, 0.5, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
                 else:
                     pass
 
@@ -50163,7 +50178,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(7, 10, item)
 
-                    self.yen_node_coloring()
+                    #self.yen_node_coloring()
+                    self.ovc_node_coloring(7, 0.5, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
                 else:
                     pass
 
@@ -50386,7 +50402,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(8, 10, item)
 
-                    self.adi_node_coloring()
+                    #self.adi_node_coloring()
+                    self.ovc_node_coloring(8, 0.00005, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
                 else:
                     pass
 
@@ -50403,7 +50420,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(8, 10, item)
 
-                    self.adi_node_coloring()
+                    #self.adi_node_coloring()
+                    self.ovc_node_coloring(8, 0.00005, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
                 else:
                     pass
                 
@@ -50463,6 +50481,103 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
     # 해외선물 주요맥점 컬러링
+    def ovc_node_coloring(self, index, tick_value, 전저, 전고, 종가, 피봇, 시가, 저가, 고가):
+
+        self.tableWidget_cme.item(index, 1).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 1).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(index, 2).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 2).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(index, 3).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 3).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(index, 4).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 4).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(index, 5).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 5).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(index, 6).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 6).setForeground(QBrush(검정색))
+        self.tableWidget_cme.item(index, 8).setBackground(QBrush(흰색))
+        self.tableWidget_cme.item(index, 8).setForeground(QBrush(검정색))
+
+        if 전저 - tick_value * 5 <= 저가 <= 전저 + tick_value * 5:
+            self.tableWidget_cme.item(index, 1).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 1).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 전고 - tick_value * 5 <= 저가 <= 전고 + tick_value * 5:
+            self.tableWidget_cme.item(index, 2).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 2).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 전일종가 - tick_value * 5 <= 저가 <= 전일종가 + tick_value * 5:
+            self.tableWidget_cme.item(index, 3).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 3).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 피봇 - tick_value * 5 <= 저가 <= 피봇 + tick_value * 5:
+            self.tableWidget_cme.item(index, 4).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 4).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 시가 - tick_value * 5 <= 저가 <= 시가 + tick_value * 5:
+            self.tableWidget_cme.item(index, 5).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 5).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 6).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 6).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 전저 - tick_value * 5 <= 고가 <= 전저 + tick_value * 5:
+            self.tableWidget_cme.item(index, 1).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 1).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 전고 - tick_value * 5 <= 고가 <= 전고 + tick_value * 5:
+            self.tableWidget_cme.item(index, 2).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 2).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 전일종가 - tick_value * 5 <= 고가 <= 전일종가 + tick_value * 5:
+            self.tableWidget_cme.item(index, 3).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 3).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 피봇 - tick_value * 5 <= 고가 <= 피봇 + tick_value * 5:
+            self.tableWidget_cme.item(index, 4).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 4).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
+        if 시가 - tick_value * 5 <= 고가 <= 시가 + tick_value * 5:
+            self.tableWidget_cme.item(index, 5).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 5).setForeground(QBrush(적색))
+            self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
+            self.tableWidget_cme.item(index, 8).setForeground(QBrush(적색))
+        else:
+            pass
+
     def sp500_node_coloring(self):
 
         self.tableWidget_cme.item(0, 1).setBackground(QBrush(흰색))
