@@ -48402,9 +48402,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_저가 =  float(tickdata['저가'])
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
-                SP500_진폭_틱 = int(SP500_진폭 / 0.25)                
+                SP500_진폭_틱 = int(SP500_진폭 / sp500_tick_value)                
                 
-                SP500_시가대비 = int((SP500_현재가 - SP500_시가) / 0.25)
+                SP500_시가대비 = int((SP500_현재가 - SP500_시가) / sp500_tick_value)
                 SP500_시가_등락율 = ((SP500_시가 - SP500_전일종가) / SP500_전일종가) * 100
 
                 if DayTime:
@@ -48888,9 +48888,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 NASDAQ_저가 =  float(tickdata['저가'])
                 NASDAQ_고가 =  float(tickdata['고가'])                    
                 NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
-                NASDAQ_진폭_틱 = int(NASDAQ_진폭 / 0.25)
+                NASDAQ_진폭_틱 = int(NASDAQ_진폭 / nasdaq_tick_value)
                 
-                NASDAQ_시가대비 = int((NASDAQ_현재가 - NASDAQ_시가) / 0.25)                
+                NASDAQ_시가대비 = int((NASDAQ_현재가 - NASDAQ_시가) / nasdaq_tick_value)                
 
                 #df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
 
@@ -49346,9 +49346,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 WTI_저가 =  float(tickdata['저가'])
                 WTI_고가 =  float(tickdata['고가'])
                 WTI_진폭 = WTI_고가 - WTI_저가
-                WTI_진폭_틱 = int(WTI_진폭 / 0.01)
+                WTI_진폭_틱 = int(WTI_진폭 / wti_tick_value)
                 
-                WTI_시가대비 = int((WTI_현재가 - WTI_시가) / 0.01)                
+                WTI_시가대비 = int((WTI_현재가 - WTI_시가) / wti_tick_value)                
 
                 #df_wti_graph.at[0, 'price'] = WTI_전일종가
 
@@ -49576,9 +49576,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_저가 =  float(tickdata['저가'])
                 GOLD_고가 =  float(tickdata['고가'])                    
                 GOLD_진폭 = GOLD_고가 - GOLD_저가
-                GOLD_진폭_틱 = int(GOLD_진폭 / 0.1)
+                GOLD_진폭_틱 = int(GOLD_진폭 / gold_tick_value)
                 
-                GOLD_시가대비 = int((GOLD_현재가 - GOLD_시가) / 0.1)                
+                GOLD_시가대비 = int((GOLD_현재가 - GOLD_시가) / gold_tick_value)                
 
                 #df_gold_graph.at[0, 'price'] = GOLD_전일종가
 
@@ -49804,9 +49804,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EURO_저가 =  float(tickdata['저가'])
                 EURO_고가 =  float(tickdata['고가'])                    
                 EURO_진폭 = EURO_고가 - EURO_저가
-                EURO_진폭_틱 = int(EURO_진폭 / 0.00005)
+                EURO_진폭_틱 = int(EURO_진폭 / euro_tick_value)
 
-                EURO_시가대비 = int((EURO_현재가 - EURO_시가) / 0.00005)                
+                EURO_시가대비 = int((EURO_현재가 - EURO_시가) / euro_tick_value)                
 
                 #df_euro_graph.at[0, 'price'] = EURO_전일종가
 
@@ -50032,9 +50032,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_저가 =  float(tickdata['저가'])
                 YEN_고가 =  float(tickdata['고가'])                    
                 YEN_진폭 = YEN_고가 - YEN_저가
-                YEN_진폭_틱 = int(YEN_진폭 / 0.5)
+                YEN_진폭_틱 = int(YEN_진폭 / yen_tick_value)
 
-                YEN_시가대비 = int((YEN_현재가 - YEN_시가) / 0.5)
+                YEN_시가대비 = int((YEN_현재가 - YEN_시가) / yen_tick_value)
 
                 #df_yen_graph.at[0, 'price'] = YEN_전일종가
 
@@ -50260,9 +50260,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ADI_저가 =  float(tickdata['저가'])
                 ADI_고가 =  float(tickdata['고가'])                    
                 ADI_진폭 = ADI_고가 - ADI_저가
-                ADI_진폭_틱 = int(ADI_진폭 / 0.00005)
+                ADI_진폭_틱 = int(ADI_진폭 / adi_tick_value)
 
-                ADI_시가대비 = int((ADI_현재가 - ADI_시가) / 0.00005)
+                ADI_시가대비 = int((ADI_현재가 - ADI_시가) / adi_tick_value)
 
                 #df_adi_graph.at[0, 'price'] = ADI_전일종가
 
