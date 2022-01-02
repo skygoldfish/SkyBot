@@ -48372,9 +48372,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if tickdata['종목코드'] == SP500:
 
                 # 그래프 가격갱신
-                df_sp500_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
-
                 SP500_현재가 = float(tickdata['체결가격'])
+                df_sp500_graph.at[plot_time_index, 'price'] = SP500_현재가
+                
                 SP500_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -48384,17 +48384,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     SP500_전일종가 = SP500_현재가 - SP500_전일대비
                     SP500_종가대비 = SP500_전일대비
 
-                SP500_등락율 = float(tickdata['등락율'])                
-                SP500_시가대비_등락율 = ((float(tickdata['체결가격']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
-
+                SP500_등락율 = float(tickdata['등락율'])
                 SP500_시가 = float(tickdata['시가'])
+
+                SP500_시가대비_등락율 = ((SP500_현재가 - SP500_시가) / SP500_시가) * 100
+                
                 SP500_저가 =  float(tickdata['저가'])
                 SP500_고가 =  float(tickdata['고가'])
                 SP500_진폭 = SP500_고가 - SP500_저가
                 SP500_진폭_틱 = int(SP500_진폭 / 0.25)                
                 
                 SP500_시가대비 = int((SP500_현재가 - SP500_시가) / 0.25)
-
                 SP500_시가_등락율 = ((SP500_시가 - SP500_전일종가) / SP500_전일종가) * 100
 
                 if DayTime:
@@ -48627,9 +48627,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == DOW:
 
                 # 그래프 가격갱신
-                df_dow_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])              
-
                 DOW_현재가 = int(float(tickdata['체결가격']))
+                df_dow_graph.at[plot_time_index, 'price'] = DOW_현재가
+                
                 DOW_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -48856,9 +48856,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == NASDAQ:
 
                 # 그래프 가격갱신
-                df_nasdaq_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
-
                 NASDAQ_현재가 = float(tickdata['체결가격'])
+                df_nasdaq_graph.at[plot_time_index, 'price'] = NASDAQ_현재가
+                
                 NASDAQ_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -49078,16 +49078,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(2, 9, item)
                     
                     self.tableWidget_cme.resizeRowToContents(2)
-                    #self.tableWidget_cme.resizeColumnsToContents()
                 else:
                     pass
             
             elif tickdata['종목코드'] == HANGSENG:
 
                 # 그래프 가격갱신
-                df_hangseng_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
-
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
+                df_hangseng_graph.at[plot_time_index, 'price'] = HANGSENG_현재가
+                
                 HANGSENG_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -49311,9 +49310,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == WTI:
             
                 # 그래프 가격갱신
-                df_wti_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
-
                 WTI_현재가 = float(tickdata['체결가격'])
+                df_wti_graph.at[plot_time_index, 'price'] = WTI_현재가
+                
                 WTI_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -49539,9 +49538,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == GOLD:
 
                 # 그래프 가격갱신
-                df_gold_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
-
                 GOLD_현재가 = float(tickdata['체결가격'])
+                df_gold_graph.at[plot_time_index, 'price'] = GOLD_현재가
+                
                 GOLD_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -49765,9 +49764,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == EURO:
 
                 # 그래프 가격갱신
-                df_euro_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])                    
-
                 EURO_현재가 = float(tickdata['체결가격'])
+                df_euro_graph.at[plot_time_index, 'price'] = EURO_현재가
+
                 EURO_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -49991,9 +49990,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif tickdata['종목코드'] == YEN:
                 
                 # 그래프 가격갱신
-                df_yen_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])                    
-
                 YEN_현재가 = float(tickdata['체결가격'])
+                df_yen_graph.at[plot_time_index, 'price'] = YEN_현재가
+
                 YEN_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
@@ -50216,10 +50215,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['종목코드'] == ADI:                
 
-                # 그래프 가격갱신                
-                df_adi_graph.at[plot_time_index, 'price'] = float(tickdata['체결가격'])
-
-                ADI_현재가 = float(tickdata['체결가격'])             
+                # 그래프 가격갱신
+                ADI_현재가 = float(tickdata['체결가격']) 
+                df_adi_graph.at[plot_time_index, 'price'] = ADI_현재가                          
 
                 ADI_전일대비 = float(tickdata['전일대비'])
 
