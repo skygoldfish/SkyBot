@@ -2,16 +2,18 @@
 
 # Form implementation generated from reading ui file 'skybot.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(640, 893)
+        MainWindow.resize(640, 900)
         font = QtGui.QFont()
         font.setFamily("Consolas")
         font.setPointSize(10)
@@ -61,7 +63,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.pushButton_reset)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(8, 428, 623, 383))
+        self.groupBox_2.setGeometry(QtCore.QRect(8, 432, 623, 383))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -218,4 +220,3 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-
