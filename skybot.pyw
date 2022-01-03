@@ -1306,9 +1306,11 @@ flag_kp200_high = False
 옵션잔존일 = 0
 
 CME_체결시간 = '000000'
-CME_HOUR = 0
-CME_MIN = 0
-CME_SEC = 0
+cme_plot_hour = 0
+cme_plot_minute = 0
+cme_plot_sec = 0
+
+fut_plot_sec = 0
 
 night_time = 0
 
@@ -45772,7 +45774,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
 
-                if CME_SEC == 0:
+                if cme_plot_sec == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
@@ -45973,7 +45975,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     # 1T OHLC 생성
                     df_futures_nm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_futures_nm_ohlc_open:
 
@@ -47124,7 +47126,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open
         global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
-        global plot_time_index
+        global plot_time_index, fut_plot_sec
 
         try:
             dt = datetime.now()
@@ -47136,8 +47138,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if len(tickdata['수신시간']) == 5:
                 plot_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
+                fut_plot_sec = int(tickdata['수신시간'][3:5])
             else:
-                plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1        
+                plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+                fut_plot_sec = int(tickdata['수신시간'][4:6])        
             
             if tickdata['단축코드'] == GMSHCODE:
 
@@ -47165,7 +47169,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not np.isnan(근월물_선물_현재가):
                     df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가                   
 
-                if CME_SEC == 0:
+                if fut_plot_sec == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
@@ -47204,7 +47208,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_futures_cm_ohlc_open = False
 
-                df_futures_cm_graph.at[plot_time_index, 'middle'] = (df_futures_cm_graph.at[plot_time_index, 'high'] + df_futures_cm_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_cm_graph.at[plot_time_index, 'middle'] = (df_futures_cm_graph.at[plot_time_index, 'high'] + df_futures_cm_graph.at[plot_time_index, 'low']) / 2
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'volume'] = fut_cm_volume_power
@@ -47321,7 +47325,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not np.isnan(차월물_선물_현재가):
                     df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가                    
 
-                if CME_SEC == 0:
+                if fut_plot_sec == 0:
 
                     if not flag_futures_nm_ohlc_open:
 
@@ -47360,7 +47364,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_futures_nm_ohlc_open = False
 
-                df_futures_nm_graph.at[plot_time_index, 'middle'] = (df_futures_nm_graph.at[plot_time_index, 'high'] + df_futures_nm_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_nm_graph.at[plot_time_index, 'middle'] = (df_futures_nm_graph.at[plot_time_index, 'high'] + df_futures_nm_graph.at[plot_time_index, 'low']) / 2
 
                 fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
@@ -48317,7 +48321,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ovc_update(self, tickdata):
 
-        global CME_체결시간, CME_HOUR, CME_MIN, CME_SEC, t0167_hour, t0167_minute, t0167_second
+        global CME_체결시간, cme_plot_hour, cme_plot_minute, cme_plot_sec, t0167_hour, t0167_minute, t0167_second
         global old_cme_time_index, plot_time_index
         global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph        
 
@@ -48349,13 +48353,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             dt = datetime.now()
 
             CME_체결시간 = tickdata['수신시간']
-            CME_HOUR = int(CME_체결시간[0:2])
-            CME_MIN = int(CME_체결시간[2:4])
-            CME_SEC = int(CME_체결시간[4:6])
+            cme_plot_hour = int(CME_체결시간[0:2])
+            cme_plot_minute = int(CME_체결시간[2:4])
+            cme_plot_sec = int(CME_체결시간[4:6])
 
-            t0167_hour = CME_HOUR
-            t0167_minute = CME_MIN
-            t0167_second = CME_SEC
+            t0167_hour = cme_plot_hour
+            t0167_minute = cme_plot_minute
+            t0167_second = cme_plot_sec
 
             # 과거값 저장
             old_cme_time_index = plot_time_index                       
@@ -48363,17 +48367,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
 
-                night_time = CME_HOUR
+                night_time = cme_plot_hour
 
                 if 0 <= night_time <= 6:
                     night_time = night_time + 24
                 else:
                     pass
 
-                plot_time_index = (night_time - NightTime_PreStart_Hour) * 60 + CME_MIN + 1         
+                plot_time_index = (night_time - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1         
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
-                plot_time_index = (CME_HOUR - DayTime_PreStart_Hour) * 60 + CME_MIN + 1            
+                plot_time_index = (cme_plot_hour - DayTime_PreStart_Hour) * 60 + cme_plot_minute + 1            
 
             if tickdata['종목코드'] == SP500:
 
@@ -48451,7 +48455,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_sp500_ohlc_open:
 
@@ -48490,8 +48494,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_sp500_ohlc_open = False
 
-                    if not np.isnan(df_sp500_graph.at[plot_time_index, 'high']) and not np.isnan(df_sp500_graph.at[plot_time_index, 'low']):
-                        df_sp500_graph.at[plot_time_index, 'middle'] = (df_sp500_graph.at[plot_time_index, 'high'] + df_sp500_graph.at[plot_time_index, 'low']) / 2  
+                        if not np.isnan(df_sp500_graph.at[plot_time_index, 'high']) and not np.isnan(df_sp500_graph.at[plot_time_index, 'low']):
+                            df_sp500_graph.at[plot_time_index, 'middle'] = (df_sp500_graph.at[plot_time_index, 'high'] + df_sp500_graph.at[plot_time_index, 'low']) / 2  
                 else:
                     pass                                                                 
 
@@ -48681,7 +48685,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_dow_graph.at[plot_time_index, 'close'] = DOW_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_dow_ohlc_open:
 
@@ -48720,8 +48724,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_dow_ohlc_open = False
 
-                    if not np.isnan(df_dow_graph.at[plot_time_index, 'high']) and not np.isnan(df_dow_graph.at[plot_time_index, 'low']):
-                        df_dow_graph.at[plot_time_index, 'middle'] = int(df_dow_graph.at[plot_time_index, 'high'] + df_dow_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_dow_graph.at[plot_time_index, 'high']) and not np.isnan(df_dow_graph.at[plot_time_index, 'low']):
+                            df_dow_graph.at[plot_time_index, 'middle'] = int(df_dow_graph.at[plot_time_index, 'high'] + df_dow_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass
 
@@ -48910,7 +48914,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_nasdaq_ohlc_open:
                         
@@ -48949,8 +48953,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_nasdaq_ohlc_open = False
 
-                    if not np.isnan(df_nasdaq_graph.at[plot_time_index, 'high']) and not np.isnan(df_nasdaq_graph.at[plot_time_index, 'low']):
-                        df_nasdaq_graph.at[plot_time_index, 'middle'] = (df_nasdaq_graph.at[plot_time_index, 'high'] + df_nasdaq_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_nasdaq_graph.at[plot_time_index, 'high']) and not np.isnan(df_nasdaq_graph.at[plot_time_index, 'low']):
+                            df_nasdaq_graph.at[plot_time_index, 'middle'] = (df_nasdaq_graph.at[plot_time_index, 'high'] + df_nasdaq_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass                
                 
@@ -49137,7 +49141,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_hangseng_ohlc_open:
 
@@ -49176,8 +49180,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_hangseng_ohlc_open = False
 
-                    if not np.isnan(df_hangseng_graph.at[plot_time_index, 'high']) and not np.isnan(df_hangseng_graph.at[plot_time_index, 'low']):
-                        df_hangseng_graph.at[plot_time_index, 'middle'] = int(df_hangseng_graph.at[plot_time_index, 'high'] + df_hangseng_graph.at[plot_time_index, 'low']) / 2  
+                        if not np.isnan(df_hangseng_graph.at[plot_time_index, 'high']) and not np.isnan(df_hangseng_graph.at[plot_time_index, 'low']):
+                            df_hangseng_graph.at[plot_time_index, 'middle'] = int(df_hangseng_graph.at[plot_time_index, 'high'] + df_hangseng_graph.at[plot_time_index, 'low']) / 2  
                 else:
                     pass                  
 
@@ -49366,7 +49370,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_wti_graph.at[plot_time_index, 'close'] = WTI_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_wti_ohlc_open:
                         
@@ -49405,8 +49409,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_wti_ohlc_open = False
 
-                    if not np.isnan(df_wti_graph.at[plot_time_index, 'high']) and not np.isnan(df_wti_graph.at[plot_time_index, 'low']):
-                        df_wti_graph.at[plot_time_index, 'middle'] = (df_wti_graph.at[plot_time_index, 'high'] + df_wti_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_wti_graph.at[plot_time_index, 'high']) and not np.isnan(df_wti_graph.at[plot_time_index, 'low']):
+                            df_wti_graph.at[plot_time_index, 'middle'] = (df_wti_graph.at[plot_time_index, 'high'] + df_wti_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass                             
 
@@ -49593,7 +49597,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_gold_ohlc_open:
                         
@@ -49632,8 +49636,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_gold_ohlc_open = False
 
-                    if not np.isnan(df_gold_graph.at[plot_time_index, 'high']) and not np.isnan(df_gold_graph.at[plot_time_index, 'low']):
-                        df_gold_graph.at[plot_time_index, 'middle'] = (df_gold_graph.at[plot_time_index, 'high'] + df_gold_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_gold_graph.at[plot_time_index, 'high']) and not np.isnan(df_gold_graph.at[plot_time_index, 'low']):
+                            df_gold_graph.at[plot_time_index, 'middle'] = (df_gold_graph.at[plot_time_index, 'high'] + df_gold_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass
 
@@ -49820,7 +49824,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_euro_ohlc_open:
                         
@@ -49859,8 +49863,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_euro_ohlc_open = False
 
-                    if not np.isnan(df_euro_graph.at[plot_time_index, 'high']) and not np.isnan(df_euro_graph.at[plot_time_index, 'low']):
-                        df_euro_graph.at[plot_time_index, 'middle'] = (df_euro_graph.at[plot_time_index, 'high'] + df_euro_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_euro_graph.at[plot_time_index, 'high']) and not np.isnan(df_euro_graph.at[plot_time_index, 'low']):
+                            df_euro_graph.at[plot_time_index, 'middle'] = (df_euro_graph.at[plot_time_index, 'high'] + df_euro_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass
                 
@@ -50047,7 +50051,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_yen_ohlc_open:
                         
@@ -50086,8 +50090,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_yen_ohlc_open = False
 
-                    if not np.isnan(df_yen_graph.at[plot_time_index, 'high']) and not np.isnan(df_yen_graph.at[plot_time_index, 'low']):
-                        df_yen_graph.at[plot_time_index, 'middle'] = (df_yen_graph.at[plot_time_index, 'high'] + df_yen_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_yen_graph.at[plot_time_index, 'high']) and not np.isnan(df_yen_graph.at[plot_time_index, 'low']):
+                            df_yen_graph.at[plot_time_index, 'middle'] = (df_yen_graph.at[plot_time_index, 'high'] + df_yen_graph.at[plot_time_index, 'low']) / 2
                 else:
                     pass                                         
                 
@@ -50274,7 +50278,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
 
-                    if CME_SEC == 0:
+                    if cme_plot_sec == 0:
 
                         if not flag_adi_ohlc_open:
                         
@@ -50313,8 +50317,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_adi_ohlc_open = False
                     
-                    if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
-                        df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
+                            df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
 
                     '''
                     upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
