@@ -47337,8 +47337,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
 
                 # 1T OHLC 생성
-                if plot_time_index != old_cme_time_index:
-
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_futures_cm_graph.at[plot_time_index, 'high'] = df_futures_cm_graph.at[plot_time_index- 1, 'high']
                     df_futures_cm_graph.at[plot_time_index, 'low'] = df_futures_cm_graph.at[plot_time_index - 1, 'low']
                     df_futures_cm_graph.at[plot_time_index, 'middle'] = df_futures_cm_graph.at[plot_time_index - 1, 'middle']
@@ -47493,8 +47493,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_graph.at[plot_time_index, 'drate'] = 차월물_선물_시가대비_등락율
 
                 # 1T OHLC 생성
-                if plot_time_index != old_cme_time_index:
-
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_futures_nm_graph.at[plot_time_index, 'high'] = df_futures_nm_graph.at[plot_time_index- 1, 'high']
                     df_futures_nm_graph.at[plot_time_index, 'low'] = df_futures_nm_graph.at[plot_time_index - 1, 'low']
                     df_futures_nm_graph.at[plot_time_index, 'middle'] = df_futures_nm_graph.at[plot_time_index - 1, 'middle']
@@ -48623,7 +48623,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_sp500_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_sp500_graph.at[plot_time_index, 'high'] = df_sp500_graph.at[plot_time_index - 1, 'high']
                     df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
                     df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
@@ -48853,7 +48854,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_dow_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_dow_graph.at[plot_time_index, 'high'] = df_dow_graph.at[plot_time_index - 1, 'high']
                     df_dow_graph.at[plot_time_index, 'low'] = df_dow_graph.at[plot_time_index - 1, 'low']
                     df_dow_graph.at[plot_time_index, 'middle'] = df_dow_graph.at[plot_time_index - 1, 'middle']
@@ -49082,7 +49084,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_nasdaq_graph.at[plot_time_index, 'high'] = df_nasdaq_graph.at[plot_time_index - 1, 'high']
                     df_nasdaq_graph.at[plot_time_index, 'low'] = df_nasdaq_graph.at[plot_time_index - 1, 'low']
                     df_nasdaq_graph.at[plot_time_index, 'middle'] = df_nasdaq_graph.at[plot_time_index - 1, 'middle']
@@ -49309,7 +49312,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_hangseng_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_hangseng_graph.at[plot_time_index, 'high'] = df_hangseng_graph.at[plot_time_index - 1, 'high']
                     df_hangseng_graph.at[plot_time_index, 'low'] = df_hangseng_graph.at[plot_time_index - 1, 'low']
                     df_hangseng_graph.at[plot_time_index, 'middle'] = df_hangseng_graph.at[plot_time_index - 1, 'middle']
@@ -49538,7 +49542,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_wti_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_wti_graph.at[plot_time_index, 'high'] = df_wti_graph.at[plot_time_index - 1, 'high']
                     df_wti_graph.at[plot_time_index, 'low'] = df_wti_graph.at[plot_time_index - 1, 'low']
                     df_wti_graph.at[plot_time_index, 'middle'] = df_wti_graph.at[plot_time_index - 1, 'middle']
@@ -49765,7 +49770,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_gold_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_gold_graph.at[plot_time_index, 'high'] = df_gold_graph.at[plot_time_index - 1, 'high']
                     df_gold_graph.at[plot_time_index, 'low'] = df_gold_graph.at[plot_time_index - 1, 'low']
                     df_gold_graph.at[plot_time_index, 'middle'] = df_gold_graph.at[plot_time_index - 1, 'middle']
@@ -49992,7 +49998,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_euro_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                if plot_time_index != old_cme_time_index:
+                #if plot_time_index != old_cme_time_index:
+                if 0:
                     df_euro_graph.at[plot_time_index, 'high'] = df_euro_graph.at[plot_time_index - 1, 'high']
                     df_euro_graph.at[plot_time_index, 'low'] = df_euro_graph.at[plot_time_index - 1, 'low']
                     df_euro_graph.at[plot_time_index, 'middle'] = df_euro_graph.at[plot_time_index - 1, 'middle']
