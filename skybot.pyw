@@ -47159,7 +47159,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_cm_graph.at[plot_time_index, 'low'] = df_futures_cm_graph.at[plot_time_index - 1, 'low']
                     df_futures_cm_graph.at[plot_time_index, 'middle'] = df_futures_cm_graph.at[plot_time_index - 1, 'middle']
                     df_futures_cm_graph.at[plot_time_index, 'close'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']
-                    df_futures_cm_graph.at[plot_time_index, 'price'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']                        
+                    #df_futures_cm_graph.at[plot_time_index, 'price'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']                        
                 else:
                     pass                    
 
@@ -47172,7 +47172,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_graph.at[plot_time_index, 'low'] = 근월물_선물_현재가
                         df_futures_cm_graph.at[plot_time_index, 'middle'] = 근월물_선물_현재가
                         df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
+                        #df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -47202,7 +47202,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         df_futures_cm_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)
 
-                    df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
+                    if not np.isnan(근월물_선물_현재가):
+                        df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
 
                     flag_futures_cm_ohlc_open = False
 
@@ -47317,7 +47318,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_nm_graph.at[plot_time_index, 'low'] = df_futures_nm_graph.at[plot_time_index - 1, 'low']
                     df_futures_nm_graph.at[plot_time_index, 'middle'] = df_futures_nm_graph.at[plot_time_index - 1, 'middle']
                     df_futures_nm_graph.at[plot_time_index, 'close'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']
-                    df_futures_nm_graph.at[plot_time_index, 'price'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']                        
+                    #df_futures_nm_graph.at[plot_time_index, 'price'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']                        
                 else:
                     pass                    
 
@@ -47330,7 +47331,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_nm_graph.at[plot_time_index, 'low'] = 차월물_선물_현재가
                         df_futures_nm_graph.at[plot_time_index, 'middle'] = 차월물_선물_현재가
                         df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
+                        #df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
 
                         del 차월물_선물_현재가_버퍼[:]
 
@@ -47360,7 +47361,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         df_futures_nm_graph.at[plot_time_index, 'low'] = min(차월물_선물_현재가_버퍼)
 
-                    df_futures_nm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
+                    if not np.isnan(차월물_선물_현재가):
+                        df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가
 
                     flag_futures_nm_ohlc_open = False
 
