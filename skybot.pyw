@@ -32635,7 +32635,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_futures_cm_graph['MAMA'] = mama
             df_futures_cm_graph['FAMA'] = fama
 
-            if df_futures_cm_graph.at[plot_time_index, 'FAMA'] == df_futures_cm_graph.at[plot_time_index, 'FAMA'] and df_futures_cm_graph.at[plot_time_index, 'BBLower'] == df_futures_cm_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_futures_cm_graph.at[plot_time_index, 'BBLower']):
 
                 if df_futures_cm_graph.at[plot_time_index, 'FAMA'] < df_futures_cm_graph.at[plot_time_index, 'BBLower']:
                     df_futures_cm_graph.at[plot_time_index, 'A_FAMA'] = df_futures_cm_graph.at[plot_time_index, 'BBLower']
@@ -32652,7 +32652,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_sp500_graph['MAMA'] = mama
             df_sp500_graph['FAMA'] = fama
 
-            if df_sp500_graph.at[plot_time_index, 'FAMA'] == df_sp500_graph.at[plot_time_index, 'FAMA'] and df_sp500_graph.at[plot_time_index, 'BBLower'] == df_sp500_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_sp500_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_sp500_graph.at[plot_time_index, 'BBLower']):
 
                 if df_sp500_graph.at[plot_time_index, 'FAMA'] < df_sp500_graph.at[plot_time_index, 'BBLower']:
                     df_sp500_graph.at[plot_time_index, 'A_FAMA'] = df_sp500_graph.at[plot_time_index, 'BBLower']
@@ -32670,7 +32670,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_dow_graph['FAMA'] = fama
             #df_dow_graph['A_FAMA'] = fama
 
-            if df_dow_graph.at[plot_time_index, 'FAMA'] == df_dow_graph.at[plot_time_index, 'FAMA'] and df_dow_graph.at[plot_time_index, 'BBLower'] == df_dow_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_dow_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_dow_graph.at[plot_time_index, 'BBLower']):
 
                 if df_dow_graph.at[plot_time_index, 'FAMA'] < df_dow_graph.at[plot_time_index, 'BBLower']:
                     df_dow_graph.at[plot_time_index, 'A_FAMA'] = df_dow_graph.at[plot_time_index, 'BBLower']
@@ -32687,7 +32687,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_nasdaq_graph['MAMA'] = mama
             df_nasdaq_graph['FAMA'] = fama
 
-            if df_nasdaq_graph.at[plot_time_index, 'FAMA'] == df_nasdaq_graph.at[plot_time_index, 'FAMA'] and df_nasdaq_graph.at[plot_time_index, 'BBLower'] == df_nasdaq_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_nasdaq_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_nasdaq_graph.at[plot_time_index, 'BBLower']):
 
                 if df_nasdaq_graph.at[plot_time_index, 'FAMA'] < df_nasdaq_graph.at[plot_time_index, 'BBLower']:
                     df_nasdaq_graph.at[plot_time_index, 'A_FAMA'] = df_nasdaq_graph.at[plot_time_index, 'BBLower']
@@ -32704,7 +32704,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_hangseng_graph['MAMA'] = mama
             df_hangseng_graph['FAMA'] = fama
 
-            if df_hangseng_graph.at[plot_time_index, 'FAMA'] == df_hangseng_graph.at[plot_time_index, 'FAMA'] and df_hangseng_graph.at[plot_time_index, 'BBLower'] == df_hangseng_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_hangseng_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_hangseng_graph.at[plot_time_index, 'BBLower']):
 
                 if df_hangseng_graph.at[plot_time_index, 'FAMA'] < df_hangseng_graph.at[plot_time_index, 'BBLower']:
                     df_hangseng_graph.at[plot_time_index, 'A_FAMA'] = df_hangseng_graph.at[plot_time_index, 'BBLower']
@@ -32721,7 +32721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_wti_graph['MAMA'] = mama
             df_wti_graph['FAMA'] = fama
 
-            if df_wti_graph.at[plot_time_index, 'FAMA'] == df_wti_graph.at[plot_time_index, 'FAMA'] and df_wti_graph.at[plot_time_index, 'BBLower'] == df_wti_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_wti_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_wti_graph.at[plot_time_index, 'BBLower']):
 
                 if df_wti_graph.at[plot_time_index, 'FAMA'] < df_wti_graph.at[plot_time_index, 'BBLower']:
                     df_wti_graph.at[plot_time_index, 'A_FAMA'] = df_wti_graph.at[plot_time_index, 'BBLower']
@@ -32738,7 +32738,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_gold_graph['MAMA'] = mama
             df_gold_graph['FAMA'] = fama
 
-            if df_gold_graph.at[plot_time_index, 'FAMA'] == df_gold_graph.at[plot_time_index, 'FAMA'] and df_gold_graph.at[plot_time_index, 'BBLower'] == df_gold_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_gold_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_gold_graph.at[plot_time_index, 'BBLower']):
 
                 if df_gold_graph.at[plot_time_index, 'FAMA'] < df_gold_graph.at[plot_time_index, 'BBLower']:
                     df_gold_graph.at[plot_time_index, 'A_FAMA'] = df_gold_graph.at[plot_time_index, 'BBLower']
@@ -32755,7 +32755,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_euro_graph['MAMA'] = mama
             df_euro_graph['FAMA'] = fama
 
-            if df_euro_graph.at[plot_time_index, 'FAMA'] == df_euro_graph.at[plot_time_index, 'FAMA'] and df_euro_graph.at[plot_time_index, 'BBLower'] == df_euro_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_euro_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_euro_graph.at[plot_time_index, 'BBLower']):
 
                 if df_euro_graph.at[plot_time_index, 'FAMA'] < df_euro_graph.at[plot_time_index, 'BBLower']:
                     df_euro_graph.at[plot_time_index, 'A_FAMA'] = df_euro_graph.at[plot_time_index, 'BBLower']
@@ -32772,7 +32772,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_yen_graph['MAMA'] = mama
             df_yen_graph['FAMA'] = fama
 
-            if df_yen_graph.at[plot_time_index, 'FAMA'] == df_yen_graph.at[plot_time_index, 'FAMA'] and df_yen_graph.at[plot_time_index, 'BBLower'] == df_yen_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_yen_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_yen_graph.at[plot_time_index, 'BBLower']):
 
                 if df_yen_graph.at[plot_time_index, 'FAMA'] < df_yen_graph.at[plot_time_index, 'BBLower']:
                     df_yen_graph.at[plot_time_index, 'A_FAMA'] = df_yen_graph.at[plot_time_index, 'BBLower']
@@ -32789,7 +32789,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_adi_graph['MAMA'] = mama
             df_adi_graph['FAMA'] = fama
 
-            if df_adi_graph.at[plot_time_index, 'FAMA'] == df_adi_graph.at[plot_time_index, 'FAMA'] and df_adi_graph.at[plot_time_index, 'BBLower'] == df_adi_graph.at[plot_time_index, 'BBLower']:
+            if not np.isnan(df_adi_graph.at[plot_time_index, 'FAMA']) and not np.isnan(df_adi_graph.at[plot_time_index, 'BBLower']):
 
                 if df_adi_graph.at[plot_time_index, 'FAMA'] < df_adi_graph.at[plot_time_index, 'BBLower']:
                     df_adi_graph.at[plot_time_index, 'A_FAMA'] = df_adi_graph.at[plot_time_index, 'BBLower']
