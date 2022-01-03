@@ -23569,17 +23569,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot1_mouseClicked(self, evt):
 
+        global plot1_x, plot1_y
+
         if self.plot1.sceneBoundingRect().contains(evt._scenePos):
 
             mousePoint = self.plot1.plotItem.vb.mapSceneToView(evt._scenePos)
 
-            plot_x = int(mousePoint.x())
-            plot_y = mousePoint.y()
+            plot1_x = int(mousePoint.x())
+            plot1_y = mousePoint.y()
 
             self.plot1_vLine.setPos(mousePoint.x())
             self.plot1_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)            
             self.label_p1_1.setText(txt)
     '''
     def plot2_mouseMoved(self, evt):
@@ -23747,17 +23749,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot2_mouseClicked(self, evt):
 
+        global plot2_x, plot2_y
+
         if self.plot2.sceneBoundingRect().contains(evt._scenePos):
 
             mousePoint = self.plot2.plotItem.vb.mapSceneToView(evt._scenePos)
 
-            plot_x = int(mousePoint.x())
-            plot_y = mousePoint.y()
+            plot2_x = int(mousePoint.x())
+            plot2_y = mousePoint.y()
 
             self.plot2_vLine.setPos(mousePoint.x())
             self.plot2_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot2_x, plot2_y)            
             self.label_p2_1.setText(txt)
     '''
     def plot3_mouseMoved(self, evt):
@@ -23925,17 +23929,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot3_mouseClicked(self, evt):
 
+        global plot3_x, plot3_y
+
         if self.plot3.sceneBoundingRect().contains(evt._scenePos):
 
             mousePoint = self.plot3.plotItem.vb.mapSceneToView(evt._scenePos)
 
-            plot_x = int(mousePoint.x())
-            plot_y = mousePoint.y()
+            plot3_x = int(mousePoint.x())
+            plot3_y = mousePoint.y()
 
             self.plot3_vLine.setPos(mousePoint.x())
             self.plot3_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot3_x, plot3_y)            
             self.label_p3_1.setText(txt)
     '''
     def plot4_mouseMoved(self, evt):
@@ -24101,17 +24107,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot4_mouseClicked(self, evt):
 
+        global plot4_x, plot4_y
+
         if self.plot4.sceneBoundingRect().contains(evt._scenePos):
 
             mousePoint = self.plot4.plotItem.vb.mapSceneToView(evt._scenePos)
 
-            plot_x = int(mousePoint.x())
-            plot_y = mousePoint.y()
+            plot4_x = int(mousePoint.x())
+            plot4_y = mousePoint.y()
 
             self.plot4_vLine.setPos(mousePoint.x())
             self.plot4_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot4_x, plot4_y)            
             self.label_p4_1.setText(txt)                    
     '''
     def plot5_mouseMoved(self, evt):
@@ -24279,17 +24287,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
     def plot5_mouseClicked(self, evt):
 
+        global plot5_x, plot5_y
+
         if self.plot5.sceneBoundingRect().contains(evt._scenePos):
 
             mousePoint = self.plot5.plotItem.vb.mapSceneToView(evt._scenePos)
 
-            plot_x = int(mousePoint.x())
-            plot_y = mousePoint.y()
+            plot5_x = int(mousePoint.x())
+            plot5_y = mousePoint.y()
 
             self.plot5_vLine.setPos(mousePoint.x())
             self.plot5_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot5_x, plot5_y)            
             self.label_p5_1.setText(txt)
     '''
     def plot6_mouseMoved(self, evt):
@@ -24457,17 +24467,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     
     def plot6_mouseClicked(self, evt):
 
+        global plot6_x, plot6_y
+
         if self.plot6.sceneBoundingRect().contains(evt._scenePos):
 
             mousePoint = self.plot6.plotItem.vb.mapSceneToView(evt._scenePos)
 
-            plot_x = int(mousePoint.x())
-            plot_y = mousePoint.y()
+            plot6_x = int(mousePoint.x())
+            plot6_y = mousePoint.y()
 
             self.plot6_vLine.setPos(mousePoint.x())
             self.plot6_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
+            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot6_x, plot6_y)            
             self.label_p6_1.setText(txt)    
 
     def checkBox_plot1_bband_checkState(self):
