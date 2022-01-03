@@ -50524,7 +50524,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if 전일종가 - tick_value * 5 <= 저가 <= 전일종가 + tick_value * 5:
+        if 전일종가 - tick_value * 5 <= 저가 <= 종가 + tick_value * 5:
             self.tableWidget_cme.item(index, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(index, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(index, 6).setBackground(QBrush(대맥점색))
@@ -50564,7 +50564,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if 전일종가 - tick_value * 5 <= 고가 <= 전일종가 + tick_value * 5:
+        if 전일종가 - tick_value * 5 <= 고가 <= 종가 + tick_value * 5:
             self.tableWidget_cme.item(index, 3).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(index, 3).setForeground(QBrush(적색))
             self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
