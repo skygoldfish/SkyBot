@@ -47158,10 +47158,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_cm_graph.at[plot_time_index, 'high'] = df_futures_cm_graph.at[plot_time_index- 1, 'high']
                     df_futures_cm_graph.at[plot_time_index, 'low'] = df_futures_cm_graph.at[plot_time_index - 1, 'low']
                     df_futures_cm_graph.at[plot_time_index, 'middle'] = df_futures_cm_graph.at[plot_time_index - 1, 'middle']
-                    df_futures_cm_graph.at[plot_time_index, 'close'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']
-                    #df_futures_cm_graph.at[plot_time_index, 'price'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']                        
+                    df_futures_cm_graph.at[plot_time_index, 'close'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']                       
                 else:
-                    pass                    
+                    pass
+                
+                if not np.isnan(근월물_선물_현재가):
+                    df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가                   
 
                 if CME_SEC == 0:
 
@@ -47171,8 +47173,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_graph.at[plot_time_index, 'high'] = 근월물_선물_현재가
                         df_futures_cm_graph.at[plot_time_index, 'low'] = 근월물_선물_현재가
                         df_futures_cm_graph.at[plot_time_index, 'middle'] = 근월물_선물_현재가
-                        df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
-                        #df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -47200,10 +47200,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             pass
                     else:
-                        df_futures_cm_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)
-
-                    if not np.isnan(근월물_선물_현재가):
-                        df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
+                        df_futures_cm_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)                    
 
                     flag_futures_cm_ohlc_open = False
 
@@ -47317,10 +47314,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_nm_graph.at[plot_time_index, 'high'] = df_futures_nm_graph.at[plot_time_index- 1, 'high']
                     df_futures_nm_graph.at[plot_time_index, 'low'] = df_futures_nm_graph.at[plot_time_index - 1, 'low']
                     df_futures_nm_graph.at[plot_time_index, 'middle'] = df_futures_nm_graph.at[plot_time_index - 1, 'middle']
-                    df_futures_nm_graph.at[plot_time_index, 'close'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']
-                    #df_futures_nm_graph.at[plot_time_index, 'price'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']                        
+                    df_futures_nm_graph.at[plot_time_index, 'close'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']                       
                 else:
-                    pass                    
+                    pass
+
+                if not np.isnan(차월물_선물_현재가):
+                    df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가                    
 
                 if CME_SEC == 0:
 
@@ -47330,8 +47329,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_nm_graph.at[plot_time_index, 'high'] = 차월물_선물_현재가
                         df_futures_nm_graph.at[plot_time_index, 'low'] = 차월물_선물_현재가
                         df_futures_nm_graph.at[plot_time_index, 'middle'] = 차월물_선물_현재가
-                        df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가
-                        #df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
 
                         del 차월물_선물_현재가_버퍼[:]
 
@@ -47360,9 +47357,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pass
                     else:
                         df_futures_nm_graph.at[plot_time_index, 'low'] = min(차월물_선물_현재가_버퍼)
-
-                    if not np.isnan(차월물_선물_현재가):
-                        df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가
 
                     flag_futures_nm_ohlc_open = False
 
@@ -48455,6 +48449,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(SP500_현재가):
 
+                    df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_sp500_ohlc_open:
@@ -48463,7 +48459,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_sp500_graph.at[plot_time_index, 'high'] = SP500_현재가
                             df_sp500_graph.at[plot_time_index, 'low'] = SP500_현재가
                             df_sp500_graph.at[plot_time_index, 'middle'] = SP500_현재가
-                            df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가
 
                             del SP500_현재가_버퍼[:]
 
@@ -48491,9 +48486,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_sp500_graph.at[plot_time_index, 'low'] = min(SP500_현재가_버퍼)
-
-                        df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가
+                            df_sp500_graph.at[plot_time_index, 'low'] = min(SP500_현재가_버퍼)                        
 
                         flag_sp500_ohlc_open = False
 
@@ -48686,6 +48679,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(DOW_현재가):
 
+                    df_dow_graph.at[plot_time_index, 'close'] = DOW_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_dow_ohlc_open:
@@ -48694,7 +48689,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_dow_graph.at[plot_time_index, 'high'] = DOW_현재가
                             df_dow_graph.at[plot_time_index, 'low'] = DOW_현재가
                             df_dow_graph.at[plot_time_index, 'middle'] = DOW_현재가
-                            df_dow_graph.at[plot_time_index, 'close'] = DOW_현재가
 
                             del DOW_현재가_버퍼[:]
 
@@ -48722,9 +48716,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_dow_graph.at[plot_time_index, 'low'] = min(DOW_현재가_버퍼)
-
-                        df_dow_graph.at[plot_time_index, 'close'] = DOW_현재가
+                            df_dow_graph.at[plot_time_index, 'low'] = min(DOW_현재가_버퍼)                        
 
                         flag_dow_ohlc_open = False
 
@@ -48916,6 +48908,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(NASDAQ_현재가):
 
+                    df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_nasdaq_ohlc_open:
@@ -48924,7 +48918,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_nasdaq_graph.at[plot_time_index, 'high'] = NASDAQ_현재가
                             df_nasdaq_graph.at[plot_time_index, 'low'] = NASDAQ_현재가
                             df_nasdaq_graph.at[plot_time_index, 'middle'] = NASDAQ_현재가
-                            df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가
 
                             del NASDAQ_현재가_버퍼[:]
 
@@ -48952,9 +48945,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_nasdaq_graph.at[plot_time_index, 'low'] = min(NASDAQ_현재가_버퍼)
-
-                        df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가
+                            df_nasdaq_graph.at[plot_time_index, 'low'] = min(NASDAQ_현재가_버퍼)                        
 
                         flag_nasdaq_ohlc_open = False
 
@@ -49144,6 +49135,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(HANGSENG_현재가):
 
+                    df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_hangseng_ohlc_open:
@@ -49152,7 +49145,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_hangseng_graph.at[plot_time_index, 'high'] = HANGSENG_현재가
                             df_hangseng_graph.at[plot_time_index, 'low'] = HANGSENG_현재가
                             df_hangseng_graph.at[plot_time_index, 'middle'] = HANGSENG_현재가
-                            df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
 
                             del HANGSENG_현재가_버퍼[:]
 
@@ -49180,9 +49172,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_hangseng_graph.at[plot_time_index, 'low'] = min(HANGSENG_현재가_버퍼)
-
-                        df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
+                            df_hangseng_graph.at[plot_time_index, 'low'] = min(HANGSENG_현재가_버퍼)                        
 
                         flag_hangseng_ohlc_open = False
 
@@ -49374,6 +49364,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(WTI_현재가):
 
+                    df_wti_graph.at[plot_time_index, 'close'] = WTI_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_wti_ohlc_open:
@@ -49382,7 +49374,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_wti_graph.at[plot_time_index, 'high'] = WTI_현재가
                             df_wti_graph.at[plot_time_index, 'low'] = WTI_현재가
                             df_wti_graph.at[plot_time_index, 'middle'] = WTI_현재가
-                            df_wti_graph.at[plot_time_index, 'close'] = WTI_현재가
 
                             del WTI_현재가_버퍼[:]
 
@@ -49410,9 +49401,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_wti_graph.at[plot_time_index, 'low'] = min(WTI_현재가_버퍼)
-
-                        df_wti_graph.at[plot_time_index, 'close'] = WTI_현재가
+                            df_wti_graph.at[plot_time_index, 'low'] = min(WTI_현재가_버퍼)                        
 
                         flag_wti_ohlc_open = False
 
@@ -49602,6 +49591,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(GOLD_현재가):
 
+                    df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_gold_ohlc_open:
@@ -49610,7 +49601,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_gold_graph.at[plot_time_index, 'high'] = GOLD_현재가
                             df_gold_graph.at[plot_time_index, 'low'] = GOLD_현재가
                             df_gold_graph.at[plot_time_index, 'middle'] = GOLD_현재가
-                            df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
 
                             del GOLD_현재가_버퍼[:]
 
@@ -49638,9 +49628,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_gold_graph.at[plot_time_index, 'low'] = min(GOLD_현재가_버퍼)
-
-                        df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
+                            df_gold_graph.at[plot_time_index, 'low'] = min(GOLD_현재가_버퍼)                        
 
                         flag_gold_ohlc_open = False
 
@@ -49830,6 +49818,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(EURO_현재가):
 
+                    df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_euro_ohlc_open:
@@ -49838,7 +49828,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_euro_graph.at[plot_time_index, 'high'] = EURO_현재가
                             df_euro_graph.at[plot_time_index, 'low'] = EURO_현재가
                             df_euro_graph.at[plot_time_index, 'middle'] = EURO_현재가
-                            df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
 
                             del EURO_현재가_버퍼[:]
 
@@ -49866,9 +49855,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_euro_graph.at[plot_time_index, 'low'] = min(EURO_현재가_버퍼)
-
-                        df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
+                            df_euro_graph.at[plot_time_index, 'low'] = min(EURO_현재가_버퍼)                        
 
                         flag_euro_ohlc_open = False
 
@@ -50058,6 +50045,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(YEN_현재가):
 
+                    df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_yen_ohlc_open:
@@ -50066,7 +50055,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_yen_graph.at[plot_time_index, 'high'] = YEN_현재가
                             df_yen_graph.at[plot_time_index, 'low'] = YEN_현재가
                             df_yen_graph.at[plot_time_index, 'middle'] = YEN_현재가
-                            df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
 
                             del YEN_현재가_버퍼[:]
 
@@ -50094,9 +50082,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_yen_graph.at[plot_time_index, 'low'] = min(YEN_현재가_버퍼)
-
-                        df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
+                            df_yen_graph.at[plot_time_index, 'low'] = min(YEN_현재가_버퍼)                        
 
                         flag_yen_ohlc_open = False
 
@@ -50286,6 +50272,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not np.isnan(ADI_현재가):
 
+                    df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
+
                     if CME_SEC == 0:
 
                         if not flag_adi_ohlc_open:
@@ -50294,7 +50282,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_adi_graph.at[plot_time_index, 'high'] = ADI_현재가
                             df_adi_graph.at[plot_time_index, 'low'] = ADI_현재가
                             df_adi_graph.at[plot_time_index, 'middle'] = ADI_현재가
-                            df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
 
                             del ADI_현재가_버퍼[:]
 
@@ -50322,9 +50309,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_adi_graph.at[plot_time_index, 'low'] = min(ADI_현재가_버퍼)
-
-                        df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
+                            df_adi_graph.at[plot_time_index, 'low'] = min(ADI_현재가_버퍼)                        
 
                         flag_adi_ohlc_open = False
                     
