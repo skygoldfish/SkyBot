@@ -50545,6 +50545,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
                             df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
 
+                    #df_adi_graph['close'].fillna(ADI_전일종가, inplace=True)
+
+                    if df_adi_graph['close'].isnull().values.any():
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} ADI 프레임에 MaN 존재함...\r'.format(dt.hour, dt.minute, dt.second, df_adi_graph['close'])
+                        self.textBrowser.append(txt)
+                        df_adi_graph['close'].fillna(ADI_전일종가, inplace=True)
+                    else:
+                        txt = '[{0:02d}:{1:02d}:{2:02d}] {3} ADI 프레임...\r'.format(dt.hour, dt.minute, dt.second, df_adi_graph['close'])
+                        self.textBrowser.append(txt)
+
                     '''
                     upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
