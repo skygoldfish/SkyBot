@@ -47412,18 +47412,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
 
                 # 1T OHLC 생성
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_futures_cm_graph.at[plot_time_index, 'high'] = df_futures_cm_graph.at[plot_time_index- 1, 'high']
-                    df_futures_cm_graph.at[plot_time_index, 'low'] = df_futures_cm_graph.at[plot_time_index - 1, 'low']
-                    df_futures_cm_graph.at[plot_time_index, 'middle'] = df_futures_cm_graph.at[plot_time_index - 1, 'middle']
-                    df_futures_cm_graph.at[plot_time_index, 'close'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']                       
+                if plot_time_index != old_cme_time_index:
+                    df_futures_cm_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_futures_cm_graph['low'].fillna(method='bfill', inplace=True)
+                    df_futures_cm_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_futures_cm_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
                 
                 if not np.isnan(근월물_선물_현재가):
-                    df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가
-                    df_futures_cm_graph['close'].fillna(method='bfill', inplace=True)                  
+                    df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가              
 
                 if fut_plot_sec == 0:
 
@@ -47460,15 +47458,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             pass
                     else:
-                        df_futures_cm_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)
-
-                    df_futures_cm_graph['high'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_graph['low'].fillna(method='bfill', inplace=True)                    
+                        df_futures_cm_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)  
 
                     flag_futures_cm_ohlc_open = False
 
                     df_futures_cm_graph.at[plot_time_index, 'middle'] = (df_futures_cm_graph.at[plot_time_index, 'high'] + df_futures_cm_graph.at[plot_time_index, 'low']) / 2
-                    df_futures_cm_graph['middle'].fillna(method='bfill', inplace=True)
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'volume'] = fut_cm_volume_power
@@ -47517,7 +47511,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if DayTime:
                         if abs(SP500_시가_등락율) > 0:
-                            SP500_FUT_시가_등락율비 = int(abs(근월물_선물_시가등락율 / SP500_시가_등락율)) + 1
+                            SP500_FUT_시가_등락율비 = (int(abs(근월물_선물_시가등락율 / SP500_시가_등락율)) + 1) * 5
                         else:
                             SP500_FUT_시가_등락율비 = plot_drate_scale_factor
                     else:
@@ -47589,12 +47583,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_graph.at[plot_time_index, 'drate'] = 차월물_선물_시가대비_등락율
 
                 # 1T OHLC 생성
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_futures_nm_graph.at[plot_time_index, 'high'] = df_futures_nm_graph.at[plot_time_index- 1, 'high']
-                    df_futures_nm_graph.at[plot_time_index, 'low'] = df_futures_nm_graph.at[plot_time_index - 1, 'low']
-                    df_futures_nm_graph.at[plot_time_index, 'middle'] = df_futures_nm_graph.at[plot_time_index - 1, 'middle']
-                    df_futures_nm_graph.at[plot_time_index, 'close'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']                       
+                if plot_time_index != old_cme_time_index:
+                    df_futures_nm_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_futures_nm_graph['low'].fillna(method='bfill', inplace=True)
+                    df_futures_nm_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_futures_nm_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
@@ -48711,19 +48704,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_sp500_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_sp500_graph.at[plot_time_index, 'high'] = df_sp500_graph.at[plot_time_index - 1, 'high']
-                    df_sp500_graph.at[plot_time_index, 'low'] = df_sp500_graph.at[plot_time_index - 1, 'low']
-                    df_sp500_graph.at[plot_time_index, 'middle'] = df_sp500_graph.at[plot_time_index - 1, 'middle']
-                    df_sp500_graph.at[plot_time_index, 'close'] = df_sp500_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_sp500_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_sp500_graph['low'].fillna(method='bfill', inplace=True)
+                    df_sp500_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_sp500_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(SP500_현재가):
 
-                    df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가
-                    df_sp500_graph['close'].fillna(method='bfill', inplace=True)
+                    df_sp500_graph.at[plot_time_index, 'close'] = SP500_현재가                    
 
                     if cme_plot_sec == 0:
 
@@ -48760,16 +48751,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_sp500_graph.at[plot_time_index, 'low'] = min(SP500_현재가_버퍼)
-
-                        df_sp500_graph['high'].fillna(method='bfill', inplace=True) 
-                        df_sp500_graph['low'].fillna(method='bfill', inplace=True)                         
+                            df_sp500_graph.at[plot_time_index, 'low'] = min(SP500_현재가_버퍼)                                                 
 
                         flag_sp500_ohlc_open = False
 
                         if not np.isnan(df_sp500_graph.at[plot_time_index, 'high']) and not np.isnan(df_sp500_graph.at[plot_time_index, 'low']):
-                            df_sp500_graph.at[plot_time_index, 'middle'] = (df_sp500_graph.at[plot_time_index, 'high'] + df_sp500_graph.at[plot_time_index, 'low']) / 2 
-                            df_sp500_graph['middle'].fillna(method='bfill', inplace=True) 
+                            df_sp500_graph.at[plot_time_index, 'middle'] = (df_sp500_graph.at[plot_time_index, 'high'] + df_sp500_graph.at[plot_time_index, 'low']) / 2                            
                 else:
                     pass                                                                 
 
@@ -48947,19 +48934,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_dow_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_dow_graph.at[plot_time_index, 'high'] = df_dow_graph.at[plot_time_index - 1, 'high']
-                    df_dow_graph.at[plot_time_index, 'low'] = df_dow_graph.at[plot_time_index - 1, 'low']
-                    df_dow_graph.at[plot_time_index, 'middle'] = df_dow_graph.at[plot_time_index - 1, 'middle']
-                    df_dow_graph.at[plot_time_index, 'close'] = df_dow_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_dow_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_dow_graph['low'].fillna(method='bfill', inplace=True)
+                    df_dow_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_dow_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass                
 
                 if not np.isnan(DOW_현재가):
 
                     df_dow_graph.at[plot_time_index, 'close'] = DOW_현재가
-                    df_dow_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -48996,16 +48981,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_dow_graph.at[plot_time_index, 'low'] = min(DOW_현재가_버퍼)
-
-                        df_dow_graph['high'].fillna(method='bfill', inplace=True)
-                        df_dow_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_dow_graph.at[plot_time_index, 'low'] = min(DOW_현재가_버퍼)             
 
                         flag_dow_ohlc_open = False
 
                         if not np.isnan(df_dow_graph.at[plot_time_index, 'high']) and not np.isnan(df_dow_graph.at[plot_time_index, 'low']):
                             df_dow_graph.at[plot_time_index, 'middle'] = int(df_dow_graph.at[plot_time_index, 'high'] + df_dow_graph.at[plot_time_index, 'low']) / 2
-                            df_dow_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
@@ -49182,19 +49163,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_nasdaq_graph.at[plot_time_index, 'high'] = df_nasdaq_graph.at[plot_time_index - 1, 'high']
-                    df_nasdaq_graph.at[plot_time_index, 'low'] = df_nasdaq_graph.at[plot_time_index - 1, 'low']
-                    df_nasdaq_graph.at[plot_time_index, 'middle'] = df_nasdaq_graph.at[plot_time_index - 1, 'middle']
-                    df_nasdaq_graph.at[plot_time_index, 'close'] = df_nasdaq_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_nasdaq_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_nasdaq_graph['low'].fillna(method='bfill', inplace=True)
+                    df_nasdaq_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_nasdaq_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass 
 
                 if not np.isnan(NASDAQ_현재가):
 
-                    df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가
-                    df_nasdaq_graph['close'].fillna(method='bfill', inplace=True) 
+                    df_nasdaq_graph.at[plot_time_index, 'close'] = NASDAQ_현재가 
 
                     if cme_plot_sec == 0:
 
@@ -49231,16 +49210,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_nasdaq_graph.at[plot_time_index, 'low'] = min(NASDAQ_현재가_버퍼)
-
-                        df_nasdaq_graph['high'].fillna(method='bfill', inplace=True)
-                        df_nasdaq_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_nasdaq_graph.at[plot_time_index, 'low'] = min(NASDAQ_현재가_버퍼)          
 
                         flag_nasdaq_ohlc_open = False
 
                         if not np.isnan(df_nasdaq_graph.at[plot_time_index, 'high']) and not np.isnan(df_nasdaq_graph.at[plot_time_index, 'low']):
                             df_nasdaq_graph.at[plot_time_index, 'middle'] = (df_nasdaq_graph.at[plot_time_index, 'high'] + df_nasdaq_graph.at[plot_time_index, 'low']) / 2
-                            df_nasdaq_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass                
                 
@@ -49415,19 +49390,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_hangseng_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_hangseng_graph.at[plot_time_index, 'high'] = df_hangseng_graph.at[plot_time_index - 1, 'high']
-                    df_hangseng_graph.at[plot_time_index, 'low'] = df_hangseng_graph.at[plot_time_index - 1, 'low']
-                    df_hangseng_graph.at[plot_time_index, 'middle'] = df_hangseng_graph.at[plot_time_index - 1, 'middle']
-                    df_hangseng_graph.at[plot_time_index, 'close'] = df_hangseng_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_hangseng_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_hangseng_graph['low'].fillna(method='bfill', inplace=True)
+                    df_hangseng_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_hangseng_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(HANGSENG_현재가):
 
                     df_hangseng_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
-                    df_hangseng_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -49464,16 +49437,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_hangseng_graph.at[plot_time_index, 'low'] = min(HANGSENG_현재가_버퍼)
-
-                        df_hangseng_graph['high'].fillna(method='bfill', inplace=True)
-                        df_hangseng_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_hangseng_graph.at[plot_time_index, 'low'] = min(HANGSENG_현재가_버퍼)         
 
                         flag_hangseng_ohlc_open = False
 
                         if not np.isnan(df_hangseng_graph.at[plot_time_index, 'high']) and not np.isnan(df_hangseng_graph.at[plot_time_index, 'low']):
                             df_hangseng_graph.at[plot_time_index, 'middle'] = int(df_hangseng_graph.at[plot_time_index, 'high'] + df_hangseng_graph.at[plot_time_index, 'low']) / 2
-                            df_hangseng_graph['middle'].fillna(method='bfill', inplace=True)  
                 else:
                     pass                  
 
@@ -49650,19 +49619,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_wti_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_wti_graph.at[plot_time_index, 'high'] = df_wti_graph.at[plot_time_index - 1, 'high']
-                    df_wti_graph.at[plot_time_index, 'low'] = df_wti_graph.at[plot_time_index - 1, 'low']
-                    df_wti_graph.at[plot_time_index, 'middle'] = df_wti_graph.at[plot_time_index - 1, 'middle']
-                    df_wti_graph.at[plot_time_index, 'close'] = df_wti_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_wti_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_wti_graph['low'].fillna(method='bfill', inplace=True)
+                    df_wti_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_wti_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(WTI_현재가):
 
                     df_wti_graph.at[plot_time_index, 'close'] = WTI_현재가
-                    df_wti_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -49699,16 +49666,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_wti_graph.at[plot_time_index, 'low'] = min(WTI_현재가_버퍼)
-
-                        df_wti_graph['high'].fillna(method='bfill', inplace=True)
-                        df_wti_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_wti_graph.at[plot_time_index, 'low'] = min(WTI_현재가_버퍼)             
 
                         flag_wti_ohlc_open = False
 
                         if not np.isnan(df_wti_graph.at[plot_time_index, 'high']) and not np.isnan(df_wti_graph.at[plot_time_index, 'low']):
                             df_wti_graph.at[plot_time_index, 'middle'] = (df_wti_graph.at[plot_time_index, 'high'] + df_wti_graph.at[plot_time_index, 'low']) / 2
-                            df_wti_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass                             
 
@@ -49883,19 +49846,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_gold_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_gold_graph.at[plot_time_index, 'high'] = df_gold_graph.at[plot_time_index - 1, 'high']
-                    df_gold_graph.at[plot_time_index, 'low'] = df_gold_graph.at[plot_time_index - 1, 'low']
-                    df_gold_graph.at[plot_time_index, 'middle'] = df_gold_graph.at[plot_time_index - 1, 'middle']
-                    df_gold_graph.at[plot_time_index, 'close'] = df_gold_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_gold_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_gold_graph['low'].fillna(method='bfill', inplace=True)
+                    df_gold_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_gold_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(GOLD_현재가):
 
                     df_gold_graph.at[plot_time_index, 'close'] = GOLD_현재가
-                    df_gold_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -49932,16 +49893,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_gold_graph.at[plot_time_index, 'low'] = min(GOLD_현재가_버퍼)
-
-                        df_gold_graph['high'].fillna(method='bfill', inplace=True)
-                        df_gold_graph['low'].fillna(method='bfill', inplace=True)                      
+                            df_gold_graph.at[plot_time_index, 'low'] = min(GOLD_현재가_버퍼)           
 
                         flag_gold_ohlc_open = False
 
                         if not np.isnan(df_gold_graph.at[plot_time_index, 'high']) and not np.isnan(df_gold_graph.at[plot_time_index, 'low']):
                             df_gold_graph.at[plot_time_index, 'middle'] = (df_gold_graph.at[plot_time_index, 'high'] + df_gold_graph.at[plot_time_index, 'low']) / 2
-                            df_gold_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
@@ -50116,19 +50073,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_euro_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_euro_graph.at[plot_time_index, 'high'] = df_euro_graph.at[plot_time_index - 1, 'high']
-                    df_euro_graph.at[plot_time_index, 'low'] = df_euro_graph.at[plot_time_index - 1, 'low']
-                    df_euro_graph.at[plot_time_index, 'middle'] = df_euro_graph.at[plot_time_index - 1, 'middle']
-                    df_euro_graph.at[plot_time_index, 'close'] = df_euro_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_euro_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_euro_graph['low'].fillna(method='bfill', inplace=True)
+                    df_euro_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_euro_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(EURO_현재가):
 
                     df_euro_graph.at[plot_time_index, 'close'] = EURO_현재가
-                    df_euro_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -50165,16 +50120,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_euro_graph.at[plot_time_index, 'low'] = min(EURO_현재가_버퍼)
-
-                        df_euro_graph['high'].fillna(method='bfill', inplace=True)
-                        df_euro_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_euro_graph.at[plot_time_index, 'low'] = min(EURO_현재가_버퍼)            
 
                         flag_euro_ohlc_open = False
 
                         if not np.isnan(df_euro_graph.at[plot_time_index, 'high']) and not np.isnan(df_euro_graph.at[plot_time_index, 'low']):
                             df_euro_graph.at[plot_time_index, 'middle'] = (df_euro_graph.at[plot_time_index, 'high'] + df_euro_graph.at[plot_time_index, 'low']) / 2
-                            df_euro_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass
                 
@@ -50349,19 +50300,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_yen_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_yen_graph.at[plot_time_index, 'high'] = df_yen_graph.at[plot_time_index - 1, 'high']
-                    df_yen_graph.at[plot_time_index, 'low'] = df_yen_graph.at[plot_time_index - 1, 'low']
-                    df_yen_graph.at[plot_time_index, 'middle'] = df_yen_graph.at[plot_time_index - 1, 'middle']
-                    df_yen_graph.at[plot_time_index, 'close'] = df_yen_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_yen_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_yen_graph['low'].fillna(method='bfill', inplace=True)
+                    df_yen_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_yen_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(YEN_현재가):
 
                     df_yen_graph.at[plot_time_index, 'close'] = YEN_현재가
-                    df_yen_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -50398,16 +50347,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_yen_graph.at[plot_time_index, 'low'] = min(YEN_현재가_버퍼)
-
-                        df_yen_graph['high'].fillna(method='bfill', inplace=True)
-                        df_yen_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_yen_graph.at[plot_time_index, 'low'] = min(YEN_현재가_버퍼)              
 
                         flag_yen_ohlc_open = False
 
                         if not np.isnan(df_yen_graph.at[plot_time_index, 'high']) and not np.isnan(df_yen_graph.at[plot_time_index, 'low']):
                             df_yen_graph.at[plot_time_index, 'middle'] = (df_yen_graph.at[plot_time_index, 'high'] + df_yen_graph.at[plot_time_index, 'low']) / 2
-                            df_yen_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass                                         
                 
@@ -50582,19 +50527,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_adi_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                #if plot_time_index != old_cme_time_index:
-                if 0:
-                    df_adi_graph.at[plot_time_index, 'high'] = df_adi_graph.at[plot_time_index - 1, 'high']
-                    df_adi_graph.at[plot_time_index, 'low'] = df_adi_graph.at[plot_time_index - 1, 'low']
-                    df_adi_graph.at[plot_time_index, 'middle'] = df_adi_graph.at[plot_time_index - 1, 'middle']
-                    df_adi_graph.at[plot_time_index, 'close'] = df_adi_graph.at[plot_time_index - 1, 'close']
+                if plot_time_index != old_cme_time_index:
+                    df_adi_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_adi_graph['low'].fillna(method='bfill', inplace=True)
+                    df_adi_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_adi_graph['close'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
                 if not np.isnan(ADI_현재가):
 
                     df_adi_graph.at[plot_time_index, 'close'] = ADI_현재가
-                    df_adi_graph['close'].fillna(method='bfill', inplace=True)
 
                     if cme_plot_sec == 0:
 
@@ -50631,16 +50574,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             else:
                                 pass
                         else:
-                            df_adi_graph.at[plot_time_index, 'low'] = min(ADI_현재가_버퍼)
-
-                        df_adi_graph['high'].fillna(method='bfill', inplace=True)
-                        df_adi_graph['low'].fillna(method='bfill', inplace=True)                        
+                            df_adi_graph.at[plot_time_index, 'low'] = min(ADI_현재가_버퍼)             
 
                         flag_adi_ohlc_open = False
                     
                         if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
                             df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
-                            df_adi_graph['middle'].fillna(method='bfill', inplace=True)
                 else:
                     pass
 
