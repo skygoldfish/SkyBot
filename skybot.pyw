@@ -14553,6 +14553,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global pre_start
         global t2301_month_info
         global 진성맥점, SEARCH_MOVING_NODE
+        global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
+
 
         dt = datetime.now()
         '''
@@ -14613,9 +14615,52 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.textBrowser.append(txt)
                 
                 # 지수옵션 마스터조회 API용
-                self.XQ_t8433.Query()
-                
-                QTest.qWait(1000)                
+                self.XQ_t8433.Query()                
+                QTest.qWait(1000)
+
+                # 보조지표 계산을 위한 데이타프레임 초기화
+                df_futures_cm_graph['high'].fillna(FUT_전일종가, inplace=True)
+                df_futures_cm_graph['low'].fillna(FUT_전일종가, inplace=True)
+                df_futures_cm_graph['close'].fillna(FUT_전일종가, inplace=True)
+
+                df_sp500_graph['high'].fillna(SP500_전일종가, inplace=True)
+                df_sp500_graph['low'].fillna(SP500_전일종가, inplace=True)
+                df_sp500_graph['close'].fillna(SP500_전일종가, inplace=True)
+
+                df_dow_graph['high'].fillna(DOW_전일종가, inplace=True)
+                df_dow_graph['low'].fillna(DOW_전일종가, inplace=True)
+                df_dow_graph['close'].fillna(DOW_전일종가, inplace=True)
+
+                df_nasdaq_graph['high'].fillna(NASDAQ_전일종가, inplace=True)
+                df_nasdaq_graph['low'].fillna(NASDAQ_전일종가, inplace=True)
+                df_nasdaq_graph['close'].fillna(NASDAQ_전일종가, inplace=True)
+
+                df_hangseng_graph['high'].fillna(HANGSENG_전일종가, inplace=True)
+                df_hangseng_graph['low'].fillna(HANGSENG_전일종가, inplace=True)
+                df_hangseng_graph['close'].fillna(HANGSENG_전일종가, inplace=True)
+
+                df_wti_graph['high'].fillna(WTI_전일종가, inplace=True)
+                df_wti_graph['low'].fillna(WTI_전일종가, inplace=True)
+                df_wti_graph['close'].fillna(WTI_전일종가, inplace=True)
+
+                df_gold_graph['high'].fillna(GOLD_전일종가, inplace=True)
+                df_gold_graph['low'].fillna(GOLD_전일종가, inplace=True)
+                df_gold_graph['close'].fillna(GOLD_전일종가, inplace=True)
+
+                df_euro_graph['high'].fillna(EURO_전일종가, inplace=True)
+                df_euro_graph['low'].fillna(EURO_전일종가, inplace=True)
+                df_euro_graph['close'].fillna(EURO_전일종가, inplace=True)
+
+                df_yen_graph['high'].fillna(YEN_전일종가, inplace=True)
+                df_yen_graph['low'].fillna(YEN_전일종가, inplace=True)
+                df_yen_graph['close'].fillna(YEN_전일종가, inplace=True)
+
+                df_adi_graph['high'].fillna(ADI_전일종가, inplace=True)
+                df_adi_graph['low'].fillna(ADI_전일종가, inplace=True)
+                df_adi_graph['close'].fillna(ADI_전일종가, inplace=True)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 보조지표 계산을 위한 데이타프레임을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.textBrowser.append(txt)
             else:
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, SEARCH_MOVING_NODE)
@@ -50545,8 +50590,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if not np.isnan(df_adi_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_graph.at[plot_time_index, 'low']):
                             df_adi_graph.at[plot_time_index, 'middle'] = (df_adi_graph.at[plot_time_index, 'high'] + df_adi_graph.at[plot_time_index, 'low']) / 2
 
-                    #df_adi_graph['close'].fillna(ADI_전일종가, inplace=True)
-
+                    '''
                     if df_adi_graph['close'].isnull().values.any():
                         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} ADI 프레임에 MaN 존재함...\r'.format(dt.hour, dt.minute, dt.second, df_adi_graph['close'])
                         self.textBrowser.append(txt)
@@ -50554,8 +50598,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         txt = '[{0:02d}:{1:02d}:{2:02d}] {3} ADI 프레임...\r'.format(dt.hour, dt.minute, dt.second, df_adi_graph['close'])
                         self.textBrowser.append(txt)
-
-                    '''
+                    
                     upper, middle, lower = talib.BBANDS(np.array(df_adi_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
                     print('\r')
@@ -50567,7 +50610,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print('****************************** lower = {0}\r'.format(lower))
                     print('\r')
                     '''
-
                 else:
                     pass
 
