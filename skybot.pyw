@@ -237,7 +237,7 @@ SP500_고가 = 0
 SP500_진폭 = 0
 SP500_진폭_틱 = 0
 
-SP500_FUT_시가_등락율비 = 0
+SP500_FUT_시가_등락율비 = 1
 
 DOW_전저 = 0
 DOW_전고 = 0
@@ -21064,6 +21064,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(chart_update_interval)
         self.lineEdit_plot.setText(txt)
 
+        txt = str(SP500_FUT_시가_등락율비)
+        self.lineEdit_drate_ratio.setText(txt)
+
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__) 
         
@@ -21111,6 +21114,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_mp.returnPressed.connect(self.change_scoreboard_interval)
         self.lineEdit_tolerance.returnPressed.connect(self.change_view_time_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
+        self.lineEdit_drate_ratio.returnPressed.connect(self.change_drate_ratio)
 
     def change_call_itm(self):
 
@@ -21296,6 +21300,18 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         flag_plot_update_interval_changed = True
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] Plot 갱신주기를 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, chart_update_interval)
+        self.parent.textBrowser.append(txt)
+
+    def change_drate_ratio(self):
+
+        global SP500_FUT_시가_등락율비
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_drate_ratio.text()
+        SP500_FUT_시가_등락율비 = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] FUT vs SP500 등락율비를 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, SP500_FUT_시가_등락율비)
         self.parent.textBrowser.append(txt)
 
     def checkBox_cm_fut_price_checkState(self):
@@ -47318,7 +47334,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open
         global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
-        global plot_time_index, fut_plot_sec
+        global plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
 
         try:
             dt = datetime.now()
@@ -47447,6 +47463,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
+                    if DayTime:
+                        if abs(SP500_시가_등락율) > 0:
+                            SP500_FUT_시가_등락율비 = int(abs(근월물_선물_시가등락율 / SP500_시가_등락율)) + 1
+                        else:
+                            SP500_FUT_시가_등락율비 = plot_drate_scale_factor
+                    else:
+                        SP500_FUT_시가_등락율비 = plot_drate_scale_factor
+
                     flag_cm_drate_scale_factor_set = True
                 else:
                     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)                
@@ -47496,6 +47520,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0}".format(plot_drate_scale_factor))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
+                    if DayTime:
+                        if abs(SP500_시가_등락율) > 0:
+                            SP500_FUT_시가_등락율비 = int(abs(차월물_선물_시가등락율 / SP500_시가_등락율)) + 1
+                        else:
+                            SP500_FUT_시가_등락율비 = plot_drate_scale_factor
+                    else:
+                        SP500_FUT_시가_등락율비 = plot_drate_scale_factor
 
                     flag_nm_drate_scale_factor_set = True
                 else:
@@ -48597,15 +48629,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_진폭_틱 = int(SP500_진폭 / sp500_tick_value)                
                 
                 SP500_시가대비 = int((SP500_현재가 - SP500_시가) / sp500_tick_value)
-                SP500_시가_등락율 = ((SP500_시가 - SP500_전일종가) / SP500_전일종가) * 100
-
-                if DayTime:
-                    if abs(SP500_시가_등락율) > 0:
-                        SP500_FUT_시가_등락율비 = abs(근월물_선물_시가등락율 / SP500_시가_등락율)
-                    else:
-                        SP500_FUT_시가_등락율비 = plot_drate_scale_factor
-                else:
-                    SP500_FUT_시가_등락율비 = plot_drate_scale_factor
+                SP500_시가_등락율 = ((SP500_시가 - SP500_전일종가) / SP500_전일종가) * 100                
 
                 #df_sp500_graph.at[0, 'price'] = SP500_전일종가
 

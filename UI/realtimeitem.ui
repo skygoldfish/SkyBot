@@ -443,14 +443,14 @@
     </font>
    </property>
    <property name="title">
-    <string>Plot Sync 및 Plot 갱신주기</string>
+    <string>FUT vs SP500 등락율비 및 Plot 갱신주기</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>271</width>
+      <x>12</x>
+      <y>31</y>
+      <width>269</width>
       <height>22</height>
      </rect>
     </property>
@@ -469,11 +469,18 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>13</width>
+         <height>17</height>
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_drate_ratio">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_plot">
