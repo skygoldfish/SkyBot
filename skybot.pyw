@@ -32998,7 +32998,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('FUT')
 
                     self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_futures_cm_ta_graph['FAMA'])
+
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -33451,7 +33453,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_open_line.setValue(SP500_시가)
                 self.plot1_ovc_pivot_line.setValue(SP500_피봇)
                 self.plot1_ovc_low_line.setValue(SP500_저가)
-                self.plot1_ovc_high_line.setValue(SP500_고가)                  
+                self.plot1_ovc_high_line.setValue(SP500_고가)                                
 
                 self.plot1_sp500_curve.setData(df_sp500_graph['price'])
 
@@ -33492,7 +33494,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('SP500')
 
                     self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_sp500_ta_graph['FAMA'])
+
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -33622,7 +33626,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('DOW')
 
                     self.plot1_mama_curve.setData(df_dow_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_dow_ta_graph['FAMA'])
+
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -33752,7 +33758,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('NASDAQ')
 
                     self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_nasdaq_ta_graph['FAMA'])
+
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -33882,7 +33890,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('HSI')
 
                     self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_hangseng_ta_graph['FAMA'])
+
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -34011,7 +34021,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('WTI')
 
                     self.plot1_mama_curve.setData(df_wti_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_wti_ta_graph['FAMA'])
+
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -34141,7 +34153,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('GOLD')
 
                     self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_gold_ta_graph['FAMA'])
+
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -34270,7 +34284,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('EURO')
 
                     self.plot1_mama_curve.setData(df_euro_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_euro_ta_graph['FAMA'])
+
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -34400,7 +34416,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('YEN')
 
                     self.plot1_mama_curve.setData(df_yen_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_yen_ta_graph['FAMA'])
+
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -34536,7 +34554,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('ADI')
 
                     self.plot1_mama_curve.setData(df_adi_ta_graph['MAMA'])
-                    self.plot1_fama_curve.setData(df_adi_ta_graph['FAMA'])
+
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot1_fama_curve.setData(df)
 
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -34739,7 +34759,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('FUT')
 
                     self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_futures_cm_ta_graph['FAMA'])
+
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35233,7 +35255,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('SP500')
 
                     self.plot2_mama_curve.setData(df_sp500_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_sp500_ta_graph['FAMA'])
+
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35363,7 +35387,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('DOW')
 
                     self.plot2_mama_curve.setData(df_dow_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_dow_ta_graph['FAMA'])
+
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35493,7 +35519,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('NASDAQ')
 
                     self.plot2_mama_curve.setData(df_nasdaq_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_nasdaq_ta_graph['FAMA'])
+
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35623,7 +35651,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('HSI')
 
                     self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_hangseng_ta_graph['FAMA'])
+
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35752,7 +35782,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('WTI')
 
                     self.plot2_mama_curve.setData(df_wti_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_wti_ta_graph['FAMA'])
+
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35882,7 +35914,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('GOLD')
 
                     self.plot2_mama_curve.setData(df_gold_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_gold_ta_graph['FAMA'])
+
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -36011,7 +36045,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('EURO')
 
                     self.plot2_mama_curve.setData(df_euro_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_euro_ta_graph['FAMA'])
+
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -36141,7 +36177,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('YEN')
 
                     self.plot2_mama_curve.setData(df_yen_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_yen_ta_graph['FAMA'])
+
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -36277,7 +36315,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('ADI')
 
                     self.plot2_mama_curve.setData(df_adi_ta_graph['MAMA'])
-                    self.plot2_fama_curve.setData(df_adi_ta_graph['FAMA'])
+
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot2_fama_curve.setData(df)
 
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -36478,7 +36518,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('FUT')
 
                     self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_futures_cm_ta_graph['FAMA'])
+
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -36970,7 +37012,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('SP500')
 
                     self.plot3_mama_curve.setData(df_sp500_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_sp500_ta_graph['FAMA'])
+
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37100,7 +37144,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('DOW')
 
                     self.plot3_mama_curve.setData(df_dow_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_dow_ta_graph['FAMA'])
+
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37230,7 +37276,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('NASDAQ')
 
                     self.plot3_mama_curve.setData(df_nasdaq_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_nasdaq_ta_graph['FAMA'])
+
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37360,7 +37408,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('HSI')
 
                     self.plot3_mama_curve.setData(df_hangseng_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_hangseng_ta_graph['FAMA'])
+
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37489,7 +37539,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('WTI')
 
                     self.plot3_mama_curve.setData(df_wti_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_wti_ta_graph['FAMA'])
+
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37619,7 +37671,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('GOLD')
 
                     self.plot3_mama_curve.setData(df_gold_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_gold_ta_graph['FAMA'])
+
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37748,7 +37802,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('EURO')
 
                     self.plot3_mama_curve.setData(df_euro_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_euro_ta_graph['FAMA'])
+
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37878,7 +37934,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('YEN')
 
                     self.plot3_mama_curve.setData(df_yen_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_yen_ta_graph['FAMA'])
+
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -38014,7 +38072,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('ADI')
 
                     self.plot3_mama_curve.setData(df_adi_ta_graph['MAMA'])
-                    self.plot3_fama_curve.setData(df_adi_ta_graph['FAMA'])
+
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot3_fama_curve.setData(df)
 
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -38214,7 +38274,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('FUT')
 
                     self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_futures_cm_ta_graph['FAMA'])
+
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -38708,7 +38770,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('SP500')
 
                     self.plot4_mama_curve.setData(df_sp500_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_sp500_ta_graph['FAMA'])
+
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -38838,7 +38902,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('DOW')
 
                     self.plot4_mama_curve.setData(df_dow_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_dow_ta_graph['FAMA'])
+
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -38968,7 +39034,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('NASDAQ')
 
                     self.plot4_mama_curve.setData(df_nasdaq_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_nasdaq_ta_graph['FAMA'])
+
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39098,7 +39166,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('HSI')
 
                     self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_hangseng_ta_graph['FAMA'])
+
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39227,7 +39297,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('WTI')
 
                     self.plot4_mama_curve.setData(df_wti_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_wti_ta_graph['FAMA'])
+
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39357,7 +39429,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('GOLD')
 
                     self.plot4_mama_curve.setData(df_gold_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_gold_ta_graph['FAMA'])
+
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39486,7 +39560,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('EURO')
 
                     self.plot4_mama_curve.setData(df_euro_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_euro_ta_graph['FAMA'])
+
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39616,7 +39692,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('YEN')
 
                     self.plot4_mama_curve.setData(df_yen_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_yen_ta_graph['FAMA'])
+
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39752,7 +39830,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('ADI')
 
                     self.plot4_mama_curve.setData(df_adi_ta_graph['MAMA'])
-                    self.plot4_fama_curve.setData(df_adi_ta_graph['FAMA'])
+
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot4_fama_curve.setData(df)
 
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -39953,7 +40033,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('FUT')
 
                     self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_futures_cm_ta_graph['FAMA'])
+
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -40444,7 +40526,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('SP500')
 
                     self.plot5_mama_curve.setData(df_sp500_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_sp500_ta_graph['FAMA'])
+
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -40574,7 +40658,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('DOW')
 
                     self.plot5_mama_curve.setData(df_dow_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_dow_ta_graph['FAMA'])
+
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -40704,7 +40790,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('NASDAQ')
 
                     self.plot5_mama_curve.setData(df_nasdaq_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_nasdaq_ta_graph['FAMA'])
+
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -40834,7 +40922,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('HSI')
 
                     self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_hangseng_ta_graph['FAMA'])
+
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -40963,7 +41053,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('WTI')
 
                     self.plot5_mama_curve.setData(df_wti_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_wti_ta_graph['FAMA'])
+
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -41093,7 +41185,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('GOLD')
 
                     self.plot5_mama_curve.setData(df_gold_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_gold_ta_graph['FAMA'])
+
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -41222,7 +41316,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('EURO')
 
                     self.plot5_mama_curve.setData(df_euro_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_euro_ta_graph['FAMA'])
+
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -41352,7 +41448,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('YEN')
 
                     self.plot5_mama_curve.setData(df_yen_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_yen_ta_graph['FAMA'])
+
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -41488,7 +41586,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('ADI')
 
                     self.plot5_mama_curve.setData(df_adi_ta_graph['MAMA'])
-                    self.plot5_fama_curve.setData(df_adi_ta_graph['FAMA'])
+
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot5_fama_curve.setData(df)
 
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -41689,7 +41789,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('FUT')
 
                     self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_futures_cm_ta_graph['FAMA'])
+
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42180,7 +42282,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('SP500')
 
                     self.plot6_mama_curve.setData(df_sp500_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_sp500_ta_graph['FAMA'])
+
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42310,7 +42414,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('DOW')
 
                     self.plot6_mama_curve.setData(df_dow_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_dow_ta_graph['FAMA'])
+
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42440,7 +42546,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('NASDAQ')
 
                     self.plot6_mama_curve.setData(df_nasdaq_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_nasdaq_ta_graph['FAMA'])
+
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42570,7 +42678,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('HSI')
 
                     self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_hangseng_ta_graph['FAMA'])
+
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42699,7 +42809,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('WTI')
 
                     self.plot6_mama_curve.setData(df_wti_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_wti_ta_graph['FAMA'])
+
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42829,7 +42941,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('GOLD')
 
                     self.plot6_mama_curve.setData(df_gold_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_gold_ta_graph['FAMA'])
+
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42958,7 +43072,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('EURO')
 
                     self.plot6_mama_curve.setData(df_euro_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_euro_ta_graph['FAMA'])
+
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -43088,7 +43204,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('YEN')
 
                     self.plot6_mama_curve.setData(df_yen_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_yen_ta_graph['FAMA'])
+
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -43224,7 +43342,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_MAMA('ADI')
 
                     self.plot6_mama_curve.setData(df_adi_ta_graph['MAMA'])
-                    self.plot6_fama_curve.setData(df_adi_ta_graph['FAMA'])
+
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot6_fama_curve.setData(df)
 
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
 
