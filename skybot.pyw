@@ -32991,7 +32991,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -33019,7 +33023,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
 
@@ -33040,7 +33045,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 3:
                 
@@ -33487,7 +33493,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -33515,7 +33525,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
 
@@ -33536,7 +33547,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 14:
                 
@@ -33619,7 +33631,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -33647,7 +33663,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
 
@@ -33668,7 +33685,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 15:
                 
@@ -33751,7 +33769,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -33779,7 +33801,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
 
@@ -33800,7 +33823,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 16:
                 
@@ -33883,7 +33907,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -33911,7 +33939,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
                     
@@ -33932,7 +33961,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 17:
                 
@@ -34014,7 +34044,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -34042,7 +34076,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
                     
@@ -34063,7 +34098,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 18:
                 
@@ -34140,13 +34176,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'], df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -34169,12 +34209,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p1_4.setText(txt)
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
                     
@@ -34190,12 +34231,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 19:
                 
@@ -34277,7 +34319,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -34305,7 +34351,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
                     
@@ -34326,7 +34373,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 20:
                 
@@ -34403,13 +34451,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'], df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p1_2.setText(txt)
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -34432,12 +34484,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p1_4.setText(txt)
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
                     
@@ -34453,12 +34506,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 21:
 
@@ -34547,7 +34601,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_1.setText(" 좌표 ")
+
+                    self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -34575,7 +34633,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_4.setText(" MAMA ")
 
                 if flag_checkBox_plot1_oe:
                     
@@ -34596,7 +34655,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
             else:
                 pass
 
@@ -35901,7 +35961,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'], df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
@@ -35930,7 +35990,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p2_4.setText(txt)
                     else:
                         pass
@@ -35951,7 +36011,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
                     else:
                         pass
@@ -36164,7 +36224,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'], df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p2_2.setText(txt)
                     else:
@@ -36193,7 +36253,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p2_4.setText(txt)
                     else:
                         pass
@@ -36214,7 +36274,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
                     else:
                         pass
@@ -37658,7 +37718,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'], df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
@@ -37687,7 +37747,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p3_4.setText(txt)
                     else:
                         pass
@@ -37708,7 +37768,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
                     else:
                         pass
@@ -37921,7 +37981,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'], df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p3_2.setText(txt)
                     else:
@@ -37950,7 +38010,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p3_4.setText(txt)
                     else:
                         pass
@@ -37971,7 +38031,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p3_3.setText(txt)
                     else:
                         pass
@@ -39416,7 +39476,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'], df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
@@ -39445,7 +39505,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p4_4.setText(txt)
                     else:
                         pass
@@ -39466,7 +39526,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
                     else:
                         pass
@@ -39679,7 +39739,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'], df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p4_2.setText(txt)
                     else:
@@ -39708,7 +39768,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p4_4.setText(txt)
                     else:
                         pass
@@ -39729,7 +39789,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p4_3.setText(txt)
                     else:
                         pass
@@ -41172,7 +41232,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'], df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
@@ -41201,7 +41261,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p5_4.setText(txt)
                     else:
                         pass
@@ -41222,7 +41282,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
                     else:
                         pass
@@ -41435,7 +41495,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'], df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p5_2.setText(txt)
                     else:
@@ -41464,7 +41524,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p5_4.setText(txt)
                     else:
                         pass
@@ -41485,7 +41545,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p5_3.setText(txt)
                     else:
                         pass
@@ -42928,7 +42988,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'], df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
@@ -42957,7 +43017,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p6_4.setText(txt)
                     else:
                         pass
@@ -42978,7 +43038,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
                     else:
                         pass
@@ -43191,7 +43251,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f}\n PSAR: {3:.2f} ".format\
+                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f}\n PSAR: {3:.1f} ".format\
                             (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'], df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                         self.label_p6_2.setText(txt)
                     else:
@@ -43220,7 +43280,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p6_4.setText(txt)
                     else:
                         pass
@@ -43241,7 +43301,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         else:
                             self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p6_3.setText(txt)
                     else:
                         pass
