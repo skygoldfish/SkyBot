@@ -1478,7 +1478,7 @@ df_put_graph = [pd.DataFrame()] * ActvalCount
 df_put_information_graph = pd.DataFrame()
 
 df_kp200_graph = pd.DataFrame()
-df_supply_demand_graph = pd.DataFrame()
+df_demand_supply_graph = pd.DataFrame()
 
 df_futures_cm_graph = pd.DataFrame()
 df_futures_nm_graph = pd.DataFrame()
@@ -15080,7 +15080,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global start_time_txt, end_time_txt
 
-        global df_futures_cm_graph, df_futures_nm_graph, df_kp200_graph, df_supply_demand_graph
+        global df_futures_cm_graph, df_futures_nm_graph, df_kp200_graph, df_demand_supply_graph
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
         global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
@@ -15427,10 +15427,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
                     df_kp200_graph.at[0, 'price'] = KP200_전일종가
                     
-                    df_supply_demand_graph.at[0, 'program'] = 0
-                    df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                    df_supply_demand_graph.at[0, 'kospi_foreigner'] = 0
-                    df_supply_demand_graph.at[0, 'futures_foreigner'] = 0
+                    df_demand_supply_graph.at[0, 'program'] = 0
+                    df_demand_supply_graph.at[0, 'kospi_total'] = 0
+                    df_demand_supply_graph.at[0, 'kospi_foreigner'] = 0
+                    df_demand_supply_graph.at[0, 'futures_foreigner'] = 0
 
                     if self.fut_realdata['시가'] > 0:
                         df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
@@ -17262,10 +17262,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_futures_cm_graph.at[0, 'kp200'] = KP200_전일종가
                 df_kp200_graph.at[0, 'price'] = KP200_전일종가
-                df_supply_demand_graph.at[0, 'program'] = 0
-                df_supply_demand_graph.at[0, 'kospi_total'] = 0
-                df_supply_demand_graph.at[0, 'kospi_foreigner'] = 0
-                df_supply_demand_graph.at[0, 'futures_foreigner'] = 0
+                df_demand_supply_graph.at[0, 'program'] = 0
+                df_demand_supply_graph.at[0, 'kospi_total'] = 0
+                df_demand_supply_graph.at[0, 'kospi_foreigner'] = 0
+                df_demand_supply_graph.at[0, 'futures_foreigner'] = 0
 
                 # 주간 현재가가 야간 종가임
                 df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['현재가']
@@ -20284,7 +20284,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_put_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'yanghap'])
 
             df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
-            df_supply_demand_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
+            df_demand_supply_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
 
             df_futures_cm_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
                 'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'drate'])
@@ -33327,8 +33327,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot1_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot1_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                    self.plot1_program_curve.setData(df_demand_supply_graph['program'])
+
+                    df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
+                    df.at[0] = 0
+                    self.plot1_kospi_total_curve.setData(df)
                 else:
                     pass
 
@@ -33407,8 +33410,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot1_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot1_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                    self.plot1_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'])
+                    self.plot1_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'])                    
                 else:
                     pass
 
@@ -34812,7 +34815,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
+
 
                 if flag_checkBox_plot2_mama:
 
@@ -34840,7 +34848,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
 
@@ -34861,7 +34870,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 3:
                 
@@ -35142,8 +35152,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot2_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot2_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                    self.plot2_program_curve.setData(df_demand_supply_graph['program'])
+
+                    df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
+                    df.at[0] = 0
+
+                    self.plot2_kospi_total_curve.setData(df)
                 else:
                     pass
 
@@ -35222,8 +35236,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot2_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot2_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                    self.plot2_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'])
+                    self.plot2_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'])                    
                 else:
                     pass
 
@@ -35308,7 +35322,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -35336,7 +35354,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
 
@@ -35357,7 +35376,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
             
             elif comboindex2 == 14:
                 
@@ -35440,7 +35460,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -35468,7 +35492,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
 
@@ -35489,7 +35514,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass    
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")    
 
             elif comboindex2 == 15:
                 
@@ -35572,7 +35598,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -35600,7 +35630,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
 
@@ -35621,7 +35652,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 16:
                 
@@ -35704,7 +35736,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -35732,7 +35768,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
                     
@@ -35753,7 +35790,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 17:
                 
@@ -35835,7 +35873,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -35863,7 +35905,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
 
@@ -35884,7 +35927,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass  
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")  
             
             elif comboindex2 == 18:
                 
@@ -36098,7 +36142,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -36126,7 +36174,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
                     
@@ -36147,7 +36196,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 20:
                 
@@ -36230,7 +36280,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -36258,7 +36312,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
                     
@@ -36279,7 +36334,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
             
             elif comboindex2 == 21:
 
@@ -36368,7 +36424,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_mama:
 
@@ -36396,7 +36456,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
                 if flag_checkBox_plot2_oe:
                     
@@ -36417,7 +36478,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
             else:
                 pass         
         
@@ -36571,7 +36633,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -36599,7 +36665,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
 
@@ -36620,7 +36687,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 3:
                 
@@ -36899,8 +36967,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot3_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot3_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                    self.plot3_program_curve.setData(df_demand_supply_graph['program'])
+
+                    df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
+                    df.at[0] = 0
+
+                    self.plot3_kospi_total_curve.setData(df)
                 else:
                     pass
 
@@ -36979,8 +37051,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot3_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot3_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                    self.plot3_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'])
+                    self.plot3_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'])                    
                 else:
                     pass
 
@@ -37065,7 +37137,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -37093,7 +37169,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
 
@@ -37114,7 +37191,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
             
             elif comboindex3 == 14:
                 
@@ -37197,7 +37275,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
+
 
                 if flag_checkBox_plot3_mama:
 
@@ -37225,7 +37308,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
 
@@ -37246,7 +37330,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass    
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")    
 
             elif comboindex3 == 15:
                 
@@ -37329,7 +37414,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -37357,7 +37446,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
 
@@ -37378,7 +37468,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 16:
                 
@@ -37461,7 +37552,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -37489,7 +37584,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
                     
@@ -37510,7 +37606,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 17:
                 
@@ -37592,7 +37689,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -37620,7 +37721,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
 
@@ -37641,7 +37743,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass 
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ") 
             
             elif comboindex3 == 18:
                 
@@ -37724,7 +37827,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -37752,7 +37859,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
                     
@@ -37773,7 +37881,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 19:
                 
@@ -37855,7 +37964,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -37883,7 +37996,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
                     
@@ -37904,7 +38018,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 20:
                 
@@ -37987,7 +38102,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -38015,7 +38134,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
                     
@@ -38036,7 +38156,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
             
             elif comboindex3 == 21:
 
@@ -38125,7 +38246,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_1.setText(" 좌표 ")
+
+                    self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot3_mama:
 
@@ -38153,7 +38278,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_4.setText(" MAMA ")
 
                 if flag_checkBox_plot3_oe:
                     
@@ -38174,7 +38300,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
             else:
                 pass
 
@@ -38327,7 +38454,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -38355,7 +38486,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
 
@@ -38376,7 +38508,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 3:
                 
@@ -38657,8 +38790,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot4_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot4_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                    self.plot4_program_curve.setData(df_demand_supply_graph['program'])
+
+                    df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
+                    df.at[0] = 0
+
+                    self.plot4_kospi_total_curve.setData(df)
                 else:
                     pass
 
@@ -38737,8 +38874,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot4_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot4_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                    self.plot4_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'])
+                    self.plot4_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'])                    
                 else:
                     pass
 
@@ -38823,7 +38960,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -38851,7 +38992,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
 
@@ -38872,7 +39014,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
             
             elif comboindex4 == 14:
                 
@@ -38955,7 +39098,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -38983,7 +39130,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
 
@@ -39004,7 +39152,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 15:
                 
@@ -39087,7 +39236,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39115,7 +39268,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
 
@@ -39136,7 +39290,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 16:
                 
@@ -39219,7 +39374,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39247,7 +39406,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
                     
@@ -39268,7 +39428,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 17:
                 
@@ -39350,7 +39511,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39378,7 +39543,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
 
@@ -39399,7 +39565,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
             
             elif comboindex4 == 18:
                 
@@ -39482,7 +39649,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39510,7 +39681,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
                     
@@ -39531,7 +39703,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 19:
                 
@@ -39613,7 +39786,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39641,7 +39818,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
                     
@@ -39662,7 +39840,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 20:
                 
@@ -39745,7 +39924,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39773,7 +39956,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
                     
@@ -39794,7 +39978,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
             
             elif comboindex4 == 21:
 
@@ -39883,7 +40068,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_1.setText(" 좌표 ")
+
+                    self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot4_mama:
 
@@ -39911,7 +40100,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_4.setText(" MAMA ")
 
                 if flag_checkBox_plot4_oe:
                     
@@ -39932,7 +40122,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
             else:
                 pass
             
@@ -40086,7 +40277,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -40114,7 +40309,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
 
@@ -40135,7 +40331,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 3:
                 
@@ -40413,8 +40610,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot5_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot5_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                    self.plot5_program_curve.setData(df_demand_supply_graph['program'])
+
+                    df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
+                    df.at[0] = 0
+
+                    self.plot5_kospi_total_curve.setData(df)
                 else:
                     pass
 
@@ -40493,8 +40694,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot5_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot5_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                    self.plot5_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'])
+                    self.plot5_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'])                    
                 else:
                     pass
 
@@ -40579,7 +40780,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -40607,7 +40812,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
 
@@ -40628,7 +40834,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
             
             elif comboindex5 == 14:
                 
@@ -40711,7 +40918,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -40739,7 +40950,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
 
@@ -40760,7 +40972,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass  
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")  
 
             elif comboindex5 == 15:
                 
@@ -40843,7 +41056,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -40871,7 +41088,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
 
@@ -40892,7 +41110,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 16:
                 
@@ -40975,7 +41194,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -41003,7 +41226,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
                     
@@ -41024,7 +41248,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 17:
                 
@@ -41106,7 +41331,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -41134,7 +41363,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
 
@@ -41155,7 +41385,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass 
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ") 
             
             elif comboindex5 == 18:
                 
@@ -41238,7 +41469,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -41266,7 +41501,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
                     
@@ -41287,7 +41523,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 19:
                 
@@ -41369,7 +41606,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -41397,7 +41638,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
                     
@@ -41418,7 +41660,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 20:
                 
@@ -41501,7 +41744,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -41529,7 +41776,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
                     
@@ -41550,7 +41798,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
             
             elif comboindex5 == 21:
 
@@ -41639,7 +41888,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_1.setText(" 좌표 ")
+
+                    self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot5_mama:
 
@@ -41667,7 +41920,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_4.setText(" MAMA ")
 
                 if flag_checkBox_plot5_oe:
                     
@@ -41688,7 +41942,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
             else:
                 pass
 
@@ -41842,7 +42097,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -41870,7 +42129,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
 
@@ -41891,7 +42151,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 3:
                 
@@ -42169,8 +42430,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot6_program_curve.setData(df_supply_demand_graph['program'])
-                    self.plot6_kospi_total_curve.setData(df_supply_demand_graph['kospi_total'])
+                    self.plot6_program_curve.setData(df_demand_supply_graph['program'])
+
+                    df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
+                    df.at[0] = 0
+
+                    self.plot6_kospi_total_curve.setData(df)
                 else:
                     pass
 
@@ -42249,8 +42514,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                     
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'])
-                    self.plot6_kospi_foreigner_curve.setData(df_supply_demand_graph['kospi_foreigner'])
-                    self.plot6_futures_foreigner_curve.setData(df_supply_demand_graph['futures_foreigner'])                    
+                    self.plot6_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'])
+                    self.plot6_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'])                    
                 else:
                     pass
 
@@ -42335,7 +42600,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -42363,7 +42632,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
 
@@ -42384,7 +42654,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 14:
                 
@@ -42467,7 +42738,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -42495,7 +42770,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
 
@@ -42516,7 +42792,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass    
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")    
 
             elif comboindex6 == 15:
                 
@@ -42599,7 +42876,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -42627,7 +42908,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
 
@@ -42648,7 +42930,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 16:
                 
@@ -42731,7 +43014,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -42759,7 +43046,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
                     
@@ -42780,7 +43068,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass            
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")            
 
             elif comboindex6 == 17:
                 
@@ -42862,7 +43151,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -42890,7 +43183,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
 
@@ -42911,7 +43205,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass  
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")  
             
             elif comboindex6 == 18:
                 
@@ -42994,7 +43289,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -43022,7 +43321,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
                     
@@ -43043,7 +43343,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 19:
                 
@@ -43125,7 +43426,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -43153,7 +43458,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
                     
@@ -43174,7 +43480,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 20:
                 
@@ -43257,7 +43564,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -43285,7 +43596,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
                     
@@ -43306,7 +43618,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 21:
 
@@ -43395,7 +43708,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_1.setText(" 좌표 ")
+
+                    self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot6_mama:
 
@@ -43423,7 +43740,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_4.setText(" MAMA ")
 
                 if flag_checkBox_plot6_oe:
                     
@@ -43444,7 +43762,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass             
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")             
             else:
                 pass
 
@@ -43848,7 +44167,7 @@ class Xing(object):
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)                            
 
                             if flag_tts and (flag_call_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node):
-                                txt = 'NM Strong Call'
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
                                 self.caller.speaker.setText(txt)
                                 ToYourTelegram(txt)
@@ -43863,7 +44182,7 @@ class Xing(object):
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)
 
                             if flag_tts and (flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_kp200_high_node):
-                                txt = 'NM Strong Put'
+                                txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
                                 self.caller.speaker.setText(txt)
                                 ToYourTelegram(txt)
@@ -47339,7 +47658,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 프로그램_순매수, 프로그램_순매수직전대비
         global 선물_총순매수, 현물_총순매수
         global 수급방향, 과거_수급방향
-        global df_supply_demand_graph
+        global df_demand_supply_graph
         global plot_time_index
 
         try:
@@ -47368,10 +47687,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             순매수 = format(프로그램_순매수, ',')
 
-            df_supply_demand_graph.at[plot_time_index, 'program'] = 프로그램_순매수
-            df_supply_demand_graph.at[plot_time_index, 'kospi_total'] = 현물_총순매수
-            df_supply_demand_graph.at[plot_time_index, 'kospi_foreigner'] = 외인현물_순매수
-            df_supply_demand_graph.at[plot_time_index, 'futures_foreigner'] = 외인선물_순매수
+            df_demand_supply_graph.at[plot_time_index, 'program'] = 프로그램_순매수
+            df_demand_supply_graph.at[plot_time_index, 'kospi_total'] = 현물_총순매수
+            df_demand_supply_graph.at[plot_time_index, 'kospi_foreigner'] = 외인현물_순매수
+            df_demand_supply_graph.at[plot_time_index, 'futures_foreigner'] = 외인선물_순매수
 
             if min(temp) > 0:
 
