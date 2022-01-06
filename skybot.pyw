@@ -20958,13 +20958,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def closeEvent(self,event):
 
-        dt = datetime.now()
-
-        self.flag_score_board_open = False
+        dt = datetime.now()        
 
         result = QMessageBox.question(self,"전광판 다이얼로그 종료"," 전광판을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
         if result == QMessageBox.Yes:
+
+            self.flag_score_board_open = False
 
             self.KillScoreBoardAllThread()
             '''
