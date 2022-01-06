@@ -20962,25 +20962,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.flag_score_board_open = False
 
-        self.KillScoreBoardAllThread()
-        '''
-        if not MULTIPROCESS:
+        result = QMessageBox.question(self,"전광판 다이얼로그 종료"," 전광판을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
-            if self.parent.realtime_thread_dataworker.isRunning():
-                print('Score Board의 모든 쓰레드를 종료합니다.')
-                self.KillScoreBoardAllThread()
-                #print('모든 실시간요청 취소...')
-                #self.parent.realtime_thread_dataworker.CancelAllRealData()
+        if result == QMessageBox.Yes:
+
+            self.KillScoreBoardAllThread()
+            '''
+            if not MULTIPROCESS:
+
+                if self.parent.realtime_thread_dataworker.isRunning():
+                    print('Score Board의 모든 쓰레드를 종료합니다.')
+                    self.KillScoreBoardAllThread()
+                    #print('모든 실시간요청 취소...')
+                    #self.parent.realtime_thread_dataworker.CancelAllRealData()
+                else:
+                    pass
             else:
                 pass
-        else:
-            pass
-        '''
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.parent.textBrowser.append(txt)
-        print(txt)   
+            '''
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Score Board Dialog를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)   
 
-        self.close()
+            self.close()
+        else:
+            event.ignore()
 #####################################################################################################################################################################
 # RealTime Item UI Class
 #####################################################################################################################################################################
