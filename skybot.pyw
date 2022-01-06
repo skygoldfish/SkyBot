@@ -22665,7 +22665,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_fut_nm_quote_remainder_ratio_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot1_fut_volume_curve = self.plot1.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
@@ -22768,7 +22768,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_fut_nm_quote_remainder_ratio_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot2_fut_volume_curve = self.plot2.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_fut_volume_curve = self.plot2.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -22871,7 +22871,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_fut_nm_quote_remainder_ratio_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot3_fut_volume_curve = self.plot3.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_fut_volume_curve = self.plot3.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -22974,7 +22974,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_fut_nm_quote_remainder_ratio_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot4_fut_volume_curve = self.plot4.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot4_fut_volume_curve = self.plot4.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -23077,7 +23077,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_fut_nm_quote_remainder_ratio_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot5_fut_volume_curve = self.plot5.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_fut_volume_curve = self.plot5.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_call_volume_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
@@ -23180,7 +23180,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_fut_nm_quote_remainder_ratio_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='o', symbolSize=3)
 
         # 선옵체결
-        self.plot6_fut_volume_curve = self.plot6.plot(pen=wpen, symbolBrush='w', symbolPen='w', symbol='o', symbolSize=3)
+        self.plot6_fut_volume_curve = self.plot6.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_call_volume_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)        
 
@@ -33331,6 +33331,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
+
                     self.plot1_kospi_total_curve.setData(df)
                 else:
                     pass
