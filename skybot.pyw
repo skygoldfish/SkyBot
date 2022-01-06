@@ -32432,14 +32432,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     #####################################################################################################################################################################
     # SAR & BBAND
     #####################################################################################################################################################################
-    def Calc_SAR_BBand(self, type):
+    def Calc_BBand_SAR(self, type):
 
         global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph  
 
         if type == 'FUT':
-
-            # Parabolic SAR
-            df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['high'], dtype=float), np.array(df_futures_cm_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands            
             upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32448,10 +32445,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_futures_cm_ta_graph['BBMiddle'] = middle
             df_futures_cm_ta_graph['BBLower'] = lower
             
-        elif type == 'SP500':
-
             # Parabolic SAR
-            df_sp500_ta_graph['PSAR'] = talib.SAR(np.array(df_sp500_ta_graph['high'], dtype=float), np.array(df_sp500_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['high'], dtype=float), np.array(df_futures_cm_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            
+        elif type == 'SP500':
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_sp500_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32459,11 +32456,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_sp500_ta_graph['BBUpper'] = upper
             df_sp500_ta_graph['BBMiddle'] = middle
             df_sp500_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_sp500_ta_graph['PSAR'] = talib.SAR(np.array(df_sp500_ta_graph['high'], dtype=float), np.array(df_sp500_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'DOW':
-
-            # Parabolic SAR
-            df_dow_ta_graph['PSAR'] = talib.SAR(np.array(df_dow_ta_graph['high'], dtype=float), np.array(df_dow_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_dow_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32471,11 +32468,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_dow_ta_graph['BBUpper'] = upper
             df_dow_ta_graph['BBMiddle'] = middle
             df_dow_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_dow_ta_graph['PSAR'] = talib.SAR(np.array(df_dow_ta_graph['high'], dtype=float), np.array(df_dow_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'NASDAQ':
-
-            # Parabolic SAR
-            df_nasdaq_ta_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_ta_graph['high'], dtype=float), np.array(df_nasdaq_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32483,11 +32480,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_nasdaq_ta_graph['BBUpper'] = upper
             df_nasdaq_ta_graph['BBMiddle'] = middle
             df_nasdaq_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_nasdaq_ta_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_ta_graph['high'], dtype=float), np.array(df_nasdaq_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'HSI':
-
-            # Parabolic SAR
-            df_hangseng_ta_graph['PSAR'] = talib.SAR(np.array(df_hangseng_ta_graph['high'], dtype=float), np.array(df_hangseng_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_hangseng_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32495,11 +32492,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_hangseng_ta_graph['BBUpper'] = upper
             df_hangseng_ta_graph['BBMiddle'] = middle
             df_hangseng_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_hangseng_ta_graph['PSAR'] = talib.SAR(np.array(df_hangseng_ta_graph['high'], dtype=float), np.array(df_hangseng_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'WTI':
-
-            # Parabolic SAR
-            df_wti_ta_graph['PSAR'] = talib.SAR(np.array(df_wti_ta_graph['high'], dtype=float), np.array(df_wti_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_wti_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32507,11 +32504,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_wti_ta_graph['BBUpper'] = upper
             df_wti_ta_graph['BBMiddle'] = middle
             df_wti_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_wti_ta_graph['PSAR'] = talib.SAR(np.array(df_wti_ta_graph['high'], dtype=float), np.array(df_wti_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'GOLD':
-
-            # Parabolic SAR
-            df_gold_ta_graph['PSAR'] = talib.SAR(np.array(df_gold_ta_graph['high'], dtype=float), np.array(df_gold_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_gold_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32519,11 +32516,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_gold_ta_graph['BBUpper'] = upper
             df_gold_ta_graph['BBMiddle'] = middle
             df_gold_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_gold_ta_graph['PSAR'] = talib.SAR(np.array(df_gold_ta_graph['high'], dtype=float), np.array(df_gold_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'EURO':
-
-            # Parabolic SAR
-            df_euro_ta_graph['PSAR'] = talib.SAR(np.array(df_euro_ta_graph['high'], dtype=float), np.array(df_euro_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_euro_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32531,11 +32528,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_euro_ta_graph['BBUpper'] = upper
             df_euro_ta_graph['BBMiddle'] = middle
             df_euro_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_euro_ta_graph['PSAR'] = talib.SAR(np.array(df_euro_ta_graph['high'], dtype=float), np.array(df_euro_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'YEN':
-
-            # Parabolic SAR
-            df_yen_ta_graph['PSAR'] = talib.SAR(np.array(df_yen_ta_graph['high'], dtype=float), np.array(df_yen_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_yen_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32543,11 +32540,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_yen_ta_graph['BBUpper'] = upper
             df_yen_ta_graph['BBMiddle'] = middle
             df_yen_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_yen_ta_graph['PSAR'] = talib.SAR(np.array(df_yen_ta_graph['high'], dtype=float), np.array(df_yen_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         elif type == 'ADI':
-
-            # Parabolic SAR
-            df_adi_ta_graph['PSAR'] = talib.SAR(np.array(df_adi_ta_graph['high'], dtype=float), np.array(df_adi_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             # Bollinger Bands                
             upper, middle, lower = talib.BBANDS(np.array(df_adi_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -32555,6 +32552,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_adi_ta_graph['BBUpper'] = upper
             df_adi_ta_graph['BBMiddle'] = middle
             df_adi_ta_graph['BBLower'] = lower
+            
+            # Parabolic SAR
+            df_adi_ta_graph['PSAR'] = talib.SAR(np.array(df_adi_ta_graph['high'], dtype=float), np.array(df_adi_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
         else:
             pass
     #####################################################################################################################################################################
@@ -32963,7 +32963,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('FUT')
+                    self.Calc_BBand_SAR('FUT')
 
                     self.plot1_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
@@ -32995,7 +32995,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
+                    self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")                
+
+                if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('FUT')
+
+                    self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -33025,28 +33047,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-
-                    self.Calc_Ichimoku('FUT')
-
-                    self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 3:
                 
@@ -33469,7 +33469,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('SP500')                    
+                    self.Calc_BBand_SAR('SP500')                    
 
                     self.plot1_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
@@ -33503,6 +33503,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot1_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('SP500')
@@ -33531,28 +33553,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot1_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 14:
                 
@@ -33607,7 +33607,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('DOW')
+                    self.Calc_BBand_SAR('DOW')
 
                     self.plot1_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
@@ -33641,6 +33641,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot1_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('DOW')
@@ -33669,28 +33691,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot1_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 15:
                 
@@ -33745,7 +33745,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('NASDAQ')                    
+                    self.Calc_BBand_SAR('NASDAQ')                    
 
                     self.plot1_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
@@ -33779,6 +33779,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot1_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('NASDAQ')
@@ -33807,28 +33829,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot1_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 16:
                 
@@ -33883,7 +33883,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('HSI')
+                    self.Calc_BBand_SAR('HSI')
 
                     self.plot1_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
@@ -33917,6 +33917,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('HSI')
@@ -33945,28 +33967,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-                    
-                    self.Calc_Ichimoku('HSI')
-
-                    self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 17:
                 
@@ -34020,7 +34020,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('WTI')
+                    self.Calc_BBand_SAR('WTI')
 
                     self.plot1_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
@@ -34054,6 +34054,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot1_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('WTI')
@@ -34082,28 +34104,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-                    
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot1_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 18:
                 
@@ -34158,7 +34158,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('GOLD')
+                    self.Calc_BBand_SAR('GOLD')
 
                     self.plot1_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
@@ -34192,6 +34192,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot1_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('GOLD')
@@ -34220,28 +34242,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-                    
-                    self.Calc_Ichimoku('GOLD')
-
-                    self.plot1_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 19:
                 
@@ -34295,7 +34295,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('EURO')
+                    self.Calc_BBand_SAR('EURO')
 
                     self.plot1_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
@@ -34329,6 +34329,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot1_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('EURO')
@@ -34357,28 +34379,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-                    
-                    self.Calc_Ichimoku('EURO')
-
-                    self.plot1_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
 
             elif comboindex1 == 20:
                 
@@ -34433,7 +34433,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('YEN')
+                    self.Calc_BBand_SAR('YEN')
 
                     self.plot1_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
@@ -34467,6 +34467,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot1_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('YEN')
@@ -34495,28 +34517,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-                    
-                    self.Calc_Ichimoku('YEN')
-
-                    self.plot1_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
             
             elif comboindex1 == 21:
 
@@ -34577,7 +34577,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    self.Calc_SAR_BBand('ADI')
+                    self.Calc_BBand_SAR('ADI')
 
                     self.plot1_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'])
                     self.plot1_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
@@ -34611,6 +34611,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot1_oe:
+                    
+                    self.Calc_Ichimoku('ADI')
+
+                    self.plot1_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
+                    self.plot1_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p1_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot1_mama:
 
                     self.Calc_MAMA('ADI')
@@ -34639,28 +34661,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
-
-                if flag_checkBox_plot1_oe:
-                    
-                    self.Calc_Ichimoku('ADI')
-
-                    self.plot1_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
-                    self.plot1_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" OneEye ")
             else:
                 pass
 
@@ -34788,7 +34788,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('FUT')
+                    self.Calc_BBand_SAR('FUT')
 
                     self.plot2_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
@@ -34822,7 +34822,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
 
+                    self.Calc_Ichimoku('FUT')
+
+                    self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('FUT')
@@ -34851,28 +34872,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-
-                    self.Calc_Ichimoku('FUT')
-
-                    self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 3:
                 
@@ -35295,7 +35294,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('SP500')
+                    self.Calc_BBand_SAR('SP500')
 
                     self.plot2_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
@@ -35329,6 +35328,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('SP500')
@@ -35357,28 +35378,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
             
             elif comboindex2 == 14:
                 
@@ -35433,7 +35432,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('DOW')
+                    self.Calc_BBand_SAR('DOW')
 
                     self.plot2_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
@@ -35467,6 +35466,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot2_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('DOW')
@@ -35495,28 +35516,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot2_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")    
 
             elif comboindex2 == 15:
                 
@@ -35571,7 +35570,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('NASDAQ')
+                    self.Calc_BBand_SAR('NASDAQ')
 
                     self.plot2_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
@@ -35605,6 +35604,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot2_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('NASDAQ')
@@ -35633,28 +35654,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot2_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 16:
                 
@@ -35709,7 +35708,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('HSI')
+                    self.Calc_BBand_SAR('HSI')
 
                     self.plot2_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
@@ -35743,6 +35742,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('HSI')
@@ -35771,28 +35792,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-                    
-                    self.Calc_Ichimoku('HSI')
-
-                    self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 17:
                 
@@ -35846,7 +35845,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('WTI')
+                    self.Calc_BBand_SAR('WTI')
 
                     self.plot2_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
@@ -35880,6 +35879,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot2_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('WTI')
@@ -35908,28 +35929,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot2_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")  
             
             elif comboindex2 == 18:
                 
@@ -35984,7 +35983,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('GOLD')
+                    self.Calc_BBand_SAR('GOLD')
 
                     self.plot2_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
@@ -36014,6 +36013,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot2_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('GOLD')
@@ -36040,28 +36061,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
-
-                if flag_checkBox_plot2_oe:
-                    
-                    self.Calc_Ichimoku('GOLD')
-
-                    self.plot2_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    pass
+                    self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_4.setText(" MAMA ")
 
             elif comboindex2 == 19:
                 
@@ -36115,7 +36116,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('EURO')
+                    self.Calc_BBand_SAR('EURO')
 
                     self.plot2_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
@@ -36149,6 +36150,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot2_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('EURO')
@@ -36177,28 +36200,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-                    
-                    self.Calc_Ichimoku('EURO')
-
-                    self.plot2_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
 
             elif comboindex2 == 20:
                 
@@ -36253,7 +36254,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('YEN')
+                    self.Calc_BBand_SAR('YEN')
 
                     self.plot2_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
@@ -36287,6 +36288,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot2_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('YEN')
@@ -36315,28 +36338,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-                    
-                    self.Calc_Ichimoku('YEN')
-
-                    self.plot2_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
             
             elif comboindex2 == 21:
 
@@ -36397,7 +36398,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    self.Calc_SAR_BBand('ADI')
+                    self.Calc_BBand_SAR('ADI')
 
                     self.plot2_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'])
                     self.plot2_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
@@ -36431,6 +36432,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot2_oe:
+                    
+                    self.Calc_Ichimoku('ADI')
+
+                    self.plot2_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
+                    self.plot2_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p2_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot2_mama:
 
                     self.Calc_MAMA('ADI')
@@ -36459,28 +36482,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
-
-                if flag_checkBox_plot2_oe:
-                    
-                    self.Calc_Ichimoku('ADI')
-
-                    self.plot2_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
-                    self.plot2_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" OneEye ")
             else:
                 pass         
         
@@ -36606,7 +36607,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('FUT')
+                    self.Calc_BBand_SAR('FUT')
 
                     self.plot3_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
@@ -36640,6 +36641,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('FUT')
+
+                    self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('FUT')
@@ -36668,28 +36691,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-
-                    self.Calc_Ichimoku('FUT')
-
-                    self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 3:
                 
@@ -37110,7 +37111,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('SP500')
+                    self.Calc_BBand_SAR('SP500')
 
                     self.plot3_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
@@ -37144,6 +37145,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot3_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('SP500')
@@ -37172,28 +37195,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot3_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
             
             elif comboindex3 == 14:
                 
@@ -37248,7 +37249,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('DOW')
+                    self.Calc_BBand_SAR('DOW')
 
                     self.plot3_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
@@ -37282,7 +37283,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
 
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot3_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('DOW')
@@ -37310,29 +37332,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot3_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")    
+                    self.label_p3_4.setText(" MAMA ")    
 
             elif comboindex3 == 15:
                 
@@ -37387,7 +37387,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('NASDAQ')
+                    self.Calc_BBand_SAR('NASDAQ')
 
                     self.plot3_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
@@ -37421,6 +37421,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot3_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('NASDAQ')
@@ -37449,28 +37471,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot3_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 16:
                 
@@ -37525,7 +37525,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('HSI')
+                    self.Calc_BBand_SAR('HSI')
 
                     self.plot3_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
@@ -37559,6 +37559,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('HSI')
@@ -37587,28 +37609,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-                    
-                    self.Calc_Ichimoku('HSI')
-
-                    self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 17:
                 
@@ -37662,7 +37662,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('WTI')
+                    self.Calc_BBand_SAR('WTI')
 
                     self.plot3_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
@@ -37696,6 +37696,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot3_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('WTI')
@@ -37724,28 +37746,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot3_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ") 
             
             elif comboindex3 == 18:
                 
@@ -37800,7 +37800,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('GOLD')
+                    self.Calc_BBand_SAR('GOLD')
 
                     self.plot3_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
@@ -37834,6 +37834,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot3_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('GOLD')
@@ -37862,28 +37884,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-                    
-                    self.Calc_Ichimoku('GOLD')
-
-                    self.plot3_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 19:
                 
@@ -37937,7 +37937,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('EURO')
+                    self.Calc_BBand_SAR('EURO')
 
                     self.plot3_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
@@ -37971,6 +37971,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot3_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('EURO')
@@ -37999,28 +38021,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-                    
-                    self.Calc_Ichimoku('EURO')
-
-                    self.plot3_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
 
             elif comboindex3 == 20:
                 
@@ -38075,7 +38075,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('YEN')
+                    self.Calc_BBand_SAR('YEN')
 
                     self.plot3_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
@@ -38109,6 +38109,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot3_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('YEN')
@@ -38137,28 +38159,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-                    
-                    self.Calc_Ichimoku('YEN')
-
-                    self.plot3_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
             
             elif comboindex3 == 21:
 
@@ -38219,7 +38219,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    self.Calc_SAR_BBand('ADI')
+                    self.Calc_BBand_SAR('ADI')
 
                     self.plot3_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'])
                     self.plot3_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
@@ -38253,6 +38253,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot3_oe:
+                    
+                    self.Calc_Ichimoku('ADI')
+
+                    self.plot3_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
+                    self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p3_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot3_mama:
 
                     self.Calc_MAMA('ADI')
@@ -38281,28 +38303,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
-
-                if flag_checkBox_plot3_oe:
-                    
-                    self.Calc_Ichimoku('ADI')
-
-                    self.plot3_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
-                    self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" OneEye ")
             else:
                 pass
 
@@ -38427,7 +38427,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('FUT')
+                    self.Calc_BBand_SAR('FUT')
 
                     self.plot4_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
@@ -38461,6 +38461,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('FUT')
+
+                    self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('FUT')
@@ -38489,28 +38511,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-
-                    self.Calc_Ichimoku('FUT')
-
-                    self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 3:
                 
@@ -38933,7 +38933,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('SP500')
+                    self.Calc_BBand_SAR('SP500')
 
                     self.plot4_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
@@ -38967,6 +38967,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot4_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('SP500')
@@ -38995,28 +39017,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot4_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
             
             elif comboindex4 == 14:
                 
@@ -39071,7 +39071,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('DOW')
+                    self.Calc_BBand_SAR('DOW')
 
                     self.plot4_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
@@ -39105,6 +39105,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot4_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('DOW')
@@ -39133,28 +39155,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot4_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 15:
                 
@@ -39209,7 +39209,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('NASDAQ')
+                    self.Calc_BBand_SAR('NASDAQ')
 
                     self.plot4_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
@@ -39243,6 +39243,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot4_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('NASDAQ')
@@ -39271,28 +39293,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot4_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 16:
                 
@@ -39347,7 +39347,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('HSI')
+                    self.Calc_BBand_SAR('HSI')
 
                     self.plot4_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
@@ -39381,6 +39381,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('HSI')
@@ -39409,28 +39431,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-                    
-                    self.Calc_Ichimoku('HSI')
-
-                    self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 17:
                 
@@ -39484,7 +39484,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('WTI')
+                    self.Calc_BBand_SAR('WTI')
 
                     self.plot4_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
@@ -39518,6 +39518,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot4_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('WTI')
@@ -39546,28 +39568,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot4_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
             
             elif comboindex4 == 18:
                 
@@ -39622,7 +39622,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('GOLD')
+                    self.Calc_BBand_SAR('GOLD')
 
                     self.plot4_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
@@ -39656,6 +39656,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot4_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('GOLD')
@@ -39684,28 +39706,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-                    
-                    self.Calc_Ichimoku('GOLD')
-
-                    self.plot4_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 19:
                 
@@ -39759,7 +39759,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('EURO')
+                    self.Calc_BBand_SAR('EURO')
 
                     self.plot4_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
@@ -39793,6 +39793,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot4_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('EURO')
@@ -39821,28 +39843,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-                    
-                    self.Calc_Ichimoku('EURO')
-
-                    self.plot4_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
 
             elif comboindex4 == 20:
                 
@@ -39897,7 +39897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('YEN')
+                    self.Calc_BBand_SAR('YEN')
 
                     self.plot4_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
@@ -39931,6 +39931,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot4_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('YEN')
@@ -39959,28 +39981,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-                    
-                    self.Calc_Ichimoku('YEN')
-
-                    self.plot4_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
             
             elif comboindex4 == 21:
 
@@ -40041,7 +40041,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    self.Calc_SAR_BBand('ADI')
+                    self.Calc_BBand_SAR('ADI')
 
                     self.plot4_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'])
                     self.plot4_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
@@ -40075,6 +40075,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot4_oe:
+                    
+                    self.Calc_Ichimoku('ADI')
+
+                    self.plot4_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
+                    self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p4_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot4_mama:
 
                     self.Calc_MAMA('ADI')
@@ -40103,28 +40125,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
-
-                if flag_checkBox_plot4_oe:
-                    
-                    self.Calc_Ichimoku('ADI')
-
-                    self.plot4_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
-                    self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" OneEye ")
             else:
                 pass
             
@@ -40250,7 +40250,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('FUT')
+                    self.Calc_BBand_SAR('FUT')
 
                     self.plot5_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
@@ -40284,6 +40284,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('FUT')
+
+                    self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('FUT')
@@ -40312,28 +40334,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-
-                    self.Calc_Ichimoku('FUT')
-
-                    self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 3:
                 
@@ -40753,7 +40753,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('SP500')
+                    self.Calc_BBand_SAR('SP500')
 
                     self.plot5_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
@@ -40787,6 +40787,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot5_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('SP500')
@@ -40815,28 +40837,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot5_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
             
             elif comboindex5 == 14:
                 
@@ -40891,7 +40891,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('DOW')
+                    self.Calc_BBand_SAR('DOW')
 
                     self.plot5_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
@@ -40925,6 +40925,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot5_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('DOW')
@@ -40952,29 +40974,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot5_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")  
+                    self.label_p5_4.setText(" MAMA ") 
 
             elif comboindex5 == 15:
                 
@@ -41029,7 +41029,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('NASDAQ')
+                    self.Calc_BBand_SAR('NASDAQ')
 
                     self.plot5_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
@@ -41063,6 +41063,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot5_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('NASDAQ')
@@ -41091,28 +41113,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot5_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 16:
                 
@@ -41167,7 +41167,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('HSI')
+                    self.Calc_BBand_SAR('HSI')
 
                     self.plot5_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
@@ -41201,6 +41201,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('HSI')
@@ -41229,28 +41251,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-                    
-                    self.Calc_Ichimoku('HSI')
-
-                    self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 17:
                 
@@ -41304,7 +41304,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('WTI')
+                    self.Calc_BBand_SAR('WTI')
 
                     self.plot5_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
@@ -41338,6 +41338,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot5_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('WTI')
@@ -41366,28 +41388,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot5_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ") 
             
             elif comboindex5 == 18:
                 
@@ -41442,7 +41442,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('GOLD')
+                    self.Calc_BBand_SAR('GOLD')
 
                     self.plot5_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
@@ -41476,6 +41476,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot5_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('GOLD')
@@ -41504,28 +41526,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-                    
-                    self.Calc_Ichimoku('GOLD')
-
-                    self.plot5_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 19:
                 
@@ -41579,7 +41579,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('EURO')
+                    self.Calc_BBand_SAR('EURO')
 
                     self.plot5_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
@@ -41613,6 +41613,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot5_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('EURO')
@@ -41641,28 +41663,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-                    
-                    self.Calc_Ichimoku('EURO')
-
-                    self.plot5_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
 
             elif comboindex5 == 20:
                 
@@ -41717,7 +41717,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('YEN')
+                    self.Calc_BBand_SAR('YEN')
 
                     self.plot5_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
@@ -41751,6 +41751,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot5_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('YEN')
@@ -41779,28 +41801,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-                    
-                    self.Calc_Ichimoku('YEN')
-
-                    self.plot5_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
             
             elif comboindex5 == 21:
 
@@ -41861,7 +41861,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    self.Calc_SAR_BBand('ADI')
+                    self.Calc_BBand_SAR('ADI')
 
                     self.plot5_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'])
                     self.plot5_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
@@ -41895,6 +41895,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot5_oe:
+                    
+                    self.Calc_Ichimoku('ADI')
+
+                    self.plot5_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
+                    self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p5_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot5_mama:
 
                     self.Calc_MAMA('ADI')
@@ -41923,28 +41945,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
-
-                if flag_checkBox_plot5_oe:
-                    
-                    self.Calc_Ichimoku('ADI')
-
-                    self.plot5_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
-                    self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" OneEye ")
             else:
                 pass
 
@@ -42070,7 +42070,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('FUT')
+                    self.Calc_BBand_SAR('FUT')
 
                     self.plot6_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
@@ -42104,6 +42104,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('FUT')
+
+                    self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('FUT')
@@ -42132,28 +42154,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('FUT')
-
-                    self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 3:
                 
@@ -42573,7 +42573,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('SP500')
+                    self.Calc_BBand_SAR('SP500')
 
                     self.plot6_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
@@ -42607,6 +42607,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('SP500')
+
+                    self.plot6_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('SP500')
@@ -42635,28 +42657,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('SP500')
-
-                    self.plot6_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 14:
                 
@@ -42711,7 +42711,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('DOW')
+                    self.Calc_BBand_SAR('DOW')
 
                     self.plot6_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
@@ -42745,6 +42745,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('DOW')
+
+                    self.plot6_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('DOW')
@@ -42772,29 +42794,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('DOW')
-
-                    self.plot6_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")    
+                    self.label_p6_4.setText(" MAMA ")  
 
             elif comboindex6 == 15:
                 
@@ -42849,7 +42849,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('NASDAQ')
+                    self.Calc_BBand_SAR('NASDAQ')
 
                     self.plot6_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
@@ -42883,6 +42883,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('NASDAQ')
+
+                    self.plot6_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('NASDAQ')
@@ -42911,28 +42933,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('NASDAQ')
-
-                    self.plot6_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 16:
                 
@@ -42987,7 +42987,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('HSI')
+                    self.Calc_BBand_SAR('HSI')
 
                     self.plot6_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
@@ -43021,6 +43021,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('HSI')
+
+                    self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('HSI')
@@ -43048,29 +43070,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-                    
-                    self.Calc_Ichimoku('HSI')
-
-                    self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")            
+                    self.label_p6_4.setText(" MAMA ")         
 
             elif comboindex6 == 17:
                 
@@ -43124,7 +43124,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('WTI')
+                    self.Calc_BBand_SAR('WTI')
 
                     self.plot6_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
@@ -43158,6 +43158,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+
+                    self.Calc_Ichimoku('WTI')
+
+                    self.plot6_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('WTI')
@@ -43186,28 +43208,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-
-                    self.Calc_Ichimoku('WTI')
-
-                    self.plot6_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")  
             
             elif comboindex6 == 18:
                 
@@ -43262,7 +43262,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('GOLD')
+                    self.Calc_BBand_SAR('GOLD')
 
                     self.plot6_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
@@ -43296,6 +43296,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('GOLD')
+
+                    self.plot6_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('GOLD')
@@ -43324,28 +43346,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-                    
-                    self.Calc_Ichimoku('GOLD')
-
-                    self.plot6_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 19:
                 
@@ -43399,7 +43399,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('EURO')
+                    self.Calc_BBand_SAR('EURO')
 
                     self.plot6_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
@@ -43433,6 +43433,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('EURO')
+
+                    self.plot6_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('EURO')
@@ -43461,28 +43483,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-                    
-                    self.Calc_Ichimoku('EURO')
-
-                    self.plot6_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 20:
                 
@@ -43537,7 +43537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('YEN')
+                    self.Calc_BBand_SAR('YEN')
 
                     self.plot6_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
@@ -43571,6 +43571,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('YEN')
+
+                    self.plot6_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('YEN')
@@ -43599,28 +43621,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-                    
-                    self.Calc_Ichimoku('YEN')
-
-                    self.plot6_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")
 
             elif comboindex6 == 21:
 
@@ -43681,7 +43681,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_SAR_BBand('ADI')
+                    self.Calc_BBand_SAR('ADI')
 
                     self.plot6_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
@@ -43715,6 +43715,28 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
+                if flag_checkBox_plot6_oe:
+                    
+                    self.Calc_Ichimoku('ADI')
+
+                    self.plot6_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
+                    self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
+
+                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
+
+                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
+                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                        else:
+                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
+                        self.label_p6_3.setText(txt)
+                    else:
+                        pass
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" OneEye ")
+                
                 if flag_checkBox_plot6_mama:
 
                     self.Calc_MAMA('ADI')
@@ -43742,29 +43764,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
-
-                if flag_checkBox_plot6_oe:
-                    
-                    self.Calc_Ichimoku('ADI')
-
-                    self.plot6_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'])
-                    self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'])
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" OneEye ")             
+                    self.label_p6_4.setText(" MAMA ")             
             else:
                 pass
 
