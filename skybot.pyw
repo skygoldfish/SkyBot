@@ -4451,7 +4451,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                     print(widget_title)
-                    ToYourTelegram("{0}월 만기 주간 SkyBot이 실행되었습니다.".format(current_month))
+                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
 
                 elif TARGET_MONTH == 'NM':
 
@@ -4460,7 +4460,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                    ToYourTelegram("{0}월 만기 주간 SkyBot이 실행되었습니다.".format(next_month))
+                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
 
                 else:
                     pass
@@ -4476,7 +4476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(next_month))
+                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
 
                         print('next_month =', next_month)
 
@@ -4487,7 +4487,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(month_after_next))
+                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, month_after_next))
                     else:
                         pass
                 else:
@@ -4498,7 +4498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(current_month))
+                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
 
                     elif TARGET_MONTH == 'NM':
 
@@ -4507,7 +4507,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                        ToYourTelegram("{0}월 만기 야간 SkyBot이 실행되었습니다.".format(next_month))
+                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
 
                     else:
                         pass
@@ -20964,6 +20964,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if result == QMessageBox.Yes:
 
+            event.accept()
+
             self.flag_score_board_open = False
 
             self.KillScoreBoardAllThread()
@@ -22619,22 +22621,23 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         pg.setConfigOptions(antialias=True)
 
         self.plot1.enableAutoRange('y', True)
-        self.plot1.plotItem.showGrid(True, True, 0.5)
+        self.plot1.showGrid(True, True, 0.5)
+        #self.plot1_legend = self.plot1.addLegend()
 
         self.plot2.enableAutoRange('y', True)
-        self.plot2.plotItem.showGrid(True, True, 0.5)        
+        self.plot2.showGrid(True, True, 0.5)        
 
         self.plot3.enableAutoRange('y', True)
-        self.plot3.plotItem.showGrid(True, True, 0.5)        
+        self.plot3.showGrid(True, True, 0.5)        
 
         self.plot4.enableAutoRange('y', True)
-        self.plot4.plotItem.showGrid(True, True, 0.5)       
+        self.plot4.showGrid(True, True, 0.5)       
 
         self.plot5.enableAutoRange('y', True)
-        self.plot5.plotItem.showGrid(True, True, 0.5)
+        self.plot5.showGrid(True, True, 0.5)
 
         self.plot6.enableAutoRange('y', True)
-        self.plot6.plotItem.showGrid(True, True, 0.5)
+        self.plot6.showGrid(True, True, 0.5)
 
         if flag_plot_sync_mode:
             self.plot2.setXLink(self.plot1)
@@ -22672,7 +22675,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 선옵체결
         self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3, name='call vol')
         self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
         self.plot1_center_val_lower_line = self.plot1.addLine(x=None, pen=skyblue_pen)
@@ -24756,7 +24759,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_oe_base_curve.clear()
 
     def plot1_clear(self):
-
+        '''
+        if self.plot1_legend is not None:
+            self.plot1_legend.scene().removeItem(self.plot1_legend)
+            print('plot1_legend is not None\r')
+        else:
+            print('plot1_legend is None\r')
+        '''
         # Line Clear
         self.plot1_fut_jl_line.setValue(0)
         self.plot1_fut_jh_line.setValue(0)
@@ -25052,7 +25061,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 선옵체결 --> 수급
         elif comboindex1 == 4:
-
+            '''
+            if self.plot1_legend is None:
+                self.plot1_legend = self.plot1.addLegend()
+                print('plot1_legend create...\r')
+            '''
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
             self.label_13.setText(" - ")
@@ -34682,10 +34695,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:                
                 if flag_call_low_in_fixed_coreval:
                     self.label_time_1.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' [{0:d}], ♦ CL({1}) {2:.2f} ms '.format(plot_time_index, call_low_val_in_fixed_coreval, plot1_processing_time)
+                    txt = ' [{0:02d}:{1:02d}:{2:02d}] ♦ CL({3}) {4:.2f} ms '.format(dt.hour, dt.minute, dt.second, call_low_val_in_fixed_coreval, plot1_processing_time)
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' [{0:d}], {1:.2f} ms '.format(plot_time_index, plot1_processing_time)    
+                    txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)    
    
             self.label_time_1.setText(txt)
 
@@ -43798,38 +43811,46 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         dt = datetime.now()
 
-        self.flag_big_chart_open = False
+        result = QMessageBox.question(self,"Sky Chart 다이얼로그 종료"," Sky Chart를 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
-        self.comboBox1.setCurrentIndex(0)
-        self.comboBox2.setCurrentIndex(0)
-        self.comboBox3.setCurrentIndex(0)
-        self.comboBox4.setCurrentIndex(0)
-        self.comboBox5.setCurrentIndex(0)
-        self.comboBox6.setCurrentIndex(0)
+        if result == QMessageBox.Yes:
 
-        if self.timer1.isActive():
-            self.timer1.stop()
+            event.accept()
 
-        if self.timer2.isActive():
-            self.timer2.stop()
+            self.flag_big_chart_open = False
 
-        if self.timer3.isActive():
-            self.timer3.stop()
+            self.comboBox1.setCurrentIndex(0)
+            self.comboBox2.setCurrentIndex(0)
+            self.comboBox3.setCurrentIndex(0)
+            self.comboBox4.setCurrentIndex(0)
+            self.comboBox5.setCurrentIndex(0)
+            self.comboBox6.setCurrentIndex(0)
 
-        if self.timer4.isActive():
-            self.timer4.stop()
+            if self.timer1.isActive():
+                self.timer1.stop()
 
-        if self.timer5.isActive():
-            self.timer5.stop()
+            if self.timer2.isActive():
+                self.timer2.stop()
 
-        if self.timer6.isActive():
-            self.timer6.stop()        
+            if self.timer3.isActive():
+                self.timer3.stop()
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Close합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.parent.textBrowser.append(txt)
-        print(txt)
+            if self.timer4.isActive():
+                self.timer4.stop()
 
-        self.close()        
+            if self.timer5.isActive():
+                self.timer5.stop()
+
+            if self.timer6.isActive():
+                self.timer6.stop()        
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 Close합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+            self.close()
+        else:
+            event.ignore()        
          
     def __del__(self):
 
@@ -52635,8 +52656,6 @@ if __name__ == "__main__":
         pass
     else:
         pass
-
-    #ToYourTelegram("SkyBot이 실행되었습니다.")
     
     # 1.로그 인스턴스를 만든다.
     logger = logging.getLogger('skybot')
