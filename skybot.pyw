@@ -237,8 +237,6 @@ SP500_고가 = 0
 SP500_진폭 = 0
 SP500_진폭_틱 = 0
 
-SP500_FUT_시가_등락율비 = 1
-
 DOW_전저 = 0
 DOW_전고 = 0
 DOW_종가 = 0
@@ -1054,6 +1052,8 @@ if FUT_전일종가 > 0:
     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
 else:
     plot_drate_scale_factor = 12
+
+SP500_FUT_시가_등락율비 = plot_drate_scale_factor
 
 print('plot_drate_scale_factor =', plot_drate_scale_factor)
 
@@ -22621,23 +22621,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         pg.setConfigOptions(antialias=True)
 
         self.plot1.enableAutoRange('y', True)
-        self.plot1.showGrid(True, True, 0.5)
+        self.plot1.showGrid(True, True, 0.5)        
         #self.plot1_legend = self.plot1.addLegend()
+        self.plot1_legend = None
 
         self.plot2.enableAutoRange('y', True)
-        self.plot2.showGrid(True, True, 0.5)        
+        self.plot2.showGrid(True, True, 0.5)
+        self.plot2_legend = None
 
         self.plot3.enableAutoRange('y', True)
-        self.plot3.showGrid(True, True, 0.5)        
+        self.plot3.showGrid(True, True, 0.5)
+        self.plot3_legend = None 
 
         self.plot4.enableAutoRange('y', True)
-        self.plot4.showGrid(True, True, 0.5)       
+        self.plot4.showGrid(True, True, 0.5)
+        self.plot4_legend = None
 
         self.plot5.enableAutoRange('y', True)
         self.plot5.showGrid(True, True, 0.5)
+        self.plot5_legend = None
 
         self.plot6.enableAutoRange('y', True)
         self.plot6.showGrid(True, True, 0.5)
+        self.plot6_legend = None
 
         if flag_plot_sync_mode:
             self.plot2.setXLink(self.plot1)
@@ -22675,7 +22681,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         # 선옵체결
         self.plot1_fut_volume_curve = self.plot1.plot(pen=gpen, symbolBrush=lime, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3, name='call vol')
+        self.plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)           
 
         self.plot1_center_val_lower_line = self.plot1.addLine(x=None, pen=skyblue_pen)
@@ -24758,14 +24764,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_oe_conv_curve.clear()
             self.plot6_oe_base_curve.clear()
 
-    def plot1_clear(self):
-        '''
-        if self.plot1_legend is not None:
-            self.plot1_legend.scene().removeItem(self.plot1_legend)
-            print('plot1_legend is not None\r')
-        else:
-            print('plot1_legend is None\r')
-        '''
+    def plot1_clear(self):        
+
         # Line Clear
         self.plot1_fut_jl_line.setValue(0)
         self.plot1_fut_jh_line.setValue(0)
@@ -25060,12 +25060,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_option_quote_remainder_ratio_upper_line.setValue(1.0)
 
         # 선옵체결 --> 수급
-        elif comboindex1 == 4:
-            '''
-            if self.plot1_legend is None:
-                self.plot1_legend = self.plot1.addLegend()
-                print('plot1_legend create...\r')
-            '''
+        elif comboindex1 == 4:              
+
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
             self.label_13.setText(" - ")
@@ -47988,7 +47984,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if DayTime:
                         if abs(SP500_시가_등락율) > 0:
-                            SP500_FUT_시가_등락율비 = (int(abs(근월물_선물_시가등락율 / SP500_시가_등락율)) + 1) * 5
+                            SP500_FUT_시가_등락율비 = int(abs(근월물_선물_시가등락율 / SP500_시가_등락율)) * 10
                         else:
                             SP500_FUT_시가_등락율비 = plot_drate_scale_factor
                     else:
@@ -48043,7 +48039,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if DayTime:
                         if abs(SP500_시가_등락율) > 0:
-                            SP500_FUT_시가_등락율비 = int(abs(차월물_선물_시가등락율 / SP500_시가_등락율)) + 1
+                            SP500_FUT_시가_등락율비 = int(abs(차월물_선물_시가등락율 / SP500_시가_등락율)) * 10
                         else:
                             SP500_FUT_시가_등락율비 = plot_drate_scale_factor
                     else:
