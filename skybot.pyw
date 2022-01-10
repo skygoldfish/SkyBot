@@ -2192,6 +2192,7 @@ schedule_sec = 0
 
 flag_option_periodic_update_mode = OPTION_PERIODIC_UPDATE
 flag_plot_sync_mode = PLOT_SYNC_MODE
+flag_telegram_service = TELEGRAM_SERVICE
 
 flag_drop_reset1 = False
 flag_drop_reset2 = False
@@ -21090,7 +21091,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
         self.checkBox_tts.setChecked(flag_tts)
-        self.checkBox_plot_first.setChecked(flag_plot_sync_mode)
+        self.checkBox_plot_sync.setChecked(flag_plot_sync_mode)
+        self.checkBox_telegram.setChecked(flag_telegram_service)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -21146,7 +21148,8 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.checkBox_periodic_plot.stateChanged.connect(self.checkBox_periodic_plot_state_change)
         self.checkBox_tts.stateChanged.connect(self.checkBox_tts_state_change)
-        self.checkBox_plot_first.stateChanged.connect(self.checkBox_plot_first_state_change)
+        self.checkBox_plot_sync.stateChanged.connect(self.checkBox_plot_sync_state_change)
+        self.checkBox_telegram.stateChanged.connect(self.checkBox_telegram_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -22175,14 +22178,14 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             self.parent.textBrowser.append(txt)
             print(txt)
 
-    def checkBox_plot_first_state_change(self):
+    def checkBox_plot_sync_state_change(self):
 
         dt = datetime.now()
 
         global flag_plot_sync_mode
         #global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start
 
-        if self.checkBox_plot_first.isChecked() == True:
+        if self.checkBox_plot_sync.isChecked() == True:
 
             flag_plot_sync_mode = True
 
@@ -22221,7 +22224,27 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             else:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Sky Chart를 열어주세요.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
-                print(txt)            
+                print(txt) 
+
+    def checkBox_telegram_state_change(self):
+
+        dt = datetime.now()
+
+        global flag_telegram_service
+
+        if self.checkBox_telegram.isChecked() == True:
+
+            flag_telegram_service = True
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Service 모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_telegram_service = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Service 모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
 
     def closeEvent(self,event):
 
@@ -44004,8 +44027,9 @@ class Xing(object):
                             txt = '과매도 구간진입'
                             self.caller.speaker.setText(txt)
 
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(send_txt)
+                            if flag_telegram_service:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
                         else:
                             pass
 
@@ -44013,8 +44037,9 @@ class Xing(object):
                             txt = '과매수 구간진입'
                             self.caller.speaker.setText(txt)
 
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Over Call...\r".format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(send_txt)
+                            if flag_telegram_service:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Over Call...\r".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
                         else:
                             pass
                     else:
@@ -44023,8 +44048,10 @@ class Xing(object):
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_under_call:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
-                            ToYourTelegram(send_txt)
+
+                            if flag_telegram_service:
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
+                                ToYourTelegram(send_txt)
                         else:
                             pass
 
@@ -44053,7 +44080,9 @@ class Xing(object):
 
                         if send_txt != '':
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                            ToYourTelegram(send_txt)
+
+                            if flag_telegram_service:
+                                ToYourTelegram(send_txt)
                         else:
                             pass                        
 
@@ -44063,12 +44092,16 @@ class Xing(object):
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                                ToYourTelegram(send_txt)
+
+                                if flag_telegram_service:
+                                    ToYourTelegram(send_txt)
                             elif 콜잔량비 < 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                                ToYourTelegram(send_txt)
+
+                                if flag_telegram_service:
+                                    ToYourTelegram(send_txt)
                             else:
                                 pass
                         else:
@@ -44079,42 +44112,54 @@ class Xing(object):
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 9 and dt.minute == 30 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        ToYourTelegram(send_txt)
+
+                        if flag_telegram_service:
+                            ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 0 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        ToYourTelegram(send_txt)
+
+                        if flag_telegram_service:
+                            ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 10 and dt.minute == 30 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        ToYourTelegram(send_txt)
+
+                        if flag_telegram_service:
+                            ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 0 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        ToYourTelegram(send_txt)
+
+                        if flag_telegram_service:
+                            ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 11 and dt.minute == 30 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        ToYourTelegram(send_txt)
+
+                        if flag_telegram_service:
+                            ToYourTelegram(send_txt)
                     else:
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.hour == 12 and dt.minute == 0 and dt.second == 5:
                         send_txt = "[{0:02d}:{1:02d}:{2:02d}] � Rx Packet Size : {3} KByte\r".format(dt.hour, dt.minute, dt.second, int(total_packet_size/1000))
                         self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        ToYourTelegram(send_txt)
+
+                        if flag_telegram_service:
+                            ToYourTelegram(send_txt)
                     else:
                         pass
 
@@ -44133,7 +44178,9 @@ class Xing(object):
 
                         if send_txt != '':
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                            ToYourTelegram(send_txt)
+
+                            if flag_telegram_service:
+                                ToYourTelegram(send_txt)
                         else:
                             pass
 
@@ -44143,12 +44190,16 @@ class Xing(object):
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                                ToYourTelegram(send_txt)
+
+                                if flag_telegram_service:
+                                    ToYourTelegram(send_txt)
                             elif 콜잔량비 < 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 풋우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                                ToYourTelegram(send_txt)
+
+                                if flag_telegram_service:
+                                    ToYourTelegram(send_txt)
                             else:
                                 pass
                         else:
@@ -44207,7 +44258,9 @@ class Xing(object):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
                                 self.caller.speaker.setText(txt)
-                                ToYourTelegram(txt)
+
+                                if flag_telegram_service:
+                                    ToYourTelegram(txt)
                             else:
                                 pass
                         else:
@@ -44222,7 +44275,9 @@ class Xing(object):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
                                 self.caller.speaker.setText(txt)
-                                ToYourTelegram(txt)
+
+                                if flag_telegram_service:
+                                    ToYourTelegram(txt)
                             else:
                                 pass
                         else:
@@ -47843,7 +47898,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if 수급방향 != 과거_수급방향:
                     send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 수급방향이 {3}에서 {4}로 바뀜 ★\r".format(dt.hour, dt.minute, dt.second, 과거_수급방향, 수급방향)
                     self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                    ToYourTelegram(send_txt)
+
+                    if flag_telegram_service:
+                        ToYourTelegram(send_txt)
 
                     if 수급방향 == 'Call':
                         speak_txt = '콜'
