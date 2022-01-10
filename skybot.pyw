@@ -22755,7 +22755,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.plot1.addItem(self.plot1_vLine, ignoreBounds=True)
             self.plot1.addItem(self.plot1_hLine, ignoreBounds=True)
-            self.plot1.setMouseTracking(True)
+            #self.cursorlabel1 = TextItem(anchor=(0,0), border=pg.mkPen(200, 200, 200))
+            #self.plot1.addItem(self.cursorlabel1)
+            self.plot1.setMouseTracking(True)            
             self.plot1.scene().sigMouseClicked.connect(self.plot1_mouseClicked)
             #self.plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)            
         else:
@@ -23645,6 +23647,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.plot1_vLine.setPos(mousePoint.x())
             self.plot1_hLine.setPos(mousePoint.y())
+
+            #self.cursorlabel1.setHtml("<p style='color:white'>X: {0} <br> Y: {1}</p>".format(plot1_x, plot1_y))
 
             txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)            
             self.label_p1_1.setText(txt)
@@ -33012,7 +33016,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")                
@@ -33518,7 +33522,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -33656,7 +33660,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -33794,7 +33798,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -33932,7 +33936,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -34069,7 +34073,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -34207,7 +34211,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -34344,7 +34348,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -34482,7 +34486,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -34626,7 +34630,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p1_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_1.setText(" 좌표 ")
+                    #self.label_p1_1.setText(" 좌표 ")
 
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -34837,7 +34841,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -35343,7 +35347,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -35481,7 +35485,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -35619,7 +35623,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -35757,7 +35761,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -35894,7 +35898,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -36031,7 +36035,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
-                    pass
+                    self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    #self.label_p2_1.setText(" 좌표 ")
+
+                    self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
 
                 if flag_checkBox_plot2_oe:
                     
@@ -36165,7 +36173,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -36303,7 +36311,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -36447,7 +36455,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p2_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_1.setText(" 좌표 ")
+                    #self.label_p2_1.setText(" 좌표 ")
 
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -36656,7 +36664,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37160,7 +37168,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37298,7 +37306,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37436,7 +37444,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37574,7 +37582,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37711,7 +37719,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37849,7 +37857,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -37986,7 +37994,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -38124,7 +38132,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -38268,7 +38276,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p3_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_1.setText(" 좌표 ")
+                    #self.label_p3_1.setText(" 좌표 ")
 
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -38476,7 +38484,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -38982,7 +38990,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39120,7 +39128,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39258,7 +39266,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39396,7 +39404,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39533,7 +39541,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39671,7 +39679,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39808,7 +39816,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -39946,7 +39954,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -40090,7 +40098,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p4_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_1.setText(" 좌표 ")
+                    #self.label_p4_1.setText(" 좌표 ")
 
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -40299,7 +40307,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -40802,7 +40810,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -40940,7 +40948,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41078,7 +41086,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41216,7 +41224,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41353,7 +41361,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41491,7 +41499,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41628,7 +41636,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41766,7 +41774,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -41910,7 +41918,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p5_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_1.setText(" 좌표 ")
+                    #self.label_p5_1.setText(" 좌표 ")
 
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -42119,7 +42127,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -42622,7 +42630,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -42760,7 +42768,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -42898,7 +42906,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -43036,7 +43044,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -43173,7 +43181,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -43311,7 +43319,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -43448,7 +43456,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -43586,7 +43594,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
@@ -43730,7 +43738,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
                 else:
                     self.label_p6_1.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_1.setText(" 좌표 ")
+                    #self.label_p6_1.setText(" 좌표 ")
 
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower\n PSAR ")
