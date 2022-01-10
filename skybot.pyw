@@ -2234,6 +2234,8 @@ euro_tick_value = 0.00005
 yen_tick_value = 0.5
 adi_tick_value = 0.00005
 
+main_close_event = None
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -20960,7 +20962,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()        
 
-        result = QMessageBox.question(self,"전광판 다이얼로그 종료"," 전광판을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
+        if main_close_event is None:
+            result = QMessageBox.question(self,"전광판 다이얼로그 종료"," 전광판을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
+        else:
+            result = main_close_event
 
         if result == QMessageBox.Yes:
 
@@ -43807,9 +43812,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         dt = datetime.now()
 
-        result = QMessageBox.question(self,"Sky Chart 다이얼로그 종료"," Sky Chart를 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
+        #result = QMessageBox.question(self,"Sky Chart 다이얼로그 종료"," Sky Chart를 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
-        if result == QMessageBox.Yes:
+        if True:
 
             event.accept()
 
@@ -52405,11 +52410,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def closeEvent(self,event):
 
+        global main_close_event
+
         dt = datetime.now()
 
-        result = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
+        main_close_event = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
-        if result == QMessageBox.Yes:
+        if main_close_event == QMessageBox.Yes:
 
             event.accept()
 
