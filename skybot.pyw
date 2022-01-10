@@ -46493,10 +46493,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 근월물_선물_고가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
-                df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_시가
+                df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
+                df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_시가                
 
                 # 1T OHLC 생성
-                df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
+                #if plot_time_index != old_cme_time_index:
+                if True:
+                    df_futures_cm_ta_graph['high'].fillna(method='bfill', inplace=True) 
+                    df_futures_cm_ta_graph['low'].fillna(method='bfill', inplace=True)
+                    df_futures_cm_ta_graph['middle'].fillna(method='bfill', inplace=True) 
+                    df_futures_cm_ta_graph['close'].fillna(method='bfill', inplace=True)
+                else:
+                    pass
+                
+                if not np.isnan(근월물_선물_현재가):    
+                    df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_시가 
 
                 if cme_plot_sec == 0:
 
@@ -46506,8 +46517,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_graph.at[plot_time_index, 'high'] = 근월물_선물_시가
                         df_futures_cm_graph.at[plot_time_index, 'low'] = 근월물_선물_시가
                         df_futures_cm_graph.at[plot_time_index, 'middle'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_시가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -46542,7 +46551,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_futures_cm_ohlc_open = False
 
-                df_futures_cm_graph.at[plot_time_index, 'middle'] = (df_futures_cm_graph.at[plot_time_index, 'high'] + df_futures_cm_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_cm_graph.at[plot_time_index, 'middle'] = (df_futures_cm_graph.at[plot_time_index, 'high'] + df_futures_cm_graph.at[plot_time_index, 'low']) / 2
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
