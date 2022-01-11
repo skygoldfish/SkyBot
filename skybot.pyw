@@ -1898,11 +1898,13 @@ SP500_주간_시작가 = 0
 DOW_주간_시작가 = 0
 NASDAQ_주간_시작가 = 0
 WTI_주간_시작가 = 0
+ADI_주간_시작가 = 0
 
 SP500_야간_시작가 = 0
 DOW_야간_시작가 = 0
 NASDAQ_야간_시작가 = 0
 WTI_야간_시작가 = 0
+ADI_야간_시작가 = 0
 
 장시작_양합 = 0
 
@@ -46199,8 +46201,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def jif_update(self, tickdata):
 
-        global SP500_주간_시작가, DOW_주간_시작가, NASDAQ_주간_시작가, WTI_주간_시작가
-        global SP500_야간_시작가, DOW_야간_시작가, NASDAQ_야간_시작가, WTI_야간_시작가
+        global SP500_주간_시작가, DOW_주간_시작가, NASDAQ_주간_시작가, WTI_주간_시작가, ADI_주간_시작가
+        global SP500_야간_시작가, DOW_야간_시작가, NASDAQ_야간_시작가, WTI_야간_시작가, ADI_야간_시작가
         global flag_market_service, service_terminate, jugan_service_terminate, flag_option_start, receive_quote
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start, dongsi_quote
 
@@ -46248,6 +46250,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 DOW_주간_시작가 = DOW_현재가
                 NASDAQ_주간_시작가 = NASDAQ_현재가
                 WTI_주간_시작가 = WTI_현재가
+                ADI_주간_시작가 = ADI_현재가
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -46265,7 +46268,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_주간_시작가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] ADI 주간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, ADI_주간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
@@ -46328,6 +46331,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 DOW_야간_시작가 = DOW_현재가
                 NASDAQ_야간_시작가 = NASDAQ_현재가
                 WTI_야간_시작가 = WTI_현재가
+                ADI_야간_시작가 = ADI_현재가
 
                 jisu_txt = "S&P 500 야간시작가: {0}".format(SP500_야간_시작가)
 
@@ -46347,12 +46351,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                jisu_txt = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
+                jisu_txt = "ADI 야간시작가: {0}".format(ADI_야간_시작가)
 
                 self.dialog['선물옵션전광판'].label_6th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.dialog['선물옵션전광판'].label_6th_index.setText(jisu_txt)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, WTI_야간_시작가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] ADI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, ADI_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
