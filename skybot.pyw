@@ -3999,7 +3999,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                             QPushButton:hover {background-color: black; color: white} \
                                             QPushButton:pressed {background-color: gold}')
 
-        self.pushButton_telegram.setStyleSheet('QPushButton \
+        self.pushButton_scrshot.setStyleSheet('QPushButton \
                                             {background-color: \
                                             qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
                                             color: yellow; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px} \
@@ -4008,20 +4008,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         if not DARK_STYLESHEET:
             self.pushButton_start.setFont(QFont("Consolas", 10, QFont.Bold))
-            self.pushButton_telegram.setFont(QFont("Consolas", 10, QFont.Bold))
+            self.pushButton_scrshot.setFont(QFont("Consolas", 10, QFont.Bold))
         else:
             pass
         '''        
         self.pushButton_start.setText(' Start ')          
-        self.pushButton_telegram.setText(' Telegram ')
+        #self.pushButton_scrshot.setText(' ScrShot ')
         
-        #self.pushButton_telegram.setCheckable(True)
-        #self.pushButton_telegram.toggle()
+        #self.pushButton_scrshot.setCheckable(True)
+        #self.pushButton_scrshot.toggle()
 
         self.exceptionOccurred.connect(self.on_exceptionOccurred)
 
         self.pushButton_start.clicked.connect(self.start_button_clicked)
-        self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
+        self.pushButton_scrshot.clicked.connect(self.telegram_button_clicked)
 
         #self.checkBox_NM.setText('PF')
         #self.checkBox_NM.setChecked(flag_option_periodic_update_mode)
@@ -4600,8 +4600,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def telegram_button_clicked(self):
 
         #playsound('Resources/click.wav')
-        winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
-        self.RunTelegram()
+        #winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
+        #self.RunTelegram()
+        self.capture_screenshot()
     
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -4736,25 +4737,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
                 self.textBrowser.append(txt)
                 print(txt)
-    '''
-    def checkBox_NM_checkState(self):
-
-        global flag_option_periodic_update_mode
-
-        dt = datetime.now()
-        
-        if self.checkBox_NM.isChecked() == True:
-
-            flag_option_periodic_update_mode = True
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Option 주기적 갱신모드로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-        else:
-            flag_option_periodic_update_mode = False
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Option 주기적 갱신모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.parent.textBrowser.append(txt)
-    '''
+    
     def showCustomMsgBox(self, title, txt):
 
         msgBox = QMessageBox()
@@ -6426,7 +6409,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass                            
 
-                            self.pushButton_start.setText(' ScrShot ')                            
+                            #self.pushButton_start.setText(' ScrShot ')                            
                         else:
                             txt = '오프라인 : {0}'.format(drop_txt)
                             self.parent.statusbar.showMessage(txt)                           
@@ -11615,7 +11598,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                    self.pushButton_scrshot.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
                                                             QPushButton:pressed {background-color: gold}')
                     flag_telegram_listen_worker = True
@@ -14831,7 +14814,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_scrshot.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')           
             flag_telegram_listen_worker = True                       
@@ -14842,7 +14825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             telegram_command = '/start'
             
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_scrshot.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
         else:
@@ -14861,7 +14844,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+            self.pushButton_scrshot.setStyleSheet('QPushButton {background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
             
@@ -46515,8 +46498,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                                             QPushButton:hover {background-color: black; color: white} \
                                                             QPushButton:pressed {background-color: gold}')
 
-                    self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
-
+                    #self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
                     #self.dialog['선물옵션전광판'].SaveResult()                                        
                 else:
                     pass                                               
@@ -46553,9 +46535,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
-                                                            QPushButton:pressed {background-color: gold}')
-
-                    self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
+                                                            QPushButton:pressed {background-color: gold}')                   
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -46563,6 +46543,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_telegram_send_start = False
                     flag_telegram_listen_start = False
 
+                    #self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
                     #self.dialog['선물옵션전광판'].SaveResult()
                 else:
                     pass                    
@@ -46587,9 +46568,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
-                                                            QPushButton:pressed {background-color: gold}')
-
-                    self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
+                                                            QPushButton:pressed {background-color: gold}')                    
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -46597,6 +46576,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_telegram_send_start = False
                     flag_telegram_listen_start = False
 
+                    #self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
                     #self.dialog['선물옵션전광판'].SaveResult()
                 else:
                     pass
@@ -49294,7 +49274,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             pass
 
-                        self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
+                        self.pushButton_scrshot.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}')
                         flag_telegram_listen_worker = True

@@ -350,7 +350,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="text">
-       <string>KOSPI</string>
+       <string>5th index</string>
       </property>
      </widget>
     </item>
@@ -371,7 +371,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="text">
-       <string>KOSDAQ</string>
+       <string>6th index</string>
       </property>
      </widget>
     </item>
@@ -412,7 +412,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_telegram">
+     <widget class="QPushButton" name="pushButton_scrshot">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -430,7 +430,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>Telegram</string>
+       <string>ScrShot</string>
       </property>
       <property name="checkable">
        <bool>true</bool>
