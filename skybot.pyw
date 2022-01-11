@@ -4013,7 +4013,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''        
         self.pushButton_start.setText(' Start ')          
-        #self.pushButton_scrshot.setText(' ScrShot ')
+        self.pushButton_scrshot.setText(' ScrShot ')
         
         #self.pushButton_scrshot.setCheckable(True)
         #self.pushButton_scrshot.toggle()
