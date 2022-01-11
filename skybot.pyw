@@ -4599,9 +4599,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot()
     def telegram_button_clicked(self):
 
+        dt = datetime.now()
+
         #playsound('Resources/click.wav')
         #winsound.PlaySound('Resources/click.wav', winsound.SND_FILENAME)
         #self.RunTelegram()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.parent.textBrowser.append(txt)
+
         self.capture_screenshot()
     
     ## list에서 i번째 아이템을 리턴한다.
