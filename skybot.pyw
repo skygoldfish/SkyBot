@@ -33316,29 +33316,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_14.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_15.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_15.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_15.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_15.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_15.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_15.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_15.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_15.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_15.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_15.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_15.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
                         txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
@@ -33400,29 +33414,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_14.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_15.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_15.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_15.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_15.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_15.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_15.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_15.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_15.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_15.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_15.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_15.setText(txt)
 
                     if not np.isnan(외인현물_순매수):
                         txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
@@ -35141,29 +35169,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_24.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_25.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_25.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_25.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_25.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_25.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_25.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_25.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_25.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_25.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_25.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_25.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
                         txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
@@ -35225,29 +35267,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_24.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_25.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_25.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_25.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_25.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_25.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_25.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_25.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_25.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_25.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_25.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_25.setText(txt)
 
                     if not np.isnan(외인현물_순매수):
                         txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
@@ -36962,29 +37018,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_34.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_35.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_35.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_35.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_35.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_35.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_35.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_35.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_35.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_35.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_35.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_35.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
                         txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
@@ -37046,29 +37116,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_34.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_35.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_35.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_35.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_35.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_35.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_35.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_35.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_35.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_35.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_35.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_35.setText(txt)
 
                     if not np.isnan(외인현물_순매수):
                         txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
@@ -38784,29 +38868,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_44.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_45.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_45.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_45.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_45.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_45.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_45.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_45.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_45.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_45.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_45.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_45.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
                         txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
@@ -38868,29 +38966,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_44.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_45.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_45.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_45.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_45.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_45.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_45.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_45.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_45.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_45.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_45.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_45.setText(txt)
 
                     if not np.isnan(외인현물_순매수):
                         txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
@@ -40604,29 +40716,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_54.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_55.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_55.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_55.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_55.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_55.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_55.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_55.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_55.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_55.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_55.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_55.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
                         txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
@@ -40688,29 +40814,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_54.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_55.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_55.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_55.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_55.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_55.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_55.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_55.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_55.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_55.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_55.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_55.setText(txt)
 
                     if not np.isnan(외인현물_순매수):
                         txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
@@ -42424,29 +42564,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_64.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_65.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_65.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_65.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_65.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_65.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_65.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_65.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_65.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_65.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_65.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_65.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
                         txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
@@ -42508,29 +42662,43 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 개인선물 : {0} ".format(개인선물_순매수)
                     self.label_64.setText(txt)
 
-                    if (프로그램_순매수 > 0 and 현물_총순매수 < 0) or (프로그램_순매수 < 0 and 현물_총순매수 > 0):
-                        txt = ' 수급종합 Cross! '
-                        self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                        self.label_65.setText(txt)
-                    else:
-                        if (외인현물_순매수 > 0 and 외인선물_순매수 < 0) or (외인현물_순매수 < 0 and 외인선물_순매수 > 0):
+                    if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' - '
+                            self.label_65.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_65.setText(txt)
+
+                        if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
                             txt = ' 외인수급 Cross! '
                             self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
 
-                        elif 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' 수급 Call! '
                             self.label_65.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
 
-                        elif 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
-                            txt = ' 수급 Put! '
-                            self.label_65.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                            self.label_65.setText(txt)
-                        else:
+                    elif 프로그램_순매수 < 0 and 현물_총순매수 < 0:
+
+                        if 외인선물_순매수 > 0 and 외인현물_순매수 > 0:
                             txt = ' - '
                             self.label_65.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
+
+                        if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
+                            txt = ' 외인수급 Cross! '
+                            self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_65.setText(txt)          
+
+                        if 외인선물_순매수 < 0 and 외인현물_순매수 < 0:
+                            txt = ' 수급 Put! '
+                            self.label_65.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_65.setText(txt)
+                    else:
+                        txt = ' 수급종합 Cross! '
+                        self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_65.setText(txt)
 
                     if not np.isnan(외인현물_순매수):
                         txt = " 외인현물 : {0:.0f} ".format(외인현물_순매수)
