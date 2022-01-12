@@ -247,9 +247,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QCheckBox" name="checkBox_plot1_oe">
+           <widget class="QCheckBox" name="checkBox_plot1_psar">
             <property name="text">
-             <string>OE</string>
+             <string>PSAR</string>
             </property>
            </widget>
           </item>
@@ -334,9 +334,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
-           <widget class="QCheckBox" name="checkBox_plot4_oe">
+           <widget class="QCheckBox" name="checkBox_plot4_psar">
             <property name="text">
-             <string>OE</string>
+             <string>PSAR</string>
             </property>
            </widget>
           </item>
@@ -607,9 +607,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <widget class="QCheckBox" name="checkBox_plot2_oe">
+           <widget class="QCheckBox" name="checkBox_plot2_psar">
             <property name="text">
-             <string>OE</string>
+             <string>PSAR</string>
             </property>
            </widget>
           </item>
@@ -694,9 +694,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
-           <widget class="QCheckBox" name="checkBox_plot5_oe">
+           <widget class="QCheckBox" name="checkBox_plot5_psar">
             <property name="text">
-             <string>OE</string>
+             <string>PSAR</string>
             </property>
            </widget>
           </item>
@@ -967,9 +967,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
-           <widget class="QCheckBox" name="checkBox_plot3_oe">
+           <widget class="QCheckBox" name="checkBox_plot3_psar">
             <property name="text">
-             <string>OE</string>
+             <string>PSAR</string>
             </property>
            </widget>
           </item>
@@ -1054,9 +1054,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QCheckBox" name="checkBox_plot6_oe">
+           <widget class="QCheckBox" name="checkBox_plot6_psar">
             <property name="text">
-             <string>OE</string>
+             <string>PSAR</string>
             </property>
            </widget>
           </item>
