@@ -32948,7 +32948,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_14.setText(txt)
 
-                txt = ' {0} '.format(근월물_선물_시가)
+                txt = ' {0}/{1} '.format(근월물_선물_시가, 차월물_선물_시가)
                 self.label_15.setText(txt)
                 
                 txt = ' {0} '.format(근월물_선물_저가)
@@ -33025,7 +33025,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'])
                     self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'])
                 else:
-                    pass                    
+                    pass
 
                 if flag_checkBox_plot1_bband:
 
@@ -34750,7 +34750,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_24.setText(txt)
 
-                txt = ' {0} '.format(근월물_선물_시가)
+                txt = ' {0}/{1} '.format(근월물_선물_시가, 차월물_선물_시가)
                 self.label_25.setText(txt)
 
                 txt = ' {0} '.format(근월물_선물_저가)
@@ -36552,7 +36552,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_34.setText(txt)
 
-                txt = ' {0} '.format(근월물_선물_시가)
+                txt = ' {0}/{1} '.format(근월물_선물_시가, 차월물_선물_시가)
                 self.label_35.setText(txt)
                 
                 txt = ' {0} '.format(근월물_선물_저가)
@@ -38350,7 +38350,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_44.setText(txt)
 
-                txt = ' {0} '.format(근월물_선물_시가)
+                txt = ' {0}/{1} '.format(근월물_선물_시가, 차월물_선물_시가)
                 self.label_45.setText(txt)
                 
                 txt = ' {0} '.format(근월물_선물_저가)
@@ -40151,7 +40151,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_54.setText(txt)
 
-                txt = ' {0} '.format(근월물_선물_시가)
+                txt = ' {0}/{1} '.format(근월물_선물_시가, 차월물_선물_시가)
                 self.label_55.setText(txt)
                 
                 txt = ' {0} '.format(근월물_선물_저가)
@@ -41949,7 +41949,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = ' {0} '.format(근월물_선물_피봇)
                 self.label_64.setText(txt)
 
-                txt = ' {0} '.format(근월물_선물_시가)
+                txt = ' {0}/{1} '.format(근월물_선물_시가, 차월물_선물_시가)
                 self.label_65.setText(txt)
                 
                 txt = ' {0} '.format(근월물_선물_저가)
