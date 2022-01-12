@@ -38498,15 +38498,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
-                        #if df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'] >= df_futures_cm_ta_graph.at[plot_time_index, 'BBLower']:
-                        if True:
-
-                            if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
-                                self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                            else:
-                                self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                         else:
-                            self.label_p4_4.setStyleSheet('background-color: lime; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                         txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                         self.label_p4_4.setText(txt)
@@ -42561,7 +42556,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    self.Calc_BBand('SP500')                    
+                    self.Calc_BBand('SP500')
 
                     self.plot6_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'])
                     self.plot6_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
