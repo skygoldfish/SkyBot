@@ -4161,7 +4161,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.clearContents()
 
         for i in range(Quote_column.미결종합.value):
-            item = QTableWidgetItem('-')
+            item = QTableWidgetItem('0')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(흰색))
@@ -4184,7 +4184,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_supply.clearContents()
 
         for i in range(Supply_column.종합.value - 1):
-            item = QTableWidgetItem('-')
+            item = QTableWidgetItem('0')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(흰색))
@@ -4256,7 +4256,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             for j in range(self.tableWidget_call.columnCount() - 1):
 
-                item = QTableWidgetItem("{0}".format('-'))
+                item = QTableWidgetItem("{0}".format('0'))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(i, j + 1, item)
                 self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
@@ -4264,7 +4264,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.tableWidget_call.resizeColumnToContents(j + 1)
 
-                item = QTableWidgetItem("{0}".format('-'))
+                item = QTableWidgetItem("{0}".format('0'))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(i, j + 1, item)
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
