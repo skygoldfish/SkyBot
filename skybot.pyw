@@ -23417,11 +23417,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_time_line_jugan_start.setValue(GuardTime + 1)
 
             if SUMMER_TIME:
-                cme_start_hour = 22
+                cme_open_hour  = 22
             else:
-                cme_start_hour = 23
+                cme_open_hour  = 23
 
-            cme_start_time = (cme_start_hour - NightTime_PreStart_Hour) * 60 + 30
+            cme_start_time = (cme_open_hour  - NightTime_PreStart_Hour) * 60 + 30
 
             self.plot1_time_line_yagan_start.setValue(cme_start_time)
             self.plot2_time_line_yagan_start.setValue(cme_start_time)
@@ -49078,14 +49078,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
 
-                night_time = cme_plot_hour
+                if SUMMER_TIME:
+                    cme_close_hour = 6
+                else:
+                    cme_close_hour = 7
 
-                if 0 <= night_time <= 6:
-                    night_time = night_time + 24
+                if 0 <= cme_plot_hour <= cme_close_hour:
+                    cme_plot_hour = cme_plot_hour + 24
                 else:
                     pass
 
-                plot_time_index = (night_time - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1         
+                plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1         
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 plot_time_index = (cme_plot_hour - DayTime_PreStart_Hour) * 60 + cme_plot_minute + 1            
