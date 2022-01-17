@@ -1792,6 +1792,7 @@ magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 lime_pen = pg.mkPen(lime, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
+white_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
 orange_pen = pg.mkPen(orange, width=1, style=QtCore.Qt.DashLine)
 pink_pen = pg.mkPen(pink, width=2, style=QtCore.Qt.DashLine)
 skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DashLine)
@@ -2239,10 +2240,24 @@ adi_tick_value = 0.00005
 
 main_close_event = None
 
+#Fibonacci Retracements
+Fibonacci_Retracements_Ratios = [0, 0.236, 0.382, 0.5, 0.618, 0.786, 1]
+
+futures_fibonacci_levels = []
+sp500_fibonacci_levels = []
+dow_fibonacci_levels = []
+nasdaq_fibonacci_levels = []
+hangseng_fibonacci_levels = []
+wti_fibonacci_levels = []
+gold_fibonacci_levels = []
+euro_fibonacci_levels = []
+yen_fibonacci_levels = []
+adi_fibonacci_levels = []
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
-print('UI HIDE 기능 =', UI_HIDE)
+#print('UI HIDE 기능 =', UI_HIDE)
 
 if not UI_HIDE:
     UI_DIR = 'UI\\'
@@ -11526,6 +11541,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global volatility_breakout_downward_point, volatility_breakout_upward_point
         global df_futures_cm_graph, flag_futures_cm_ohlc_open, 근월물_선물_현재가_버퍼
         global flag_telegram_send_start, flag_telegram_listen_start
+        global futures_fibonacci_levels
 
         try:
             dt = datetime.now()
@@ -11668,6 +11684,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(흰색))  
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+
+                if 근월물_선물_현재가 >= 근월물_선물_시가:
+                    uptrend = True
+                else:
+                    uptrend = False
+                    
+                futures_fibonacci_levels = []
+
+                max_level = 근월물_선물_고가
+                min_level = 근월물_선물_저가
+
+                for ratio in Fibonacci_Retracements_Ratios:
+
+                    if uptrend:
+                        futures_fibonacci_levels.append(max_level - (max_level - min_level) * ratio)
+                    else:
+                        futures_fibonacci_levels.append(min_level + (max_level - min_level) * ratio)
             else:
                 pass
 
@@ -11781,7 +11814,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
                 else:
-                    self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)        
+                    self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
+
+                futures_fibonacci_levels = []
+
+                max_level = 근월물_선물_고가
+                min_level = 근월물_선물_저가
+
+                uptrend = False
+
+                for ratio in Fibonacci_Retracements_Ratios:
+
+                    if uptrend:
+                        futures_fibonacci_levels.append(max_level - (max_level - min_level) * ratio)
+                    else:
+                        futures_fibonacci_levels.append(min_level + (max_level - min_level) * ratio)
             else:
                 pass
 
@@ -11828,7 +11875,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
                 else:
-                    self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)      
+                    self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
+
+                futures_fibonacci_levels = []
+
+                max_level = 근월물_선물_고가
+                min_level = 근월물_선물_저가
+
+                uptrend = True
+
+                for ratio in Fibonacci_Retracements_Ratios:
+
+                    if uptrend:
+                        futures_fibonacci_levels.append(max_level - (max_level - min_level) * ratio)
+                    else:
+                        futures_fibonacci_levels.append(min_level + (max_level - min_level) * ratio)      
             else:
                 pass
 
@@ -22764,6 +22825,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         self.plot1_futures_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         self.plot1_kospi_foreigner_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        # Fibonacci Retracements Line
+        self.plot1_fibonacci_line1 = self.plot1.addLine(x=None, pen=lime_pen)
+        self.plot1_fibonacci_line2 = self.plot1.addLine(x=None, pen=lime_pen)
+        self.plot1_fibonacci_line3 = self.plot1.addLine(x=None, pen=lime_pen)
+        self.plot1_fibonacci_line4 = self.plot1.addLine(x=None, pen=lime_pen)
+        self.plot1_fibonacci_line5 = self.plot1.addLine(x=None, pen=lime_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22872,6 +22940,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_futures_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         self.plot2_kospi_foreigner_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        # Fibonacci Retracements Line
+        self.plot2_fibonacci_line1 = self.plot2.addLine(x=None, pen=lime_pen)
+        self.plot2_fibonacci_line2 = self.plot2.addLine(x=None, pen=lime_pen)
+        self.plot2_fibonacci_line3 = self.plot2.addLine(x=None, pen=lime_pen)
+        self.plot2_fibonacci_line4 = self.plot2.addLine(x=None, pen=lime_pen)
+        self.plot2_fibonacci_line5 = self.plot2.addLine(x=None, pen=lime_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -22977,6 +23052,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_futures_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         self.plot3_kospi_foreigner_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        # Fibonacci Retracements Line
+        self.plot3_fibonacci_line1 = self.plot3.addLine(x=None, pen=lime_pen)
+        self.plot3_fibonacci_line2 = self.plot3.addLine(x=None, pen=lime_pen)
+        self.plot3_fibonacci_line3 = self.plot3.addLine(x=None, pen=lime_pen)
+        self.plot3_fibonacci_line4 = self.plot3.addLine(x=None, pen=lime_pen)
+        self.plot3_fibonacci_line5 = self.plot3.addLine(x=None, pen=lime_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23081,6 +23163,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         self.plot4_futures_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         self.plot4_kospi_foreigner_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        # Fibonacci Retracements Line
+        self.plot4_fibonacci_line1 = self.plot4.addLine(x=None, pen=lime_pen)
+        self.plot4_fibonacci_line2 = self.plot4.addLine(x=None, pen=lime_pen)
+        self.plot4_fibonacci_line3 = self.plot4.addLine(x=None, pen=lime_pen)
+        self.plot4_fibonacci_line4 = self.plot4.addLine(x=None, pen=lime_pen)
+        self.plot4_fibonacci_line5 = self.plot4.addLine(x=None, pen=lime_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23187,6 +23276,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_futures_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         self.plot5_kospi_foreigner_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
+        # Fibonacci Retracements Line
+        self.plot5_fibonacci_line1 = self.plot5.addLine(x=None, pen=lime_pen)
+        self.plot5_fibonacci_line2 = self.plot5.addLine(x=None, pen=lime_pen)
+        self.plot5_fibonacci_line3 = self.plot5.addLine(x=None, pen=lime_pen)
+        self.plot5_fibonacci_line4 = self.plot5.addLine(x=None, pen=lime_pen)
+        self.plot5_fibonacci_line5 = self.plot5.addLine(x=None, pen=lime_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23291,6 +23387,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         # 외인수급
         self.plot6_futures_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         self.plot6_kospi_foreigner_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        # Fibonacci Retracements Line
+        self.plot6_fibonacci_line1 = self.plot6.addLine(x=None, pen=lime_pen)
+        self.plot6_fibonacci_line2 = self.plot6.addLine(x=None, pen=lime_pen)
+        self.plot6_fibonacci_line3 = self.plot6.addLine(x=None, pen=lime_pen)
+        self.plot6_fibonacci_line4 = self.plot6.addLine(x=None, pen=lime_pen)
+        self.plot6_fibonacci_line5 = self.plot6.addLine(x=None, pen=lime_pen)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -24829,6 +24932,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_center_val_line.setValue(0)
         self.plot1_center_val_upper_line.setValue(0)
 
+        # Fibonacci Retracements Line
+        self.plot1_fibonacci_line1.setValue(0)
+        self.plot1_fibonacci_line2.setValue(0)
+        self.plot1_fibonacci_line3.setValue(0)
+        self.plot1_fibonacci_line4.setValue(0)
+        self.plot1_fibonacci_line5.setValue(0)
+
         # Curve Clear
         self.plot1_fut_cm_price_curve.clear()
         self.plot1_fut_nm_price_curve.clear()
@@ -26110,6 +26220,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_center_val_lower_line.setValue(0)
         self.plot2_center_val_line.setValue(0)
         self.plot2_center_val_upper_line.setValue(0)
+
+        # Fibonacci Retracements Line
+        self.plot2_fibonacci_line1.setValue(0)
+        self.plot2_fibonacci_line2.setValue(0)
+        self.plot2_fibonacci_line3.setValue(0)
+        self.plot2_fibonacci_line4.setValue(0)
+        self.plot2_fibonacci_line5.setValue(0)
 
         # Curve Clear
         self.plot2_fut_cm_price_curve.clear()
@@ -27393,6 +27510,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_center_val_line.setValue(0)
         self.plot3_center_val_upper_line.setValue(0)
 
+        # Fibonacci Retracements Line
+        self.plot3_fibonacci_line1.setValue(0)
+        self.plot3_fibonacci_line2.setValue(0)
+        self.plot3_fibonacci_line3.setValue(0)
+        self.plot3_fibonacci_line4.setValue(0)
+        self.plot3_fibonacci_line5.setValue(0)
+
         # Curve Clear
         self.plot3_fut_cm_price_curve.clear()
         self.plot3_fut_nm_price_curve.clear()
@@ -28674,6 +28798,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_center_val_lower_line.setValue(0)
         self.plot4_center_val_line.setValue(0)
         self.plot4_center_val_upper_line.setValue(0)
+
+        # Fibonacci Retracements Line
+        self.plot4_fibonacci_line1.setValue(0)
+        self.plot4_fibonacci_line2.setValue(0)
+        self.plot4_fibonacci_line3.setValue(0)
+        self.plot4_fibonacci_line4.setValue(0)
+        self.plot4_fibonacci_line5.setValue(0)
 
         # Curve Clear
         self.plot4_fut_cm_price_curve.clear()
@@ -29957,6 +30088,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_center_val_line.setValue(0)
         self.plot5_center_val_upper_line.setValue(0)
 
+        # Fibonacci Retracements Line
+        self.plot5_fibonacci_line1.setValue(0)
+        self.plot5_fibonacci_line2.setValue(0)
+        self.plot5_fibonacci_line3.setValue(0)
+        self.plot5_fibonacci_line4.setValue(0)
+        self.plot5_fibonacci_line5.setValue(0)
+
         # Curve Clear
         self.plot5_fut_cm_price_curve.clear()
         self.plot5_fut_nm_price_curve.clear()
@@ -31238,6 +31376,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_center_val_lower_line.setValue(0)
         self.plot6_center_val_line.setValue(0)
         self.plot6_center_val_upper_line.setValue(0)
+
+        # Fibonacci Retracements Line
+        self.plot6_fibonacci_line1.setValue(0)
+        self.plot6_fibonacci_line2.setValue(0)
+        self.plot6_fibonacci_line3.setValue(0)
+        self.plot6_fibonacci_line4.setValue(0)
+        self.plot6_fibonacci_line5.setValue(0)
 
         # Curve Clear
         self.plot6_fut_cm_price_curve.clear()
@@ -33035,6 +33180,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(futures_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(futures_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(futures_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(futures_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(futures_fibonacci_levels[5])
+
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
@@ -33047,7 +33198,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_2.setText(txt)
                     else:
                         pass
-                else:
+                else:                    
+                    self.plot1_fibonacci_line1.setValue(근월물_선물_종가)
+                    self.plot1_fibonacci_line2.setValue(근월물_선물_종가)
+                    self.plot1_fibonacci_line3.setValue(근월물_선물_종가)
+                    self.plot1_fibonacci_line4.setValue(근월물_선물_종가)
+                    self.plot1_fibonacci_line5.setValue(근월물_선물_종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")                
 
@@ -33564,6 +33721,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(sp500_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
+
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
@@ -33576,7 +33739,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_2.setText(txt)
                     else:
                         pass
-                else:
+                else:                    
+                    self.plot1_fibonacci_line1.setValue(SP500_전일종가)
+                    self.plot1_fibonacci_line2.setValue(SP500_전일종가)
+                    self.plot1_fibonacci_line3.setValue(SP500_전일종가)
+                    self.plot1_fibonacci_line4.setValue(SP500_전일종가)
+                    self.plot1_fibonacci_line5.setValue(SP500_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -33697,6 +33866,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(dow_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(dow_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(dow_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(dow_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(dow_fibonacci_levels[5])
+
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
@@ -33710,6 +33885,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(DOW_전일종가)
+                    self.plot1_fibonacci_line2.setValue(DOW_전일종가)
+                    self.plot1_fibonacci_line3.setValue(DOW_전일종가)
+                    self.plot1_fibonacci_line4.setValue(DOW_전일종가)
+                    self.plot1_fibonacci_line5.setValue(DOW_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -33830,6 +34011,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(nasdaq_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
+
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
@@ -33843,6 +34030,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(NASDAQ_전일종가)
+                    self.plot1_fibonacci_line2.setValue(NASDAQ_전일종가)
+                    self.plot1_fibonacci_line3.setValue(NASDAQ_전일종가)
+                    self.plot1_fibonacci_line4.setValue(NASDAQ_전일종가)
+                    self.plot1_fibonacci_line5.setValue(NASDAQ_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -33963,6 +34156,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
@@ -33976,6 +34175,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(HANGSENG_전일종가)
+                    self.plot1_fibonacci_line2.setValue(HANGSENG_전일종가)
+                    self.plot1_fibonacci_line3.setValue(HANGSENG_전일종가)
+                    self.plot1_fibonacci_line4.setValue(HANGSENG_전일종가)
+                    self.plot1_fibonacci_line5.setValue(HANGSENG_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -34095,6 +34300,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(wti_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(wti_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(wti_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(wti_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(wti_fibonacci_levels[5])
+
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
@@ -34108,6 +34319,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(WTI_전일종가)
+                    self.plot1_fibonacci_line2.setValue(WTI_전일종가)
+                    self.plot1_fibonacci_line3.setValue(WTI_전일종가)
+                    self.plot1_fibonacci_line4.setValue(WTI_전일종가)
+                    self.plot1_fibonacci_line5.setValue(WTI_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -34228,6 +34445,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(gold_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(gold_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(gold_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(gold_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(gold_fibonacci_levels[5])
+
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
@@ -34241,6 +34464,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(GOLD_전일종가)
+                    self.plot1_fibonacci_line2.setValue(GOLD_전일종가)
+                    self.plot1_fibonacci_line3.setValue(GOLD_전일종가)
+                    self.plot1_fibonacci_line4.setValue(GOLD_전일종가)
+                    self.plot1_fibonacci_line5.setValue(GOLD_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -34360,6 +34589,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(euro_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(euro_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(euro_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(euro_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(euro_fibonacci_levels[5])
+
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
@@ -34373,6 +34608,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(EURO_전일종가)
+                    self.plot1_fibonacci_line2.setValue(EURO_전일종가)
+                    self.plot1_fibonacci_line3.setValue(EURO_전일종가)
+                    self.plot1_fibonacci_line4.setValue(EURO_전일종가)
+                    self.plot1_fibonacci_line5.setValue(EURO_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -34493,6 +34734,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(yen_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(yen_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(yen_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(yen_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(yen_fibonacci_levels[5])
+
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
@@ -34506,6 +34753,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(YEN_전일종가)
+                    self.plot1_fibonacci_line2.setValue(YEN_전일종가)
+                    self.plot1_fibonacci_line3.setValue(YEN_전일종가)
+                    self.plot1_fibonacci_line4.setValue(YEN_전일종가)
+                    self.plot1_fibonacci_line5.setValue(YEN_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -34632,6 +34885,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
                     self.plot1_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'])
 
+                    self.plot1_fibonacci_line1.setValue(adi_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(adi_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(adi_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(adi_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(adi_fibonacci_levels[5])
+
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
@@ -34645,6 +34904,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot1_fibonacci_line1.setValue(ADI_전일종가)
+                    self.plot1_fibonacci_line2.setValue(ADI_전일종가)
+                    self.plot1_fibonacci_line3.setValue(ADI_전일종가)
+                    self.plot1_fibonacci_line4.setValue(ADI_전일종가)
+                    self.plot1_fibonacci_line5.setValue(ADI_전일종가)
+
                     self.label_p1_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -34838,6 +35103,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(futures_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(futures_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(futures_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(futures_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(futures_fibonacci_levels[5])
+
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
@@ -34851,6 +35122,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(근월물_선물_종가)
+                    self.plot2_fibonacci_line2.setValue(근월물_선물_종가)
+                    self.plot2_fibonacci_line3.setValue(근월물_선물_종가)
+                    self.plot2_fibonacci_line4.setValue(근월물_선물_종가)
+                    self.plot2_fibonacci_line5.setValue(근월물_선물_종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -35367,6 +35644,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(sp500_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
+
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
@@ -35380,6 +35663,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(SP500_전일종가)
+                    self.plot2_fibonacci_line2.setValue(SP500_전일종가)
+                    self.plot2_fibonacci_line3.setValue(SP500_전일종가)
+                    self.plot2_fibonacci_line4.setValue(SP500_전일종가)
+                    self.plot2_fibonacci_line5.setValue(SP500_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -35500,6 +35789,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(dow_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(dow_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(dow_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(dow_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(dow_fibonacci_levels[5])
+
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
@@ -35513,6 +35808,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(DOW_전일종가)
+                    self.plot2_fibonacci_line2.setValue(DOW_전일종가)
+                    self.plot2_fibonacci_line3.setValue(DOW_전일종가)
+                    self.plot2_fibonacci_line4.setValue(DOW_전일종가)
+                    self.plot2_fibonacci_line5.setValue(DOW_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -35633,6 +35934,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(nasdaq_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
+
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
@@ -35646,6 +35953,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(NASDAQ_전일종가)
+                    self.plot2_fibonacci_line2.setValue(NASDAQ_전일종가)
+                    self.plot2_fibonacci_line3.setValue(NASDAQ_전일종가)
+                    self.plot2_fibonacci_line4.setValue(NASDAQ_전일종가)
+                    self.plot2_fibonacci_line5.setValue(NASDAQ_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -35766,6 +36079,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
@@ -35779,6 +36098,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(HANGSENG_전일종가)
+                    self.plot2_fibonacci_line2.setValue(HANGSENG_전일종가)
+                    self.plot2_fibonacci_line3.setValue(HANGSENG_전일종가)
+                    self.plot2_fibonacci_line4.setValue(HANGSENG_전일종가)
+                    self.plot2_fibonacci_line5.setValue(HANGSENG_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -35898,6 +36223,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(wti_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(wti_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(wti_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(wti_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(wti_fibonacci_levels[5])
+
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
@@ -35911,6 +36242,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(WTI_전일종가)
+                    self.plot2_fibonacci_line2.setValue(WTI_전일종가)
+                    self.plot2_fibonacci_line3.setValue(WTI_전일종가)
+                    self.plot2_fibonacci_line4.setValue(WTI_전일종가)
+                    self.plot2_fibonacci_line5.setValue(WTI_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -36031,6 +36368,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(gold_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(gold_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(gold_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(gold_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(gold_fibonacci_levels[5])
+
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
@@ -36044,6 +36387,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(GOLD_전일종가)
+                    self.plot2_fibonacci_line2.setValue(GOLD_전일종가)
+                    self.plot2_fibonacci_line3.setValue(GOLD_전일종가)
+                    self.plot2_fibonacci_line4.setValue(GOLD_전일종가)
+                    self.plot2_fibonacci_line5.setValue(GOLD_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -36163,6 +36512,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(euro_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(euro_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(euro_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(euro_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(euro_fibonacci_levels[5])
+
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
@@ -36176,6 +36531,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(EURO_전일종가)
+                    self.plot2_fibonacci_line2.setValue(EURO_전일종가)
+                    self.plot2_fibonacci_line3.setValue(EURO_전일종가)
+                    self.plot2_fibonacci_line4.setValue(EURO_전일종가)
+                    self.plot2_fibonacci_line5.setValue(EURO_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -36296,6 +36657,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(yen_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(yen_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(yen_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(yen_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(yen_fibonacci_levels[5])
+
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
@@ -36309,6 +36676,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(YEN_전일종가)
+                    self.plot2_fibonacci_line2.setValue(YEN_전일종가)
+                    self.plot2_fibonacci_line3.setValue(YEN_전일종가)
+                    self.plot2_fibonacci_line4.setValue(YEN_전일종가)
+                    self.plot2_fibonacci_line5.setValue(YEN_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -36435,6 +36808,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
                     self.plot2_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'])
 
+                    self.plot2_fibonacci_line1.setValue(adi_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(adi_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(adi_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(adi_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(adi_fibonacci_levels[5])
+
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
@@ -36448,6 +36827,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot2_fibonacci_line1.setValue(ADI_전일종가)
+                    self.plot2_fibonacci_line2.setValue(ADI_전일종가)
+                    self.plot2_fibonacci_line3.setValue(ADI_전일종가)
+                    self.plot2_fibonacci_line4.setValue(ADI_전일종가)
+                    self.plot2_fibonacci_line5.setValue(ADI_전일종가)
+
                     self.label_p2_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -36639,6 +37024,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(futures_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(futures_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(futures_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(futures_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(futures_fibonacci_levels[5])
+
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
@@ -36652,6 +37043,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(근월물_선물_종가)
+                    self.plot3_fibonacci_line2.setValue(근월물_선물_종가)
+                    self.plot3_fibonacci_line3.setValue(근월물_선물_종가)
+                    self.plot3_fibonacci_line4.setValue(근월물_선물_종가)
+                    self.plot3_fibonacci_line5.setValue(근월물_선물_종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37166,6 +37563,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(sp500_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
+
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
@@ -37179,6 +37582,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(SP500_전일종가)
+                    self.plot3_fibonacci_line2.setValue(SP500_전일종가)
+                    self.plot3_fibonacci_line3.setValue(SP500_전일종가)
+                    self.plot3_fibonacci_line4.setValue(SP500_전일종가)
+                    self.plot3_fibonacci_line5.setValue(SP500_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37299,6 +37708,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(dow_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(dow_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(dow_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(dow_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(dow_fibonacci_levels[5])
+
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
@@ -37312,6 +37727,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(DOW_전일종가)
+                    self.plot3_fibonacci_line2.setValue(DOW_전일종가)
+                    self.plot3_fibonacci_line3.setValue(DOW_전일종가)
+                    self.plot3_fibonacci_line4.setValue(DOW_전일종가)
+                    self.plot3_fibonacci_line5.setValue(DOW_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37432,6 +37853,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(nasdaq_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
+
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
@@ -37445,6 +37872,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(NASDAQ_전일종가)
+                    self.plot3_fibonacci_line2.setValue(NASDAQ_전일종가)
+                    self.plot3_fibonacci_line3.setValue(NASDAQ_전일종가)
+                    self.plot3_fibonacci_line4.setValue(NASDAQ_전일종가)
+                    self.plot3_fibonacci_line5.setValue(NASDAQ_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37565,6 +37998,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
@@ -37578,6 +38017,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(HANGSENG_전일종가)
+                    self.plot3_fibonacci_line2.setValue(HANGSENG_전일종가)
+                    self.plot3_fibonacci_line3.setValue(HANGSENG_전일종가)
+                    self.plot3_fibonacci_line4.setValue(HANGSENG_전일종가)
+                    self.plot3_fibonacci_line5.setValue(HANGSENG_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37697,6 +38142,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(wti_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(wti_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(wti_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(wti_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(wti_fibonacci_levels[5])
+
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
@@ -37710,6 +38161,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(WTI_전일종가)
+                    self.plot3_fibonacci_line2.setValue(WTI_전일종가)
+                    self.plot3_fibonacci_line3.setValue(WTI_전일종가)
+                    self.plot3_fibonacci_line4.setValue(WTI_전일종가)
+                    self.plot3_fibonacci_line5.setValue(WTI_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37830,6 +38287,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(gold_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(gold_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(gold_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(gold_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(gold_fibonacci_levels[5])
+
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
@@ -37843,6 +38306,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(GOLD_전일종가)
+                    self.plot3_fibonacci_line2.setValue(GOLD_전일종가)
+                    self.plot3_fibonacci_line3.setValue(GOLD_전일종가)
+                    self.plot3_fibonacci_line4.setValue(GOLD_전일종가)
+                    self.plot3_fibonacci_line5.setValue(GOLD_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -37962,6 +38431,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(euro_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(euro_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(euro_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(euro_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(euro_fibonacci_levels[5])
+
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
@@ -37975,6 +38450,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(EURO_전일종가)
+                    self.plot3_fibonacci_line2.setValue(EURO_전일종가)
+                    self.plot3_fibonacci_line3.setValue(EURO_전일종가)
+                    self.plot3_fibonacci_line4.setValue(EURO_전일종가)
+                    self.plot3_fibonacci_line5.setValue(EURO_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -38095,6 +38576,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(yen_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(yen_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(yen_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(yen_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(yen_fibonacci_levels[5])
+
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
@@ -38108,6 +38595,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(YEN_전일종가)
+                    self.plot3_fibonacci_line2.setValue(YEN_전일종가)
+                    self.plot3_fibonacci_line3.setValue(YEN_전일종가)
+                    self.plot3_fibonacci_line4.setValue(YEN_전일종가)
+                    self.plot3_fibonacci_line5.setValue(YEN_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -38234,6 +38727,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
                     self.plot3_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'])
 
+                    self.plot3_fibonacci_line1.setValue(adi_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(adi_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(adi_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(adi_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(adi_fibonacci_levels[5])
+
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
@@ -38247,6 +38746,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot3_fibonacci_line1.setValue(ADI_전일종가)
+                    self.plot3_fibonacci_line2.setValue(ADI_전일종가)
+                    self.plot3_fibonacci_line3.setValue(ADI_전일종가)
+                    self.plot3_fibonacci_line4.setValue(ADI_전일종가)
+                    self.plot3_fibonacci_line5.setValue(ADI_전일종가)
+
                     self.label_p3_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -38437,6 +38942,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(futures_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(futures_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(futures_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(futures_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(futures_fibonacci_levels[5])
+
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
@@ -38450,6 +38961,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(근월물_선물_종가)
+                    self.plot4_fibonacci_line2.setValue(근월물_선물_종가)
+                    self.plot4_fibonacci_line3.setValue(근월물_선물_종가)
+                    self.plot4_fibonacci_line4.setValue(근월물_선물_종가)
+                    self.plot4_fibonacci_line5.setValue(근월물_선물_종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -38966,6 +39483,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(sp500_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
+
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
@@ -38979,6 +39502,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(SP500_전일종가)
+                    self.plot4_fibonacci_line2.setValue(SP500_전일종가)
+                    self.plot4_fibonacci_line3.setValue(SP500_전일종가)
+                    self.plot4_fibonacci_line4.setValue(SP500_전일종가)
+                    self.plot4_fibonacci_line5.setValue(SP500_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39099,6 +39628,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(dow_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(dow_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(dow_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(dow_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(dow_fibonacci_levels[5])
+
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
@@ -39112,6 +39647,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(DOW_전일종가)
+                    self.plot4_fibonacci_line2.setValue(DOW_전일종가)
+                    self.plot4_fibonacci_line3.setValue(DOW_전일종가)
+                    self.plot4_fibonacci_line4.setValue(DOW_전일종가)
+                    self.plot4_fibonacci_line5.setValue(DOW_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39232,6 +39773,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(nasdaq_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
+
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
@@ -39245,6 +39792,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(NASDAQ_전일종가)
+                    self.plot4_fibonacci_line2.setValue(NASDAQ_전일종가)
+                    self.plot4_fibonacci_line3.setValue(NASDAQ_전일종가)
+                    self.plot4_fibonacci_line4.setValue(NASDAQ_전일종가)
+                    self.plot4_fibonacci_line5.setValue(NASDAQ_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39365,6 +39918,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
@@ -39378,6 +39937,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(HANGSENG_전일종가)
+                    self.plot4_fibonacci_line2.setValue(HANGSENG_전일종가)
+                    self.plot4_fibonacci_line3.setValue(HANGSENG_전일종가)
+                    self.plot4_fibonacci_line4.setValue(HANGSENG_전일종가)
+                    self.plot4_fibonacci_line5.setValue(HANGSENG_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39497,6 +40062,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(wti_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(wti_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(wti_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(wti_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(wti_fibonacci_levels[5])
+
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
@@ -39510,6 +40081,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(WTI_전일종가)
+                    self.plot4_fibonacci_line2.setValue(WTI_전일종가)
+                    self.plot4_fibonacci_line3.setValue(WTI_전일종가)
+                    self.plot4_fibonacci_line4.setValue(WTI_전일종가)
+                    self.plot4_fibonacci_line5.setValue(WTI_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39630,6 +40207,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(gold_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(gold_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(gold_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(gold_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(gold_fibonacci_levels[5])
+
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
@@ -39643,6 +40226,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(GOLD_전일종가)
+                    self.plot4_fibonacci_line2.setValue(GOLD_전일종가)
+                    self.plot4_fibonacci_line3.setValue(GOLD_전일종가)
+                    self.plot4_fibonacci_line4.setValue(GOLD_전일종가)
+                    self.plot4_fibonacci_line5.setValue(GOLD_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39762,6 +40351,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(euro_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(euro_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(euro_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(euro_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(euro_fibonacci_levels[5])
+
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
@@ -39775,6 +40370,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(EURO_전일종가)
+                    self.plot4_fibonacci_line2.setValue(EURO_전일종가)
+                    self.plot4_fibonacci_line3.setValue(EURO_전일종가)
+                    self.plot4_fibonacci_line4.setValue(EURO_전일종가)
+                    self.plot4_fibonacci_line5.setValue(EURO_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -39895,6 +40496,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(yen_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(yen_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(yen_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(yen_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(yen_fibonacci_levels[5])
+
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
@@ -39908,6 +40515,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(YEN_전일종가)
+                    self.plot4_fibonacci_line2.setValue(YEN_전일종가)
+                    self.plot4_fibonacci_line3.setValue(YEN_전일종가)
+                    self.plot4_fibonacci_line4.setValue(YEN_전일종가)
+                    self.plot4_fibonacci_line5.setValue(YEN_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -40034,6 +40647,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
                     self.plot4_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'])
 
+                    self.plot4_fibonacci_line1.setValue(adi_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(adi_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(adi_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(adi_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(adi_fibonacci_levels[5])
+
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
@@ -40047,6 +40666,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot4_fibonacci_line1.setValue(ADI_전일종가)
+                    self.plot4_fibonacci_line2.setValue(ADI_전일종가)
+                    self.plot4_fibonacci_line3.setValue(ADI_전일종가)
+                    self.plot4_fibonacci_line4.setValue(ADI_전일종가)
+                    self.plot4_fibonacci_line5.setValue(ADI_전일종가)
+
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -40238,6 +40863,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(futures_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(futures_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(futures_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(futures_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(futures_fibonacci_levels[5])
+
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
@@ -40251,6 +40882,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(근월물_선물_종가)
+                    self.plot5_fibonacci_line2.setValue(근월물_선물_종가)
+                    self.plot5_fibonacci_line3.setValue(근월물_선물_종가)
+                    self.plot5_fibonacci_line4.setValue(근월물_선물_종가)
+                    self.plot5_fibonacci_line5.setValue(근월물_선물_종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -40764,6 +41401,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(sp500_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
+
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
@@ -40777,6 +41420,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(SP500_전일종가)
+                    self.plot5_fibonacci_line2.setValue(SP500_전일종가)
+                    self.plot5_fibonacci_line3.setValue(SP500_전일종가)
+                    self.plot5_fibonacci_line4.setValue(SP500_전일종가)
+                    self.plot5_fibonacci_line5.setValue(SP500_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -40897,6 +41546,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(dow_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(dow_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(dow_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(dow_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(dow_fibonacci_levels[5])
+
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
@@ -40910,6 +41565,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(DOW_전일종가)
+                    self.plot5_fibonacci_line2.setValue(DOW_전일종가)
+                    self.plot5_fibonacci_line3.setValue(DOW_전일종가)
+                    self.plot5_fibonacci_line4.setValue(DOW_전일종가)
+                    self.plot5_fibonacci_line5.setValue(DOW_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41030,6 +41691,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(nasdaq_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
+
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
@@ -41043,6 +41710,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(NASDAQ_전일종가)
+                    self.plot5_fibonacci_line2.setValue(NASDAQ_전일종가)
+                    self.plot5_fibonacci_line3.setValue(NASDAQ_전일종가)
+                    self.plot5_fibonacci_line4.setValue(NASDAQ_전일종가)
+                    self.plot5_fibonacci_line5.setValue(NASDAQ_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41163,6 +41836,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
@@ -41176,6 +41855,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(HANGSENG_전일종가)
+                    self.plot5_fibonacci_line2.setValue(HANGSENG_전일종가)
+                    self.plot5_fibonacci_line3.setValue(HANGSENG_전일종가)
+                    self.plot5_fibonacci_line4.setValue(HANGSENG_전일종가)
+                    self.plot5_fibonacci_line5.setValue(HANGSENG_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41295,6 +41980,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(wti_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(wti_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(wti_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(wti_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(wti_fibonacci_levels[5])
+
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
@@ -41308,6 +41999,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(WTI_전일종가)
+                    self.plot5_fibonacci_line2.setValue(WTI_전일종가)
+                    self.plot5_fibonacci_line3.setValue(WTI_전일종가)
+                    self.plot5_fibonacci_line4.setValue(WTI_전일종가)
+                    self.plot5_fibonacci_line5.setValue(WTI_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41428,6 +42125,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(gold_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(gold_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(gold_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(gold_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(gold_fibonacci_levels[5])
+
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
@@ -41441,6 +42144,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(GOLD_전일종가)
+                    self.plot5_fibonacci_line2.setValue(GOLD_전일종가)
+                    self.plot5_fibonacci_line3.setValue(GOLD_전일종가)
+                    self.plot5_fibonacci_line4.setValue(GOLD_전일종가)
+                    self.plot5_fibonacci_line5.setValue(GOLD_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41560,6 +42269,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(euro_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(euro_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(euro_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(euro_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(euro_fibonacci_levels[5])
+
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
@@ -41573,6 +42288,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(EURO_전일종가)
+                    self.plot5_fibonacci_line2.setValue(EURO_전일종가)
+                    self.plot5_fibonacci_line3.setValue(EURO_전일종가)
+                    self.plot5_fibonacci_line4.setValue(EURO_전일종가)
+                    self.plot5_fibonacci_line5.setValue(EURO_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41693,6 +42414,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(yen_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(yen_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(yen_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(yen_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(yen_fibonacci_levels[5])
+
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
@@ -41706,6 +42433,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(YEN_전일종가)
+                    self.plot5_fibonacci_line2.setValue(YEN_전일종가)
+                    self.plot5_fibonacci_line3.setValue(YEN_전일종가)
+                    self.plot5_fibonacci_line4.setValue(YEN_전일종가)
+                    self.plot5_fibonacci_line5.setValue(YEN_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -41832,6 +42565,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
                     self.plot5_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'])
 
+                    self.plot5_fibonacci_line1.setValue(adi_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(adi_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(adi_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(adi_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(adi_fibonacci_levels[5])
+
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
@@ -41845,6 +42584,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot5_fibonacci_line1.setValue(ADI_전일종가)
+                    self.plot5_fibonacci_line2.setValue(ADI_전일종가)
+                    self.plot5_fibonacci_line3.setValue(ADI_전일종가)
+                    self.plot5_fibonacci_line4.setValue(ADI_전일종가)
+                    self.plot5_fibonacci_line5.setValue(ADI_전일종가)
+
                     self.label_p5_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -42036,6 +42781,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(futures_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(futures_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(futures_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(futures_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(futures_fibonacci_levels[5])
+
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
@@ -42049,6 +42800,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(근월물_선물_종가)
+                    self.plot6_fibonacci_line2.setValue(근월물_선물_종가)
+                    self.plot6_fibonacci_line3.setValue(근월물_선물_종가)
+                    self.plot6_fibonacci_line4.setValue(근월물_선물_종가)
+                    self.plot6_fibonacci_line5.setValue(근월물_선물_종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -42562,6 +43319,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(sp500_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
+
                     if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
@@ -42575,6 +43338,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(SP500_전일종가)
+                    self.plot6_fibonacci_line2.setValue(SP500_전일종가)
+                    self.plot6_fibonacci_line3.setValue(SP500_전일종가)
+                    self.plot6_fibonacci_line4.setValue(SP500_전일종가)
+                    self.plot6_fibonacci_line5.setValue(SP500_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -42695,6 +43464,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(dow_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(dow_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(dow_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(dow_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(dow_fibonacci_levels[5])
+
                     if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
@@ -42708,6 +43483,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(DOW_전일종가)
+                    self.plot6_fibonacci_line2.setValue(DOW_전일종가)
+                    self.plot6_fibonacci_line3.setValue(DOW_전일종가)
+                    self.plot6_fibonacci_line4.setValue(DOW_전일종가)
+                    self.plot6_fibonacci_line5.setValue(DOW_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -42828,6 +43609,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(nasdaq_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
+
                     if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
@@ -42841,6 +43628,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(NASDAQ_전일종가)
+                    self.plot6_fibonacci_line2.setValue(NASDAQ_전일종가)
+                    self.plot6_fibonacci_line3.setValue(NASDAQ_전일종가)
+                    self.plot6_fibonacci_line4.setValue(NASDAQ_전일종가)
+                    self.plot6_fibonacci_line5.setValue(NASDAQ_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -42961,6 +43754,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+
                     if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
@@ -42974,6 +43773,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(HANGSENG_전일종가)
+                    self.plot6_fibonacci_line2.setValue(HANGSENG_전일종가)
+                    self.plot6_fibonacci_line3.setValue(HANGSENG_전일종가)
+                    self.plot6_fibonacci_line4.setValue(HANGSENG_전일종가)
+                    self.plot6_fibonacci_line5.setValue(HANGSENG_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -43093,6 +43898,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(wti_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(wti_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(wti_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(wti_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(wti_fibonacci_levels[5])
+
                     if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
@@ -43106,6 +43917,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(WTI_전일종가)
+                    self.plot6_fibonacci_line2.setValue(WTI_전일종가)
+                    self.plot6_fibonacci_line3.setValue(WTI_전일종가)
+                    self.plot6_fibonacci_line4.setValue(WTI_전일종가)
+                    self.plot6_fibonacci_line5.setValue(WTI_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -43226,6 +44043,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(gold_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(gold_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(gold_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(gold_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(gold_fibonacci_levels[5])
+
                     if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
@@ -43239,6 +44062,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(GOLD_전일종가)
+                    self.plot6_fibonacci_line2.setValue(GOLD_전일종가)
+                    self.plot6_fibonacci_line3.setValue(GOLD_전일종가)
+                    self.plot6_fibonacci_line4.setValue(GOLD_전일종가)
+                    self.plot6_fibonacci_line5.setValue(GOLD_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -43358,6 +44187,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(euro_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(euro_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(euro_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(euro_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(euro_fibonacci_levels[5])
+
                     if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
@@ -43371,6 +44206,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(EURO_전일종가)
+                    self.plot6_fibonacci_line2.setValue(EURO_전일종가)
+                    self.plot6_fibonacci_line3.setValue(EURO_전일종가)
+                    self.plot6_fibonacci_line4.setValue(EURO_전일종가)
+                    self.plot6_fibonacci_line5.setValue(EURO_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -43491,6 +44332,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(yen_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(yen_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(yen_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(yen_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(yen_fibonacci_levels[5])
+
                     if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
@@ -43504,6 +44351,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(YEN_전일종가)
+                    self.plot6_fibonacci_line2.setValue(YEN_전일종가)
+                    self.plot6_fibonacci_line3.setValue(YEN_전일종가)
+                    self.plot6_fibonacci_line4.setValue(YEN_전일종가)
+                    self.plot6_fibonacci_line5.setValue(YEN_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -43630,6 +44483,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'])
                     self.plot6_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'])
 
+                    self.plot6_fibonacci_line1.setValue(adi_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(adi_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(adi_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(adi_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(adi_fibonacci_levels[5])
+
                     if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
 
                         if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
@@ -43643,6 +44502,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                 else:
+                    self.plot6_fibonacci_line1.setValue(ADI_전일종가)
+                    self.plot6_fibonacci_line2.setValue(ADI_전일종가)
+                    self.plot6_fibonacci_line3.setValue(ADI_전일종가)
+                    self.plot6_fibonacci_line4.setValue(ADI_전일종가)
+                    self.plot6_fibonacci_line5.setValue(ADI_전일종가)
+
                     self.label_p6_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
@@ -49059,6 +49924,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EURO_시가대비, YEN_시가대비, ADI_시가대비
         global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EURO_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
+        global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hangseng_fibonacci_levels
+        global wti_fibonacci_levels, gold_fibonacci_levels, euro_fibonacci_levels, yen_fibonacci_levels, adi_fibonacci_levels
 
         try:
             dt = datetime.now()
@@ -49259,6 +50126,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(0, 5, item)
+
+                    if SP500_현재가 >= SP500_시가:
+                        sp500_fibonacci_levels = self.Calc_Fibonacci_Levels(SP500_저가, SP500_고가, True)
+                    else:
+                        sp500_fibonacci_levels = self.Calc_Fibonacci_Levels(SP500_저가, SP500_고가, False)
                 else:
                     pass
 
@@ -49275,7 +50147,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(0, 10, item)
 
-                    #self.sp500_node_coloring()
+                    sp500_fibonacci_levels = self.Calc_Fibonacci_Levels(SP500_저가, SP500_고가, False)
                     self.ovc_node_coloring(0, sp500_tick_value, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
                 else:
                     pass
@@ -49293,7 +50165,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(0, 10, item)
 
-                    #self.sp500_node_coloring()
+                    sp500_fibonacci_levels = self.Calc_Fibonacci_Levels(SP500_저가, SP500_고가, True)
                     self.ovc_node_coloring(0, sp500_tick_value, SP500_전저, SP500_전고, SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가)
                 else:
                     pass
@@ -49492,6 +50364,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(1, 5, item)
+
+                    if DOW_현재가 >= DOW_시가:
+                        dow_fibonacci_levels = self.Calc_Fibonacci_Levels(DOW_저가, DOW_고가, True)
+                    else:
+                        dow_fibonacci_levels = self.Calc_Fibonacci_Levels(DOW_저가, DOW_고가, False)
                 else:
                     pass
 
@@ -49508,7 +50385,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(1, 10, item)
 
-                    #self.dow_node_coloring()
+                    dow_fibonacci_levels = self.Calc_Fibonacci_Levels(DOW_저가, DOW_고가, False)
                     self.ovc_node_coloring(1, dow_tick_value, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
                 else:
                     pass
@@ -49526,7 +50403,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(1, 10, item)
 
-                    #self.dow_node_coloring()
+                    dow_fibonacci_levels = self.Calc_Fibonacci_Levels(DOW_저가, DOW_고가, True)
                     self.ovc_node_coloring(1, dow_tick_value, DOW_전저, DOW_전고, DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가)
                 else:
                     pass
@@ -49724,6 +50601,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(2, 5, item)
+
+                    if NASDAQ_현재가 >= NASDAQ_시가:
+                        nasdaq_fibonacci_levels = self.Calc_Fibonacci_Levels(NASDAQ_저가, NASDAQ_고가, True)
+                    else:
+                        nasdaq_fibonacci_levels = self.Calc_Fibonacci_Levels(NASDAQ_저가, NASDAQ_고가, False)
                 else:
                     pass
 
@@ -49740,7 +50622,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(2, 10, item)
 
-                    #self.nasdaq_node_coloring()
+                    nasdaq_fibonacci_levels = self.Calc_Fibonacci_Levels(NASDAQ_저가, NASDAQ_고가, False)
                     self.ovc_node_coloring(2, nasdaq_tick_value, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
                 else:
                     pass
@@ -49758,7 +50640,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(2, 10, item)
 
-                    #self.nasdaq_node_coloring()
+                    nasdaq_fibonacci_levels = self.Calc_Fibonacci_Levels(NASDAQ_저가, NASDAQ_고가, True)
                     self.ovc_node_coloring(2, nasdaq_tick_value, NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가)
                 else:
                     pass
@@ -49954,6 +50836,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(3, 5, item)
+
+                    if HANGSENG_현재가 >= HANGSENG_시가:
+                        hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, True)
+                    else:
+                        hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, False)
                 else:
                     pass
 
@@ -49970,7 +50857,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 10, item)
 
-                    #self.hsi_node_coloring()
+                    hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, False)
                     self.ovc_node_coloring(3, hsi_tick_value, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
@@ -49988,7 +50875,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 10, item)
 
-                    #self.hsi_node_coloring()
+                    hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, True)
                     self.ovc_node_coloring(3, hsi_tick_value, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
@@ -50186,6 +51073,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(4, 5, item)
+
+                    if WTI_현재가 >= WTI_시가:
+                        wti_fibonacci_levels = self.Calc_Fibonacci_Levels(WTI_저가, WTI_고가, True)
+                    else:
+                        wti_fibonacci_levels = self.Calc_Fibonacci_Levels(WTI_저가, WTI_고가, False)
                 else:
                     pass
 
@@ -50202,7 +51094,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(4, 10, item)
 
-                    #self.wti_node_coloring()
+                    wti_fibonacci_levels = self.Calc_Fibonacci_Levels(WTI_저가, WTI_고가, False)
                     self.ovc_node_coloring(4, wti_tick_value, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
                 else:
                     pass
@@ -50220,7 +51112,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(4, 10, item)
 
-                    #self.wti_node_coloring()
+                    wti_fibonacci_levels = self.Calc_Fibonacci_Levels(WTI_저가, WTI_고가, True)
                     self.ovc_node_coloring(4, wti_tick_value, WTI_전저, WTI_전고, WTI_전일종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가)
                 else:
                     pass
@@ -50416,6 +51308,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(5, 5, item)
+
+                    if GOLD_현재가 >= GOLD_시가:
+                        gold_fibonacci_levels = self.Calc_Fibonacci_Levels(GOLD_저가, GOLD_고가, True)
+                    else:
+                        gold_fibonacci_levels = self.Calc_Fibonacci_Levels(GOLD_저가, GOLD_고가, False)
                 else:
                     pass
 
@@ -50432,7 +51329,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(5, 10, item)
 
-                    #self.gold_node_coloring()
+                    gold_fibonacci_levels = self.Calc_Fibonacci_Levels(GOLD_저가, GOLD_고가, False)
                     self.ovc_node_coloring(5, gold_tick_value, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
                 else:
                     pass
@@ -50450,7 +51347,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(5, 10, item)
 
-                    #self.gold_node_coloring()
+                    gold_fibonacci_levels = self.Calc_Fibonacci_Levels(GOLD_저가, GOLD_고가, True)
                     self.ovc_node_coloring(5, gold_tick_value, GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_고가)
                 else:
                     pass
@@ -50646,6 +51543,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(6, 5, item)
+
+                    if EURO_현재가 >= EURO_시가:
+                        euro_fibonacci_levels = self.Calc_Fibonacci_Levels(EURO_저가, EURO_고가, True)
+                    else:
+                        euro_fibonacci_levels = self.Calc_Fibonacci_Levels(EURO_저가, EURO_고가, False)
                 else:
                     pass
 
@@ -50662,7 +51564,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(6, 10, item)
 
-                    #self.euro_node_coloring()
+                    euro_fibonacci_levels = self.Calc_Fibonacci_Levels(EURO_저가, EURO_고가, False)
                     self.ovc_node_coloring(6, euro_tick_value, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
                 else:
                     pass
@@ -50680,7 +51582,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(6, 10, item)
 
-                    #self.euro_node_coloring()
+                    euro_fibonacci_levels = self.Calc_Fibonacci_Levels(EURO_저가, EURO_고가, True)
                     self.ovc_node_coloring(6, euro_tick_value, EURO_전저, EURO_전고, EURO_전일종가, EURO_피봇, EURO_시가, EURO_저가, EURO_고가)
                 else:
                     pass
@@ -50876,6 +51778,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(7, 5, item)
+
+                    if YEN_현재가 >= YEN_시가:
+                        yen_fibonacci_levels = self.Calc_Fibonacci_Levels(YEN_저가, YEN_고가, True)
+                    else:
+                        yen_fibonacci_levels = self.Calc_Fibonacci_Levels(YEN_저가, YEN_고가, False)
                 else:
                     pass
 
@@ -50892,7 +51799,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(7, 10, item)
 
-                    #self.yen_node_coloring()
+                    yen_fibonacci_levels = self.Calc_Fibonacci_Levels(YEN_저가, YEN_고가, False)
                     self.ovc_node_coloring(7, yen_tick_value, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
                 else:
                     pass
@@ -50910,7 +51817,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(7, 10, item)
 
-                    #self.yen_node_coloring()
+                    yen_fibonacci_levels = self.Calc_Fibonacci_Levels(YEN_저가, YEN_고가, True)
                     self.ovc_node_coloring(7, yen_tick_value, YEN_전저, YEN_전고, YEN_전일종가, YEN_피봇, YEN_시가, YEN_저가, YEN_고가)
                 else:
                     pass
@@ -51106,6 +52013,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_cme.setItem(8, 5, item)
+
+                    if ADI_현재가 >= ADI_시가:
+                        adi_fibonacci_levels = self.Calc_Fibonacci_Levels(ADI_저가, ADI_고가, True)
+                    else:
+                        adi_fibonacci_levels = self.Calc_Fibonacci_Levels(ADI_저가, ADI_고가, False)
                 else:
                     pass
 
@@ -51122,7 +52034,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(8, 10, item)
 
-                    #self.adi_node_coloring()
+                    adi_fibonacci_levels = self.Calc_Fibonacci_Levels(ADI_저가, ADI_고가, False)
                     self.ovc_node_coloring(8, adi_tick_value, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
                 else:
                     pass
@@ -51140,7 +52052,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(8, 10, item)
 
-                    #self.adi_node_coloring()
+                    adi_fibonacci_levels = self.Calc_Fibonacci_Levels(ADI_저가, ADI_고가, True)
                     self.ovc_node_coloring(8, adi_tick_value, ADI_전저, ADI_전고, ADI_전일종가, ADI_피봇, ADI_시가, ADI_저가, ADI_고가)
                 else:
                     pass
@@ -51199,6 +52111,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : ovc_update 에서 {3} \n상기 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
             self.textBrowser.append(txt)
+
+    def Calc_Fibonacci_Levels(self, min_level, max_level, uptrend):
+
+        levels = []
+
+        for ratio in Fibonacci_Retracements_Ratios:
+
+            if uptrend:
+                levels.append(max_level - (max_level - min_level) * ratio)
+            else:
+                levels.append(min_level + (max_level - min_level) * ratio)
+
+        return levels
 
     # 해외선물 주요맥점 컬러링
     def ovc_node_coloring(self, index, tick_value, 전저, 전고, 종가, 피봇, 시가, 저가, 고가):
