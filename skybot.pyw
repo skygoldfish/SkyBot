@@ -23779,7 +23779,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             #self.cursorlabel1.setHtml("<p style='color:white'>X: {0} <br> Y: {1}</p>".format(plot1_x, plot1_y))
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)            
+            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot1_x, plot1_y)            
             self.label_p1_1.setText(txt)
     '''
     def plot2_mouseMoved(self, evt):
@@ -23959,7 +23959,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_vLine.setPos(mousePoint.x())
             self.plot2_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot2_x, plot2_y)            
+            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot2_x, plot2_y)            
             self.label_p2_1.setText(txt)
     '''
     def plot3_mouseMoved(self, evt):
@@ -24139,7 +24139,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_vLine.setPos(mousePoint.x())
             self.plot3_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot3_x, plot3_y)            
+            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot3_x, plot3_y)            
             self.label_p3_1.setText(txt)
     '''
     def plot4_mouseMoved(self, evt):
@@ -24317,7 +24317,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_vLine.setPos(mousePoint.x())
             self.plot4_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot4_x, plot4_y)            
+            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot4_x, plot4_y)            
             self.label_p4_1.setText(txt)                    
     '''
     def plot5_mouseMoved(self, evt):
@@ -24497,7 +24497,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_vLine.setPos(mousePoint.x())
             self.plot5_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot5_x, plot5_y)            
+            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot5_x, plot5_y)            
             self.label_p5_1.setText(txt)
     '''
     def plot6_mouseMoved(self, evt):
@@ -24677,7 +24677,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_vLine.setPos(mousePoint.x())
             self.plot6_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.2f} ".format(plot6_x, plot6_y)            
+            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot6_x, plot6_y)            
             self.label_p6_1.setText(txt)    
 
     def checkBox_plot1_bband_checkState(self):
