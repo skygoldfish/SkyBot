@@ -1309,6 +1309,7 @@ CME_체결시간 = '000000'
 cme_plot_hour = 0
 cme_plot_minute = 0
 cme_plot_sec = 0
+cme_close_hour = 6
 
 fut_plot_sec = 0
 
@@ -33753,7 +33754,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('SP500')
 
-                    self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33898,7 +33900,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('DOW')
 
-                    self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34043,7 +34046,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('NASDAQ')
 
-                    self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34188,7 +34192,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('HSI')
 
-                    self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34332,7 +34337,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('WTI')
 
-                    self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34477,7 +34483,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('GOLD')
 
-                    self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34621,7 +34628,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('EURO')
 
-                    self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34766,7 +34774,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('YEN')
 
-                    self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34917,7 +34926,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('ADI')
 
-                    self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35676,7 +35686,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('SP500')
 
-                    self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35821,7 +35832,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('DOW')
 
-                    self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35966,7 +35978,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('NASDAQ')
 
-                    self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36111,7 +36124,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('HSI')
 
-                    self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36255,7 +36269,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('WTI')
 
-                    self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36400,7 +36415,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('GOLD')
 
-                    self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36544,7 +36560,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('EURO')
 
-                    self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36689,7 +36706,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('YEN')
 
-                    self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36840,7 +36858,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('ADI')
 
-                    self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37595,7 +37614,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('SP500')
 
-                    self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37740,7 +37760,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('DOW')
 
-                    self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37885,7 +37906,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('NASDAQ')
 
-                    self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38030,7 +38052,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('HSI')
 
-                    self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38174,7 +38197,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('WTI')
 
-                    self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38319,7 +38343,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('GOLD')
 
-                    self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38463,7 +38488,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('EURO')
 
-                    self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38608,7 +38634,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('YEN')
 
-                    self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38759,7 +38786,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('ADI')
 
-                    self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39515,7 +39543,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('SP500')
 
-                    self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39660,7 +39689,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('DOW')
 
-                    self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39805,7 +39835,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('NASDAQ')
 
-                    self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39950,7 +39981,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('HSI')
 
-                    self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40094,7 +40126,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('WTI')
 
-                    self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40239,7 +40272,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('GOLD')
 
-                    self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40383,7 +40417,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('EURO')
 
-                    self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40528,7 +40563,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('YEN')
 
-                    self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40679,7 +40715,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('ADI')
 
-                    self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41433,7 +41470,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('SP500')
 
-                    self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41578,7 +41616,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('DOW')
 
-                    self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41723,7 +41762,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('NASDAQ')
 
-                    self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41868,7 +41908,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('HSI')
 
-                    self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42012,7 +42053,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('WTI')
 
-                    self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42157,7 +42199,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('GOLD')
 
-                    self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42301,7 +42344,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('EURO')
 
-                    self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42446,7 +42490,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('YEN')
 
-                    self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42597,7 +42642,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('ADI')
 
-                    self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43351,7 +43397,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('SP500')
 
-                    self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43496,7 +43543,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('DOW')
 
-                    self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43641,7 +43689,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('NASDAQ')
 
-                    self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43786,7 +43835,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('HSI')
 
-                    self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43930,7 +43980,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('WTI')
 
-                    self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44075,7 +44126,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('GOLD')
 
-                    self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44219,7 +44271,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('EURO')
 
-                    self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44364,7 +44417,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('YEN')
 
-                    self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44515,7 +44569,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     
                     self.Calc_Psar('ADI')
 
-                    self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
+                    if cme_plot_hour != cme_close_hour:
+                        self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1])
 
                     if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -49926,6 +49981,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
         global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hangseng_fibonacci_levels
         global wti_fibonacci_levels, gold_fibonacci_levels, euro_fibonacci_levels, yen_fibonacci_levels, adi_fibonacci_levels
+        global cme_close_hour
 
         try:
             dt = datetime.now()
