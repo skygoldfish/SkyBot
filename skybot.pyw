@@ -50008,7 +50008,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     cme_close_hour = 7
 
-                if 0 <= cme_plot_hour <= cme_close_hour:
+                if 0 <= cme_plot_hour < cme_close_hour:
                     cme_plot_hour = cme_plot_hour + 24
                 else:
                     pass
