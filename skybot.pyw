@@ -1065,7 +1065,12 @@ DayTime_PreStart_Hour = KSE_START_HOUR - 2
 GuardTime = 60 * 2
 
 # 오전 6시 ~ 7시는 Break Time
-if 7 <= dt.hour < NightTime_PreStart_Hour:
+if SUMMER_TIME:
+    start_time = 6
+else:
+    start_time = 7
+
+if start_time <= dt.hour < NightTime_PreStart_Hour:
     # 오전 7시 ~ 오후 3시 59분
     DayTime = True
     NightTime = False        
