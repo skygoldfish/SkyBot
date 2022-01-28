@@ -33184,9 +33184,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot1_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
-                    self.plot1_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
-                    self.plot1_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
+                    self.plot1_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot1_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot1_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'][KSE_START_HOUR:plot_time_index+1])
 
                     self.plot1_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -33254,10 +33254,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
+                    self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'][KSE_START_HOUR:plot_time_index+1])
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot1_fama_curve.setData(df)
+                    self.plot1_fama_curve.setData(df[KSE_START_HOUR:plot_time_index+1])
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -35116,9 +35116,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot2_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
-                    self.plot2_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
-                    self.plot2_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
+                    self.plot2_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot2_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot2_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'][KSE_START_HOUR:plot_time_index+1])
 
                     self.plot2_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -35186,10 +35186,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
+                    self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'][KSE_START_HOUR:plot_time_index+1])
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot2_fama_curve.setData(df)
+                    self.plot2_fama_curve.setData(df[KSE_START_HOUR:plot_time_index+1])
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -37046,9 +37046,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot3_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
-                    self.plot3_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
-                    self.plot3_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
+                    self.plot3_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot3_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot3_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'][KSE_START_HOUR:plot_time_index+1])
 
                     self.plot3_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -37116,10 +37116,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
+                    self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'][KSE_START_HOUR:plot_time_index+1])
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot3_fama_curve.setData(df)
+                    self.plot3_fama_curve.setData(df[KSE_START_HOUR:plot_time_index+1])
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -38973,9 +38973,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot4_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
-                    self.plot4_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
-                    self.plot4_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
+                    self.plot4_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot4_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot4_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'][KSE_START_HOUR:plot_time_index+1])
 
                     self.plot4_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -39043,10 +39043,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
+                    self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'][KSE_START_HOUR:plot_time_index+1])
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot4_fama_curve.setData(df)
+                    self.plot4_fama_curve.setData(df[KSE_START_HOUR:plot_time_index+1])
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -40903,9 +40903,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot5_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
-                    self.plot5_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
-                    self.plot5_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
+                    self.plot5_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot5_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot5_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'][KSE_START_HOUR:plot_time_index+1])
 
                     self.plot5_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -40973,10 +40973,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
+                    self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'][KSE_START_HOUR:plot_time_index+1])
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot5_fama_curve.setData(df)
+                    self.plot5_fama_curve.setData(df[KSE_START_HOUR:plot_time_index+1])
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
@@ -42830,9 +42830,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot6_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'])
-                    self.plot6_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'])
-                    self.plot6_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'])
+                    self.plot6_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot6_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'][KSE_START_HOUR:plot_time_index+1])
+                    self.plot6_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'][KSE_START_HOUR:plot_time_index+1])
 
                     self.plot6_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -42900,10 +42900,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_MAMA('FUT')
 
-                    self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'])
+                    self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'][KSE_START_HOUR:plot_time_index+1])
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot6_fama_curve.setData(df)
+                    self.plot6_fama_curve.setData(df[KSE_START_HOUR:plot_time_index+1])
 
                     if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
 
