@@ -50018,7 +50018,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1         
+                plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1
+
+                if plot_time_index < 0:
+                    plot_time_index = old_cme_time_index
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] plot_time_index 오류발생(cme_plot_hour = {3}, cme_plot_minute = {4})! \r'.format(dt.hour, dt.minute, dt.second, cme_plot_hour, cme_plot_minute)
+                    self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                    self.textBrowser.append(txt)
+                else:
+                    pass           
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 plot_time_index = (cme_plot_hour - DayTime_PreStart_Hour) * 60 + cme_plot_minute + 1            
