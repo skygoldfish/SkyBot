@@ -50020,12 +50020,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1
 
-                if plot_time_index < 0:
-                    plot_time_index = old_cme_time_index
+                if plot_time_index < 0:                    
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] plot_time_index 오류발생(cme_plot_hour = {3}, cme_plot_minute = {4})! \r'.format(dt.hour, dt.minute, dt.second, cme_plot_hour, cme_plot_minute)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] plot_time_index({3}) 오류발생(cme_plot_hour = {4}, cme_plot_minute = {5})! \r'.format(dt.hour, dt.minute, dt.second, plot_time_index, cme_plot_hour, cme_plot_minute)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
                     self.textBrowser.append(txt)
+
+                    plot_time_index = old_cme_time_index
                 else:
                     pass           
             else:                    
