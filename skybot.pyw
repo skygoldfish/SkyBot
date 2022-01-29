@@ -49994,9 +49994,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             dt = datetime.now()
 
             CME_체결시간 = tickdata['수신시간']
-            cme_plot_hour = int(CME_체결시간[0:2])
-            cme_plot_minute = int(CME_체결시간[2:4])
-            cme_plot_sec = int(CME_체결시간[4:6])
+
+            if len(tickdata['수신시간']) == 1:
+                cme_plot_hour = 0
+                cme_plot_minute = 0
+                cme_plot_sec = int(tickdata['수신시간'][0:1])
+            elif len(tickdata['수신시간']) == 2:
+                cme_plot_hour = 0
+                cme_plot_minute = 0
+                cme_plot_sec = int(tickdata['수신시간'][0:2])
+            elif len(tickdata['수신시간']) == 3:
+                cme_plot_hour = 0
+                cme_plot_minute = int(tickdata['수신시간'][0:1])
+                cme_plot_sec = int(tickdata['수신시간'][1:3])
+            elif len(tickdata['수신시간']) == 4:
+                cme_plot_hour = 0
+                cme_plot_minute = int(tickdata['수신시간'][0:2])
+                cme_plot_sec = int(tickdata['수신시간'][2:4])
+            elif len(tickdata['수신시간']) == 5:
+                cme_plot_hour = int(tickdata['수신시간'][0:1])
+                cme_plot_minute = int(tickdata['수신시간'][1:3])
+                cme_plot_sec = int(tickdata['수신시간'][3:5])
+            elif len(tickdata['수신시간']) == 6:
+                cme_plot_hour = int(tickdata['수신시간'][0:2])
+                cme_plot_minute = int(tickdata['수신시간'][2:4])
+                cme_plot_sec = int(tickdata['수신시간'][4:6])
+            else:
+                pass
+
+            #cme_plot_hour = int(CME_체결시간[0:2])
+            #cme_plot_minute = int(CME_체결시간[2:4])
+            #cme_plot_sec = int(CME_체결시간[4:6])
 
             t0167_hour = cme_plot_hour
             t0167_minute = cme_plot_minute
