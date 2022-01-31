@@ -47503,7 +47503,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not np.isnan(근월물_선물_현재가):    
                     df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_시가 
 
-                if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                if fut_plot_sec == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
@@ -48899,7 +48900,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not np.isnan(근월물_선물_현재가):    
                     df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가       
 
-                if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                if fut_plot_sec == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
@@ -49069,7 +49071,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not np.isnan(차월물_선물_현재가):
                     df_futures_nm_ta_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가                    
 
-                if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                if fut_plot_sec == 0:
 
                     if not flag_futures_nm_ohlc_open:
 
@@ -50194,7 +50197,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 plot_time_index = (cme_plot_hour - DayTime_PreStart_Hour) * 60 + cme_plot_minute + 1
 
-            if cme_plot_sec == 0 or plot_time_index != old_cme_time_index:
+            #if cme_plot_sec == 0 or plot_time_index != old_cme_time_index:
+            if cme_plot_sec == 0:
 
                 if not flag_sp500_ohlc_open:
 
