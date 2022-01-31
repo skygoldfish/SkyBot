@@ -26038,34 +26038,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_low_line.setValue(EURO_전일종가)
             self.plot1_fut_high_line.setValue(EURO_전일종가)
                             
-            txt = ' {0} '.format(format(euro_전저, ','))
+            txt = ' {0:.5f} '.format(euro_전저)
             self.label_11.setText(txt)
             self.plot1_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(euro_전고, ','))
+            txt = ' {0:.5f} '.format(euro_전고)
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(euro_전고)
             
-            txt = ' {0} '.format(format(EURO_전일종가, ','))
+            txt = ' {0:.5f} '.format(EURO_전일종가)
             self.label_13.setText(txt)
             self.plot1_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(euro_피봇, ','))
+            txt = ' {0:.5f} '.format(euro_피봇)
             self.label_14.setText(txt)
             self.plot1_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(euro_시가, ','))
+            txt = ' {0:.5f} '.format(euro_시가)
             self.label_15.setText(txt)
             self.plot1_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(euro_저가, ','))
+            txt = ' {0:.5f} '.format(euro_저가)
             self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_16.setText(txt)
             self.plot1_ovc_low_line.setValue(euro_저가)
 
             self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(euro_고가, ','))
+            txt = ' {0:.5f} '.format(euro_고가)
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(euro_고가)
@@ -26216,34 +26216,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_low_line.setValue(ADI_전일종가)
             self.plot1_fut_high_line.setValue(ADI_전일종가)                        
                 
-            txt = ' {0} '.format(format(adi_전저, ','))
+            txt = ' {0:.5f} '.format(adi_전저)
             self.label_11.setText(txt)
             self.plot1_ovc_jl_line.setValue(adi_전저)
 
-            txt = ' {0} '.format(format(adi_전고, ','))
+            txt = ' {0:.5f} '.format(adi_전고)
             self.label_12.setText(txt)
             self.plot1_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(ADI_전일종가, ','))
+            txt = ' {0:.5f} '.format(ADI_전일종가)
             self.label_13.setText(txt)
             self.plot1_ovc_close_line.setValue(ADI_전일종가)
 
-            txt = ' {0} '.format(format(adi_피봇, ','))
+            txt = ' {0:.5f} '.format(adi_피봇)
             self.label_14.setText(txt)
             self.plot1_ovc_pivot_line.setValue(adi_피봇)
             
-            txt = ' {0} '.format(format(adi_시가, ','))
+            txt = ' {0:.5f} '.format(adi_시가)
             self.label_15.setText(txt)
             self.plot1_ovc_open_line.setValue(adi_시가)
 
-            txt = ' {0} '.format(format(adi_저가, ','))
+            txt = ' {0:.5f} '.format(adi_저가)
             self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_16.setText(txt)
             self.plot1_ovc_low_line.setValue(adi_저가)
 
             self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(adi_고가, ','))
+            txt = ' {0:.5f} '.format(adi_고가)
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
             self.plot1_ovc_high_line.setValue(adi_고가)        
@@ -27327,34 +27327,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_low_line.setValue(EURO_전일종가)
             self.plot2_fut_high_line.setValue(EURO_전일종가)
                 
-            txt = ' {0} '.format(format(euro_전저, ','))
+            txt = ' {0:.5f} '.format(euro_전저)
             self.label_21.setText(txt)
             self.plot2_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(euro_전고, ','))
+            txt = ' {0:.5f} '.format(euro_전고)
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(euro_전고)
             
-            txt = ' {0} '.format(format(EURO_전일종가, ','))
+            txt = ' {0:.5f} '.format(EURO_전일종가)
             self.label_23.setText(txt)
             self.plot2_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(euro_피봇, ','))
+            txt = ' {0:.5f} '.format(euro_피봇)
             self.label_24.setText(txt)
             self.plot2_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(euro_시가, ','))
+            txt = ' {0:.5f} '.format(euro_시가)
             self.label_25.setText(txt)
             self.plot2_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(euro_저가, ','))
+            txt = ' {0:.5f} '.format(euro_저가)
             self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_26.setText(txt)
             self.plot2_ovc_low_line.setValue(euro_저가)
 
             self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(euro_고가, ','))
+            txt = ' {0:.5f} '.format(euro_고가)
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(euro_고가)
@@ -27505,34 +27505,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_low_line.setValue(ADI_전일종가)
             self.plot2_fut_high_line.setValue(ADI_전일종가)             
                 
-            txt = ' {0} '.format(format(adi_전저, ','))
+            txt = ' {0:.5f} '.format(adi_전저)
             self.label_21.setText(txt)
             self.plot2_ovc_jl_line.setValue(adi_전저)
 
-            txt = ' {0} '.format(format(adi_전고, ','))
+            txt = ' {0:.5f} '.format(adi_전고)
             self.label_22.setText(txt)
             self.plot2_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(ADI_전일종가, ','))
+            txt = ' {0:.5f} '.format(ADI_전일종가)
             self.label_23.setText(txt)
             self.plot2_ovc_close_line.setValue(ADI_전일종가)
 
-            txt = ' {0} '.format(format(adi_피봇, ','))
+            txt = ' {0:.5f} '.format(adi_피봇)
             self.label_24.setText(txt)
             self.plot2_ovc_pivot_line.setValue(adi_피봇)
             
-            txt = ' {0} '.format(format(adi_시가, ','))
+            txt = ' {0:.5f} '.format(adi_시가)
             self.label_25.setText(txt)
             self.plot2_ovc_open_line.setValue(adi_시가)
 
-            txt = ' {0} '.format(format(adi_저가, ','))
+            txt = ' {0:.5f} '.format(adi_저가)
             self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_26.setText(txt)
             self.plot2_ovc_low_line.setValue(adi_저가)
 
             self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(adi_고가, ','))
+            txt = ' {0:.5f} '.format(adi_고가)
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(adi_고가)
@@ -28616,34 +28616,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_low_line.setValue(EURO_전일종가)
             self.plot3_fut_high_line.setValue(EURO_전일종가) 
                 
-            txt = ' {0} '.format(format(euro_전저, ','))
+            txt = ' {0:.5f} '.format(euro_전저)
             self.label_31.setText(txt)
             self.plot3_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(euro_전고, ','))
+            txt = ' {0:.5f} '.format(euro_전고)
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(euro_전고)
             
-            txt = ' {0} '.format(format(EURO_전일종가, ','))
+            txt = ' {0:.5f} '.format(EURO_전일종가)
             self.label_33.setText(txt)
             self.plot3_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(euro_피봇, ','))
+            txt = ' {0:.5f} '.format(euro_피봇)
             self.label_34.setText(txt)
             self.plot3_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(euro_시가, ','))
+            txt = ' {0:.5f} '.format(euro_시가)
             self.label_35.setText(txt)
             self.plot3_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(euro_저가, ','))
+            txt = ' {0:.5f} '.format(euro_저가)
             self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_36.setText(txt)
             self.plot3_ovc_low_line.setValue(euro_저가)
 
             self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(euro_고가, ','))
+            txt = ' {0:.5f} '.format(euro_고가)
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(euro_고가)
@@ -28794,34 +28794,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_low_line.setValue(ADI_전일종가)
             self.plot3_fut_high_line.setValue(ADI_전일종가)             
                 
-            txt = ' {0} '.format(format(adi_전저, ','))
+            txt = ' {0:.5f} '.format(adi_전저)
             self.label_31.setText(txt)
             self.plot3_ovc_jl_line.setValue(adi_전저)
 
-            txt = ' {0} '.format(format(adi_전고, ','))
+            txt = ' {0:.5f} '.format(adi_전고)
             self.label_32.setText(txt)
             self.plot3_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(ADI_전일종가, ','))
+            txt = ' {0:.5f} '.format(ADI_전일종가)
             self.label_33.setText(txt)
             self.plot3_ovc_close_line.setValue(ADI_전일종가)
 
-            txt = ' {0} '.format(format(adi_피봇, ','))
+            txt = ' {0:.5f} '.format(adi_피봇)
             self.label_34.setText(txt)
             self.plot3_ovc_pivot_line.setValue(adi_피봇)
             
-            txt = ' {0} '.format(format(adi_시가, ','))
+            txt = ' {0:.5f} '.format(adi_시가)
             self.label_35.setText(txt)
             self.plot3_ovc_open_line.setValue(adi_시가)
 
-            txt = ' {0} '.format(format(adi_저가, ','))
+            txt = ' {0:.5f} '.format(adi_저가)
             self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_36.setText(txt)
             self.plot3_ovc_low_line.setValue(adi_저가)
 
             self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(adi_고가, ','))
+            txt = ' {0:.5f} '.format(adi_고가)
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
             self.plot3_ovc_high_line.setValue(adi_고가)
@@ -29905,34 +29905,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_low_line.setValue(EURO_전일종가)
             self.plot4_fut_high_line.setValue(EURO_전일종가)
                             
-            txt = ' {0} '.format(format(euro_전저, ','))
+            txt = ' {0:.5f} '.format(euro_전저)
             self.label_41.setText(txt)
             self.plot4_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(euro_전고, ','))
+            txt = ' {0:.5f} '.format(euro_전고)
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(euro_전고)
             
-            txt = ' {0} '.format(format(EURO_전일종가, ','))
+            txt = ' {0:.5f} '.format(EURO_전일종가)
             self.label_43.setText(txt)
             self.plot4_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(euro_피봇, ','))
+            txt = ' {0:.5f} '.format(euro_피봇)
             self.label_44.setText(txt)
             self.plot4_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(euro_시가, ','))
+            txt = ' {0:.5f} '.format(euro_시가)
             self.label_45.setText(txt)
             self.plot4_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(euro_저가, ','))
+            txt = ' {0:.5f} '.format(euro_저가)
             self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_46.setText(txt)
             self.plot4_ovc_low_line.setValue(euro_저가)
 
             self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(euro_고가, ','))
+            txt = ' {0:.5f} '.format(euro_고가)
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(euro_고가)
@@ -30083,34 +30083,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_low_line.setValue(ADI_전일종가)
             self.plot4_fut_high_line.setValue(ADI_전일종가)
                             
-            txt = ' {0} '.format(format(adi_전저, ','))
+            txt = ' {0:.5f} '.format(adi_전저)
             self.label_41.setText(txt)
             self.plot4_ovc_jl_line.setValue(adi_전저)
 
-            txt = ' {0} '.format(format(adi_전고, ','))
+            txt = ' {0:.5f} '.format(adi_전고)
             self.label_42.setText(txt)
             self.plot4_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(ADI_전일종가, ','))
+            txt = ' {0:.5f} '.format(ADI_전일종가)
             self.label_43.setText(txt)
             self.plot4_ovc_close_line.setValue(ADI_전일종가)
 
-            txt = ' {0} '.format(format(adi_피봇, ','))
+            txt = ' {0:.5f} '.format(adi_피봇)
             self.label_44.setText(txt)
             self.plot4_ovc_pivot_line.setValue(adi_피봇)
             
-            txt = ' {0} '.format(format(adi_시가, ','))
+            txt = ' {0:.5f} '.format(adi_시가)
             self.label_45.setText(txt)
             self.plot4_ovc_open_line.setValue(adi_시가)
 
-            txt = ' {0} '.format(format(adi_저가, ','))
+            txt = ' {0:.5f} '.format(adi_저가)
             self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_46.setText(txt)
             self.plot4_ovc_low_line.setValue(adi_저가)
 
             self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(adi_고가, ','))
+            txt = ' {0:.5f} '.format(adi_고가)
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(txt)
             self.plot4_ovc_high_line.setValue(adi_고가)
@@ -31194,34 +31194,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_low_line.setValue(EURO_전일종가)
             self.plot5_fut_high_line.setValue(EURO_전일종가)
                 
-            txt = ' {0} '.format(format(euro_전저, ','))
+            txt = ' {0:.5f} '.format(euro_전저)
             self.label_51.setText(txt)
             self.plot5_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(euro_전고, ','))
+            txt = ' {0:.5f} '.format(euro_전고)
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(euro_전고)
             
-            txt = ' {0} '.format(format(EURO_전일종가, ','))
+            txt = ' {0:.5f} '.format(EURO_전일종가)
             self.label_53.setText(txt)
             self.plot5_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(euro_피봇, ','))
+            txt = ' {0:.5f} '.format(euro_피봇)
             self.label_54.setText(txt)
             self.plot5_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(euro_시가, ','))
+            txt = ' {0:.5f} '.format(euro_시가)
             self.label_55.setText(txt)
             self.plot5_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(euro_저가, ','))
+            txt = ' {0:.5f} '.format(euro_저가)
             self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_56.setText(txt)
             self.plot5_ovc_low_line.setValue(euro_저가)
 
             self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(euro_고가, ','))
+            txt = ' {0:.5f} '.format(euro_고가)
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(euro_고가)
@@ -31372,34 +31372,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_low_line.setValue(ADI_전일종가)
             self.plot5_fut_high_line.setValue(ADI_전일종가)            
                 
-            txt = ' {0} '.format(format(adi_전저, ','))
+            txt = ' {0:.5f} '.format(adi_전저)
             self.label_51.setText(txt)
             self.plot5_ovc_jl_line.setValue(adi_전저)
 
-            txt = ' {0} '.format(format(adi_전고, ','))
+            txt = ' {0:.5f} '.format(adi_전고)
             self.label_52.setText(txt)
             self.plot5_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(ADI_전일종가, ','))
+            txt = ' {0:.5f} '.format(ADI_전일종가)
             self.label_53.setText(txt)
             self.plot5_ovc_close_line.setValue(ADI_전일종가)
 
-            txt = ' {0} '.format(format(adi_피봇, ','))
+            txt = ' {0:.5f} '.format(adi_피봇)
             self.label_54.setText(txt)
             self.plot5_ovc_pivot_line.setValue(adi_피봇)
             
-            txt = ' {0} '.format(format(adi_시가, ','))
+            txt = ' {0:.5f} '.format(adi_시가)
             self.label_55.setText(txt)
             self.plot5_ovc_open_line.setValue(adi_시가)
 
-            txt = ' {0} '.format(format(adi_저가, ','))
+            txt = ' {0:.5f} '.format(adi_저가)
             self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_56.setText(txt)
             self.plot5_ovc_low_line.setValue(adi_저가)
 
             self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(adi_고가, ','))
+            txt = ' {0:.5f} '.format(adi_고가)
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(adi_고가)
@@ -32483,34 +32483,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_low_line.setValue(EURO_전일종가)
             self.plot6_fut_high_line.setValue(EURO_전일종가) 
                 
-            txt = ' {0} '.format(format(euro_전저, ','))
+            txt = ' {0:.5f} '.format(euro_전저)
             self.label_61.setText(txt)
             self.plot6_ovc_jl_line.setValue(euro_전저)
 
-            txt = ' {0} '.format(format(euro_전고, ','))
+            txt = ' {0:.5f} '.format(euro_전고)
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(euro_전고)
             
-            txt = ' {0} '.format(format(EURO_전일종가, ','))
+            txt = ' {0:.5f} '.format(EURO_전일종가)
             self.label_63.setText(txt)
             self.plot6_ovc_close_line.setValue(EURO_전일종가)
 
-            txt = ' {0} '.format(format(euro_피봇, ','))
+            txt = ' {0:.5f} '.format(euro_피봇)
             self.label_64.setText(txt)
             self.plot6_ovc_pivot_line.setValue(euro_피봇)
             
-            txt = ' {0} '.format(format(euro_시가, ','))
+            txt = ' {0:.5f} '.format(euro_시가)
             self.label_65.setText(txt)
             self.plot6_ovc_open_line.setValue(euro_시가)
 
-            txt = ' {0} '.format(format(euro_저가, ','))
+            txt = ' {0:.5f} '.format(euro_저가)
             self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_66.setText(txt)
             self.plot6_ovc_low_line.setValue(euro_저가)
 
             self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(euro_고가, ','))
+            txt = ' {0:.5f} '.format(euro_고가)
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(euro_고가)
@@ -32661,34 +32661,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_low_line.setValue(ADI_전일종가)
             self.plot6_fut_high_line.setValue(ADI_전일종가)            
                 
-            txt = ' {0} '.format(format(adi_전저, ','))
+            txt = ' {0:.5f} '.format(adi_전저)
             self.label_61.setText(txt)
             self.plot6_ovc_jl_line.setValue(adi_전저)
 
-            txt = ' {0} '.format(format(adi_전고, ','))
+            txt = ' {0:.5f} '.format(adi_전고)
             self.label_62.setText(txt)
             self.plot6_ovc_jh_line.setValue(adi_전고)
             
-            txt = ' {0} '.format(format(ADI_전일종가, ','))
+            txt = ' {0:.5f} '.format(ADI_전일종가)
             self.label_63.setText(txt)
             self.plot6_ovc_close_line.setValue(ADI_전일종가)
 
-            txt = ' {0} '.format(format(adi_피봇, ','))
+            txt = ' {0:.5f} '.format(adi_피봇)
             self.label_64.setText(txt)
             self.plot6_ovc_pivot_line.setValue(adi_피봇)
             
-            txt = ' {0} '.format(format(adi_시가, ','))
+            txt = ' {0:.5f} '.format(adi_시가)
             self.label_65.setText(txt)
             self.plot6_ovc_open_line.setValue(adi_시가)
 
-            txt = ' {0} '.format(format(adi_저가, ','))
+            txt = ' {0:.5f} '.format(adi_저가)
             self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_66.setText(txt)
             self.plot6_ovc_low_line.setValue(adi_저가)
 
             self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(adi_고가, ','))
+            txt = ' {0:.5f} '.format(adi_고가)
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
             self.plot6_ovc_high_line.setValue(adi_고가)
