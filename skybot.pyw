@@ -34256,7 +34256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_Psar('HSI')
 
                     if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][KSE_START_HOUR:plot_time_index+1].astype(float))
+                        self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36188,7 +36188,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_Psar('HSI')
 
                     if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][KSE_START_HOUR:plot_time_index+1].astype(float))
+                        self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38116,7 +38116,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_Psar('HSI')
 
                     if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][KSE_START_HOUR:plot_time_index+1].astype(float))
+                        self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40045,7 +40045,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_Psar('HSI')
 
                     if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][KSE_START_HOUR:plot_time_index+1].astype(float))
+                        self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41972,7 +41972,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_Psar('HSI')
 
                     if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][KSE_START_HOUR:plot_time_index+1].astype(float))
+                        self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43899,7 +43899,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_Psar('HSI')
 
                     if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][KSE_START_HOUR:plot_time_index+1].astype(float))
+                        self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
