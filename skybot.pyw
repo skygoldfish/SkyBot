@@ -34606,7 +34606,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EURO_저가, ','))
+                txt = ' {0:.5f} '.format(EURO_저가)
                 self.label_16.setText(txt)
 
                 과거가 =  self.label_17.text().split()[0]     
@@ -34639,7 +34639,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EURO_고가, ','))
+                txt = ' {0:.5f} '.format(EURO_고가)
                 self.label_18.setText(txt)
 
                 self.plot1_ovc_jl_line.setValue(EURO_전저)
@@ -34897,14 +34897,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(ADI_저가, ','))
+                txt = ' {0:.5f} '.format(ADI_저가)
                 self.label_16.setText(txt)
 
                 과거가 =  self.label_17.text().split()[0]    
 
                 if ADI_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34917,7 +34917,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif ADI_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34930,7 +34930,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(ADI_고가, ','))
+                txt = ' {0:.5f} '.format(ADI_고가)
                 self.label_18.setText(txt)
 
                 if ADI_전저 > 0:
@@ -36538,7 +36538,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EURO_저가, ','))
+                txt = ' {0:.5f} '.format(EURO_저가)
                 self.label_26.setText(txt)
 
                 과거가 =  self.label_27.text().split()[0]     
@@ -36571,7 +36571,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EURO_고가, ','))
+                txt = ' {0:.5f} '.format(EURO_고가)
                 self.label_28.setText(txt)
 
                 self.plot2_ovc_jl_line.setValue(EURO_전저)
@@ -36829,14 +36829,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(ADI_저가, ','))
+                txt = ' {0:.5f} '.format(ADI_저가)
                 self.label_26.setText(txt)
  
                 과거가 =  self.label_27.text().split()[0]    
 
                 if ADI_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36849,7 +36849,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif ADI_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_27.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36862,7 +36862,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(ADI_고가, ','))
+                txt = ' {0:.5f} '.format(ADI_고가)
                 self.label_28.setText(txt)
 
                 if ADI_전저 > 0:
@@ -38466,7 +38466,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EURO_저가, ','))
+                txt = ' {0:.5f} '.format(EURO_저가)
                 self.label_36.setText(txt)
 
                 과거가 =  self.label_37.text().split()[0]     
@@ -38499,7 +38499,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EURO_고가, ','))
+                txt = ' {0:.5f} '.format(EURO_고가)
                 self.label_38.setText(txt)
 
                 self.plot3_ovc_jl_line.setValue(EURO_전저)
@@ -38757,14 +38757,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(ADI_저가, ','))
+                txt = ' {0:.5f} '.format(ADI_저가)
                 self.label_36.setText(txt)
 
                 과거가 =  self.label_37.text().split()[0]     
 
                 if ADI_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38777,7 +38777,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif ADI_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_37.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38790,7 +38790,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(ADI_고가, ','))
+                txt = ' {0:.5f} '.format(ADI_고가)
                 self.label_38.setText(txt)
 
                 if ADI_전저 > 0:
@@ -40395,7 +40395,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EURO_저가, ','))
+                txt = ' {0:.5f} '.format(EURO_저가)
                 self.label_46.setText(txt)
 
                 과거가 =  self.label_47.text().split()[0]     
@@ -40428,7 +40428,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EURO_고가, ','))
+                txt = ' {0:.5f} '.format(EURO_고가)
                 self.label_48.setText(txt)
 
                 self.plot4_ovc_jl_line.setValue(EURO_전저)
@@ -40686,14 +40686,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(ADI_저가, ','))
+                txt = ' {0:.5f} '.format(ADI_저가)
                 self.label_46.setText(txt)
 
                 과거가 =  self.label_47.text().split()[0]    
 
                 if ADI_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40706,7 +40706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif ADI_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_47.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40719,7 +40719,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(ADI_고가, ','))
+                txt = ' {0:.5f} '.format(ADI_고가)
                 self.label_48.setText(txt)
 
                 if ADI_전저 > 0:
@@ -42322,7 +42322,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EURO_저가, ','))
+                txt = ' {0:.5f} '.format(EURO_저가)
                 self.label_56.setText(txt)
 
                 과거가 =  self.label_57.text().split()[0]     
@@ -42355,7 +42355,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EURO_고가, ','))
+                txt = ' {0:.5f} '.format(EURO_고가)
                 self.label_58.setText(txt)
 
                 self.plot5_ovc_jl_line.setValue(EURO_전저)
@@ -42613,14 +42613,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(ADI_저가, ','))
+                txt = ' {0:.5f} '.format(ADI_저가)
                 self.label_56.setText(txt)
 
                 과거가 =  self.label_57.text().split()[0] 
 
                 if ADI_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42633,7 +42633,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif ADI_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_57.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42646,7 +42646,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(ADI_고가, ','))
+                txt = ' {0:.5f} '.format(ADI_고가)
                 self.label_58.setText(txt)
 
                 if ADI_전저 > 0:
@@ -44249,7 +44249,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(EURO_저가, ','))
+                txt = ' {0:.5f} '.format(EURO_저가)
                 self.label_66.setText(txt)
 
                 과거가 =  self.label_67.text().split()[0]     
@@ -44282,7 +44282,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(EURO_고가, ','))
+                txt = ' {0:.5f} '.format(EURO_고가)
                 self.label_68.setText(txt)
 
                 self.plot6_ovc_jl_line.setValue(EURO_전저)
@@ -44540,14 +44540,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                txt = ' {0} '.format(format(ADI_저가, ','))
+                txt = ' {0:.5f} '.format(ADI_저가)
                 self.label_66.setText(txt)
 
                 과거가 =  self.label_67.text().split()[0]     
 
                 if ADI_현재가 > float(과거가):
 
-                    txt = " {0} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▲ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44560,7 +44560,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 elif ADI_현재가 < float(과거가):
 
-                    txt = " {0} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(format(ADI_현재가, ','), ADI_종가대비, ADI_등락율, ADI_진폭_틱)
+                    txt = " {0:.5f} ▼ ({1:.5f}, {2:.1f}%, {3}) ".format(ADI_현재가, ADI_종가대비, ADI_등락율, ADI_진폭_틱)
 
                     if ADI_종가대비 > 0:
                         self.label_67.setStyleSheet('background-color: skyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44573,7 +44573,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     pass
 
-                txt = ' {0} '.format(format(ADI_고가, ','))
+                txt = ' {0:.5f} '.format(ADI_고가)
                 self.label_68.setText(txt)
 
                 if ADI_전저 > 0:
@@ -50155,6 +50155,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 cme_plot_hour = int(tickdata['수신시간'][0:2])
                 cme_plot_minute = int(tickdata['수신시간'][2:4])
                 cme_plot_sec = int(tickdata['수신시간'][4:6])
+                #print('ovc time = {0}\r'.format(tickdata['수신시간']))
             else:
                 pass
 
