@@ -48903,6 +48903,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
 
+                    if 근월물_선물_현재가 == 0:
+                        근월물_선물_현재가 = 근월물_선물_종가
+
                     if not flag_futures_cm_ohlc_open:
 
                         df_futures_cm_ta_graph.at[plot_time_index, 'open'] = 근월물_선물_현재가
@@ -49073,6 +49076,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
+
+                    if 차월물_선물_현재가 == 0:
+                        차월물_선물_현재가 = 근월물_선물_종가
 
                     if not flag_futures_nm_ohlc_open:
 
