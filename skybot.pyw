@@ -50201,6 +50201,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #if cme_plot_sec == 0 or plot_time_index != old_cme_time_index:
             if cme_plot_sec == 0:
 
+                if SP500_현재가 == 0:
+                    SP500_현재가 = SP500_전일종가
+
                 if not flag_sp500_ohlc_open:
 
                     df_sp500_ta_graph.at[plot_time_index, 'open'] = SP500_현재가
@@ -50214,6 +50217,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     SP500_현재가_버퍼.append(SP500_현재가)
 
+                if DOW_현재가 == 0:
+                    DOW_현재가 = DOW_전일종가
+
                 if not flag_dow_ohlc_open:
 
                     df_dow_ta_graph.at[plot_time_index, 'open'] = DOW_현재가
@@ -50226,6 +50232,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_dow_ohlc_open = True
                 else:
                     DOW_현재가_버퍼.append(DOW_현재가)
+
+                if NASDAQ_현재가 == 0:
+                    NASDAQ_현재가 = NASDAQ_전일종가
                 
                 if not flag_nasdaq_ohlc_open:
                         
@@ -50240,6 +50249,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
 
+                if HANGSENG_현재가 == 0:
+                    HANGSENG_현재가 = HANGSENG_전일종가
+
                 if not flag_hangseng_ohlc_open:
 
                     df_hangseng_ta_graph.at[plot_time_index, 'open'] = HANGSENG_현재가
@@ -50252,6 +50264,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_hangseng_ohlc_open = True
                 else:
                     HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
+
+                if WTI_현재가 == 0:
+                    WTI_현재가 = WTI_전일종가
 
                 if not flag_wti_ohlc_open:
                         
@@ -50266,6 +50281,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     WTI_현재가_버퍼.append(WTI_현재가)
 
+                if GOLD_현재가 == 0:
+                    GOLD_현재가 = GOLD_전일종가
+
                 if not flag_gold_ohlc_open:
                         
                     df_gold_ta_graph.at[plot_time_index, 'open'] = GOLD_현재가
@@ -50278,6 +50296,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_gold_ohlc_open = True
                 else:
                     GOLD_현재가_버퍼.append(GOLD_현재가)
+
+                if EURO_현재가 == 0:
+                    EURO_현재가 = EURO_전일종가
 
                 if not flag_euro_ohlc_open:
                         
@@ -50292,6 +50313,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     EURO_현재가_버퍼.append(EURO_현재가)
 
+                if YEN_현재가 == 0:
+                    YEN_현재가 = YEN_전일종가
+
                 if not flag_yen_ohlc_open:
                         
                     df_yen_ta_graph.at[plot_time_index, 'open'] = YEN_현재가
@@ -50304,6 +50328,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_yen_ohlc_open = True
                 else:
                     YEN_현재가_버퍼.append(YEN_현재가)
+
+                if ADI_현재가 == 0:
+                    ADI_현재가 = ADI_전일종가
 
                 if not flag_adi_ohlc_open:
                         
