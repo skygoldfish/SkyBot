@@ -33251,18 +33251,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:                    
                     self.plot1_fibonacci_line1.setValue(근월물_선물_종가)
                     self.plot1_fibonacci_line2.setValue(근월물_선물_종가)
@@ -33316,17 +33312,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -33792,18 +33784,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:                    
                     self.plot1_fibonacci_line1.setValue(SP500_전일종가)
                     self.plot1_fibonacci_line2.setValue(SP500_전일종가)
@@ -33858,17 +33846,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -33938,18 +33922,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(DOW_전일종가)
                     self.plot1_fibonacci_line2.setValue(DOW_전일종가)
@@ -34004,17 +33984,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34084,18 +34060,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(NASDAQ_전일종가)
                     self.plot1_fibonacci_line2.setValue(NASDAQ_전일종가)
@@ -34150,17 +34122,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34230,18 +34198,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(HANGSENG_전일종가)
                     self.plot1_fibonacci_line2.setValue(HANGSENG_전일종가)
@@ -34296,17 +34260,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34375,18 +34335,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(WTI_전일종가)
                     self.plot1_fibonacci_line2.setValue(WTI_전일종가)
@@ -34441,17 +34397,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34521,18 +34473,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(GOLD_전일종가)
                     self.plot1_fibonacci_line2.setValue(GOLD_전일종가)
@@ -34587,17 +34535,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34666,18 +34610,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(EURO_전일종가)
                     self.plot1_fibonacci_line2.setValue(EURO_전일종가)
@@ -34732,17 +34672,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34812,18 +34748,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(YEN_전일종가)
                     self.plot1_fibonacci_line2.setValue(YEN_전일종가)
@@ -34878,17 +34810,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34964,18 +34892,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p1_2.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(ADI_전일종가)
                     self.plot1_fibonacci_line2.setValue(ADI_전일종가)
@@ -35030,17 +34954,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p1_4.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p1_4.setText(txt)
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35183,18 +35103,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(근월물_선물_종가)
                     self.plot2_fibonacci_line2.setValue(근월물_선물_종가)
@@ -35248,17 +35164,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -35724,18 +35636,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(SP500_전일종가)
                     self.plot2_fibonacci_line2.setValue(SP500_전일종가)
@@ -35790,17 +35698,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -35870,18 +35774,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(DOW_전일종가)
                     self.plot2_fibonacci_line2.setValue(DOW_전일종가)
@@ -35936,17 +35836,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36016,18 +35912,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(NASDAQ_전일종가)
                     self.plot2_fibonacci_line2.setValue(NASDAQ_전일종가)
@@ -36082,17 +35974,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36162,18 +36050,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(HANGSENG_전일종가)
                     self.plot2_fibonacci_line2.setValue(HANGSENG_전일종가)
@@ -36228,17 +36112,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36307,18 +36187,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(WTI_전일종가)
                     self.plot2_fibonacci_line2.setValue(WTI_전일종가)
@@ -36373,17 +36249,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36453,18 +36325,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(GOLD_전일종가)
                     self.plot2_fibonacci_line2.setValue(GOLD_전일종가)
@@ -36519,17 +36387,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36598,18 +36462,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(EURO_전일종가)
                     self.plot2_fibonacci_line2.setValue(EURO_전일종가)
@@ -36664,17 +36524,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36744,18 +36600,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(YEN_전일종가)
                     self.plot2_fibonacci_line2.setValue(YEN_전일종가)
@@ -36810,17 +36662,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -36896,18 +36744,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p2_2.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(ADI_전일종가)
                     self.plot2_fibonacci_line2.setValue(ADI_전일종가)
@@ -36962,17 +36806,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p2_4.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p2_4.setText(txt)
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37113,18 +36953,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(근월물_선물_종가)
                     self.plot3_fibonacci_line2.setValue(근월물_선물_종가)
@@ -37178,17 +37014,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -37652,18 +37484,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(SP500_전일종가)
                     self.plot3_fibonacci_line2.setValue(SP500_전일종가)
@@ -37718,17 +37546,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -37798,18 +37622,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(DOW_전일종가)
                     self.plot3_fibonacci_line2.setValue(DOW_전일종가)
@@ -37864,17 +37684,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")    
@@ -37944,18 +37760,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(NASDAQ_전일종가)
                     self.plot3_fibonacci_line2.setValue(NASDAQ_전일종가)
@@ -38010,17 +37822,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -38090,18 +37898,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(HANGSENG_전일종가)
                     self.plot3_fibonacci_line2.setValue(HANGSENG_전일종가)
@@ -38156,17 +37960,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -38235,18 +38035,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(WTI_전일종가)
                     self.plot3_fibonacci_line2.setValue(WTI_전일종가)
@@ -38301,17 +38097,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -38381,18 +38173,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(GOLD_전일종가)
                     self.plot3_fibonacci_line2.setValue(GOLD_전일종가)
@@ -38447,17 +38235,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -38526,18 +38310,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(EURO_전일종가)
                     self.plot3_fibonacci_line2.setValue(EURO_전일종가)
@@ -38592,17 +38372,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -38672,18 +38448,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(YEN_전일종가)
                     self.plot3_fibonacci_line2.setValue(YEN_전일종가)
@@ -38738,17 +38510,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -38824,18 +38592,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p3_2.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(ADI_전일종가)
                     self.plot3_fibonacci_line2.setValue(ADI_전일종가)
@@ -38890,17 +38654,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p3_4.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p3_4.setText(txt)
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -39040,18 +38800,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(근월물_선물_종가)
                     self.plot4_fibonacci_line2.setValue(근월물_선물_종가)
@@ -39105,17 +38861,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -39581,18 +39333,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(SP500_전일종가)
                     self.plot4_fibonacci_line2.setValue(SP500_전일종가)
@@ -39647,17 +39395,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -39727,18 +39471,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(DOW_전일종가)
                     self.plot4_fibonacci_line2.setValue(DOW_전일종가)
@@ -39793,17 +39533,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -39873,18 +39609,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(NASDAQ_전일종가)
                     self.plot4_fibonacci_line2.setValue(NASDAQ_전일종가)
@@ -39939,17 +39671,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40019,18 +39747,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(HANGSENG_전일종가)
                     self.plot4_fibonacci_line2.setValue(HANGSENG_전일종가)
@@ -40085,17 +39809,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40164,18 +39884,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(WTI_전일종가)
                     self.plot4_fibonacci_line2.setValue(WTI_전일종가)
@@ -40230,17 +39946,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40310,18 +40022,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(GOLD_전일종가)
                     self.plot4_fibonacci_line2.setValue(GOLD_전일종가)
@@ -40376,17 +40084,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40455,18 +40159,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(EURO_전일종가)
                     self.plot4_fibonacci_line2.setValue(EURO_전일종가)
@@ -40521,17 +40221,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40601,18 +40297,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(YEN_전일종가)
                     self.plot4_fibonacci_line2.setValue(YEN_전일종가)
@@ -40667,17 +40359,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40753,18 +40441,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p4_2.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(ADI_전일종가)
                     self.plot4_fibonacci_line2.setValue(ADI_전일종가)
@@ -40819,17 +40503,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p4_4.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p4_4.setText(txt)
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -40970,18 +40650,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(근월물_선물_종가)
                     self.plot5_fibonacci_line2.setValue(근월물_선물_종가)
@@ -41035,17 +40711,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -41508,18 +41180,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(SP500_전일종가)
                     self.plot5_fibonacci_line2.setValue(SP500_전일종가)
@@ -41574,17 +41242,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -41654,18 +41318,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(DOW_전일종가)
                     self.plot5_fibonacci_line2.setValue(DOW_전일종가)
@@ -41720,17 +41380,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ") 
@@ -41800,18 +41456,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(NASDAQ_전일종가)
                     self.plot5_fibonacci_line2.setValue(NASDAQ_전일종가)
@@ -41866,17 +41518,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -41946,18 +41594,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(HANGSENG_전일종가)
                     self.plot5_fibonacci_line2.setValue(HANGSENG_전일종가)
@@ -42012,17 +41656,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -42091,18 +41731,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(WTI_전일종가)
                     self.plot5_fibonacci_line2.setValue(WTI_전일종가)
@@ -42157,17 +41793,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -42237,18 +41869,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(GOLD_전일종가)
                     self.plot5_fibonacci_line2.setValue(GOLD_전일종가)
@@ -42303,17 +41931,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -42382,18 +42006,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(EURO_전일종가)
                     self.plot5_fibonacci_line2.setValue(EURO_전일종가)
@@ -42448,17 +42068,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -42528,18 +42144,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(YEN_전일종가)
                     self.plot5_fibonacci_line2.setValue(YEN_전일종가)
@@ -42594,17 +42206,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -42680,18 +42288,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p5_2.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(ADI_전일종가)
                     self.plot5_fibonacci_line2.setValue(ADI_전일종가)
@@ -42746,17 +42350,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p5_4.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p5_4.setText(txt)
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -42897,18 +42497,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(근월물_선물_종가)
                     self.plot6_fibonacci_line2.setValue(근월물_선물_종가)
@@ -42962,17 +42558,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -43435,18 +43027,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(SP500_전일종가)
                     self.plot6_fibonacci_line2.setValue(SP500_전일종가)
@@ -43501,17 +43089,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -43581,18 +43165,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(DOW_전일종가)
                     self.plot6_fibonacci_line2.setValue(DOW_전일종가)
@@ -43647,17 +43227,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")  
@@ -43727,18 +43303,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(NASDAQ_전일종가)
                     self.plot6_fibonacci_line2.setValue(NASDAQ_전일종가)
@@ -43793,17 +43365,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -43873,18 +43441,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                            (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(HANGSENG_전일종가)
                     self.plot6_fibonacci_line2.setValue(HANGSENG_전일종가)
@@ -43939,17 +43503,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")         
@@ -44018,18 +43578,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                            (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(WTI_전일종가)
                     self.plot6_fibonacci_line2.setValue(WTI_전일종가)
@@ -44084,17 +43640,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -44164,18 +43716,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(GOLD_전일종가)
                     self.plot6_fibonacci_line2.setValue(GOLD_전일종가)
@@ -44230,17 +43778,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -44309,18 +43853,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(EURO_전일종가)
                     self.plot6_fibonacci_line2.setValue(EURO_전일종가)
@@ -44375,17 +43915,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -44455,18 +43991,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                            (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(YEN_전일종가)
                     self.plot6_fibonacci_line2.setValue(YEN_전일종가)
@@ -44521,17 +44053,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -44607,18 +44135,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'BBMiddle']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
-                            self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                            (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
-                        self.label_p6_2.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                    self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(ADI_전일종가)
                     self.plot6_fibonacci_line2.setValue(ADI_전일종가)
@@ -44673,20 +44197,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'MAMA']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'FAMA']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                            self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                        self.label_p6_4.setText(txt)
+                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
-                        pass
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
+                    self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")             
+                    self.label_p6_4.setText(" MAMA ")            
             else:
                 pass
 
