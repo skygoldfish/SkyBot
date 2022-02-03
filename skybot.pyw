@@ -49049,7 +49049,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_cm_drate_scale_factor_set:
 
                     plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
-               
+
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
                     else:
@@ -49071,20 +49071,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
             else:
-                if len(tickdata['수신시간']) == 1:
-                    plot_time_index = (24 - NightTime_PreStart_Hour) * 60 + 0 + 1
-                elif len(tickdata['수신시간']) == 2:
-                    plot_time_index = (24 - NightTime_PreStart_Hour) * 60 + 0 + 1
-                elif len(tickdata['수신시간']) == 3:
-                    plot_time_index = (24 - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][0:1]) + 1
-                elif len(tickdata['수신시간']) == 4:
-                    plot_time_index = (24 - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][0:2]) + 1
-                elif len(tickdata['수신시간']) == 5:
-                    plot_time_index = (int(tickdata['수신시간'][0:1]) - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
-                elif len(tickdata['수신시간']) == 6:
-                    plot_time_index = (int(tickdata['수신시간'][0:2]) - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+                option_plot_hour = int(tickdata['수신시간'][0:2])
+
+                if SUMMER_TIME:
+                    cme_close_hour = 6
+                else:
+                    cme_close_hour = 7
+
+                if 0 <= option_plot_hour < cme_close_hour:
+                    option_plot_hour = option_plot_hour + 24
                 else:
                     pass
+
+                plot_time_index = (option_plot_hour - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
+
+            #print('option tick time = {0}, plot_time_index = {1}\r'.format(tickdata['수신시간'], plot_time_index))
 
             if tickdata['단축코드'][0:3] == '201':
 
@@ -49373,6 +49374,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     plot_time_index = (int(tickdata['수신시간'][0:2]) - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
                 else:
                     pass
+
+            #print('option quote time = {0}, plot_time_index = {1}\r'.format(tickdata['수신시간'], plot_time_index))
 
             if tickdata['단축코드'][0:3] == '201':
 
