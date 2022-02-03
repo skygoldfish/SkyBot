@@ -3662,47 +3662,11 @@ class RealTime_OVC_MP_DataWorker(QThread):
                         else:
                             pass
 
-                        if len(tickdata['system_time']) == 1:
-                            systime = int(tickdata['system_time'][0:1])
-                        elif len(tickdata['system_time']) == 2:
-                            systime = int(tickdata['system_time'][0:2])
-                        elif len(tickdata['system_time']) == 3:
-                            systime = int(tickdata['system_time'][0:1]) * 60 + int(tickdata['system_time'][1:3])
-                        elif len(tickdata['system_time']) == 4:
-                            systime = int(tickdata['system_time'][0:2]) * 60 + int(tickdata['system_time'][2:4])
-                        elif len(tickdata['system_time']) == 5:
-                            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
-                        elif len(tickdata['system_time']) == 6:
-                            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-                        else:
-                            pass
+                        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
 
-                        if len(tickdata['수신시간']) == 1:
-                            realtime_hour = 0
-                            realtime_min = 0
-                            realtime_sec = int(tickdata['수신시간'][0:1])
-                        elif len(tickdata['수신시간']) == 2:
-                            realtime_hour = 0
-                            realtime_min = 0
-                            realtime_sec = int(tickdata['수신시간'][0:2])
-                        elif len(tickdata['수신시간']) == 3:
-                            realtime_hour = 0
-                            realtime_min = int(tickdata['수신시간'][0:1])
-                            realtime_sec = int(tickdata['수신시간'][1:3])
-                        elif len(tickdata['수신시간']) == 4:
-                            realtime_hour = 0
-                            realtime_min = int(tickdata['수신시간'][0:2])
-                            realtime_sec = int(tickdata['수신시간'][2:4])
-                        elif len(tickdata['수신시간']) == 5:
-                            realtime_hour = int(tickdata['수신시간'][0:1])
-                            realtime_min = int(tickdata['수신시간'][1:3])
-                            realtime_sec = int(tickdata['수신시간'][3:5])
-                        elif len(tickdata['수신시간']) == 6:
-                            realtime_hour = int(tickdata['수신시간'][0:2])
-                            realtime_min = int(tickdata['수신시간'][2:4])
-                            realtime_sec = int(tickdata['수신시간'][4:6])
-                        else:
-                            pass
+                        realtime_hour = int(tickdata['수신시간'][0:2])
+                        realtime_min = int(tickdata['수신시간'][2:4])
+                        realtime_sec = int(tickdata['수신시간'][4:6])
 
                         realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -46056,47 +46020,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             fourth_totalcount = 0
             ovc_tick_total_size = 0
 
-        if len(tickdata['system_time']) == 1:
-            systime = int(tickdata['system_time'][0:1])
-        elif len(tickdata['system_time']) == 2:
-            systime = int(tickdata['system_time'][0:2])
-        elif len(tickdata['system_time']) == 3:
-            systime = int(tickdata['system_time'][0:1]) * 60 + int(tickdata['system_time'][1:3])
-        elif len(tickdata['system_time']) == 4:
-            systime = int(tickdata['system_time'][0:2]) * 60 + int(tickdata['system_time'][2:4])
-        elif len(tickdata['system_time']) == 5:
-            systime = int(tickdata['system_time'][0:1]) * 3600 + int(tickdata['system_time'][1:3]) * 60 + int(tickdata['system_time'][3:5])
-        elif len(tickdata['system_time']) == 6:
-            systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
-        else:
-            pass
+        systime = int(tickdata['system_time'][0:2]) * 3600 + int(tickdata['system_time'][2:4]) * 60 + int(tickdata['system_time'][4:6])
 
-        if len(tickdata['수신시간']) == 1:
-            realtime_hour = 0
-            realtime_min = 0
-            realtime_sec = int(tickdata['수신시간'][0:1])
-        elif len(tickdata['수신시간']) == 2:
-            realtime_hour = 0
-            realtime_min = 0
-            realtime_sec = int(tickdata['수신시간'][0:2])
-        elif len(tickdata['수신시간']) == 3:
-            realtime_hour = 0
-            realtime_min = int(tickdata['수신시간'][0:1])
-            realtime_sec = int(tickdata['수신시간'][1:3])
-        elif len(tickdata['수신시간']) == 4:
-            realtime_hour = 0
-            realtime_min = int(tickdata['수신시간'][0:2])
-            realtime_sec = int(tickdata['수신시간'][2:4])
-        elif len(tickdata['수신시간']) == 5:
-            realtime_hour = int(tickdata['수신시간'][0:1])
-            realtime_min = int(tickdata['수신시간'][1:3])
-            realtime_sec = int(tickdata['수신시간'][3:5])
-        elif len(tickdata['수신시간']) == 6:
-            realtime_hour = int(tickdata['수신시간'][0:2])
-            realtime_min = int(tickdata['수신시간'][2:4])
-            realtime_sec = int(tickdata['수신시간'][4:6])
-        else:
-            pass
+        realtime_hour = int(tickdata['수신시간'][0:2])
+        realtime_min = int(tickdata['수신시간'][2:4])
+        realtime_sec = int(tickdata['수신시간'][4:6])
 
         realtime = realtime_hour * 3600 + realtime_min * 60 + realtime_sec
 
@@ -49657,37 +49585,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             CME_체결시간 = tickdata['수신시간']
 
-            if len(tickdata['수신시간']) == 1:
-                cme_plot_hour = 0
-                cme_plot_minute = 0
-                cme_plot_sec = int(tickdata['수신시간'][0:1])
-            elif len(tickdata['수신시간']) == 2:
-                cme_plot_hour = 0
-                cme_plot_minute = 0
-                cme_plot_sec = int(tickdata['수신시간'][0:2])
-            elif len(tickdata['수신시간']) == 3:
-                cme_plot_hour = 0
-                cme_plot_minute = int(tickdata['수신시간'][0:1])
-                cme_plot_sec = int(tickdata['수신시간'][1:3])
-            elif len(tickdata['수신시간']) == 4:
-                cme_plot_hour = 0
-                cme_plot_minute = int(tickdata['수신시간'][0:2])
-                cme_plot_sec = int(tickdata['수신시간'][2:4])
-            elif len(tickdata['수신시간']) == 5:
-                cme_plot_hour = int(tickdata['수신시간'][0:1])
-                cme_plot_minute = int(tickdata['수신시간'][1:3])
-                cme_plot_sec = int(tickdata['수신시간'][3:5])
-            elif len(tickdata['수신시간']) == 6:
-                cme_plot_hour = int(tickdata['수신시간'][0:2])
-                cme_plot_minute = int(tickdata['수신시간'][2:4])
-                cme_plot_sec = int(tickdata['수신시간'][4:6])
-                #print('ovc time = {0}\r'.format(tickdata['수신시간']))
-            else:
-                pass
-
-            #cme_plot_hour = int(CME_체결시간[0:2])
-            #cme_plot_minute = int(CME_체결시간[2:4])
-            #cme_plot_sec = int(CME_체결시간[4:6])
+            cme_plot_hour = int(tickdata['수신시간'][0:2])
+            cme_plot_minute = int(tickdata['수신시간'][2:4])
+            cme_plot_sec = int(tickdata['수신시간'][4:6])
 
             t0167_hour = cme_plot_hour
             t0167_minute = cme_plot_minute
@@ -49710,6 +49610,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1
+
+                #print('ovc time = {0}, plot_time_index = {1}\r'.format(tickdata['수신시간'], plot_time_index))
 
                 if plot_time_index < 0:                    
 
