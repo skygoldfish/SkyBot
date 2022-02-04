@@ -51,6 +51,7 @@ import socket
 import talib
 from talib import MA_Type
 import ta
+from tapy import Indicators
 import functools
 import shutil
 
@@ -3931,7 +3932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         #self.setAttribute(Qt.WA_DeleteOnClose, True)
-               
+
         self.setupUi(self)
         self.parent = parent
         
@@ -3994,7 +3995,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         ['�', '☆', '★', '※', '○', '●', '◎', '☀', '☁', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '♦', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
 
         self.특수문자_숫자 = ['⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾']
-       
+
         if 스크린번호 == 0:
             print('주모니터 화면({0}X{1})입니다.'.format(screen_info.width(), screen_info.height()))
         else:
@@ -4190,9 +4191,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_quote.horizontalHeader().setStyleSheet(quote_header_stylesheet)
 
-        self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR',
-                                                          '풋CMSC', '풋CMDC', '풋CMSR', '풋CMDR', '콜HCR', '콜HRR',
-                                                          '풋HCR', '풋HRR', '∑HCRΔ/∑HRRΔ', '∑콜OI:∑풋OI'])
+        self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR', '풋CMSC', '풋CMDC', '풋CMSR', '풋CMDR', '콜HCR', '콜HRR', '풋HCR', '풋HRR', '∑HCRΔ/∑HRRΔ', '∑콜OI:∑풋OI'])
         self.tableWidget_quote.verticalHeader().setVisible(False)
 
         header = self.tableWidget_quote.horizontalHeader()
@@ -4493,9 +4492,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH == 'CM':
 
                     if not REAL_SERVER:
-                        widget_title = repr(current_month) + '월 만기 주간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(current_month) + '월 만기 주간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     else:
-                        widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(current_month) + '월 만기 주간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                     print(widget_title)
                     ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
@@ -4503,9 +4502,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif TARGET_MONTH == 'NM':
 
                     if not REAL_SERVER:
-                        widget_title = repr(next_month) + '월 만기 주간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(next_month) + '월 만기 주간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     else:
-                        widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(next_month) + '월 만기 주간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                     ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
 
@@ -4519,9 +4518,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH == 'CM':
 
                         if not REAL_SERVER:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                         else:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                         ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
 
@@ -4530,9 +4529,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     elif TARGET_MONTH == 'NM':
 
                         if not REAL_SERVER:
-                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                         else:
-                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                         ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, month_after_next))
                     else:
@@ -4541,18 +4540,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH == 'CM':
 
                         if not REAL_SERVER:
-                            widget_title = repr(current_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(current_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                         else:
-                            widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(current_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                         ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
 
                     elif TARGET_MONTH == 'NM':
 
                         if not REAL_SERVER:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                         else:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
                         ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
 
@@ -5339,7 +5338,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-            	pass
+                pass
 
             col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
 
@@ -5695,7 +5694,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 선물 OHLC 데이타프레임 생성
         if flag_market_service and DayTime:
-                  
+
             time_txt = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
             chetime = nowDate + ' ' + time_txt
 
@@ -20386,32 +20385,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_yen_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
 
-            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
-                    'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            
-            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
-                    'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
+            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])           
+            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
 
-            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA',  'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', \
-                'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])        
+            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
 
             flag_t8433_response_ok = True
         else:
@@ -32669,7 +32654,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # Bollinger Bands            
-            upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_futures_cm_ta_graph['BBUpper'] = upper
             df_futures_cm_ta_graph['BBMiddle'] = middle
@@ -32678,7 +32663,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_sp500_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_sp500_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_sp500_ta_graph['BBUpper'] = upper
             df_sp500_ta_graph['BBMiddle'] = middle
@@ -32687,7 +32672,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'DOW':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_dow_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_dow_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_dow_ta_graph['BBUpper'] = upper
             df_dow_ta_graph['BBMiddle'] = middle
@@ -32696,7 +32681,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_nasdaq_ta_graph['BBUpper'] = upper
             df_nasdaq_ta_graph['BBMiddle'] = middle
@@ -32705,7 +32690,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_hangseng_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_hangseng_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_hangseng_ta_graph['BBUpper'] = upper
             df_hangseng_ta_graph['BBMiddle'] = middle
@@ -32714,7 +32699,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_wti_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_wti_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_wti_ta_graph['BBUpper'] = upper
             df_wti_ta_graph['BBMiddle'] = middle
@@ -32723,7 +32708,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_gold_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_gold_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_gold_ta_graph['BBUpper'] = upper
             df_gold_ta_graph['BBMiddle'] = middle
@@ -32732,7 +32717,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_euro_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_euro_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_euro_ta_graph['BBUpper'] = upper
             df_euro_ta_graph['BBMiddle'] = middle
@@ -32741,7 +32726,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_yen_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_yen_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_yen_ta_graph['BBUpper'] = upper
             df_yen_ta_graph['BBMiddle'] = middle
@@ -32750,7 +32735,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_adi_ta_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(np.array(df_adi_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_adi_ta_graph['BBUpper'] = upper
             df_adi_ta_graph['BBMiddle'] = middle
@@ -32767,10 +32752,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # Parabolic SAR
-            df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['high'], dtype=float), np.array(df_futures_cm_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['High'], dtype=float), np.array(df_futures_cm_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
             '''
             # Ichimoku Indicator
-            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['high'], df_futures_cm_ta_graph['low'])
+            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'])
 
             df_futures_cm_ta_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
             df_futures_cm_ta_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
@@ -32780,11 +32765,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # Parabolic SAR
-            df_sp500_ta_graph['PSAR'] = talib.SAR(np.array(df_sp500_ta_graph['high'], dtype=float), np.array(df_sp500_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_sp500_ta_graph['PSAR'] = talib.SAR(np.array(df_sp500_ta_graph['High'], dtype=float), np.array(df_sp500_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_ta_graph['high'], df_sp500_ta_graph['low'])
+            sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'])
 
             df_sp500_ta_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
             df_sp500_ta_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
@@ -32794,11 +32779,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'DOW':
 
             # Parabolic SAR
-            df_dow_ta_graph['PSAR'] = talib.SAR(np.array(df_dow_ta_graph['high'], dtype=float), np.array(df_dow_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_dow_ta_graph['PSAR'] = talib.SAR(np.array(df_dow_ta_graph['High'], dtype=float), np.array(df_dow_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_ta_graph['high'], df_dow_ta_graph['low'])
+            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_ta_graph['High'], df_dow_ta_graph['Low'])
 
             df_dow_ta_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
             df_dow_ta_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
@@ -32808,11 +32793,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # Parabolic SAR
-            df_nasdaq_ta_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_ta_graph['high'], dtype=float), np.array(df_nasdaq_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_nasdaq_ta_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_ta_graph['High'], dtype=float), np.array(df_nasdaq_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_ta_graph['high'], df_nasdaq_ta_graph['low'])
+            nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'])
 
             df_nasdaq_ta_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
             df_nasdaq_ta_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
@@ -32822,11 +32807,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # Parabolic SAR
-            df_hangseng_ta_graph['PSAR'] = talib.SAR(np.array(df_hangseng_ta_graph['high'], dtype=float), np.array(df_hangseng_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_hangseng_ta_graph['PSAR'] = talib.SAR(np.array(df_hangseng_ta_graph['High'], dtype=float), np.array(df_hangseng_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_ta_graph['high'], df_hangseng_ta_graph['low'])
+            hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'])
 
             df_hangseng_ta_graph['SPAN_A'] = hsi_Ichimoku.ichimoku_a()
             df_hangseng_ta_graph['SPAN_B'] = hsi_Ichimoku.ichimoku_b()
@@ -32836,11 +32821,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # Parabolic SAR
-            df_wti_ta_graph['PSAR'] = talib.SAR(np.array(df_wti_ta_graph['high'], dtype=float), np.array(df_wti_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_wti_ta_graph['PSAR'] = talib.SAR(np.array(df_wti_ta_graph['High'], dtype=float), np.array(df_wti_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_ta_graph['high'], df_wti_ta_graph['low'])
+            wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_ta_graph['High'], df_wti_ta_graph['Low'])
 
             df_wti_ta_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
             df_wti_ta_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
@@ -32850,11 +32835,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # Parabolic SAR
-            df_gold_ta_graph['PSAR'] = talib.SAR(np.array(df_gold_ta_graph['high'], dtype=float), np.array(df_gold_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_gold_ta_graph['PSAR'] = talib.SAR(np.array(df_gold_ta_graph['High'], dtype=float), np.array(df_gold_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_ta_graph['high'], df_gold_ta_graph['low'])
+            gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_ta_graph['High'], df_gold_ta_graph['Low'])
 
             df_gold_ta_graph['SPAN_A'] = gold_Ichimoku.ichimoku_a()
             df_gold_ta_graph['SPAN_B'] = gold_Ichimoku.ichimoku_b()
@@ -32864,11 +32849,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # Parabolic SAR
-            df_euro_ta_graph['PSAR'] = talib.SAR(np.array(df_euro_ta_graph['high'], dtype=float), np.array(df_euro_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_euro_ta_graph['PSAR'] = talib.SAR(np.array(df_euro_ta_graph['High'], dtype=float), np.array(df_euro_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_ta_graph['high'], df_euro_ta_graph['low'])
+            euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_ta_graph['High'], df_euro_ta_graph['Low'])
 
             df_euro_ta_graph['SPAN_A'] = euro_Ichimoku.ichimoku_a()
             df_euro_ta_graph['SPAN_B'] = euro_Ichimoku.ichimoku_b()
@@ -32878,11 +32863,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # Parabolic SAR
-            df_yen_ta_graph['PSAR'] = talib.SAR(np.array(df_yen_ta_graph['high'], dtype=float), np.array(df_yen_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_yen_ta_graph['PSAR'] = talib.SAR(np.array(df_yen_ta_graph['High'], dtype=float), np.array(df_yen_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_ta_graph['high'], df_yen_ta_graph['low'])
+            yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_ta_graph['High'], df_yen_ta_graph['Low'])
 
             df_yen_ta_graph['SPAN_A'] = yen_Ichimoku.ichimoku_a()
             df_yen_ta_graph['SPAN_B'] = yen_Ichimoku.ichimoku_b()
@@ -32892,11 +32877,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # Parabolic SAR
-            df_adi_ta_graph['PSAR'] = talib.SAR(np.array(df_adi_ta_graph['high'], dtype=float), np.array(df_adi_ta_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_adi_ta_graph['PSAR'] = talib.SAR(np.array(df_adi_ta_graph['High'], dtype=float), np.array(df_adi_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
             '''
             # Ichimoku Indicator
-            adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_ta_graph['high'], df_adi_ta_graph['low'])
+            adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_ta_graph['High'], df_adi_ta_graph['Low'])
 
             df_adi_ta_graph['SPAN_A'] = adi_Ichimoku.ichimoku_a()
             df_adi_ta_graph['SPAN_B'] = adi_Ichimoku.ichimoku_b()
@@ -32915,7 +32900,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # MAMA
-            mama, fama = talib.MAMA(np.array(df_futures_cm_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_futures_cm_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_futures_cm_ta_graph['MAMA'] = mama
             df_futures_cm_ta_graph['FAMA'] = fama
@@ -32923,15 +32908,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_sp500_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_sp500_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_sp500_ta_graph['MAMA'] = mama
             df_sp500_ta_graph['FAMA'] = fama
+
+            #i = Indicators(df_sp500_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df = i.df
+            #print(df[390:410])
             
         elif type == 'DOW':
 
             # MAMA(약 32 샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_dow_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_dow_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_dow_ta_graph['MAMA'] = mama
             df_dow_ta_graph['FAMA'] = fama
@@ -32939,7 +32929,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_nasdaq_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_nasdaq_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_nasdaq_ta_graph['MAMA'] = mama
             df_nasdaq_ta_graph['FAMA'] = fama
@@ -32947,7 +32937,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_hangseng_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_hangseng_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_hangseng_ta_graph['MAMA'] = mama
             df_hangseng_ta_graph['FAMA'] = fama
@@ -32955,7 +32945,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_wti_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_wti_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_wti_ta_graph['MAMA'] = mama
             df_wti_ta_graph['FAMA'] = fama
@@ -32963,7 +32953,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_gold_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_gold_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_gold_ta_graph['MAMA'] = mama
             df_gold_ta_graph['FAMA'] = fama
@@ -32971,7 +32961,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_euro_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_euro_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_euro_ta_graph['MAMA'] = mama
             df_euro_ta_graph['FAMA'] = fama
@@ -32979,7 +32969,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_yen_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_yen_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_yen_ta_graph['MAMA'] = mama
             df_yen_ta_graph['FAMA'] = fama
@@ -32987,7 +32977,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_adi_ta_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(np.array(df_adi_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
             df_adi_ta_graph['MAMA'] = mama
             df_adi_ta_graph['FAMA'] = fama
@@ -33160,7 +33150,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = ' {0} '.format(근월물_선물_고가)
                 self.label_18.setText(txt)
-                              
+
                 self.plot1_kp200_line[3].setValue(KP200_COREVAL[3])
                 self.plot1_kp200_line[4].setValue(KP200_COREVAL[4])
                 self.plot1_kp200_line[5].setValue(KP200_COREVAL[5])
@@ -33464,7 +33454,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_18.setText(txt)              
-                               
+
                 self.plot1_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
                 self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
 
@@ -46935,66 +46925,65 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if tickdata['단축코드'] == GMSHCODE:
 
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
-                근월물_선물_저가 = float(tickdata['예상체결가격'])
-                근월물_선물_고가 = float(tickdata['예상체결가격'])
+                근월물_선물_현재가 = float(tickdata['예상체결가격'])
+                #근월물_선물_저가 = float(tickdata['예상체결가격'])
+                #근월물_선물_고가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
                 df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_시가                
+                df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가                
 
                 # 1T OHLC 생성
-                df_futures_cm_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_futures_cm_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_futures_cm_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_futures_cm_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_futures_cm_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
                 
-                if not np.isnan(근월물_선물_현재가):    
-                    df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_시가 
+                df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가                     
 
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
 
                     if not flag_futures_cm_ohlc_open:
 
-                        df_futures_cm_graph.at[plot_time_index, 'open'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[plot_time_index, 'high'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[plot_time_index, 'low'] = 근월물_선물_시가
-                        df_futures_cm_graph.at[plot_time_index, 'middle'] = 근월물_선물_시가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
                         flag_futures_cm_ohlc_open = True
                     else:
-                        근월물_선물_현재가_버퍼.append(근월물_선물_시가)                            
+                        근월물_선물_현재가_버퍼.append(근월물_선물_현재가)                            
                 else:
-                    #if df_futures_cm_graph.at[plot_time_index, 'open'] != df_futures_cm_graph.at[plot_time_index, 'open']:
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'open']):
-                        df_futures_cm_graph.at[plot_time_index, 'open'] = df_futures_cm_graph.at[plot_time_index - 1, 'close']
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'Open']):
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'Close']
                         del 근월물_선물_현재가_버퍼[:]
                     else:
                         pass
 
-                    근월물_선물_현재가_버퍼.append(근월물_선물_시가)
+                    근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
 
                     if max(근월물_선물_현재가_버퍼) > 0:
-                        df_futures_cm_graph.at[plot_time_index, 'high'] = max(근월물_선물_현재가_버퍼)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
                     else:
                         pass
 
                     if min(근월물_선물_현재가_버퍼) == 0:
 
                         if max(근월물_선물_현재가_버퍼) > 0:
-                            df_futures_cm_graph.at[plot_time_index, 'low'] = max(근월물_선물_현재가_버퍼)
+                            df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = max(근월물_선물_현재가_버퍼)
                         else:
                             pass
                     else:
-                        df_futures_cm_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
 
-                    df_futures_cm_graph.at[plot_time_index, 'close'] = 근월물_선물_시가
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
                     flag_futures_cm_ohlc_open = False
 
-                    df_futures_cm_graph.at[plot_time_index, 'middle'] = (df_futures_cm_graph.at[plot_time_index, 'high'] + df_futures_cm_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_cm_ta_graph.at[plot_time_index, 'High'] + df_futures_cm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
@@ -47155,12 +47144,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if not flag_futures_nm_ohlc_open:
 
-                            df_futures_nm_graph.at[plot_time_index, 'open'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[plot_time_index, 'high'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[plot_time_index, 'low'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[plot_time_index, 'middle'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_시가
-                            df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'High'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'price'] = 차월물_선물_시가
 
                             del 차월물_선물_현재가_버퍼[:]
 
@@ -47168,9 +47157,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             차월물_선물_현재가_버퍼.append(차월물_선물_시가)                            
                     else:
-                        #if df_futures_nm_graph.at[plot_time_index, 'open'] != df_futures_nm_graph.at[plot_time_index, 'open']:
-                        if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'open']):
-                            df_futures_nm_graph.at[plot_time_index, 'open'] = df_futures_nm_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_futures_nm_ta_graph.at[plot_time_index, 'Open']):
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'Close']
                             del 차월물_선물_현재가_버퍼[:]
                         else:
                             pass
@@ -47178,24 +47166,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         차월물_선물_현재가_버퍼.append(차월물_선물_시가)
 
                         if max(차월물_선물_현재가_버퍼) > 0:
-                            df_futures_nm_graph.at[plot_time_index, 'high'] = max(차월물_선물_현재가_버퍼)
+                            df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
                         else:
                             pass
 
                         if min(차월물_선물_현재가_버퍼) == 0:
 
                             if max(차월물_선물_현재가_버퍼) > 0:
-                                df_futures_nm_graph.at[plot_time_index, 'low'] = max(차월물_선물_현재가_버퍼)
+                                df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = max(차월물_선물_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_futures_nm_graph.at[plot_time_index, 'low'] = min(차월물_선물_현재가_버퍼)
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
 
-                        df_futures_nm_graph.at[plot_time_index, 'close'] = 차월물_선물_시가
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
 
                         flag_futures_nm_ohlc_open = False
 
-                    df_futures_nm_graph.at[plot_time_index, 'middle'] = (df_futures_nm_graph.at[plot_time_index, 'high'] + df_futures_nm_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_nm_ta_graph.at[plot_time_index, 'High'] + df_futures_nm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                     item = QTableWidgetItem("{0:.2f}".format(차월물_선물_시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48340,13 +48328,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_ta_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
 
                 # 1T OHLC 생성
-                df_futures_cm_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_futures_cm_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_futures_cm_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_futures_cm_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_futures_cm_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
                 
                 if not np.isnan(근월물_선물_현재가):    
-                    df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가       
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가       
 
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
@@ -48356,10 +48344,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if not flag_futures_cm_ohlc_open:
 
-                        df_futures_cm_ta_graph.at[plot_time_index, 'open'] = 근월물_선물_현재가
-                        df_futures_cm_ta_graph.at[plot_time_index, 'high'] = 근월물_선물_현재가
-                        df_futures_cm_ta_graph.at[plot_time_index, 'low'] = 근월물_선물_현재가
-                        df_futures_cm_ta_graph.at[plot_time_index, 'middle'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = 근월물_선물_현재가
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -48367,8 +48355,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         근월물_선물_현재가_버퍼.append(근월물_선물_현재가)              
                 else:
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'open']):
-                        df_futures_cm_ta_graph.at[plot_time_index, 'open'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'close']
+                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'Open']):
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'Close']
                         del 근월물_선물_현재가_버퍼[:]
                     else:
                         pass
@@ -48376,22 +48364,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
 
                     if max(근월물_선물_현재가_버퍼) > 0:
-                        df_futures_cm_ta_graph.at[plot_time_index, 'high'] = max(근월물_선물_현재가_버퍼)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
                     else:
                         pass
 
                     if min(근월물_선물_현재가_버퍼) == 0:
 
                         if max(근월물_선물_현재가_버퍼) > 0:
-                            df_futures_cm_ta_graph.at[plot_time_index, 'low'] = max(근월물_선물_현재가_버퍼)
+                            df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = max(근월물_선물_현재가_버퍼)
                         else:
                             pass
                     else:
-                        df_futures_cm_ta_graph.at[plot_time_index, 'low'] = min(근월물_선물_현재가_버퍼)  
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)  
 
                     flag_futures_cm_ohlc_open = False
 
-                    df_futures_cm_ta_graph.at[plot_time_index, 'middle'] = (df_futures_cm_ta_graph.at[plot_time_index, 'high'] + df_futures_cm_ta_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_cm_ta_graph.at[plot_time_index, 'High'] + df_futures_cm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'volume'] = fut_cm_volume_power
@@ -48415,7 +48403,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-                              
+
                 근월물_선물_종가대비_등락율 = float(tickdata['등락율'])
                 근월물_선물_시가등락율 = ((float(tickdata['시가']) - 근월물_선물_종가) / 근월물_선물_종가) * 100           
                 근월물_선물_시가대비_등락율 = ((float(tickdata['현재가']) - float(tickdata['시가'])) / float(tickdata['시가'])) * 100
@@ -48428,7 +48416,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if TARGET_MONTH == 'CM' and abs(근월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_cm_drate_scale_factor_set:                    
 
                     plot_drate_scale_factor = int(abs(drate_reference / 근월물_선물_시가등락율))
-              
+
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
                     else:
@@ -48483,7 +48471,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if TARGET_MONTH == 'NM' and abs(차월물_선물_시가등락율) > 0 and abs(drate_reference) > 0 and not flag_nm_drate_scale_factor_set:
 
                     plot_drate_scale_factor = int(abs(drate_reference / 차월물_선물_시가등락율))
-             
+
                     if plot_drate_scale_factor > 100:
                         plot_drate_scale_factor = int(plot_drate_scale_factor / 10)
                     else:
@@ -48514,13 +48502,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_ta_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
 
                 # 1T OHLC 생성
-                df_futures_nm_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_futures_nm_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_futures_nm_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_futures_nm_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_futures_nm_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(차월물_선물_현재가):
-                    df_futures_nm_ta_graph.at[plot_time_index, 'close'] = 차월물_선물_현재가                    
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가                    
 
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
@@ -48530,10 +48518,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if not flag_futures_nm_ohlc_open:
 
-                        df_futures_nm_ta_graph.at[plot_time_index, 'open'] = 차월물_선물_현재가
-                        df_futures_nm_ta_graph.at[plot_time_index, 'high'] = 차월물_선물_현재가
-                        df_futures_nm_ta_graph.at[plot_time_index, 'low'] = 차월물_선물_현재가
-                        df_futures_nm_ta_graph.at[plot_time_index, 'middle'] = 차월물_선물_현재가
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
+                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = 차월물_선물_현재가
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_현재가
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = 차월물_선물_현재가
 
                         del 차월물_선물_현재가_버퍼[:]
 
@@ -48541,8 +48529,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         차월물_선물_현재가_버퍼.append(차월물_선물_현재가)              
                 else:
-                    if not np.isnan(df_futures_nm_ta_graph.at[plot_time_index, 'open']):
-                        df_futures_nm_ta_graph.at[plot_time_index, 'open'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'close']
+                    if not np.isnan(df_futures_nm_ta_graph.at[plot_time_index, 'Open']):
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'Close']
                         del 차월물_선물_현재가_버퍼[:]
                     else:
                         pass
@@ -48550,22 +48538,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     차월물_선물_현재가_버퍼.append(근월물_선물_현재가)
 
                     if max(차월물_선물_현재가_버퍼) > 0:
-                        df_futures_nm_ta_graph.at[plot_time_index, 'high'] = max(차월물_선물_현재가_버퍼)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
                     else:
                         pass
 
                     if min(차월물_선물_현재가_버퍼) == 0:
 
                         if max(차월물_선물_현재가_버퍼) > 0:
-                            df_futures_nm_ta_graph.at[plot_time_index, 'low'] = max(차월물_선물_현재가_버퍼)
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = max(차월물_선물_현재가_버퍼)
                         else:
                             pass
                     else:
-                        df_futures_nm_ta_graph.at[plot_time_index, 'low'] = min(차월물_선물_현재가_버퍼)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
 
                     flag_futures_nm_ohlc_open = False
 
-                    df_futures_nm_ta_graph.at[plot_time_index, 'middle'] = (df_futures_nm_ta_graph.at[plot_time_index, 'high'] + df_futures_nm_ta_graph.at[plot_time_index, 'low']) / 2
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_nm_ta_graph.at[plot_time_index, 'High'] + df_futures_nm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                 fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
@@ -49637,10 +49625,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_sp500_ohlc_open:
 
-                    df_sp500_ta_graph.at[plot_time_index, 'open'] = SP500_현재가
-                    df_sp500_ta_graph.at[plot_time_index, 'high'] = SP500_현재가
-                    df_sp500_ta_graph.at[plot_time_index, 'low'] = SP500_현재가
-                    df_sp500_ta_graph.at[plot_time_index, 'middle'] = SP500_현재가
+                    df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가
+                    df_sp500_ta_graph.at[plot_time_index, 'High'] = SP500_현재가
+                    df_sp500_ta_graph.at[plot_time_index, 'Low'] = SP500_현재가
+                    df_sp500_ta_graph.at[plot_time_index, 'Middle'] = SP500_현재가
 
                     del SP500_현재가_버퍼[:]
 
@@ -49653,10 +49641,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_dow_ohlc_open:
 
-                    df_dow_ta_graph.at[plot_time_index, 'open'] = DOW_현재가
-                    df_dow_ta_graph.at[plot_time_index, 'high'] = DOW_현재가
-                    df_dow_ta_graph.at[plot_time_index, 'low'] = DOW_현재가
-                    df_dow_ta_graph.at[plot_time_index, 'middle'] = DOW_현재가
+                    df_dow_ta_graph.at[plot_time_index, 'Open'] = DOW_현재가
+                    df_dow_ta_graph.at[plot_time_index, 'High'] = DOW_현재가
+                    df_dow_ta_graph.at[plot_time_index, 'Low'] = DOW_현재가
+                    df_dow_ta_graph.at[plot_time_index, 'Middle'] = DOW_현재가
 
                     del DOW_현재가_버퍼[:]
 
@@ -49669,10 +49657,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_nasdaq_ohlc_open:
                         
-                    df_nasdaq_ta_graph.at[plot_time_index, 'open'] = NASDAQ_현재가
-                    df_nasdaq_ta_graph.at[plot_time_index, 'high'] = NASDAQ_현재가
-                    df_nasdaq_ta_graph.at[plot_time_index, 'low'] = NASDAQ_현재가
-                    df_nasdaq_ta_graph.at[plot_time_index, 'middle'] = NASDAQ_현재가
+                    df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = NASDAQ_현재가
+                    df_nasdaq_ta_graph.at[plot_time_index, 'High'] = NASDAQ_현재가
+                    df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = NASDAQ_현재가
+                    df_nasdaq_ta_graph.at[plot_time_index, 'Middle'] = NASDAQ_현재가
 
                     del NASDAQ_현재가_버퍼[:]
 
@@ -49685,10 +49673,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_hangseng_ohlc_open:
 
-                    df_hangseng_ta_graph.at[plot_time_index, 'open'] = HANGSENG_현재가
-                    df_hangseng_ta_graph.at[plot_time_index, 'high'] = HANGSENG_현재가
-                    df_hangseng_ta_graph.at[plot_time_index, 'low'] = HANGSENG_현재가
-                    df_hangseng_ta_graph.at[plot_time_index, 'middle'] = HANGSENG_현재가
+                    df_hangseng_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가
+                    df_hangseng_ta_graph.at[plot_time_index, 'High'] = HANGSENG_현재가
+                    df_hangseng_ta_graph.at[plot_time_index, 'Low'] = HANGSENG_현재가
+                    df_hangseng_ta_graph.at[plot_time_index, 'Middle'] = HANGSENG_현재가
 
                     del HANGSENG_현재가_버퍼[:]
 
@@ -49701,10 +49689,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_wti_ohlc_open:
                         
-                    df_wti_ta_graph.at[plot_time_index, 'open'] = WTI_현재가
-                    df_wti_ta_graph.at[plot_time_index, 'high'] = WTI_현재가
-                    df_wti_ta_graph.at[plot_time_index, 'low'] = WTI_현재가
-                    df_wti_ta_graph.at[plot_time_index, 'middle'] = WTI_현재가
+                    df_wti_ta_graph.at[plot_time_index, 'Open'] = WTI_현재가
+                    df_wti_ta_graph.at[plot_time_index, 'High'] = WTI_현재가
+                    df_wti_ta_graph.at[plot_time_index, 'Low'] = WTI_현재가
+                    df_wti_ta_graph.at[plot_time_index, 'Middle'] = WTI_현재가
 
                     del WTI_현재가_버퍼[:]
 
@@ -49717,10 +49705,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_gold_ohlc_open:
                         
-                    df_gold_ta_graph.at[plot_time_index, 'open'] = GOLD_현재가
-                    df_gold_ta_graph.at[plot_time_index, 'high'] = GOLD_현재가
-                    df_gold_ta_graph.at[plot_time_index, 'low'] = GOLD_현재가
-                    df_gold_ta_graph.at[plot_time_index, 'middle'] = GOLD_현재가
+                    df_gold_ta_graph.at[plot_time_index, 'Open'] = GOLD_현재가
+                    df_gold_ta_graph.at[plot_time_index, 'High'] = GOLD_현재가
+                    df_gold_ta_graph.at[plot_time_index, 'Low'] = GOLD_현재가
+                    df_gold_ta_graph.at[plot_time_index, 'Middle'] = GOLD_현재가
 
                     del GOLD_현재가_버퍼[:]
 
@@ -49733,10 +49721,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_euro_ohlc_open:
                         
-                    df_euro_ta_graph.at[plot_time_index, 'open'] = EURO_현재가
-                    df_euro_ta_graph.at[plot_time_index, 'high'] = EURO_현재가
-                    df_euro_ta_graph.at[plot_time_index, 'low'] = EURO_현재가
-                    df_euro_ta_graph.at[plot_time_index, 'middle'] = EURO_현재가
+                    df_euro_ta_graph.at[plot_time_index, 'Open'] = EURO_현재가
+                    df_euro_ta_graph.at[plot_time_index, 'High'] = EURO_현재가
+                    df_euro_ta_graph.at[plot_time_index, 'Low'] = EURO_현재가
+                    df_euro_ta_graph.at[plot_time_index, 'Middle'] = EURO_현재가
 
                     del EURO_현재가_버퍼[:]
 
@@ -49749,10 +49737,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_yen_ohlc_open:
                         
-                    df_yen_ta_graph.at[plot_time_index, 'open'] = YEN_현재가
-                    df_yen_ta_graph.at[plot_time_index, 'high'] = YEN_현재가
-                    df_yen_ta_graph.at[plot_time_index, 'low'] = YEN_현재가
-                    df_yen_ta_graph.at[plot_time_index, 'middle'] = YEN_현재가
+                    df_yen_ta_graph.at[plot_time_index, 'Open'] = YEN_현재가
+                    df_yen_ta_graph.at[plot_time_index, 'High'] = YEN_현재가
+                    df_yen_ta_graph.at[plot_time_index, 'Low'] = YEN_현재가
+                    df_yen_ta_graph.at[plot_time_index, 'Middle'] = YEN_현재가
 
                     del YEN_현재가_버퍼[:]
 
@@ -49765,10 +49753,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_adi_ohlc_open:
                         
-                    df_adi_ta_graph.at[plot_time_index, 'open'] = ADI_현재가
-                    df_adi_ta_graph.at[plot_time_index, 'high'] = ADI_현재가
-                    df_adi_ta_graph.at[plot_time_index, 'low'] = ADI_현재가
-                    df_adi_ta_graph.at[plot_time_index, 'middle'] = ADI_현재가
+                    df_adi_ta_graph.at[plot_time_index, 'Open'] = ADI_현재가
+                    df_adi_ta_graph.at[plot_time_index, 'High'] = ADI_현재가
+                    df_adi_ta_graph.at[plot_time_index, 'Low'] = ADI_현재가
+                    df_adi_ta_graph.at[plot_time_index, 'Middle'] = ADI_현재가
 
                     del ADI_현재가_버퍼[:]
 
@@ -49823,20 +49811,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_sp500_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_sp500_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_sp500_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_sp500_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_sp500_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_sp500_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_sp500_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(SP500_현재가):
 
-                    df_sp500_ta_graph.at[plot_time_index, 'close'] = SP500_현재가                    
+                    df_sp500_ta_graph.at[plot_time_index, 'Close'] = SP500_현재가                    
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:                        
-                        if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'open']):
-                            df_sp500_ta_graph.at[plot_time_index, 'open'] = df_sp500_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'Open']):
+                            df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_ta_graph.at[plot_time_index - 1, 'Close']
                             del SP500_현재가_버퍼[:]
                         else:
                             pass
@@ -49844,23 +49832,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         SP500_현재가_버퍼.append(SP500_현재가)                            
 
                         if max(SP500_현재가_버퍼) > 0:
-                            df_sp500_ta_graph.at[plot_time_index, 'high'] = max(SP500_현재가_버퍼)
+                            df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
                         else:
                             pass
 
                         if min(SP500_현재가_버퍼) == 0:
 
                             if max(SP500_현재가_버퍼) > 0:
-                                df_sp500_ta_graph.at[plot_time_index, 'low'] = max(SP500_현재가_버퍼)
+                                df_sp500_ta_graph.at[plot_time_index, 'Low'] = max(SP500_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_sp500_ta_graph.at[plot_time_index, 'low'] = min(SP500_현재가_버퍼)                                                 
+                            df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)                                                 
 
                         flag_sp500_ohlc_open = False
 
-                        if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'low']):
-                            df_sp500_ta_graph.at[plot_time_index, 'middle'] = (df_sp500_ta_graph.at[plot_time_index, 'high'] + df_sp500_ta_graph.at[plot_time_index, 'low']) / 2                            
+                        if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'Low']):
+                            df_sp500_ta_graph.at[plot_time_index, 'Middle'] = (df_sp500_ta_graph.at[plot_time_index, 'High'] + df_sp500_ta_graph.at[plot_time_index, 'Low']) / 2                            
                 else:
                     pass                                                                 
 
@@ -50045,20 +50033,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_dow_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_dow_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_dow_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_dow_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_dow_ta_graph['close'].fillna(method='bfill', inplace=True)                
+                df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_dow_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)                
 
                 if not np.isnan(DOW_현재가):
 
-                    df_dow_ta_graph.at[plot_time_index, 'close'] = DOW_현재가
+                    df_dow_ta_graph.at[plot_time_index, 'Close'] = DOW_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'open']):
-                            df_dow_ta_graph.at[plot_time_index, 'open'] = df_dow_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'Open']):
+                            df_dow_ta_graph.at[plot_time_index, 'Open'] = df_dow_ta_graph.at[plot_time_index - 1, 'Close']
                             del DOW_현재가_버퍼[:]
                         else:
                             pass
@@ -50066,23 +50054,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         DOW_현재가_버퍼.append(DOW_현재가)                            
 
                         if max(DOW_현재가_버퍼) > 0:
-                            df_dow_ta_graph.at[plot_time_index, 'high'] = max(DOW_현재가_버퍼)
+                            df_dow_ta_graph.at[plot_time_index, 'High'] = max(DOW_현재가_버퍼)
                         else:
                             pass
 
                         if min(DOW_현재가_버퍼) == 0:
 
                             if max(DOW_현재가_버퍼) > 0:
-                                df_dow_ta_graph.at[plot_time_index, 'low'] = max(DOW_현재가_버퍼)
+                                df_dow_ta_graph.at[plot_time_index, 'Low'] = max(DOW_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_dow_ta_graph.at[plot_time_index, 'low'] = min(DOW_현재가_버퍼)             
+                            df_dow_ta_graph.at[plot_time_index, 'Low'] = min(DOW_현재가_버퍼)             
 
                         flag_dow_ohlc_open = False
 
-                        if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'low']):
-                            df_dow_ta_graph.at[plot_time_index, 'middle'] = int(df_dow_ta_graph.at[plot_time_index, 'high'] + df_dow_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'Low']):
+                            df_dow_ta_graph.at[plot_time_index, 'Middle'] = int(df_dow_ta_graph.at[plot_time_index, 'High'] + df_dow_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
 
@@ -50266,20 +50254,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
 
-                df_nasdaq_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_nasdaq_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_nasdaq_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_nasdaq_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_nasdaq_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_nasdaq_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_nasdaq_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_nasdaq_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(NASDAQ_현재가):
 
-                    df_nasdaq_ta_graph.at[plot_time_index, 'close'] = NASDAQ_현재가 
+                    df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = NASDAQ_현재가 
 
                     if cme_plot_sec == 0:
                         pass                       
                     else:
-                        if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'open']):
-                            df_nasdaq_ta_graph.at[plot_time_index, 'open'] = df_nasdaq_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'Open']):
+                            df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = df_nasdaq_ta_graph.at[plot_time_index - 1, 'Close']
                             del NASDAQ_현재가_버퍼[:]
                         else:
                             pass
@@ -50287,23 +50275,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                            
 
                         if max(NASDAQ_현재가_버퍼) > 0:
-                            df_nasdaq_ta_graph.at[plot_time_index, 'high'] = max(NASDAQ_현재가_버퍼)
+                            df_nasdaq_ta_graph.at[plot_time_index, 'High'] = max(NASDAQ_현재가_버퍼)
                         else:
                             pass
 
                         if min(NASDAQ_현재가_버퍼) == 0:
 
                             if max(NASDAQ_현재가_버퍼) > 0:
-                                df_nasdaq_ta_graph.at[plot_time_index, 'low'] = max(NASDAQ_현재가_버퍼)
+                                df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = max(NASDAQ_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_nasdaq_ta_graph.at[plot_time_index, 'low'] = min(NASDAQ_현재가_버퍼)          
+                            df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = min(NASDAQ_현재가_버퍼)          
 
                         flag_nasdaq_ohlc_open = False
 
-                        if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'low']):
-                            df_nasdaq_ta_graph.at[plot_time_index, 'middle'] = (df_nasdaq_ta_graph.at[plot_time_index, 'high'] + df_nasdaq_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'Low']):
+                            df_nasdaq_ta_graph.at[plot_time_index, 'Middle'] = (df_nasdaq_ta_graph.at[plot_time_index, 'High'] + df_nasdaq_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                
                 
@@ -50485,20 +50473,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_hangseng_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_hangseng_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_hangseng_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_hangseng_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_hangseng_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_hangseng_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_hangseng_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_hangseng_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_hangseng_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_hangseng_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(HANGSENG_현재가):
 
-                    df_hangseng_ta_graph.at[plot_time_index, 'close'] = HANGSENG_현재가
+                    df_hangseng_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'open']):
-                            df_hangseng_ta_graph.at[plot_time_index, 'open'] = df_hangseng_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'Open']):
+                            df_hangseng_ta_graph.at[plot_time_index, 'Open'] = df_hangseng_ta_graph.at[plot_time_index - 1, 'Close']
                             del HANGSENG_현재가_버퍼[:]
                         else:
                             pass
@@ -50506,23 +50494,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         HANGSENG_현재가_버퍼.append(HANGSENG_현재가)                            
 
                         if max(HANGSENG_현재가_버퍼) > 0:
-                            df_hangseng_ta_graph.at[plot_time_index, 'high'] = max(HANGSENG_현재가_버퍼)
+                            df_hangseng_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
                         else:
                             pass
 
                         if min(HANGSENG_현재가_버퍼) == 0:
 
                             if max(HANGSENG_현재가_버퍼) > 0:
-                                df_hangseng_ta_graph.at[plot_time_index, 'low'] = max(HANGSENG_현재가_버퍼)
+                                df_hangseng_ta_graph.at[plot_time_index, 'Low'] = max(HANGSENG_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_hangseng_ta_graph.at[plot_time_index, 'low'] = min(HANGSENG_현재가_버퍼)         
+                            df_hangseng_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)         
 
                         flag_hangseng_ohlc_open = False
 
-                        if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'low']):
-                            df_hangseng_ta_graph.at[plot_time_index, 'middle'] = int(df_hangseng_ta_graph.at[plot_time_index, 'high'] + df_hangseng_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'Low']):
+                            df_hangseng_ta_graph.at[plot_time_index, 'Middle'] = int(df_hangseng_ta_graph.at[plot_time_index, 'High'] + df_hangseng_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                  
 
@@ -50706,20 +50694,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_wti_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_wti_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_wti_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_wti_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_wti_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_wti_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_wti_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_wti_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(WTI_현재가):
 
-                    df_wti_ta_graph.at[plot_time_index, 'close'] = WTI_현재가
+                    df_wti_ta_graph.at[plot_time_index, 'Close'] = WTI_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'open']):
-                            df_wti_ta_graph.at[plot_time_index, 'open'] = df_wti_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'Open']):
+                            df_wti_ta_graph.at[plot_time_index, 'Open'] = df_wti_ta_graph.at[plot_time_index - 1, 'Close']
                             del WTI_현재가_버퍼[:]
                         else:
                             pass
@@ -50727,23 +50715,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         WTI_현재가_버퍼.append(WTI_현재가)                            
 
                         if max(WTI_현재가_버퍼) > 0:
-                            df_wti_ta_graph.at[plot_time_index, 'high'] = max(WTI_현재가_버퍼)
+                            df_wti_ta_graph.at[plot_time_index, 'High'] = max(WTI_현재가_버퍼)
                         else:
                             pass
 
                         if min(WTI_현재가_버퍼) == 0:
 
                             if max(WTI_현재가_버퍼) > 0:
-                                df_wti_ta_graph.at[plot_time_index, 'low'] = max(WTI_현재가_버퍼)
+                                df_wti_ta_graph.at[plot_time_index, 'Low'] = max(WTI_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_wti_ta_graph.at[plot_time_index, 'low'] = min(WTI_현재가_버퍼)             
+                            df_wti_ta_graph.at[plot_time_index, 'Low'] = min(WTI_현재가_버퍼)             
 
                         flag_wti_ohlc_open = False
 
-                        if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'low']):
-                            df_wti_ta_graph.at[plot_time_index, 'middle'] = (df_wti_ta_graph.at[plot_time_index, 'high'] + df_wti_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'Low']):
+                            df_wti_ta_graph.at[plot_time_index, 'Middle'] = (df_wti_ta_graph.at[plot_time_index, 'High'] + df_wti_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                             
 
@@ -50925,20 +50913,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_gold_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_gold_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_gold_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_gold_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_gold_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_gold_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_gold_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_gold_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(GOLD_현재가):
 
-                    df_gold_ta_graph.at[plot_time_index, 'close'] = GOLD_현재가
+                    df_gold_ta_graph.at[plot_time_index, 'Close'] = GOLD_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'open']):
-                            df_gold_ta_graph.at[plot_time_index, 'open'] = df_gold_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'Open']):
+                            df_gold_ta_graph.at[plot_time_index, 'Open'] = df_gold_ta_graph.at[plot_time_index - 1, 'Close']
                             del GOLD_현재가_버퍼[:]
                         else:
                             pass
@@ -50946,23 +50934,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         GOLD_현재가_버퍼.append(GOLD_현재가)                            
 
                         if max(GOLD_현재가_버퍼) > 0:
-                            df_gold_ta_graph.at[plot_time_index, 'high'] = max(GOLD_현재가_버퍼)
+                            df_gold_ta_graph.at[plot_time_index, 'High'] = max(GOLD_현재가_버퍼)
                         else:
                             pass
 
                         if min(GOLD_현재가_버퍼) == 0:
 
                             if max(GOLD_현재가_버퍼) > 0:
-                                df_gold_ta_graph.at[plot_time_index, 'low'] = max(GOLD_현재가_버퍼)
+                                df_gold_ta_graph.at[plot_time_index, 'Low'] = max(GOLD_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_gold_ta_graph.at[plot_time_index, 'low'] = min(GOLD_현재가_버퍼)           
+                            df_gold_ta_graph.at[plot_time_index, 'Low'] = min(GOLD_현재가_버퍼)           
 
                         flag_gold_ohlc_open = False
 
-                        if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'low']):
-                            df_gold_ta_graph.at[plot_time_index, 'middle'] = (df_gold_ta_graph.at[plot_time_index, 'high'] + df_gold_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'Low']):
+                            df_gold_ta_graph.at[plot_time_index, 'Middle'] = (df_gold_ta_graph.at[plot_time_index, 'High'] + df_gold_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
 
@@ -51144,20 +51132,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_euro_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_euro_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_euro_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_euro_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_euro_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_euro_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_euro_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_euro_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(EURO_현재가):
 
-                    df_euro_ta_graph.at[plot_time_index, 'close'] = EURO_현재가
+                    df_euro_ta_graph.at[plot_time_index, 'Close'] = EURO_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'open']):
-                            df_euro_ta_graph.at[plot_time_index, 'open'] = df_euro_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'Open']):
+                            df_euro_ta_graph.at[plot_time_index, 'Open'] = df_euro_ta_graph.at[plot_time_index - 1, 'Close']
                             del EURO_현재가_버퍼[:]
                         else:
                             pass
@@ -51165,23 +51153,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         EURO_현재가_버퍼.append(EURO_현재가)                            
 
                         if max(EURO_현재가_버퍼) > 0:
-                            df_euro_ta_graph.at[plot_time_index, 'high'] = max(EURO_현재가_버퍼)
+                            df_euro_ta_graph.at[plot_time_index, 'High'] = max(EURO_현재가_버퍼)
                         else:
                             pass
 
                         if min(EURO_현재가_버퍼) == 0:
 
                             if max(EURO_현재가_버퍼) > 0:
-                                df_euro_ta_graph.at[plot_time_index, 'low'] = max(EURO_현재가_버퍼)
+                                df_euro_ta_graph.at[plot_time_index, 'Low'] = max(EURO_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_euro_ta_graph.at[plot_time_index, 'low'] = min(EURO_현재가_버퍼)            
+                            df_euro_ta_graph.at[plot_time_index, 'Low'] = min(EURO_현재가_버퍼)            
 
                         flag_euro_ohlc_open = False
 
-                        if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'low']):
-                            df_euro_ta_graph.at[plot_time_index, 'middle'] = (df_euro_ta_graph.at[plot_time_index, 'high'] + df_euro_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'Low']):
+                            df_euro_ta_graph.at[plot_time_index, 'Middle'] = (df_euro_ta_graph.at[plot_time_index, 'High'] + df_euro_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
                 
@@ -51363,20 +51351,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_yen_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_yen_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_yen_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_yen_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_yen_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_yen_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_yen_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_yen_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(YEN_현재가):
 
-                    df_yen_ta_graph.at[plot_time_index, 'close'] = YEN_현재가
+                    df_yen_ta_graph.at[plot_time_index, 'Close'] = YEN_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'open']):
-                            df_yen_ta_graph.at[plot_time_index, 'open'] = df_yen_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'Open']):
+                            df_yen_ta_graph.at[plot_time_index, 'Open'] = df_yen_ta_graph.at[plot_time_index - 1, 'Close']
                             del YEN_현재가_버퍼[:]
                         else:
                             pass
@@ -51384,23 +51372,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         YEN_현재가_버퍼.append(YEN_현재가)
 
                         if max(YEN_현재가_버퍼) > 0:
-                            df_yen_ta_graph.at[plot_time_index, 'high'] = max(YEN_현재가_버퍼)
+                            df_yen_ta_graph.at[plot_time_index, 'High'] = max(YEN_현재가_버퍼)
                         else:
                             pass
 
                         if min(YEN_현재가_버퍼) == 0:
 
                             if max(YEN_현재가_버퍼) > 0:
-                                df_yen_ta_graph.at[plot_time_index, 'low'] = max(YEN_현재가_버퍼)
+                                df_yen_ta_graph.at[plot_time_index, 'Low'] = max(YEN_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_yen_ta_graph.at[plot_time_index, 'low'] = min(YEN_현재가_버퍼)              
+                            df_yen_ta_graph.at[plot_time_index, 'Low'] = min(YEN_현재가_버퍼)              
 
                         flag_yen_ohlc_open = False
 
-                        if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'low']):
-                            df_yen_ta_graph.at[plot_time_index, 'middle'] = (df_yen_ta_graph.at[plot_time_index, 'high'] + df_yen_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'Low']):
+                            df_yen_ta_graph.at[plot_time_index, 'Middle'] = (df_yen_ta_graph.at[plot_time_index, 'High'] + df_yen_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                                         
                 
@@ -51582,20 +51570,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_adi_graph.at[plot_time_index, 'ctime'] = CME_체결시간
                 df_adi_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
-                df_adi_ta_graph['high'].fillna(method='bfill', inplace=True) 
-                df_adi_ta_graph['low'].fillna(method='bfill', inplace=True)
-                df_adi_ta_graph['middle'].fillna(method='bfill', inplace=True) 
-                df_adi_ta_graph['close'].fillna(method='bfill', inplace=True)
+                df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_adi_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(ADI_현재가):
 
-                    df_adi_ta_graph.at[plot_time_index, 'close'] = ADI_현재가
+                    df_adi_ta_graph.at[plot_time_index, 'Close'] = ADI_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'open']):
-                            df_adi_ta_graph.at[plot_time_index, 'open'] = df_adi_ta_graph.at[plot_time_index - 1, 'close']
+                        if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'Open']):
+                            df_adi_ta_graph.at[plot_time_index, 'Open'] = df_adi_ta_graph.at[plot_time_index - 1, 'Close']
                             del ADI_현재가_버퍼[:]
                         else:
                             pass
@@ -51603,23 +51591,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         ADI_현재가_버퍼.append(ADI_현재가)
 
                         if max(ADI_현재가_버퍼) > 0:
-                            df_adi_ta_graph.at[plot_time_index, 'high'] = max(ADI_현재가_버퍼)
+                            df_adi_ta_graph.at[plot_time_index, 'High'] = max(ADI_현재가_버퍼)
                         else:
                             pass
 
                         if min(ADI_현재가_버퍼) == 0:
 
                             if max(ADI_현재가_버퍼) > 0:
-                                df_adi_ta_graph.at[plot_time_index, 'low'] = max(ADI_현재가_버퍼)
+                                df_adi_ta_graph.at[plot_time_index, 'Low'] = max(ADI_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_adi_ta_graph.at[plot_time_index, 'low'] = min(ADI_현재가_버퍼)             
+                            df_adi_ta_graph.at[plot_time_index, 'Low'] = min(ADI_현재가_버퍼)             
 
                         flag_adi_ohlc_open = False
                     
-                        if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'high']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'low']):
-                            df_adi_ta_graph.at[plot_time_index, 'middle'] = (df_adi_ta_graph.at[plot_time_index, 'high'] + df_adi_ta_graph.at[plot_time_index, 'low']) / 2
+                        if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'Low']):
+                            df_adi_ta_graph.at[plot_time_index, 'Middle'] = (df_adi_ta_graph.at[plot_time_index, 'High'] + df_adi_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
 
