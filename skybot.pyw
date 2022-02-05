@@ -11687,7 +11687,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 시가 및 피봇 갱신
             if 시가 != self.tableWidget_fut.item(1, Futures_column.시가.value).text().split('\n')[0]:
 
-                df_futures_cm_graph.at[GuardTime + 1, 'open'] = 근월물_선물_시가                
+                df_futures_cm_graph.at[GuardTime + 1, 'Open'] = 근월물_선물_시가                
 
                 df_fut.at[1, '시가'] = 근월물_선물_시가
                 self.fut_realdata['시가'] = 근월물_선물_시가  
@@ -11966,7 +11966,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 시가 및 피봇 갱신
             if 시가 != self.tableWidget_fut.item(0, Futures_column.시가.value).text():
 
-                df_futures_nm_graph.at[GuardTime + 1, 'open'] = 차월물_선물_시가                
+                df_futures_nm_graph.at[GuardTime + 1, 'Open'] = 차월물_선물_시가                
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12213,7 +12213,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'BBMiddle']):
 
-            if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
+            if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'Price']:
                 fut_bollinger_symbol = '▼'
             else:
                 fut_bollinger_symbol = '▲'
@@ -12222,7 +12222,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'PSAR']):
 
-            if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'price']:
+            if df_futures_cm_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_graph.at[plot_time_index, 'Price']:
                 fut_psar_symbol = '▼'
             else:
                 fut_psar_symbol = '▲'
@@ -12515,8 +12515,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call.at[index, '시가'] = 콜시가                
 
-                df_call_graph[index].at[GuardTime + 1, 'open'] = 콜시가
-                df_call_graph[index].at[GuardTime + 1, 'price'] = 콜시가
+                df_call_graph[index].at[GuardTime + 1, 'Open'] = 콜시가
+                df_call_graph[index].at[GuardTime + 1, 'Price'] = 콜시가
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12925,7 +12925,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_otm_jdb_percent_mean = round(np.mean(np_call_otm_jdb_percent_local), 1)
 
         if flag_market_service:
-            df_call_information_graph.at[plot_time_index, 'drate'] = call_otm_cdb_percent_mean
+            df_call_information_graph.at[plot_time_index, 'Drate'] = call_otm_cdb_percent_mean
             drate_gap = call_otm_cdb_percent_mean - plot_drate_scale_factor * 근월물_선물_시가대비_등락율
         else:
             pass
@@ -13620,8 +13620,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_put.at[index, '시가'] = 풋시가                
 
-                df_put_graph[index].at[GuardTime + 1, 'open'] = 풋시가
-                df_put_graph[index].at[GuardTime + 1, 'price'] = 풋시가
+                df_put_graph[index].at[GuardTime + 1, 'Open'] = 풋시가
+                df_put_graph[index].at[GuardTime + 1, 'Price'] = 풋시가
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -14027,7 +14027,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_otm_jdb_percent_mean = round(np.mean(np_put_otm_jdb_percent_local), 1)
 
         if flag_market_service:
-            df_put_information_graph.at[plot_time_index, 'drate'] = put_otm_cdb_percent_mean
+            df_put_information_graph.at[plot_time_index, 'Drate'] = put_otm_cdb_percent_mean
         else:
             pass
 
@@ -15460,65 +15460,65 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                df_futures_cm_graph.at[0, 'drate'] = 0
-                df_futures_nm_graph.at[0, 'drate'] = 0
-                df_sp500_graph.at[0, 'drate'] = 0
-                df_dow_graph.at[0, 'drate'] = 0
-                df_nasdaq_graph.at[0, 'drate'] = 0
-                df_hangseng_graph.at[0, 'drate'] = 0
-                df_wti_graph.at[0, 'drate'] = 0
-                df_gold_graph.at[0, 'drate'] = 0
-                df_euro_graph.at[0, 'drate'] = 0
-                df_yen_graph.at[0, 'drate'] = 0
-                df_adi_graph.at[0, 'drate'] = 0
+                df_futures_cm_graph.at[0, 'Drate'] = 0
+                df_futures_nm_graph.at[0, 'Drate'] = 0
+                df_sp500_graph.at[0, 'Drate'] = 0
+                df_dow_graph.at[0, 'Drate'] = 0
+                df_nasdaq_graph.at[0, 'Drate'] = 0
+                df_hangseng_graph.at[0, 'Drate'] = 0
+                df_wti_graph.at[0, 'Drate'] = 0
+                df_gold_graph.at[0, 'Drate'] = 0
+                df_euro_graph.at[0, 'Drate'] = 0
+                df_yen_graph.at[0, 'Drate'] = 0
+                df_adi_graph.at[0, 'Drate'] = 0
 
-                df_call_information_graph.at[0, 'drate'] = 0
-                df_put_information_graph.at[0, 'drate'] = 0
+                df_call_information_graph.at[0, 'Drate'] = 0
+                df_put_information_graph.at[0, 'Drate'] = 0
 
                 df_call_information_graph.at[0, 'centerval'] = 장시작_중심가
 
                 if SP500_전일종가 > 0:
-                    df_sp500_graph.at[0, 'price'] = SP500_전일종가
-                    df_sp500_graph.at[1, 'price'] = SP500_시가
+                    df_sp500_graph.at[0, 'Price'] = SP500_전일종가
+                    df_sp500_graph.at[1, 'Price'] = SP500_시가
 
                 if DOW_전일종가 > 0:
-                    df_dow_graph.at[0, 'price'] = DOW_전일종가
-                    df_dow_graph.at[1, 'price'] = DOW_시가
+                    df_dow_graph.at[0, 'Price'] = DOW_전일종가
+                    df_dow_graph.at[1, 'Price'] = DOW_시가
 
                 if NASDAQ_전일종가 > 0:
-                    df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
-                    df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
+                    df_nasdaq_graph.at[0, 'Price'] = NASDAQ_전일종가
+                    df_nasdaq_graph.at[1, 'Price'] = NASDAQ_시가
 
                 if HANGSENG_전일종가 > 0:
-                    df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
-                    df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
+                    df_hangseng_graph.at[0, 'Price'] = HANGSENG_전일종가
+                    df_hangseng_graph.at[1, 'Price'] = HANGSENG_시가
 
                 if WTI_전일종가 > 0:
-                    df_wti_graph.at[0, 'price'] = WTI_전일종가
-                    df_wti_graph.at[1, 'price'] = WTI_시가
+                    df_wti_graph.at[0, 'Price'] = WTI_전일종가
+                    df_wti_graph.at[1, 'Price'] = WTI_시가
 
                 if GOLD_전일종가 > 0:
-                    df_gold_graph.at[0, 'price'] = GOLD_전일종가
-                    df_gold_graph.at[1, 'price'] = GOLD_시가
+                    df_gold_graph.at[0, 'Price'] = GOLD_전일종가
+                    df_gold_graph.at[1, 'Price'] = GOLD_시가
 
                 if EURO_전일종가 > 0:
-                    df_euro_graph.at[0, 'price'] = EURO_전일종가
-                    df_euro_graph.at[1, 'price'] = EURO_시가
+                    df_euro_graph.at[0, 'Price'] = EURO_전일종가
+                    df_euro_graph.at[1, 'Price'] = EURO_시가
 
                 if YEN_전일종가 > 0:
-                    df_yen_graph.at[0, 'price'] = YEN_전일종가
-                    df_yen_graph.at[1, 'price'] = YEN_시가
+                    df_yen_graph.at[0, 'Price'] = YEN_전일종가
+                    df_yen_graph.at[1, 'Price'] = YEN_시가
 
                 if ADI_전일종가 > 0:
-                    df_adi_graph.at[0, 'price'] = ADI_전일종가
-                    df_adi_graph.at[1, 'price'] = ADI_시가
+                    df_adi_graph.at[0, 'Price'] = ADI_전일종가
+                    df_adi_graph.at[1, 'Price'] = ADI_시가
 
                 if DayTime:                    
 
-                    df_futures_cm_graph.at[0, 'volume'] = 0
+                    df_futures_cm_graph.at[0, 'Volume'] = 0
                     df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
-                    df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['종가']
-                    df_kp200_graph.at[0, 'price'] = KP200_전일종가
+                    df_futures_cm_graph.at[0, 'Price'] = self.fut_realdata['종가']
+                    df_kp200_graph.at[0, 'Price'] = KP200_전일종가
                     
                     df_demand_supply_graph.at[0, 'program'] = 0
                     df_demand_supply_graph.at[0, 'kospi_total'] = 0
@@ -15526,7 +15526,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_demand_supply_graph.at[0, 'futures_foreigner'] = 0
 
                     if self.fut_realdata['시가'] > 0:
-                        df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.fut_realdata['시가']
+                        df_futures_cm_graph.at[GuardTime + 1, 'Open'] = self.fut_realdata['시가']
                     else:
                         pass                    
                 else:
@@ -15688,7 +15688,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 차월물_선물_종가 = df['전일종가']
 
-                df_futures_nm_graph.at[0, 'price'] = 차월물_선물_종가
+                df_futures_nm_graph.at[0, 'Price'] = 차월물_선물_종가
 
                 item = QTableWidgetItem("{0:.2f}".format(df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -15703,7 +15703,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('<차월물_선물_시가등락율> =', 차월물_선물_시가등락율)
                 print('\r')
 
-                df_futures_nm_graph.at[GuardTime + 1, 'open'] = 차월물_선물_시가
+                df_futures_nm_graph.at[GuardTime + 1, 'Open'] = 차월물_선물_시가
 
                 item = QTableWidgetItem("{0:.2f}".format(df['시가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -15902,8 +15902,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    df_call_graph[i].at[0, 'open'] = 종가
-                    df_call_graph[i].at[0, 'price'] = 종가
+                    df_call_graph[i].at[0, 'Open'] = 종가
+                    df_call_graph[i].at[0, 'Price'] = 종가
                     '''
                     if df['저가'][i] < df['고가'][i]:
                         저가 = df['저가'][i]
@@ -15995,8 +15995,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if DayTime:
-                            df_call_graph[i].at[GuardTime + 1, 'open'] = 시가
-                            df_call_graph[i].at[GuardTime + 1, 'price'] = 시가
+                            df_call_graph[i].at[GuardTime + 1, 'Open'] = 시가
+                            df_call_graph[i].at[GuardTime + 1, 'Price'] = 시가
                         else:
                             pass
 
@@ -16245,8 +16245,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    df_put_graph[i].at[0, 'open'] = 종가
-                    df_put_graph[i].at[0, 'price'] = 종가
+                    df_put_graph[i].at[0, 'Open'] = 종가
+                    df_put_graph[i].at[0, 'Price'] = 종가
                     '''
                     if df1['저가'][i] < df1['고가'][i]:
                         저가 = df1['저가'][i]
@@ -16338,8 +16338,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if DayTime:
-                            df_put_graph[i].at[GuardTime + 1, 'open'] = 시가
-                            df_put_graph[i].at[GuardTime + 1, 'price'] = 시가
+                            df_put_graph[i].at[GuardTime + 1, 'Open'] = 시가
+                            df_put_graph[i].at[GuardTime + 1, 'Price'] = 시가
                         else:
                             pass
 
@@ -16594,11 +16594,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                 print(txt) 
 
-                df_call_information_graph.at[0, 'volume'] = 0
-                df_put_information_graph.at[0, 'volume'] = 0
+                df_call_information_graph.at[0, 'Volume'] = 0
+                df_put_information_graph.at[0, 'Volume'] = 0
 
-                df_call_information_graph.at[0, 'drate'] = 0
-                df_put_information_graph.at[0, 'drate'] = 0
+                df_call_information_graph.at[0, 'Drate'] = 0
+                df_put_information_graph.at[0, 'Drate'] = 0
                 
                 # 근월물 옵션 호가잔량비 초기화(초기값을 1.0으로 해야 장중 최소값을 구할수 있다.)
                 df_call_information_graph.at[0, 'quote_remainder_ratio'] = 1.0
@@ -16608,8 +16608,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_cm_graph.at[0, 'c_quote_remainder_ratio'] = 1.0
                 df_futures_cm_graph.at[0, 'n_quote_remainder_ratio'] = 1.0
 
-                df_futures_cm_graph.at[0, 'drate'] = 0
-                df_futures_nm_graph.at[0, 'drate'] = 0
+                df_futures_cm_graph.at[0, 'Drate'] = 0
+                df_futures_nm_graph.at[0, 'Drate'] = 0
 
                 # 해외선물 호가 초기화
                 df_sp500_graph.at[0, 'quote_remainder_ratio'] = 1.0
@@ -16622,8 +16622,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_adi_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0                
 
-                df_sp500_graph.at[0, 'drate'] = 0
-                df_dow_graph.at[0, 'drate'] = 0
+                df_sp500_graph.at[0, 'Drate'] = 0
+                df_dow_graph.at[0, 'Drate'] = 0
                 
                 콜_순미결합 = df_call['순미결'].sum()
                 풋_순미결합 = df_put['순미결'].sum()
@@ -16798,7 +16798,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         현재가 = df['현재가'][i]
                         df_call.at[i, '현재가'] = 현재가
 
-                        df_call_graph[i].at[plot_time_index, 'price'] = 현재가
+                        df_call_graph[i].at[plot_time_index, 'Price'] = 현재가
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -16936,7 +16936,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         현재가 = df1['현재가'][i]
                         df_put.at[i, '현재가'] = 현재가
 
-                        df_put_graph[i].at[plot_time_index, 'price'] = 현재가
+                        df_put_graph[i].at[plot_time_index, 'Price'] = 현재가
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -17354,19 +17354,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
                 df_futures_cm_graph.at[0, 'kp200'] = KP200_전일종가
-                df_kp200_graph.at[0, 'price'] = KP200_전일종가
+                df_kp200_graph.at[0, 'Price'] = KP200_전일종가
                 df_demand_supply_graph.at[0, 'program'] = 0
                 df_demand_supply_graph.at[0, 'kospi_total'] = 0
                 df_demand_supply_graph.at[0, 'kospi_foreigner'] = 0
                 df_demand_supply_graph.at[0, 'futures_foreigner'] = 0
 
                 # 주간 현재가가 야간 종가임
-                df_futures_cm_graph.at[0, 'price'] = self.fut_realdata['현재가']
+                df_futures_cm_graph.at[0, 'Price'] = self.fut_realdata['현재가']
 
-                df_futures_cm_graph.at[0, 'volume'] = 0
+                df_futures_cm_graph.at[0, 'Volume'] = 0
 
                 if df['시가'] > 0:
-                    df_futures_cm_graph.at[GuardTime + 1, 'open'] = df['시가']
+                    df_futures_cm_graph.at[GuardTime + 1, 'Open'] = df['시가']
                 else:
                     pass
 
@@ -17531,14 +17531,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
 
                 df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
-                df_futures_cm_graph.at[0, 'price'] = self.cme_realdata['종가']
+                df_futures_cm_graph.at[0, 'Price'] = self.cme_realdata['종가']
 
                 if self.cme_realdata['시가'] > 0:
-                    df_futures_cm_graph.at[GuardTime + 1, 'open'] = self.cme_realdata['시가']
+                    df_futures_cm_graph.at[GuardTime + 1, 'Open'] = self.cme_realdata['시가']
                 else:
                     pass
 
-                df_futures_cm_graph.at[0, 'volume'] = 0
+                df_futures_cm_graph.at[0, 'Volume'] = 0
             else:
                 pass
 
@@ -17773,8 +17773,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    df_call_graph[i].at[0, 'open'] = 종가
-                    df_call_graph[i].at[0, 'price'] = 종가
+                    df_call_graph[i].at[0, 'Open'] = 종가
+                    df_call_graph[i].at[0, 'Price'] = 종가
 
                     현재가 = df['현재가'][i]
                     df_call.at[i, '현재가'] = 현재가
@@ -17887,8 +17887,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_call_graph[i].at[GuardTime + 1, 'open'] = 시가
-                        df_call_graph[i].at[GuardTime + 1, 'price'] = 시가
+                        df_call_graph[i].at[GuardTime + 1, 'Open'] = 시가
+                        df_call_graph[i].at[GuardTime + 1, 'Price'] = 시가
 
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
@@ -18018,7 +18018,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
-                    df_call_information_graph.at[0, 'volume'] = 0
+                    df_call_information_graph.at[0, 'Volume'] = 0
 
                     # Put 처리
                     df_put.at[i, '시가갭'] = 0
@@ -18084,7 +18084,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    df_put_graph[i].at[0, 'price'] = 종가
+                    df_put_graph[i].at[0, 'Price'] = 종가
 
                     현재가 = df1['현재가'][i]
                     df_put.at[i, '현재가'] = 현재가
@@ -18198,8 +18198,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_put_graph[i].at[GuardTime + 1, 'open'] = 시가
-                        df_put_graph[i].at[GuardTime + 1, 'price'] = 시가
+                        df_put_graph[i].at[GuardTime + 1, 'Open'] = 시가
+                        df_put_graph[i].at[GuardTime + 1, 'Price'] = 시가
 
                         시가갭 = 시가 - 종가
                         df_put.at[i, '시가갭'] = 시가갭
@@ -18329,7 +18329,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
-                    df_put_information_graph.at[0, 'volume'] = 0
+                    df_put_information_graph.at[0, 'Volume'] = 0
                 
                 print('======================================================================================================================================================================')
                 print('\r')
@@ -19349,7 +19349,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(t8416_call_count, Option_column.종가.value, item)
 
                     if t8416_call_count < option_pairs_count:
-                        df_call_graph[t8416_call_count].at[0, 'price'] = block['전일종가']
+                        df_call_graph[t8416_call_count].at[0, 'Price'] = block['전일종가']
                     else:
                         pass
                 else:
@@ -19596,7 +19596,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(t8416_put_count, Option_column.종가.value, item)
 
                     if t8416_put_count < option_pairs_count:
-                        df_put_graph[t8416_put_count].at[0, 'price'] = block['전일종가']
+                        df_put_graph[t8416_put_count].at[0, 'Price'] = block['전일종가']
                     else:
                         pass
                 else:
@@ -20372,43 +20372,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.opt_total_actval_list.append(i)
 
-                df_call_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_quote', 'md_quote', 'open_interest', 'oi_delta'])
-                df_put_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_quote', 'md_quote', 'open_interest', 'oi_delta'])
+                df_call_graph[i] = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'ms_quote', 'md_quote', 'open_interest', 'oi_delta'])
+                df_put_graph[i] = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'ms_quote', 'md_quote', 'open_interest', 'oi_delta'])
             
-            df_call_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'centerval'])
-            df_put_information_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'drate', 'yanghap'])
+            df_call_information_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'Drate', 'centerval'])
+            df_put_information_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'Drate', 'yanghap'])
 
-            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
-            df_demand_supply_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
+            df_kp200_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close'])
+            df_demand_supply_graph = DataFrame(index=range(0, timespan), columns=['Time', 'program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
 
-            df_futures_cm_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
-                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'drate'])
+            df_futures_cm_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'kp200', \
+                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'Drate'])
             
-            df_futures_nm_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
-                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'drate'])
+            df_futures_nm_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'kp200', \
+                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'Drate'])
 
-            df_sp500_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_dow_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_wti_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_gold_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_euro_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_yen_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
-            df_adi_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
+            df_sp500_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_dow_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_wti_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_gold_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_euro_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_yen_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
-            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])           
-            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])           
+            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
 
-            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
 
             flag_t8433_response_ok = True
         else:
@@ -23892,12 +23892,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             if comboindex1 == 2:
 
-                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):                    
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'Price']):                    
                 
-                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
-                    High = df_futures_cm_graph.at[plot_x, 'high']
-                    Low = df_futures_cm_graph.at[plot_x, 'low']
-                    Close = df_futures_cm_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'Open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'High']
+                    Low = df_futures_cm_graph.at[plot_x, 'Low']
+                    Close = df_futures_cm_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23906,12 +23906,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 13:
 
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                if not np.isnan(df_sp500_graph.at[plot_x, 'Price']):
                     
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
+                    Open = df_sp500_graph.at[plot_x, 'Open']                    
+                    High = df_sp500_graph.at[plot_x, 'High']
+                    Low = df_sp500_graph.at[plot_x, 'Low']
+                    Close = df_sp500_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23920,12 +23920,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 14:
 
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                if not np.isnan(df_dow_graph.at[plot_x, 'Price']):
                     
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
+                    Open = df_dow_graph.at[plot_x, 'Open']                    
+                    High = df_dow_graph.at[plot_x, 'High']
+                    Low = df_dow_graph.at[plot_x, 'Low']
+                    Close = df_dow_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23934,12 +23934,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 15:
 
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'Price']):
                     
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
+                    Open = df_nasdaq_graph.at[plot_x, 'Open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'High']
+                    Low = df_nasdaq_graph.at[plot_x, 'Low']
+                    Close = df_nasdaq_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23948,12 +23948,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'open']                    
-                    High = df_hangseng_graph.at[plot_x, 'high']
-                    Low = df_hangseng_graph.at[plot_x, 'low']
-                    Close = df_hangseng_graph.at[plot_x, 'close']
+                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
+                    High = df_hangseng_graph.at[plot_x, 'High']
+                    Low = df_hangseng_graph.at[plot_x, 'Low']
+                    Close = df_hangseng_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23962,12 +23962,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 17:
 
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                if not np.isnan(df_wti_graph.at[plot_x, 'Price']):
                     
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
+                    Open = df_wti_graph.at[plot_x, 'Open']                    
+                    High = df_wti_graph.at[plot_x, 'High']
+                    Low = df_wti_graph.at[plot_x, 'Low']
+                    Close = df_wti_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23976,12 +23976,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 18:
                 
-                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                if not np.isnan(df_gold_graph.at[plot_x, 'Price']):
                     
-                    Open = df_gold_graph.at[plot_x, 'open']                    
-                    High = df_gold_graph.at[plot_x, 'high']
-                    Low = df_gold_graph.at[plot_x, 'low']
-                    Close = df_gold_graph.at[plot_x, 'close']
+                    Open = df_gold_graph.at[plot_x, 'Open']                    
+                    High = df_gold_graph.at[plot_x, 'High']
+                    Low = df_gold_graph.at[plot_x, 'Low']
+                    Close = df_gold_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -23990,12 +23990,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 19:
                 
-                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'Price']):
                     
-                    Open = df_euro_graph.at[plot_x, 'open']                    
-                    High = df_euro_graph.at[plot_x, 'high']
-                    Low = df_euro_graph.at[plot_x, 'low']
-                    Close = df_euro_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'Open']                    
+                    High = df_euro_graph.at[plot_x, 'High']
+                    Low = df_euro_graph.at[plot_x, 'Low']
+                    Close = df_euro_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -24004,12 +24004,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 20:
                 
-                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                if not np.isnan(df_yen_graph.at[plot_x, 'Price']):
                     
-                    Open = df_yen_graph.at[plot_x, 'open']                    
-                    High = df_yen_graph.at[plot_x, 'high']
-                    Low = df_yen_graph.at[plot_x, 'low']
-                    Close = df_yen_graph.at[plot_x, 'close']
+                    Open = df_yen_graph.at[plot_x, 'Open']                    
+                    High = df_yen_graph.at[plot_x, 'High']
+                    Low = df_yen_graph.at[plot_x, 'Low']
+                    Close = df_yen_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -24018,12 +24018,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 21:
                 
-                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                if not np.isnan(df_adi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_adi_graph.at[plot_x, 'open']                    
-                    High = df_adi_graph.at[plot_x, 'high']
-                    Low = df_adi_graph.at[plot_x, 'low']
-                    Close = df_adi_graph.at[plot_x, 'close']
+                    Open = df_adi_graph.at[plot_x, 'Open']                    
+                    High = df_adi_graph.at[plot_x, 'High']
+                    Low = df_adi_graph.at[plot_x, 'Low']
+                    Close = df_adi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -24074,12 +24074,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             if comboindex2 == 2:
 
-                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):                    
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'Price']):                    
                 
-                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
-                    High = df_futures_cm_graph.at[plot_x, 'high']
-                    Low = df_futures_cm_graph.at[plot_x, 'low']
-                    Close = df_futures_cm_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'Open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'High']
+                    Low = df_futures_cm_graph.at[plot_x, 'Low']
+                    Close = df_futures_cm_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24088,12 +24088,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex2 == 13:
 
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                if not np.isnan(df_sp500_graph.at[plot_x, 'Price']):
                     
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
+                    Open = df_sp500_graph.at[plot_x, 'Open']                    
+                    High = df_sp500_graph.at[plot_x, 'High']
+                    Low = df_sp500_graph.at[plot_x, 'Low']
+                    Close = df_sp500_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24102,12 +24102,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex2 == 14:
 
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                if not np.isnan(df_dow_graph.at[plot_x, 'Price']):
                     
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
+                    Open = df_dow_graph.at[plot_x, 'Open']                    
+                    High = df_dow_graph.at[plot_x, 'High']
+                    Low = df_dow_graph.at[plot_x, 'Low']
+                    Close = df_dow_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24116,12 +24116,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 15:
 
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'Price']):
                     
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
+                    Open = df_nasdaq_graph.at[plot_x, 'Open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'High']
+                    Low = df_nasdaq_graph.at[plot_x, 'Low']
+                    Close = df_nasdaq_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24130,12 +24130,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex2 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'open']                    
-                    High = df_hangseng_graph.at[plot_x, 'high']
-                    Low = df_hangseng_graph.at[plot_x, 'low']
-                    Close = df_hangseng_graph.at[plot_x, 'close']
+                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
+                    High = df_hangseng_graph.at[plot_x, 'High']
+                    Low = df_hangseng_graph.at[plot_x, 'Low']
+                    Close = df_hangseng_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24144,12 +24144,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 17:
 
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                if not np.isnan(df_wti_graph.at[plot_x, 'Price']):
                     
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
+                    Open = df_wti_graph.at[plot_x, 'Open']                    
+                    High = df_wti_graph.at[plot_x, 'High']
+                    Low = df_wti_graph.at[plot_x, 'Low']
+                    Close = df_wti_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24158,12 +24158,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 18:
                 
-                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                if not np.isnan(df_gold_graph.at[plot_x, 'Price']):
                     
-                    Open = df_gold_graph.at[plot_x, 'open']                    
-                    High = df_gold_graph.at[plot_x, 'high']
-                    Low = df_gold_graph.at[plot_x, 'low']
-                    Close = df_gold_graph.at[plot_x, 'close']
+                    Open = df_gold_graph.at[plot_x, 'Open']                    
+                    High = df_gold_graph.at[plot_x, 'High']
+                    Low = df_gold_graph.at[plot_x, 'Low']
+                    Close = df_gold_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24172,12 +24172,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 19:
                 
-                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'Price']):
                     
-                    Open = df_euro_graph.at[plot_x, 'open']                    
-                    High = df_euro_graph.at[plot_x, 'high']
-                    Low = df_euro_graph.at[plot_x, 'low']
-                    Close = df_euro_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'Open']                    
+                    High = df_euro_graph.at[plot_x, 'High']
+                    Low = df_euro_graph.at[plot_x, 'Low']
+                    Close = df_euro_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24186,12 +24186,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 20:
                 
-                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                if not np.isnan(df_yen_graph.at[plot_x, 'Price']):
                     
-                    Open = df_yen_graph.at[plot_x, 'open']                    
-                    High = df_yen_graph.at[plot_x, 'high']
-                    Low = df_yen_graph.at[plot_x, 'low']
-                    Close = df_yen_graph.at[plot_x, 'close']
+                    Open = df_yen_graph.at[plot_x, 'Open']                    
+                    High = df_yen_graph.at[plot_x, 'High']
+                    Low = df_yen_graph.at[plot_x, 'Low']
+                    Close = df_yen_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24200,12 +24200,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex2 == 21:
                 
-                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                if not np.isnan(df_adi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_adi_graph.at[plot_x, 'open']                    
-                    High = df_adi_graph.at[plot_x, 'high']
-                    Low = df_adi_graph.at[plot_x, 'low']
-                    Close = df_adi_graph.at[plot_x, 'close']
+                    Open = df_adi_graph.at[plot_x, 'Open']                    
+                    High = df_adi_graph.at[plot_x, 'High']
+                    Low = df_adi_graph.at[plot_x, 'Low']
+                    Close = df_adi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24254,12 +24254,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             if comboindex3 == 2:
 
-                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):                    
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'Price']):                    
                 
-                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
-                    High = df_futures_cm_graph.at[plot_x, 'high']
-                    Low = df_futures_cm_graph.at[plot_x, 'low']
-                    Close = df_futures_cm_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'Open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'High']
+                    Low = df_futures_cm_graph.at[plot_x, 'Low']
+                    Close = df_futures_cm_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24268,12 +24268,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex3 == 13:
 
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                if not np.isnan(df_sp500_graph.at[plot_x, 'Price']):
                     
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
+                    Open = df_sp500_graph.at[plot_x, 'Open']                    
+                    High = df_sp500_graph.at[plot_x, 'High']
+                    Low = df_sp500_graph.at[plot_x, 'Low']
+                    Close = df_sp500_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24282,12 +24282,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex3 == 14:
 
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                if not np.isnan(df_dow_graph.at[plot_x, 'Price']):
                     
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
+                    Open = df_dow_graph.at[plot_x, 'Open']                    
+                    High = df_dow_graph.at[plot_x, 'High']
+                    Low = df_dow_graph.at[plot_x, 'Low']
+                    Close = df_dow_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24296,12 +24296,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 15:
 
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'Price']):
                     
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
+                    Open = df_nasdaq_graph.at[plot_x, 'Open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'High']
+                    Low = df_nasdaq_graph.at[plot_x, 'Low']
+                    Close = df_nasdaq_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24310,12 +24310,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex3 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'open']                    
-                    High = df_hangseng_graph.at[plot_x, 'high']
-                    Low = df_hangseng_graph.at[plot_x, 'low']
-                    Close = df_hangseng_graph.at[plot_x, 'close']
+                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
+                    High = df_hangseng_graph.at[plot_x, 'High']
+                    Low = df_hangseng_graph.at[plot_x, 'Low']
+                    Close = df_hangseng_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24324,12 +24324,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 17:
 
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                if not np.isnan(df_wti_graph.at[plot_x, 'Price']):
                     
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
+                    Open = df_wti_graph.at[plot_x, 'Open']                    
+                    High = df_wti_graph.at[plot_x, 'High']
+                    Low = df_wti_graph.at[plot_x, 'Low']
+                    Close = df_wti_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24338,12 +24338,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 18:
                 
-                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                if not np.isnan(df_gold_graph.at[plot_x, 'Price']):
                     
-                    Open = df_gold_graph.at[plot_x, 'open']                    
-                    High = df_gold_graph.at[plot_x, 'high']
-                    Low = df_gold_graph.at[plot_x, 'low']
-                    Close = df_gold_graph.at[plot_x, 'close']
+                    Open = df_gold_graph.at[plot_x, 'Open']                    
+                    High = df_gold_graph.at[plot_x, 'High']
+                    Low = df_gold_graph.at[plot_x, 'Low']
+                    Close = df_gold_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24352,12 +24352,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 19:
                 
-                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'Price']):
                     
-                    Open = df_euro_graph.at[plot_x, 'open']                    
-                    High = df_euro_graph.at[plot_x, 'high']
-                    Low = df_euro_graph.at[plot_x, 'low']
-                    Close = df_euro_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'Open']                    
+                    High = df_euro_graph.at[plot_x, 'High']
+                    Low = df_euro_graph.at[plot_x, 'Low']
+                    Close = df_euro_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24366,12 +24366,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 20:
                 
-                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                if not np.isnan(df_yen_graph.at[plot_x, 'Price']):
                     
-                    Open = df_yen_graph.at[plot_x, 'open']                    
-                    High = df_yen_graph.at[plot_x, 'high']
-                    Low = df_yen_graph.at[plot_x, 'low']
-                    Close = df_yen_graph.at[plot_x, 'close']
+                    Open = df_yen_graph.at[plot_x, 'Open']                    
+                    High = df_yen_graph.at[plot_x, 'High']
+                    Low = df_yen_graph.at[plot_x, 'Low']
+                    Close = df_yen_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24380,12 +24380,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex3 == 21:
                 
-                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                if not np.isnan(df_adi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_adi_graph.at[plot_x, 'open']                    
-                    High = df_adi_graph.at[plot_x, 'high']
-                    Low = df_adi_graph.at[plot_x, 'low']
-                    Close = df_adi_graph.at[plot_x, 'close']
+                    Open = df_adi_graph.at[plot_x, 'Open']                    
+                    High = df_adi_graph.at[plot_x, 'High']
+                    Low = df_adi_graph.at[plot_x, 'Low']
+                    Close = df_adi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24434,12 +24434,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             if comboindex4 == 2:
 
-                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'Price']):
                     
-                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
-                    High = df_futures_cm_graph.at[plot_x, 'high']
-                    Low = df_futures_cm_graph.at[plot_x, 'low']
-                    Close = df_futures_cm_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'Open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'High']
+                    Low = df_futures_cm_graph.at[plot_x, 'Low']
+                    Close = df_futures_cm_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24448,12 +24448,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 13:
 
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                if not np.isnan(df_sp500_graph.at[plot_x, 'Price']):
                     
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
+                    Open = df_sp500_graph.at[plot_x, 'Open']                    
+                    High = df_sp500_graph.at[plot_x, 'High']
+                    Low = df_sp500_graph.at[plot_x, 'Low']
+                    Close = df_sp500_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24462,12 +24462,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex4 == 14:
 
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                if not np.isnan(df_dow_graph.at[plot_x, 'Price']):
                     
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
+                    Open = df_dow_graph.at[plot_x, 'Open']                    
+                    High = df_dow_graph.at[plot_x, 'High']
+                    Low = df_dow_graph.at[plot_x, 'Low']
+                    Close = df_dow_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24476,12 +24476,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 15:
 
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'Price']):
                     
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
+                    Open = df_nasdaq_graph.at[plot_x, 'Open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'High']
+                    Low = df_nasdaq_graph.at[plot_x, 'Low']
+                    Close = df_nasdaq_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24490,12 +24490,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex4 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'open']                    
-                    High = df_hangseng_graph.at[plot_x, 'high']
-                    Low = df_hangseng_graph.at[plot_x, 'low']
-                    Close = df_hangseng_graph.at[plot_x, 'close']
+                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
+                    High = df_hangseng_graph.at[plot_x, 'High']
+                    Low = df_hangseng_graph.at[plot_x, 'Low']
+                    Close = df_hangseng_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24504,12 +24504,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 17:
 
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                if not np.isnan(df_wti_graph.at[plot_x, 'Price']):
                     
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
+                    Open = df_wti_graph.at[plot_x, 'Open']                    
+                    High = df_wti_graph.at[plot_x, 'High']
+                    Low = df_wti_graph.at[plot_x, 'Low']
+                    Close = df_wti_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24518,12 +24518,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 18:
                 
-                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                if not np.isnan(df_gold_graph.at[plot_x, 'Price']):
                     
-                    Open = df_gold_graph.at[plot_x, 'open']                    
-                    High = df_gold_graph.at[plot_x, 'high']
-                    Low = df_gold_graph.at[plot_x, 'low']
-                    Close = df_gold_graph.at[plot_x, 'close']
+                    Open = df_gold_graph.at[plot_x, 'Open']                    
+                    High = df_gold_graph.at[plot_x, 'High']
+                    Low = df_gold_graph.at[plot_x, 'Low']
+                    Close = df_gold_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24532,12 +24532,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 19:
                 
-                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'Price']):
                     
-                    Open = df_euro_graph.at[plot_x, 'open']                    
-                    High = df_euro_graph.at[plot_x, 'high']
-                    Low = df_euro_graph.at[plot_x, 'low']
-                    Close = df_euro_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'Open']                    
+                    High = df_euro_graph.at[plot_x, 'High']
+                    Low = df_euro_graph.at[plot_x, 'Low']
+                    Close = df_euro_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24546,12 +24546,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 20:
                 
-                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                if not np.isnan(df_yen_graph.at[plot_x, 'Price']):
                     
-                    Open = df_yen_graph.at[plot_x, 'open']                    
-                    High = df_yen_graph.at[plot_x, 'high']
-                    Low = df_yen_graph.at[plot_x, 'low']
-                    Close = df_yen_graph.at[plot_x, 'close']
+                    Open = df_yen_graph.at[plot_x, 'Open']                    
+                    High = df_yen_graph.at[plot_x, 'High']
+                    Low = df_yen_graph.at[plot_x, 'Low']
+                    Close = df_yen_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24560,12 +24560,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex4 == 21:
                 
-                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                if not np.isnan(df_adi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_adi_graph.at[plot_x, 'open']                    
-                    High = df_adi_graph.at[plot_x, 'high']
-                    Low = df_adi_graph.at[plot_x, 'low']
-                    Close = df_adi_graph.at[plot_x, 'close']
+                    Open = df_adi_graph.at[plot_x, 'Open']                    
+                    High = df_adi_graph.at[plot_x, 'High']
+                    Low = df_adi_graph.at[plot_x, 'Low']
+                    Close = df_adi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -24612,12 +24612,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             if comboindex5 == 2:
 
-                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'Price']):
                     
-                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
-                    High = df_futures_cm_graph.at[plot_x, 'high']
-                    Low = df_futures_cm_graph.at[plot_x, 'low']
-                    Close = df_futures_cm_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'Open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'High']
+                    Low = df_futures_cm_graph.at[plot_x, 'Low']
+                    Close = df_futures_cm_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24626,12 +24626,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 13:
 
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                if not np.isnan(df_sp500_graph.at[plot_x, 'Price']):
                     
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
+                    Open = df_sp500_graph.at[plot_x, 'Open']                    
+                    High = df_sp500_graph.at[plot_x, 'High']
+                    Low = df_sp500_graph.at[plot_x, 'Low']
+                    Close = df_sp500_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24640,12 +24640,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 14:
 
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                if not np.isnan(df_dow_graph.at[plot_x, 'Price']):
                     
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
+                    Open = df_dow_graph.at[plot_x, 'Open']                    
+                    High = df_dow_graph.at[plot_x, 'High']
+                    Low = df_dow_graph.at[plot_x, 'Low']
+                    Close = df_dow_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24654,12 +24654,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 15:
 
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'Price']):
                     
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
+                    Open = df_nasdaq_graph.at[plot_x, 'Open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'High']
+                    Low = df_nasdaq_graph.at[plot_x, 'Low']
+                    Close = df_nasdaq_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24668,12 +24668,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'open']                    
-                    High = df_hangseng_graph.at[plot_x, 'high']
-                    Low = df_hangseng_graph.at[plot_x, 'low']
-                    Close = df_hangseng_graph.at[plot_x, 'close']
+                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
+                    High = df_hangseng_graph.at[plot_x, 'High']
+                    Low = df_hangseng_graph.at[plot_x, 'Low']
+                    Close = df_hangseng_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24682,12 +24682,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 17:
 
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                if not np.isnan(df_wti_graph.at[plot_x, 'Price']):
                     
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
+                    Open = df_wti_graph.at[plot_x, 'Open']                    
+                    High = df_wti_graph.at[plot_x, 'High']
+                    Low = df_wti_graph.at[plot_x, 'Low']
+                    Close = df_wti_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24696,12 +24696,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 18:
                 
-                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                if not np.isnan(df_gold_graph.at[plot_x, 'Price']):
                     
-                    Open = df_gold_graph.at[plot_x, 'open']                    
-                    High = df_gold_graph.at[plot_x, 'high']
-                    Low = df_gold_graph.at[plot_x, 'low']
-                    Close = df_gold_graph.at[plot_x, 'close']
+                    Open = df_gold_graph.at[plot_x, 'Open']                    
+                    High = df_gold_graph.at[plot_x, 'High']
+                    Low = df_gold_graph.at[plot_x, 'Low']
+                    Close = df_gold_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24710,12 +24710,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 19:
                 
-                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'Price']):
                     
-                    Open = df_euro_graph.at[plot_x, 'open']                    
-                    High = df_euro_graph.at[plot_x, 'high']
-                    Low = df_euro_graph.at[plot_x, 'low']
-                    Close = df_euro_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'Open']                    
+                    High = df_euro_graph.at[plot_x, 'High']
+                    Low = df_euro_graph.at[plot_x, 'Low']
+                    Close = df_euro_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24724,12 +24724,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 20:
                 
-                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                if not np.isnan(df_yen_graph.at[plot_x, 'Price']):
                     
-                    Open = df_yen_graph.at[plot_x, 'open']                    
-                    High = df_yen_graph.at[plot_x, 'high']
-                    Low = df_yen_graph.at[plot_x, 'low']
-                    Close = df_yen_graph.at[plot_x, 'close']
+                    Open = df_yen_graph.at[plot_x, 'Open']                    
+                    High = df_yen_graph.at[plot_x, 'High']
+                    Low = df_yen_graph.at[plot_x, 'Low']
+                    Close = df_yen_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24738,12 +24738,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 21:
                 
-                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                if not np.isnan(df_adi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_adi_graph.at[plot_x, 'open']                    
-                    High = df_adi_graph.at[plot_x, 'high']
-                    Low = df_adi_graph.at[plot_x, 'low']
-                    Close = df_adi_graph.at[plot_x, 'close']
+                    Open = df_adi_graph.at[plot_x, 'Open']                    
+                    High = df_adi_graph.at[plot_x, 'High']
+                    Low = df_adi_graph.at[plot_x, 'Low']
+                    Close = df_adi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -24792,12 +24792,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             if comboindex6 == 2:
 
-                if not np.isnan(df_futures_cm_graph.at[plot_x, 'price']):
+                if not np.isnan(df_futures_cm_graph.at[plot_x, 'Price']):
                     
-                    Open = df_futures_cm_graph.at[plot_x, 'open']                    
-                    High = df_futures_cm_graph.at[plot_x, 'high']
-                    Low = df_futures_cm_graph.at[plot_x, 'low']
-                    Close = df_futures_cm_graph.at[plot_x, 'close']
+                    Open = df_futures_cm_graph.at[plot_x, 'Open']                    
+                    High = df_futures_cm_graph.at[plot_x, 'High']
+                    Low = df_futures_cm_graph.at[plot_x, 'Low']
+                    Close = df_futures_cm_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24806,12 +24806,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 13:
 
-                if not np.isnan(df_sp500_graph.at[plot_x, 'price']):
+                if not np.isnan(df_sp500_graph.at[plot_x, 'Price']):
                     
-                    Open = df_sp500_graph.at[plot_x, 'open']                    
-                    High = df_sp500_graph.at[plot_x, 'high']
-                    Low = df_sp500_graph.at[plot_x, 'low']
-                    Close = df_sp500_graph.at[plot_x, 'close']
+                    Open = df_sp500_graph.at[plot_x, 'Open']                    
+                    High = df_sp500_graph.at[plot_x, 'High']
+                    Low = df_sp500_graph.at[plot_x, 'Low']
+                    Close = df_sp500_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24820,12 +24820,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex6 == 14:
 
-                if not np.isnan(df_dow_graph.at[plot_x, 'price']):
+                if not np.isnan(df_dow_graph.at[plot_x, 'Price']):
                     
-                    Open = df_dow_graph.at[plot_x, 'open']                    
-                    High = df_dow_graph.at[plot_x, 'high']
-                    Low = df_dow_graph.at[plot_x, 'low']
-                    Close = df_dow_graph.at[plot_x, 'close']
+                    Open = df_dow_graph.at[plot_x, 'Open']                    
+                    High = df_dow_graph.at[plot_x, 'High']
+                    Low = df_dow_graph.at[plot_x, 'Low']
+                    Close = df_dow_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.0f}\n H: {2:.0f}\n L: {3:.0f}\n C: {4:.0f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24834,12 +24834,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 15:
 
-                if not np.isnan(df_nasdaq_graph.at[plot_x, 'price']):
+                if not np.isnan(df_nasdaq_graph.at[plot_x, 'Price']):
                     
-                    Open = df_nasdaq_graph.at[plot_x, 'open']                    
-                    High = df_nasdaq_graph.at[plot_x, 'high']
-                    Low = df_nasdaq_graph.at[plot_x, 'low']
-                    Close = df_nasdaq_graph.at[plot_x, 'close']
+                    Open = df_nasdaq_graph.at[plot_x, 'Open']                    
+                    High = df_nasdaq_graph.at[plot_x, 'High']
+                    Low = df_nasdaq_graph.at[plot_x, 'Low']
+                    Close = df_nasdaq_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24848,12 +24848,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'price']):
+                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'open']                    
-                    High = df_hangseng_graph.at[plot_x, 'high']
-                    Low = df_hangseng_graph.at[plot_x, 'low']
-                    Close = df_hangseng_graph.at[plot_x, 'close']
+                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
+                    High = df_hangseng_graph.at[plot_x, 'High']
+                    Low = df_hangseng_graph.at[plot_x, 'Low']
+                    Close = df_hangseng_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24862,12 +24862,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 17:
 
-                if not np.isnan(df_wti_graph.at[plot_x, 'price']):
+                if not np.isnan(df_wti_graph.at[plot_x, 'Price']):
                     
-                    Open = df_wti_graph.at[plot_x, 'open']                    
-                    High = df_wti_graph.at[plot_x, 'high']
-                    Low = df_wti_graph.at[plot_x, 'low']
-                    Close = df_wti_graph.at[plot_x, 'close']
+                    Open = df_wti_graph.at[plot_x, 'Open']                    
+                    High = df_wti_graph.at[plot_x, 'High']
+                    Low = df_wti_graph.at[plot_x, 'Low']
+                    Close = df_wti_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24876,12 +24876,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 18:
                 
-                if not np.isnan(df_gold_graph.at[plot_x, 'price']):
+                if not np.isnan(df_gold_graph.at[plot_x, 'Price']):
                     
-                    Open = df_gold_graph.at[plot_x, 'open']                    
-                    High = df_gold_graph.at[plot_x, 'high']
-                    Low = df_gold_graph.at[plot_x, 'low']
-                    Close = df_gold_graph.at[plot_x, 'close']
+                    Open = df_gold_graph.at[plot_x, 'Open']                    
+                    High = df_gold_graph.at[plot_x, 'High']
+                    Low = df_gold_graph.at[plot_x, 'Low']
+                    Close = df_gold_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24890,12 +24890,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 19:
                 
-                if not np.isnan(df_euro_graph.at[plot_x, 'price']):
+                if not np.isnan(df_euro_graph.at[plot_x, 'Price']):
                     
-                    Open = df_euro_graph.at[plot_x, 'open']                    
-                    High = df_euro_graph.at[plot_x, 'high']
-                    Low = df_euro_graph.at[plot_x, 'low']
-                    Close = df_euro_graph.at[plot_x, 'close']
+                    Open = df_euro_graph.at[plot_x, 'Open']                    
+                    High = df_euro_graph.at[plot_x, 'High']
+                    Low = df_euro_graph.at[plot_x, 'Low']
+                    Close = df_euro_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24904,12 +24904,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 20:
                 
-                if not np.isnan(df_yen_graph.at[plot_x, 'price']):
+                if not np.isnan(df_yen_graph.at[plot_x, 'Price']):
                     
-                    Open = df_yen_graph.at[plot_x, 'open']                    
-                    High = df_yen_graph.at[plot_x, 'high']
-                    Low = df_yen_graph.at[plot_x, 'low']
-                    Close = df_yen_graph.at[plot_x, 'close']
+                    Open = df_yen_graph.at[plot_x, 'Open']                    
+                    High = df_yen_graph.at[plot_x, 'High']
+                    Low = df_yen_graph.at[plot_x, 'Low']
+                    Close = df_yen_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -24918,12 +24918,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 21:
                 
-                if not np.isnan(df_adi_graph.at[plot_x, 'price']):
+                if not np.isnan(df_adi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_adi_graph.at[plot_x, 'open']                    
-                    High = df_adi_graph.at[plot_x, 'high']
-                    Low = df_adi_graph.at[plot_x, 'low']
-                    Close = df_adi_graph.at[plot_x, 'close']
+                    Open = df_adi_graph.at[plot_x, 'Open']                    
+                    High = df_adi_graph.at[plot_x, 'High']
+                    Low = df_adi_graph.at[plot_x, 'Low']
+                    Close = df_adi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -33481,9 +33481,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_fut_high_line.setValue(근월물_선물_고가)
                 
                 if DayTime:
-                    self.plot1_kp200_curve.setData(df_kp200_graph['price'].astype(float))
-                    self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['price'].astype(float))
-                    self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['price'].astype(float))
+                    self.plot1_kp200_curve.setData(df_kp200_graph['Price'].astype(float))
+                    self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
+                    self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
                 else:
                     pass
 
@@ -33501,7 +33501,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33525,7 +33525,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -33627,12 +33627,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_18.setText(txt)
 
                 if DayTime:
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                 else:
                     pass
                                 
-                self.plot1_call_volume_curve.setData(df_call_information_graph['volume'].astype(float))
-                self.plot1_put_volume_curve.setData(df_put_information_graph['volume'].astype(float))
+                self.plot1_call_volume_curve.setData(df_call_information_graph['Volume'].astype(float))
+                self.plot1_put_volume_curve.setData(df_put_information_graph['Volume'].astype(float))
 
             # 옵션가격
             elif comboindex1 == 5:
@@ -33686,14 +33686,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot1_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].astype(float))
+                        self.plot1_call_curve[i].setData(df_call_graph[selected_call[i]]['Price'].astype(float))
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot1_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].astype(float))
+                        self.plot1_put_curve[i].setData(df_put_graph[selected_put[i]]['Price'].astype(float))
                 else:
                     pass
 
@@ -33751,10 +33751,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_18.setText(txt)              
 
-                self.plot1_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
-                self.plot1_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
+                self.plot1_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
+                self.plot1_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
 
-                self.plot1_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'].astype(float))
+                self.plot1_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
                 
                 if DayTime:
 
@@ -33769,11 +33769,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_17.setText(txt)
 
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot1_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'].astype(float))
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'Drate']):
+                        self.plot1_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['Drate'].astype(float))
 
-                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot1_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'].astype(float))                        
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'Drate']):
+                        self.plot1_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['Drate'].astype(float))                        
                 else:
                     pass                              
             
@@ -33865,7 +33865,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot1_program_curve.setData(df_demand_supply_graph['program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
@@ -33963,7 +33963,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot1_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot1_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
                     self.plot1_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float).astype(float))                    
                 else:
@@ -34018,7 +34018,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(SP500_저가)
                 self.plot1_ovc_high_line.setValue(SP500_고가)                                
 
-                self.plot1_sp500_curve.setData(df_sp500_graph['price'].astype(float))
+                self.plot1_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34034,7 +34034,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34059,7 +34059,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34156,7 +34156,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(DOW_저가)
                 self.plot1_ovc_high_line.setValue(DOW_고가)                                      
 
-                self.plot1_dow_curve.setData(df_dow_graph['price'].astype(float))
+                self.plot1_dow_curve.setData(df_dow_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34172,7 +34172,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34197,7 +34197,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34294,7 +34294,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot1_ovc_high_line.setValue(NASDAQ_고가)                 
 
-                self.plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].astype(float))
+                self.plot1_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34310,7 +34310,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34335,7 +34335,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34432,7 +34432,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot1_hangseng_curve.setData(df_hangseng_graph['price'].astype(float))                    
+                self.plot1_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                    
 
                 if flag_checkBox_plot1_bband:
 
@@ -34448,7 +34448,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34473,7 +34473,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34569,7 +34569,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(WTI_저가)
                 self.plot1_ovc_high_line.setValue(WTI_고가)                 
 
-                self.plot1_wti_curve.setData(df_wti_graph['price'].astype(float))
+                self.plot1_wti_curve.setData(df_wti_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34585,7 +34585,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34610,7 +34610,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34707,7 +34707,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(GOLD_저가)
                 self.plot1_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot1_gold_curve.setData(df_gold_graph['price'].astype(float))
+                self.plot1_gold_curve.setData(df_gold_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34723,7 +34723,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34748,7 +34748,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34844,7 +34844,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(EURO_저가)
                 self.plot1_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot1_euro_curve.setData(df_euro_graph['price'].astype(float))
+                self.plot1_euro_curve.setData(df_euro_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34860,7 +34860,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34885,7 +34885,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34982,7 +34982,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(YEN_저가)
                 self.plot1_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot1_yen_curve.setData(df_yen_graph['price'].astype(float))
+                self.plot1_yen_curve.setData(df_yen_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34998,7 +34998,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35023,7 +35023,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35126,7 +35126,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(ADI_저가)
                 self.plot1_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot1_adi_curve.setData(df_adi_graph['price'].astype(float))
+                self.plot1_adi_curve.setData(df_adi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35142,7 +35142,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35167,7 +35167,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35333,9 +35333,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_fut_high_line.setValue(근월물_선물_고가)                             
 
                 if DayTime:
-                    self.plot2_kp200_curve.setData(df_kp200_graph['price'].astype(float))
-                    self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['price'].astype(float))
-                    self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['price'].astype(float))
+                    self.plot2_kp200_curve.setData(df_kp200_graph['Price'].astype(float))
+                    self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
+                    self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
                 else:
                     pass
 
@@ -35353,7 +35353,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35377,7 +35377,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35479,12 +35479,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_28.setText(txt)
 
                 if DayTime:
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                 else:
                     pass
                                 
-                self.plot2_call_volume_curve.setData(df_call_information_graph['volume'].astype(float))
-                self.plot2_put_volume_curve.setData(df_put_information_graph['volume'].astype(float))
+                self.plot2_call_volume_curve.setData(df_call_information_graph['Volume'].astype(float))
+                self.plot2_put_volume_curve.setData(df_put_information_graph['Volume'].astype(float))
 
             # 옵션가격
             elif comboindex2 == 5:
@@ -35538,14 +35538,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].astype(float))
+                        self.plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['Price'].astype(float))
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].astype(float))
+                        self.plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['Price'].astype(float))
                 else:
                     pass
 
@@ -35603,10 +35603,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_28.setText(txt)
                 
-                self.plot2_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
-                self.plot2_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
+                self.plot2_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
+                self.plot2_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
 
-                self.plot2_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
+                self.plot2_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'])
                 
                 if DayTime:
 
@@ -35621,11 +35621,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_27.setText(txt)
 
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot2_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'].astype(float))
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'Drate']):
+                        self.plot2_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['Drate'].astype(float))
 
-                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot2_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'].astype(float))                        
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'Drate']):
+                        self.plot2_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['Drate'].astype(float))                        
                 else:
                     pass
             
@@ -35717,7 +35717,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot2_program_curve.setData(df_demand_supply_graph['program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
@@ -35815,7 +35815,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot2_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot2_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
                     self.plot2_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
@@ -35870,7 +35870,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(SP500_저가)
                 self.plot2_ovc_high_line.setValue(SP500_고가)                             
 
-                self.plot2_sp500_curve.setData(df_sp500_graph['price'].astype(float))
+                self.plot2_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -35886,7 +35886,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35911,7 +35911,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36008,7 +36008,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(DOW_저가)
                 self.plot2_ovc_high_line.setValue(DOW_고가)                                 
 
-                self.plot2_dow_curve.setData(df_dow_graph['price'].astype(float))
+                self.plot2_dow_curve.setData(df_dow_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36024,7 +36024,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36049,7 +36049,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36146,7 +36146,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot2_ovc_high_line.setValue(NASDAQ_고가)
 
-                self.plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].astype(float))
+                self.plot2_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36162,7 +36162,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36187,7 +36187,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36284,7 +36284,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot2_hangseng_curve.setData(df_hangseng_graph['price'].astype(float))                    
+                self.plot2_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                    
 
                 if flag_checkBox_plot2_bband:
 
@@ -36300,7 +36300,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36325,7 +36325,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36421,7 +36421,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(WTI_저가)
                 self.plot2_ovc_high_line.setValue(WTI_고가) 
 
-                self.plot2_wti_curve.setData(df_wti_graph['price'].astype(float))
+                self.plot2_wti_curve.setData(df_wti_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36437,7 +36437,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36462,7 +36462,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36559,7 +36559,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(GOLD_저가)
                 self.plot2_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot2_gold_curve.setData(df_gold_graph['price'].astype(float))
+                self.plot2_gold_curve.setData(df_gold_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36575,7 +36575,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36600,7 +36600,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36696,7 +36696,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(EURO_저가)
                 self.plot2_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot2_euro_curve.setData(df_euro_graph['price'].astype(float))
+                self.plot2_euro_curve.setData(df_euro_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36712,7 +36712,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36737,7 +36737,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36834,7 +36834,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(YEN_저가)
                 self.plot2_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot2_yen_curve.setData(df_yen_graph['price'].astype(float))
+                self.plot2_yen_curve.setData(df_yen_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36850,7 +36850,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36875,7 +36875,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36978,7 +36978,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(ADI_저가)
                 self.plot2_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot2_adi_curve.setData(df_adi_graph['price'].astype(float))
+                self.plot2_adi_curve.setData(df_adi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36994,7 +36994,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37019,7 +37019,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37183,9 +37183,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_fut_high_line.setValue(근월물_선물_고가)                
 
                 if DayTime:
-                    self.plot3_kp200_curve.setData(df_kp200_graph['price'].astype(float))
-                    self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['price'].astype(float))
-                    self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['price'].astype(float))
+                    self.plot3_kp200_curve.setData(df_kp200_graph['Price'].astype(float))
+                    self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
+                    self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
                 else:
                     pass
 
@@ -37203,7 +37203,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37227,7 +37227,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37329,12 +37329,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_38.setText(txt)
 
                 if DayTime:
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                 else:
                     pass
                                 
-                self.plot3_call_volume_curve.setData(df_call_information_graph['volume'].astype(float))
-                self.plot3_put_volume_curve.setData(df_put_information_graph['volume'].astype(float))
+                self.plot3_call_volume_curve.setData(df_call_information_graph['Volume'].astype(float))
+                self.plot3_put_volume_curve.setData(df_put_information_graph['Volume'].astype(float))
 
             # 옵션가격
             elif comboindex3 == 5:
@@ -37388,14 +37388,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].astype(float))
+                        self.plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['Price'].astype(float))
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].astype(float))
+                        self.plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['Price'].astype(float))
                 else:
                     pass
 
@@ -37451,10 +37451,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_38.setText(txt)
                 
-                self.plot3_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
-                self.plot3_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
+                self.plot3_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
+                self.plot3_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot3_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'])
+                self.plot3_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'])
                 
                 if DayTime:
 
@@ -37469,11 +37469,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_37.setText(txt)
 
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot3_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'].astype(float))
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'Drate']):
+                        self.plot3_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['Drate'].astype(float))
 
-                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot3_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'].astype(float))                        
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'Drate']):
+                        self.plot3_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['Drate'].astype(float))                        
                 else:
                     pass
             
@@ -37565,7 +37565,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot3_program_curve.setData(df_demand_supply_graph['program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
@@ -37663,7 +37663,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot3_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot3_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
                     self.plot3_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
@@ -37718,7 +37718,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(SP500_저가)
                 self.plot3_ovc_high_line.setValue(SP500_고가)
 
-                self.plot3_sp500_curve.setData(df_sp500_graph['price'].astype(float))
+                self.plot3_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -37734,7 +37734,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37759,7 +37759,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37856,7 +37856,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(DOW_저가)
                 self.plot3_ovc_high_line.setValue(DOW_고가)               
 
-                self.plot3_dow_curve.setData(df_dow_graph['price'].astype(float))
+                self.plot3_dow_curve.setData(df_dow_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -37872,7 +37872,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37897,7 +37897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37994,7 +37994,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot3_ovc_high_line.setValue(NASDAQ_고가)
 
-                self.plot3_nasdaq_curve.setData(df_nasdaq_graph['price'].astype(float))
+                self.plot3_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38010,7 +38010,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38035,7 +38035,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38132,7 +38132,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot3_hangseng_curve.setData(df_hangseng_graph['price'].astype(float))                    
+                self.plot3_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                    
 
                 if flag_checkBox_plot3_bband:
 
@@ -38148,7 +38148,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38173,7 +38173,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38269,7 +38269,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(WTI_저가)
                 self.plot3_ovc_high_line.setValue(WTI_고가) 
 
-                self.plot3_wti_curve.setData(df_wti_graph['price'].astype(float))
+                self.plot3_wti_curve.setData(df_wti_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38285,7 +38285,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38310,7 +38310,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38407,7 +38407,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(GOLD_저가)
                 self.plot3_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot3_gold_curve.setData(df_gold_graph['price'].astype(float))
+                self.plot3_gold_curve.setData(df_gold_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38423,7 +38423,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38448,7 +38448,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38544,7 +38544,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(EURO_저가)
                 self.plot3_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot3_euro_curve.setData(df_euro_graph['price'].astype(float))
+                self.plot3_euro_curve.setData(df_euro_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38560,7 +38560,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38585,7 +38585,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38682,7 +38682,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(YEN_저가)
                 self.plot3_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot3_yen_curve.setData(df_yen_graph['price'].astype(float))
+                self.plot3_yen_curve.setData(df_yen_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38698,7 +38698,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38723,7 +38723,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38826,7 +38826,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(ADI_저가)
                 self.plot3_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot3_adi_curve.setData(df_adi_graph['price'].astype(float))
+                self.plot3_adi_curve.setData(df_adi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38842,7 +38842,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38867,7 +38867,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39030,9 +39030,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_fut_high_line.setValue(근월물_선물_고가)                
 
                 if DayTime:
-                    self.plot4_kp200_curve.setData(df_kp200_graph['price'].astype(float))
-                    self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['price'].astype(float))
-                    self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['price'].astype(float))
+                    self.plot4_kp200_curve.setData(df_kp200_graph['Price'].astype(float))
+                    self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
+                    self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
                 else:
                     pass
 
@@ -39050,7 +39050,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39074,7 +39074,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39176,12 +39176,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_48.setText(txt)                      
 
                 if DayTime:
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                 else:
                     pass
                                 
-                self.plot4_call_volume_curve.setData(df_call_information_graph['volume'].astype(float))
-                self.plot4_put_volume_curve.setData(df_put_information_graph['volume'].astype(float))
+                self.plot4_call_volume_curve.setData(df_call_information_graph['Volume'].astype(float))
+                self.plot4_put_volume_curve.setData(df_put_information_graph['Volume'].astype(float))
 
             # 옵션가격
             elif comboindex4 == 5:
@@ -39235,14 +39235,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot4_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].astype(float))
+                        self.plot4_call_curve[i].setData(df_call_graph[selected_call[i]]['Price'].astype(float))
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot4_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].astype(float))
+                        self.plot4_put_curve[i].setData(df_put_graph[selected_put[i]]['Price'].astype(float))
                 else:
                     pass
 
@@ -39300,10 +39300,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_48.setText(txt)
                 
-                self.plot4_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
-                self.plot4_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
+                self.plot4_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
+                self.plot4_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot4_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'].astype(float))
+                self.plot4_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
                 
                 if DayTime:
 
@@ -39318,11 +39318,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_47.setText(txt)
 
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot4_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'].astype(float))
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'Drate']):
+                        self.plot4_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['Drate'].astype(float))
 
-                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot4_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'].astype(float))                        
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'Drate']):
+                        self.plot4_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['Drate'].astype(float))                        
                 else:
                     pass 
             
@@ -39414,7 +39414,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot4_program_curve.setData(df_demand_supply_graph['program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
@@ -39512,7 +39512,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot4_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot4_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
                     self.plot4_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
@@ -39567,7 +39567,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(SP500_저가)
                 self.plot4_ovc_high_line.setValue(SP500_고가)
 
-                self.plot4_sp500_curve.setData(df_sp500_graph['price'].astype(float))
+                self.plot4_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -39583,7 +39583,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39608,7 +39608,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39705,7 +39705,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(DOW_저가)
                 self.plot4_ovc_high_line.setValue(DOW_고가)                     
 
-                self.plot4_dow_curve.setData(df_dow_graph['price'].astype(float))
+                self.plot4_dow_curve.setData(df_dow_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -39721,7 +39721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39746,7 +39746,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39843,7 +39843,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot4_ovc_high_line.setValue(NASDAQ_고가) 
 
-                self.plot4_nasdaq_curve.setData(df_nasdaq_graph['price'].astype(float))
+                self.plot4_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -39859,7 +39859,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39884,7 +39884,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39981,7 +39981,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot4_hangseng_curve.setData(df_hangseng_graph['price'].astype(float))                    
+                self.plot4_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                    
 
                 if flag_checkBox_plot4_bband:
 
@@ -39997,7 +39997,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40022,7 +40022,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40118,7 +40118,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(WTI_저가)
                 self.plot4_ovc_high_line.setValue(WTI_고가) 
 
-                self.plot4_wti_curve.setData(df_wti_graph['price'].astype(float))
+                self.plot4_wti_curve.setData(df_wti_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -40134,7 +40134,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40159,7 +40159,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40256,7 +40256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(GOLD_저가)
                 self.plot4_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot4_gold_curve.setData(df_gold_graph['price'].astype(float))
+                self.plot4_gold_curve.setData(df_gold_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -40272,7 +40272,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40297,7 +40297,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40393,7 +40393,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(EURO_저가)
                 self.plot4_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot4_euro_curve.setData(df_euro_graph['price'].astype(float))
+                self.plot4_euro_curve.setData(df_euro_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -40409,7 +40409,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40434,7 +40434,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40531,7 +40531,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(YEN_저가)
                 self.plot4_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot4_yen_curve.setData(df_yen_graph['price'].astype(float))
+                self.plot4_yen_curve.setData(df_yen_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -40547,7 +40547,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40572,7 +40572,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40675,7 +40675,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(ADI_저가)
                 self.plot4_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot4_adi_curve.setData(df_adi_graph['price'].astype(float))
+                self.plot4_adi_curve.setData(df_adi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -40691,7 +40691,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40716,7 +40716,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40880,9 +40880,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_fut_high_line.setValue(근월물_선물_고가)
 
                 if DayTime:
-                    self.plot5_kp200_curve.setData(df_kp200_graph['price'].astype(float))
-                    self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['price'].astype(float))
-                    self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['price'].astype(float))
+                    self.plot5_kp200_curve.setData(df_kp200_graph['Price'].astype(float))
+                    self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
+                    self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
                 else:
                     pass
 
@@ -40900,7 +40900,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40924,7 +40924,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41026,12 +41026,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_58.setText(txt)
 
                 if DayTime:
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                 else:
                     pass
                                 
-                self.plot5_call_volume_curve.setData(df_call_information_graph['volume'].astype(float))
-                self.plot5_put_volume_curve.setData(df_put_information_graph['volume'].astype(float))
+                self.plot5_call_volume_curve.setData(df_call_information_graph['Volume'].astype(float))
+                self.plot5_put_volume_curve.setData(df_put_information_graph['Volume'].astype(float))
 
             # 옵션가격
             elif comboindex5 == 5:
@@ -41085,14 +41085,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].astype(float))
+                        self.plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['Price'].astype(float))
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].astype(float))
+                        self.plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['Price'].astype(float))
                 else:
                     pass                
                 
@@ -41147,10 +41147,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_58.setText(txt)
                 
-                self.plot5_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
-                self.plot5_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
+                self.plot5_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
+                self.plot5_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot5_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'].astype(float))
+                self.plot5_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
                 
                 if DayTime:
 
@@ -41165,11 +41165,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_57.setText(txt)
 
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot5_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'].astype(float))
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'Drate']):
+                        self.plot5_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['Drate'].astype(float))
 
-                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot5_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'].astype(float))                        
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'Drate']):
+                        self.plot5_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['Drate'].astype(float))                        
                 else:
                     pass
             
@@ -41261,7 +41261,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot5_program_curve.setData(df_demand_supply_graph['program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
@@ -41359,7 +41359,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot5_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot5_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
                     self.plot5_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
@@ -41414,7 +41414,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(SP500_저가)
                 self.plot5_ovc_high_line.setValue(SP500_고가)
 
-                self.plot5_sp500_curve.setData(df_sp500_graph['price'].astype(float))
+                self.plot5_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -41430,7 +41430,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41455,7 +41455,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41552,7 +41552,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(DOW_저가)
                 self.plot5_ovc_high_line.setValue(DOW_고가)                 
 
-                self.plot5_dow_curve.setData(df_dow_graph['price'].astype(float))
+                self.plot5_dow_curve.setData(df_dow_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -41568,7 +41568,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41593,7 +41593,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41690,7 +41690,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot5_ovc_high_line.setValue(NASDAQ_고가)
 
-                self.plot5_nasdaq_curve.setData(df_nasdaq_graph['price'].astype(float))
+                self.plot5_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -41706,7 +41706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41731,7 +41731,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41828,7 +41828,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot5_hangseng_curve.setData(df_hangseng_graph['price'].astype(float))                    
+                self.plot5_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                    
 
                 if flag_checkBox_plot5_bband:
 
@@ -41844,7 +41844,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41869,7 +41869,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41965,7 +41965,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(WTI_저가)
                 self.plot5_ovc_high_line.setValue(WTI_고가)
 
-                self.plot5_wti_curve.setData(df_wti_graph['price'].astype(float))
+                self.plot5_wti_curve.setData(df_wti_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -41981,7 +41981,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42006,7 +42006,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42103,7 +42103,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(GOLD_저가)
                 self.plot5_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot5_gold_curve.setData(df_gold_graph['price'].astype(float))
+                self.plot5_gold_curve.setData(df_gold_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -42119,7 +42119,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42144,7 +42144,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42240,7 +42240,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(EURO_저가)
                 self.plot5_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot5_euro_curve.setData(df_euro_graph['price'].astype(float))
+                self.plot5_euro_curve.setData(df_euro_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -42256,7 +42256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42281,7 +42281,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42378,7 +42378,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(YEN_저가)
                 self.plot5_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot5_yen_curve.setData(df_yen_graph['price'].astype(float))
+                self.plot5_yen_curve.setData(df_yen_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -42394,7 +42394,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42419,7 +42419,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42522,7 +42522,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(ADI_저가)
                 self.plot5_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot5_adi_curve.setData(df_adi_graph['price'].astype(float))
+                self.plot5_adi_curve.setData(df_adi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -42538,7 +42538,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42563,7 +42563,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42727,9 +42727,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_fut_high_line.setValue(근월물_선물_고가)
 
                 if DayTime:
-                    self.plot6_kp200_curve.setData(df_kp200_graph['price'].astype(float))
-                    self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['price'].astype(float))
-                    self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['price'].astype(float))
+                    self.plot6_kp200_curve.setData(df_kp200_graph['Price'].astype(float))
+                    self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
+                    self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
                 else:
                     pass
 
@@ -42747,7 +42747,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42771,7 +42771,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42873,12 +42873,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_68.setText(txt)
 
                 if DayTime:
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                 else:
                     pass
                                 
-                self.plot6_call_volume_curve.setData(df_call_information_graph['volume'].astype(float))
-                self.plot6_put_volume_curve.setData(df_put_information_graph['volume'].astype(float))
+                self.plot6_call_volume_curve.setData(df_call_information_graph['Volume'].astype(float))
+                self.plot6_put_volume_curve.setData(df_put_information_graph['Volume'].astype(float))
 
             # 옵션가격
             elif comboindex6 == 5:
@@ -42932,14 +42932,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 # 선택된 콜그래프 그리기
                 if selected_call:
                     for i in range(len(selected_call)):
-                        self.plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].astype(float))
+                        self.plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['Price'].astype(float))
                 else:
                     pass                 
 
                 # 선택된 풋그래프 그리기
                 if selected_put:
                     for i in range(len(selected_put)):
-                        self.plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].astype(float))
+                        self.plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['Price'].astype(float))
                 else:
                     pass                
                 
@@ -42994,10 +42994,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 txt = " {0:.2f}({1}) ".format(call_otm_cdb_percent_mean, call_atm_value)
                 self.label_68.setText(txt)
                 
-                self.plot6_call_drate_curve.setData(df_call_information_graph['drate'].astype(float))
-                self.plot6_put_drate_curve.setData(df_put_information_graph['drate'].astype(float))
+                self.plot6_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
+                self.plot6_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot6_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['drate'].astype(float))
+                self.plot6_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
                 
                 if DayTime:
 
@@ -43012,11 +43012,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.label_67.setText(txt)
 
-                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'drate']):
-                        self.plot6_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['drate'].astype(float))
+                    if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'Drate']):
+                        self.plot6_fut_cm_drate_curve.setData(plot_drate_scale_factor * df_futures_cm_graph['Drate'].astype(float))
 
-                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'drate']):
-                        self.plot6_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['drate'].astype(float))                        
+                    if not np.isnan(df_futures_nm_graph.at[plot_time_index, 'Drate']):
+                        self.plot6_fut_nm_drate_curve.setData(plot_drate_scale_factor * df_futures_nm_graph['Drate'].astype(float))                        
                 else:
                     pass 
             
@@ -43108,7 +43108,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
 
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot6_program_curve.setData(df_demand_supply_graph['program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
@@ -43206,7 +43206,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         pass
                     
-                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['volume'].astype(float))
+                    self.plot6_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
                     self.plot6_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
                     self.plot6_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
@@ -43261,7 +43261,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(SP500_저가)
                 self.plot6_ovc_high_line.setValue(SP500_고가)
 
-                self.plot6_sp500_curve.setData(df_sp500_graph['price'].astype(float))
+                self.plot6_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -43277,7 +43277,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43302,7 +43302,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43399,7 +43399,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(DOW_저가)
                 self.plot6_ovc_high_line.setValue(DOW_고가)              
 
-                self.plot6_dow_curve.setData(df_dow_graph['price'].astype(float))
+                self.plot6_dow_curve.setData(df_dow_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -43415,7 +43415,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43440,7 +43440,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43537,7 +43537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(NASDAQ_저가)
                 self.plot6_ovc_high_line.setValue(NASDAQ_고가) 
 
-                self.plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].astype(float))
+                self.plot6_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -43553,7 +43553,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43578,7 +43578,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43675,7 +43675,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot6_hangseng_curve.setData(df_hangseng_graph['price'].astype(float))                    
+                self.plot6_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                    
 
                 if flag_checkBox_plot6_bband:
 
@@ -43691,7 +43691,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43716,7 +43716,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43812,7 +43812,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(WTI_저가)
                 self.plot6_ovc_high_line.setValue(WTI_고가)
 
-                self.plot6_wti_curve.setData(df_wti_graph['price'].astype(float))
+                self.plot6_wti_curve.setData(df_wti_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -43828,7 +43828,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43853,7 +43853,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43950,7 +43950,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(GOLD_저가)
                 self.plot6_ovc_high_line.setValue(GOLD_고가)                 
 
-                self.plot6_gold_curve.setData(df_gold_graph['price'].astype(float))
+                self.plot6_gold_curve.setData(df_gold_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -43966,7 +43966,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43991,7 +43991,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44087,7 +44087,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(EURO_저가)
                 self.plot6_ovc_high_line.setValue(EURO_고가)                 
 
-                self.plot6_euro_curve.setData(df_euro_graph['price'].astype(float))
+                self.plot6_euro_curve.setData(df_euro_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -44103,7 +44103,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44128,7 +44128,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44225,7 +44225,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(YEN_저가)
                 self.plot6_ovc_high_line.setValue(YEN_고가)                 
 
-                self.plot6_yen_curve.setData(df_yen_graph['price'].astype(float))
+                self.plot6_yen_curve.setData(df_yen_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -44241,7 +44241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44266,7 +44266,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44369,7 +44369,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(ADI_저가)
                 self.plot6_ovc_high_line.setValue(ADI_고가)                 
 
-                self.plot6_adi_curve.setData(df_adi_graph['price'].astype(float))
+                self.plot6_adi_curve.setData(df_adi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -44385,7 +44385,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44410,7 +44410,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     if plot_time_index > 0:
                         self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47130,7 +47130,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일시가
 
                 df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
-                df_kp200_graph.at[plot_time_index, 'price'] = KP200_당일시가
+                df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
@@ -47226,8 +47226,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #근월물_선물_고가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
-                df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가                
+                df_futures_cm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_cm_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가                
 
                 # 1T OHLC 생성
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -47340,8 +47340,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(검정색))
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-                #df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
-                df_futures_cm_graph.at[plot_time_index, 'drate'] = 근월물_선물_종가대비_등락율
+                #df_futures_cm_graph.at[plot_time_index, 'Drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+                df_futures_cm_graph.at[plot_time_index, 'Drate'] = 근월물_선물_종가대비_등락율
 
                 if fut_quote_energy_direction == 'call':
 
@@ -47425,10 +47425,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 그래프 가격갱신
                 if 차월물_선물_시가 > 0:
 
-                    df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_시가
+                    df_futures_nm_graph.at[plot_time_index, 'Price'] = 차월물_선물_시가
 
                     # 1T OHLC 생성
-                    df_futures_nm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
+                    df_futures_nm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
                     df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
 
                     if cme_plot_sec == 0:
@@ -47737,7 +47737,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 그래프 가격갱신
                 kp200_현재가 = float(tickdata['지수'])
                 df_futures_cm_graph.at[plot_time_index, 'kp200'] = kp200_현재가
-                df_kp200_graph.at[plot_time_index, 'price'] = kp200_현재가
+                df_kp200_graph.at[plot_time_index, 'Price'] = kp200_현재가
 
                 # kp200 현재가
                 if 지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
@@ -47784,7 +47784,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
                     df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
-                    df_kp200_graph.at[plot_time_index, 'price'] = KP200_당일시가
+                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일시가
 
                     item = QTableWidgetItem(시가지수)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48606,10 +48606,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     근월물_선물_현재가 = float(tickdata['현재가'])
 
-                df_futures_cm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_cm_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
-                df_futures_cm_ta_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_cm_ta_graph.at[plot_time_index, 'price'] = 근월물_선물_현재가
+                df_futures_cm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_cm_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가
+                df_futures_cm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_cm_ta_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가
 
                 # 1T OHLC 생성
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -48661,7 +48661,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_futures_cm_ohlc_open = False
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
-                df_futures_cm_graph.at[plot_time_index, 'volume'] = fut_cm_volume_power
+                df_futures_cm_graph.at[plot_time_index, 'Volume'] = fut_cm_volume_power
 
                 temp = '{0}k'.format(int(fut_cm_volume_power/1000))
 
@@ -48722,8 +48722,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     flag_fut_vs_sp500_drate_direction = False
 
-                #df_futures_cm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
-                df_futures_cm_graph.at[plot_time_index, 'drate'] = 근월물_선물_시가대비_등락율                
+                #df_futures_cm_graph.at[plot_time_index, 'Drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
+                df_futures_cm_graph.at[plot_time_index, 'Drate'] = 근월물_선물_시가대비_등락율                
 
                 self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
@@ -48772,13 +48772,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
 
-                #df_futures_nm_graph.at[plot_time_index, 'drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
-                df_futures_nm_graph.at[plot_time_index, 'drate'] = 차월물_선물_시가대비_등락율
+                #df_futures_nm_graph.at[plot_time_index, 'Drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
+                df_futures_nm_graph.at[plot_time_index, 'Drate'] = 차월물_선물_시가대비_등락율
                 
-                df_futures_nm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_nm_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
-                df_futures_nm_ta_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
-                df_futures_nm_ta_graph.at[plot_time_index, 'price'] = 차월물_선물_현재가
+                df_futures_nm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_nm_graph.at[plot_time_index, 'Price'] = 차월물_선물_현재가
+                df_futures_nm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_nm_ta_graph.at[plot_time_index, 'Price'] = 차월물_선물_현재가
 
                 # 1T OHLC 생성
                 df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -49355,7 +49355,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 현재가 갱신
                 콜_현재가 = float(tickdata['현재가'])
-                df_call_graph[index].at[plot_time_index, 'price'] = 콜_현재가
+                df_call_graph[index].at[plot_time_index, 'Price'] = 콜_현재가
 
                 # 등락율 갱신, 근월물 기준으로 계산
                 if DayTime and index == ATM_INDEX:
@@ -49378,7 +49378,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
 
                 call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-                df_call_information_graph.at[plot_time_index, 'volume'] = call_volume_power
+                df_call_information_graph.at[plot_time_index, 'Volume'] = call_volume_power
 
                 # 미결 갱신
                 if DayTime:
@@ -49421,7 +49421,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 현재가 갱신
                 풋_현재가 = float(tickdata['현재가'])
-                df_put_graph[index].at[plot_time_index, 'price'] = 풋_현재가
+                df_put_graph[index].at[plot_time_index, 'Price'] = 풋_현재가
 
                 # 등락율 갱신, 근월물 기준으로 계산
                 if DayTime and index == ATM_INDEX:
@@ -49444,7 +49444,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
 
                 put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-                df_put_information_graph.at[plot_time_index, 'volume'] = put_volume_power 
+                df_put_information_graph.at[plot_time_index, 'Volume'] = put_volume_power 
 
                 # 미결 갱신
                 if DayTime:
@@ -50035,8 +50035,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 SP500_현재가 = float(tickdata['체결가격'])
-                df_sp500_graph.at[plot_time_index, 'price'] = SP500_현재가
-                df_sp500_ta_graph.at[plot_time_index, 'price'] = SP500_현재가
+                df_sp500_graph.at[plot_time_index, 'Price'] = SP500_현재가
+                df_sp500_ta_graph.at[plot_time_index, 'Price'] = SP500_현재가
                 
                 SP500_전일대비 = float(tickdata['전일대비'])
 
@@ -50060,21 +50060,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 SP500_시가대비 = int((SP500_현재가 - SP500_시가) / sp500_tick_value)
                 SP500_시가_등락율 = ((SP500_시가 - SP500_전일종가) / SP500_전일종가) * 100                
 
-                #df_sp500_graph.at[0, 'price'] = SP500_전일종가
+                #df_sp500_graph.at[0, 'Price'] = SP500_전일종가
 
-                if df_sp500_graph.at[1, 'price'] == 0:
-                    df_sp500_graph.at[1, 'price'] = SP500_시가
+                if df_sp500_graph.at[1, 'Price'] == 0:
+                    df_sp500_graph.at[1, 'Price'] = SP500_시가
 
                 SP500_진폭비 = SP500_진폭 / SP500_시가                                    
                 
                 # 그래프 등락율 가격갱신
-                df_sp500_graph.at[plot_time_index, 'drate'] = SP500_시가대비_등락율
+                df_sp500_graph.at[plot_time_index, 'Drate'] = SP500_시가대비_등락율
 
                 SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
                 # 1T OHLC 생성
-                df_sp500_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_sp500_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_sp500_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_sp500_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -50258,8 +50258,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 DOW_현재가 = int(float(tickdata['체결가격']))
-                df_dow_graph.at[plot_time_index, 'price'] = DOW_현재가
-                df_dow_ta_graph.at[plot_time_index, 'price'] = DOW_현재가
+                df_dow_graph.at[plot_time_index, 'Price'] = DOW_현재가
+                df_dow_ta_graph.at[plot_time_index, 'Price'] = DOW_현재가
                 
                 DOW_전일대비 = float(tickdata['전일대비'])
 
@@ -50280,19 +50280,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 DOW_시가대비 = DOW_현재가 - DOW_시가
 
-                #df_dow_graph.at[0, 'price'] = DOW_전일종가
+                #df_dow_graph.at[0, 'Price'] = DOW_전일종가
 
-                if df_dow_graph.at[1, 'price'] == 0:
-                    df_dow_graph.at[1, 'price'] = DOW_시가
+                if df_dow_graph.at[1, 'Price'] == 0:
+                    df_dow_graph.at[1, 'Price'] = DOW_시가
                 
                 DOW_진폭비 = DOW_진폭 / DOW_시가
                 
                 # 그래프 등락율 가격갱신
-                df_dow_graph.at[plot_time_index, 'drate'] = DOW_등락율
+                df_dow_graph.at[plot_time_index, 'Drate'] = DOW_등락율
 
                 # 1T OHLC 생성
-                df_dow_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_dow_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_dow_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_dow_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -50476,8 +50476,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 NASDAQ_현재가 = float(tickdata['체결가격'])
-                df_nasdaq_graph.at[plot_time_index, 'price'] = NASDAQ_현재가
-                df_nasdaq_ta_graph.at[plot_time_index, 'price'] = NASDAQ_현재가
+                df_nasdaq_graph.at[plot_time_index, 'Price'] = NASDAQ_현재가
+                df_nasdaq_ta_graph.at[plot_time_index, 'Price'] = NASDAQ_현재가
                 
                 NASDAQ_전일대비 = float(tickdata['전일대비'])
 
@@ -50498,16 +50498,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 NASDAQ_시가대비 = int((NASDAQ_현재가 - NASDAQ_시가) / nasdaq_tick_value)                
 
-                #df_nasdaq_graph.at[0, 'price'] = NASDAQ_전일종가
+                #df_nasdaq_graph.at[0, 'Price'] = NASDAQ_전일종가
 
-                if df_nasdaq_graph.at[1, 'price'] == 0:
-                    df_nasdaq_graph.at[1, 'price'] = NASDAQ_시가
+                if df_nasdaq_graph.at[1, 'Price'] == 0:
+                    df_nasdaq_graph.at[1, 'Price'] = NASDAQ_시가
 
                 NASDAQ_진폭비 = NASDAQ_진폭 / NASDAQ_시가
 
                 # 1T OHLC 생성
-                df_nasdaq_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_nasdaq_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_nasdaq_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_nasdaq_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
 
@@ -50693,8 +50693,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
-                df_hangseng_graph.at[plot_time_index, 'price'] = HANGSENG_현재가
-                df_hangseng_ta_graph.at[plot_time_index, 'price'] = HANGSENG_현재가
+                df_hangseng_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
+                df_hangseng_ta_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
                 
                 HANGSENG_전일대비 = float(tickdata['전일대비'])
 
@@ -50715,16 +50715,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 HANGSENG_시가대비 = HANGSENG_현재가 - HANGSENG_시가                
 
-                #df_hangseng_graph.at[0, 'price'] = HANGSENG_전일종가
+                #df_hangseng_graph.at[0, 'Price'] = HANGSENG_전일종가
 
-                if df_hangseng_graph.at[1, 'price'] == 0:
-                    df_hangseng_graph.at[1, 'price'] = HANGSENG_시가
+                if df_hangseng_graph.at[1, 'Price'] == 0:
+                    df_hangseng_graph.at[1, 'Price'] = HANGSENG_시가
 
                 HANGSENG_진폭비 = HANGSENG_진폭 / HANGSENG_시가
 
                 # 1T OHLC 생성
-                df_hangseng_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_hangseng_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_hangseng_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_hangseng_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_hangseng_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_hangseng_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -50908,8 +50908,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
                 # 그래프 가격갱신
                 WTI_현재가 = float(tickdata['체결가격'])
-                df_wti_graph.at[plot_time_index, 'price'] = WTI_현재가
-                df_wti_ta_graph.at[plot_time_index, 'price'] = WTI_현재가
+                df_wti_graph.at[plot_time_index, 'Price'] = WTI_현재가
+                df_wti_ta_graph.at[plot_time_index, 'Price'] = WTI_현재가
                 
                 WTI_전일대비 = float(tickdata['전일대비'])
 
@@ -50930,18 +50930,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 WTI_시가대비 = int((WTI_현재가 - WTI_시가) / wti_tick_value)                
 
-                #df_wti_graph.at[0, 'price'] = WTI_전일종가
+                #df_wti_graph.at[0, 'Price'] = WTI_전일종가
 
-                if df_wti_graph.at[1, 'price'] == 0:
-                    df_wti_graph.at[1, 'price'] = WTI_시가
+                if df_wti_graph.at[1, 'Price'] == 0:
+                    df_wti_graph.at[1, 'Price'] = WTI_시가
 
                 WTI_진폭비 = WTI_진폭 / WTI_시가
                 
                 WTI_체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                 # 1T OHLC 생성
-                df_wti_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_wti_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_wti_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_wti_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -51125,8 +51125,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 GOLD_현재가 = float(tickdata['체결가격'])
-                df_gold_graph.at[plot_time_index, 'price'] = GOLD_현재가
-                df_gold_ta_graph.at[plot_time_index, 'price'] = GOLD_현재가
+                df_gold_graph.at[plot_time_index, 'Price'] = GOLD_현재가
+                df_gold_ta_graph.at[plot_time_index, 'Price'] = GOLD_현재가
                 
                 GOLD_전일대비 = float(tickdata['전일대비'])
 
@@ -51147,16 +51147,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 GOLD_시가대비 = int((GOLD_현재가 - GOLD_시가) / gold_tick_value)                
 
-                #df_gold_graph.at[0, 'price'] = GOLD_전일종가
+                #df_gold_graph.at[0, 'Price'] = GOLD_전일종가
 
-                if df_gold_graph.at[1, 'price'] == 0:
-                    df_gold_graph.at[1, 'price'] = GOLD_시가
+                if df_gold_graph.at[1, 'Price'] == 0:
+                    df_gold_graph.at[1, 'Price'] = GOLD_시가
 
                 GOLD_진폭비 = GOLD_진폭 / GOLD_시가
 
                 # 1T OHLC 생성
-                df_gold_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_gold_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_gold_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_gold_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -51340,8 +51340,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 EURO_현재가 = float(tickdata['체결가격'])
-                df_euro_graph.at[plot_time_index, 'price'] = EURO_현재가
-                df_euro_ta_graph.at[plot_time_index, 'price'] = EURO_현재가
+                df_euro_graph.at[plot_time_index, 'Price'] = EURO_현재가
+                df_euro_ta_graph.at[plot_time_index, 'Price'] = EURO_현재가
 
                 EURO_전일대비 = float(tickdata['전일대비'])
 
@@ -51362,16 +51362,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 EURO_시가대비 = int((EURO_현재가 - EURO_시가) / euro_tick_value)                
 
-                #df_euro_graph.at[0, 'price'] = EURO_전일종가
+                #df_euro_graph.at[0, 'Price'] = EURO_전일종가
 
-                if df_euro_graph.at[1, 'price'] == 0:
-                    df_euro_graph.at[1, 'price'] = EURO_시가
+                if df_euro_graph.at[1, 'Price'] == 0:
+                    df_euro_graph.at[1, 'Price'] = EURO_시가
 
                 EURO_진폭비 = EURO_진폭 / EURO_시가
 
                 # 1T OHLC 생성
-                df_euro_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_euro_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_euro_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_euro_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -51555,8 +51555,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 # 그래프 가격갱신
                 YEN_현재가 = float(tickdata['체결가격'])
-                df_yen_graph.at[plot_time_index, 'price'] = YEN_현재가
-                df_yen_ta_graph.at[plot_time_index, 'price'] = YEN_현재가
+                df_yen_graph.at[plot_time_index, 'Price'] = YEN_현재가
+                df_yen_ta_graph.at[plot_time_index, 'Price'] = YEN_현재가
 
                 YEN_전일대비 = float(tickdata['전일대비'])
 
@@ -51577,16 +51577,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 YEN_시가대비 = int((YEN_현재가 - YEN_시가) / yen_tick_value)
 
-                #df_yen_graph.at[0, 'price'] = YEN_전일종가
+                #df_yen_graph.at[0, 'Price'] = YEN_전일종가
 
-                if df_yen_graph.at[1, 'price'] == 0:
-                    df_yen_graph.at[1, 'price'] = YEN_시가
+                if df_yen_graph.at[1, 'Price'] == 0:
+                    df_yen_graph.at[1, 'Price'] = YEN_시가
 
                 YEN_진폭비 = YEN_진폭 / YEN_시가
 
                 # 1T OHLC 생성
-                df_yen_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_yen_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_yen_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_yen_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -51770,8 +51770,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 ADI_현재가 = float(tickdata['체결가격']) 
-                df_adi_graph.at[plot_time_index, 'price'] = ADI_현재가
-                df_adi_ta_graph.at[plot_time_index, 'price'] = ADI_현재가                         
+                df_adi_graph.at[plot_time_index, 'Price'] = ADI_현재가
+                df_adi_ta_graph.at[plot_time_index, 'Price'] = ADI_현재가                         
 
                 ADI_전일대비 = float(tickdata['전일대비'])
 
@@ -51792,16 +51792,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 ADI_시가대비 = int((ADI_현재가 - ADI_시가) / adi_tick_value)
 
-                #df_adi_graph.at[0, 'price'] = ADI_전일종가
+                #df_adi_graph.at[0, 'Price'] = ADI_전일종가
 
-                if df_adi_graph.at[1, 'price'] == 0:
-                    df_adi_graph.at[1, 'price'] = ADI_시가
+                if df_adi_graph.at[1, 'Price'] == 0:
+                    df_adi_graph.at[1, 'Price'] = ADI_시가
 
                 ADI_진폭비 = ADI_진폭 / ADI_시가
 
                 # 1T OHLC 생성
-                df_adi_graph.at[plot_time_index, 'ctime'] = CME_체결시간
-                df_adi_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
+                df_adi_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_adi_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True) 
