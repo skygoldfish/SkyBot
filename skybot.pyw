@@ -2305,16 +2305,6 @@ print('\r')
 #####################################################################################################################################################################
 # 전역함수 --> 클래스로 처리?
 #####################################################################################################################################################################
-def new_except_hook(etype, evalue, tb):
-    QMessageBox.critical(None, "Error!", "".join(format_exception(etype, evalue, tb)))
-    sys.exit(1)
-
-def patch_excepthook():
-    print('\r')
-    print('Excepthook...\r')
-    print('\r')
-    sys.excepthook = new_except_hook
-
 '''
 def sqliteconn():
     conn = sqlite3.connect(DATABASE)
@@ -44593,9 +44583,6 @@ class Xing(object):
 
         self.clocktick = not self.clocktick
 
-        # 예외처리 표시
-        #patch_excepthook()
-
         self.caller.pushButton_reset.setStyleSheet('QPushButton \
                                             {background-color: \
                                             qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -44604,7 +44591,7 @@ class Xing(object):
                                             QPushButton:pressed {background-color: gold}')
 
         self.caller.pushButton_reset.setText(' Clear ')
-          
+
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
             if self.main_connection is not None:
@@ -52964,6 +52951,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.statusbar.showMessage("접속종료 되었습니다.")             
 
         # 계좌정보 조회
+        '''
         if _action == "actionAccountDialog":
             if self.dialog.get('계좌정보조회') is not None:
                 try:
@@ -52974,7 +52962,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['계좌정보조회'] = 화면_계좌정보(parent=self)
                 self.dialog['계좌정보조회'].show()
-        
+        '''
         # 종료
         if _action == "actionExit":
             self.xing.main_connection.disconnect()
