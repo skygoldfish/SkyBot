@@ -33242,6 +33242,183 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             pass
     #####################################################################################################################################################################
+    # Alligator
+    #####################################################################################################################################################################
+    def Calc_Alligator(
+        self,
+        ohlc: DataFrame,
+        period_jaws=13,
+        period_teeth=8,
+        period_lips=5,
+        shift_jaws=8,
+        shift_teeth=5,
+        shift_lips=3,
+        column_name_jaws="alligator_jaws",
+        column_name_teeth="alligator_teeth",
+        column_name_lips="alligator_lips",
+    ):
+        """
+        Alligator Definition with Smoothed & Shifted Moving Average
+
+        MEDIAN PRICE = (HIGH + LOW) / 2
+        ALLIGATORS JAW = SMMA (MEDEAN PRICE, 13, 8)
+        ALLIGATORS TEETH = SMMA (MEDEAN PRICE, 8, 5)
+        ALLIGATORS LIPS = SMMA (MEDEAN PRICE, 5, 3)
+        
+        https://www.metatrader4.com/en/trading-platform/help/analytics/tech_indicators/alligator
+
+        SUM1 = SUM(CLOSE, N)
+        SMMA1 = SUM1/N
+
+        PREVSUM = SMMA(i - 1) * N
+        SMMA(i) = (PREVSUM - SMMA(i - 1) + CLOSE(i)) / N
+
+        Where:
+        SUM1 – is the total sum of closing prices for N periods;
+        PREVSUM – smoothed sum of previous bar;
+        SMMA1 – is the smoothed moving average of the first bar;
+        SMMA(i) – is the smoothed moving average of the current bar (except for the first one);
+        CLOSE(i) – is the current closing price;
+        N – is the smoothing period.
+
+        SMMA (i) = (SMMA(i - 1) * (N - 1) + CLOSE (i)) / N
+
+        >>> Indicators.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+
+        :param int period_jaws: Period for Alligator' Jaws, default: 13
+        :param int period_teeth: Period for Alligator' Teeth, default: 8
+        :param int period_lips: Period for Alligator' Lips, default: 5
+        :param int shift_jaws: Period for Alligator' Jaws, default: 8
+        :param int shift_teeth: Period for Alligator' Teeth, default: 5
+        :param int shift_lips: Period for Alligator' Lips, default: 3
+        :param str column_name_jaws: Column Name for Alligator' Jaws, default: alligator_jaws
+        :param str column_name_teeth: Column Name for Alligator' Teeth, default: alligator_teeth
+        :param str column_name_lips: Column Name for Alligator' Lips, default: alligator_lips
+        :return: None
+        """
+
+        '''
+        df_median = self.df[[self._columns["High"], self._columns["Low"]]]
+        median_col = "median_col"
+        df_median = df_median.assign(
+            median_col=lambda x: (x[self._columns["High"]] + x[self._columns["Low"]]) / 2
+        )
+        '''
+
+        df_median = self.df[[ohlc["High"], ohlc["Low"]]]
+        median_col = "median_col"
+        df_median = df_median.assign(
+            median_col=lambda x: (x[ohlc["High"]] + x[ohlc["Low"]]) / 2
+        )
+
+        df_j = self.Calculate_SMMA(df_median, period_jaws, column_name_jaws, median_col)
+        df_t = self.Calculate_SMMA(df_median, period_teeth, column_name_teeth, median_col)
+        df_l = self.Calculate_SMMA(df_median, period_lips, column_name_lips, median_col)
+
+        # Shift SSMAs
+        df_j[column_name_jaws] = df_j[column_name_jaws].shift(shift_jaws)
+        df_t[column_name_teeth] = df_t[column_name_teeth].shift(shift_teeth)
+        df_l[column_name_lips] = df_l[column_name_lips].shift(shift_lips)
+
+        #self.df = self.df.merge(df_j, left_index=True, right_index=True)
+        #self.df = self.df.merge(df_t, left_index=True, right_index=True)
+        #self.df = self.df.merge(df_l, left_index=True, right_index=True)
+
+        return df_j[column_name_jaws], df_t[column_name_teeth], df_l[column_name_lips]
+    #####################################################################################################################################################################
+    # SSMA(Smoothed Simple Moving Average)
+    #####################################################################################################################################################################
+    def Calculate_SMMA(self, df, period, column_name, apply_to):
+        """
+        Smoothed Simple Moving Average.
+
+        :param ohlc: data
+        :param period: range
+        :param column: open/close/high/low column of the DataFrame
+        :return: result Series
+
+        Smoothed Moving Average used by Wilder in his 1978 book `New Concepts in
+        Technical Trading`
+
+        Defined in his book originally as:
+
+        - new_value = (old_value * (period - 1) + new_data) / period
+
+        Which is a moving average that smoothes data exponentially over time.
+
+        - Exponential Smotthing factor: alpha = 1 / period
+
+        Formula
+        - prev = mean(data, period)
+        - movav = prev * (1.0 - alpha) + newdata * alpha
+        - (or alternatively #  movav = prev + alpha(new - prev))
+
+        See also:
+        - http://en.wikipedia.org/wiki/Moving_average#Modified_moving_average
+        """
+        df_tmp = df[[apply_to]]
+        first_val = df_tmp[apply_to].iloc[:period].mean()
+        df_tmp = df_tmp.assign(column_name=None)
+        df_tmp.at[period, column_name] = first_val
+    
+        for index, row in df_tmp.iterrows():
+            if index > period:
+                smma_val = (df_tmp.at[index - 1, column_name] *
+                            (period - 1) + row[apply_to]) / period
+                df_tmp.at[index, column_name] = smma_val
+
+        df_tmp = df_tmp[[column_name]]
+
+        return df_tmp
+
+    def Calc_SMMA(
+        self,
+        ohlc: DataFrame,
+        period: int = 9,
+        column: str = "Close",
+        adjust: bool = True,
+    ) -> Series:        
+
+        return pd.Series(
+            ohlc[column]
+            .ewm(ignore_na=False, alpha=1.0 / period, min_periods=0, adjust=adjust)
+            .mean(),
+            name="{0} period SSMA".format(period),
+        )
+
+    def SMMA(self, candles_list, n_smoothing_periods, future_shift):
+        '''
+        :param candles_list: list with candles to get median prices
+                candles indicies: 0 - Open time, 1 - Open, 2 - High, 3 - Low, 4 - Close, 5 - Volume, 6 - Close time
+                candles_list is at least as long as future_shift
+        :param n_smoothing_periods: amount of periods for calculating moving average
+        :return: list of SMMAs from n_smoothing_periods position to the (end of list + future_shift)
+                elements 0-5 are sma of previouse periods, 6 - SMA for current periods - the rest - future_shift
+        '''
+
+        if len(candles_list) < n_smoothing_periods:
+            print('too short')
+            return
+
+        #create a list of median prices
+        self.median_prices_list = []
+        for i in range(len(candles_list)):
+            median_price = (float(candles_list[i][2]) + float(candles_list[i][3])) / 2  # (high + low) / 2
+            self.median_prices_list.append(median_price)
+
+        #print(len('median prices list', self.median_prices_list))
+
+        self.start_len = len(self.median_prices_list)
+
+        for i in range(n_smoothing_periods, len(candles_list) + future_shift):
+            #print(self.median_prices_list[-n_smoothing_periods:-1])
+            sum_prices = sum(self.median_prices_list[i-n_smoothing_periods:i])
+            smma = sum_prices / n_smoothing_periods
+            self.median_prices_list.append(smma)
+
+        #print('median_prices_list after smma add', len(self.median_prices_list))
+        return self.median_prices_list[-(self.start_len + n_smoothing_periods): -1]
+    #####################################################################################################################################################################
     # Plot Update
     #####################################################################################################################################################################
 
@@ -44485,7 +44662,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.close()
         else:
             event.ignore()        
-         
+
     def __del__(self):
 
         print('Sky Chart Diaglog객체가 소멸됩니다.')         

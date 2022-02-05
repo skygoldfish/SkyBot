@@ -23,7 +23,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,2,2,2,2,2,2,2,2,3">
      <item>
       <widget class="QLabel" name="label_time_1">
        <property name="text">
@@ -104,6 +104,8 @@
       <widget class="QComboBox" name="comboBox1">
        <property name="font">
         <font>
+         <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -116,7 +118,7 @@
     </layout>
    </item>
    <item row="0" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_16">
+    <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="2,2,2,2,2,2,2,2,2,2,3">
      <item>
       <widget class="QLabel" name="label_time_4">
        <property name="text">
@@ -197,6 +199,8 @@
       <widget class="QComboBox" name="comboBox4">
        <property name="font">
         <font>
+         <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -215,6 +219,7 @@
        <property name="font">
         <font>
          <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>
@@ -302,6 +307,7 @@
        <property name="font">
         <font>
          <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>
@@ -383,7 +389,7 @@
     </layout>
    </item>
    <item row="2" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2,2,2,2,2,2,2,2,2,3">
      <item>
       <widget class="QLabel" name="label_time_2">
        <property name="text">
@@ -464,6 +470,8 @@
       <widget class="QComboBox" name="comboBox2">
        <property name="font">
         <font>
+         <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -476,7 +484,7 @@
     </layout>
    </item>
    <item row="2" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_17">
+    <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="2,2,2,2,2,2,2,2,2,2,3">
      <item>
       <widget class="QLabel" name="label_time_5">
        <property name="text">
@@ -557,6 +565,8 @@
       <widget class="QComboBox" name="comboBox5">
        <property name="font">
         <font>
+         <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -575,6 +585,7 @@
        <property name="font">
         <font>
          <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>
@@ -662,6 +673,7 @@
        <property name="font">
         <font>
          <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>
@@ -743,7 +755,7 @@
     </layout>
    </item>
    <item row="4" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,2,2,2,2,2,2,2,2,2,3">
      <item>
       <widget class="QLabel" name="label_time_3">
        <property name="text">
@@ -824,6 +836,8 @@
       <widget class="QComboBox" name="comboBox3">
        <property name="font">
         <font>
+         <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -836,7 +850,7 @@
     </layout>
    </item>
    <item row="4" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_18">
+    <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="2,2,2,2,2,2,2,2,2,2,3">
      <item>
       <widget class="QLabel" name="label_time_6">
        <property name="text">
@@ -917,6 +931,8 @@
       <widget class="QComboBox" name="comboBox6">
        <property name="font">
         <font>
+         <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
@@ -935,6 +951,7 @@
        <property name="font">
         <font>
          <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>
@@ -1022,6 +1039,7 @@
        <property name="font">
         <font>
          <family>Consolas</family>
+         <pointsize>9</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>
