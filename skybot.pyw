@@ -2305,34 +2305,6 @@ print('\r')
 #####################################################################################################################################################################
 # 전역함수 --> 클래스로 처리?
 #####################################################################################################################################################################
-def pyqtCatchExceptionSlot(*args, catch=Exception, on_exception_emit=None):
-    """This is a decorator for pyqtSlots where an exception
-    in user code is caught, printed and a optional pyqtSignal with
-    signature pyqtSignal(Exception, str) is emitted when that happens.
-
-    Arguments:
-    *args:  any valid types for the pyqtSlot
-    catch:  Type of the exception to catch, defaults to any exception
-    on_exception_emit:  name of a pyqtSignal to be emitted
-    """
-    if len(args) == 0 or isinstance(args[0], types.FunctionType):
-        args = []
-    @pyqtSlot(*args)
-    def slotdecorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            try:
-                func(*args)
-            except catch as e:
-                print(f"In pyqtSlot: {wrapper.__name__}:\n"
-                      f"Caught exception: {e.__repr__()}")
-                if on_exception_emit is not None:
-                    # args[0] is instance of bound signal
-                    pyqt_signal = getattr(args[0], on_exception_emit)
-                    pyqt_signal.emit(e, wrapper.__name__)
-        return wrapper
-    return slotdecorator
-
 def new_except_hook(etype, evalue, tb):
     QMessageBox.critical(None, "Error!", "".join(format_exception(etype, evalue, tb)))
     sys.exit(1)
@@ -2343,9 +2315,11 @@ def patch_excepthook():
     print('\r')
     sys.excepthook = new_except_hook
 
+'''
 def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
+'''
 
 def calc_pivot(jl, jh, jc, do, float_index):
     if jl > 0 and jh > 0 and jc > 0 and do > 0:
@@ -3756,7 +3730,7 @@ class PlotUpdateWorker1(QThread):
 
     def run(self):
 
-        flag_plot_update_interval_changed
+        global flag_plot_update_interval_changed
 
         while True:            
 
@@ -15516,11 +15490,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if DayTime:                    
 
                     df_futures_cm_graph.at[0, 'Volume'] = 0
-                    df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
+                    #df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                     df_futures_cm_graph.at[0, 'Price'] = self.fut_realdata['종가']
                     df_kp200_graph.at[0, 'Price'] = KP200_전일종가
                     
-                    df_demand_supply_graph.at[0, 'program'] = 0
+                    df_demand_supply_graph.at[0, 'Program'] = 0
                     df_demand_supply_graph.at[0, 'kospi_total'] = 0
                     df_demand_supply_graph.at[0, 'kospi_foreigner'] = 0
                     df_demand_supply_graph.at[0, 'futures_foreigner'] = 0
@@ -17353,9 +17327,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
-                df_futures_cm_graph.at[0, 'kp200'] = KP200_전일종가
+                #df_futures_cm_graph.at[0, 'kp200'] = KP200_전일종가
                 df_kp200_graph.at[0, 'Price'] = KP200_전일종가
-                df_demand_supply_graph.at[0, 'program'] = 0
+                df_demand_supply_graph.at[0, 'Program'] = 0
                 df_demand_supply_graph.at[0, 'kospi_total'] = 0
                 df_demand_supply_graph.at[0, 'kospi_foreigner'] = 0
                 df_demand_supply_graph.at[0, 'futures_foreigner'] = 0
@@ -17530,7 +17504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if NightTime:
 
-                df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
+                #df_futures_cm_graph.at[0, 'kp200'] = self.fut_realdata['KP200']
                 df_futures_cm_graph.at[0, 'Price'] = self.cme_realdata['종가']
 
                 if self.cme_realdata['시가'] > 0:
@@ -20379,13 +20353,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_put_information_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Volume', 'open_interest', 'ms_quote', 'md_quote', 'quote_remainder_ratio', 'Drate', 'yanghap'])
 
             df_kp200_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close'])
-            df_demand_supply_graph = DataFrame(index=range(0, timespan), columns=['Time', 'program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
+            df_demand_supply_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Program', 'kospi_total', 'kospi_foreigner', 'futures_foreigner'])
 
-            df_futures_cm_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'kp200', \
-                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'Drate'])
-            
-            df_futures_nm_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'kp200', \
-                'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'Drate'])
+            df_futures_cm_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'Drate'])            
+            df_futures_nm_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'c_ms_quote', 'c_md_quote', 'c_quote_remainder_ratio', 'n_ms_quote', 'n_md_quote', 'n_quote_remainder_ratio', 'Drate'])
 
             df_sp500_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_dow_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
@@ -33866,7 +33837,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot1_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
-                    self.plot1_program_curve.setData(df_demand_supply_graph['program'].astype(float))
+                    self.plot1_program_curve.setData(df_demand_supply_graph['Program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
@@ -35718,7 +35689,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot2_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
-                    self.plot2_program_curve.setData(df_demand_supply_graph['program'].astype(float))
+                    self.plot2_program_curve.setData(df_demand_supply_graph['Program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
@@ -37566,7 +37537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot3_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
-                    self.plot3_program_curve.setData(df_demand_supply_graph['program'].astype(float))
+                    self.plot3_program_curve.setData(df_demand_supply_graph['Program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
@@ -39415,7 +39386,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot4_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
-                    self.plot4_program_curve.setData(df_demand_supply_graph['program'].astype(float))
+                    self.plot4_program_curve.setData(df_demand_supply_graph['Program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
@@ -41262,7 +41233,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot5_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
-                    self.plot5_program_curve.setData(df_demand_supply_graph['program'].astype(float))
+                    self.plot5_program_curve.setData(df_demand_supply_graph['Program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
@@ -43109,7 +43080,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         pass
 
                     self.plot6_fut_volume_curve.setData(df_futures_cm_graph['Volume'].astype(float))
-                    self.plot6_program_curve.setData(df_demand_supply_graph['program'].astype(float))
+                    self.plot6_program_curve.setData(df_demand_supply_graph['Program'].astype(float))
 
                     df = df_demand_supply_graph['kospi_total'].apply(lambda x: np.nan if x == 0 else x)
                     df.at[0] = 0
@@ -45500,7 +45471,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("showSDBMsgBox OK Clicked...")
 
     @pyqtSlot()
-    #@pyqtCatchExceptionSlot("bool", on_exception_emit="exceptionOccurred")
     def reset_button_clicked(self):
 
         global flag_drop_reset1, flag_drop_reset2, flag_drop_reset3, flag_drop_reset4
@@ -47129,7 +47099,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
                 self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일시가
 
-                df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
+                #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
                 df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
@@ -47736,7 +47706,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 그래프 가격갱신
                 kp200_현재가 = float(tickdata['지수'])
-                df_futures_cm_graph.at[plot_time_index, 'kp200'] = kp200_현재가
+                #df_futures_cm_graph.at[plot_time_index, 'kp200'] = kp200_현재가
                 df_kp200_graph.at[plot_time_index, 'Price'] = kp200_현재가
 
                 # kp200 현재가
@@ -47783,7 +47753,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     KP200_당일시가 = float(tickdata['시가지수'])
 
                     self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
-                    df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
+                    #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
                     df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일시가
 
                     item = QTableWidgetItem(시가지수)
@@ -48435,7 +48405,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             순매수 = format(프로그램_순매수, ',')
 
-            df_demand_supply_graph.at[plot_time_index, 'program'] = 프로그램_순매수
+            df_demand_supply_graph.at[plot_time_index, 'Program'] = 프로그램_순매수
             df_demand_supply_graph.at[plot_time_index, 'kospi_total'] = 현물_총순매수
             df_demand_supply_graph.at[plot_time_index, 'kospi_foreigner'] = 외인현물_순매수
             df_demand_supply_graph.at[plot_time_index, 'futures_foreigner'] = 외인선물_순매수
