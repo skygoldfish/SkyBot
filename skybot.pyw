@@ -1512,6 +1512,18 @@ df_euro_ta_graph = pd.DataFrame()
 df_yen_ta_graph = pd.DataFrame()
 df_adi_ta_graph = pd.DataFrame()
 
+df_futures_cm_alligator_graph = pd.DataFrame()
+df_futures_nm_alligator_graph = pd.DataFrame()
+df_sp500_alligator_graph = pd.DataFrame()
+df_dow_alligator_graph = pd.DataFrame()
+df_nasdaq_alligator_graph = pd.DataFrame()
+df_hangseng_alligator_graph = pd.DataFrame()
+df_wti_alligator_graph = pd.DataFrame()
+df_gold_alligator_graph = pd.DataFrame()
+df_euro_alligator_graph = pd.DataFrame()
+df_yen_alligator_graph = pd.DataFrame()
+df_adi_alligator_graph = pd.DataFrame()
+
 call_quote = pd.Series()
 put_quote = pd.Series()
 
@@ -20385,18 +20397,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_yen_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'quote_remainder_ratio', 'drate'])
 
-            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])           
-            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])           
+            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
 
-            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
-            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Middle', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
+            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA', 'A_FAMA'])
 
             flag_t8433_response_ok = True
         else:
@@ -22846,6 +22858,47 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_fibonacci_line3 = self.plot1.addLine(x=None, pen=yellow_pen)
         self.plot1_fibonacci_line4 = self.plot1.addLine(x=None, pen=lime_pen)
         self.plot1_fibonacci_line5 = self.plot1.addLine(x=None, pen=lime_pen)
+
+        # Alligator Curve
+        self.plot1_futures_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_futures_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_futures_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_sp500_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_sp500_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_sp500_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_dow_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_dow_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_dow_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_nasdaq_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_nasdaq_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_nasdaq_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_hti_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_hti_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_hti_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_wti_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_wti_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_wti_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_gold_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_gold_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_gold_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_euro_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_euro_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_euro_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_yen_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_yen_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_yen_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        self.plot1_adi_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_adi_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_adi_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -22961,6 +23014,47 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_fibonacci_line4 = self.plot2.addLine(x=None, pen=lime_pen)
         self.plot2_fibonacci_line5 = self.plot2.addLine(x=None, pen=lime_pen)
 
+        # Alligator Curve
+        self.plot2_futures_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_futures_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_futures_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_sp500_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_sp500_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_sp500_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_dow_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_dow_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_dow_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_nasdaq_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_nasdaq_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_nasdaq_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_hti_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_hti_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_hti_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_wti_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_wti_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_wti_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_gold_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_gold_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_gold_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_euro_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_euro_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_euro_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_yen_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_yen_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_yen_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
+        self.plot2_adi_alligator_lip_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_adi_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_adi_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23073,6 +23167,47 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_fibonacci_line4 = self.plot3.addLine(x=None, pen=lime_pen)
         self.plot3_fibonacci_line5 = self.plot3.addLine(x=None, pen=lime_pen)
 
+        # Alligator Curve
+        self.plot3_futures_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_futures_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_futures_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_sp500_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_sp500_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_sp500_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_dow_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_dow_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_dow_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_nasdaq_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_nasdaq_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_nasdaq_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_hti_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_hti_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_hti_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_wti_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_wti_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_wti_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_gold_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_gold_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_gold_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_euro_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_euro_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_euro_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_yen_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_yen_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_yen_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
+        self.plot3_adi_alligator_lip_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_adi_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_adi_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23184,6 +23319,47 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_fibonacci_line3 = self.plot4.addLine(x=None, pen=yellow_pen)
         self.plot4_fibonacci_line4 = self.plot4.addLine(x=None, pen=lime_pen)
         self.plot4_fibonacci_line5 = self.plot4.addLine(x=None, pen=lime_pen)
+
+        # Alligator Curve
+        self.plot4_futures_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_futures_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_futures_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_sp500_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_sp500_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_sp500_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_dow_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_dow_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_dow_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_nasdaq_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_nasdaq_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_nasdaq_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_hti_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_hti_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_hti_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_wti_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_wti_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_wti_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_gold_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_gold_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_gold_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_euro_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_euro_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_euro_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_yen_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_yen_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_yen_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        self.plot4_adi_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_adi_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_adi_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23297,6 +23473,47 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_fibonacci_line4 = self.plot5.addLine(x=None, pen=lime_pen)
         self.plot5_fibonacci_line5 = self.plot5.addLine(x=None, pen=lime_pen)
 
+        # Alligator Curve
+        self.plot5_futures_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_futures_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_futures_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_sp500_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_sp500_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_sp500_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_dow_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_dow_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_dow_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_nasdaq_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_nasdaq_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_nasdaq_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_hti_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_hti_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_hti_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_wti_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_wti_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_wti_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_gold_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_gold_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_gold_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_euro_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_euro_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_euro_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_yen_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_yen_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_yen_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
+        self.plot5_adi_alligator_lip_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_adi_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_adi_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23408,6 +23625,47 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_fibonacci_line3 = self.plot6.addLine(x=None, pen=yellow_pen)
         self.plot6_fibonacci_line4 = self.plot6.addLine(x=None, pen=lime_pen)
         self.plot6_fibonacci_line5 = self.plot6.addLine(x=None, pen=lime_pen)
+
+        # Alligator Curve
+        self.plot6_futures_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_futures_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_futures_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_sp500_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_sp500_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_sp500_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_dow_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_dow_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_dow_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_nasdaq_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_nasdaq_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_nasdaq_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_hti_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_hti_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_hti_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_wti_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_wti_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_wti_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_gold_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_gold_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_gold_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_euro_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_euro_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_euro_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_yen_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_yen_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_yen_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        self.plot6_adi_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_adi_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_adi_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -32747,12 +33005,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     #####################################################################################################################################################################
     def Calc_Psar(self, type):
 
-        global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+        global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph
+        global df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
 
         if type == 'FUT':
 
             # Parabolic SAR
             df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['High'], dtype=float), np.array(df_futures_cm_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+
             '''
             # Ichimoku Indicator
             futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'])
@@ -32896,6 +33156,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
     def Calc_MAMA(self, type):
 
         global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+        global df_futures_cm_alligator_graph, df_sp500_alligator_graph, df_dow_alligator_graph, df_nasdaq_alligator_graph, df_hangseng_alligator_graph
+        global df_wti_alligator_graph, df_gold_alligator_graph, df_euro_alligator_graph, df_yen_alligator_graph, df_adi_alligator_graph    
 
         if type == 'FUT':
 
@@ -32904,6 +33166,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_futures_cm_ta_graph['MAMA'] = mama
             df_futures_cm_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_futures_cm_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_futures_cm_alligator_graph = i.df
             
         elif type == 'SP500':
 
@@ -32913,10 +33179,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_sp500_ta_graph['MAMA'] = mama
             df_sp500_ta_graph['FAMA'] = fama
 
-            #i = Indicators(df_sp500_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df = i.df
-            #print(df[390:410])
+            i = Indicators(df_sp500_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_sp500_alligator_graph = i.df            
             
         elif type == 'DOW':
 
@@ -32925,6 +33190,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_dow_ta_graph['MAMA'] = mama
             df_dow_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_dow_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_dow_alligator_graph = i.df
             
         elif type == 'NASDAQ':
 
@@ -32933,6 +33202,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_nasdaq_ta_graph['MAMA'] = mama
             df_nasdaq_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_nasdaq_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_nasdaq_alligator_graph = i.df
             
         elif type == 'HSI':
 
@@ -32941,6 +33214,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_hangseng_ta_graph['MAMA'] = mama
             df_hangseng_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_hangseng_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_hangseng_alligator_graph = i.df
             
         elif type == 'WTI':
 
@@ -32949,6 +33226,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_wti_ta_graph['MAMA'] = mama
             df_wti_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_wti_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_wti_alligator_graph = i.df
             
         elif type == 'GOLD':
 
@@ -32957,6 +33238,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_gold_ta_graph['MAMA'] = mama
             df_gold_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_gold_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_gold_alligator_graph = i.df
             
         elif type == 'EURO':
 
@@ -32965,6 +33250,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_euro_ta_graph['MAMA'] = mama
             df_euro_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_euro_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_euro_alligator_graph = i.df
             
         elif type == 'YEN':
 
@@ -32973,6 +33262,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_yen_ta_graph['MAMA'] = mama
             df_yen_ta_graph['FAMA'] = fama
+
+            i = Indicators(df_yen_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_yen_alligator_graph = i.df
             
         elif type == 'ADI':
 
@@ -32981,7 +33274,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_adi_ta_graph['MAMA'] = mama
             df_adi_ta_graph['FAMA'] = fama
-            
+
+            i = Indicators(df_adi_ta_graph)
+            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
+            df_adi_alligator_graph = i.df            
         else:
             pass
     #####################################################################################################################################################################
@@ -46935,11 +47231,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 1T OHLC 생성
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_futures_cm_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                 df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
                 
-                df_futures_cm_ta_graph.at[plot_time_index, 'close'] = 근월물_선물_현재가                     
+                df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가                     
 
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
@@ -46949,7 +47244,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
                         df_futures_cm_ta_graph.at[plot_time_index, 'High'] = 근월물_선물_현재가
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = 근월물_선물_현재가
-                        df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -46979,11 +47273,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
 
-                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
-
                     flag_futures_cm_ohlc_open = False
-
-                    df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_cm_ta_graph.at[plot_time_index, 'High'] + df_futures_cm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
@@ -47139,6 +47429,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     # 1T OHLC 생성
                     df_futures_nm_graph.at[plot_time_index, 'ctime'] = tickdata['수신시간']
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
 
                     if cme_plot_sec == 0:
 
@@ -47146,10 +47437,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_시가
                             df_futures_nm_ta_graph.at[plot_time_index, 'High'] = 차월물_선물_시가
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_시가
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = 차월물_선물_시가
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
-                            df_futures_nm_ta_graph.at[plot_time_index, 'price'] = 차월물_선물_시가
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_시가                            
 
                             del 차월물_선물_현재가_버퍼[:]
 
@@ -47179,11 +47467,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
 
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
-
                         flag_futures_nm_ohlc_open = False
-
-                    df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_nm_ta_graph.at[plot_time_index, 'High'] + df_futures_nm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                     item = QTableWidgetItem("{0:.2f}".format(차월물_선물_시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -48330,11 +48614,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_futures_cm_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
                 
-                if not np.isnan(근월물_선물_현재가):    
-                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가       
+                df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가                         
 
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
@@ -48347,7 +48629,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
                         df_futures_cm_ta_graph.at[plot_time_index, 'High'] = 근월물_선물_현재가
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = 근월물_선물_현재가
-                        df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = 근월물_선물_현재가
 
                         del 근월물_선물_현재가_버퍼[:]
 
@@ -48378,8 +48659,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)  
 
                     flag_futures_cm_ohlc_open = False
-
-                    df_futures_cm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_cm_ta_graph.at[plot_time_index, 'High'] + df_futures_cm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'volume'] = fut_cm_volume_power
@@ -48504,12 +48783,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_futures_nm_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                if not np.isnan(차월물_선물_현재가):
-                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가                    
-
+                df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
+                    
                 #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                 if fut_plot_sec == 0:
 
@@ -48521,7 +48798,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
                         df_futures_nm_ta_graph.at[plot_time_index, 'High'] = 차월물_선물_현재가
                         df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_현재가
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = 차월물_선물_현재가
 
                         del 차월물_선물_현재가_버퍼[:]
 
@@ -48552,8 +48828,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
 
                     flag_futures_nm_ohlc_open = False
-
-                    df_futures_nm_ta_graph.at[plot_time_index, 'Middle'] = (df_futures_nm_ta_graph.at[plot_time_index, 'High'] + df_futures_nm_ta_graph.at[plot_time_index, 'Low']) / 2
 
                 fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
@@ -49628,7 +49902,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가
                     df_sp500_ta_graph.at[plot_time_index, 'High'] = SP500_현재가
                     df_sp500_ta_graph.at[plot_time_index, 'Low'] = SP500_현재가
-                    df_sp500_ta_graph.at[plot_time_index, 'Middle'] = SP500_현재가
 
                     del SP500_현재가_버퍼[:]
 
@@ -49644,7 +49917,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_dow_ta_graph.at[plot_time_index, 'Open'] = DOW_현재가
                     df_dow_ta_graph.at[plot_time_index, 'High'] = DOW_현재가
                     df_dow_ta_graph.at[plot_time_index, 'Low'] = DOW_현재가
-                    df_dow_ta_graph.at[plot_time_index, 'Middle'] = DOW_현재가
 
                     del DOW_현재가_버퍼[:]
 
@@ -49660,7 +49932,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = NASDAQ_현재가
                     df_nasdaq_ta_graph.at[plot_time_index, 'High'] = NASDAQ_현재가
                     df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = NASDAQ_현재가
-                    df_nasdaq_ta_graph.at[plot_time_index, 'Middle'] = NASDAQ_현재가
 
                     del NASDAQ_현재가_버퍼[:]
 
@@ -49676,7 +49947,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_hangseng_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가
                     df_hangseng_ta_graph.at[plot_time_index, 'High'] = HANGSENG_현재가
                     df_hangseng_ta_graph.at[plot_time_index, 'Low'] = HANGSENG_현재가
-                    df_hangseng_ta_graph.at[plot_time_index, 'Middle'] = HANGSENG_현재가
 
                     del HANGSENG_현재가_버퍼[:]
 
@@ -49692,7 +49962,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_wti_ta_graph.at[plot_time_index, 'Open'] = WTI_현재가
                     df_wti_ta_graph.at[plot_time_index, 'High'] = WTI_현재가
                     df_wti_ta_graph.at[plot_time_index, 'Low'] = WTI_현재가
-                    df_wti_ta_graph.at[plot_time_index, 'Middle'] = WTI_현재가
 
                     del WTI_현재가_버퍼[:]
 
@@ -49708,7 +49977,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_gold_ta_graph.at[plot_time_index, 'Open'] = GOLD_현재가
                     df_gold_ta_graph.at[plot_time_index, 'High'] = GOLD_현재가
                     df_gold_ta_graph.at[plot_time_index, 'Low'] = GOLD_현재가
-                    df_gold_ta_graph.at[plot_time_index, 'Middle'] = GOLD_현재가
 
                     del GOLD_현재가_버퍼[:]
 
@@ -49724,7 +49992,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_euro_ta_graph.at[plot_time_index, 'Open'] = EURO_현재가
                     df_euro_ta_graph.at[plot_time_index, 'High'] = EURO_현재가
                     df_euro_ta_graph.at[plot_time_index, 'Low'] = EURO_현재가
-                    df_euro_ta_graph.at[plot_time_index, 'Middle'] = EURO_현재가
 
                     del EURO_현재가_버퍼[:]
 
@@ -49740,7 +50007,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_yen_ta_graph.at[plot_time_index, 'Open'] = YEN_현재가
                     df_yen_ta_graph.at[plot_time_index, 'High'] = YEN_현재가
                     df_yen_ta_graph.at[plot_time_index, 'Low'] = YEN_현재가
-                    df_yen_ta_graph.at[plot_time_index, 'Middle'] = YEN_현재가
 
                     del YEN_현재가_버퍼[:]
 
@@ -49756,7 +50022,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_adi_ta_graph.at[plot_time_index, 'Open'] = ADI_현재가
                     df_adi_ta_graph.at[plot_time_index, 'High'] = ADI_현재가
                     df_adi_ta_graph.at[plot_time_index, 'Low'] = ADI_현재가
-                    df_adi_ta_graph.at[plot_time_index, 'Middle'] = ADI_현재가
 
                     del ADI_현재가_버퍼[:]
 
@@ -49813,7 +50078,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_sp500_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(SP500_현재가):
@@ -49845,10 +50109,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)                                                 
 
-                        flag_sp500_ohlc_open = False
-
-                        if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'Low']):
-                            df_sp500_ta_graph.at[plot_time_index, 'Middle'] = (df_sp500_ta_graph.at[plot_time_index, 'High'] + df_sp500_ta_graph.at[plot_time_index, 'Low']) / 2                            
+                        flag_sp500_ohlc_open = False                           
                 else:
                     pass                                                                 
 
@@ -50035,7 +50296,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_dow_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)                
 
                 if not np.isnan(DOW_현재가):
@@ -50068,9 +50328,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_dow_ta_graph.at[plot_time_index, 'Low'] = min(DOW_현재가_버퍼)             
 
                         flag_dow_ohlc_open = False
-
-                        if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'Low']):
-                            df_dow_ta_graph.at[plot_time_index, 'Middle'] = int(df_dow_ta_graph.at[plot_time_index, 'High'] + df_dow_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
 
@@ -50256,7 +50513,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_nasdaq_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_nasdaq_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_nasdaq_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_nasdaq_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(NASDAQ_현재가):
@@ -50289,9 +50545,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = min(NASDAQ_현재가_버퍼)          
 
                         flag_nasdaq_ohlc_open = False
-
-                        if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'Low']):
-                            df_nasdaq_ta_graph.at[plot_time_index, 'Middle'] = (df_nasdaq_ta_graph.at[plot_time_index, 'High'] + df_nasdaq_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                
                 
@@ -50451,7 +50704,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     HANGSENG_전일종가 = int(HANGSENG_현재가 - HANGSENG_전일대비)
                     HANGSENG_종가대비 = -HANGSENG_전일대비
-              
+
                 HANGSENG_등락율 = float(tickdata['등락율'])
 
                 HANGSENG_시가 = int(float(tickdata['시가']))
@@ -50475,7 +50728,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_hangseng_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_hangseng_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_hangseng_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_hangseng_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(HANGSENG_현재가):
@@ -50508,9 +50760,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_hangseng_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)         
 
                         flag_hangseng_ohlc_open = False
-
-                        if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'Low']):
-                            df_hangseng_ta_graph.at[plot_time_index, 'Middle'] = int(df_hangseng_ta_graph.at[plot_time_index, 'High'] + df_hangseng_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                  
 
@@ -50696,7 +50945,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_wti_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_wti_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(WTI_현재가):
@@ -50729,9 +50977,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_wti_ta_graph.at[plot_time_index, 'Low'] = min(WTI_현재가_버퍼)             
 
                         flag_wti_ohlc_open = False
-
-                        if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'Low']):
-                            df_wti_ta_graph.at[plot_time_index, 'Middle'] = (df_wti_ta_graph.at[plot_time_index, 'High'] + df_wti_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                             
 
@@ -50915,7 +51160,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_gold_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_gold_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(GOLD_현재가):
@@ -50948,9 +51192,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_gold_ta_graph.at[plot_time_index, 'Low'] = min(GOLD_현재가_버퍼)           
 
                         flag_gold_ohlc_open = False
-
-                        if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'Low']):
-                            df_gold_ta_graph.at[plot_time_index, 'Middle'] = (df_gold_ta_graph.at[plot_time_index, 'High'] + df_gold_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
 
@@ -51134,7 +51375,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_euro_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_euro_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(EURO_현재가):
@@ -51167,9 +51407,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_euro_ta_graph.at[plot_time_index, 'Low'] = min(EURO_현재가_버퍼)            
 
                         flag_euro_ohlc_open = False
-
-                        if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'Low']):
-                            df_euro_ta_graph.at[plot_time_index, 'Middle'] = (df_euro_ta_graph.at[plot_time_index, 'High'] + df_euro_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
                 
@@ -51353,7 +51590,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_yen_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
                 df_yen_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(YEN_현재가):
@@ -51386,9 +51622,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_yen_ta_graph.at[plot_time_index, 'Low'] = min(YEN_현재가_버퍼)              
 
                         flag_yen_ohlc_open = False
-
-                        if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'Low']):
-                            df_yen_ta_graph.at[plot_time_index, 'Middle'] = (df_yen_ta_graph.at[plot_time_index, 'High'] + df_yen_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass                                         
                 
@@ -51571,8 +51804,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_adi_ta_graph.at[plot_time_index, 'ctime'] = CME_체결시간
 
                 df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_adi_ta_graph['Middle'].fillna(method='bfill', inplace=True) 
+                df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                 df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(ADI_현재가):
@@ -51605,9 +51837,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             df_adi_ta_graph.at[plot_time_index, 'Low'] = min(ADI_현재가_버퍼)             
 
                         flag_adi_ohlc_open = False
-                    
-                        if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'High']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'Low']):
-                            df_adi_ta_graph.at[plot_time_index, 'Middle'] = (df_adi_ta_graph.at[plot_time_index, 'High'] + df_adi_ta_graph.at[plot_time_index, 'Low']) / 2
                 else:
                     pass
 
