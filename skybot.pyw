@@ -22872,6 +22872,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_adi_alligator_lip_curve = self.plot1.plot(pen=lime_pen)
         self.plot1_adi_alligator_teeth_curve = self.plot1.plot(pen=magenta_pen)
         self.plot1_adi_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
+
+        # CCI Curve
+        self.plot1_futures_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_sp500_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_dow_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_nasdaq_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_hsi_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_wti_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_gold_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_euro_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_yen_cci_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_adi_cci_curve = self.plot1.plot(pen=lime_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23028,6 +23040,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_adi_alligator_teeth_curve = self.plot2.plot(pen=magenta_pen)
         self.plot2_adi_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
 
+        # CCI Curve
+        self.plot2_futures_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_sp500_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_dow_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_nasdaq_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_hsi_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_wti_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_gold_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_euro_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_yen_cci_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_adi_cci_curve = self.plot2.plot(pen=lime_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23181,6 +23205,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_adi_alligator_teeth_curve = self.plot3.plot(pen=magenta_pen)
         self.plot3_adi_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
 
+        # CCI Curve
+        self.plot3_futures_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_sp500_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_dow_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_nasdaq_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_hsi_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_wti_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_gold_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_euro_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_yen_cci_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_adi_cci_curve = self.plot3.plot(pen=lime_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23333,6 +23369,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_adi_alligator_lip_curve = self.plot4.plot(pen=lime_pen)
         self.plot4_adi_alligator_teeth_curve = self.plot4.plot(pen=magenta_pen)
         self.plot4_adi_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
+
+        # CCI Curve
+        self.plot4_futures_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_sp500_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_dow_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_nasdaq_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_hsi_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_wti_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_gold_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_euro_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_yen_cci_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_adi_cci_curve = self.plot4.plot(pen=lime_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23487,6 +23535,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_adi_alligator_teeth_curve = self.plot5.plot(pen=magenta_pen)
         self.plot5_adi_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
 
+        # CCI Curve
+        self.plot5_futures_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_sp500_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_dow_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_nasdaq_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_hsi_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_wti_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_gold_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_euro_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_yen_cci_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_adi_cci_curve = self.plot5.plot(pen=lime_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23639,6 +23699,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_adi_alligator_lip_curve = self.plot6.plot(pen=lime_pen)
         self.plot6_adi_alligator_teeth_curve = self.plot6.plot(pen=magenta_pen)
         self.plot6_adi_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
+
+        # CCI Curve
+        self.plot6_futures_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_sp500_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_dow_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_nasdaq_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_hsi_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_wti_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_gold_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_euro_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_yen_cci_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_adi_cci_curve = self.plot6.plot(pen=lime_pen)
 
         #cross hair
         if CROSS_HAIR_LINE:
