@@ -2290,7 +2290,7 @@ if not UI_HIDE:
         pass
 
     score_board_ui_type = 'score_board.ui'
-    bigchart_ui_type = 'bigchart.ui'
+    chart_ui_type = 'skychart.ui'
     realtimeitem_ui_type = 'realtimeitem.ui'
     version_ui_type = 'version.ui'
 else:
@@ -22300,10 +22300,10 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 # Sky Chart UI Class
 #####################################################################################################################################################################
 if UI_HIDE:
-        import bigchart_ui
-        Ui_SkyChart = bigchart_ui.Ui_Dialog   
+        import skychart_ui
+        Ui_SkyChart = skychart_ui.Ui_Dialog   
 else:
-    Ui_SkyChart, QtBaseClass_SkyChart = uic.loadUiType(UI_DIR + bigchart_ui_type)
+    Ui_SkyChart, QtBaseClass_SkyChart = uic.loadUiType(UI_DIR + chart_ui_type)
 #####################################################################################################################################################################
 class 화면_SkyChart(QDialog, Ui_SkyChart):
 
