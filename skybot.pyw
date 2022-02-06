@@ -1356,7 +1356,6 @@ option_volume_power = 0
 # 모든 시간은 해외선물 기준으로 처리
 plot_time_index = 0
 old_plot_time_index = 0
-old_cme_time_index = 0
 
 server_x_idx = 0
 
@@ -48852,7 +48851,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 fut_plot_sec = int(tickdata['수신시간'][3:5])
             else:
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
-                fut_plot_sec = int(tickdata['수신시간'][4:6])        
+                fut_plot_sec = int(tickdata['수신시간'][4:6])
+
+            if plot_time_index < 0:                    
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] futures_tick_update plot_time_index({3}) 오류발생(수신시간 = {4})! \r'.format(dt.hour, dt.minute, dt.second, plot_time_index, tickdata['수신시간'])
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
+                plot_time_index = old_plot_time_index
+            else:
+                pass        
             
             if tickdata['단축코드'] == GMSHCODE:
 
@@ -49539,7 +49548,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 콜_현재가, 풋_현재가
         global flag_cm_drate_scale_factor_set
         global flag_nm_oloh_direction_call_set, flag_nm_oloh_direction_put_set
-        global plot_time_index
+        global old_plot_time_index, plot_time_index
 
         try:
             dt = datetime.now()
@@ -49585,6 +49594,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
+            old_plot_time_index = plot_time_index
+
             if DayTime:
                 if len(tickdata['수신시간']) == 5:
                     plot_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
@@ -49605,7 +49616,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 plot_time_index = (option_plot_hour - NightTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
 
-            #print('option tick time = {0}, plot_time_index = {1}\r'.format(tickdata['수신시간'], plot_time_index))
+            if plot_time_index < 0:                    
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] option_tick_update plot_time_index({3}) 오류발생(수신시간 = {4})! \r'.format(dt.hour, dt.minute, dt.second, plot_time_index, tickdata['수신시간'])
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
+                plot_time_index = old_plot_time_index
+            else:
+                pass
 
             if tickdata['단축코드'][0:3] == '201':
 
@@ -49863,7 +49882,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 옵션_잔량비차
         global 콜_잔량비_최소, 콜_잔량비_최대, 풋_잔량비_최소, 풋_잔량비_최대
         global 옵션_잔량비_최소, 옵션_잔량비_최대
-        global plot_time_index
+        global old_plot_time_index, plot_time_index
         global call_quote, put_quote
 
         try:
@@ -49873,6 +49892,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 receive_quote = True
             else:
                 pass
+
+            old_plot_time_index = plot_time_index
 
             if DayTime:
                 if len(tickdata['수신시간']) == 5:
@@ -49895,7 +49916,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            #print('option quote time = {0}, plot_time_index = {1}\r'.format(tickdata['수신시간'], plot_time_index))
+            if plot_time_index < 0:                    
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] option_quote_update plot_time_index({3}) 오류발생(수신시간 = {4})! \r'.format(dt.hour, dt.minute, dt.second, plot_time_index, tickdata['수신시간'])
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
+                plot_time_index = old_plot_time_index
+            else:
+                pass
 
             if tickdata['단축코드'][0:3] == '201':
 
@@ -50072,7 +50101,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ovc_update(self, tickdata):
 
         global CME_체결시간, cme_plot_hour, cme_plot_minute, cme_plot_sec, t0167_hour, t0167_minute, t0167_second
-        global old_cme_time_index, plot_time_index
+        global old_plot_time_index, plot_time_index
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
         global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph        
 
@@ -50117,7 +50146,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             t0167_second = cme_plot_sec
 
             # 과거값 저장
-            old_cme_time_index = plot_time_index                       
+            old_plot_time_index = plot_time_index                       
 
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
@@ -50132,24 +50161,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1
-
-                #print('ovc time = {0}, plot_time_index = {1}\r'.format(tickdata['수신시간'], plot_time_index))
-
-                if plot_time_index < 0:                    
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] plot_time_index({3}) 오류발생(cme_plot_hour = {4}, cme_plot_minute = {5})! \r'.format(dt.hour, dt.minute, dt.second, plot_time_index, cme_plot_hour, cme_plot_minute)
-                    self.dialog['선물옵션전광판'].textBrowser.append(txt)
-                    self.textBrowser.append(txt)
-
-                    plot_time_index = old_cme_time_index
-                else:
-                    pass           
+                plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1                          
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 plot_time_index = (cme_plot_hour - DayTime_PreStart_Hour) * 60 + cme_plot_minute + 1
 
-            #if cme_plot_sec == 0 or plot_time_index != old_cme_time_index:
+            if plot_time_index < 0:                    
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] ovc_update plot_time_index({3}) 오류발생(수신시간 = {4})! \r'.format(dt.hour, dt.minute, dt.second, plot_time_index, tickdata['수신시간'])
+                self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                self.textBrowser.append(txt)
+
+                plot_time_index = old_plot_time_index
+            else:
+                pass 
+
+            #if cme_plot_sec == 0 or plot_time_index != old_plot_time_index:
             if cme_plot_sec == 0:
 
                 if SP500_현재가 == 0:
