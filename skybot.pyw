@@ -20358,18 +20358,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_yen_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
-            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])           
-            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])           
+            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
 
-            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
-            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MAMA', 'FAMA'])
+            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
 
             flag_t8433_response_ok = True
         else:
@@ -22645,40 +22645,52 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(9)
         self.comboBox1.insertSeparator(12)
+        self.comboBox1.insertSeparator(22)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(9)
         self.comboBox2.insertSeparator(12)
+        self.comboBox2.insertSeparator(22)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(9)
         self.comboBox3.insertSeparator(12)
+        self.comboBox3.insertSeparator(22)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(9)
         self.comboBox4.insertSeparator(12)
+        self.comboBox4.insertSeparator(22)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(9)
         self.comboBox5.insertSeparator(12)
+        self.comboBox5.insertSeparator(22)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', 'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI'])
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(9)
         self.comboBox6.insertSeparator(12)
+        self.comboBox6.insertSeparator(22)
         self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)
 
         self.exceptionOccurred.connect(self.on_exceptionOccurred)
@@ -32886,7 +32898,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_sp500_ta_graph['BBUpper'] = upper
             df_sp500_ta_graph['BBMiddle'] = middle
-            df_sp500_ta_graph['BBLower'] = lower
+            df_sp500_ta_graph['BBLower'] = lower            
             
         elif type == 'DOW':
 
@@ -32974,141 +32986,80 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # Parabolic SAR
             df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['High'], dtype=float), np.array(df_futures_cm_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'])
+            # CCI
+            df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=7)
 
-            df_futures_cm_ta_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-            df_futures_cm_ta_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-            df_futures_cm_ta_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-            df_futures_cm_ta_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'SP500':
 
             # Parabolic SAR
             df_sp500_ta_graph['PSAR'] = talib.SAR(np.array(df_sp500_ta_graph['High'], dtype=float), np.array(df_sp500_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'])
+            # CCI
+            df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=7)
 
-            df_sp500_ta_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
-            df_sp500_ta_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-            df_sp500_ta_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-            df_sp500_ta_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'DOW':
 
             # Parabolic SAR
             df_dow_ta_graph['PSAR'] = talib.SAR(np.array(df_dow_ta_graph['High'], dtype=float), np.array(df_dow_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_ta_graph['High'], df_dow_ta_graph['Low'])
+            # CCI
+            df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=7)
 
-            df_dow_ta_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
-            df_dow_ta_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-            df_dow_ta_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
-            df_dow_ta_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()         
-            '''
         elif type == 'NASDAQ':
 
             # Parabolic SAR
             df_nasdaq_ta_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_ta_graph['High'], dtype=float), np.array(df_nasdaq_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'])
+            # CCI
+            df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=7)
 
-            df_nasdaq_ta_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
-            df_nasdaq_ta_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-            df_nasdaq_ta_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-            df_nasdaq_ta_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'HSI':
 
             # Parabolic SAR
             df_hangseng_ta_graph['PSAR'] = talib.SAR(np.array(df_hangseng_ta_graph['High'], dtype=float), np.array(df_hangseng_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'])
+            # CCI
+            df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=7)
 
-            df_hangseng_ta_graph['SPAN_A'] = hsi_Ichimoku.ichimoku_a()
-            df_hangseng_ta_graph['SPAN_B'] = hsi_Ichimoku.ichimoku_b()
-            df_hangseng_ta_graph['OE_BASE'] = hsi_Ichimoku.ichimoku_base_line()
-            df_hangseng_ta_graph['OE_CONV'] = hsi_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'WTI':
 
             # Parabolic SAR
             df_wti_ta_graph['PSAR'] = talib.SAR(np.array(df_wti_ta_graph['High'], dtype=float), np.array(df_wti_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_ta_graph['High'], df_wti_ta_graph['Low'])
+            # CCI
+            df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=7)
 
-            df_wti_ta_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
-            df_wti_ta_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-            df_wti_ta_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
-            df_wti_ta_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'GOLD':
 
             # Parabolic SAR
             df_gold_ta_graph['PSAR'] = talib.SAR(np.array(df_gold_ta_graph['High'], dtype=float), np.array(df_gold_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_ta_graph['High'], df_gold_ta_graph['Low'])
+            # CCI
+            df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=7)
 
-            df_gold_ta_graph['SPAN_A'] = gold_Ichimoku.ichimoku_a()
-            df_gold_ta_graph['SPAN_B'] = gold_Ichimoku.ichimoku_b()
-            df_gold_ta_graph['OE_BASE'] = gold_Ichimoku.ichimoku_base_line()
-            df_gold_ta_graph['OE_CONV'] = gold_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'EURO':
 
             # Parabolic SAR
             df_euro_ta_graph['PSAR'] = talib.SAR(np.array(df_euro_ta_graph['High'], dtype=float), np.array(df_euro_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_ta_graph['High'], df_euro_ta_graph['Low'])
+            # CCI
+            df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=7)
 
-            df_euro_ta_graph['SPAN_A'] = euro_Ichimoku.ichimoku_a()
-            df_euro_ta_graph['SPAN_B'] = euro_Ichimoku.ichimoku_b()
-            df_euro_ta_graph['OE_BASE'] = euro_Ichimoku.ichimoku_base_line()
-            df_euro_ta_graph['OE_CONV'] = euro_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'YEN':
 
             # Parabolic SAR
             df_yen_ta_graph['PSAR'] = talib.SAR(np.array(df_yen_ta_graph['High'], dtype=float), np.array(df_yen_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_ta_graph['High'], df_yen_ta_graph['Low'])
+            # CCI
+            df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=7)
 
-            df_yen_ta_graph['SPAN_A'] = yen_Ichimoku.ichimoku_a()
-            df_yen_ta_graph['SPAN_B'] = yen_Ichimoku.ichimoku_b()
-            df_yen_ta_graph['OE_BASE'] = yen_Ichimoku.ichimoku_base_line()
-            df_yen_ta_graph['OE_CONV'] = yen_Ichimoku.ichimoku_conversion_line()
-            '''
         elif type == 'ADI':
 
             # Parabolic SAR
             df_adi_ta_graph['PSAR'] = talib.SAR(np.array(df_adi_ta_graph['High'], dtype=float), np.array(df_adi_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
 
-            '''
-            # Ichimoku Indicator
-            adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_ta_graph['High'], df_adi_ta_graph['Low'])
-
-            df_adi_ta_graph['SPAN_A'] = adi_Ichimoku.ichimoku_a()
-            df_adi_ta_graph['SPAN_B'] = adi_Ichimoku.ichimoku_b()
-            df_adi_ta_graph['OE_BASE'] = adi_Ichimoku.ichimoku_base_line()
-            df_adi_ta_graph['OE_CONV'] = adi_Ichimoku.ichimoku_conversion_line()
-            '''
+            # CCI
+            df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=7)
         else:
             pass
     #####################################################################################################################################################################
@@ -33127,10 +33078,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_futures_cm_ta_graph['MAMA'] = mama
             df_futures_cm_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'])
 
-            i = Indicators(df_futures_cm_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_futures_cm_alligator_graph = i.df
+            df_futures_cm_ta_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+            df_futures_cm_ta_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+            df_futures_cm_ta_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+            df_futures_cm_ta_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_futures_cm_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_futures_cm_alligator_graph = i.df
             
         elif type == 'SP500':
 
@@ -33139,10 +33100,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_sp500_ta_graph['MAMA'] = mama
             df_sp500_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'])
 
-            i = Indicators(df_sp500_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_sp500_alligator_graph = i.df            
+            df_sp500_ta_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
+            df_sp500_ta_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
+            df_sp500_ta_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+            df_sp500_ta_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_sp500_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_sp500_alligator_graph = i.df            
             
         elif type == 'DOW':
 
@@ -33151,10 +33122,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_dow_ta_graph['MAMA'] = mama
             df_dow_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_ta_graph['High'], df_dow_ta_graph['Low'])
 
-            i = Indicators(df_dow_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_dow_alligator_graph = i.df
+            df_dow_ta_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
+            df_dow_ta_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
+            df_dow_ta_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
+            df_dow_ta_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()         
+            '''
+
+            #i = Indicators(df_dow_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_dow_alligator_graph = i.df
             
         elif type == 'NASDAQ':
 
@@ -33163,10 +33144,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_nasdaq_ta_graph['MAMA'] = mama
             df_nasdaq_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'])
 
-            i = Indicators(df_nasdaq_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_nasdaq_alligator_graph = i.df
+            df_nasdaq_ta_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
+            df_nasdaq_ta_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
+            df_nasdaq_ta_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+            df_nasdaq_ta_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_nasdaq_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_nasdaq_alligator_graph = i.df
             
         elif type == 'HSI':
 
@@ -33175,10 +33166,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_hangseng_ta_graph['MAMA'] = mama
             df_hangseng_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'])
 
-            i = Indicators(df_hangseng_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_hangseng_alligator_graph = i.df
+            df_hangseng_ta_graph['SPAN_A'] = hsi_Ichimoku.ichimoku_a()
+            df_hangseng_ta_graph['SPAN_B'] = hsi_Ichimoku.ichimoku_b()
+            df_hangseng_ta_graph['OE_BASE'] = hsi_Ichimoku.ichimoku_base_line()
+            df_hangseng_ta_graph['OE_CONV'] = hsi_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_hangseng_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_hangseng_alligator_graph = i.df
             
         elif type == 'WTI':
 
@@ -33187,10 +33188,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_wti_ta_graph['MAMA'] = mama
             df_wti_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_ta_graph['High'], df_wti_ta_graph['Low'])
 
-            i = Indicators(df_wti_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_wti_alligator_graph = i.df
+            df_wti_ta_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
+            df_wti_ta_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
+            df_wti_ta_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
+            df_wti_ta_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_wti_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_wti_alligator_graph = i.df
             
         elif type == 'GOLD':
 
@@ -33199,10 +33210,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_gold_ta_graph['MAMA'] = mama
             df_gold_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_ta_graph['High'], df_gold_ta_graph['Low'])
 
-            i = Indicators(df_gold_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_gold_alligator_graph = i.df
+            df_gold_ta_graph['SPAN_A'] = gold_Ichimoku.ichimoku_a()
+            df_gold_ta_graph['SPAN_B'] = gold_Ichimoku.ichimoku_b()
+            df_gold_ta_graph['OE_BASE'] = gold_Ichimoku.ichimoku_base_line()
+            df_gold_ta_graph['OE_CONV'] = gold_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_gold_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_gold_alligator_graph = i.df
             
         elif type == 'EURO':
 
@@ -33211,10 +33232,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_euro_ta_graph['MAMA'] = mama
             df_euro_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_ta_graph['High'], df_euro_ta_graph['Low'])
 
-            i = Indicators(df_euro_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_euro_alligator_graph = i.df
+            df_euro_ta_graph['SPAN_A'] = euro_Ichimoku.ichimoku_a()
+            df_euro_ta_graph['SPAN_B'] = euro_Ichimoku.ichimoku_b()
+            df_euro_ta_graph['OE_BASE'] = euro_Ichimoku.ichimoku_base_line()
+            df_euro_ta_graph['OE_CONV'] = euro_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_euro_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_euro_alligator_graph = i.df
             
         elif type == 'YEN':
 
@@ -33223,10 +33254,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_yen_ta_graph['MAMA'] = mama
             df_yen_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_ta_graph['High'], df_yen_ta_graph['Low'])
 
-            i = Indicators(df_yen_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_yen_alligator_graph = i.df
+            df_yen_ta_graph['SPAN_A'] = yen_Ichimoku.ichimoku_a()
+            df_yen_ta_graph['SPAN_B'] = yen_Ichimoku.ichimoku_b()
+            df_yen_ta_graph['OE_BASE'] = yen_Ichimoku.ichimoku_base_line()
+            df_yen_ta_graph['OE_CONV'] = yen_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_yen_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_yen_alligator_graph = i.df
             
         elif type == 'ADI':
 
@@ -33235,10 +33276,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             df_adi_ta_graph['MAMA'] = mama
             df_adi_ta_graph['FAMA'] = fama
+            
+            '''
+            # Ichimoku Indicator
+            adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_ta_graph['High'], df_adi_ta_graph['Low'])
 
-            i = Indicators(df_adi_ta_graph)
-            i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaw', column_name_teeth='alligator_teeth', column_name_lips='alligator_lip')
-            df_adi_alligator_graph = i.df            
+            df_adi_ta_graph['SPAN_A'] = adi_Ichimoku.ichimoku_a()
+            df_adi_ta_graph['SPAN_B'] = adi_Ichimoku.ichimoku_b()
+            df_adi_ta_graph['OE_BASE'] = adi_Ichimoku.ichimoku_base_line()
+            df_adi_ta_graph['OE_CONV'] = adi_Ichimoku.ichimoku_conversion_line()
+            '''
+
+            #i = Indicators(df_adi_ta_graph)
+            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
+            #df_adi_alligator_graph = i.df            
         else:
             pass
     #####################################################################################################################################################################
@@ -33356,6 +33407,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         See also:
         - http://en.wikipedia.org/wiki/Moving_average#Modified_moving_average
         """
+
         df_tmp = df[[apply_to]]
         first_val = df_tmp[apply_to].iloc[:period].mean()
         df_tmp = df_tmp.assign(column_name=None)
