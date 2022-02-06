@@ -22645,7 +22645,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_68.setText(" 고가 ")
 
         self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
-            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(9)
         self.comboBox1.insertSeparator(12)
@@ -22653,7 +22653,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
         self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
-            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(9)
         self.comboBox2.insertSeparator(12)
@@ -22661,7 +22661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
-            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(9)
         self.comboBox3.insertSeparator(12)
@@ -22669,7 +22669,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
         self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
-            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(9)
         self.comboBox4.insertSeparator(12)
@@ -22677,7 +22677,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
         self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
-            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(9)
         self.comboBox5.insertSeparator(12)
@@ -22685,7 +22685,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
         self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
-            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 CCI', 'S&P 500 CCI', 'DOW CCI', 'NASDAQ CCI', 'HSI CCI', 'WTI Oil CCI', 'GOLD CCI', 'EURO CCI', 'YEN CCI', 'ADI CCI'])
+            'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(9)
         self.comboBox6.insertSeparator(12)
@@ -25314,6 +25314,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_conv_curve.clear()
         self.plot1_oe_base_curve.clear()
 
+        self.plot1_futures_cci_curve.clear()
+
         self.label_11.setText(" - ")
         self.label_12.setText(" - ")
         self.label_13.setText(" - ")
@@ -26602,6 +26604,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
+
+        self.plot2_futures_cci_curve.clear()
 
         self.label_21.setText(" - ")
         self.label_22.setText(" - ")
@@ -27892,6 +27896,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
 
+        self.plot3_futures_cci_curve.clear()
+
         self.label_31.setText(" - ")
         self.label_32.setText(" - ")
         self.label_33.setText(" - ")
@@ -29180,6 +29186,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
+
+        self.plot4_futures_cci_curve.clear()
 
         self.label_41.setText(" - ")
         self.label_42.setText(" - ")
@@ -30470,6 +30478,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
 
+        self.plot5_futures_cci_curve.clear()
+
         self.label_51.setText(" - ")
         self.label_52.setText(" - ")
         self.label_53.setText(" - ")
@@ -31758,6 +31768,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
+
+        self.plot6_futures_cci_curve.clear()
 
         self.label_61.setText(" - ")
         self.label_62.setText(" - ")
@@ -35475,6 +35487,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
+
+            elif comboindex1 == 23:
+                self.plot1_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
             else:
                 pass
 
@@ -35494,7 +35509,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)    
-   
+
             self.label_time_1.setText(txt)
 
             flag_plot1_update_is_running = False      
@@ -37327,6 +37342,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
+            
+            elif comboindex2 == 23:
+                self.plot2_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
             else:
                 pass         
         
@@ -39175,6 +39193,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
+            
+            elif comboindex3 == 23:
+                self.plot3_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
             else:
                 pass
 
@@ -39193,7 +39214,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_3.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot3_processing_time)
-   
+
             self.label_time_3.setText(txt)
 
             flag_plot3_update_is_running = False
@@ -41024,6 +41045,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
+            
+            elif comboindex4 == 23:
+                self.plot4_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
             else:
                 pass
             
@@ -42871,6 +42895,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
+
+            elif comboindex5 == 23:
+                self.plot5_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
             else:
                 pass
 
@@ -44717,7 +44744,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_4.setText(txt)
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")            
+                    self.label_p6_4.setText(" MAMA ")
+
+            elif comboindex6 == 23:
+                self.plot6_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))           
             else:
                 pass
 
@@ -44736,7 +44766,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_6.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot6_processing_time)
-   
+
             self.label_time_6.setText(txt)
 
             flag_plot6_update_is_running = False
