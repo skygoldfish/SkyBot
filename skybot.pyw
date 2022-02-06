@@ -32885,7 +32885,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # Bollinger Bands            
-            upper, middle, lower = talib.BBANDS(np.array(df_futures_cm_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_futures_cm_ta_graph['BBUpper'] = upper
             df_futures_cm_ta_graph['BBMiddle'] = middle
@@ -32894,7 +32894,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_sp500_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_sp500_ta_graph['BBUpper'] = upper
             df_sp500_ta_graph['BBMiddle'] = middle
@@ -32903,7 +32903,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'DOW':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_dow_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_dow_ta_graph['BBUpper'] = upper
             df_dow_ta_graph['BBMiddle'] = middle
@@ -32912,7 +32912,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_nasdaq_ta_graph['BBUpper'] = upper
             df_nasdaq_ta_graph['BBMiddle'] = middle
@@ -32921,7 +32921,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_hangseng_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_hangseng_ta_graph['BBUpper'] = upper
             df_hangseng_ta_graph['BBMiddle'] = middle
@@ -32930,7 +32930,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_wti_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_wti_ta_graph['BBUpper'] = upper
             df_wti_ta_graph['BBMiddle'] = middle
@@ -32939,7 +32939,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_gold_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_gold_ta_graph['BBUpper'] = upper
             df_gold_ta_graph['BBMiddle'] = middle
@@ -32948,7 +32948,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_euro_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_euro_ta_graph['BBUpper'] = upper
             df_euro_ta_graph['BBMiddle'] = middle
@@ -32957,7 +32957,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_yen_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_yen_ta_graph['BBUpper'] = upper
             df_yen_ta_graph['BBMiddle'] = middle
@@ -32966,7 +32966,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(np.array(df_adi_ta_graph['Close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_adi_ta_graph['BBUpper'] = upper
             df_adi_ta_graph['BBMiddle'] = middle
@@ -32984,7 +32984,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # Parabolic SAR
-            df_futures_cm_ta_graph['PSAR'] = talib.SAR(np.array(df_futures_cm_ta_graph['High'], dtype=float), np.array(df_futures_cm_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=7)
@@ -32992,7 +32992,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # Parabolic SAR
-            df_sp500_ta_graph['PSAR'] = talib.SAR(np.array(df_sp500_ta_graph['High'], dtype=float), np.array(df_sp500_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=7)
@@ -33000,7 +33000,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'DOW':
 
             # Parabolic SAR
-            df_dow_ta_graph['PSAR'] = talib.SAR(np.array(df_dow_ta_graph['High'], dtype=float), np.array(df_dow_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=7)
@@ -33008,7 +33008,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # Parabolic SAR
-            df_nasdaq_ta_graph['PSAR'] = talib.SAR(np.array(df_nasdaq_ta_graph['High'], dtype=float), np.array(df_nasdaq_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=7)
@@ -33016,7 +33016,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # Parabolic SAR
-            df_hangseng_ta_graph['PSAR'] = talib.SAR(np.array(df_hangseng_ta_graph['High'], dtype=float), np.array(df_hangseng_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=7)
@@ -33024,7 +33024,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # Parabolic SAR
-            df_wti_ta_graph['PSAR'] = talib.SAR(np.array(df_wti_ta_graph['High'], dtype=float), np.array(df_wti_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=7)
@@ -33032,7 +33032,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # Parabolic SAR
-            df_gold_ta_graph['PSAR'] = talib.SAR(np.array(df_gold_ta_graph['High'], dtype=float), np.array(df_gold_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=7)
@@ -33040,7 +33040,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # Parabolic SAR
-            df_euro_ta_graph['PSAR'] = talib.SAR(np.array(df_euro_ta_graph['High'], dtype=float), np.array(df_euro_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=7)
@@ -33048,7 +33048,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # Parabolic SAR
-            df_yen_ta_graph['PSAR'] = talib.SAR(np.array(df_yen_ta_graph['High'], dtype=float), np.array(df_yen_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=7)
@@ -33056,7 +33056,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # Parabolic SAR
-            df_adi_ta_graph['PSAR'] = talib.SAR(np.array(df_adi_ta_graph['High'], dtype=float), np.array(df_adi_ta_graph['Low'], dtype=float), acceleration=0.02, maximum=0.2)
+            df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # CCI
             df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=7)
@@ -33074,7 +33074,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # MAMA
-            mama, fama = talib.MAMA(np.array(df_futures_cm_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_futures_cm_ta_graph['MAMA'] = mama
             df_futures_cm_ta_graph['FAMA'] = fama
@@ -33096,7 +33096,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_sp500_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_sp500_ta_graph['MAMA'] = mama
             df_sp500_ta_graph['FAMA'] = fama
@@ -33118,7 +33118,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'DOW':
 
             # MAMA(약 32 샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_dow_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_dow_ta_graph['MAMA'] = mama
             df_dow_ta_graph['FAMA'] = fama
@@ -33140,7 +33140,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_nasdaq_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_nasdaq_ta_graph['MAMA'] = mama
             df_nasdaq_ta_graph['FAMA'] = fama
@@ -33162,7 +33162,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_hangseng_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_hangseng_ta_graph['MAMA'] = mama
             df_hangseng_ta_graph['FAMA'] = fama
@@ -33184,7 +33184,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_wti_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_wti_ta_graph['MAMA'] = mama
             df_wti_ta_graph['FAMA'] = fama
@@ -33206,7 +33206,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_gold_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_gold_ta_graph['MAMA'] = mama
             df_gold_ta_graph['FAMA'] = fama
@@ -33228,7 +33228,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_euro_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_euro_ta_graph['MAMA'] = mama
             df_euro_ta_graph['FAMA'] = fama
@@ -33250,7 +33250,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_yen_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_yen_ta_graph['MAMA'] = mama
             df_yen_ta_graph['FAMA'] = fama
@@ -33272,7 +33272,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # MAMA(약 32샘플후에 출력값이 나옴)
-            mama, fama = talib.MAMA(np.array(df_adi_ta_graph['Close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+            mama, fama = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_adi_ta_graph['MAMA'] = mama
             df_adi_ta_graph['FAMA'] = fama
