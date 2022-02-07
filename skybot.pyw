@@ -2154,6 +2154,7 @@ flag_puttable_checkstate_changed = False
 
 scoreboard_update_interval = MAIN_UPDATE_INTERVAL
 chart_update_interval = CHART_UPDATE_INTERVAL
+CCI_TIME_PERIOD = 7
 
 volatility_breakout_downward_point = 0
 volatility_breakout_upward_point = 0
@@ -21137,7 +21138,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_itm.setValue(put_itm_number)
         self.spinBox_put_otm.setValue(put_otm_number)
 
-        txt = str(scoreboard_update_interval)
+        txt = str(CCI_TIME_PERIOD)
         self.lineEdit_mp.setText(txt)
 
         txt = str(view_time_tolerance)
@@ -21350,13 +21351,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
     def change_scoreboard_interval(self):
 
         global scoreboard_update_interval
+        global CCI_TIME_PERIOD
 
         dt = datetime.now()
 
         txt = self.lineEdit_mp.text()
-        scoreboard_update_interval = int(txt)
+        #scoreboard_update_interval = int(txt)
+        CCI_TIME_PERIOD = int(txt)
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] CCI 주기를 {3} 로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, CCI_TIME_PERIOD)
         self.parent.textBrowser.append(txt)
 
     def change_view_time_interval(self):
@@ -25315,6 +25319,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_base_curve.clear()
 
         self.plot1_futures_cci_curve.clear()
+        self.plot1_sp500_cci_curve.clear()
+        self.plot1_dow_cci_curve.clear()
+        self.plot1_nasdaq_cci_curve.clear()
+        self.plot1_hsi_cci_curve.clear()
+        self.plot1_wti_cci_curve.clear()
+        self.plot1_gold_cci_curve.clear()
+        self.plot1_euro_cci_curve.clear()
+        self.plot1_yen_cci_curve.clear()
+        self.plot1_adi_cci_curve.clear()
 
         self.label_11.setText(" - ")
         self.label_12.setText(" - ")
@@ -26606,6 +26619,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_base_curve.clear()
 
         self.plot2_futures_cci_curve.clear()
+        self.plot2_sp500_cci_curve.clear()
+        self.plot2_dow_cci_curve.clear()
+        self.plot2_nasdaq_cci_curve.clear()
+        self.plot2_hsi_cci_curve.clear()
+        self.plot2_wti_cci_curve.clear()
+        self.plot2_gold_cci_curve.clear()
+        self.plot2_euro_cci_curve.clear()
+        self.plot2_yen_cci_curve.clear()
+        self.plot2_adi_cci_curve.clear()
 
         self.label_21.setText(" - ")
         self.label_22.setText(" - ")
@@ -27897,6 +27919,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_base_curve.clear()
 
         self.plot3_futures_cci_curve.clear()
+        self.plot3_sp500_cci_curve.clear()
+        self.plot3_dow_cci_curve.clear()
+        self.plot3_nasdaq_cci_curve.clear()
+        self.plot3_hsi_cci_curve.clear()
+        self.plot3_wti_cci_curve.clear()
+        self.plot3_gold_cci_curve.clear()
+        self.plot3_euro_cci_curve.clear()
+        self.plot3_yen_cci_curve.clear()
+        self.plot3_adi_cci_curve.clear()
 
         self.label_31.setText(" - ")
         self.label_32.setText(" - ")
@@ -29188,6 +29219,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_base_curve.clear()
 
         self.plot4_futures_cci_curve.clear()
+        self.plot4_sp500_cci_curve.clear()
+        self.plot4_dow_cci_curve.clear()
+        self.plot4_nasdaq_cci_curve.clear()
+        self.plot4_hsi_cci_curve.clear()
+        self.plot4_wti_cci_curve.clear()
+        self.plot4_gold_cci_curve.clear()
+        self.plot4_euro_cci_curve.clear()
+        self.plot4_yen_cci_curve.clear()
+        self.plot4_adi_cci_curve.clear()
 
         self.label_41.setText(" - ")
         self.label_42.setText(" - ")
@@ -30479,6 +30519,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_base_curve.clear()
 
         self.plot5_futures_cci_curve.clear()
+        self.plot5_sp500_cci_curve.clear()
+        self.plot5_dow_cci_curve.clear()
+        self.plot5_nasdaq_cci_curve.clear()
+        self.plot5_hsi_cci_curve.clear()
+        self.plot5_wti_cci_curve.clear()
+        self.plot5_gold_cci_curve.clear()
+        self.plot5_euro_cci_curve.clear()
+        self.plot5_yen_cci_curve.clear()
+        self.plot5_adi_cci_curve.clear()
 
         self.label_51.setText(" - ")
         self.label_52.setText(" - ")
@@ -31770,6 +31819,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_base_curve.clear()
 
         self.plot6_futures_cci_curve.clear()
+        self.plot6_sp500_cci_curve.clear()
+        self.plot6_dow_cci_curve.clear()
+        self.plot6_nasdaq_cci_curve.clear()
+        self.plot6_hsi_cci_curve.clear()
+        self.plot6_wti_cci_curve.clear()
+        self.plot6_gold_cci_curve.clear()
+        self.plot6_euro_cci_curve.clear()
+        self.plot6_yen_cci_curve.clear()
+        self.plot6_adi_cci_curve.clear()
 
         self.label_61.setText(" - ")
         self.label_62.setText(" - ")
@@ -33069,80 +33127,50 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             # Parabolic SAR
             df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
-            # CCI
-            df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=7)
-
         elif type == 'SP500':
 
             # Parabolic SAR
             df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-            # CCI
-            df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=7)
 
         elif type == 'DOW':
 
             # Parabolic SAR
             df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
-            # CCI
-            df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=7)
-
         elif type == 'NASDAQ':
 
             # Parabolic SAR
             df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-            # CCI
-            df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=7)
 
         elif type == 'HSI':
 
             # Parabolic SAR
             df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
-            # CCI
-            df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=7)
-
         elif type == 'WTI':
 
             # Parabolic SAR
             df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-            # CCI
-            df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=7)
 
         elif type == 'GOLD':
 
             # Parabolic SAR
             df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
-            # CCI
-            df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=7)
-
         elif type == 'EURO':
 
             # Parabolic SAR
             df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-            # CCI
-            df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=7)
 
         elif type == 'YEN':
 
             # Parabolic SAR
             df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
-            # CCI
-            df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=7)
-
         elif type == 'ADI':
 
             # Parabolic SAR
             df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-            # CCI
-            df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=7)
         else:
             pass
     #####################################################################################################################################################################
@@ -35489,7 +35517,35 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_4.setText(" MAMA ")
 
             elif comboindex1 == 23:
+                df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
                 self.plot1_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 24:
+                df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_sp500_cci_curve.setData(df_sp500_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 25:
+                df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_dow_cci_curve.setData(df_dow_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 26:
+                df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_nasdaq_cci_curve.setData(df_nasdaq_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 27:
+                df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_hsi_cci_curve.setData(df_hangseng_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 28:
+                df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_wti_cci_curve.setData(df_wti_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 29:
+                df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_gold_cci_curve.setData(df_gold_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 30:
+                df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_euro_cci_curve.setData(df_euro_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 31:
+                df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_yen_cci_curve.setData(df_yen_ta_graph['CCI'].astype(float))
+            elif comboindex1 == 32:
+                df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot1_adi_cci_curve.setData(df_adi_ta_graph['CCI'].astype(float))
             else:
                 pass
 
@@ -37344,7 +37400,35 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_4.setText(" MAMA ")
             
             elif comboindex2 == 23:
+                df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
                 self.plot2_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 24:
+                df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_sp500_cci_curve.setData(df_sp500_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 25:
+                df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_dow_cci_curve.setData(df_dow_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 26:
+                df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_nasdaq_cci_curve.setData(df_nasdaq_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 27:
+                df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_hsi_cci_curve.setData(df_hangseng_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 28:
+                df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_wti_cci_curve.setData(df_wti_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 29:
+                df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_gold_cci_curve.setData(df_gold_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 30:
+                df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_euro_cci_curve.setData(df_euro_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 31:
+                df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_yen_cci_curve.setData(df_yen_ta_graph['CCI'].astype(float))
+            elif comboindex2 == 32:
+                df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot2_adi_cci_curve.setData(df_adi_ta_graph['CCI'].astype(float))
             else:
                 pass         
         
@@ -39195,7 +39279,35 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_4.setText(" MAMA ")
             
             elif comboindex3 == 23:
+                df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
                 self.plot3_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 24:
+                df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_sp500_cci_curve.setData(df_sp500_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 25:
+                df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_dow_cci_curve.setData(df_dow_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 26:
+                df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_nasdaq_cci_curve.setData(df_nasdaq_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 27:
+                df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_hsi_cci_curve.setData(df_hangseng_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 28:
+                df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_wti_cci_curve.setData(df_wti_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 29:
+                df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_gold_cci_curve.setData(df_gold_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 30:
+                df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_euro_cci_curve.setData(df_euro_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 31:
+                df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_yen_cci_curve.setData(df_yen_ta_graph['CCI'].astype(float))
+            elif comboindex3 == 32:
+                df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot3_adi_cci_curve.setData(df_adi_ta_graph['CCI'].astype(float))
             else:
                 pass
 
@@ -41047,7 +41159,35 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_4.setText(" MAMA ")
             
             elif comboindex4 == 23:
+                df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
                 self.plot4_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 24:
+                df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot14sp500_cci_curve.setData(df_sp500_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 25:
+                df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_dow_cci_curve.setData(df_dow_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 26:
+                df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_nasdaq_cci_curve.setData(df_nasdaq_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 27:
+                df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_hsi_cci_curve.setData(df_hangseng_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 28:
+                df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_wti_cci_curve.setData(df_wti_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 29:
+                df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_gold_cci_curve.setData(df_gold_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 30:
+                df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_euro_cci_curve.setData(df_euro_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 31:
+                df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_yen_cci_curve.setData(df_yen_ta_graph['CCI'].astype(float))
+            elif comboindex4 == 32:
+                df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot4_adi_cci_curve.setData(df_adi_ta_graph['CCI'].astype(float))
             else:
                 pass
             
@@ -42897,7 +43037,35 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_4.setText(" MAMA ")
 
             elif comboindex5 == 23:
+                df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
                 self.plot5_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 24:
+                df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_sp500_cci_curve.setData(df_sp500_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 25:
+                df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_dow_cci_curve.setData(df_dow_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 26:
+                df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_nasdaq_cci_curve.setData(df_nasdaq_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 27:
+                df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_hsi_cci_curve.setData(df_hangseng_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 28:
+                df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_wti_cci_curve.setData(df_wti_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 29:
+                df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_gold_cci_curve.setData(df_gold_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 30:
+                df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_euro_cci_curve.setData(df_euro_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 31:
+                df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_yen_cci_curve.setData(df_yen_ta_graph['CCI'].astype(float))
+            elif comboindex5 == 32:
+                df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot5_adi_cci_curve.setData(df_adi_ta_graph['CCI'].astype(float))
             else:
                 pass
 
@@ -44747,7 +44915,35 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_4.setText(" MAMA ")
 
             elif comboindex6 == 23:
-                self.plot6_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))           
+                df_futures_cm_ta_graph['CCI'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_futures_cci_curve.setData(df_futures_cm_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 24:
+                df_sp500_ta_graph['CCI'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_sp500_cci_curve.setData(df_sp500_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 25:
+                df_dow_ta_graph['CCI'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_dow_cci_curve.setData(df_dow_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 26:
+                df_nasdaq_ta_graph['CCI'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_nasdaq_cci_curve.setData(df_nasdaq_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 27:
+                df_hangseng_ta_graph['CCI'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_hsi_cci_curve.setData(df_hangseng_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 28:
+                df_wti_ta_graph['CCI'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_wti_cci_curve.setData(df_wti_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 29:
+                df_gold_ta_graph['CCI'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_gold_cci_curve.setData(df_gold_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 30:
+                df_euro_ta_graph['CCI'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_euro_cci_curve.setData(df_euro_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 31:
+                df_yen_ta_graph['CCI'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_yen_cci_curve.setData(df_yen_ta_graph['CCI'].astype(float))
+            elif comboindex6 == 32:
+                df_adi_ta_graph['CCI'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_TIME_PERIOD)
+                self.plot6_adi_cci_curve.setData(df_adi_ta_graph['CCI'].astype(float))        
             else:
                 pass
 
@@ -46262,7 +46458,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1})".format('COC0', time_gap_abs)
             elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1})".format('CEC0', time_gap_abs)
+                txt = "{0}\n({1})".format('CEC0', time_gap_abs)
             elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('POC0', time_gap_abs)
             elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
@@ -46280,7 +46476,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
             elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
+                txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
             elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
             elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
@@ -50426,7 +50622,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_sp500_ohlc_open = False                           
                 else:
-                    pass                                                                 
+                    pass                                                         
 
                 if SP500_피봇 == 0:
 
@@ -50861,7 +51057,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_nasdaq_ohlc_open = False
                 else:
-                    pass                
+                    pass     
                 
                 if NASDAQ_피봇 == 0:
 
@@ -51076,7 +51272,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_hangseng_ohlc_open = False
                 else:
-                    pass                  
+                    pass
 
                 if HANGSENG_피봇 == 0:
 
@@ -51293,7 +51489,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_wti_ohlc_open = False
                 else:
-                    pass                             
+                    pass
 
                 if WTI_피봇 == 0:
 
@@ -51938,7 +52134,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         flag_yen_ohlc_open = False
                 else:
-                    pass                                         
+                    pass
                 
                 if YEN_피봇 == 0:
 

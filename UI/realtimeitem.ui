@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
-    <height>882</height>
+    <width>336</width>
+    <height>891</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>12</x>
@@ -478,6 +478,7 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
+         <family>Consolas</family>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -518,7 +519,7 @@
     </font>
    </property>
    <property name="title">
-    <string>Main Loop 갱신주기 및 실시간 허용오차</string>
+    <string>CCI 주기 및 실시간 허용오차</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -541,12 +542,13 @@
       <widget class="QLabel" name="label_1">
        <property name="font">
         <font>
+         <family>Consolas</family>
          <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>msec</string>
+        <string>min</string>
        </property>
       </widget>
      </item>
@@ -561,6 +563,7 @@
       <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
+         <family>Consolas</family>
          <weight>75</weight>
          <bold>true</bold>
         </font>
