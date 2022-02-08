@@ -35810,60 +35810,189 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_4.setText(" MAMA ")
 
             elif comboindex1 == 23:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot1_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 24:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot1_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 25:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot1_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 26:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot1_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 27:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot1_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 28:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot1_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 29:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot1_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 30:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot1_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 31:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot1_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex1 == 32:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_17.setText(txt)
+
                 self.plot1_time_line.setValue(plot_time_index)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
@@ -37744,60 +37873,189 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_4.setText(" MAMA ")
             
             elif comboindex2 == 23:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot2_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 24:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot2_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 25:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot2_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 26:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot2_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 27:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot2_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 28:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot2_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 29:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot2_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 30:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot2_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 31:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot2_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex2 == 32:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_27.setText(txt)
+
                 self.plot2_time_line.setValue(plot_time_index)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
@@ -39674,60 +39932,189 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_4.setText(" MAMA ")
             
             elif comboindex3 == 23:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot3_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 24:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot3_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 25:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot3_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 26:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot3_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 27:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot3_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 28:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot3_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 29:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot3_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 30:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot3_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 31:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot3_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex3 == 32:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_37.setText(txt)
+
                 self.plot3_time_line.setValue(plot_time_index)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
@@ -41605,60 +41992,189 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_4.setText(" MAMA ")
             
             elif comboindex4 == 23:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot4_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 24:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot4_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 25:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot4_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 26:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot4_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 27:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+                
                 self.plot4_time_line.setValue(plot_time_index)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot4_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 28:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot4_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 29:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot4_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 30:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot4_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 31:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot4_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex4 == 32:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_47.setText(txt)
+
                 self.plot4_time_line.setValue(plot_time_index)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
@@ -41682,7 +42198,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot4_processing_time)
-   
+
             self.label_time_4.setText(txt)
 
             flag_plot4_update_is_running = False
@@ -43534,60 +44050,189 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_4.setText(" MAMA ")
 
             elif comboindex5 == 23:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot5_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 24:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot5_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 25:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot5_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 26:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot5_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 27:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot5_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 28:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot5_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 29:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot5_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 30:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot5_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 31:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot5_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex5 == 32:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_57.setText(txt)
+
                 self.plot5_time_line.setValue(plot_time_index)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
@@ -45463,60 +46108,189 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_4.setText(" MAMA ")
 
             elif comboindex6 == 23:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot6_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 24:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot6_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 25:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot6_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 26:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot6_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 27:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot6_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 28:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot6_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 29:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot6_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 30:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot6_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 31:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot6_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+
             elif comboindex6 == 32:
+
+                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+
+                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                    self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+                self.label_67.setText(txt)
+
                 self.plot6_time_line.setValue(plot_time_index)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
