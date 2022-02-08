@@ -519,7 +519,7 @@
     </font>
    </property>
    <property name="title">
-    <string>CCI 주기 및 실시간 허용오차</string>
+    <string>EMA 주기 및 실시간 허용오차</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -535,20 +535,6 @@
       <widget class="QLineEdit" name="lineEdit_mp">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_1">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>min</string>
        </property>
       </widget>
      </item>
