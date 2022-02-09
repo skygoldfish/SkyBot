@@ -34059,7 +34059,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
                     df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot1_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].astype(float))
+                    self.plot1_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].clip(lower=근월물_선물_전저).astype(float))
                 else:
                     pass
 
@@ -36122,7 +36122,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
                     df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot2_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].astype(float))
+                    self.plot2_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].clip(lower=근월물_선물_전저).astype(float))
                 else:
                     pass
 
@@ -38183,7 +38183,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
                     df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot3_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].astype(float))
+                    self.plot3_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].clip(lower=근월물_선물_전저).astype(float))
                 else:
                     pass
 
@@ -40241,7 +40241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
                     df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot4_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].astype(float))
+                    self.plot4_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].clip(lower=근월물_선물_전저).astype(float))
                 else:
                     pass
 
@@ -42302,7 +42302,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
                     df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot5_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].astype(float))
+                    self.plot5_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].clip(lower=근월물_선물_전저).astype(float))
                 else:
                     pass
 
@@ -44360,7 +44360,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
                     df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot6_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].astype(float))
+                    self.plot6_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].clip(lower=근월물_선물_전저).astype(float))
                 else:
                     pass
 
