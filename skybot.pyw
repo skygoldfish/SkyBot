@@ -22912,6 +22912,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_euro_cci_50_curve = self.plot1.plot(pen=lime_pen)
         self.plot1_yen_cci_50_curve = self.plot1.plot(pen=lime_pen)
         self.plot1_adi_cci_50_curve = self.plot1.plot(pen=lime_pen)
+
+        self.plot1_cci_plus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
+        self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23103,6 +23106,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_yen_cci_50_curve = self.plot2.plot(pen=lime_pen)
         self.plot2_adi_cci_50_curve = self.plot2.plot(pen=lime_pen)
 
+        self.plot2_cci_plus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
+        self.plot2_cci_minus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23291,6 +23297,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_yen_cci_50_curve = self.plot3.plot(pen=lime_pen)
         self.plot3_adi_cci_50_curve = self.plot3.plot(pen=lime_pen)
 
+        self.plot3_cci_plus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
+        self.plot3_cci_minus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23478,6 +23487,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_euro_cci_50_curve = self.plot4.plot(pen=lime_pen)
         self.plot4_yen_cci_50_curve = self.plot4.plot(pen=lime_pen)
         self.plot4_adi_cci_50_curve = self.plot4.plot(pen=lime_pen)
+
+        self.plot4_cci_plus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
+        self.plot4_cci_minus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -23667,6 +23679,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_yen_cci_50_curve = self.plot5.plot(pen=lime_pen)
         self.plot5_adi_cci_50_curve = self.plot5.plot(pen=lime_pen)
 
+        self.plot5_cci_plus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
+        self.plot5_cci_minus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -23854,6 +23869,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_euro_cci_50_curve = self.plot6.plot(pen=lime_pen)
         self.plot6_yen_cci_50_curve = self.plot6.plot(pen=lime_pen)
         self.plot6_adi_cci_50_curve = self.plot6.plot(pen=lime_pen)
+
+        self.plot6_cci_plus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
+        self.plot6_cci_minus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -25399,6 +25417,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_fibonacci_line4.setValue(0)
         self.plot1_fibonacci_line5.setValue(0)
 
+        # CCI Line
+        self.plot1_cci_plus_100_line.setValue(0)
+        self.plot1_cci_minus_100_line.setValue(0)
+
         # Curve Clear
         self.plot1_fut_cm_price_curve.clear()
         self.plot1_fut_nm_price_curve.clear()
@@ -25627,6 +25649,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_ovc_low_line.setValue(선물_종가)
             self.plot1_ovc_high_line.setValue(선물_종가)
             self.plot1_ovc_close_line.setValue(선물_종가)
+
+            self.plot1_cci_plus_100_line.setValue(선물_종가)
+            self.plot1_cci_minus_100_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_11.setText(txt) 
@@ -25928,6 +25953,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_open_line.setValue(SP500_전일종가)
             self.plot1_fut_low_line.setValue(SP500_전일종가)
             self.plot1_fut_high_line.setValue(SP500_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(SP500_전일종가)
+            self.plot1_cci_minus_100_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_11.setText(txt)
@@ -26018,6 +26046,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_open_line.setValue(DOW_전일종가)
             self.plot1_fut_low_line.setValue(DOW_전일종가)
             self.plot1_fut_high_line.setValue(DOW_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(DOW_전일종가)
+            self.plot1_cci_minus_100_line.setValue(DOW_전일종가)
                             
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_11.setText(txt)
@@ -26107,7 +26138,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_pivot_line.setValue(NASDAQ_전일종가)
             self.plot1_fut_open_line.setValue(NASDAQ_전일종가)
             self.plot1_fut_low_line.setValue(NASDAQ_전일종가)
-            self.plot1_fut_high_line.setValue(NASDAQ_전일종가)            
+            self.plot1_fut_high_line.setValue(NASDAQ_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(NASDAQ_전일종가)
+            self.plot1_cci_minus_100_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_11.setText(txt)
@@ -26197,6 +26231,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_open_line.setValue(HANGSENG_전일종가)
             self.plot1_fut_low_line.setValue(HANGSENG_전일종가)
             self.plot1_fut_high_line.setValue(HANGSENG_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(HANGSENG_전일종가)
+            self.plot1_cci_minus_100_line.setValue(HANGSENG_전일종가)
                             
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_11.setText(txt)
@@ -26286,7 +26323,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_pivot_line.setValue(WTI_전일종가)
             self.plot1_fut_open_line.setValue(WTI_전일종가)
             self.plot1_fut_low_line.setValue(WTI_전일종가)
-            self.plot1_fut_high_line.setValue(WTI_전일종가)            
+            self.plot1_fut_high_line.setValue(WTI_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(WTI_전일종가)
+            self.plot1_cci_minus_100_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_11.setText(txt)
@@ -26375,7 +26415,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_pivot_line.setValue(GOLD_전일종가)
             self.plot1_fut_open_line.setValue(GOLD_전일종가)
             self.plot1_fut_low_line.setValue(GOLD_전일종가)
-            self.plot1_fut_high_line.setValue(GOLD_전일종가)            
+            self.plot1_fut_high_line.setValue(GOLD_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(GOLD_전일종가)
+            self.plot1_cci_minus_100_line.setValue(GOLD_전일종가)         
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_11.setText(txt)
@@ -26465,6 +26508,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_open_line.setValue(EURO_전일종가)
             self.plot1_fut_low_line.setValue(EURO_전일종가)
             self.plot1_fut_high_line.setValue(EURO_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(EURO_전일종가)
+            self.plot1_cci_minus_100_line.setValue(EURO_전일종가)
                             
             txt = ' {0:.5f} '.format(euro_전저)
             self.label_11.setText(txt)
@@ -26554,6 +26600,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_open_line.setValue(YEN_전일종가)
             self.plot1_fut_low_line.setValue(YEN_전일종가)
             self.plot1_fut_high_line.setValue(YEN_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(YEN_전일종가)
+            self.plot1_cci_minus_100_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_11.setText(txt)
@@ -26642,7 +26691,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_fut_pivot_line.setValue(ADI_전일종가)
             self.plot1_fut_open_line.setValue(ADI_전일종가)
             self.plot1_fut_low_line.setValue(ADI_전일종가)
-            self.plot1_fut_high_line.setValue(ADI_전일종가)                        
+            self.plot1_fut_high_line.setValue(ADI_전일종가)
+
+            self.plot1_cci_plus_100_line.setValue(ADI_전일종가)
+            self.plot1_cci_minus_100_line.setValue(ADI_전일종가)                        
                 
             txt = ' {0:.5f} '.format(adi_전저)
             self.label_11.setText(txt)
@@ -26674,7 +26726,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             txt = ' {0:.5f} '.format(adi_고가)
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
-            self.plot1_ovc_high_line.setValue(adi_고가)        
+            self.plot1_ovc_high_line.setValue(adi_고가)
         else:
             pass
 
@@ -26720,6 +26772,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_fibonacci_line3.setValue(0)
         self.plot2_fibonacci_line4.setValue(0)
         self.plot2_fibonacci_line5.setValue(0)
+
+        # CCI Line
+        self.plot2_cci_plus_100_line.setValue(0)
+        self.plot2_cci_minus_100_line.setValue(0)
 
         # Curve Clear
         self.plot2_fut_cm_price_curve.clear()
@@ -26950,6 +27006,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_ovc_high_line.setValue(선물_종가)
             self.plot2_ovc_close_line.setValue(선물_종가)
 
+            self.plot2_cci_plus_100_line.setValue(선물_종가)
+            self.plot2_cci_minus_100_line.setValue(선물_종가)
+
             txt = ' {0} '.format(선물_전저)
             self.label_21.setText(txt) 
             self.plot2_fut_jl_line.setValue(선물_전저)
@@ -27129,7 +27188,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" MAMA ")
-           
+
         # 등락율비
         elif comboindex2 == 8:
 
@@ -27250,6 +27309,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(SP500_전일종가)
             self.plot2_fut_low_line.setValue(SP500_전일종가)
             self.plot2_fut_high_line.setValue(SP500_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(SP500_전일종가)
+            self.plot2_cci_minus_100_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_21.setText(txt)
@@ -27282,7 +27344,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
             self.plot2_ovc_high_line.setValue(sp500_고가)
-   
+
         # DOW
         elif comboindex2 == 14:
 
@@ -27340,6 +27402,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(DOW_전일종가)
             self.plot2_fut_low_line.setValue(DOW_전일종가)
             self.plot2_fut_high_line.setValue(DOW_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(DOW_전일종가)
+            self.plot2_cci_minus_100_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_21.setText(txt)
@@ -27430,6 +27495,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(NASDAQ_전일종가)
             self.plot2_fut_low_line.setValue(NASDAQ_전일종가)
             self.plot2_fut_high_line.setValue(NASDAQ_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(NASDAQ_전일종가)
+            self.plot2_cci_minus_100_line.setValue(NASDAQ_전일종가)
             
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_21.setText(txt)
@@ -27519,6 +27587,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(HANGSENG_전일종가)
             self.plot2_fut_low_line.setValue(HANGSENG_전일종가)
             self.plot2_fut_high_line.setValue(HANGSENG_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(HANGSENG_전일종가)
+            self.plot2_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_21.setText(txt)
@@ -27609,6 +27680,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(WTI_전일종가)
             self.plot2_fut_low_line.setValue(WTI_전일종가)
             self.plot2_fut_high_line.setValue(WTI_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(WTI_전일종가)
+            self.plot2_cci_minus_100_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_21.setText(txt)
@@ -27697,7 +27771,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_pivot_line.setValue(GOLD_전일종가)
             self.plot2_fut_open_line.setValue(GOLD_전일종가)
             self.plot2_fut_low_line.setValue(GOLD_전일종가)
-            self.plot2_fut_high_line.setValue(GOLD_전일종가) 
+            self.plot2_fut_high_line.setValue(GOLD_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(GOLD_전일종가)
+            self.plot2_cci_minus_100_line.setValue(GOLD_전일종가)
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_21.setText(txt)
@@ -27787,6 +27864,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_open_line.setValue(EURO_전일종가)
             self.plot2_fut_low_line.setValue(EURO_전일종가)
             self.plot2_fut_high_line.setValue(EURO_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(EURO_전일종가)
+            self.plot2_cci_minus_100_line.setValue(EURO_전일종가)
                 
             txt = ' {0:.5f} '.format(euro_전저)
             self.label_21.setText(txt)
@@ -27875,7 +27955,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_pivot_line.setValue(YEN_전일종가)
             self.plot2_fut_open_line.setValue(YEN_전일종가)
             self.plot2_fut_low_line.setValue(YEN_전일종가)
-            self.plot2_fut_high_line.setValue(YEN_전일종가) 
+            self.plot2_fut_high_line.setValue(YEN_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(YEN_전일종가)
+            self.plot2_cci_minus_100_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_21.setText(txt)
@@ -27964,7 +28047,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_fut_pivot_line.setValue(ADI_전일종가)
             self.plot2_fut_open_line.setValue(ADI_전일종가)
             self.plot2_fut_low_line.setValue(ADI_전일종가)
-            self.plot2_fut_high_line.setValue(ADI_전일종가)             
+            self.plot2_fut_high_line.setValue(ADI_전일종가)
+
+            self.plot2_cci_plus_100_line.setValue(ADI_전일종가)
+            self.plot2_cci_minus_100_line.setValue(ADI_전일종가)
                 
             txt = ' {0:.5f} '.format(adi_전저)
             self.label_21.setText(txt)
@@ -28042,6 +28128,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_fibonacci_line3.setValue(0)
         self.plot3_fibonacci_line4.setValue(0)
         self.plot3_fibonacci_line5.setValue(0)
+
+        # CCI Line
+        self.plot3_cci_plus_100_line.setValue(0)
+        self.plot3_cci_minus_100_line.setValue(0)
 
         # Curve Clear
         self.plot3_fut_cm_price_curve.clear()
@@ -28271,6 +28361,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_ovc_low_line.setValue(선물_종가)
             self.plot3_ovc_high_line.setValue(선물_종가)
             self.plot3_ovc_close_line.setValue(선물_종가)
+
+            self.plot3_cci_plus_100_line.setValue(선물_종가)
+            self.plot3_cci_minus_100_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_31.setText(txt) 
@@ -28572,6 +28665,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(SP500_전일종가)
             self.plot3_fut_low_line.setValue(SP500_전일종가)
             self.plot3_fut_high_line.setValue(SP500_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(SP500_전일종가)
+            self.plot3_cci_minus_100_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_31.setText(txt)
@@ -28662,6 +28758,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(DOW_전일종가)
             self.plot3_fut_low_line.setValue(DOW_전일종가)
             self.plot3_fut_high_line.setValue(DOW_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(DOW_전일종가)
+            self.plot3_cci_minus_100_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_31.setText(txt)
@@ -28752,6 +28851,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(NASDAQ_전일종가)
             self.plot3_fut_low_line.setValue(NASDAQ_전일종가)
             self.plot3_fut_high_line.setValue(NASDAQ_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(NASDAQ_전일종가)
+            self.plot3_cci_minus_100_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_31.setText(txt)
@@ -28841,6 +28943,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(HANGSENG_전일종가)
             self.plot3_fut_low_line.setValue(HANGSENG_전일종가)
             self.plot3_fut_high_line.setValue(HANGSENG_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(HANGSENG_전일종가)
+            self.plot3_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_31.setText(txt)
@@ -28931,6 +29036,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(WTI_전일종가)
             self.plot3_fut_low_line.setValue(WTI_전일종가)
             self.plot3_fut_high_line.setValue(WTI_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(WTI_전일종가)
+            self.plot3_cci_minus_100_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_31.setText(txt)
@@ -29019,7 +29127,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_pivot_line.setValue(GOLD_전일종가)
             self.plot3_fut_open_line.setValue(GOLD_전일종가)
             self.plot3_fut_low_line.setValue(GOLD_전일종가)
-            self.plot3_fut_high_line.setValue(GOLD_전일종가) 
+            self.plot3_fut_high_line.setValue(GOLD_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(GOLD_전일종가)
+            self.plot3_cci_minus_100_line.setValue(GOLD_전일종가)
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_31.setText(txt)
@@ -29108,7 +29219,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_pivot_line.setValue(EURO_전일종가)
             self.plot3_fut_open_line.setValue(EURO_전일종가)
             self.plot3_fut_low_line.setValue(EURO_전일종가)
-            self.plot3_fut_high_line.setValue(EURO_전일종가) 
+            self.plot3_fut_high_line.setValue(EURO_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(EURO_전일종가)
+            self.plot3_cci_minus_100_line.setValue(EURO_전일종가)
                 
             txt = ' {0:.5f} '.format(euro_전저)
             self.label_31.setText(txt)
@@ -29198,6 +29312,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_open_line.setValue(YEN_전일종가)
             self.plot3_fut_low_line.setValue(YEN_전일종가)
             self.plot3_fut_high_line.setValue(YEN_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(YEN_전일종가)
+            self.plot3_cci_minus_100_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_31.setText(txt)
@@ -29286,7 +29403,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_fut_pivot_line.setValue(ADI_전일종가)
             self.plot3_fut_open_line.setValue(ADI_전일종가)
             self.plot3_fut_low_line.setValue(ADI_전일종가)
-            self.plot3_fut_high_line.setValue(ADI_전일종가)             
+            self.plot3_fut_high_line.setValue(ADI_전일종가)
+
+            self.plot3_cci_plus_100_line.setValue(ADI_전일종가)
+            self.plot3_cci_minus_100_line.setValue(ADI_전일종가)
                 
             txt = ' {0:.5f} '.format(adi_전저)
             self.label_31.setText(txt)
@@ -29364,6 +29484,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_fibonacci_line3.setValue(0)
         self.plot4_fibonacci_line4.setValue(0)
         self.plot4_fibonacci_line5.setValue(0)
+
+        # CCI Line
+        self.plot4_cci_plus_100_line.setValue(0)
+        self.plot4_cci_minus_100_line.setValue(0)
 
         # Curve Clear
         self.plot4_fut_cm_price_curve.clear()
@@ -29594,6 +29718,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_ovc_high_line.setValue(선물_종가)
             self.plot4_ovc_close_line.setValue(선물_종가)
 
+            self.plot4_cci_plus_100_line.setValue(선물_종가)
+            self.plot4_cci_minus_100_line.setValue(선물_종가)
+
             txt = ' {0} '.format(선물_전저)
             self.label_41.setText(txt) 
             self.plot4_fut_jl_line.setValue(선물_전저)
@@ -29773,7 +29900,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" MAMA ")         
- 
+
         # 등락율비
         elif comboindex4 == 8:
 
@@ -29894,6 +30021,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(SP500_전일종가)
             self.plot4_fut_low_line.setValue(SP500_전일종가)
             self.plot4_fut_high_line.setValue(SP500_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(SP500_전일종가)
+            self.plot4_cci_minus_100_line.setValue(SP500_전일종가)
                             
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_41.setText(txt)
@@ -29984,6 +30114,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(DOW_전일종가)
             self.plot4_fut_low_line.setValue(DOW_전일종가)
             self.plot4_fut_high_line.setValue(DOW_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(DOW_전일종가)
+            self.plot4_cci_minus_100_line.setValue(DOW_전일종가)
                             
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_41.setText(txt)
@@ -30074,6 +30207,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(NASDAQ_전일종가)
             self.plot4_fut_low_line.setValue(NASDAQ_전일종가)
             self.plot4_fut_high_line.setValue(NASDAQ_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(NASDAQ_전일종가)
+            self.plot4_cci_minus_100_line.setValue(NASDAQ_전일종가)
                             
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_41.setText(txt)
@@ -30163,6 +30299,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(HANGSENG_전일종가)
             self.plot4_fut_low_line.setValue(HANGSENG_전일종가)
             self.plot4_fut_high_line.setValue(HANGSENG_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(HANGSENG_전일종가)
+            self.plot4_cci_minus_100_line.setValue(HANGSENG_전일종가)
                             
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_41.setText(txt)
@@ -30253,6 +30392,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(WTI_전일종가)
             self.plot4_fut_low_line.setValue(WTI_전일종가)
             self.plot4_fut_high_line.setValue(WTI_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(WTI_전일종가)
+            self.plot4_cci_minus_100_line.setValue(WTI_전일종가)
                             
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_41.setText(txt)
@@ -30342,6 +30484,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(GOLD_전일종가)
             self.plot4_fut_low_line.setValue(GOLD_전일종가)
             self.plot4_fut_high_line.setValue(GOLD_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(GOLD_전일종가)
+            self.plot4_cci_minus_100_line.setValue(GOLD_전일종가)
                             
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_41.setText(txt)
@@ -30431,6 +30576,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(EURO_전일종가)
             self.plot4_fut_low_line.setValue(EURO_전일종가)
             self.plot4_fut_high_line.setValue(EURO_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(EURO_전일종가)
+            self.plot4_cci_minus_100_line.setValue(EURO_전일종가)
                             
             txt = ' {0:.5f} '.format(euro_전저)
             self.label_41.setText(txt)
@@ -30520,6 +30668,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(YEN_전일종가)
             self.plot4_fut_low_line.setValue(YEN_전일종가)
             self.plot4_fut_high_line.setValue(YEN_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(YEN_전일종가)
+            self.plot4_cci_minus_100_line.setValue(YEN_전일종가)
                             
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_41.setText(txt)
@@ -30609,6 +30760,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_fut_open_line.setValue(ADI_전일종가)
             self.plot4_fut_low_line.setValue(ADI_전일종가)
             self.plot4_fut_high_line.setValue(ADI_전일종가)
+
+            self.plot4_cci_plus_100_line.setValue(ADI_전일종가)
+            self.plot4_cci_minus_100_line.setValue(ADI_전일종가)
                             
             txt = ' {0:.5f} '.format(adi_전저)
             self.label_41.setText(txt)
@@ -30686,6 +30840,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_fibonacci_line3.setValue(0)
         self.plot5_fibonacci_line4.setValue(0)
         self.plot5_fibonacci_line5.setValue(0)
+
+        # CCI Line
+        self.plot5_cci_plus_100_line.setValue(0)
+        self.plot5_cci_minus_100_line.setValue(0)
 
         # Curve Clear
         self.plot5_fut_cm_price_curve.clear()
@@ -30915,6 +31073,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_ovc_low_line.setValue(선물_종가)
             self.plot5_ovc_high_line.setValue(선물_종가)
             self.plot5_ovc_close_line.setValue(선물_종가)
+
+            self.plot5_cci_plus_100_line.setValue(선물_종가)
+            self.plot5_cci_minus_100_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_51.setText(txt) 
@@ -31216,6 +31377,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(SP500_전일종가)
             self.plot5_fut_low_line.setValue(SP500_전일종가)
             self.plot5_fut_high_line.setValue(SP500_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(SP500_전일종가)
+            self.plot5_cci_minus_100_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_51.setText(txt)
@@ -31248,7 +31412,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
             self.plot5_ovc_high_line.setValue(sp500_고가)
-              
+
         # DOW
         elif comboindex5 == 14:
 
@@ -31306,6 +31470,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(DOW_전일종가)
             self.plot5_fut_low_line.setValue(DOW_전일종가)
             self.plot5_fut_high_line.setValue(DOW_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(DOW_전일종가)
+            self.plot5_cci_minus_100_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_51.setText(txt)
@@ -31396,6 +31563,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(NASDAQ_전일종가)
             self.plot5_fut_low_line.setValue(NASDAQ_전일종가)
             self.plot5_fut_high_line.setValue(NASDAQ_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(NASDAQ_전일종가)
+            self.plot5_cci_minus_100_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_51.setText(txt)
@@ -31485,6 +31655,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(HANGSENG_전일종가)
             self.plot5_fut_low_line.setValue(HANGSENG_전일종가)
             self.plot5_fut_high_line.setValue(HANGSENG_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(HANGSENG_전일종가)
+            self.plot5_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_51.setText(txt)
@@ -31575,6 +31748,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(WTI_전일종가)
             self.plot5_fut_low_line.setValue(WTI_전일종가)
             self.plot5_fut_high_line.setValue(WTI_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(WTI_전일종가)
+            self.plot5_cci_minus_100_line.setValue(WTI_전일종가)
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_51.setText(txt)
@@ -31663,7 +31839,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_pivot_line.setValue(GOLD_전일종가)
             self.plot5_fut_open_line.setValue(GOLD_전일종가)
             self.plot5_fut_low_line.setValue(GOLD_전일종가)
-            self.plot5_fut_high_line.setValue(GOLD_전일종가) 
+            self.plot5_fut_high_line.setValue(GOLD_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(GOLD_전일종가)
+            self.plot5_cci_minus_100_line.setValue(GOLD_전일종가)
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_51.setText(txt)
@@ -31753,6 +31932,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_open_line.setValue(EURO_전일종가)
             self.plot5_fut_low_line.setValue(EURO_전일종가)
             self.plot5_fut_high_line.setValue(EURO_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(EURO_전일종가)
+            self.plot5_cci_minus_100_line.setValue(EURO_전일종가)
                 
             txt = ' {0:.5f} '.format(euro_전저)
             self.label_51.setText(txt)
@@ -31841,7 +32023,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_pivot_line.setValue(YEN_전일종가)
             self.plot5_fut_open_line.setValue(YEN_전일종가)
             self.plot5_fut_low_line.setValue(YEN_전일종가)
-            self.plot5_fut_high_line.setValue(YEN_전일종가) 
+            self.plot5_fut_high_line.setValue(YEN_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(YEN_전일종가)
+            self.plot5_cci_minus_100_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_51.setText(txt)
@@ -31930,7 +32115,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_fut_pivot_line.setValue(ADI_전일종가)
             self.plot5_fut_open_line.setValue(ADI_전일종가)
             self.plot5_fut_low_line.setValue(ADI_전일종가)
-            self.plot5_fut_high_line.setValue(ADI_전일종가)            
+            self.plot5_fut_high_line.setValue(ADI_전일종가)
+
+            self.plot5_cci_plus_100_line.setValue(ADI_전일종가)
+            self.plot5_cci_minus_100_line.setValue(ADI_전일종가)
                 
             txt = ' {0:.5f} '.format(adi_전저)
             self.label_51.setText(txt)
@@ -32008,6 +32196,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_fibonacci_line3.setValue(0)
         self.plot6_fibonacci_line4.setValue(0)
         self.plot6_fibonacci_line5.setValue(0)
+
+        # CCI Line
+        self.plot6_cci_plus_100_line.setValue(0)
+        self.plot6_cci_minus_100_line.setValue(0)
 
         # Curve Clear
         self.plot6_fut_cm_price_curve.clear()
@@ -32237,6 +32429,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_ovc_low_line.setValue(선물_종가)
             self.plot6_ovc_high_line.setValue(선물_종가)
             self.plot6_ovc_close_line.setValue(선물_종가)
+
+            self.plot6_cci_plus_100_line.setValue(선물_종가)
+            self.plot6_cci_minus_100_line.setValue(선물_종가)
 
             txt = ' {0} '.format(선물_전저)
             self.label_61.setText(txt) 
@@ -32538,6 +32733,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(SP500_전일종가)
             self.plot6_fut_low_line.setValue(SP500_전일종가)
             self.plot6_fut_high_line.setValue(SP500_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(SP500_전일종가)
+            self.plot6_cci_minus_100_line.setValue(SP500_전일종가)
                 
             txt = ' {0} '.format(format(sp500_전저, ','))
             self.label_61.setText(txt)
@@ -32628,6 +32826,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(DOW_전일종가)
             self.plot6_fut_low_line.setValue(DOW_전일종가)
             self.plot6_fut_high_line.setValue(DOW_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(DOW_전일종가)
+            self.plot6_cci_minus_100_line.setValue(DOW_전일종가)
                 
             txt = ' {0} '.format(format(dow_전저, ','))
             self.label_61.setText(txt)
@@ -32718,6 +32919,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(NASDAQ_전일종가)
             self.plot6_fut_low_line.setValue(NASDAQ_전일종가)
             self.plot6_fut_high_line.setValue(NASDAQ_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(NASDAQ_전일종가)
+            self.plot6_cci_minus_100_line.setValue(NASDAQ_전일종가)
                 
             txt = ' {0} '.format(format(nasdaq_전저, ','))
             self.label_61.setText(txt)
@@ -32807,6 +33011,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_open_line.setValue(HANGSENG_전일종가)
             self.plot6_fut_low_line.setValue(HANGSENG_전일종가)
             self.plot6_fut_high_line.setValue(HANGSENG_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(HANGSENG_전일종가)
+            self.plot6_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
             txt = ' {0} '.format(format(hangseng_전저, ','))
             self.label_61.setText(txt)
@@ -32896,7 +33103,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(WTI_전일종가)
             self.plot6_fut_open_line.setValue(WTI_전일종가)
             self.plot6_fut_low_line.setValue(WTI_전일종가)
-            self.plot6_fut_high_line.setValue(WTI_전일종가) 
+            self.plot6_fut_high_line.setValue(WTI_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(WTI_전일종가)
+            self.plot6_cci_minus_100_line.setValue(WTI_전일종가) 
                 
             txt = ' {0} '.format(format(wti_전저, ','))
             self.label_61.setText(txt)
@@ -32985,7 +33195,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(GOLD_전일종가)
             self.plot6_fut_open_line.setValue(GOLD_전일종가)
             self.plot6_fut_low_line.setValue(GOLD_전일종가)
-            self.plot6_fut_high_line.setValue(GOLD_전일종가) 
+            self.plot6_fut_high_line.setValue(GOLD_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(GOLD_전일종가)
+            self.plot6_cci_minus_100_line.setValue(GOLD_전일종가)
                 
             txt = ' {0} '.format(format(gold_전저, ','))
             self.label_61.setText(txt)
@@ -33074,7 +33287,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(EURO_전일종가)
             self.plot6_fut_open_line.setValue(EURO_전일종가)
             self.plot6_fut_low_line.setValue(EURO_전일종가)
-            self.plot6_fut_high_line.setValue(EURO_전일종가) 
+            self.plot6_fut_high_line.setValue(EURO_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(EURO_전일종가)
+            self.plot6_cci_minus_100_line.setValue(EURO_전일종가)
                 
             txt = ' {0:.5f} '.format(euro_전저)
             self.label_61.setText(txt)
@@ -33163,7 +33379,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(YEN_전일종가)
             self.plot6_fut_open_line.setValue(YEN_전일종가)
             self.plot6_fut_low_line.setValue(YEN_전일종가)
-            self.plot6_fut_high_line.setValue(YEN_전일종가) 
+            self.plot6_fut_high_line.setValue(YEN_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(YEN_전일종가)
+            self.plot6_cci_minus_100_line.setValue(YEN_전일종가)
                 
             txt = ' {0} '.format(format(yen_전저, ','))
             self.label_61.setText(txt)
@@ -33252,7 +33471,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_fut_pivot_line.setValue(ADI_전일종가)
             self.plot6_fut_open_line.setValue(ADI_전일종가)
             self.plot6_fut_low_line.setValue(ADI_전일종가)
-            self.plot6_fut_high_line.setValue(ADI_전일종가)            
+            self.plot6_fut_high_line.setValue(ADI_전일종가)
+
+            self.plot6_cci_plus_100_line.setValue(ADI_전일종가)
+            self.plot6_cci_minus_100_line.setValue(ADI_전일종가)           
                 
             txt = ' {0:.5f} '.format(adi_전저)
             self.label_61.setText(txt)
@@ -35823,6 +36045,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot1_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35842,6 +36066,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot1_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35861,6 +36087,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot1_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35880,6 +36108,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot1_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35899,6 +36129,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot1_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35918,6 +36150,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot1_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35937,6 +36171,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot1_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35956,6 +36192,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot1_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35975,6 +36213,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot1_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -35994,6 +36234,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_17.setText(txt)
 
                 self.plot1_time_line.setValue(plot_time_index)
+                self.plot1_cci_plus_100_line.setValue(100)
+                self.plot1_cci_minus_100_line.setValue(-100)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
                 self.plot1_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -37886,6 +38128,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot2_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -37905,6 +38149,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot2_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -37924,6 +38170,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot2_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -37943,6 +38191,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot2_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -37962,6 +38212,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot2_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -37981,6 +38233,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot2_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -38000,6 +38254,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot2_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -38019,6 +38275,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot2_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -38038,6 +38296,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot2_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -38057,6 +38317,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_27.setText(txt)
 
                 self.plot2_time_line.setValue(plot_time_index)
+                self.plot2_cci_plus_100_line.setValue(100)
+                self.plot2_cci_minus_100_line.setValue(-100)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
                 self.plot2_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -38079,7 +38341,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 else:
                     self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot2_processing_time)           
-   
+
             self.label_time_2.setText(txt)
 
             flag_plot2_update_is_running = False
@@ -39945,6 +40207,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot3_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -39964,6 +40228,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot3_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -39983,6 +40249,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot3_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40002,6 +40270,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot3_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40021,6 +40291,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot3_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40040,6 +40312,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot3_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40059,6 +40333,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot3_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40078,6 +40354,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot3_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40097,6 +40375,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot3_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -40116,6 +40396,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_37.setText(txt)
 
                 self.plot3_time_line.setValue(plot_time_index)
+                self.plot3_cci_plus_100_line.setValue(100)
+                self.plot3_cci_minus_100_line.setValue(-100)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
                 self.plot3_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42005,6 +42287,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot4_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42024,6 +42308,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot4_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42043,6 +42329,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot4_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42062,6 +42350,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot4_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42081,6 +42371,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
                 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot4_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42100,6 +42392,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot4_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42119,6 +42413,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot4_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42138,6 +42434,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot4_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42157,6 +42455,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot4_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -42176,6 +42476,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_47.setText(txt)
 
                 self.plot4_time_line.setValue(plot_time_index)
+                self.plot4_cci_plus_100_line.setValue(100)
+                self.plot4_cci_minus_100_line.setValue(-100)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
                 self.plot4_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44063,6 +44365,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot5_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44082,6 +44386,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot5_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44101,6 +44407,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot5_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44120,6 +44428,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot5_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44139,6 +44449,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot5_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44158,6 +44470,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot5_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44177,6 +44491,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot5_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44196,6 +44512,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot5_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44215,6 +44533,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot5_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -44234,6 +44554,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_57.setText(txt)
 
                 self.plot5_time_line.setValue(plot_time_index)
+                self.plot5_cci_plus_100_line.setValue(100)
+                self.plot5_cci_minus_100_line.setValue(-100)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
                 self.plot5_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46121,6 +46443,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
                 df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)                
                 self.plot6_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46140,6 +46464,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
                 df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
                 self.plot6_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46159,6 +46485,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
                 df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
                 self.plot6_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46178,6 +46506,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
                 df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
                 self.plot6_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46197,6 +46527,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
                 df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
                 self.plot6_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46216,6 +46548,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
                 df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
                 self.plot6_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46235,6 +46569,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
                 df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
                 self.plot6_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46254,6 +46590,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
                 df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
                 self.plot6_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46273,6 +46611,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
                 df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
                 self.plot6_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
@@ -46292,6 +46632,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.label_67.setText(txt)
 
                 self.plot6_time_line.setValue(plot_time_index)
+                self.plot6_cci_plus_100_line.setValue(100)
+                self.plot6_cci_minus_100_line.setValue(-100)
                 df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
                 df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
                 self.plot6_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
