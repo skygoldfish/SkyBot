@@ -21362,7 +21362,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         EMA_TIME_PERIOD = int(txt)
 
         #txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
-        txt = '[{0:02d}:{1:02d}:{2:02d}] EMA 주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, EMA_TIME_PERIOD)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] BB EMA 주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, EMA_TIME_PERIOD)
         self.parent.textBrowser.append(txt)
 
     def change_view_time_interval(self):
@@ -33298,7 +33298,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         if type == 'FUT':
 
             # Bollinger Bands            
-            upper, middle, lower = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_futures_cm_ta_graph['BBUpper'] = upper
             df_futures_cm_ta_graph['BBMiddle'] = middle
@@ -33307,7 +33307,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'SP500':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_sp500_ta_graph['BBUpper'] = upper
             df_sp500_ta_graph['BBMiddle'] = middle
@@ -33316,7 +33316,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'DOW':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_dow_ta_graph['BBUpper'] = upper
             df_dow_ta_graph['BBMiddle'] = middle
@@ -33325,7 +33325,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'NASDAQ':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_nasdaq_ta_graph['BBUpper'] = upper
             df_nasdaq_ta_graph['BBMiddle'] = middle
@@ -33334,7 +33334,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'HSI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_hangseng_ta_graph['BBUpper'] = upper
             df_hangseng_ta_graph['BBMiddle'] = middle
@@ -33343,7 +33343,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'WTI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_wti_ta_graph['BBUpper'] = upper
             df_wti_ta_graph['BBMiddle'] = middle
@@ -33352,7 +33352,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'GOLD':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_gold_ta_graph['BBUpper'] = upper
             df_gold_ta_graph['BBMiddle'] = middle
@@ -33361,7 +33361,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'EURO':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_euro_ta_graph['BBUpper'] = upper
             df_euro_ta_graph['BBMiddle'] = middle
@@ -33370,7 +33370,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'YEN':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_yen_ta_graph['BBUpper'] = upper
             df_yen_ta_graph['BBMiddle'] = middle
@@ -33379,7 +33379,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif type == 'ADI':
 
             # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+            upper, middle, lower = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
             df_adi_ta_graph['BBUpper'] = upper
             df_adi_ta_graph['BBMiddle'] = middle
@@ -34058,8 +34058,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot1_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #self.plot1_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
 
@@ -34595,8 +34595,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(SP500_고가)                                
 
                 self.plot1_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34735,8 +34735,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(DOW_고가)                                      
 
                 self.plot1_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -34875,8 +34875,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(NASDAQ_고가)                 
 
                 self.plot1_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35015,8 +35015,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot1_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35154,8 +35154,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(WTI_고가)                 
 
                 self.plot1_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35294,8 +35294,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot1_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35433,8 +35433,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot1_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35573,8 +35573,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot1_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -35719,8 +35719,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot1_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot1_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot1_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
@@ -36121,8 +36121,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot2_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #self.plot2_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
 
@@ -36658,8 +36658,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(SP500_고가)                             
 
                 self.plot2_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36798,8 +36798,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(DOW_고가)                                 
 
                 self.plot2_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -36938,8 +36938,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(NASDAQ_고가)
 
                 self.plot2_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -37078,8 +37078,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot2_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                   
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                   
 
                 if flag_checkBox_plot2_bband:
 
@@ -37217,8 +37217,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot2_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -37357,8 +37357,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot2_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -37496,8 +37496,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot2_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -37636,8 +37636,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot2_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -37782,8 +37782,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot2_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot2_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot2_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
@@ -38182,8 +38182,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot3_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #self.plot3_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
 
@@ -38717,8 +38717,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(SP500_고가)
 
                 self.plot3_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38857,8 +38857,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(DOW_고가)               
 
                 self.plot3_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -38997,8 +38997,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(NASDAQ_고가)
 
                 self.plot3_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -39137,8 +39137,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot3_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                  
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                  
 
                 if flag_checkBox_plot3_bband:
 
@@ -39276,8 +39276,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot3_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -39416,8 +39416,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot3_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -39555,8 +39555,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot3_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -39695,8 +39695,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot3_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -39841,8 +39841,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot3_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot3_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot3_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
@@ -40240,8 +40240,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot4_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #self.plot4_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
 
@@ -40777,8 +40777,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(SP500_고가)
 
                 self.plot4_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -40917,8 +40917,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(DOW_고가)                     
 
                 self.plot4_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -41057,8 +41057,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(NASDAQ_고가) 
 
                 self.plot4_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -41197,8 +41197,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot4_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                    
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                    
 
                 if flag_checkBox_plot4_bband:
 
@@ -41336,8 +41336,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot4_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -41476,8 +41476,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot4_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -41615,8 +41615,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot4_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -41755,8 +41755,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot4_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -41901,8 +41901,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot4_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot4_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot4_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
@@ -42301,8 +42301,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot5_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #self.plot5_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
 
@@ -42835,8 +42835,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(SP500_고가)
 
                 self.plot5_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -42975,8 +42975,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(DOW_고가)                 
 
                 self.plot5_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -43115,8 +43115,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(NASDAQ_고가)
 
                 self.plot5_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -43255,8 +43255,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot5_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                  
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                  
 
                 if flag_checkBox_plot5_bband:
 
@@ -43394,8 +43394,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(WTI_고가)
 
                 self.plot5_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -43534,8 +43534,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot5_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -43673,8 +43673,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot5_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -43813,8 +43813,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot5_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -43959,8 +43959,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot5_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot5_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot5_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
@@ -44359,8 +44359,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
-                    self.plot6_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #self.plot6_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
 
@@ -44893,8 +44893,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(SP500_고가)
 
                 self.plot6_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -45033,8 +45033,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(DOW_고가)              
 
                 self.plot6_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -45173,8 +45173,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(NASDAQ_고가) 
 
                 self.plot6_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -45313,8 +45313,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot6_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                   
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                   
 
                 if flag_checkBox_plot6_bband:
 
@@ -45452,8 +45452,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(WTI_고가)
 
                 self.plot6_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -45592,8 +45592,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot6_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -45731,8 +45731,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot6_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -45871,8 +45871,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot6_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
@@ -46017,8 +46017,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot6_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
-                self.plot6_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #self.plot6_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
