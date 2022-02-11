@@ -4464,79 +4464,79 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(txt)
             else:
                 pass
+        else:
+            pass
 
-            if DayTime:
+        if DayTime:
+
+            if TARGET_MONTH == 'CM':
+
+                if not REAL_SERVER:
+                    widget_title = repr(current_month) + '월 만기 주간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                else:
+                    widget_title = repr(current_month) + '월 만기 주간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
+                print(widget_title)
+                ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
+
+            elif TARGET_MONTH == 'NM':
+
+                if not REAL_SERVER:
+                    widget_title = repr(next_month) + '월 만기 주간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                else:
+                    widget_title = repr(next_month) + '월 만기 주간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
+                ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
+
+            else:
+                pass
+        else:
+            KSE_START_HOUR = 18            
+
+            if MANGI_YAGAN:
 
                 if TARGET_MONTH == 'CM':
 
                     if not REAL_SERVER:
-                        widget_title = repr(current_month) + '월 만기 주간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     else:
-                        widget_title = repr(current_month) + '월 만기 주간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(next_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                    print(widget_title)
-                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
+                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
+
+                    print('next_month =', next_month)
 
                 elif TARGET_MONTH == 'NM':
 
                     if not REAL_SERVER:
-                        widget_title = repr(next_month) + '월 만기 주간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     else:
-                        widget_title = repr(next_month) + '월 만기 주간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
 
-                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 주간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
-
+                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, month_after_next))
                 else:
                     pass
             else:
-                KSE_START_HOUR = 18            
+                if TARGET_MONTH == 'CM':
 
-                if MANGI_YAGAN:
-
-                    if TARGET_MONTH == 'CM':
-
-                        if not REAL_SERVER:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        else:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-
-                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
-
-                        print('next_month =', next_month)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        if not REAL_SERVER:
-                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        else:
-                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-
-                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, month_after_next))
+                    if not REAL_SERVER:
+                        widget_title = repr(current_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     else:
-                        pass
+                        widget_title = repr(current_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
+                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
+
+                elif TARGET_MONTH == 'NM':
+
+                    if not REAL_SERVER:
+                        widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    else:
+                        widget_title = repr(next_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
+                    ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
+
                 else:
-                    if TARGET_MONTH == 'CM':
-
-                        if not REAL_SERVER:
-                            widget_title = repr(current_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        else:
-                            widget_title = repr(current_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-
-                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, current_month))
-
-                    elif TARGET_MONTH == 'NM':
-
-                        if not REAL_SERVER:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        else:
-                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(실투자 서버) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-
-                        ToYourTelegram("[{0:02d}:{1:02d}:{2:02d}] {3}월 만기 야간 SkyBot이 실행되었습니다.".format(dt.hour, dt.minute, dt.second, next_month))
-
-                    else:
-                        pass
-        else:
-            pass
+                    pass
         
         self.setWindowTitle(widget_title)
         
