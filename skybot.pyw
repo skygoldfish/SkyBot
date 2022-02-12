@@ -1818,9 +1818,9 @@ skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DashLine)
 goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
-bb_upper_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+bb_2nd_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 bb_middle_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
-bb_lower_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
+bb_1st_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 psar_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
 
@@ -2154,7 +2154,10 @@ flag_puttable_checkstate_changed = False
 
 scoreboard_update_interval = MAIN_UPDATE_INTERVAL
 chart_update_interval = CHART_UPDATE_INTERVAL
-EMA_TIME_PERIOD = 34
+
+BB_PERIOD = 34
+BB_1ST_STD = 0.5
+BB_2ND_STD = 3
 
 volatility_breakout_downward_point = 0
 volatility_breakout_upward_point = 0
@@ -12177,9 +12180,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         global fut_bollinger_symbol, fut_psar_symbol, fut_oe_symbol, fut_mama_symbol
 
-        if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'BBMiddle']):
+        if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'BBMiddle_2nd']):
 
-            if df_futures_cm_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_graph.at[plot_time_index, 'Price']:
+            if df_futures_cm_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_graph.at[plot_time_index, 'Price']:
                 fut_bollinger_symbol = '▼'
             else:
                 fut_bollinger_symbol = '▲'
@@ -12206,7 +12209,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not np.isnan(df_futures_cm_graph.at[plot_time_index, 'MAMA']) and np.isnan(df_futures_cm_graph.at[plot_time_index, 'FAMA']):
 
-            if df_futures_cm_graph.at[plot_time_index, 'FAMA'] >= df_futures_cm_graph.at[plot_time_index, 'BBLower']:
+            if df_futures_cm_graph.at[plot_time_index, 'FAMA'] >= df_futures_cm_graph.at[plot_time_index, 'BBLower_2nd']:
 
                 if df_futures_cm_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_graph.at[plot_time_index, 'FAMA']:                
                     fut_mama_symbol = '▼'
@@ -20360,18 +20363,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_yen_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
-            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])           
-            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])           
+            df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
 
-            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
-            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper', 'BBMiddle', 'BBLower', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+            df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
 
             flag_t8433_response_ok = True
         else:
@@ -21140,8 +21154,14 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_itm.setValue(put_itm_number)
         self.spinBox_put_otm.setValue(put_otm_number)
 
-        txt = str(EMA_TIME_PERIOD)
-        self.lineEdit_mp.setText(txt)
+        txt = str(BB_PERIOD)
+        self.lineEdit_bb_period.setText(txt)
+
+        txt = str(BB_1ST_STD)
+        self.lineEdit_bb_1st_std.setText(txt)
+
+        txt = str(BB_2ND_STD)
+        self.lineEdit_bb_2nd_std.setText(txt)
 
         txt = str(view_time_tolerance)
         self.lineEdit_tolerance.setText(txt)
@@ -21197,7 +21217,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_itm.valueChanged.connect(self.change_put_itm)
         self.spinBox_put_otm.valueChanged.connect(self.change_put_otm)
 
-        self.lineEdit_mp.returnPressed.connect(self.change_scoreboard_interval)
+        self.lineEdit_bb_period.returnPressed.connect(self.change_bb_period)
+        self.lineEdit_bb_1st_std.returnPressed.connect(self.change_bb_1st_std)
+        self.lineEdit_bb_2nd_std.returnPressed.connect(self.change_bb_2nd_std)
         self.lineEdit_tolerance.returnPressed.connect(self.change_view_time_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
         self.lineEdit_drate_ratio.returnPressed.connect(self.change_drate_ratio)
@@ -21350,19 +21372,40 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
         self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
 
-    def change_scoreboard_interval(self):
+    def change_bb_period(self):
 
-        global scoreboard_update_interval
-        global EMA_TIME_PERIOD
+        global BB_PERIOD
 
         dt = datetime.now()
 
-        txt = self.lineEdit_mp.text()
-        #scoreboard_update_interval = int(txt)
-        EMA_TIME_PERIOD = int(txt)
+        txt = self.lineEdit_bb_period.text()
+        BB_PERIOD = int(txt)
 
-        #txt = '[{0:02d}:{1:02d}:{2:02d}] 주기적 갱신시간을 {3} msec로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, scoreboard_update_interval)
-        txt = '[{0:02d}:{1:02d}:{2:02d}] BB EMA 주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, EMA_TIME_PERIOD)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] BB EMA 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, BB_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_bb_1st_std(self):
+
+        global BB_1ST_STD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_bb_1st_std.text()
+        BB_1ST_STD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 1st BB STD를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, BB_1ST_STD)
+        self.parent.textBrowser.append(txt)
+
+    def change_bb_2nd_std(self):
+
+        global BB_2ND_STD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_bb_2nd_std.text()
+        BB_2ND_STD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 2nd BB STD를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, BB_2ND_STD)
         self.parent.textBrowser.append(txt)
 
     def change_view_time_interval(self):
@@ -22810,9 +22853,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_yen_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_adi_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        self.plot1_bollinger_upper_curve = self.plot1.plot(pen=bb_upper_pen)
-        self.plot1_bollinger_middle_curve = self.plot1.plot(pen=bb_middle_pen)
-        self.plot1_bollinger_lower_curve = self.plot1.plot(pen=bb_lower_pen)
+        self.plot1_bollinger_1st_upper_curve = self.plot1.plot(pen=bb_1st_pen)
+        self.plot1_bollinger_1st_middle_curve = self.plot1.plot(pen=bb_middle_pen)
+        self.plot1_bollinger_1st_lower_curve = self.plot1.plot(pen=bb_1st_pen)
+        self.plot1_bollinger_2nd_upper_curve = self.plot1.plot(pen=bb_2nd_pen)
+        self.plot1_bollinger_2nd_middle_curve = self.plot1.plot(pen=bb_middle_pen)
+        self.plot1_bollinger_2nd_lower_curve = self.plot1.plot(pen=bb_2nd_pen)
 
         self.plot1_psar_curve = self.plot1.plot(pen=psar_pen)
 
@@ -23003,9 +23049,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_yen_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_adi_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        self.plot2_bollinger_upper_curve = self.plot2.plot(pen=bb_upper_pen)
-        self.plot2_bollinger_middle_curve = self.plot2.plot(pen=bb_middle_pen)
-        self.plot2_bollinger_lower_curve = self.plot2.plot(pen=bb_lower_pen)
+        self.plot2_bollinger_1st_upper_curve = self.plot2.plot(pen=bb_1st_pen)
+        self.plot2_bollinger_1st_middle_curve = self.plot2.plot(pen=bb_middle_pen)
+        self.plot2_bollinger_1st_lower_curve = self.plot2.plot(pen=bb_1st_pen)
+        self.plot2_bollinger_2nd_upper_curve = self.plot2.plot(pen=bb_2nd_pen)
+        self.plot2_bollinger_2nd_middle_curve = self.plot2.plot(pen=bb_middle_pen)
+        self.plot2_bollinger_2nd_lower_curve = self.plot2.plot(pen=bb_2nd_pen)
 
         self.plot2_psar_curve = self.plot2.plot(pen=psar_pen)
 
@@ -23194,9 +23243,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_yen_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_adi_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        self.plot3_bollinger_upper_curve = self.plot3.plot(pen=bb_upper_pen)
-        self.plot3_bollinger_middle_curve = self.plot3.plot(pen=bb_middle_pen)
-        self.plot3_bollinger_lower_curve = self.plot3.plot(pen=bb_lower_pen)
+        self.plot3_bollinger_1st_upper_curve = self.plot3.plot(pen=bb_1st_pen)
+        self.plot3_bollinger_1st_middle_curve = self.plot3.plot(pen=bb_middle_pen)
+        self.plot3_bollinger_1st_lower_curve = self.plot3.plot(pen=bb_1st_pen)
+        self.plot3_bollinger_2nd_upper_curve = self.plot3.plot(pen=bb_2nd_pen)
+        self.plot3_bollinger_2nd_middle_curve = self.plot3.plot(pen=bb_middle_pen)
+        self.plot3_bollinger_2nd_lower_curve = self.plot3.plot(pen=bb_2nd_pen)
 
         self.plot3_psar_curve = self.plot3.plot(pen=psar_pen)
 
@@ -23385,9 +23437,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_yen_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_adi_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        self.plot4_bollinger_upper_curve = self.plot4.plot(pen=bb_upper_pen)
-        self.plot4_bollinger_middle_curve = self.plot4.plot(pen=bb_middle_pen)
-        self.plot4_bollinger_lower_curve = self.plot4.plot(pen=bb_lower_pen)
+        self.plot4_bollinger_1st_upper_curve = self.plot4.plot(pen=bb_1st_pen)
+        self.plot4_bollinger_1st_middle_curve = self.plot4.plot(pen=bb_middle_pen)
+        self.plot4_bollinger_1st_lower_curve = self.plot4.plot(pen=bb_1st_pen)
+        self.plot4_bollinger_2nd_upper_curve = self.plot4.plot(pen=bb_2nd_pen)
+        self.plot4_bollinger_2nd_middle_curve = self.plot4.plot(pen=bb_middle_pen)
+        self.plot4_bollinger_2nd_lower_curve = self.plot4.plot(pen=bb_2nd_pen)
 
         self.plot4_psar_curve = self.plot4.plot(pen=psar_pen)
 
@@ -23576,9 +23631,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_yen_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_adi_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        self.plot5_bollinger_upper_curve = self.plot5.plot(pen=bb_upper_pen)
-        self.plot5_bollinger_middle_curve = self.plot5.plot(pen=bb_middle_pen)
-        self.plot5_bollinger_lower_curve = self.plot5.plot(pen=bb_lower_pen)
+        self.plot5_bollinger_1st_upper_curve = self.plot5.plot(pen=bb_1st_pen)
+        self.plot5_bollinger_1st_middle_curve = self.plot5.plot(pen=bb_middle_pen)
+        self.plot5_bollinger_1st_lower_curve = self.plot5.plot(pen=bb_1st_pen)
+        self.plot5_bollinger_2nd_upper_curve = self.plot5.plot(pen=bb_2nd_pen)
+        self.plot5_bollinger_2nd_middle_curve = self.plot5.plot(pen=bb_middle_pen)
+        self.plot5_bollinger_2nd_lower_curve = self.plot5.plot(pen=bb_2nd_pen)
 
         self.plot5_psar_curve = self.plot5.plot(pen=psar_pen)
 
@@ -23767,9 +23825,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_yen_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_adi_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        self.plot6_bollinger_upper_curve = self.plot6.plot(pen=bb_upper_pen)
-        self.plot6_bollinger_middle_curve = self.plot6.plot(pen=bb_middle_pen)
-        self.plot6_bollinger_lower_curve = self.plot6.plot(pen=bb_lower_pen)
+        self.plot6_bollinger_1st_upper_curve = self.plot6.plot(pen=bb_1st_pen)
+        self.plot6_bollinger_1st_middle_curve = self.plot6.plot(pen=bb_middle_pen)
+        self.plot6_bollinger_1st_lower_curve = self.plot6.plot(pen=bb_1st_pen)
+        self.plot6_bollinger_2nd_upper_curve = self.plot6.plot(pen=bb_2nd_pen)
+        self.plot6_bollinger_2nd_middle_curve = self.plot6.plot(pen=bb_middle_pen)
+        self.plot6_bollinger_2nd_lower_curve = self.plot6.plot(pen=bb_2nd_pen)
 
         self.plot6_psar_curve = self.plot6.plot(pen=psar_pen)
 
@@ -25167,9 +25228,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot1_bband = False
 
-            self.plot1_bollinger_upper_curve.clear()
-            self.plot1_bollinger_middle_curve.clear()
-            self.plot1_bollinger_lower_curve.clear()
+            self.plot1_bollinger_1st_upper_curve.clear()
+            self.plot1_bollinger_1st_middle_curve.clear()
+            self.plot1_bollinger_1st_lower_curve.clear()
+            self.plot1_bollinger_2nd_upper_curve.clear()
+            self.plot1_bollinger_2nd_middle_curve.clear()
+            self.plot1_bollinger_2nd_lower_curve.clear()
 
     def checkBox_plot2_bband_checkState(self):
 
@@ -25180,9 +25244,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot2_bband = False
 
-            self.plot2_bollinger_upper_curve.clear()
-            self.plot2_bollinger_middle_curve.clear()
-            self.plot2_bollinger_lower_curve.clear() 
+            self.plot2_bollinger_1st_upper_curve.clear()
+            self.plot2_bollinger_1st_middle_curve.clear()
+            self.plot2_bollinger_1st_lower_curve.clear()
+            self.plot2_bollinger_2nd_upper_curve.clear()
+            self.plot2_bollinger_2nd_middle_curve.clear()
+            self.plot2_bollinger_2nd_lower_curve.clear()  
 
     def checkBox_plot3_bband_checkState(self):
 
@@ -25193,9 +25260,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot3_bband = False
 
-            self.plot3_bollinger_upper_curve.clear()
-            self.plot3_bollinger_middle_curve.clear()
-            self.plot3_bollinger_lower_curve.clear()
+            self.plot3_bollinger_1st_upper_curve.clear()
+            self.plot3_bollinger_1st_middle_curve.clear()
+            self.plot3_bollinger_1st_lower_curve.clear()
+            self.plot3_bollinger_2nd_upper_curve.clear()
+            self.plot3_bollinger_2nd_middle_curve.clear()
+            self.plot3_bollinger_2nd_lower_curve.clear()
 
     def checkBox_plot4_bband_checkState(self):
 
@@ -25206,9 +25276,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot4_bband = False
 
-            self.plot4_bollinger_upper_curve.clear()
-            self.plot4_bollinger_middle_curve.clear()
-            self.plot4_bollinger_lower_curve.clear()
+            self.plot4_bollinger_1st_upper_curve.clear()
+            self.plot4_bollinger_1st_middle_curve.clear()
+            self.plot4_bollinger_1st_lower_curve.clear()
+            self.plot4_bollinger_2nd_upper_curve.clear()
+            self.plot4_bollinger_2nd_middle_curve.clear()
+            self.plot4_bollinger_2nd_lower_curve.clear()
 
     def checkBox_plot5_bband_checkState(self):
 
@@ -25219,9 +25292,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot5_bband = False
 
-            self.plot5_bollinger_upper_curve.clear()
-            self.plot5_bollinger_middle_curve.clear()
-            self.plot5_bollinger_lower_curve.clear()
+            self.plot5_bollinger_1st_upper_curve.clear()
+            self.plot5_bollinger_1st_middle_curve.clear()
+            self.plot5_bollinger_1st_lower_curve.clear()
+            self.plot5_bollinger_2nd_upper_curve.clear()
+            self.plot5_bollinger_2nd_middle_curve.clear()
+            self.plot5_bollinger_2nd_lower_curve.clear()
 
     def checkBox_plot6_bband_checkState(self):
 
@@ -25232,9 +25308,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot6_bband = False
 
-            self.plot6_bollinger_upper_curve.clear()
-            self.plot6_bollinger_middle_curve.clear()
-            self.plot6_bollinger_lower_curve.clear()
+            self.plot6_bollinger_1st_upper_curve.clear()
+            self.plot6_bollinger_1st_middle_curve.clear()
+            self.plot6_bollinger_1st_lower_curve.clear()
+            self.plot6_bollinger_2nd_upper_curve.clear()
+            self.plot6_bollinger_2nd_middle_curve.clear()
+            self.plot6_bollinger_2nd_lower_curve.clear()
 
     def checkBox_plot1_mama_checkState(self):
 
@@ -25468,9 +25547,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_yen_curve.clear()
         self.plot1_adi_curve.clear()
 
-        self.plot1_bollinger_upper_curve.clear()
-        self.plot1_bollinger_middle_curve.clear()
-        self.plot1_bollinger_lower_curve.clear()
+        self.plot1_bollinger_1st_upper_curve.clear()
+        self.plot1_bollinger_1st_middle_curve.clear()
+        self.plot1_bollinger_1st_lower_curve.clear()
+        self.plot1_bollinger_2nd_upper_curve.clear()
+        self.plot1_bollinger_2nd_middle_curve.clear()
+        self.plot1_bollinger_2nd_lower_curve.clear()
 
         self.plot1_psar_curve.clear()
 
@@ -26824,9 +26906,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_yen_curve.clear()
         self.plot2_adi_curve.clear()
 
-        self.plot2_bollinger_upper_curve.clear()
-        self.plot2_bollinger_middle_curve.clear()
-        self.plot2_bollinger_lower_curve.clear()
+        self.plot2_bollinger_1st_upper_curve.clear()
+        self.plot2_bollinger_1st_middle_curve.clear()
+        self.plot2_bollinger_1st_lower_curve.clear()
+        self.plot2_bollinger_2nd_upper_curve.clear()
+        self.plot2_bollinger_2nd_middle_curve.clear()
+        self.plot2_bollinger_2nd_lower_curve.clear()
 
         self.plot2_psar_curve.clear()
 
@@ -28180,9 +28265,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_yen_curve.clear()
         self.plot3_adi_curve.clear()
 
-        self.plot3_bollinger_upper_curve.clear()
-        self.plot3_bollinger_middle_curve.clear()
-        self.plot3_bollinger_lower_curve.clear()
+        self.plot3_bollinger_1st_upper_curve.clear()
+        self.plot3_bollinger_1st_middle_curve.clear()
+        self.plot3_bollinger_1st_lower_curve.clear()
+        self.plot3_bollinger_2nd_upper_curve.clear()
+        self.plot3_bollinger_2nd_middle_curve.clear()
+        self.plot3_bollinger_2nd_lower_curve.clear()
 
         self.plot3_psar_curve.clear()
 
@@ -29536,9 +29624,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_yen_curve.clear()
         self.plot4_adi_curve.clear()
 
-        self.plot4_bollinger_upper_curve.clear()
-        self.plot4_bollinger_middle_curve.clear()
-        self.plot4_bollinger_lower_curve.clear()
+        self.plot4_bollinger_1st_upper_curve.clear()
+        self.plot4_bollinger_1st_middle_curve.clear()
+        self.plot4_bollinger_1st_lower_curve.clear()
+        self.plot4_bollinger_2nd_upper_curve.clear()
+        self.plot4_bollinger_2nd_middle_curve.clear()
+        self.plot4_bollinger_2nd_lower_curve.clear()
 
         self.plot4_psar_curve.clear()
 
@@ -30892,9 +30983,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_yen_curve.clear()
         self.plot5_adi_curve.clear()
 
-        self.plot5_bollinger_upper_curve.clear()
-        self.plot5_bollinger_middle_curve.clear()
-        self.plot5_bollinger_lower_curve.clear()
+        self.plot5_bollinger_1st_upper_curve.clear()
+        self.plot5_bollinger_1st_middle_curve.clear()
+        self.plot5_bollinger_1st_lower_curve.clear()
+        self.plot5_bollinger_2nd_upper_curve.clear()
+        self.plot5_bollinger_2nd_middle_curve.clear()
+        self.plot5_bollinger_2nd_lower_curve.clear()
 
         self.plot5_psar_curve.clear()
 
@@ -32248,9 +32342,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_yen_curve.clear()
         self.plot6_adi_curve.clear()
 
-        self.plot6_bollinger_upper_curve.clear()
-        self.plot6_bollinger_middle_curve.clear()
-        self.plot6_bollinger_lower_curve.clear()
+        self.plot6_bollinger_1st_upper_curve.clear()
+        self.plot6_bollinger_1st_middle_curve.clear()
+        self.plot6_bollinger_1st_lower_curve.clear()
+        self.plot6_bollinger_2nd_upper_curve.clear()
+        self.plot6_bollinger_2nd_middle_curve.clear()
+        self.plot6_bollinger_2nd_lower_curve.clear()
 
         self.plot6_psar_curve.clear()
 
@@ -33519,93 +33616,53 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         if type == 'FUT':
 
-            # Bollinger Bands            
-            upper, middle, lower = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_futures_cm_ta_graph['BBUpper'] = upper
-            df_futures_cm_ta_graph['BBMiddle'] = middle
-            df_futures_cm_ta_graph['BBLower'] = lower
+            df_futures_cm_ta_graph['BBUpper_1st'], df_futures_cm_ta_graph['BBMiddle_1st'], df_futures_cm_ta_graph['BBLower_1st'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_futures_cm_ta_graph['BBUpper_2nd'], df_futures_cm_ta_graph['BBMiddle_2nd'], df_futures_cm_ta_graph['BBLower_2nd'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
                         
         elif type == 'SP500':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_sp500_ta_graph['BBUpper'] = upper
-            df_sp500_ta_graph['BBMiddle'] = middle
-            df_sp500_ta_graph['BBLower'] = lower            
+            df_sp500_ta_graph['BBUpper_1st'], df_sp500_ta_graph['BBMiddle_1st'], df_sp500_ta_graph['BBLower_1st'] = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_sp500_ta_graph['BBUpper_2nd'], df_sp500_ta_graph['BBMiddle_2nd'], df_sp500_ta_graph['BBLower_2nd'] = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'DOW':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_dow_ta_graph['BBUpper'] = upper
-            df_dow_ta_graph['BBMiddle'] = middle
-            df_dow_ta_graph['BBLower'] = lower
+            df_dow_ta_graph['BBUpper_1st'], df_dow_ta_graph['BBMiddle_1st'], df_dow_ta_graph['BBLower_1st'] = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_dow_ta_graph['BBUpper_2nd'], df_dow_ta_graph['BBMiddle_2nd'], df_dow_ta_graph['BBLower_2nd'] = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'NASDAQ':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_nasdaq_ta_graph['BBUpper'] = upper
-            df_nasdaq_ta_graph['BBMiddle'] = middle
-            df_nasdaq_ta_graph['BBLower'] = lower
+            df_nasdaq_ta_graph['BBUpper_1st'], df_nasdaq_ta_graph['BBMiddle_1st'], df_nasdaq_ta_graph['BBLower_1st'] = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_nasdaq_ta_graph['BBUpper_2nd'], df_nasdaq_ta_graph['BBMiddle_2nd'], df_nasdaq_ta_graph['BBLower_2nd'] = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'HSI':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_hangseng_ta_graph['BBUpper'] = upper
-            df_hangseng_ta_graph['BBMiddle'] = middle
-            df_hangseng_ta_graph['BBLower'] = lower
+            df_hangseng_ta_graph['BBUpper_1st'], df_hangseng_ta_graph['BBMiddle_1st'], df_hangseng_ta_graph['BBLower_1st'] = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_hangseng_ta_graph['BBUpper_2nd'], df_hangseng_ta_graph['BBMiddle_2nd'], df_hangseng_ta_graph['BBLower_2nd'] = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'WTI':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_wti_ta_graph['BBUpper'] = upper
-            df_wti_ta_graph['BBMiddle'] = middle
-            df_wti_ta_graph['BBLower'] = lower
+            df_wti_ta_graph['BBUpper_1st'], df_wti_ta_graph['BBMiddle_1st'], df_wti_ta_graph['BBLower_1st'] = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_wti_ta_graph['BBUpper_2nd'], df_wti_ta_graph['BBMiddle_2nd'], df_wti_ta_graph['BBLower_2nd'] = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'GOLD':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_gold_ta_graph['BBUpper'] = upper
-            df_gold_ta_graph['BBMiddle'] = middle
-            df_gold_ta_graph['BBLower'] = lower
+            df_gold_ta_graph['BBUpper_1st'], df_gold_ta_graph['BBMiddle_1st'], df_gold_ta_graph['BBLower_1st'] = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_gold_ta_graph['BBUpper_2nd'], df_gold_ta_graph['BBMiddle_2nd'], df_gold_ta_graph['BBLower_2nd'] = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'EURO':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_euro_ta_graph['BBUpper'] = upper
-            df_euro_ta_graph['BBMiddle'] = middle
-            df_euro_ta_graph['BBLower'] = lower
+            df_euro_ta_graph['BBUpper_1st'], df_euro_ta_graph['BBMiddle_1st'], df_euro_ta_graph['BBLower_1st'] = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_euro_ta_graph['BBUpper_2nd'], df_euro_ta_graph['BBMiddle_2nd'], df_euro_ta_graph['BBLower_2nd'] = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'YEN':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_yen_ta_graph['BBUpper'] = upper
-            df_yen_ta_graph['BBMiddle'] = middle
-            df_yen_ta_graph['BBLower'] = lower
+            df_yen_ta_graph['BBUpper_1st'], df_yen_ta_graph['BBMiddle_1st'], df_yen_ta_graph['BBLower_1st'] = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_yen_ta_graph['BBUpper_2nd'], df_yen_ta_graph['BBMiddle_2nd'], df_yen_ta_graph['BBLower_2nd'] = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
             
         elif type == 'ADI':
 
-            # Bollinger Bands                
-            upper, middle, lower = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=EMA_TIME_PERIOD, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_adi_ta_graph['BBUpper'] = upper
-            df_adi_ta_graph['BBMiddle'] = middle
-            df_adi_ta_graph['BBLower'] = lower            
+            df_adi_ta_graph['BBUpper_1st'], df_adi_ta_graph['BBMiddle_1st'], df_adi_ta_graph['BBLower_1st'] = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_adi_ta_graph['BBUpper_2nd'], df_adi_ta_graph['BBMiddle_2nd'], df_adi_ta_graph['BBLower_2nd'] = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
         else:
             pass
     #####################################################################################################################################################################
@@ -34280,7 +34337,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot1_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], BB_PERIOD)
                     #self.plot1_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
@@ -34289,9 +34346,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot1_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -34299,13 +34359,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:                    
                     self.plot1_fibonacci_line1.setValue(근월물_선물_종가)
@@ -34817,16 +34877,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(SP500_고가)                                
 
                 self.plot1_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('SP500')                    
 
-                    self.plot1_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_sp500_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_sp500_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_sp500_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
@@ -34834,13 +34897,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:                    
                     self.plot1_fibonacci_line1.setValue(SP500_전일종가)
@@ -34957,16 +35020,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(DOW_고가)                                      
 
                 self.plot1_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('DOW')
 
-                    self.plot1_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_dow_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_dow_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_dow_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(dow_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(dow_fibonacci_levels[2])
@@ -34974,13 +35040,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(DOW_전일종가)
@@ -35097,16 +35163,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(NASDAQ_고가)                 
 
                 self.plot1_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot1_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_nasdaq_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
@@ -35114,13 +35183,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(NASDAQ_전일종가)
@@ -35237,16 +35306,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot1_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('HSI')
 
-                    self.plot1_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
@@ -35254,13 +35326,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -35376,16 +35448,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(WTI_고가)                 
 
                 self.plot1_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('WTI')
 
-                    self.plot1_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_wti_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_wti_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_wti_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(wti_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(wti_fibonacci_levels[2])
@@ -35393,13 +35468,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(WTI_전일종가)
@@ -35516,16 +35591,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot1_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot1_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_gold_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_gold_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_gold_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(gold_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(gold_fibonacci_levels[2])
@@ -35533,13 +35611,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(GOLD_전일종가)
@@ -35655,16 +35733,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot1_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('EURO')
 
-                    self.plot1_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_euro_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_euro_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_euro_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(euro_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(euro_fibonacci_levels[2])
@@ -35672,13 +35753,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(EURO_전일종가)
@@ -35795,16 +35876,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot1_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('YEN')
 
-                    self.plot1_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_yen_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_yen_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_yen_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(yen_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(yen_fibonacci_levels[2])
@@ -35812,13 +35896,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(YEN_전일종가)
@@ -35941,16 +36025,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot1_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], BB_PERIOD)
                 #self.plot1_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.Calc_BBand('ADI')
 
-                    self.plot1_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'].astype(float))
-                    self.plot1_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'].astype(float))
-                    self.plot1_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_adi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_adi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_adi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(adi_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(adi_fibonacci_levels[2])
@@ -35958,13 +36045,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot1_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(ADI_전일종가)
@@ -36363,7 +36450,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot2_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], BB_PERIOD)
                     #self.plot2_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
@@ -36372,9 +36459,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot2_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -36382,13 +36472,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(근월물_선물_종가)
@@ -36900,16 +36990,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(SP500_고가)                             
 
                 self.plot2_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('SP500')                    
 
-                    self.plot2_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_sp500_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_sp500_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_sp500_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
@@ -36917,13 +37010,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(SP500_전일종가)
@@ -37040,16 +37133,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(DOW_고가)                                 
 
                 self.plot2_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('DOW')
 
-                    self.plot2_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_dow_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_dow_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_dow_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(dow_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(dow_fibonacci_levels[2])
@@ -37057,13 +37153,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(DOW_전일종가)
@@ -37180,16 +37276,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(NASDAQ_고가)
 
                 self.plot2_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot2_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_nasdaq_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
@@ -37197,13 +37296,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(NASDAQ_전일종가)
@@ -37320,16 +37419,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot2_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                   
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('HSI')
 
-                    self.plot2_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
@@ -37337,13 +37439,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -37459,16 +37561,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot2_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('WTI')
 
-                    self.plot2_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_wti_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_wti_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_wti_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(wti_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(wti_fibonacci_levels[2])
@@ -37476,13 +37581,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(WTI_전일종가)
@@ -37599,16 +37704,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot2_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot2_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_gold_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_gold_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_gold_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(gold_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(gold_fibonacci_levels[2])
@@ -37616,13 +37724,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(GOLD_전일종가)
@@ -37738,16 +37846,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot2_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('EURO')
 
-                    self.plot2_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_euro_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_euro_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_euro_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(euro_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(euro_fibonacci_levels[2])
@@ -37755,13 +37866,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(EURO_전일종가)
@@ -37878,16 +37989,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot2_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('YEN')
 
-                    self.plot2_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_yen_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_yen_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_yen_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(yen_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(yen_fibonacci_levels[2])
@@ -37895,13 +38009,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(YEN_전일종가)
@@ -38024,16 +38138,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot2_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], BB_PERIOD)
                 #self.plot2_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot2_bband:
 
                     self.Calc_BBand('ADI')
 
-                    self.plot2_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'].astype(float))
-                    self.plot2_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'].astype(float))
-                    self.plot2_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_adi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_adi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_adi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(adi_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(adi_fibonacci_levels[2])
@@ -38041,13 +38158,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot2_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(ADI_전일종가)
@@ -38444,7 +38561,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot3_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], BB_PERIOD)
                     #self.plot3_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
@@ -38453,9 +38570,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot3_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -38463,13 +38583,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(근월물_선물_종가)
@@ -38979,16 +39099,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(SP500_고가)
 
                 self.plot3_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('SP500')
 
-                    self.plot3_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_sp500_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_sp500_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_sp500_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
@@ -38996,13 +39119,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(SP500_전일종가)
@@ -39119,16 +39242,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(DOW_고가)               
 
                 self.plot3_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('DOW')
 
-                    self.plot3_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_dow_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_dow_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_dow_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(dow_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(dow_fibonacci_levels[2])
@@ -39136,13 +39262,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(DOW_전일종가)
@@ -39259,16 +39385,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(NASDAQ_고가)
 
                 self.plot3_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot3_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_nasdaq_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
@@ -39276,13 +39405,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(NASDAQ_전일종가)
@@ -39399,16 +39528,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot3_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                  
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('HSI')
 
-                    self.plot3_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
@@ -39416,13 +39548,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -39538,16 +39670,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot3_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('WTI')
 
-                    self.plot3_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_wti_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_wti_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_wti_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(wti_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(wti_fibonacci_levels[2])
@@ -39555,13 +39690,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(WTI_전일종가)
@@ -39678,16 +39813,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot3_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot3_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_gold_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_gold_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_gold_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(gold_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(gold_fibonacci_levels[2])
@@ -39695,13 +39833,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(GOLD_전일종가)
@@ -39817,16 +39955,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot3_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('EURO')
 
-                    self.plot3_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_euro_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_euro_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_euro_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(euro_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(euro_fibonacci_levels[2])
@@ -39834,13 +39975,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(EURO_전일종가)
@@ -39957,16 +40098,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot3_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('YEN')
 
-                    self.plot3_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_yen_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_yen_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_yen_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(yen_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(yen_fibonacci_levels[2])
@@ -39974,13 +40118,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(YEN_전일종가)
@@ -40103,16 +40247,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot3_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], BB_PERIOD)
                 #self.plot3_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot3_bband:
 
                     self.Calc_BBand('ADI')
 
-                    self.plot3_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'].astype(float))
-                    self.plot3_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'].astype(float))
-                    self.plot3_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_adi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_adi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_adi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(adi_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(adi_fibonacci_levels[2])
@@ -40120,13 +40267,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot3_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(ADI_전일종가)
@@ -40522,7 +40669,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot4_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], BB_PERIOD)
                     #self.plot4_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
@@ -40531,9 +40678,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot4_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -40541,13 +40691,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(근월물_선물_종가)
@@ -41059,16 +41209,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(SP500_고가)
 
                 self.plot4_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('SP500')                    
 
-                    self.plot4_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_sp500_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_sp500_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_sp500_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
@@ -41076,13 +41229,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(SP500_전일종가)
@@ -41199,16 +41352,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(DOW_고가)                     
 
                 self.plot4_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('DOW')
 
-                    self.plot4_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_dow_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_dow_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_dow_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(dow_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(dow_fibonacci_levels[2])
@@ -41216,13 +41372,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(DOW_전일종가)
@@ -41339,16 +41495,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(NASDAQ_고가) 
 
                 self.plot4_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot4_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_nasdaq_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
@@ -41356,13 +41515,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(NASDAQ_전일종가)
@@ -41479,16 +41638,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot4_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                    
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('HSI')
 
-                    self.plot4_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
@@ -41496,13 +41658,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -41618,16 +41780,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(WTI_고가) 
 
                 self.plot4_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('WTI')
 
-                    self.plot4_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_wti_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_wti_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_wti_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(wti_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(wti_fibonacci_levels[2])
@@ -41635,13 +41800,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(WTI_전일종가)
@@ -41758,16 +41923,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot4_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot4_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_gold_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_gold_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_gold_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(gold_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(gold_fibonacci_levels[2])
@@ -41775,13 +41943,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(GOLD_전일종가)
@@ -41897,16 +42065,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot4_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('EURO')
 
-                    self.plot4_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_euro_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_euro_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_euro_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(euro_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(euro_fibonacci_levels[2])
@@ -41914,13 +42085,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(EURO_전일종가)
@@ -42037,16 +42208,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot4_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('YEN')
 
-                    self.plot4_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_yen_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_yen_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_yen_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(yen_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(yen_fibonacci_levels[2])
@@ -42054,13 +42228,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(YEN_전일종가)
@@ -42183,16 +42357,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot4_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], BB_PERIOD)
                 #self.plot4_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot4_bband:
 
                     self.Calc_BBand('ADI')
 
-                    self.plot4_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'].astype(float))
-                    self.plot4_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'].astype(float))
-                    self.plot4_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_adi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_adi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_adi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(adi_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(adi_fibonacci_levels[2])
@@ -42200,13 +42377,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot4_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(ADI_전일종가)
@@ -42603,7 +42780,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot5_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], BB_PERIOD)
                     #self.plot5_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
@@ -42612,9 +42789,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot5_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -42622,13 +42802,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(근월물_선물_종가)
@@ -43137,16 +43317,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(SP500_고가)
 
                 self.plot5_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('SP500')                    
 
-                    self.plot5_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
@@ -43154,13 +43337,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(SP500_전일종가)
@@ -43277,16 +43460,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(DOW_고가)                 
 
                 self.plot5_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('DOW')
 
-                    self.plot5_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(dow_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(dow_fibonacci_levels[2])
@@ -43294,13 +43480,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(DOW_전일종가)
@@ -43417,16 +43603,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(NASDAQ_고가)
 
                 self.plot5_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot5_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
@@ -43434,13 +43623,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(NASDAQ_전일종가)
@@ -43557,16 +43746,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot5_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                  
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('HSI')
 
-                    self.plot5_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
@@ -43574,13 +43766,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -43696,16 +43888,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(WTI_고가)
 
                 self.plot5_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('WTI')
 
-                    self.plot5_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(wti_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(wti_fibonacci_levels[2])
@@ -43713,13 +43908,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(WTI_전일종가)
@@ -43836,16 +44031,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot5_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot5_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(gold_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(gold_fibonacci_levels[2])
@@ -43853,13 +44051,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(GOLD_전일종가)
@@ -43975,16 +44173,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot5_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('EURO')
 
-                    self.plot5_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(euro_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(euro_fibonacci_levels[2])
@@ -43992,13 +44193,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(EURO_전일종가)
@@ -44115,16 +44316,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot5_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('YEN')
 
-                    self.plot5_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(yen_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(yen_fibonacci_levels[2])
@@ -44132,13 +44336,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(YEN_전일종가)
@@ -44261,16 +44465,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot5_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], BB_PERIOD)
                 #self.plot5_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot5_bband:
 
                     self.Calc_BBand('ADI')
 
-                    self.plot5_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'].astype(float))
-                    self.plot5_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'].astype(float))
-                    self.plot5_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(adi_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(adi_fibonacci_levels[2])
@@ -44278,13 +44485,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot5_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(ADI_전일종가)
@@ -44681,7 +44888,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fut_cm_price_curve.setData(df_futures_cm_graph['Price'].astype(float))
                     self.plot6_fut_nm_price_curve.setData(df_futures_nm_graph['Price'].astype(float))
 
-                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], EMA_TIME_PERIOD)
+                    #df_futures_cm_ta_graph['EMA34'] = talib.EMA(df_futures_cm_ta_graph['Close'], BB_PERIOD)
                     #self.plot6_futures_ema_34_curve.setData(df_futures_cm_ta_graph['EMA34'].replace(0, np.NaN).astype(float))
                 else:
                     pass
@@ -44690,9 +44897,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot6_bollinger_upper_curve.setData(df_futures_cm_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_futures_cm_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -44700,13 +44910,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(futures_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(futures_fibonacci_levels[5])
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_futures_cm_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(근월물_선물_종가)
@@ -45215,16 +45425,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(SP500_고가)
 
                 self.plot6_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_sp500_ta_graph['EMA34'] = talib.EMA(df_sp500_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_sp500_ema_34_curve.setData(df_sp500_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('SP500')
 
-                    self.plot6_bollinger_upper_curve.setData(df_sp500_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_sp500_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_sp500_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(sp500_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(sp500_fibonacci_levels[2])
@@ -45232,13 +45445,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(sp500_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(sp500_fibonacci_levels[5])
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    if df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle'], df_sp500_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_sp500_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_sp500_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(SP500_전일종가)
@@ -45355,16 +45568,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(DOW_고가)              
 
                 self.plot6_dow_curve.setData(df_dow_graph['Price'].astype(float))
-                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_dow_ta_graph['EMA34'] = talib.EMA(df_dow_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_dow_ema_34_curve.setData(df_dow_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('DOW')
 
-                    self.plot6_bollinger_upper_curve.setData(df_dow_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_dow_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_dow_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(dow_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(dow_fibonacci_levels[2])
@@ -45372,13 +45588,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(dow_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(dow_fibonacci_levels[5])
 
-                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    if df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle'], df_dow_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_dow_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_dow_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(DOW_전일종가)
@@ -45495,16 +45711,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(NASDAQ_고가) 
 
                 self.plot6_nasdaq_curve.setData(df_nasdaq_graph['Price'].astype(float))
-                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_nasdaq_ta_graph['EMA34'] = talib.EMA(df_nasdaq_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_nasdaq_ema_34_curve.setData(df_nasdaq_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot6_bollinger_upper_curve.setData(df_nasdaq_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_nasdaq_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(nasdaq_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(nasdaq_fibonacci_levels[2])
@@ -45512,13 +45731,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(nasdaq_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(nasdaq_fibonacci_levels[5])
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_nasdaq_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(NASDAQ_전일종가)
@@ -45635,16 +45854,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
 
                 self.plot6_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
-                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_hangseng_ta_graph['EMA34'] = talib.EMA(df_hangseng_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_hsi_ema_34_curve.setData(df_hangseng_ta_graph['EMA34'].astype(float))                   
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('HSI')
 
-                    self.plot6_bollinger_upper_curve.setData(df_hangseng_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_hangseng_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_hangseng_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
@@ -45652,13 +45874,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -45774,16 +45996,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(WTI_고가)
 
                 self.plot6_wti_curve.setData(df_wti_graph['Price'].astype(float))
-                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_wti_ta_graph['EMA34'] = talib.EMA(df_wti_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_wti_ema_34_curve.setData(df_wti_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('WTI')
 
-                    self.plot6_bollinger_upper_curve.setData(df_wti_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_wti_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_wti_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(wti_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(wti_fibonacci_levels[2])
@@ -45791,13 +46016,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(wti_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(wti_fibonacci_levels[5])
 
-                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    if df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.2f}\n BB M: {1:.2f}\n BB L: {2:.2f} ".format\
-                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle'], df_wti_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_wti_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_wti_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(WTI_전일종가)
@@ -45914,16 +46139,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(GOLD_고가)                 
 
                 self.plot6_gold_curve.setData(df_gold_graph['Price'].astype(float))
-                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_gold_ta_graph['EMA34'] = talib.EMA(df_gold_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_gold_ema_34_curve.setData(df_gold_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot6_bollinger_upper_curve.setData(df_gold_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_gold_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_gold_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(gold_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(gold_fibonacci_levels[2])
@@ -45931,13 +46159,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(gold_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(gold_fibonacci_levels[5])
 
-                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    if df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle'], df_gold_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_gold_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_gold_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(GOLD_전일종가)
@@ -46053,16 +46281,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(EURO_고가)                 
 
                 self.plot6_euro_curve.setData(df_euro_graph['Price'].astype(float))
-                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_euro_ta_graph['EMA34'] = talib.EMA(df_euro_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_euro_ema_34_curve.setData(df_euro_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('EURO')
 
-                    self.plot6_bollinger_upper_curve.setData(df_euro_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_euro_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_euro_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(euro_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(euro_fibonacci_levels[2])
@@ -46070,13 +46301,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(euro_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(euro_fibonacci_levels[5])
 
-                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    if df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle'], df_euro_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_euro_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_euro_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(EURO_전일종가)
@@ -46193,16 +46424,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(YEN_고가)                 
 
                 self.plot6_yen_curve.setData(df_yen_graph['Price'].astype(float))
-                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_yen_ta_graph['EMA34'] = talib.EMA(df_yen_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_yen_ema_34_curve.setData(df_yen_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('YEN')
 
-                    self.plot6_bollinger_upper_curve.setData(df_yen_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_yen_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_yen_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(yen_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(yen_fibonacci_levels[2])
@@ -46210,13 +46444,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(yen_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(yen_fibonacci_levels[5])
 
-                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    if df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.1f}\n BB M: {1:.1f}\n BB L: {2:.1f} ".format\
-                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle'], df_yen_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_yen_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_yen_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(YEN_전일종가)
@@ -46339,16 +46573,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(ADI_고가)                 
 
                 self.plot6_adi_curve.setData(df_adi_graph['Price'].astype(float))
-                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], EMA_TIME_PERIOD)
+                #df_adi_ta_graph['EMA34'] = talib.EMA(df_adi_ta_graph['Close'], BB_PERIOD)
                 #self.plot6_adi_ema_34_curve.setData(df_adi_ta_graph['EMA34'].astype(float))
 
                 if flag_checkBox_plot6_bband:
 
                     self.Calc_BBand('ADI')
 
-                    self.plot6_bollinger_upper_curve.setData(df_adi_ta_graph['BBUpper'].astype(float))
-                    self.plot6_bollinger_middle_curve.setData(df_adi_ta_graph['BBMiddle'].astype(float))
-                    self.plot6_bollinger_lower_curve.setData(df_adi_ta_graph['BBLower'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(adi_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(adi_fibonacci_levels[2])
@@ -46356,13 +46593,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_fibonacci_line4.setValue(adi_fibonacci_levels[4])
                     self.plot6_fibonacci_line5.setValue(adi_fibonacci_levels[5])
 
-                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    if df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.5f}\n BB M: {1:.5f}\n BB L: {2:.5f} ".format\
-                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle'], df_adi_ta_graph.at[plot_time_index, 'BBLower'])
+                        (df_adi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_adi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(ADI_전일종가)
