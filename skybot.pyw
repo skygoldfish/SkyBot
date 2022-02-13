@@ -570,9 +570,6 @@ if TTS:
 else:
     flag_tts = False
 
-CENTER_VAL_PLUS1 = GOLDEN_RATIO
-CENTER_VAL_MINUS1 = GOLDEN_RATIO
-
 FIXED_COREVAL = [1.20, 2.50, 3.50, 4.85, 5.50, 6.85]
 고정_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.50, 6.85]
 
@@ -7675,7 +7672,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
             else:
                 pass
-           
+
             if call_node_state['종가']:
                 self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
                 self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
@@ -25852,9 +25849,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_mv_line[2].setValue(3.5)
             self.plot1_mv_line[3].setValue(4.85)
             
-            self.plot1_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot1_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
             self.plot1_center_val_line.setValue(옵션_중심가)
-            self.plot1_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+            self.plot1_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
         # 옵션잔량비
         elif comboindex1 == 6:
@@ -27211,9 +27208,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_mv_line[2].setValue(3.5)
             self.plot2_mv_line[3].setValue(4.85)
             
-            self.plot2_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot2_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
             self.plot2_center_val_line.setValue(옵션_중심가)
-            self.plot2_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+            self.plot2_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
         # 옵션잔량비   
         elif comboindex2 == 6:
@@ -28570,9 +28567,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_mv_line[2].setValue(3.5)
             self.plot3_mv_line[3].setValue(4.85)
 
-            self.plot3_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot3_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
             self.plot3_center_val_line.setValue(옵션_중심가)
-            self.plot3_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+            self.plot3_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
         # 옵션잔량비   
         elif comboindex3 == 6:
@@ -29929,9 +29926,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_mv_line[2].setValue(3.5)
             self.plot4_mv_line[3].setValue(4.85)
 
-            self.plot4_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot4_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
             self.plot4_center_val_line.setValue(옵션_중심가)
-            self.plot4_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)       
+            self.plot4_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
         # 옵션잔량비
         elif comboindex4 == 6:
@@ -31288,9 +31285,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_mv_line[2].setValue(3.5)
             self.plot5_mv_line[3].setValue(4.85)
 
-            self.plot5_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot5_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
             self.plot5_center_val_line.setValue(옵션_중심가)
-            self.plot5_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+            self.plot5_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
         # 옵션잔량비    
         elif comboindex5 == 6:
@@ -32647,9 +32644,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_mv_line[2].setValue(3.5)
             self.plot6_mv_line[3].setValue(4.85)
 
-            self.plot6_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+            self.plot6_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
             self.plot6_center_val_line.setValue(옵션_중심가)
-            self.plot6_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+            self.plot6_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
         # 옵션잔량비    
         elif comboindex6 == 6:
@@ -34506,14 +34503,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_12.setText(txt)
 
-                    if 옵션_중심가 < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
+                    txt = ' 하단: {0:.2f} '.format(옵션_중심가/GOLDEN_RATIO)                        
 
                     self.label_13.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가*GOLDEN_RATIO)
                     self.label_14.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -34556,13 +34550,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
-                    self.plot1_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot1_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
                     self.plot1_center_val_line.setValue(옵션_중심가)
-                    self.plot1_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+                    self.plot1_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
-                    # 중심가 그리기, 모든 값이 NaN인지 체크?
-                    #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
-                    #print(np.all(nan_lst))                
                     self.plot1_center_val_curve.setData(df_call_information_graph['centerval'].astype(float))
                 else:
                     pass
@@ -36619,14 +36610,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_22.setText(txt)
 
-                    if 옵션_중심가 < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
+                    txt = ' 하단: {0:.2f} '.format(옵션_중심가/GOLDEN_RATIO)                        
 
                     self.label_23.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가*GOLDEN_RATIO)
                     self.label_24.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -36669,13 +36657,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
-                    self.plot2_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot2_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
                     self.plot2_center_val_line.setValue(옵션_중심가)
-                    self.plot2_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+                    self.plot2_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
-                    # 중심가 그리기, 모든 값이 NaN인지 체크?
-                    #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
-                    #print(np.all(nan_lst))                
                     self.plot2_center_val_curve.setData(df_call_information_graph['centerval'].astype(float))
                 else:
                     pass
@@ -38730,14 +38715,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_32.setText(txt)
 
-                    if 옵션_중심가 < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
+                    txt = ' 하단: {0:.2f} '.format(옵션_중심가/GOLDEN_RATIO)                        
 
                     self.label_33.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가*GOLDEN_RATIO)
                     self.label_34.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -38780,9 +38762,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:        
-                    self.plot3_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot3_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
                     self.plot3_center_val_line.setValue(옵션_중심가)
-                    self.plot3_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+                    self.plot3_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
                     # 중심가 그리기
                     self.plot3_center_val_curve.setData(df_call_information_graph['centerval'].astype(float))
@@ -40838,14 +40820,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_42.setText(txt)
 
-                    if 옵션_중심가 < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
+                    txt = ' 하단: {0:.2f} '.format(옵션_중심가/GOLDEN_RATIO)
 
                     self.label_43.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가*GOLDEN_RATIO)
                     self.label_44.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -40888,13 +40867,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass
 
                 if DayTime:
-                    self.plot4_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot4_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
                     self.plot4_center_val_line.setValue(옵션_중심가)
-                    self.plot4_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
+                    self.plot4_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
 
-                    # 중심가 그리기, 모든 값이 NaN인지 체크?
-                    #nan_lst = np.isnan(df_call_information_graph['centerval'].values)
-                    #print(np.all(nan_lst))                
                     self.plot4_center_val_curve.setData(df_call_information_graph['centerval'].astype(float))
                 else:
                     pass
@@ -42949,14 +42925,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_52.setText(txt)
 
-                    if 옵션_중심가 < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
+                    txt = ' 하단: {0:.2f} '.format(옵션_중심가/GOLDEN_RATIO)                        
 
                     self.label_53.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가*GOLDEN_RATIO)
                     self.label_54.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -42999,10 +42972,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass                
                 
                 if DayTime:        
-                    self.plot5_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot5_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
                     self.plot5_center_val_line.setValue(옵션_중심가)
-                    self.plot5_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
-                    # 중심가 그리기
+                    self.plot5_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
+
                     self.plot5_center_val_curve.setData(df_call_information_graph['centerval'].astype(float))
                 else:
                     pass
@@ -45057,14 +45030,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                     self.label_62.setText(txt)
 
-                    if 옵션_중심가 < 1.0:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
-                    else:
-                        txt = ' 하단: {0:.2f} '.format(옵션_중심가 - GOLDEN_RATIO)
+                    txt = ' 하단: {0:.2f} '.format(옵션_중심가/GOLDEN_RATIO)
 
                     self.label_63.setText(txt)
 
-                    txt = ' 상단: {0:.2f} '.format(옵션_중심가 + GOLDEN_RATIO)
+                    txt = ' 상단: {0:.2f} '.format(옵션_중심가*GOLDEN_RATIO)
                     self.label_64.setText(txt)
 
                     txt = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(put_atm_value, df_put.at[ATM_INDEX, '대비'], (put_atm_value / df_put.at[ATM_INDEX, '시가'] - 1) * 100)
@@ -45107,10 +45077,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     pass                
                 
                 if DayTime:     
-                    self.plot6_center_val_lower_line.setValue(옵션_중심가 - GOLDEN_RATIO)
+                    self.plot6_center_val_lower_line.setValue(옵션_중심가/GOLDEN_RATIO)
                     self.plot6_center_val_line.setValue(옵션_중심가)
-                    self.plot6_center_val_upper_line.setValue(옵션_중심가 + GOLDEN_RATIO)
-                    # 중심가 그리기
+                    self.plot6_center_val_upper_line.setValue(옵션_중심가*GOLDEN_RATIO)
+
                     self.plot6_center_val_curve.setData(df_call_information_graph['centerval'].astype(float))
                 else:
                     pass
@@ -52512,7 +52482,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 그래프 등락율 가격갱신
                 df_sp500_graph.at[plot_time_index, 'Drate'] = SP500_시가대비_등락율
 
-                SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
+                #SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
                 # 1T OHLC 생성
                 df_sp500_graph.at[plot_time_index, 'Time'] = CME_체결시간
@@ -53379,7 +53349,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 WTI_진폭비 = WTI_진폭 / WTI_시가
                 
-                WTI_체결가격 = locale.format('%.2f', WTI_현재가, 1)
+                #WTI_체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                 # 1T OHLC 생성
                 df_wti_graph.at[plot_time_index, 'Time'] = CME_체결시간
@@ -55744,7 +55714,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def __del__(self):
                 
-        print('SkyBot 객체가 소멸됩니다.') 
+        print('SkyBot 객체가 소멸됩니다.')
     
 #####################################################################################################################################################################
 # Main
