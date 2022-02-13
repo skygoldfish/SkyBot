@@ -22690,7 +22690,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_68.setStyleSheet('background-color: pink; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_68.setText(" 고가 ")
 
-        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+        self.comboBox1.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', 'Reserved', \
             'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox1.insertSeparator(1)
         self.comboBox1.insertSeparator(9)
@@ -22698,7 +22698,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox1.insertSeparator(22)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+        self.comboBox2.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', 'Reserved', \
             'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox2.insertSeparator(1)
         self.comboBox2.insertSeparator(9)
@@ -22706,7 +22706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox2.insertSeparator(22)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+        self.comboBox3.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', 'Reserved', \
             'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox3.insertSeparator(1)
         self.comboBox3.insertSeparator(9)
@@ -22714,7 +22714,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox3.insertSeparator(22)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+        self.comboBox4.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', 'Reserved', \
             'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox4.insertSeparator(1)
         self.comboBox4.insertSeparator(9)
@@ -22722,7 +22722,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox4.insertSeparator(22)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+        self.comboBox5.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', 'Reserved', \
             'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox5.insertSeparator(1)
         self.comboBox5.insertSeparator(9)
@@ -22730,7 +22730,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.comboBox5.insertSeparator(22)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', '외인수급', \
+        self.comboBox6.addItems(['Clear', '선물가격', '선옵잔량비', '선옵체결', '옵션가격', '옵션잔량비', '옵션미결', '등락율비', '수급종합', 'Reserved', \
             'S&P 500', 'DOW', 'NASDAQ', 'HSI', 'WTI Oil', 'GOLD', 'EURO', 'YEN', 'ADI', '선물 보조지표', 'S&P 500 보조지표', 'DOW 보조지표', 'NASDAQ 보조지표', 'HSI 보조지표', 'WTI Oil 보조지표', 'GOLD 보조지표', 'EURO 보조지표', 'YEN 보조지표', 'ADI 보조지표'])
         self.comboBox6.insertSeparator(1)
         self.comboBox6.insertSeparator(9)
@@ -22866,8 +22866,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot1_program_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot1_program_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=yellow_pen)
 
         # 외인수급
         self.plot1_futures_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23062,8 +23062,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_base_curve = self.plot2.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot2_program_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_kospi_total_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot2_program_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_kospi_total_curve = self.plot2.plot(pen=yellow_pen)
 
         # 외인수급
         self.plot2_futures_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23256,8 +23256,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_base_curve = self.plot3.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot3_program_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_kospi_total_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot3_program_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_kospi_total_curve = self.plot3.plot(pen=yellow_pen)
 
         # 외인수급
         self.plot3_futures_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23450,8 +23450,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_base_curve = self.plot4.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot4_program_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_kospi_total_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot4_program_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_kospi_total_curve = self.plot4.plot(pen=yellow_pen)
 
         # 외인수급
         self.plot4_futures_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23644,8 +23644,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_base_curve = self.plot5.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot5_program_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_kospi_total_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot5_program_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_kospi_total_curve = self.plot5.plot(pen=yellow_pen)
 
         # 외인수급
         self.plot5_futures_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23838,8 +23838,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot6_program_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_kospi_total_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        self.plot6_program_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_kospi_total_curve = self.plot6.plot(pen=yellow_pen)
 
         # 외인수급
         self.plot6_futures_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -25951,16 +25951,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_15.setText(" - ")
 
             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(" 프로그램 ")
+            self.label_16.setText(" 프로그램/외인현물 ")
 
             self.label_17.setText(" 선물체결량 ")
 
             self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(" 현물합 ")
+            self.label_18.setText(" 현물합/외인선물 ")
 
         # 외인수급
         elif comboindex1 == 11:
 
+            pass
+            '''
             self.label_11.setText(" 기관현물 ")
             self.label_12.setText(" 기관선물 ")
             self.label_13.setText(" 개인현물 ")
@@ -25974,6 +25976,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(" 외인선물 ")
+            '''
 
         # SP500
         elif comboindex1 == 13:
@@ -27310,16 +27313,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_25.setText(" - ")
 
             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_26.setText(" 프로그램 ")
+            self.label_26.setText(" 프로그램/외인현물 ")
 
             self.label_27.setText(" 선물체결량 ")
 
             self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_28.setText(" 현물합 ")
+            self.label_28.setText(" 현물합/외인선물 ")
 
         # 외인수급
         elif comboindex2 == 11:
 
+            pass
+            '''
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
             self.label_23.setText(" - ")
@@ -27333,6 +27338,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(" 외인선물 ")
+            '''
 
         # SP500
         elif comboindex2 == 13:
@@ -28669,16 +28675,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_35.setText(" - ")
 
             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_36.setText(" 프로그램 ")
+            self.label_36.setText(" 프로그램/외인현물 ")
 
             self.label_37.setText(" 선물체결량 ")
 
             self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_38.setText(" 현물합 ")
+            self.label_38.setText(" 현물합/외인선물 ")
 
         # 외인수급
         elif comboindex3 == 11:
 
+            pass
+            '''
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
             self.label_33.setText(" - ")
@@ -28692,6 +28700,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(" 외인선물 ")
+            '''
 
         # SP500
         elif comboindex3 == 13:
@@ -30028,16 +30037,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_45.setText(" - ")
 
             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_46.setText(" 프로그램 ")
+            self.label_46.setText(" 프로그램/외인현물 ")
 
             self.label_47.setText(" 선물체결량 ")
 
             self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_48.setText(" 현물합 ")
+            self.label_48.setText(" 현물합/외인선물 ")
 
         # 외인수급
         elif comboindex4 == 11:
 
+            pass
+            '''
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
             self.label_43.setText(" - ")
@@ -30051,6 +30062,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(" 외인선물 ")
+            '''
 
         # SP500
         elif comboindex4 == 13:
@@ -31387,16 +31399,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_55.setText(" - ")
 
             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_56.setText(" 프로그램 ")
+            self.label_56.setText(" 프로그램/외인현물 ")
 
             self.label_57.setText(" 선물체결량 ")
 
             self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_58.setText(" 현물합 ")
+            self.label_58.setText(" 현물합/외인선물 ")
 
         # 외인수급
         elif comboindex5 == 11:
 
+            pass
+            '''
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
             self.label_53.setText(" - ")
@@ -31410,6 +31424,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(" 외인선물 ")
+            '''
 
         # SP500
         elif comboindex5 == 13:
@@ -32746,16 +32761,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_65.setText(" - ")
 
             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_66.setText(" 프로그램 ")
+            self.label_66.setText(" 프로그램/외인현물 ")
 
             self.label_67.setText(" 선물체결량 ")
 
             self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_68.setText(" 현물합 ")
+            self.label_68.setText(" 현물합/외인선물 ")
 
         # 외인수급
         elif comboindex6 == 11:
 
+            pass
+            '''
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
             self.label_63.setText(" - ")
@@ -32769,6 +32786,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(" 외인선물 ")
+            '''
 
         # SP500
         elif comboindex6 == 13:
@@ -34682,7 +34700,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_15.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34703,7 +34721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_17.setText(txt)
 
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34721,11 +34739,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df.at[0] = 0
 
                     self.plot1_kospi_total_curve.setData(df.astype(float))
+
+                    self.plot1_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
+                    self.plot1_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float).astype(float))
                 else:
                     pass
 
             elif comboindex1 == 11:
-                
+
+                pass
+                '''
                 self.plot1_time_line.setValue(plot_time_index)
 
                 if DayTime:
@@ -34817,6 +34840,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float).astype(float))                    
                 else:
                     pass
+                '''
 
             elif comboindex1 == 13:
                 
@@ -36789,7 +36813,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_25.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36810,7 +36834,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_27.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36828,11 +36852,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df.at[0] = 0
 
                     self.plot2_kospi_total_curve.setData(df.astype(float))
+
+                    self.plot2_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
+                    self.plot2_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))
                 else:
                     pass
 
             elif comboindex2 == 11:
                 
+                pass
+                '''
                 self.plot2_time_line.setValue(plot_time_index)
 
                 if DayTime:
@@ -36924,6 +36953,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
                     pass
+                '''
 
             elif comboindex2 == 13:
                 
@@ -38895,7 +38925,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_35.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38916,7 +38946,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_37.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38934,11 +38964,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df.at[0] = 0
 
                     self.plot3_kospi_total_curve.setData(df.astype(float))
+
+                    self.plot3_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
+                    self.plot3_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))
                 else:
                     pass
 
             elif comboindex3 == 11:
                 
+                pass
+                '''
                 self.plot3_time_line.setValue(plot_time_index)
 
                 if DayTime:
@@ -39030,6 +39065,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
                     pass
+                '''
 
             elif comboindex3 == 13:
                 
@@ -40999,7 +41035,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_45.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41020,7 +41056,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_47.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41038,11 +41074,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df.at[0] = 0
 
                     self.plot4_kospi_total_curve.setData(df.astype(float))
+
+                    self.plot4_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
+                    self.plot4_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))
                 else:
                     pass
 
             elif comboindex4 == 11:
                 
+                pass
+                '''
                 self.plot4_time_line.setValue(plot_time_index)
 
                 if DayTime:
@@ -41134,6 +41175,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
                     pass
+                '''
 
             elif comboindex4 == 13:
                 
@@ -43104,7 +43146,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_55.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43125,7 +43167,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_57.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43143,11 +43185,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df.at[0] = 0
 
                     self.plot5_kospi_total_curve.setData(df.astype(float))
+
+                    self.plot5_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
+                    self.plot5_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))
                 else:
                     pass
 
             elif comboindex5 == 11:
                 
+                pass
+                '''
                 self.plot5_time_line.setValue(plot_time_index)
 
                 if DayTime:
@@ -43239,6 +43286,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
                     pass
+                '''
 
             elif comboindex5 == 13:
                 
@@ -45209,7 +45257,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_65.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램 : {0:.0f} ".format(프로그램_순매수)
+                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45230,7 +45278,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_67.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합 : {0:.0f} ".format(현물_총순매수)
+                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45248,11 +45296,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     df.at[0] = 0
 
                     self.plot6_kospi_total_curve.setData(df.astype(float))
+
+                    self.plot6_kospi_foreigner_curve.setData(df_demand_supply_graph['kospi_foreigner'].astype(float))
+                    self.plot6_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))
                 else:
                     pass
 
             elif comboindex6 == 11:
                 
+                pass
+                '''
                 self.plot6_time_line.setValue(plot_time_index)
 
                 if DayTime:
@@ -45344,6 +45397,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_futures_foreigner_curve.setData(df_demand_supply_graph['futures_foreigner'].astype(float))                    
                 else:
                     pass
+                '''
 
             elif comboindex6 == 13:
                 
