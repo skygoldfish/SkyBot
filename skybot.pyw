@@ -15201,7 +15201,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 night_time = t0167_hour
 
-                if 0 <= night_time <= 6:
+                if SUMMER_TIME:
+                    cme_close_hour = 6
+                else:
+                    cme_close_hour = 7
+
+                if 0 <= night_time <= cme_close_hour:
                     night_time = night_time + 24
                 else:
                     pass
@@ -47546,7 +47551,12 @@ class Xing(object):
 
                 night_time = t0167_hour
 
-                if 0 <= night_time <= 6:
+                if SUMMER_TIME:
+                    cme_close_hour = 6
+                else:
+                    cme_close_hour = 7
+
+                if 0 <= night_time <= cme_close_hour:
                     night_time = night_time + 24
                 else:
                     pass
@@ -48082,7 +48092,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 night_time = t0167_hour
 
-                if 0 <= night_time <= 6:
+                if SUMMER_TIME:
+                    cme_close_hour = 6
+                else:
+                    cme_close_hour = 7
+
+                if 0 <= night_time <= cme_close_hour:
                     night_time = night_time + 24
                 else:
                     pass
