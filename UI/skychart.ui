@@ -261,7 +261,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_plot1_mama">
             <property name="text">
-             <string>MAMA</string>
+             <string>O-EYE</string>
             </property>
            </widget>
           </item>
@@ -349,7 +349,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_plot4_mama">
             <property name="text">
-             <string>MAMA</string>
+             <string>O-EYE</string>
             </property>
            </widget>
           </item>
@@ -627,7 +627,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_plot2_mama">
             <property name="text">
-             <string>MAMA</string>
+             <string>O-EYE</string>
             </property>
            </widget>
           </item>
@@ -715,7 +715,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_plot5_mama">
             <property name="text">
-             <string>MAMA</string>
+             <string>O-EYE</string>
             </property>
            </widget>
           </item>
@@ -993,7 +993,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_plot3_mama">
             <property name="text">
-             <string>MAMA</string>
+             <string>O-EYE</string>
             </property>
            </widget>
           </item>
@@ -1081,7 +1081,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_plot6_mama">
             <property name="text">
-             <string>MAMA</string>
+             <string>O-EYE</string>
             </property>
            </widget>
           </item>

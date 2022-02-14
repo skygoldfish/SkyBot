@@ -1833,6 +1833,8 @@ MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 
 mama_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
+span_a_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
+span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 # Sky Chart Plot1
 plot1_x = 0
@@ -20368,28 +20370,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
             df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])           
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])           
             df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
 
             df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'A_JAWS', 'A_TEETH', 'A_LIPS'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
 
             flag_t8433_response_ok = True
         else:
@@ -22871,6 +22873,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_oe_conv_curve = self.plot1.plot(pen=mama_pen)
         self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
+        self.plot1_span_a_curve = self.plot1.plot(pen=span_a_pen)
+        self.plot1_span_b_curve = self.plot1.plot(pen=span_b_pen)
 
         # 수급종합
         self.plot1_program_curve = self.plot1.plot(pen=magenta_pen3)
@@ -23067,6 +23071,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_oe_conv_curve = self.plot2.plot(pen=mama_pen)
         self.plot2_oe_base_curve = self.plot2.plot(pen=fama_pen)
+        self.plot2_span_a_curve = self.plot2.plot(pen=span_a_pen)
+        self.plot2_span_b_curve = self.plot2.plot(pen=span_b_pen)
 
         # 수급종합
         self.plot2_program_curve = self.plot2.plot(pen=magenta_pen3)
@@ -23261,6 +23267,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_oe_conv_curve = self.plot3.plot(pen=mama_pen)
         self.plot3_oe_base_curve = self.plot3.plot(pen=fama_pen)
+        self.plot3_span_a_curve = self.plot3.plot(pen=span_a_pen)
+        self.plot3_span_b_curve = self.plot3.plot(pen=span_b_pen)
 
         # 수급종합
         self.plot3_program_curve = self.plot3.plot(pen=magenta_pen3)
@@ -23455,6 +23463,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_oe_conv_curve = self.plot4.plot(pen=mama_pen)
         self.plot4_oe_base_curve = self.plot4.plot(pen=fama_pen)
+        self.plot4_span_a_curve = self.plot4.plot(pen=span_a_pen)
+        self.plot4_span_b_curve = self.plot4.plot(pen=span_b_pen)
 
         # 수급종합
         self.plot4_program_curve = self.plot4.plot(pen=magenta_pen3)
@@ -23649,6 +23659,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_oe_conv_curve = self.plot5.plot(pen=mama_pen)
         self.plot5_oe_base_curve = self.plot5.plot(pen=fama_pen)
+        self.plot5_span_a_curve = self.plot5.plot(pen=span_a_pen)
+        self.plot5_span_b_curve = self.plot5.plot(pen=span_b_pen)
 
         # 수급종합
         self.plot5_program_curve = self.plot5.plot(pen=magenta_pen3)
@@ -23843,6 +23855,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_oe_conv_curve = self.plot6.plot(pen=mama_pen)
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
+        self.plot6_span_a_curve = self.plot6.plot(pen=span_a_pen)
+        self.plot6_span_b_curve = self.plot6.plot(pen=span_b_pen)
 
         # 수급종합
         self.plot6_program_curve = self.plot6.plot(pen=magenta_pen3)
@@ -25565,6 +25579,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_oe_conv_curve.clear()
         self.plot1_oe_base_curve.clear()
+        self.plot1_span_a_curve.clear()
+        self.plot1_span_b_curve.clear()
 
         self.plot1_futures_ema_34_curve.clear()
         self.plot1_sp500_ema_34_curve.clear()
@@ -26927,6 +26943,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
+        self.plot2_span_a_curve.clear()
+        self.plot2_span_b_curve.clear()
 
         self.plot2_futures_ema_34_curve.clear()
         self.plot2_sp500_ema_34_curve.clear()
@@ -28289,6 +28307,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
+        self.plot3_span_a_curve.clear()
+        self.plot3_span_b_curve.clear()
 
         self.plot3_futures_ema_34_curve.clear()
         self.plot3_sp500_ema_34_curve.clear()
@@ -29651,6 +29671,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
+        self.plot4_span_a_curve.clear()
+        self.plot4_span_b_curve.clear()
 
         self.plot4_futures_ema_34_curve.clear()
         self.plot4_sp500_ema_34_curve.clear()
@@ -31013,6 +31035,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
+        self.plot5_span_a_curve.clear()
+        self.plot5_span_b_curve.clear()
 
         self.plot5_futures_ema_34_curve.clear()
         self.plot5_sp500_ema_34_curve.clear()
@@ -32375,6 +32399,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
+        self.plot6_span_a_curve.clear()
+        self.plot6_span_b_curve.clear()
 
         self.plot6_futures_ema_34_curve.clear()
         self.plot6_sp500_ema_34_curve.clear()
@@ -33761,17 +33787,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             mama, fama = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_futures_cm_ta_graph['MAMA'] = mama
-            df_futures_cm_ta_graph['FAMA'] = fama
+            df_futures_cm_ta_graph['FAMA'] = fama            
             
-            '''
             # Ichimoku Indicator
-            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'])
-
-            df_futures_cm_ta_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-            df_futures_cm_ta_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-            df_futures_cm_ta_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-            df_futures_cm_ta_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
-            '''
+            #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_futures_cm_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33783,17 +33802,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             mama, fama = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             df_sp500_ta_graph['MAMA'] = mama
-            df_sp500_ta_graph['FAMA'] = fama
+            df_sp500_ta_graph['FAMA'] = fama            
             
-            '''
             # Ichimoku Indicator
-            sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'])
-
-            df_sp500_ta_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
-            df_sp500_ta_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-            df_sp500_ta_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-            df_sp500_ta_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
-            '''
+            #sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], window1=9, window2=26, window3=52, visual=True)
 
             #i = Indicators(df_sp500_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33807,15 +33819,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_dow_ta_graph['MAMA'] = mama
             df_dow_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_ta_graph['High'], df_dow_ta_graph['Low'])
-
-            df_dow_ta_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
-            df_dow_ta_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-            df_dow_ta_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
-            df_dow_ta_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()         
-            '''
+            #dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_dow_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33829,15 +33834,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_nasdaq_ta_graph['MAMA'] = mama
             df_nasdaq_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'])
-
-            df_nasdaq_ta_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
-            df_nasdaq_ta_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-            df_nasdaq_ta_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-            df_nasdaq_ta_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
-            '''
+            #nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_nasdaq_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33851,15 +33849,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_hangseng_ta_graph['MAMA'] = mama
             df_hangseng_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'])
-
-            df_hangseng_ta_graph['SPAN_A'] = hsi_Ichimoku.ichimoku_a()
-            df_hangseng_ta_graph['SPAN_B'] = hsi_Ichimoku.ichimoku_b()
-            df_hangseng_ta_graph['OE_BASE'] = hsi_Ichimoku.ichimoku_base_line()
-            df_hangseng_ta_graph['OE_CONV'] = hsi_Ichimoku.ichimoku_conversion_line()
-            '''
+            #hsi_Ichimoku = ta.trend.IchimokuIndicator(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_hangseng_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33873,15 +33864,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_wti_ta_graph['MAMA'] = mama
             df_wti_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_ta_graph['High'], df_wti_ta_graph['Low'])
-
-            df_wti_ta_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
-            df_wti_ta_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-            df_wti_ta_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
-            df_wti_ta_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
-            '''
+            #wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_wti_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33895,15 +33879,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_gold_ta_graph['MAMA'] = mama
             df_gold_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_ta_graph['High'], df_gold_ta_graph['Low'])
-
-            df_gold_ta_graph['SPAN_A'] = gold_Ichimoku.ichimoku_a()
-            df_gold_ta_graph['SPAN_B'] = gold_Ichimoku.ichimoku_b()
-            df_gold_ta_graph['OE_BASE'] = gold_Ichimoku.ichimoku_base_line()
-            df_gold_ta_graph['OE_CONV'] = gold_Ichimoku.ichimoku_conversion_line()
-            '''
+            #gold_Ichimoku = ta.trend.IchimokuIndicator(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_gold_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33917,15 +33894,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_euro_ta_graph['MAMA'] = mama
             df_euro_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_ta_graph['High'], df_euro_ta_graph['Low'])
-
-            df_euro_ta_graph['SPAN_A'] = euro_Ichimoku.ichimoku_a()
-            df_euro_ta_graph['SPAN_B'] = euro_Ichimoku.ichimoku_b()
-            df_euro_ta_graph['OE_BASE'] = euro_Ichimoku.ichimoku_base_line()
-            df_euro_ta_graph['OE_CONV'] = euro_Ichimoku.ichimoku_conversion_line()
-            '''
+            #euro_Ichimoku = ta.trend.IchimokuIndicator(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_euro_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33939,15 +33909,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_yen_ta_graph['MAMA'] = mama
             df_yen_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_ta_graph['High'], df_yen_ta_graph['Low'])
-
-            df_yen_ta_graph['SPAN_A'] = yen_Ichimoku.ichimoku_a()
-            df_yen_ta_graph['SPAN_B'] = yen_Ichimoku.ichimoku_b()
-            df_yen_ta_graph['OE_BASE'] = yen_Ichimoku.ichimoku_base_line()
-            df_yen_ta_graph['OE_CONV'] = yen_Ichimoku.ichimoku_conversion_line()
-            '''
+            #yen_Ichimoku = ta.trend.IchimokuIndicator(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_yen_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
@@ -33961,21 +33924,48 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             df_adi_ta_graph['MAMA'] = mama
             df_adi_ta_graph['FAMA'] = fama
             
-            '''
             # Ichimoku Indicator
-            adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_ta_graph['High'], df_adi_ta_graph['Low'])
-
-            df_adi_ta_graph['SPAN_A'] = adi_Ichimoku.ichimoku_a()
-            df_adi_ta_graph['SPAN_B'] = adi_Ichimoku.ichimoku_b()
-            df_adi_ta_graph['OE_BASE'] = adi_Ichimoku.ichimoku_base_line()
-            df_adi_ta_graph['OE_CONV'] = adi_Ichimoku.ichimoku_conversion_line()
-            '''
+            #adi_Ichimoku = ta.trend.IchimokuIndicator(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], window1=9, window2=26, window3=52)
 
             #i = Indicators(df_adi_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
             #df_adi_alligator_graph = i.df            
         else:
             pass
+
+    #####################################################################################################################################################################
+    # ICHIMOKU
+    #####################################################################################################################################################################
+    def Calc_ICHIMOKU(
+        self,
+        ohlc: DataFrame,
+        window1=9,
+        window2=26,
+        window3=52,
+    ):
+        # Tenkan-sen (Conversion Line): (9-period high + 9-period low)/2))
+        nine_period_high = ohlc['High'].rolling(window1).max()
+        nine_period_low = ohlc['Low'].rolling(window1).min()
+        tenkan_sen = (nine_period_high + nine_period_low) /2
+
+        # Kijun-sen (Base Line): (26-period high + 26-period low)/2))
+        period26_high = ohlc['High'].rolling(window2).max()
+        period26_low = ohlc['Low'].rolling(window2).min()
+        kijun_sen = (period26_high + period26_low) / 2
+
+        # Senkou Span A (Leading Span A): (Conversion Line + Base Line)/2))
+        senkou_span_a = ((tenkan_sen + kijun_sen) / 2).shift(26)
+
+        # Senkou Span B (Leading Span B): (52-period high + 52-period low)/2))
+        period52_high = ohlc['High'].rolling(window3).max()
+        period52_low = ohlc['Low'].rolling(window3).min()
+        senkou_span_b = ((period52_high + period52_low) / 2).shift(26)
+
+        # The most current closing price plotted 26 time periods behind (optional)
+        chikou_span = ohlc['Close'].shift(-26)
+
+        return tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, chikou_span 
+
     #####################################################################################################################################################################
     # Alligator
     #####################################################################################################################################################################
@@ -34413,7 +34403,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+
+                if flag_checkBox_plot1_mama:
+
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))                    
+                    
                     '''
+                    self.Calc_MAMA('FUT')
+
                     self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
 
@@ -34427,15 +34432,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
-                        pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('FUT')
+                        pass                    
 
                     self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
 
@@ -34449,6 +34446,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -34952,7 +34950,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))                    
+
                     '''
+                    self.Calc_MAMA('SP500')
+
                     self.plot1_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
 
@@ -34967,19 +34980,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('SP500')
 
                     self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
 
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
+                    self.plot1_fama_curve.setData(df.astype(float))                    
 
                     if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34988,6 +34993,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35095,7 +35101,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))                    
+                    
                     '''
+                    self.Calc_MAMA('DOW')
+
                     self.plot1_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
 
@@ -35109,15 +35130,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
-                        pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('DOW')
+                        pass                    
 
                     self.plot1_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
 
@@ -35131,6 +35144,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35238,7 +35252,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot1_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
 
@@ -35252,15 +35281,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p1_3.setText(txt)
                     else:
-                        pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('NASDAQ')
+                        pass                    
 
                     self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
 
@@ -35274,6 +35295,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35381,7 +35403,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('HSI')
+
                     self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
 
@@ -35396,15 +35433,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('HSI')
-
+                    
                     self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
 
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
@@ -35417,6 +35446,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35523,7 +35553,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('WTI')
+
                     self.plot1_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
 
@@ -35538,15 +35583,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('WTI')
-
+                    
                     self.plot1_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
 
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -35559,6 +35596,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35666,7 +35704,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('GOLD')
+
                     self.plot1_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
 
@@ -35681,15 +35734,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('GOLD')
-
+                    
                     self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
 
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
@@ -35702,6 +35747,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35808,7 +35854,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('EURO')
+
                     self.plot1_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
 
@@ -35823,15 +35884,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('EURO')
-
+                    
                     self.plot1_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
 
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -35844,6 +35897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -35951,7 +36005,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('YEN')
+
                     self.plot1_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
 
@@ -35966,15 +36035,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('YEN')
-
+                    
                     self.plot1_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
 
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -35987,6 +36048,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -36100,7 +36162,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p1_3.setText(txt)
 
+                else:
+                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p1_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot1_mama:
+
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+
+                    self.plot1_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('ADI')
+
                     self.plot1_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
 
@@ -36115,15 +36192,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p1_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot1_mama:
-
-                    self.Calc_MAMA('ADI')
-
+                    
                     self.plot1_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
 
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
@@ -36136,6 +36205,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_4.setText(txt)
+                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" MAMA ")
@@ -36526,7 +36596,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('FUT')
+
                     self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
 
@@ -36541,15 +36626,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('FUT')
-
+                    
                     self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
@@ -36562,6 +36639,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37065,7 +37143,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('SP500')
+
                     self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
 
@@ -37080,15 +37173,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('SP500')
-
+                    
                     self.plot2_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
 
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
@@ -37101,6 +37186,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37208,7 +37294,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('DOW')
+
                     self.plot2_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
 
@@ -37223,15 +37324,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('DOW')
-
+                    
                     self.plot2_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
 
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
@@ -37244,6 +37337,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37351,7 +37445,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot2_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
 
@@ -37366,15 +37475,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('NASDAQ')
-
+                    
                     self.plot2_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
 
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
@@ -37387,6 +37488,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37494,7 +37596,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('HSI')
+
                     self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
 
@@ -37508,15 +37625,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
                         self.label_p2_3.setText(txt)
                     else:
-                        pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('HSI')
+                        pass                    
 
                     self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
 
@@ -37530,6 +37639,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37636,7 +37746,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('WTI')
+
                     self.plot2_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
 
@@ -37651,15 +37776,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('WTI')
-
+                    
                     self.plot2_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
 
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -37672,6 +37789,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37779,7 +37897,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('GOLD')
+
                     self.plot2_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
 
@@ -37794,15 +37927,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('GOLD')
-
+                    
                     self.plot2_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
 
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
@@ -37815,6 +37940,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -37921,7 +38047,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('EURO')
+
                     self.plot2_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
 
@@ -37936,15 +38077,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('EURO')
-
+                    
                     self.plot2_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
 
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -37957,6 +38090,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -38064,7 +38198,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('YEN')
+
                     self.plot2_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
 
@@ -38079,15 +38228,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('YEN')
-
+                    
                     self.plot2_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
 
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -38100,6 +38241,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -38213,7 +38355,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p2_3.setText(txt)
 
+                else:
+                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p2_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot2_mama:
+
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('ADI')
+
                     self.plot2_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
 
@@ -38228,15 +38385,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p2_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot2_mama:
-
-                    self.Calc_MAMA('ADI')
-
+                    
                     self.plot2_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
 
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
@@ -38249,6 +38398,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_4.setText(txt)
+                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" MAMA ")
@@ -38637,7 +38787,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('FUT')
+
                     self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
 
@@ -38652,15 +38817,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('FUT')
-
+                    
                     self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
@@ -38673,6 +38830,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -39177,7 +39335,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('SP500')
+
                     self.plot3_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
 
@@ -39192,15 +39365,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('SP500')
-
+                    
                     self.plot3_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
 
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
@@ -39213,6 +39378,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -39320,7 +39486,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('DOW')
+
                     self.plot3_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
 
@@ -39335,15 +39516,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('DOW')
-
+                    
                     self.plot3_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
 
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
@@ -39356,6 +39529,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")    
@@ -39463,7 +39637,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot3_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
 
@@ -39478,15 +39667,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('NASDAQ')
-
+                    
                     self.plot3_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
 
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
@@ -39499,6 +39680,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -39606,7 +39788,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('HSI')
+
                     self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
 
@@ -39621,15 +39818,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('HSI')
-
+                    
                     self.plot3_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
 
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
@@ -39642,6 +39831,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -39748,7 +39938,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('WTI')
+
                     self.plot3_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
 
@@ -39763,15 +39968,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('WTI')
-
+                    
                     self.plot3_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
 
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -39784,6 +39981,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -39891,7 +40089,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('GOLD')
+
                     self.plot3_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
 
@@ -39906,15 +40119,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('GOLD')
-
+                    
                     self.plot3_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
 
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
@@ -39927,6 +40132,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -40033,7 +40239,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('EURO')
+
                     self.plot3_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
 
@@ -40048,15 +40269,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('EURO')
-
+                    
                     self.plot3_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
 
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -40069,6 +40282,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -40176,7 +40390,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('YEN')
+
                     self.plot3_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
 
@@ -40191,15 +40420,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('YEN')
-
+                    
                     self.plot3_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
 
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -40212,6 +40433,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -40325,7 +40547,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p3_3.setText(txt)
 
+                else:
+                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p3_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot3_mama:
+
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+
+                    self.plot3_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('ADI')
+
                     self.plot3_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
 
@@ -40340,15 +40577,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p3_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot3_mama:
-
-                    self.Calc_MAMA('ADI')
-
+                    
                     self.plot3_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
 
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
@@ -40361,6 +40590,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_4.setText(txt)
+                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" MAMA ")
@@ -40748,7 +40978,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('FUT')
+
                     self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
 
@@ -40763,15 +41008,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('FUT')
-
+                    
                     self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
@@ -40784,6 +41021,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -41287,7 +41525,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+
+                    self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('SP500')
+
                     self.plot4_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
 
@@ -41302,15 +41555,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('SP500')
-
+                    
                     self.plot4_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
 
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
@@ -41323,6 +41568,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -41430,7 +41676,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('DOW')
+
                     self.plot4_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
 
@@ -41445,15 +41706,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('DOW')
-
+                    
                     self.plot4_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
 
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
@@ -41466,6 +41719,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -41573,7 +41827,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot4_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
 
@@ -41588,15 +41857,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('NASDAQ')
-
+                    
                     self.plot4_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
 
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
@@ -41609,6 +41870,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -41716,7 +41978,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('HSI')
+
                     self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
 
@@ -41731,15 +42008,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('HSI')
-
+                    
                     self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
 
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
@@ -41752,6 +42021,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -41858,7 +42128,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('WTI')
+
                     self.plot4_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
 
@@ -41873,15 +42158,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('WTI')
-
+                    
                     self.plot4_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
 
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -41894,6 +42171,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -42001,7 +42279,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('GOLD')
+
                     self.plot4_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
 
@@ -42016,15 +42309,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('GOLD')
-
+                    
                     self.plot4_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
 
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
@@ -42037,6 +42322,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -42143,7 +42429,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('EURO')
+
                     self.plot4_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
 
@@ -42158,15 +42459,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('EURO')
-
+                    
                     self.plot4_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
 
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -42179,6 +42472,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -42286,7 +42580,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('YEN')
+
                     self.plot4_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
 
@@ -42301,15 +42610,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('YEN')
-
+                    
                     self.plot4_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
 
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -42322,6 +42623,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -42435,7 +42737,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p4_3.setText(txt)
 
+                else:
+                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p4_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot4_mama:
+
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+
+                    self.plot4_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('ADI')
+
                     self.plot4_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
 
@@ -42450,15 +42767,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p4_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot4_mama:
-
-                    self.Calc_MAMA('ADI')
-
+                    
                     self.plot4_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
 
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
@@ -42471,6 +42780,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_4.setText(txt)
+                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" MAMA ")
@@ -42859,7 +43169,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('FUT')
+
                     self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
 
@@ -42874,15 +43199,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('FUT')
-
+                    
                     self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
@@ -42895,6 +43212,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -43398,7 +43716,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('SP500')
+
                     self.plot5_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
 
@@ -43413,15 +43746,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('SP500')
-
+                    
                     self.plot5_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
 
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
@@ -43434,6 +43759,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -43541,7 +43867,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('DOW')
+
                     self.plot5_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
 
@@ -43556,15 +43897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('DOW')
-
+                    
                     self.plot5_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
 
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
@@ -43577,6 +43910,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ") 
@@ -43684,7 +44018,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot5_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
 
@@ -43699,15 +44048,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('NASDAQ')
-
+                    
                     self.plot5_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
 
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
@@ -43720,6 +44061,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -43827,7 +44169,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('HSI')
+
                     self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
 
@@ -43842,15 +44199,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('HSI')
-
+                    
                     self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
 
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
@@ -43863,6 +44212,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -43969,7 +44319,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('WTI')
+
                     self.plot5_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
 
@@ -43984,15 +44349,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('WTI')
-
+                    
                     self.plot5_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
 
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -44005,6 +44362,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -44112,7 +44470,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('GOLD')
+
                     self.plot5_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
 
@@ -44127,15 +44500,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('GOLD')
-
+                    
                     self.plot5_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
 
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
@@ -44148,6 +44513,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -44254,7 +44620,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('EURO')
+
                     self.plot5_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
 
@@ -44269,15 +44650,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('EURO')
-
+                    
                     self.plot5_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
 
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -44290,6 +44663,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -44397,7 +44771,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('YEN')
+
                     self.plot5_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
 
@@ -44412,15 +44801,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('YEN')
-
+                    
                     self.plot5_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
 
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -44433,6 +44814,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -44546,7 +44928,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p5_3.setText(txt)
 
+                else:
+                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p5_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot5_mama:
+
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+
+                    self.plot5_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('ADI')
+
                     self.plot5_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
 
@@ -44561,15 +44958,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p5_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot5_mama:
-
-                    self.Calc_MAMA('ADI')
-
+                    
                     self.plot5_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
 
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
@@ -44582,6 +44971,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_4.setText(txt)
+                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" MAMA ")
@@ -44970,7 +45360,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('FUT')
+
                     self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
 
@@ -44985,15 +45390,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('FUT')
-
+                    
                     self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
 
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
@@ -45006,6 +45403,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -45509,7 +45907,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('SP500')
+
                     self.plot6_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
 
@@ -45524,15 +45937,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('SP500')
-
+                    
                     self.plot6_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
 
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
@@ -45545,6 +45950,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -45652,7 +46058,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('DOW')
+
                     self.plot6_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
 
@@ -45667,15 +46088,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('DOW')
-
+                    
                     self.plot6_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
 
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
@@ -45688,6 +46101,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")  
@@ -45795,7 +46209,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('NASDAQ')
+
                     self.plot6_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
 
@@ -45810,15 +46239,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('NASDAQ')
-
+                    
                     self.plot6_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
 
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
@@ -45831,6 +46252,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -45938,7 +46360,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('HSI')
+
                     self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
 
@@ -45953,15 +46390,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('HSI')
-
+                    
                     self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
 
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
@@ -45974,6 +46403,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")         
@@ -46080,7 +46510,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('WTI')
+
                     self.plot6_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
 
@@ -46095,15 +46540,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('WTI')
-
+                    
                     self.plot6_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
 
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -46116,6 +46553,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -46223,7 +46661,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('GOLD')
+
                     self.plot6_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
 
@@ -46238,15 +46691,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('GOLD')
-
+                    
                     self.plot6_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
 
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
@@ -46259,6 +46704,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -46365,7 +46811,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('EURO')
+
                     self.plot6_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
 
@@ -46380,15 +46841,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('EURO')
-
+                    
                     self.plot6_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
 
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -46401,6 +46854,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -46508,7 +46962,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('YEN')
+
                     self.plot6_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
 
@@ -46523,15 +46992,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('YEN')
-
+                    
                     self.plot6_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
 
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -46544,6 +47005,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
@@ -46657,7 +47119,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
                     self.label_p6_3.setText(txt)
 
+                else:
+                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    self.label_p6_3.setText(" PSAR ")
+                
+                if flag_checkBox_plot6_mama:
+
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+
+                    self.plot6_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+                    
                     '''
+                    self.Calc_MAMA('ADI')
+
                     self.plot6_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
 
@@ -46672,15 +47149,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_p6_3.setText(txt)
                     else:
                         pass
-                    '''
-                else:
-                    self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
-                
-                if flag_checkBox_plot6_mama:
-
-                    self.Calc_MAMA('ADI')
-
+                    
                     self.plot6_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
 
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
@@ -46693,6 +47162,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_4.setText(txt)
+                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" MAMA ")
