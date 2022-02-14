@@ -50,8 +50,8 @@ import winsound
 import socket
 import talib
 from talib import MA_Type
-import ta
-from tapy import Indicators
+#import ta
+#from tapy import Indicators
 import functools
 import shutil
 
@@ -22488,7 +22488,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_3.setText(" PSAR ")
         
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_4.setText(" MAMA ")
+        self.label_p1_4.setText(" ICHIMOKU ")
         
         self.label_11.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_11.setText(" 전저 ")
@@ -22525,7 +22525,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_3.setText(" PSAR ")
         
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_4.setText(" MAMA ")
+        self.label_p2_4.setText(" ICHIMOKU ")
         
         self.label_21.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_21.setText(" 전저 ")
@@ -22562,7 +22562,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_3.setText(" PSAR ")
         
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_4.setText(" MAMA ")
+        self.label_p3_4.setText(" ICHIMOKU ")
         
         self.label_31.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_31.setText(" 전저 ")
@@ -22599,7 +22599,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_3.setText(" PSAR ")
         
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_4.setText(" MAMA ")
+        self.label_p4_4.setText(" ICHIMOKU ")
         
         self.label_41.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_41.setText(" 전저 ")
@@ -22636,7 +22636,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_3.setText(" PSAR ")
         
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_4.setText(" MAMA ")
+        self.label_p5_4.setText(" ICHIMOKU ")
         
         self.label_51.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_51.setText(" 전저 ")
@@ -22673,7 +22673,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_3.setText(" PSAR ")
         
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_4.setText(" MAMA ")
+        self.label_p6_4.setText(" ICHIMOKU ")
         
         self.label_61.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_61.setText(" 전저 ")
@@ -25342,8 +25342,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot1_mama = False
 
-            self.plot1_mama_curve.clear()
-            self.plot1_fama_curve.clear()
+            #self.plot1_mama_curve.clear()
+            #self.plot1_fama_curve.clear()
+
+            self.plot1_oe_conv_curve.clear()
+            self.plot1_oe_base_curve.clear()
+            self.plot1_span_a_curve.clear()
+            self.plot1_span_b_curve.clear()                   
 
     def checkBox_plot2_mama_checkState(self):
 
@@ -25354,8 +25359,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot2_mama = False
 
-            self.plot2_mama_curve.clear()
-            self.plot2_fama_curve.clear()
+            #self.plot2_mama_curve.clear()
+            #self.plot2_fama_curve.clear()
+
+            self.plot2_oe_conv_curve.clear()
+            self.plot2_oe_base_curve.clear()
+            self.plot2_span_a_curve.clear()
+            self.plot2_span_b_curve.clear()
 
     def checkBox_plot3_mama_checkState(self):
 
@@ -25366,8 +25376,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot3_mama = False
 
-            self.plot3_mama_curve.clear()
-            self.plot3_fama_curve.clear()
+            #self.plot3_mama_curve.clear()
+            #self.plot3_fama_curve.clear()
+
+            self.plot3_oe_conv_curve.clear()
+            self.plot3_oe_base_curve.clear()
+            self.plot3_span_a_curve.clear()
+            self.plot3_span_b_curve.clear()
 
     def checkBox_plot4_mama_checkState(self):
 
@@ -25378,8 +25393,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot4_mama = False
 
-            self.plot4_mama_curve.clear()
-            self.plot4_fama_curve.clear()
+            #self.plot4_mama_curve.clear()
+            #self.plot4_fama_curve.clear()
+
+            self.plot4_oe_conv_curve.clear()
+            self.plot4_oe_base_curve.clear()
+            self.plot4_span_a_curve.clear()
+            self.plot4_span_b_curve.clear()
 
     def checkBox_plot5_mama_checkState(self):
 
@@ -25390,8 +25410,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot5_mama = False
 
-            self.plot5_mama_curve.clear()
-            self.plot5_fama_curve.clear()
+            #self.plot5_mama_curve.clear()
+            #self.plot5_fama_curve.clear()
+
+            self.plot5_oe_conv_curve.clear()
+            self.plot5_oe_base_curve.clear()
+            self.plot5_span_a_curve.clear()
+            self.plot5_span_b_curve.clear()
 
     def checkBox_plot6_mama_checkState(self):
 
@@ -25402,8 +25427,13 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot6_mama = False
 
-            self.plot6_mama_curve.clear()
-            self.plot6_fama_curve.clear()
+            #self.plot6_mama_curve.clear()
+            #self.plot6_fama_curve.clear()
+
+            self.plot6_oe_conv_curve.clear()
+            self.plot6_oe_base_curve.clear()
+            self.plot6_span_a_curve.clear()
+            self.plot6_span_b_curve.clear()
 
     def checkBox_plot1_psar_checkState(self):
 
@@ -25634,7 +25664,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_3.setText(" PSAR ")
 
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_4.setText(" MAMA ")
+        self.label_p1_4.setText(" ICHIMOKU ")
 
         txt = 'Plot1 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -25811,7 +25841,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setText(" ICHIMOKU ")
             
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -25844,7 +25874,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setText(" ICHIMOKU ")
         
         # 옵션가격
         elif comboindex1 == 5:
@@ -25865,7 +25895,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setText(" ICHIMOKU ")
 
             # 대맥점 표시
             self.plot1_mv_line[1].setValue(2.5)
@@ -25900,7 +25930,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setText(" ICHIMOKU ")
                         
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -25933,7 +25963,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setText(" ICHIMOKU ")
 
         # 등락율비
         elif comboindex1 == 8:
@@ -25962,7 +25992,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setText(" ICHIMOKU ")
         
         # 수급종합
         elif comboindex1 == 10:
@@ -26998,7 +27028,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_3.setText(" PSAR ")
 
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_4.setText(" MAMA ")
+        self.label_p2_4.setText(" ICHIMOKU ")
 
         txt = 'Plot2 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -27175,7 +27205,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setText(" ICHIMOKU ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -27208,7 +27238,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setText(" ICHIMOKU ")
 
         # 옵션가격
         elif comboindex2 == 5:
@@ -27229,7 +27259,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setText(" ICHIMOKU ")
 
             # 대맥점 표시
             self.plot2_mv_line[1].setValue(2.5)
@@ -27264,7 +27294,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setText(" ICHIMOKU ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -27297,7 +27327,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setText(" ICHIMOKU ")
 
         # 등락율비
         elif comboindex2 == 8:
@@ -27326,7 +27356,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setText(" ICHIMOKU ")
         
         # 수급종합
         elif comboindex2 == 10:
@@ -28362,7 +28392,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_3.setText(" PSAR ")
 
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_4.setText(" MAMA ")
+        self.label_p3_4.setText(" ICHIMOKU ")
 
         txt = 'Plot3 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -28539,7 +28569,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setText(" ICHIMOKU ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -28572,7 +28602,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setText(" ICHIMOKU ")
         
         # 옵션가격
         elif comboindex3 == 5:
@@ -28628,7 +28658,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setText(" ICHIMOKU ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -28661,7 +28691,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setText(" ICHIMOKU ")
         
         # 등락율비
         elif comboindex3 == 8:
@@ -28690,7 +28720,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setText(" ICHIMOKU ")
         
         # 수급종합
         elif comboindex3 == 10:
@@ -29726,7 +29756,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_3.setText(" PSAR ")
 
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_4.setText(" MAMA ")
+        self.label_p4_4.setText(" ICHIMOKU ")
 
         txt = 'Plot4 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -29903,7 +29933,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setText(" ICHIMOKU ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -29936,7 +29966,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setText(" ICHIMOKU ")
         
         # 옵션가격
         elif comboindex4 == 5:
@@ -29957,7 +29987,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setText(" ICHIMOKU ")
 
             # 대맥점 표시
             self.plot4_mv_line[1].setValue(2.5)
@@ -29992,7 +30022,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setText(" ICHIMOKU ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -30025,7 +30055,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" MAMA ")         
+            self.label_p4_4.setText(" ICHIMOKU ")         
 
         # 등락율비
         elif comboindex4 == 8:
@@ -30054,7 +30084,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setText(" ICHIMOKU ")
 
         # 수급종합
         elif comboindex4 == 10:
@@ -31090,7 +31120,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_3.setText(" PSAR ")
 
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_4.setText(" MAMA ")
+        self.label_p5_4.setText(" ICHIMOKU ")
 
         txt = 'Plot5 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -31267,7 +31297,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setText(" ICHIMOKU ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -31300,7 +31330,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setText(" ICHIMOKU ")
 
         # 옵션가격
         elif comboindex5 == 5:
@@ -31321,7 +31351,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setText(" ICHIMOKU ")
 
             # 대맥점 표시
             self.plot5_mv_line[1].setValue(2.5)
@@ -31356,7 +31386,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setText(" ICHIMOKU ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -31389,7 +31419,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setText(" ICHIMOKU ")
         
         # 등락율비
         elif comboindex5 == 8:
@@ -31418,7 +31448,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setText(" ICHIMOKU ")
 
         # 수급종합
         elif comboindex5 == 10:
@@ -32454,7 +32484,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_3.setText(" PSAR ")
 
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_4.setText(" MAMA ")
+        self.label_p6_4.setText(" ICHIMOKU ")
 
         txt = 'Plot6 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -32631,7 +32661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setText(" ICHIMOKU ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -32664,7 +32694,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setText(" ICHIMOKU ")
         
         # 옵션가격
         elif comboindex6 == 5:
@@ -32685,7 +32715,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setText(" ICHIMOKU ")
 
             # 대맥점 표시
             self.plot6_mv_line[1].setValue(2.5)
@@ -32720,7 +32750,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setText(" ICHIMOKU ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -32753,7 +32783,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setText(" ICHIMOKU ")
         
         # 등락율비
         elif comboindex6 == 8:
@@ -32782,7 +32812,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setText(" ICHIMOKU ")
         
         # 수급종합
         elif comboindex6 == 10:
