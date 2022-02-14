@@ -41533,10 +41533,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
 
-                    self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-                    self.plot2_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
-                    self.plot2_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+                    self.plot4_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
                     
                     '''
                     self.Calc_MAMA('SP500')
