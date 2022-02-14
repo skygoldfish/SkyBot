@@ -15210,7 +15210,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            plot_time_index = server_x_idx
+            #plot_time_index = server_x_idx
 
             flag_heartbeat = True
 
@@ -47556,7 +47556,7 @@ class Xing(object):
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            plot_time_index = server_x_idx            
+            #plot_time_index = server_x_idx            
 
             #txt = '[{0:02d}:{1:02d}:{2:02d}] HeartBeat 수신...\r'.format(dt.hour, dt.minute, dt.second)
             #self.caller.textBrowser.append(txt)
@@ -48091,7 +48091,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 server_x_idx = (t0167_hour - DayTime_PreStart_Hour) * 60 + t0167_minute + 1
 
-            plot_time_index = server_x_idx            
+            #plot_time_index = server_x_idx            
 
             if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
