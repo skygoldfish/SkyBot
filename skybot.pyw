@@ -1114,6 +1114,10 @@ Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수�
 Supply_column = Enum('Supply_column', '외인선물 외인현물 기관선물 기관현물 개인선물 개인현물 프로그램 종합')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 
+BB_PERIOD = 34
+BB_1ST_STD = 0.5
+BB_2ND_STD = 2
+
 total_packet_size = 0
 
 server_date = ''
@@ -1805,9 +1809,11 @@ aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 aqua_pen1 = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
+magenta_pen3 = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 lime_pen = pg.mkPen(lime, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
+yellow_pen3 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 white_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
 orange_pen = pg.mkPen(orange, width=1, style=QtCore.Qt.DashLine)
 pink_pen = pg.mkPen(pink, width=2, style=QtCore.Qt.DashLine)
@@ -2151,10 +2157,6 @@ flag_puttable_checkstate_changed = False
 
 scoreboard_update_interval = MAIN_UPDATE_INTERVAL
 chart_update_interval = CHART_UPDATE_INTERVAL
-
-BB_PERIOD = 34
-BB_1ST_STD = 0.5
-BB_2ND_STD = 3
 
 volatility_breakout_downward_point = 0
 volatility_breakout_upward_point = 0
@@ -22866,8 +22868,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot1_program_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_kospi_total_curve = self.plot1.plot(pen=yellow_pen)
+        self.plot1_program_curve = self.plot1.plot(pen=magenta_pen3)
+        self.plot1_kospi_total_curve = self.plot1.plot(pen=yellow_pen3)
 
         # 외인수급
         self.plot1_futures_foreigner_curve = self.plot1.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23062,8 +23064,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_base_curve = self.plot2.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot2_program_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_kospi_total_curve = self.plot2.plot(pen=yellow_pen)
+        self.plot2_program_curve = self.plot2.plot(pen=magenta_pen3)
+        self.plot2_kospi_total_curve = self.plot2.plot(pen=yellow_pen3)
 
         # 외인수급
         self.plot2_futures_foreigner_curve = self.plot2.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23256,8 +23258,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_base_curve = self.plot3.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot3_program_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_kospi_total_curve = self.plot3.plot(pen=yellow_pen)
+        self.plot3_program_curve = self.plot3.plot(pen=magenta_pen3)
+        self.plot3_kospi_total_curve = self.plot3.plot(pen=yellow_pen3)
 
         # 외인수급
         self.plot3_futures_foreigner_curve = self.plot3.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23450,8 +23452,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_base_curve = self.plot4.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot4_program_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_kospi_total_curve = self.plot4.plot(pen=yellow_pen)
+        self.plot4_program_curve = self.plot4.plot(pen=magenta_pen3)
+        self.plot4_kospi_total_curve = self.plot4.plot(pen=yellow_pen3)
 
         # 외인수급
         self.plot4_futures_foreigner_curve = self.plot4.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23644,8 +23646,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_base_curve = self.plot5.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot5_program_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_kospi_total_curve = self.plot5.plot(pen=yellow_pen)
+        self.plot5_program_curve = self.plot5.plot(pen=magenta_pen3)
+        self.plot5_kospi_total_curve = self.plot5.plot(pen=yellow_pen3)
 
         # 외인수급
         self.plot5_futures_foreigner_curve = self.plot5.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -23838,8 +23840,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
 
         # 수급종합
-        self.plot6_program_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_kospi_total_curve = self.plot6.plot(pen=yellow_pen)
+        self.plot6_program_curve = self.plot6.plot(pen=magenta_pen3)
+        self.plot6_kospi_total_curve = self.plot6.plot(pen=yellow_pen3)
 
         # 외인수급
         self.plot6_futures_foreigner_curve = self.plot6.plot(pen=ypen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -34362,10 +34364,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_BBand('FUT')
 
                     self.plot1_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot1_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
                     self.plot1_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
                     self.plot1_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot1_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
                     self.plot1_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot1_fibonacci_line1.setValue(futures_fibonacci_levels[1])
@@ -34649,16 +34651,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_time_line.setValue(plot_time_index)                
 
                 if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    txt = " 기관현물: {0} ".format(기관현물_순매수)
                     self.label_11.setText(txt)
 
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    txt = " 기관선물: {0} ".format(기관선물_순매수)
                     self.label_12.setText(txt)
 
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    txt = " 개인현물: {0} ".format(개인현물_순매수)
                     self.label_13.setText(txt)
 
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    txt = " 개인선물: {0} ".format(개인선물_순매수)
                     self.label_14.setText(txt)
 
                     if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
@@ -34700,7 +34702,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_15.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34721,7 +34723,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_17.setText(txt)
 
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36475,10 +36477,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_BBand('FUT')
 
                     self.plot2_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot2_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
                     self.plot2_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
                     self.plot2_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot2_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
                     self.plot2_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot2_fibonacci_line1.setValue(futures_fibonacci_levels[1])
@@ -36762,16 +36764,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_time_line.setValue(plot_time_index)
 
                 if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    txt = " 기관현물: {0} ".format(기관현물_순매수)
                     self.label_21.setText(txt)
 
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    txt = " 기관선물: {0} ".format(기관선물_순매수)
                     self.label_22.setText(txt)
 
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    txt = " 개인현물: {0} ".format(개인현물_순매수)
                     self.label_23.setText(txt)
 
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    txt = " 개인선물: {0} ".format(개인선물_순매수)
                     self.label_24.setText(txt)
 
                     if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
@@ -36813,7 +36815,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_25.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36834,7 +36836,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_27.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38586,10 +38588,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_BBand('FUT')
 
                     self.plot3_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot3_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
                     self.plot3_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
                     self.plot3_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot3_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
                     self.plot3_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot3_fibonacci_line1.setValue(futures_fibonacci_levels[1])
@@ -38874,16 +38876,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_time_line.setValue(plot_time_index)
 
                 if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    txt = " 기관현물: {0} ".format(기관현물_순매수)
                     self.label_31.setText(txt)
 
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    txt = " 기관선물: {0} ".format(기관선물_순매수)
                     self.label_32.setText(txt)
 
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    txt = " 개인현물: {0} ".format(개인현물_순매수)
                     self.label_33.setText(txt)
 
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    txt = " 개인선물: {0} ".format(개인선물_순매수)
                     self.label_34.setText(txt)
 
                     if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
@@ -38925,7 +38927,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_35.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38946,7 +38948,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_37.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40697,10 +40699,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.Calc_BBand('FUT')
 
                     self.plot4_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot4_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
                     self.plot4_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
                     self.plot4_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot4_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
                     self.plot4_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot4_fibonacci_line1.setValue(futures_fibonacci_levels[1])
@@ -40984,16 +40986,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_time_line.setValue(plot_time_index)
 
                 if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    txt = " 기관현물: {0} ".format(기관현물_순매수)
                     self.label_41.setText(txt)
 
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    txt = " 기관선물: {0} ".format(기관선물_순매수)
                     self.label_42.setText(txt)
 
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    txt = " 개인현물: {0} ".format(개인현물_순매수)
                     self.label_43.setText(txt)
 
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    txt = " 개인선물: {0} ".format(개인선물_순매수)
                     self.label_44.setText(txt)
 
                     if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
@@ -41035,7 +41037,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_45.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41056,7 +41058,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_47.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42807,11 +42809,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
+                    self.plot5_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot5_fibonacci_line1.setValue(futures_fibonacci_levels[1])
@@ -43095,16 +43097,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_time_line.setValue(plot_time_index)
 
                 if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    txt = " 기관현물: {0} ".format(기관현물_순매수)
                     self.label_51.setText(txt)
 
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    txt = " 기관선물: {0} ".format(기관선물_순매수)
                     self.label_52.setText(txt)
 
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    txt = " 개인현물: {0} ".format(개인현물_순매수)
                     self.label_53.setText(txt)
 
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    txt = " 개인선물: {0} ".format(개인선물_순매수)
                     self.label_54.setText(txt)
 
                     if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
@@ -43146,7 +43148,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_55.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43167,7 +43169,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_57.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43345,9 +43347,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('SP500')                    
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_sp500_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_sp500_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_sp500_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
@@ -43488,9 +43490,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('DOW')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_dow_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_dow_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_dow_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
@@ -43631,9 +43633,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_nasdaq_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
@@ -43774,9 +43776,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('HSI')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
@@ -43916,9 +43918,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('WTI')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_wti_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_wti_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_wti_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
@@ -44059,9 +44061,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_gold_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_gold_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_gold_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
@@ -44201,9 +44203,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('EURO')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_euro_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_euro_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_euro_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
@@ -44344,9 +44346,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('YEN')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_yen_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_yen_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_yen_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
@@ -44493,9 +44495,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('ADI')
 
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_adi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_adi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_adi_ta_graph['BBLower_1st'].astype(float))
                     self.plot5_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot5_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot5_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
@@ -44918,11 +44920,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
+                    self.plot6_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
 
                     self.plot6_fibonacci_line1.setValue(futures_fibonacci_levels[1])
@@ -45206,16 +45208,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_time_line.setValue(plot_time_index)
 
                 if DayTime:
-                    txt = " 기관현물 : {0} ".format(기관현물_순매수)
+                    txt = " 기관현물: {0} ".format(기관현물_순매수)
                     self.label_61.setText(txt)
 
-                    txt = " 기관선물 : {0} ".format(기관선물_순매수)
+                    txt = " 기관선물: {0} ".format(기관선물_순매수)
                     self.label_62.setText(txt)
 
-                    txt = " 개인현물 : {0} ".format(개인현물_순매수)
+                    txt = " 개인현물: {0} ".format(개인현물_순매수)
                     self.label_63.setText(txt)
 
-                    txt = " 개인선물 : {0} ".format(개인선물_순매수)
+                    txt = " 개인선물: {0} ".format(개인선물_순매수)
                     self.label_64.setText(txt)
 
                     if 프로그램_순매수 > 0 and 현물_총순매수 > 0:
@@ -45257,7 +45259,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         self.label_65.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물 : {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45278,7 +45280,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_67.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물 : {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45456,9 +45458,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('SP500')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_sp500_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_sp500_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_sp500_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_sp500_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_sp500_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_sp500_ta_graph['BBLower_2nd'].astype(float))
@@ -45599,9 +45601,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('DOW')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_dow_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_dow_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_dow_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_dow_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_dow_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_dow_ta_graph['BBLower_2nd'].astype(float))
@@ -45742,9 +45744,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('NASDAQ')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_nasdaq_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_nasdaq_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_nasdaq_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_nasdaq_ta_graph['BBLower_2nd'].astype(float))
@@ -45885,9 +45887,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('HSI')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
@@ -46027,9 +46029,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('WTI')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_wti_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_wti_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_wti_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_wti_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_wti_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_wti_ta_graph['BBLower_2nd'].astype(float))
@@ -46170,9 +46172,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('GOLD')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_gold_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_gold_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_gold_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_gold_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_gold_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_gold_ta_graph['BBLower_2nd'].astype(float))
@@ -46312,9 +46314,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('EURO')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_euro_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_euro_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_euro_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_euro_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_euro_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_euro_ta_graph['BBLower_2nd'].astype(float))
@@ -46455,9 +46457,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('YEN')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_yen_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_yen_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_yen_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_yen_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_yen_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_yen_ta_graph['BBLower_2nd'].astype(float))
@@ -46604,9 +46606,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('ADI')
 
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_adi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_adi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_adi_ta_graph['BBLower_1st'].astype(float))
                     self.plot6_bollinger_2nd_upper_curve.setData(df_adi_ta_graph['BBUpper_2nd'].astype(float))
                     self.plot6_bollinger_2nd_middle_curve.setData(df_adi_ta_graph['BBMiddle_2nd'].astype(float))
                     self.plot6_bollinger_2nd_lower_curve.setData(df_adi_ta_graph['BBLower_2nd'].astype(float))
