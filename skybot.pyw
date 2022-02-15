@@ -1831,8 +1831,8 @@ macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 # MACDHist_pen = 
 
-mama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
-fama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
+mama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
+fama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
@@ -5696,6 +5696,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #df_fut_ohlc_5min = df.resample('5T').ohlc()
             # 15 Minute resample
             #df_fut_ohlc_15min = df.resample('15T').ohlc()
+            '''
+            ohlc_dict = {
+                'open': 'first',
+                'high': 'max',
+                'low': 'min',
+                'close': 'last',
+                'volume': 'sum'
+            }
+
+            df = data.resample('5min').apply(ohlc_dict).dropna()
+            df.head()
+            '''
         else:
             pass
         
