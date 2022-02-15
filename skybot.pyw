@@ -33978,21 +33978,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         nine_period_low = ohlc['Low'].rolling(window1).min()
         tenkan_sen = (nine_period_high + nine_period_low) /2
 
-        # Kijun-sen (Base Line): (26-period high + 26-period low)/2))
+        # Kijun-sen (Base Line): (25-period high + 25-period low)/2))
         period26_high = ohlc['High'].rolling(window2).max()
         period26_low = ohlc['Low'].rolling(window2).min()
         kijun_sen = (period26_high + period26_low) / 2
 
         # Senkou Span A (Leading Span A): (Conversion Line + Base Line)/2))
-        senkou_span_a = ((tenkan_sen + kijun_sen) / 2).shift(26)
+        senkou_span_a = ((tenkan_sen + kijun_sen) / 2).shift(window2)
 
-        # Senkou Span B (Leading Span B): (52-period high + 52-period low)/2))
+        # Senkou Span B (Leading Span B): (50-period high + 50-period low)/2))
         period52_high = ohlc['High'].rolling(window3).max()
         period52_low = ohlc['Low'].rolling(window3).min()
-        senkou_span_b = ((period52_high + period52_low) / 2).shift(26)
+        senkou_span_b = ((period52_high + period52_low) / 2).shift(window2)
 
         # The most current closing price plotted 26 time periods behind (optional)
-        chikou_span = ohlc['Close'].shift(-26)
+        chikou_span = ohlc['Close'].shift(-window2)
 
         return tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, chikou_span 
 
