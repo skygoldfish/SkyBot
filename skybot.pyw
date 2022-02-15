@@ -1831,9 +1831,9 @@ macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 # MACDHist_pen = 
 
-mama_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.SolidLine)
-fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
-span_a_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
+mama_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DashLine)
+fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DashLine)
+span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 # Sky Chart Plot1
@@ -26004,12 +26004,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_15.setText(" - ")
 
             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_16.setText(" 프로그램/외인현물 ")
+            self.label_16.setText(" Prog/F.S ")
 
             self.label_17.setText(" 선물체결량 ")
 
             self.label_18.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_18.setText(" 현물합/외인선물 ")
+            self.label_18.setText(" S.S/F.F ")
 
         # 외인수급
         elif comboindex1 == 11:
@@ -27368,12 +27368,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_25.setText(" - ")
 
             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_26.setText(" 프로그램/외인현물 ")
+            self.label_26.setText(" Prog/F.S ")
 
             self.label_27.setText(" 선물체결량 ")
 
             self.label_28.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_28.setText(" 현물합/외인선물 ")
+            self.label_28.setText(" S.S/F.F ")
 
         # 외인수급
         elif comboindex2 == 11:
@@ -28732,12 +28732,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_35.setText(" - ")
 
             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_36.setText(" 프로그램/외인현물 ")
+            self.label_36.setText(" Prog/F.S ")
 
             self.label_37.setText(" 선물체결량 ")
 
             self.label_38.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_38.setText(" 현물합/외인선물 ")
+            self.label_38.setText(" S.S/F.F ")
 
         # 외인수급
         elif comboindex3 == 11:
@@ -30096,12 +30096,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_45.setText(" - ")
 
             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_46.setText(" 프로그램/외인현물 ")
+            self.label_46.setText(" Prog/F.S ")
 
             self.label_47.setText(" 선물체결량 ")
 
             self.label_48.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_48.setText(" 현물합/외인선물 ")
+            self.label_48.setText(" S.S/F.F ")
 
         # 외인수급
         elif comboindex4 == 11:
@@ -31460,12 +31460,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_55.setText(" - ")
 
             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_56.setText(" 프로그램/외인현물 ")
+            self.label_56.setText(" Prog/F.S ")
 
             self.label_57.setText(" 선물체결량 ")
 
             self.label_58.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_58.setText(" 현물합/외인선물 ")
+            self.label_58.setText(" S.S/F.F ")
 
         # 외인수급
         elif comboindex5 == 11:
@@ -32824,12 +32824,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_65.setText(" - ")
 
             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_66.setText(" 프로그램/외인현물 ")
+            self.label_66.setText(" Prog/F.S ")
 
             self.label_67.setText(" 선물체결량 ")
 
             self.label_68.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_68.setText(" 현물합/외인선물 ")
+            self.label_68.setText(" S.S/F.F ")
 
         # 외인수급
         elif comboindex6 == 11:
@@ -33970,8 +33970,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self,
         ohlc: DataFrame,
         window1=9,
-        window2=26,
-        window3=52,
+        window2=25,
+        window3=50,
     ):
         # Tenkan-sen (Conversion Line): (9-period high + 9-period low)/2))
         nine_period_high = ohlc['High'].rolling(window1).max()
@@ -34704,7 +34704,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_15.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
 
@@ -34721,7 +34721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_15.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)          
 
@@ -34730,12 +34730,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_15.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_15.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " Prog/F.S: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_16.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34756,7 +34756,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_17.setText(txt)
 
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " S.S/F.F: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_18.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34807,7 +34807,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_15.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
 
@@ -34824,7 +34824,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_15.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)          
 
@@ -34833,7 +34833,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_15.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_15.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_15.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_15.setText(txt)
 
@@ -36897,7 +36897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_25.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
 
@@ -36914,7 +36914,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_25.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)          
 
@@ -36923,12 +36923,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_25.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_25.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " Prog/F.S: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_26.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36949,7 +36949,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_27.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " S.S/F.F: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_28.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37000,7 +37000,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_25.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
 
@@ -37017,7 +37017,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_25.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)          
 
@@ -37026,7 +37026,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_25.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_25.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_25.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_25.setText(txt)
 
@@ -39089,7 +39089,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_35.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
 
@@ -39106,7 +39106,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_35.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)          
 
@@ -39115,12 +39115,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_35.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_35.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " Prog/F.S: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_36.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39141,7 +39141,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_37.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " S.S/F.F: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_38.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39192,7 +39192,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_35.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
 
@@ -39209,7 +39209,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_35.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)          
 
@@ -39218,7 +39218,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_35.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_35.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_35.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_35.setText(txt)
 
@@ -41279,7 +41279,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_45.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
 
@@ -41296,7 +41296,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_45.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)          
 
@@ -41305,12 +41305,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_45.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_45.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " Prog/F.S: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_46.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41331,7 +41331,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_47.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " S.S/F.F: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_48.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41382,7 +41382,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_45.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
 
@@ -41399,7 +41399,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_45.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)          
 
@@ -41408,7 +41408,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_45.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_45.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_45.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_45.setText(txt)
 
@@ -43470,7 +43470,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_55.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
 
@@ -43487,7 +43487,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_55.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)          
 
@@ -43496,12 +43496,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_55.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_55.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " Prog/F.S: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_56.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43522,7 +43522,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_57.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " S.S/F.F: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_58.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43573,7 +43573,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_55.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
 
@@ -43590,7 +43590,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_55.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)          
 
@@ -43599,7 +43599,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_55.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_55.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_55.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_55.setText(txt)
 
@@ -45661,7 +45661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_65.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
 
@@ -45678,7 +45678,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_65.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)          
 
@@ -45687,12 +45687,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_65.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_65.setText(txt)
 
                     if not np.isnan(프로그램_순매수):
-                        txt = " 프로그램/외인현물: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
+                        txt = " Prog/F.S: {0:.0f}/{1:.0f} ".format(프로그램_순매수, 외인현물_순매수)
 
                         if 프로그램_순매수 <= 0:
                             self.label_66.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45713,7 +45713,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_67.setText(txt)
                     
                     if not np.isnan(현물_총순매수):
-                        txt = " 현물합/외인선물: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
+                        txt = " S.S/F.F: {0:.0f}/{1:.0f} ".format(현물_총순매수, 외인선물_순매수)
 
                         if 현물_총순매수 <= 0:
                             self.label_68.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45764,7 +45764,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_65.setText(txt)
 
                         if (외인선물_순매수 < 0 and 외인현물_순매수 > 0) or (외인선물_순매수 > 0 and 외인현물_순매수 < 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
 
@@ -45781,7 +45781,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_65.setText(txt)
 
                         if (외인선물_순매수 > 0 and 외인현물_순매수 < 0) or (외인선물_순매수 < 0 and 외인현물_순매수 > 0):
-                            txt = ' 외인수급 Cross! '
+                            txt = ' 외인수급 Cross '
                             self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)          
 
@@ -45790,7 +45790,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             self.label_65.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                             self.label_65.setText(txt)
                     else:
-                        txt = ' 수급종합 Cross! '
+                        txt = ' 수급종합 Cross '
                         self.label_65.setStyleSheet('background-color: black; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
                         self.label_65.setText(txt)
 
@@ -50177,8 +50177,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
                 근월물_선물_현재가 = float(tickdata['예상체결가격'])
-                #근월물_선물_저가 = float(tickdata['예상체결가격'])
-                #근월물_선물_고가 = float(tickdata['예상체결가격'])
+                근월물_선물_저가 = float(tickdata['예상체결가격'])
+                근월물_선물_고가 = float(tickdata['예상체결가격'])
 
                 # 그래프 가격갱신
                 df_futures_cm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
