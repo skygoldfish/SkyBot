@@ -1831,8 +1831,8 @@ macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 # MACDHist_pen = 
 
-mama_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DashLine)
-fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DashLine)
+mama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
+fama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
