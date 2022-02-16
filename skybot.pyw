@@ -1959,6 +1959,20 @@ EURO_체결잔량비 = 0
 YEN_체결순매수 = 0
 YEN_체결잔량비 = 0
 
+# Tick Data Dataframe
+df_fut_tick = pd.DataFrame()
+df_call_tick = pd.DataFrame()
+df_put_tick = pd.DataFrame()
+df_sp500_tick = pd.DataFrame()
+df_dow_tick = pd.DataFrame()
+df_nasdaq_tick = pd.DataFrame()
+df_hangseng_tick = pd.DataFrame()
+df_wti_tick = pd.DataFrame()
+df_gold_tick = pd.DataFrame()
+df_euro_tick = pd.DataFrame()
+df_yen_tick = pd.DataFrame()
+df_adi_tick = pd.DataFrame()
+
 # 선물 OHLC 연산
 fut_tick_list = []
 fut_value_list = []
@@ -2030,6 +2044,14 @@ df_yen_ohlc = pd.DataFrame()
 df_yen_ohlc_1min = pd.DataFrame()
 df_yen_ohlc_5min = pd.DataFrame()
 df_yen_ohlc_15min = pd.DataFrame()
+
+# ADI OHLC 연산
+adi_tick_list = []
+adi_value_list = []
+df_adi_ohlc = pd.DataFrame()
+df_adi_ohlc_1min = pd.DataFrame()
+df_adi_ohlc_5min = pd.DataFrame()
+df_adi_ohlc_15min = pd.DataFrame()
 
 선물_체결시간 = ''
 
@@ -34400,12 +34422,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot1_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot1_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
-                    self.plot1_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
-                    self.plot1_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot1_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
-                    self.plot1_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     self.plot1_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot1_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -34435,7 +34457,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('FUT')
 
-                    self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34453,10 +34475,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
 
-                    self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-                    self.plot1_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot1_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))                    
+                    self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot1_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot1_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].clip(lower=KP200_COREVAL[3]).astype(float))                    
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -36593,12 +36615,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot2_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot2_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
-                    self.plot2_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
-                    self.plot2_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot2_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
-                    self.plot2_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     self.plot2_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot2_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -36628,7 +36650,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('FUT')
 
-                    self.plot2_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36646,10 +36668,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
 
-                    self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-                    self.plot2_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot2_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot2_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot2_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].clip(lower=KP200_COREVAL[3]).astype(float))
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -38784,12 +38806,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot3_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot3_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
-                    self.plot3_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
-                    self.plot3_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot3_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
-                    self.plot3_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     self.plot3_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot3_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -38819,7 +38841,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('FUT')
 
-                    self.plot3_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38837,10 +38859,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
 
-                    self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-                    self.plot3_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot3_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot3_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot3_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].clip(lower=KP200_COREVAL[3]).astype(float))
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -40975,12 +40997,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot4_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot4_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
-                    self.plot4_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
-                    self.plot4_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot4_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
-                    self.plot4_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     self.plot4_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot4_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -41010,7 +41032,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('FUT')
 
-                    self.plot4_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41028,10 +41050,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
 
-                    self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-                    self.plot4_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot4_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot4_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot4_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].clip(lower=KP200_COREVAL[3]).astype(float))
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -43166,12 +43188,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot5_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot5_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
-                    self.plot5_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     self.plot5_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot5_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -43201,7 +43223,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('FUT')
 
-                    self.plot5_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43219,10 +43241,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
 
-                    self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-                    self.plot5_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot5_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot5_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot5_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].clip(lower=KP200_COREVAL[3]).astype(float))
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -45357,12 +45379,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_BBand('FUT')
 
-                    self.plot6_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot6_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].replace(0, np.NaN).astype(float))
-                    self.plot6_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].astype(float))
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].replace(0, np.NaN).astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_1st'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_futures_cm_ta_graph['BBLower_1st'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_futures_cm_ta_graph['BBUpper_2nd'].clip(lower=KP200_COREVAL[3], upper=KP200_COREVAL[6]).astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_futures_cm_ta_graph['BBMiddle_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_futures_cm_ta_graph['BBLower_2nd'].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     self.plot6_fibonacci_line1.setValue(futures_fibonacci_levels[1])
                     self.plot6_fibonacci_line2.setValue(futures_fibonacci_levels[2])
@@ -45392,7 +45414,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.Calc_Psar('FUT')
 
-                    self.plot6_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].clip(lower=KP200_COREVAL[3]).astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45410,10 +45432,10 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
 
-                    self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-                    self.plot6_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot6_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+                    self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot6_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].clip(lower=KP200_COREVAL[3]).astype(float))
+                    self.plot6_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].clip(lower=KP200_COREVAL[3]).astype(float))
                     
                     '''
                     self.Calc_MAMA('FUT')
