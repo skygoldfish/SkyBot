@@ -50195,6 +50195,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇
         global old_plot_time_index, plot_time_index
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
+        global df_fut_tick
         
         try:
             dt = datetime.now()
@@ -50209,6 +50210,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 fut_plot_sec = int(tickdata['수신시간'][4:6]) 
 
             if tickdata['단축코드'] == GMSHCODE:
+
+                df_fut_tick = df_fut_tick.append(tickdata, ignore_index=True)
 
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
                 근월물_선물_현재가 = float(tickdata['예상체결가격'])
@@ -51568,6 +51571,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
         global old_plot_time_index, plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
+        global df_fut_tick
 
         try:
             dt = datetime.now()
@@ -51597,6 +51601,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass        
             
             if tickdata['단축코드'] == GMSHCODE:
+
+                df_fut_tick = df_fut_tick.append(tickdata, ignore_index=True)
 
                 # 그래프관련 처리 먼저...
                 if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
@@ -52864,6 +52870,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hangseng_fibonacci_levels
         global wti_fibonacci_levels, gold_fibonacci_levels, euro_fibonacci_levels, yen_fibonacci_levels, adi_fibonacci_levels
         global cme_close_hour
+        global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hangseng_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
 
         try:
             dt = datetime.now()
@@ -53050,6 +53057,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass            
 
             if tickdata['종목코드'] == SP500:
+
+                df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)
 
                 # 그래프 가격갱신
                 SP500_현재가 = float(tickdata['체결가격'])
@@ -53274,6 +53283,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['종목코드'] == DOW:
 
+                df_dow_tick = df_dow_tick.append(tickdata, ignore_index=True)
+
                 # 그래프 가격갱신
                 DOW_현재가 = int(float(tickdata['체결가격']))
                 df_dow_graph.at[plot_time_index, 'Price'] = DOW_현재가
@@ -53492,6 +53503,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['종목코드'] == NASDAQ:
 
+                df_nasdaq_tick = df_nasdaq_tick.append(tickdata, ignore_index=True)
+
                 # 그래프 가격갱신
                 NASDAQ_현재가 = float(tickdata['체결가격'])
                 df_nasdaq_graph.at[plot_time_index, 'Price'] = NASDAQ_현재가
@@ -53709,6 +53722,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             elif tickdata['종목코드'] == HANGSENG:
 
+                df_hangseng_tick = df_hangseng_tick.append(tickdata, ignore_index=True)
+
                 # 그래프 가격갱신
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
                 df_hangseng_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
@@ -53923,6 +53938,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass            
             
             elif tickdata['종목코드'] == WTI:
+
+                df_wti_tick = df_wti_tick.append(tickdata, ignore_index=True)
             
                 # 그래프 가격갱신
                 WTI_현재가 = float(tickdata['체결가격'])
@@ -54141,6 +54158,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['종목코드'] == GOLD:
 
+                df_gold_tick = df_gold_tick.append(tickdata, ignore_index=True)
+
                 # 그래프 가격갱신
                 GOLD_현재가 = float(tickdata['체결가격'])
                 df_gold_graph.at[plot_time_index, 'Price'] = GOLD_현재가
@@ -54356,6 +54375,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             elif tickdata['종목코드'] == EURO:
 
+                df_euro_tick = df_euro_tick.append(tickdata, ignore_index=True)
+
                 # 그래프 가격갱신
                 EURO_현재가 = float(tickdata['체결가격'])
                 df_euro_graph.at[plot_time_index, 'Price'] = EURO_현재가
@@ -54570,6 +54591,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == YEN:
+
+                df_yen_tick = df_yen_tick.append(tickdata, ignore_index=True)
                 
                 # 그래프 가격갱신
                 YEN_현재가 = float(tickdata['체결가격'])
@@ -54784,7 +54807,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == ADI:                
+            elif tickdata['종목코드'] == ADI:
+
+                df_adi_tick = df_adi_tick.append(tickdata, ignore_index=True)             
 
                 # 그래프 가격갱신
                 ADI_현재가 = float(tickdata['체결가격']) 
