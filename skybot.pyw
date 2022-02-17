@@ -36057,7 +36057,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
@@ -36393,7 +36393,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
@@ -38390,7 +38390,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
@@ -38726,7 +38726,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
@@ -40650,7 +40650,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
@@ -40968,7 +40968,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
@@ -42890,7 +42890,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
@@ -43208,7 +43208,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
@@ -45131,7 +45131,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
@@ -45449,7 +45449,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
@@ -47372,7 +47372,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
@@ -47690,7 +47690,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
