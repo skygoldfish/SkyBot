@@ -2317,6 +2317,10 @@ adi_fibonacci_levels = []
 
 CCI_CLIP = 400
 
+CONVERSION_LINE_PERIOD = 9
+BASE_LINE_PERIOD = 25
+SPAN_B_PERIOD = 50
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -22537,7 +22541,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_3.setText(" PSAR ")
         
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_4.setText(" ICHIMOKU ")
+        self.label_p1_4.setText(" ONE EYE ")
         
         self.label_11.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_11.setText(" 전저 ")
@@ -22574,7 +22578,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_3.setText(" PSAR ")
         
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_4.setText(" ICHIMOKU ")
+        self.label_p2_4.setText(" ONE EYE ")
         
         self.label_21.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_21.setText(" 전저 ")
@@ -22611,7 +22615,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_3.setText(" PSAR ")
         
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_4.setText(" ICHIMOKU ")
+        self.label_p3_4.setText(" ONE EYE ")
         
         self.label_31.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_31.setText(" 전저 ")
@@ -22648,7 +22652,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_3.setText(" PSAR ")
         
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_4.setText(" ICHIMOKU ")
+        self.label_p4_4.setText(" ONE EYE ")
         
         self.label_41.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_41.setText(" 전저 ")
@@ -22685,7 +22689,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_3.setText(" PSAR ")
         
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_4.setText(" ICHIMOKU ")
+        self.label_p5_4.setText(" ONE EYE ")
         
         self.label_51.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_51.setText(" 전저 ")
@@ -22722,7 +22726,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_3.setText(" PSAR ")
         
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_4.setText(" ICHIMOKU ")
+        self.label_p6_4.setText(" ONE EYE ")
         
         self.label_61.setStyleSheet('background-color: goldenrod; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_61.setText(" 전저 ")
@@ -25713,7 +25717,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_3.setText(" PSAR ")
 
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_4.setText(" ICHIMOKU ")
+        self.label_p1_4.setText(" ONE EYE ")
 
         txt = 'Plot1 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -25890,7 +25894,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" ICHIMOKU ")
+            self.label_p1_4.setText(" ONE EYE ")
             
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -25923,7 +25927,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" ICHIMOKU ")
+            self.label_p1_4.setText(" ONE EYE ")
         
         # 옵션가격
         elif comboindex1 == 5:
@@ -25944,7 +25948,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" ICHIMOKU ")
+            self.label_p1_4.setText(" ONE EYE ")
 
             # 대맥점 표시
             self.plot1_mv_line[1].setValue(2.5)
@@ -25979,7 +25983,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" ICHIMOKU ")
+            self.label_p1_4.setText(" ONE EYE ")
                         
             self.plot1_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -26012,7 +26016,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" ICHIMOKU ")
+            self.label_p1_4.setText(" ONE EYE ")
 
         # 등락율비
         elif comboindex1 == 8:
@@ -26041,7 +26045,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_3.setText(" PSAR ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_4.setText(" ICHIMOKU ")
+            self.label_p1_4.setText(" ONE EYE ")
         
         # 수급종합
         elif comboindex1 == 10:
@@ -27077,7 +27081,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_3.setText(" PSAR ")
 
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_4.setText(" ICHIMOKU ")
+        self.label_p2_4.setText(" ONE EYE ")
 
         txt = 'Plot2 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -27254,7 +27258,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" ICHIMOKU ")
+            self.label_p2_4.setText(" ONE EYE ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -27287,7 +27291,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" ICHIMOKU ")
+            self.label_p2_4.setText(" ONE EYE ")
 
         # 옵션가격
         elif comboindex2 == 5:
@@ -27308,7 +27312,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" ICHIMOKU ")
+            self.label_p2_4.setText(" ONE EYE ")
 
             # 대맥점 표시
             self.plot2_mv_line[1].setValue(2.5)
@@ -27343,7 +27347,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" ICHIMOKU ")
+            self.label_p2_4.setText(" ONE EYE ")
 
             self.plot2_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -27376,7 +27380,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" ICHIMOKU ")
+            self.label_p2_4.setText(" ONE EYE ")
 
         # 등락율비
         elif comboindex2 == 8:
@@ -27405,7 +27409,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_3.setText(" PSAR ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_4.setText(" ICHIMOKU ")
+            self.label_p2_4.setText(" ONE EYE ")
         
         # 수급종합
         elif comboindex2 == 10:
@@ -28441,7 +28445,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_3.setText(" PSAR ")
 
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_4.setText(" ICHIMOKU ")
+        self.label_p3_4.setText(" ONE EYE ")
 
         txt = 'Plot3 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -28618,7 +28622,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" ICHIMOKU ")
+            self.label_p3_4.setText(" ONE EYE ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -28651,7 +28655,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" ICHIMOKU ")
+            self.label_p3_4.setText(" ONE EYE ")
         
         # 옵션가격
         elif comboindex3 == 5:
@@ -28672,7 +28676,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setText(" ONE EYE ")
 
             # 대맥점 표시
             self.plot3_mv_line[1].setValue(2.5)
@@ -28707,7 +28711,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" ICHIMOKU ")
+            self.label_p3_4.setText(" ONE EYE ")
 
             self.plot3_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -28740,7 +28744,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" ICHIMOKU ")
+            self.label_p3_4.setText(" ONE EYE ")
         
         # 등락율비
         elif comboindex3 == 8:
@@ -28769,7 +28773,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_3.setText(" PSAR ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_4.setText(" ICHIMOKU ")
+            self.label_p3_4.setText(" ONE EYE ")
         
         # 수급종합
         elif comboindex3 == 10:
@@ -29805,7 +29809,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_3.setText(" PSAR ")
 
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_4.setText(" ICHIMOKU ")
+        self.label_p4_4.setText(" ONE EYE ")
 
         txt = 'Plot4 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -29982,7 +29986,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" ICHIMOKU ")
+            self.label_p4_4.setText(" ONE EYE ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -30015,7 +30019,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" ICHIMOKU ")
+            self.label_p4_4.setText(" ONE EYE ")
         
         # 옵션가격
         elif comboindex4 == 5:
@@ -30036,7 +30040,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" ICHIMOKU ")
+            self.label_p4_4.setText(" ONE EYE ")
 
             # 대맥점 표시
             self.plot4_mv_line[1].setValue(2.5)
@@ -30071,7 +30075,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" ICHIMOKU ")
+            self.label_p4_4.setText(" ONE EYE ")
             
             self.plot4_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -30104,7 +30108,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" ICHIMOKU ")         
+            self.label_p4_4.setText(" ONE EYE ")         
 
         # 등락율비
         elif comboindex4 == 8:
@@ -30133,7 +30137,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_3.setText(" PSAR ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_4.setText(" ICHIMOKU ")
+            self.label_p4_4.setText(" ONE EYE ")
 
         # 수급종합
         elif comboindex4 == 10:
@@ -31169,7 +31173,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_3.setText(" PSAR ")
 
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_4.setText(" ICHIMOKU ")
+        self.label_p5_4.setText(" ONE EYE ")
 
         txt = 'Plot5 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -31346,7 +31350,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" ICHIMOKU ")
+            self.label_p5_4.setText(" ONE EYE ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -31379,7 +31383,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" ICHIMOKU ")
+            self.label_p5_4.setText(" ONE EYE ")
 
         # 옵션가격
         elif comboindex5 == 5:
@@ -31400,7 +31404,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" ICHIMOKU ")
+            self.label_p5_4.setText(" ONE EYE ")
 
             # 대맥점 표시
             self.plot5_mv_line[1].setValue(2.5)
@@ -31435,7 +31439,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" ICHIMOKU ")
+            self.label_p5_4.setText(" ONE EYE ")
 
             self.plot5_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -31468,7 +31472,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" ICHIMOKU ")
+            self.label_p5_4.setText(" ONE EYE ")
         
         # 등락율비
         elif comboindex5 == 8:
@@ -31497,7 +31501,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_3.setText(" PSAR ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_4.setText(" ICHIMOKU ")
+            self.label_p5_4.setText(" ONE EYE ")
 
         # 수급종합
         elif comboindex5 == 10:
@@ -32533,7 +32537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_3.setText(" PSAR ")
 
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_4.setText(" ICHIMOKU ")
+        self.label_p6_4.setText(" ONE EYE ")
 
         txt = 'Plot6 Clear...\r'
         self.parent.textBrowser.append(txt)
@@ -32710,7 +32714,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" ICHIMOKU ")
+            self.label_p6_4.setText(" ONE EYE ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -32743,7 +32747,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" ICHIMOKU ")
+            self.label_p6_4.setText(" ONE EYE ")
         
         # 옵션가격
         elif comboindex6 == 5:
@@ -32764,7 +32768,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" ICHIMOKU ")
+            self.label_p6_4.setText(" ONE EYE ")
 
             # 대맥점 표시
             self.plot6_mv_line[1].setValue(2.5)
@@ -32799,7 +32803,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" ICHIMOKU ")
+            self.label_p6_4.setText(" ONE EYE ")
 
             self.plot6_quote_remainder_ratio_base_line.setValue(1.0)
             self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(1.0)
@@ -32832,7 +32836,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" ICHIMOKU ")
+            self.label_p6_4.setText(" ONE EYE ")
         
         # 등락율비
         elif comboindex6 == 8:
@@ -32861,7 +32865,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_3.setText(" PSAR ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_4.setText(" ICHIMOKU ")
+            self.label_p6_4.setText(" ONE EYE ")
         
         # 수급종합
         elif comboindex6 == 10:
@@ -34019,8 +34023,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self,
         ohlc: DataFrame,
         window1=9,
-        window2=25,
-        window3=50,
+        window2=26,
+        window3=52,
     ):
         # Tenkan-sen (Conversion Line): (9-period high + 9-period low)/2))
         nine_period_high = ohlc['High'].rolling(window1).max()
@@ -34488,13 +34492,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_mama:
 
-                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
-                    self.plot1_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))                    
-                    
+                    self.plot1_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
+
                     '''
                     self.Calc_MAMA('FUT')
 
@@ -34528,7 +34537,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
             
             elif comboindex1 == 3:
                 
@@ -35035,12 +35044,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
-                    self.plot1_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))                    
+                    self.plot1_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)                    
 
                     '''
                     self.Calc_MAMA('SP500')
@@ -35075,7 +35089,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
             
             elif comboindex1 == 14:
                 
@@ -35186,12 +35200,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
-                    self.plot1_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))                    
+                    self.plot1_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('DOW')
@@ -35226,7 +35245,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
 
             elif comboindex1 == 15:
                 
@@ -35337,12 +35356,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('NASDAQ')
@@ -35377,7 +35401,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
 
             elif comboindex1 == 16:
                 
@@ -35488,12 +35512,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('HSI')
@@ -35528,7 +35557,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
 
             elif comboindex1 == 17:
                 
@@ -35638,12 +35667,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('WTI')
@@ -35678,7 +35712,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
             
             elif comboindex1 == 18:
                 
@@ -35789,12 +35823,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('GOLD')
@@ -35829,7 +35868,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
 
             elif comboindex1 == 19:
                 
@@ -35939,12 +35978,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('EURO')
@@ -35979,7 +36023,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
 
             elif comboindex1 == 20:
                 
@@ -36090,12 +36134,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('YEN')
@@ -36130,7 +36179,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
             
             elif comboindex1 == 21:
 
@@ -36247,12 +36296,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_mama:
 
-                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot1_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot1_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p1_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('ADI')
@@ -36287,7 +36341,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_4.setText(" MAMA ")
+                    self.label_p1_4.setText(" ONE EYE ")
 
             elif comboindex1 == 23:
 
@@ -36681,12 +36735,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -36721,7 +36780,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
 
             elif comboindex2 == 3:
                 
@@ -37228,12 +37287,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('SP500')
@@ -37268,7 +37332,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
             
             elif comboindex2 == 14:
                 
@@ -37379,12 +37443,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('DOW')
@@ -37419,7 +37488,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
 
             elif comboindex2 == 15:
                 
@@ -37530,12 +37599,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('NASDAQ')
@@ -37570,7 +37644,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
 
             elif comboindex2 == 16:
                 
@@ -37681,12 +37755,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('HSI')
@@ -37721,7 +37800,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
 
             elif comboindex2 == 17:
                 
@@ -37831,12 +37910,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('WTI')
@@ -37871,7 +37955,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
             
             elif comboindex2 == 18:
                 
@@ -37982,12 +38066,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('GOLD')
@@ -38022,7 +38111,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
 
             elif comboindex2 == 19:
                 
@@ -38132,12 +38221,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('EURO')
@@ -38172,7 +38266,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
 
             elif comboindex2 == 20:
                 
@@ -38283,12 +38377,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('YEN')
@@ -38323,7 +38422,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
             
             elif comboindex2 == 21:
 
@@ -38440,12 +38539,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_mama:
 
-                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot2_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot2_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p2_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('ADI')
@@ -38480,7 +38584,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_4.setText(" MAMA ")
+                    self.label_p2_4.setText(" ONE EYE ")
             
             elif comboindex2 == 23:
 
@@ -38872,12 +38976,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -38912,7 +39021,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
 
             elif comboindex3 == 3:
                 
@@ -39420,12 +39529,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('SP500')
@@ -39460,7 +39574,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
             
             elif comboindex3 == 14:
                 
@@ -39571,12 +39685,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('DOW')
@@ -39611,7 +39730,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")    
+                    self.label_p3_4.setText(" ONE EYE ")    
 
             elif comboindex3 == 15:
                 
@@ -39722,12 +39841,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('NASDAQ')
@@ -39762,7 +39886,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
 
             elif comboindex3 == 16:
                 
@@ -39873,12 +39997,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('HSI')
@@ -39913,7 +40042,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
 
             elif comboindex3 == 17:
                 
@@ -40023,12 +40152,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('WTI')
@@ -40063,7 +40197,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
             
             elif comboindex3 == 18:
                 
@@ -40174,12 +40308,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('GOLD')
@@ -40214,7 +40353,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
 
             elif comboindex3 == 19:
                 
@@ -40324,12 +40463,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('EURO')
@@ -40364,7 +40508,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
 
             elif comboindex3 == 20:
                 
@@ -40475,12 +40619,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('YEN')
@@ -40515,7 +40664,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
             
             elif comboindex3 == 21:
 
@@ -40632,12 +40781,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_mama:
 
-                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot3_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p3_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('ADI')
@@ -40672,7 +40826,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_4.setText(" MAMA ")
+                    self.label_p3_4.setText(" ONE EYE ")
             
             elif comboindex3 == 23:
 
@@ -41063,12 +41217,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -41103,7 +41262,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
 
             elif comboindex4 == 3:
                 
@@ -41610,12 +41769,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('SP500')
@@ -41650,7 +41814,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
             
             elif comboindex4 == 14:
                 
@@ -41761,12 +41925,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('DOW')
@@ -41801,7 +41970,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
 
             elif comboindex4 == 15:
                 
@@ -41912,12 +42081,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('NASDAQ')
@@ -41952,7 +42126,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
 
             elif comboindex4 == 16:
                 
@@ -42063,12 +42237,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('HSI')
@@ -42103,7 +42282,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
 
             elif comboindex4 == 17:
                 
@@ -42213,12 +42392,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('WTI')
@@ -42253,7 +42437,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
             
             elif comboindex4 == 18:
                 
@@ -42364,12 +42548,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('GOLD')
@@ -42404,7 +42593,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
 
             elif comboindex4 == 19:
                 
@@ -42514,12 +42703,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('EURO')
@@ -42554,7 +42748,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
 
             elif comboindex4 == 20:
                 
@@ -42665,12 +42859,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('YEN')
@@ -42705,7 +42904,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
             
             elif comboindex4 == 21:
 
@@ -42822,12 +43021,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_mama:
 
-                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot4_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p4_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('ADI')
@@ -42862,7 +43066,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_4.setText(" MAMA ")
+                    self.label_p4_4.setText(" ONE EYE ")
             
             elif comboindex4 == 23:
 
@@ -43254,12 +43458,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -43294,7 +43503,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
 
             elif comboindex5 == 3:
                 
@@ -43801,12 +44010,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('SP500')
@@ -43841,7 +44055,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
             
             elif comboindex5 == 14:
                 
@@ -43952,12 +44166,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('DOW')
@@ -43992,7 +44211,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ") 
+                    self.label_p5_4.setText(" ONE EYE ") 
 
             elif comboindex5 == 15:
                 
@@ -44103,12 +44322,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('NASDAQ')
@@ -44143,7 +44367,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
 
             elif comboindex5 == 16:
                 
@@ -44254,12 +44478,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('HSI')
@@ -44294,7 +44523,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
 
             elif comboindex5 == 17:
                 
@@ -44404,12 +44633,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('WTI')
@@ -44444,7 +44678,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
             
             elif comboindex5 == 18:
                 
@@ -44555,12 +44789,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('GOLD')
@@ -44595,7 +44834,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
 
             elif comboindex5 == 19:
                 
@@ -44705,12 +44944,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('EURO')
@@ -44745,7 +44989,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
 
             elif comboindex5 == 20:
                 
@@ -44856,12 +45100,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('YEN')
@@ -44896,7 +45145,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
             
             elif comboindex5 == 21:
 
@@ -45013,12 +45262,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_mama:
 
-                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot5_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p5_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('ADI')
@@ -45053,7 +45307,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_4.setText(" MAMA ")
+                    self.label_p5_4.setText(" ONE EYE ")
 
             elif comboindex5 == 23:
 
@@ -45445,12 +45699,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph)
+                    df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('FUT')
@@ -45485,7 +45744,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 3:
                 
@@ -45992,12 +46251,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph)
+                    df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('SP500')
@@ -46032,7 +46296,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 14:
                 
@@ -46143,12 +46407,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('DOW')
@@ -46183,7 +46452,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")  
+                    self.label_p6_4.setText(" ONE EYE ")  
 
             elif comboindex6 == 15:
                 
@@ -46294,12 +46563,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('NASDAQ')
@@ -46334,7 +46608,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 16:
                 
@@ -46445,12 +46719,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('HSI')
@@ -46485,7 +46764,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")         
+                    self.label_p6_4.setText(" ONE EYE ")         
 
             elif comboindex6 == 17:
                 
@@ -46595,12 +46874,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('WTI')
@@ -46635,7 +46919,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
             
             elif comboindex6 == 18:
                 
@@ -46746,12 +47030,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('GOLD')
@@ -46786,7 +47075,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 19:
                 
@@ -46896,12 +47185,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('EURO')
@@ -46936,7 +47230,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 20:
                 
@@ -47047,12 +47341,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('YEN')
@@ -47087,7 +47386,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 21:
 
@@ -47204,12 +47503,17 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_mama:
 
-                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph)
+                    df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], chikou_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
 
                     self.plot6_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
                     self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                        (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                    self.label_p6_4.setText(txt)
                     
                     '''
                     self.Calc_MAMA('ADI')
@@ -47244,7 +47548,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_4.setText(" MAMA ")
+                    self.label_p6_4.setText(" ONE EYE ")
 
             elif comboindex6 == 23:
 
