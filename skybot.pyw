@@ -39163,6 +39163,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
 
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] > df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -39716,6 +39725,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] > df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -39871,6 +39889,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] > df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -40028,6 +40055,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] > df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -40184,6 +40220,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
 
+                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -40338,6 +40383,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] > df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -40495,6 +40549,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] > df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -40649,6 +40712,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] > df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -40805,6 +40877,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] > df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -40967,6 +41048,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -41403,6 +41493,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] > df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -41956,6 +42055,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] > df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -42111,6 +42219,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] > df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -42268,6 +42385,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] > df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -42424,6 +42550,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
 
+                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -42578,6 +42713,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] > df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -42735,6 +42879,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] > df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -42889,6 +43042,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] > df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -43045,6 +43207,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] > df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -43207,6 +43378,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -43644,6 +43824,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] > df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -44197,6 +44386,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] > df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -44352,6 +44550,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] > df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -44509,6 +44716,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] > df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -44665,6 +44882,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
 
+                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -44819,6 +45045,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] > df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -44976,6 +45211,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] > df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -45130,6 +45374,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] > df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -45286,6 +45539,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] > df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -45448,6 +45710,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -45885,6 +46156,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] > df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -46438,6 +46718,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] > df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'], df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -46593,6 +46882,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] > df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -46750,6 +47048,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] > df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -46906,6 +47213,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
 
+                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -47060,6 +47376,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] > df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -47217,6 +47542,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] > df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
@@ -47371,6 +47705,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] > df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_euro_ta_graph.at[plot_time_index, 'OE_BASE'], df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -47527,6 +47870,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] > df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
@@ -47689,6 +48041,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
+
+                    if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.5f}\n 전환선: {1:.5f}\n SPAN A: {2:.5f} \n SPAN B: {3:.5f} ".format\
                         (df_adi_ta_graph.at[plot_time_index, 'OE_BASE'], df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], \
