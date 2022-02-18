@@ -25408,9 +25408,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot1_mama = False
 
-            #self.plot1_mama_curve.clear()
-            #self.plot1_fama_curve.clear()
-
             self.plot1_oe_conv_curve.clear()
             self.plot1_oe_base_curve.clear()
             self.plot1_span_a_curve.clear()
@@ -25424,9 +25421,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot2_mama = True
         else:
             flag_checkBox_plot2_mama = False
-
-            #self.plot2_mama_curve.clear()
-            #self.plot2_fama_curve.clear()
 
             self.plot2_oe_conv_curve.clear()
             self.plot2_oe_base_curve.clear()
@@ -25442,9 +25436,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot3_mama = False
 
-            #self.plot3_mama_curve.clear()
-            #self.plot3_fama_curve.clear()
-
             self.plot3_oe_conv_curve.clear()
             self.plot3_oe_base_curve.clear()
             self.plot3_span_a_curve.clear()
@@ -25458,9 +25449,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot4_mama = True
         else:
             flag_checkBox_plot4_mama = False
-
-            #self.plot4_mama_curve.clear()
-            #self.plot4_fama_curve.clear()
 
             self.plot4_oe_conv_curve.clear()
             self.plot4_oe_base_curve.clear()
@@ -25476,9 +25464,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot5_mama = False
 
-            #self.plot5_mama_curve.clear()
-            #self.plot5_fama_curve.clear()
-
             self.plot5_oe_conv_curve.clear()
             self.plot5_oe_base_curve.clear()
             self.plot5_span_a_curve.clear()
@@ -25492,9 +25477,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot6_mama = True
         else:
             flag_checkBox_plot6_mama = False
-
-            #self.plot6_mama_curve.clear()
-            #self.plot6_fama_curve.clear()
 
             self.plot6_oe_conv_curve.clear()
             self.plot6_oe_base_curve.clear()
@@ -25510,7 +25492,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         else:
             flag_checkBox_plot1_psar = False
 
-            self.plot1_psar_curve.clear()
+            self.plot1_psar_curve.clear()            
+            self.plot1_mama_curve.clear()
+            self.plot1_fama_curve.clear()
 
     def checkBox_plot2_psar_checkState(self):
 
@@ -25522,6 +25506,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot2_psar = False
 
             self.plot2_psar_curve.clear()
+            self.plot2_mama_curve.clear()
+            self.plot2_fama_curve.clear()
 
     def checkBox_plot3_psar_checkState(self):
 
@@ -25533,6 +25519,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot3_psar = False
 
             self.plot3_psar_curve.clear()
+            self.plot3_mama_curve.clear()
+            self.plot3_fama_curve.clear()
 
     def checkBox_plot4_psar_checkState(self):
 
@@ -25544,6 +25532,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot4_psar = False
 
             self.plot4_psar_curve.clear()
+            self.plot4_mama_curve.clear()
+            self.plot4_fama_curve.clear()
 
     def checkBox_plot5_psar_checkState(self):
 
@@ -25555,6 +25545,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot5_psar = False
 
             self.plot5_psar_curve.clear()
+            self.plot5_mama_curve.clear()
+            self.plot5_fama_curve.clear()
 
     def checkBox_plot6_psar_checkState(self):
 
@@ -25566,6 +25558,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot6_psar = False
 
             self.plot6_psar_curve.clear()
+            self.plot6_mama_curve.clear()
+            self.plot6_fama_curve.clear()
 
     def plot1_clear(self):        
 
