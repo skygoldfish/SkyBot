@@ -22551,7 +22551,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
         
         self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_3.setText(" PSAR ")
+        self.label_p1_3.setText(" PSAR\n MAMA ")
         
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p1_4.setText(" ONE EYE ")
@@ -22588,7 +22588,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
         
         self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_3.setText(" PSAR ")
+        self.label_p2_3.setText(" PSAR\n MAMA ")
         
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p2_4.setText(" ONE EYE ")
@@ -22625,7 +22625,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
         
         self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_3.setText(" PSAR ")
+        self.label_p3_3.setText(" PSAR\n MAMA ")
         
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p3_4.setText(" ONE EYE ")
@@ -22662,7 +22662,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
         
         self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_3.setText(" PSAR ")
+        self.label_p4_3.setText(" PSAR\n MAMA ")
         
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p4_4.setText(" ONE EYE ")
@@ -22699,7 +22699,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
         
         self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_3.setText(" PSAR ")
+        self.label_p5_3.setText(" PSAR\n MAMA ")
         
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p5_4.setText(" ONE EYE ")
@@ -22736,7 +22736,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
         
         self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_3.setText(" PSAR ")
+        self.label_p6_3.setText(" PSAR\n MAMA ")
         
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p6_4.setText(" ONE EYE ")
@@ -25721,7 +25721,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
         self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p1_3.setText(" PSAR ")
+        self.label_p1_3.setText(" PSAR\n MAMA ")
 
         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p1_4.setText(" ONE EYE ")
@@ -25898,7 +25898,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_3.setText(" PSAR ")
+            self.label_p1_3.setText(" PSAR\n MAMA ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" ONE EYE ")
@@ -25931,7 +25931,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_3.setText(" PSAR ")
+            self.label_p1_3.setText(" PSAR\n MAMA ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" ONE EYE ")
@@ -25952,7 +25952,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_3.setText(" PSAR ")
+            self.label_p1_3.setText(" PSAR\n MAMA ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" ONE EYE ")
@@ -25987,7 +25987,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_3.setText(" PSAR ")
+            self.label_p1_3.setText(" PSAR\n MAMA ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" ONE EYE ")
@@ -26020,7 +26020,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_3.setText(" PSAR ")
+            self.label_p1_3.setText(" PSAR\n MAMA ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" ONE EYE ")
@@ -26049,7 +26049,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p1_3.setText(" PSAR ")
+            self.label_p1_3.setText(" PSAR\n MAMA ")
 
             self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p1_4.setText(" ONE EYE ")
@@ -27085,7 +27085,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
         self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p2_3.setText(" PSAR ")
+        self.label_p2_3.setText(" PSAR\n MAMA ")
 
         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p2_4.setText(" ONE EYE ")
@@ -27262,7 +27262,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_3.setText(" PSAR ")
+            self.label_p2_3.setText(" PSAR\n MAMA ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" ONE EYE ")
@@ -27295,7 +27295,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_3.setText(" PSAR ")
+            self.label_p2_3.setText(" PSAR\n MAMA ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" ONE EYE ")
@@ -27316,7 +27316,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_3.setText(" PSAR ")
+            self.label_p2_3.setText(" PSAR\n MAMA ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" ONE EYE ")
@@ -27351,7 +27351,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_3.setText(" PSAR ")
+            self.label_p2_3.setText(" PSAR\n MAMA ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" ONE EYE ")
@@ -27384,7 +27384,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_3.setText(" PSAR ")
+            self.label_p2_3.setText(" PSAR\n MAMA ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" ONE EYE ")
@@ -27413,7 +27413,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p2_3.setText(" PSAR ")
+            self.label_p2_3.setText(" PSAR\n MAMA ")
 
             self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p2_4.setText(" ONE EYE ")
@@ -28449,7 +28449,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
         self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p3_3.setText(" PSAR ")
+        self.label_p3_3.setText(" PSAR\n MAMA ")
 
         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p3_4.setText(" ONE EYE ")
@@ -28626,7 +28626,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_3.setText(" PSAR ")
+            self.label_p3_3.setText(" PSAR\n MAMA ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" ONE EYE ")
@@ -28659,7 +28659,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_3.setText(" PSAR ")
+            self.label_p3_3.setText(" PSAR\n MAMA ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" ONE EYE ")
@@ -28680,7 +28680,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_3.setText(" PSAR ")
+            self.label_p3_3.setText(" PSAR\n MAMA ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" ONE EYE ")
@@ -28715,7 +28715,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_3.setText(" PSAR ")
+            self.label_p3_3.setText(" PSAR\n MAMA ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" ONE EYE ")
@@ -28748,7 +28748,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_3.setText(" PSAR ")
+            self.label_p3_3.setText(" PSAR\n MAMA ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" ONE EYE ")
@@ -28777,7 +28777,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p3_3.setText(" PSAR ")
+            self.label_p3_3.setText(" PSAR\n MAMA ")
 
             self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p3_4.setText(" ONE EYE ")
@@ -29813,7 +29813,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
         self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p4_3.setText(" PSAR ")
+        self.label_p4_3.setText(" PSAR\n MAMA ")
 
         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p4_4.setText(" ONE EYE ")
@@ -29990,7 +29990,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_3.setText(" PSAR ")
+            self.label_p4_3.setText(" PSAR\n MAMA ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" ONE EYE ")
@@ -30023,7 +30023,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_3.setText(" PSAR ")
+            self.label_p4_3.setText(" PSAR\n MAMA ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" ONE EYE ")
@@ -30044,7 +30044,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_3.setText(" PSAR ")
+            self.label_p4_3.setText(" PSAR\n MAMA ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" ONE EYE ")
@@ -30079,7 +30079,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_3.setText(" PSAR ")
+            self.label_p4_3.setText(" PSAR\n MAMA ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" ONE EYE ")
@@ -30112,7 +30112,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_3.setText(" PSAR ")
+            self.label_p4_3.setText(" PSAR\n MAMA ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" ONE EYE ")         
@@ -30141,7 +30141,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p4_3.setText(" PSAR ")
+            self.label_p4_3.setText(" PSAR\n MAMA ")
 
             self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p4_4.setText(" ONE EYE ")
@@ -31177,7 +31177,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
         self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p5_3.setText(" PSAR ")
+        self.label_p5_3.setText(" PSAR\n MAMA ")
 
         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p5_4.setText(" ONE EYE ")
@@ -31354,7 +31354,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_3.setText(" PSAR ")
+            self.label_p5_3.setText(" PSAR\n MAMA ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" ONE EYE ")
@@ -31387,7 +31387,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_3.setText(" PSAR ")
+            self.label_p5_3.setText(" PSAR\n MAMA ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" ONE EYE ")
@@ -31408,7 +31408,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_3.setText(" PSAR ")
+            self.label_p5_3.setText(" PSAR\n MAMA ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" ONE EYE ")
@@ -31443,7 +31443,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_3.setText(" PSAR ")
+            self.label_p5_3.setText(" PSAR\n MAMA ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" ONE EYE ")
@@ -31476,7 +31476,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_3.setText(" PSAR ")
+            self.label_p5_3.setText(" PSAR\n MAMA ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" ONE EYE ")
@@ -31505,7 +31505,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p5_3.setText(" PSAR ")
+            self.label_p5_3.setText(" PSAR\n MAMA ")
 
             self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p5_4.setText(" ONE EYE ")
@@ -32541,7 +32541,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
         self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-        self.label_p6_3.setText(" PSAR ")
+        self.label_p6_3.setText(" PSAR\n MAMA ")
 
         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
         self.label_p6_4.setText(" ONE EYE ")
@@ -32718,7 +32718,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_3.setText(" PSAR ")
+            self.label_p6_3.setText(" PSAR\n MAMA ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" ONE EYE ")
@@ -32751,7 +32751,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_3.setText(" PSAR ")
+            self.label_p6_3.setText(" PSAR\n MAMA ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" ONE EYE ")
@@ -32772,7 +32772,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_3.setText(" PSAR ")
+            self.label_p6_3.setText(" PSAR\n MAMA ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" ONE EYE ")
@@ -32807,7 +32807,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_3.setText(" PSAR ")
+            self.label_p6_3.setText(" PSAR\n MAMA ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" ONE EYE ")
@@ -32840,7 +32840,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_3.setText(" PSAR ")
+            self.label_p6_3.setText(" PSAR\n MAMA ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" ONE EYE ")
@@ -32869,7 +32869,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
             self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-            self.label_p6_3.setText(" PSAR ")
+            self.label_p6_3.setText(" PSAR\n MAMA ")
 
             self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_p6_4.setText(" ONE EYE ")
