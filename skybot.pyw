@@ -53526,13 +53526,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(0, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(cyan))
 
                 elif df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] > df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(0, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(0, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(0, 0).setForeground(QBrush(노란색))
@@ -53780,13 +53780,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(cyan))
 
                 elif df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] > df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(1, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(1, 0).setForeground(QBrush(노란색))
@@ -54033,13 +54033,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(2, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(cyan))
 
                 elif df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] > df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(2, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(2, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(2, 0).setForeground(QBrush(노란색))
@@ -54284,13 +54284,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(cyan))
 
                 elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(3, 0).setForeground(QBrush(노란색))
@@ -54537,13 +54537,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(4, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(cyan))
 
                 elif df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] > df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(4, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(4, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(4, 0).setForeground(QBrush(노란색))
@@ -54788,13 +54788,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(5, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(cyan))
 
                 elif df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] > df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(5, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(5, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(5, 0).setForeground(QBrush(노란색))
@@ -55039,13 +55039,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(6, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(cyan))
 
                 elif df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] > df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(6, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(6, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(6, 0).setForeground(QBrush(노란색))
@@ -55290,13 +55290,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(7, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(cyan))
 
                 elif df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] > df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(7, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(7, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(7, 0).setForeground(QBrush(노란색))
@@ -55541,13 +55541,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(8, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(청색))
+                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(cyan))
 
                 elif df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(8, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(적색))
+                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(magenta))
                 else:
                     self.tableWidget_cme.item(8, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(8, 0).setForeground(QBrush(노란색))
