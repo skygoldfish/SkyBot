@@ -34337,17 +34337,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] > df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] < df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] > df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'], df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
 
                 if flag_checkBox_plot1_mama:
 
@@ -34368,39 +34373,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
                         (df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
-                    self.label_p1_4.setText(txt)
-
-                    '''
-                    self.Calc_MAMA('FUT')
-
-                    self.plot1_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass                    
-
-                    self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
-
-                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
+                    self.label_p1_4.setText(txt)                    
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -34889,20 +34862,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))
+
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] > df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'PSAR'] < df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] > df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'], df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -34925,37 +34902,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)                    
 
-                    '''
-                    self.Calc_MAMA('SP500')
-
-                    self.plot1_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-
-                    self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
-
-                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))                    
-
-                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -35048,20 +34994,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] > df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'PSAR'] < df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] > df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'], df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -35079,42 +35029,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('DOW')
-
-                    self.plot1_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass                    
-
-                    self.plot1_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
-
-                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -35207,20 +35126,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] > df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] < df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] > df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'], df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -35243,37 +35166,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot1_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass                    
-
-                    self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
-
-                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -35366,20 +35258,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -35397,42 +35293,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('HSI')
-
-                    self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -35524,20 +35389,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] > df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'PSAR'] < df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] > df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'], df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -35560,37 +35429,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('WTI')
-
-                    self.plot1_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot1_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
-
-                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -35683,20 +35521,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] > df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'PSAR'] < df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] > df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'], df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -35714,42 +35556,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('GOLD')
-
-                    self.plot1_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
-
-                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -35841,20 +35652,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] > df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'PSAR'] < df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] > df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'], df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -35877,37 +35692,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('EURO')
-
-                    self.plot1_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot1_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
-
-                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -36000,20 +35784,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] > df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'PSAR'] < df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] > df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'], df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -36031,42 +35819,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('YEN')
-
-                    self.plot1_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot1_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
-
-                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -36165,20 +35922,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
-                    if plot_time_index > 0:
-                        self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot1_fama_curve.setData(df.astype(float))                        
+
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] > df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'PSAR'] < df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] > df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'], df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
-
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p1_3.setText(" PSAR ")
+                    self.label_p1_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot1_mama:
 
@@ -36201,37 +35962,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('ADI')
-
-                    self.plot1_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p1_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot1_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
-
-                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
-                    self.plot1_fama_curve.setData(df.astype(float))
-
-                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p1_4.setText(txt)
-                    '''
                 else:
                     self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p1_4.setText(" ONE EYE ")
@@ -36600,17 +36330,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] > df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] < df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] > df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'], df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -36633,37 +36368,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('FUT')
-
-                    self.plot2_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
-
-                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -37152,20 +36856,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))
+
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] > df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'PSAR'] < df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] > df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'], df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -37188,37 +36896,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('SP500')
-
-                    self.plot2_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
-
-                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -37311,20 +36988,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] > df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'PSAR'] < df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] > df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'], df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -37342,42 +37023,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('DOW')
-
-                    self.plot2_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
-
-                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -37470,20 +37120,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] > df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] < df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] > df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'], df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -37506,37 +37160,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot2_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
-
-                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -37629,20 +37252,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -37660,42 +37287,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('HSI')
-
-                    self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass                    
-
-                    self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -37787,20 +37383,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] > df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'PSAR'] < df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] > df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'], df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -37823,37 +37423,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('WTI')
-
-                    self.plot2_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
-
-                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -37946,20 +37515,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] > df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'PSAR'] < df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] > df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'], df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -37977,42 +37550,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('GOLD')
-
-                    self.plot2_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
-
-                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -38104,20 +37646,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] > df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'PSAR'] < df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] > df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'], df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -38140,37 +37686,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('EURO')
-
-                    self.plot2_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
-
-                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -38263,20 +37778,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] > df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'PSAR'] < df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] > df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'], df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -38294,42 +37813,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('YEN')
-
-                    self.plot2_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
-
-                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -38428,20 +37916,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
-                    if plot_time_index > 0:
-                        self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot2_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot2_fama_curve.setData(df.astype(float))                        
+
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] > df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'PSAR'] < df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] > df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'], df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
-
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p2_3.setText(" PSAR ")
+                    self.label_p2_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot2_mama:
 
@@ -38464,37 +37956,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('ADI')
-
-                    self.plot2_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p2_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot2_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
-
-                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
-                    self.plot2_fama_curve.setData(df.astype(float))
-
-                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p2_4.setText(txt)
-                    '''
                 else:
                     self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p2_4.setText(" ONE EYE ")
@@ -38861,17 +38322,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] > df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] < df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] > df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'], df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -38894,37 +38360,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('FUT')
-
-                    self.plot3_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
-
-                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -39414,20 +38849,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))
+
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] > df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'PSAR'] < df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] > df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'], df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -39450,37 +38889,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('SP500')
-
-                    self.plot3_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
-
-                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -39573,20 +38981,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] > df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'PSAR'] < df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] > df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'], df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -39604,42 +39016,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('DOW')
-
-                    self.plot3_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
-
-                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")    
@@ -39732,20 +39113,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] > df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] < df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] > df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'], df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -39768,37 +39153,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot3_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
-
-                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -39891,20 +39245,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -39922,42 +39280,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('HSI')
-
-                    self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -40049,20 +39376,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] > df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'PSAR'] < df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] > df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'], df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -40084,38 +39415,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                         (df_wti_ta_graph.at[plot_time_index, 'OE_BASE'], df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
-                    
-                    '''
-                    self.Calc_MAMA('WTI')
 
-                    self.plot3_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
-
-                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -40208,20 +39508,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] > df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'PSAR'] < df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] > df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'], df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -40239,42 +39543,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('GOLD')
-
-                    self.plot3_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
-
-                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -40366,20 +39639,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] > df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'PSAR'] < df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] > df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'], df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -40402,37 +39679,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('EURO')
-
-                    self.plot3_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
-
-                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -40525,20 +39771,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] > df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'PSAR'] < df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] > df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'], df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -40556,42 +39806,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('YEN')
-
-                    self.plot3_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
-
-                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -40690,20 +39909,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
-                    if plot_time_index > 0:
-                        self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot3_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot3_fama_curve.setData(df.astype(float))                        
+
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] > df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'PSAR'] < df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] > df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'], df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
-
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p3_3.setText(" PSAR ")
+                    self.label_p3_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot3_mama:
 
@@ -40726,37 +39949,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('ADI')
-
-                    self.plot3_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p3_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot3_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
-
-                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
-                    self.plot3_fama_curve.setData(df.astype(float))
-
-                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p3_4.setText(txt)
-                    '''
                 else:
                     self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p3_4.setText(" ONE EYE ")
@@ -41122,17 +40314,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] > df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] < df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] > df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'], df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -41155,37 +40352,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('FUT')
-
-                    self.plot4_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
-
-                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -41674,20 +40840,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))
+
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] > df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'PSAR'] < df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] > df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'], df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -41710,37 +40880,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('SP500')
-
-                    self.plot4_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
-
-                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -41833,20 +40972,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] > df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'PSAR'] < df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] > df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'], df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -41864,42 +41007,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('DOW')
-
-                    self.plot4_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
-
-                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -41992,20 +41104,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] > df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] < df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] > df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'], df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42028,37 +41144,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot4_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
-
-                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -42151,20 +41236,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42182,42 +41271,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('HSI')
-
-                    self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -42309,20 +41367,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] > df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'PSAR'] < df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] > df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'], df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42345,37 +41407,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('WTI')
-
-                    self.plot4_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
-
-                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -42468,20 +41499,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] > df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'PSAR'] < df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] > df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'], df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42499,42 +41534,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('GOLD')
-
-                    self.plot4_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
-
-                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -42624,22 +41628,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
-                if flag_checkBox_plot4_psar:                    
+                if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] > df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'PSAR'] < df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] > df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'], df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42662,37 +41670,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('EURO')
-
-                    self.plot4_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
-
-                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -42785,20 +41762,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] > df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'PSAR'] < df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] > df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'], df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42816,42 +41797,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('YEN')
-
-                    self.plot4_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
-
-                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -42950,20 +41900,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
-                    if plot_time_index > 0:
-                        self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot4_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot4_fama_curve.setData(df.astype(float))                        
+
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] > df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'PSAR'] < df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] > df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'], df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
-
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p4_3.setText(" PSAR ")
+                    self.label_p4_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot4_mama:
 
@@ -42986,37 +41940,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('ADI')
-
-                    self.plot4_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p4_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot4_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
-
-                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
-                    self.plot4_fama_curve.setData(df.astype(float))
-
-                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p4_4.setText(txt)
-                    '''
                 else:
                     self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p4_4.setText(" ONE EYE ")
@@ -43383,17 +42306,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] > df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] < df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] > df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'], df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -43416,37 +42344,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('FUT')
-
-                    self.plot5_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
-
-                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -43935,20 +42832,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))
+
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] > df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'PSAR'] < df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] > df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'], df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -43971,37 +42872,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('SP500')
-
-                    self.plot5_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
-
-                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -44094,20 +42964,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] > df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'PSAR'] < df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] > df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'], df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -44125,42 +42999,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('DOW')
-
-                    self.plot5_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
-
-                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ") 
@@ -44253,20 +43096,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] > df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] < df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] > df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'], df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -44290,37 +43137,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot5_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
-
-                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -44413,20 +43229,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -44444,42 +43264,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('HSI')
-
-                    self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -44571,20 +43360,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] > df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'PSAR'] < df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] > df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'], df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -44607,37 +43400,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('WTI')
-
-                    self.plot5_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
-
-                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -44730,20 +43492,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] > df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'PSAR'] < df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] > df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'], df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -44761,42 +43527,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('GOLD')
-
-                    self.plot5_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
-
-                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -44888,20 +43623,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] > df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'PSAR'] < df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] > df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'], df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -44924,37 +43663,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('EURO')
-
-                    self.plot5_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
-
-                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -45047,20 +43755,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] > df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'PSAR'] < df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] > df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'], df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -45078,42 +43790,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('YEN')
-
-                    self.plot5_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
-
-                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -45212,20 +43893,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
-                    if plot_time_index > 0:
-                        self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot5_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot5_fama_curve.setData(df.astype(float))                        
+
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] > df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'PSAR'] < df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] > df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'], df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
-
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p5_3.setText(" PSAR ")
+                    self.label_p5_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot5_mama:
 
@@ -45248,37 +43933,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('ADI')
-
-                    self.plot5_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p5_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot5_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
-
-                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
-                    self.plot5_fama_curve.setData(df.astype(float))
-
-                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p5_4.setText(txt)
-                    '''
                 else:
                     self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p5_4.setText(" ONE EYE ")
@@ -45645,17 +44299,22 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] >= df_futures_cm_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))
+
+                    if df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] > df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'] < df_futures_cm_ta_graph.at[plot_time_index, 'Price'] and df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] > df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'PSAR'], df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -45678,37 +44337,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('FUT')
-
-                    self.plot6_oe_conv_curve.setData(df_futures_cm_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'], df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
-
-                    df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'] < df_futures_cm_ta_graph.at[plot_time_index, 'FAMA']:                        
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'MAMA'], df_futures_cm_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -46197,20 +44825,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] >= df_sp500_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))
+
+                    if df_sp500_ta_graph.at[plot_time_index, 'PSAR'] > df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_sp500_ta_graph.at[plot_time_index, 'PSAR'] < df_sp500_ta_graph.at[plot_time_index, 'Price'] and df_sp500_ta_graph.at[plot_time_index, 'MAMA'] > df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'PSAR'], df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -46233,37 +44865,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('SP500')
-
-                    self.plot6_oe_conv_curve.setData(df_sp500_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_sp500_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'], df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
-
-                    df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_sp500_ta_graph.at[plot_time_index, 'MAMA'] < df_sp500_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_sp500_ta_graph.at[plot_time_index, 'MAMA'], df_sp500_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -46356,20 +44957,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] >= df_dow_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_dow_ta_graph.at[plot_time_index, 'PSAR'] > df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_dow_ta_graph.at[plot_time_index, 'PSAR'] < df_dow_ta_graph.at[plot_time_index, 'Price'] and df_dow_ta_graph.at[plot_time_index, 'MAMA'] > df_dow_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'PSAR'], df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -46387,42 +44992,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_dow_ta_graph.at[plot_time_index, 'OE_BASE'], df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('DOW')
-
-                    self.plot6_oe_conv_curve.setData(df_dow_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_dow_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'OE_CONV'], df_dow_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
-
-                    df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_dow_ta_graph.at[plot_time_index, 'MAMA'] < df_dow_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'MAMA'], df_dow_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")  
@@ -46515,20 +45089,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] >= df_nasdaq_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] > df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'] < df_nasdaq_ta_graph.at[plot_time_index, 'Price'] and df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] > df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'PSAR'], df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -46551,37 +45129,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('NASDAQ')
-
-                    self.plot6_oe_conv_curve.setData(df_nasdaq_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_nasdaq_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'], df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
-
-                    df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'] < df_nasdaq_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'MAMA'], df_nasdaq_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -46674,20 +45221,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -46705,42 +45256,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
                         (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('HSI')
-
-                    self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.0f}\n OE_BASE: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.0f}\n FAMA: {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")         
@@ -46832,20 +45352,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] >= df_wti_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_wti_ta_graph.at[plot_time_index, 'PSAR'] > df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_wti_ta_graph.at[plot_time_index, 'PSAR'] < df_wti_ta_graph.at[plot_time_index, 'Price'] and df_wti_ta_graph.at[plot_time_index, 'MAMA'] > df_wti_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.2f}\n MAMA: {1:.2f}\n FAMA: {2:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'PSAR'], df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -46868,37 +45392,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('WTI')
-
-                    self.plot6_oe_conv_curve.setData(df_wti_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_wti_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.2f}\n OE_BASE: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'OE_CONV'], df_wti_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
-
-                    df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_wti_ta_graph.at[plot_time_index, 'MAMA'] < df_wti_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.2f}\n FAMA: {1:.2f} ".format(df_wti_ta_graph.at[plot_time_index, 'MAMA'], df_wti_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -46991,20 +45484,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] >= df_gold_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_gold_ta_graph.at[plot_time_index, 'PSAR'] > df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_gold_ta_graph.at[plot_time_index, 'PSAR'] < df_gold_ta_graph.at[plot_time_index, 'Price'] and df_gold_ta_graph.at[plot_time_index, 'MAMA'] > df_gold_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'PSAR'], df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -47022,42 +45519,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_gold_ta_graph.at[plot_time_index, 'OE_BASE'], df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('GOLD')
-
-                    self.plot6_oe_conv_curve.setData(df_gold_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_gold_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_gold_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'OE_CONV'], df_gold_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
-
-                    df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_gold_ta_graph.at[plot_time_index, 'MAMA'] < df_gold_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_gold_ta_graph.at[plot_time_index, 'MAMA'], df_gold_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -47149,20 +45615,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] >= df_euro_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_euro_ta_graph.at[plot_time_index, 'PSAR'] > df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_euro_ta_graph.at[plot_time_index, 'PSAR'] < df_euro_ta_graph.at[plot_time_index, 'Price'] and df_euro_ta_graph.at[plot_time_index, 'MAMA'] > df_euro_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'PSAR'], df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -47185,37 +45655,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('EURO')
-
-                    self.plot6_oe_conv_curve.setData(df_euro_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_euro_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'OE_CONV'], df_euro_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
-
-                    df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_euro_ta_graph.at[plot_time_index, 'MAMA'] < df_euro_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_euro_ta_graph.at[plot_time_index, 'MAMA'], df_euro_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -47308,20 +45747,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] >= df_yen_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_yen_ta_graph.at[plot_time_index, 'PSAR'] > df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_yen_ta_graph.at[plot_time_index, 'PSAR'] < df_yen_ta_graph.at[plot_time_index, 'Price'] and df_yen_ta_graph.at[plot_time_index, 'MAMA'] > df_yen_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.1f}\n MAMA: {1:.1f}\n FAMA: {2:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'PSAR'], df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -47339,42 +45782,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " 기준선: {0:.2f}\n 전환선: {1:.2f}\n SPAN A: {2:.2f} \n SPAN B: {3:.2f} ".format\
+                    txt = " 기준선: {0:.1f}\n 전환선: {1:.1f}\n SPAN A: {2:.1f} \n SPAN B: {3:.1f} ".format\
                         (df_yen_ta_graph.at[plot_time_index, 'OE_BASE'], df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], \
                             df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('YEN')
-
-                    self.plot6_oe_conv_curve.setData(df_yen_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_yen_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.1f}\n OE_BASE: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'OE_CONV'], df_yen_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
-
-                    df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_yen_ta_graph.at[plot_time_index, 'MAMA'] < df_yen_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.1f}\n FAMA: {1:.1f} ".format(df_yen_ta_graph.at[plot_time_index, 'MAMA'], df_yen_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
@@ -47473,20 +45885,24 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
-                    if plot_time_index > 0:
-                        self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] >= df_adi_ta_graph.at[plot_time_index, 'Price']:
+                    self.plot6_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
+                    self.plot6_fama_curve.setData(df.astype(float))                        
+
+                    if df_adi_ta_graph.at[plot_time_index, 'PSAR'] > df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
+                    elif df_adi_ta_graph.at[plot_time_index, 'PSAR'] < df_adi_ta_graph.at[plot_time_index, 'Price'] and df_adi_ta_graph.at[plot_time_index, 'MAMA'] > df_adi_ta_graph.at[plot_time_index, 'FAMA']:
+                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
-                        self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
+                        self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'])
+                    txt = " PSAR: {0:.5f}\n MAMA: {1:.5f}\n FAMA: {2:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'PSAR'], df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
-
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-                    self.label_p6_3.setText(" PSAR ")
+                    self.label_p6_3.setText(" PSAR\n MAMA ")
                 
                 if flag_checkBox_plot6_mama:
 
@@ -47509,37 +45925,6 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                             df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
-                    '''
-                    self.Calc_MAMA('ADI')
-
-                    self.plot6_oe_conv_curve.setData(df_adi_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_adi_ta_graph['OE_BASE'].astype(float))
-
-                    if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_CONV']) and not np.isnan(df_adi_ta_graph.at[plot_time_index, 'OE_BASE']):
-
-                        if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE']:
-                            self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                        else:
-                            self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                        txt = " OE_CONV: {0:.5f}\n OE_BASE: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'OE_CONV'], df_adi_ta_graph.at[plot_time_index, 'OE_BASE'])
-                        self.label_p6_3.setText(txt)
-                    else:
-                        pass
-                    
-                    self.plot6_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
-
-                    df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
-                    self.plot6_fama_curve.setData(df.astype(float))
-
-                    if df_adi_ta_graph.at[plot_time_index, 'MAMA'] < df_adi_ta_graph.at[plot_time_index, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    else:
-                        self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
-
-                    txt = " MAMA: {0:.5f}\n FAMA: {1:.5f} ".format(df_adi_ta_graph.at[plot_time_index, 'MAMA'], df_adi_ta_graph.at[plot_time_index, 'FAMA'])
-                    self.label_p6_4.setText(txt)
-                    '''
                 else:
                     self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     self.label_p6_4.setText(" ONE EYE ")
