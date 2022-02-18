@@ -2315,6 +2315,8 @@ euro_fibonacci_levels = []
 yen_fibonacci_levels = []
 adi_fibonacci_levels = []
 
+CCI_1ST_PERIOD = 25
+CCI_2ND_PERIOD = 50
 CCI_CLIP = 400
 
 CONVERSION_LINE_PERIOD = 9
@@ -20434,28 +20436,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
             df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])           
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])           
             df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
 
             df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
             df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA34', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI25', 'CCI50', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
 
             flag_t8433_response_ok = True
         else:
@@ -36236,11 +36238,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 23:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36251,16 +36253,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                                 
-                self.plot1_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 24:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36271,16 +36273,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 25:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36291,16 +36293,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 26:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36311,16 +36313,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 27:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36331,16 +36333,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 28:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36351,16 +36353,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 29:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36371,16 +36373,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 30:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36391,16 +36393,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 31:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36411,16 +36413,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex1 == 32:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36431,8 +36433,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_adi_cci_50_curve.setData(df_adi_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
             else:
                 pass
 
@@ -38499,11 +38501,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex2 == 23:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38514,16 +38516,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                                 
-                self.plot2_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 24:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38534,16 +38536,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 25:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38554,16 +38556,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 26:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38574,16 +38576,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 27:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38594,16 +38596,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 28:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38614,16 +38616,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 29:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38634,16 +38636,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 30:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38654,16 +38656,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 31:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38674,16 +38676,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex2 == 32:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38694,8 +38696,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_adi_cci_50_curve.setData(df_adi_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
             else:
                 pass         
         
@@ -40761,11 +40763,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex3 == 23:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40776,16 +40778,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                                 
-                self.plot3_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 24:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40796,16 +40798,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 25:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40816,16 +40818,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 26:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40836,16 +40838,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 27:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40856,16 +40858,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 28:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40876,16 +40878,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 29:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40896,16 +40898,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 30:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40916,16 +40918,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 31:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40936,16 +40938,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex3 == 32:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40956,8 +40958,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_adi_cci_50_curve.setData(df_adi_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
             else:
                 pass
 
@@ -43021,11 +43023,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex4 == 23:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43036,16 +43038,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                                 
-                self.plot4_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 24:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43056,16 +43058,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 25:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43076,16 +43078,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 26:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43096,16 +43098,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 27:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43116,16 +43118,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 28:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43136,16 +43138,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 29:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43156,16 +43158,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 30:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43176,16 +43178,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 31:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43196,16 +43198,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex4 == 32:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43216,8 +43218,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_adi_cci_50_curve.setData(df_adi_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
             else:
                 pass
             
@@ -45283,11 +45285,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 23:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45298,16 +45300,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                                 
-                self.plot5_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 24:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45318,16 +45320,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 25:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45338,16 +45340,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 26:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45358,16 +45360,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 27:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45378,16 +45380,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 28:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45398,16 +45400,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 29:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45418,16 +45420,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 30:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45438,16 +45440,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 31:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45458,16 +45460,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex5 == 32:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45478,8 +45480,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_adi_cci_50_curve.setData(df_adi_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
             else:
                 pass
 
@@ -47544,11 +47546,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 23:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI25'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47559,16 +47561,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                                 
-                self.plot6_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 24:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI25'], df_sp500_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_sp500_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_sp500_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47579,16 +47581,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 25:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI25'], df_dow_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_dow_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_dow_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47599,16 +47601,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_dow_cci_25_curve.setData(df_dow_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_dow_cci_50_curve.setData(df_dow_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 26:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI25'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47619,16 +47621,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 27:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI25'], df_hangseng_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47639,16 +47641,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 28:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI25'], df_wti_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_wti_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_wti_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47659,16 +47661,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_wti_cci_25_curve.setData(df_wti_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_wti_cci_50_curve.setData(df_wti_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 29:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI25'], df_gold_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_gold_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_gold_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47679,16 +47681,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_gold_cci_25_curve.setData(df_gold_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_gold_cci_50_curve.setData(df_gold_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 30:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI25'], df_euro_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_euro_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_euro_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47699,16 +47701,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_euro_cci_25_curve.setData(df_euro_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_euro_cci_50_curve.setData(df_euro_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 31:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI25'], df_yen_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_yen_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_yen_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47719,16 +47721,16 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_yen_cci_25_curve.setData(df_yen_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_yen_cci_50_curve.setData(df_yen_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
 
             elif comboindex6 == 32:
 
-                txt = " CCI25 : {0:.0f}, CCI50 : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI25'], df_adi_ta_graph.at[plot_time_index, 'CCI50'])
+                txt = " CCI_1ST : {0:.0f}, CCI_2ND : {1:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'])
 
-                if df_adi_ta_graph.at[plot_time_index, 'CCI50'] > 0:
+                if df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_adi_ta_graph.at[plot_time_index, 'CCI50'] < 0:
+                elif df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -47739,8 +47741,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_adi_cci_25_curve.setData(df_adi_ta_graph['CCI25'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_adi_cci_50_curve.setData(df_adi_ta_graph['CCI50'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))       
+                self.plot6_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))       
             else:
                 pass
 
@@ -50568,6 +50570,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
 
                     flag_futures_cm_ohlc_open = False
+                
+                # Bollinger Band
+                df_futures_cm_ta_graph['BBUpper_1st'], df_futures_cm_ta_graph['BBMiddle_1st'], df_futures_cm_ta_graph['BBLower_1st'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+                df_futures_cm_ta_graph['BBUpper_2nd'], df_futures_cm_ta_graph['BBMiddle_2nd'], df_futures_cm_ta_graph['BBLower_2nd'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
+                
+                # Parabolic SAR
+                df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                
+                # CHIMOKU
+                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
+
+                # MAMA
+                df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
+                # CCI
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+
+                # RSI
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
@@ -50636,25 +50657,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #df_futures_cm_graph.at[plot_time_index, 'Drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
                 df_futures_cm_graph.at[plot_time_index, 'Drate'] = 근월물_선물_종가대비_등락율
-
-                # Bollinger Band
-                df_futures_cm_ta_graph['BBUpper_1st'], df_futures_cm_ta_graph['BBMiddle_1st'], df_futures_cm_ta_graph['BBLower_1st'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
-                df_futures_cm_ta_graph['BBUpper_2nd'], df_futures_cm_ta_graph['BBMiddle_2nd'], df_futures_cm_ta_graph['BBLower_2nd'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
-                
-                # Parabolic SAR
-                df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-                
-                # CHIMOKU
-                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
-
-                # MAMA
-                df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-                df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
-                df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)
-
-                # RSI
 
                 if fut_quote_energy_direction == 'call':
 
@@ -51985,6 +51987,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)  
 
                     flag_futures_cm_ohlc_open = False
+                
+                # Bollinger Band
+                df_futures_cm_ta_graph['BBUpper_1st'], df_futures_cm_ta_graph['BBMiddle_1st'], df_futures_cm_ta_graph['BBLower_1st'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+                df_futures_cm_ta_graph['BBUpper_2nd'], df_futures_cm_ta_graph['BBMiddle_2nd'], df_futures_cm_ta_graph['BBLower_2nd'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
+                
+                # Parabolic SAR
+                df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+
+                # CHIMOKU
+                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
+
+                # MAMA
+                df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
+                # CCI
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+
+                # RSI
 
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'Volume'] = fut_cm_volume_power
@@ -52050,25 +52071,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #df_futures_cm_graph.at[plot_time_index, 'Drate'] = plot_drate_scale_factor * 근월물_선물_종가대비_등락율
                 df_futures_cm_graph.at[plot_time_index, 'Drate'] = 근월물_선물_시가대비_등락율
-
-                # Bollinger Band
-                df_futures_cm_ta_graph['BBUpper_1st'], df_futures_cm_ta_graph['BBMiddle_1st'], df_futures_cm_ta_graph['BBLower_1st'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
-                df_futures_cm_ta_graph['BBUpper_2nd'], df_futures_cm_ta_graph['BBMiddle_2nd'], df_futures_cm_ta_graph['BBLower_2nd'] = talib.BBANDS(df_futures_cm_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)
-                
-                # Parabolic SAR
-                df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # CHIMOKU
-                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
-
-                # MAMA
-                df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-                df_futures_cm_ta_graph['CCI25'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=25)                
-                df_futures_cm_ta_graph['CCI50'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=50)
-
-                # RSI
 
                 self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
@@ -53517,8 +53519,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_sp500_ta_graph['CCI25'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=25)
-                df_sp500_ta_graph['CCI50'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=50)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
 
@@ -53771,8 +53773,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_dow_ta_graph['CCI25'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=25)
-                df_dow_ta_graph['CCI50'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=50)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
 
@@ -54024,8 +54026,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_nasdaq_ta_graph['CCI25'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=25)
-                df_nasdaq_ta_graph['CCI50'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=50)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
                 
@@ -54275,8 +54277,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_hangseng_ta_graph['CCI25'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=25)
-                df_hangseng_ta_graph['CCI50'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=50)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
 
@@ -54528,8 +54530,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_wti_ta_graph['CCI25'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=25)
-                df_wti_ta_graph['CCI50'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=50)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
 
@@ -54779,8 +54781,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_gold_ta_graph['CCI25'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=25)
-                df_gold_ta_graph['CCI50'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=50)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
 
@@ -55030,8 +55032,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_euro_ta_graph['CCI25'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=25)
-                df_euro_ta_graph['CCI50'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=50)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
                 
@@ -55281,8 +55283,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_yen_ta_graph['CCI25'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=25)
-                df_yen_ta_graph['CCI50'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=50)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
                 
@@ -55532,8 +55534,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                 # CCI
-                df_adi_ta_graph['CCI25'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=25)
-                df_adi_ta_graph['CCI50'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=50)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
 
                 # RSI
 
