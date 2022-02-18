@@ -53493,6 +53493,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_sp500_ohlc_open = False                           
                 else:
                     pass
+                
+                if SP500_피봇 == 0:
+
+                    if SP500_전저 > 0 and SP500_전고 > 0:
+                        SP500_피봇 = calc_pivot(SP500_전저, SP500_전고, SP500_전일종가, SP500_시가, 2)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_sp500_ta_graph['BBUpper_1st'], df_sp500_ta_graph['BBMiddle_1st'], df_sp500_ta_graph['BBLower_1st'] = talib.BBANDS(df_sp500_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -53513,14 +53522,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
 
-                if SP500_피봇 == 0:
+                if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if SP500_전저 > 0 and SP500_전고 > 0:
-                        SP500_피봇 = calc_pivot(SP500_전저, SP500_전고, SP500_전일종가, SP500_시가, 2)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(0, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(청색))
+
+                elif df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] > df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(0, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(0, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(0, 0).setForeground(QBrush(노란색))
 
                 if "{0:.2f}".format(SP500_전저) != self.tableWidget_cme.item(0, 1).text():
                     item = QTableWidgetItem("{0:.2f}".format(SP500_전저))
@@ -53732,6 +53747,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_dow_ohlc_open = False
                 else:
                     pass
+                
+                if DOW_피봇 == 0:
+
+                    if DOW_전저 > 0 and DOW_전고 > 0:
+                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_전일종가, DOW_시가, 0))
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_dow_ta_graph['BBUpper_1st'], df_dow_ta_graph['BBMiddle_1st'], df_dow_ta_graph['BBLower_1st'] = talib.BBANDS(df_dow_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -53752,14 +53776,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
 
-                if DOW_피봇 == 0:
+                if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if DOW_전저 > 0 and DOW_전고 > 0:
-                        DOW_피봇 = int(calc_pivot(DOW_전저, DOW_전고, DOW_전일종가, DOW_시가, 0))
-                    else:
-                        pass
+                    self.tableWidget_cme.item(1, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(청색))
+
+                elif df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] > df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(1, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(1, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(1, 0).setForeground(QBrush(노란색))
 
                 if "{0}".format(DOW_전저) != self.tableWidget_cme.item(1, 1).text():
                     item = QTableWidgetItem("{0}".format(DOW_전저))
@@ -53970,6 +54000,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_nasdaq_ohlc_open = False
                 else:
                     pass
+                
+                if NASDAQ_피봇 == 0:
+
+                    if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
+                        NASDAQ_피봇 = calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_시가, 2)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_nasdaq_ta_graph['BBUpper_1st'], df_nasdaq_ta_graph['BBMiddle_1st'], df_nasdaq_ta_graph['BBLower_1st'] = talib.BBANDS(df_nasdaq_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -53990,14 +54029,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
                 
-                if NASDAQ_피봇 == 0:
+                if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-                        NASDAQ_피봇 = calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_전일종가, NASDAQ_시가, 2)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(2, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(청색))
+
+                elif df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] > df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(2, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(2, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(2, 0).setForeground(QBrush(노란색))
 
                 if "{0:.2f}".format(NASDAQ_전저) != self.tableWidget_cme.item(2, 1).text():
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전저))
@@ -54206,6 +54251,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_hangseng_ohlc_open = False
                 else:
                     pass
+                
+                if HANGSENG_피봇 == 0:
+
+                    if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
+                        HANGSENG_피봇 = int(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_시가, 0))
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_hangseng_ta_graph['BBUpper_1st'], df_hangseng_ta_graph['BBMiddle_1st'], df_hangseng_ta_graph['BBLower_1st'] = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -54226,14 +54280,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
 
-                if HANGSENG_피봇 == 0:
+                if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                        HANGSENG_피봇 = int(calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_시가, 0))
-                    else:
-                        pass
+                    self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(청색))
+
+                elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(3, 0).setForeground(QBrush(노란색))
 
                 if "{0}".format(HANGSENG_전저) != self.tableWidget_cme.item(3, 1).text():
                     item = QTableWidgetItem("{0}".format(HANGSENG_전저))
@@ -54444,6 +54504,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_wti_ohlc_open = False
                 else:
                     pass
+                
+                if WTI_피봇 == 0:
+
+                    if WTI_전저 > 0 and WTI_전고 > 0:
+                        WTI_피봇 = calc_pivot(WTI_전저, WTI_전고, WTI_전일종가, WTI_시가, 2)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_wti_ta_graph['BBUpper_1st'], df_wti_ta_graph['BBMiddle_1st'], df_wti_ta_graph['BBLower_1st'] = talib.BBANDS(df_wti_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -54464,14 +54533,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
 
-                if WTI_피봇 == 0:
+                if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if WTI_전저 > 0 and WTI_전고 > 0:
-                        WTI_피봇 = calc_pivot(WTI_전저, WTI_전고, WTI_전일종가, WTI_시가, 2)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(4, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(청색))
+
+                elif df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] > df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(4, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(4, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(4, 0).setForeground(QBrush(노란색))
 
                 if "{0:.2f}".format(WTI_전저) != self.tableWidget_cme.item(4, 1).text():
                     item = QTableWidgetItem("{0:.2f}".format(WTI_전저))
@@ -54680,6 +54755,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_gold_ohlc_open = False
                 else:
                     pass
+                
+                if GOLD_피봇 == 0:
+
+                    if GOLD_전저 > 0 and GOLD_전고 > 0:
+                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_시가, 1)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_gold_ta_graph['BBUpper_1st'], df_gold_ta_graph['BBMiddle_1st'], df_gold_ta_graph['BBLower_1st'] = talib.BBANDS(df_gold_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -54700,14 +54784,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
 
-                if GOLD_피봇 == 0:
+                if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if GOLD_전저 > 0 and GOLD_전고 > 0:
-                        GOLD_피봇 = calc_pivot(GOLD_전저, GOLD_전고, GOLD_전일종가, GOLD_시가, 1)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(5, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(청색))
+
+                elif df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] > df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(5, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(5, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(5, 0).setForeground(QBrush(노란색))
 
                 if "{0:.1f}".format(GOLD_전저) != self.tableWidget_cme.item(5, 1).text():
                     item = QTableWidgetItem("{0:.1f}".format(GOLD_전저))
@@ -54916,6 +55006,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_euro_ohlc_open = False
                 else:
                     pass
+                
+                if EURO_피봇 == 0:
+
+                    if EURO_전저 > 0 and EURO_전고 > 0:
+                        EURO_피봇 = calc_pivot(EURO_전저, EURO_전고, EURO_전일종가, EURO_시가, 5)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_euro_ta_graph['BBUpper_1st'], df_euro_ta_graph['BBMiddle_1st'], df_euro_ta_graph['BBLower_1st'] = talib.BBANDS(df_euro_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -54936,14 +55035,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
                 
-                if EURO_피봇 == 0:
+                if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if EURO_전저 > 0 and EURO_전고 > 0:
-                        EURO_피봇 = calc_pivot(EURO_전저, EURO_전고, EURO_전일종가, EURO_시가, 5)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(6, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(청색))
+
+                elif df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] > df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(6, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(6, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(6, 0).setForeground(QBrush(노란색))
 
                 if "{0:.5f}".format(EURO_전저) != self.tableWidget_cme.item(6, 1).text():
                     item = QTableWidgetItem("{0:.5f}".format(EURO_전저))
@@ -55152,6 +55257,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_yen_ohlc_open = False
                 else:
                     pass
+                
+                if YEN_피봇 == 0:
+
+                    if YEN_전저 > 0 and YEN_전고 > 0:
+                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_전일종가, YEN_시가, 1)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_yen_ta_graph['BBUpper_1st'], df_yen_ta_graph['BBMiddle_1st'], df_yen_ta_graph['BBLower_1st'] = talib.BBANDS(df_yen_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -55172,14 +55286,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
                 
-                if YEN_피봇 == 0:
+                if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if YEN_전저 > 0 and YEN_전고 > 0:
-                        YEN_피봇 = calc_pivot(YEN_전저, YEN_전고, YEN_전일종가, YEN_시가, 1)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(7, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(청색))
+
+                elif df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] > df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(7, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(7, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(7, 0).setForeground(QBrush(노란색))
 
                 if "{0:.1f}".format(YEN_전저) != self.tableWidget_cme.item(7, 1).text():
                     item = QTableWidgetItem("{0:.1f}".format(YEN_전저))
@@ -55388,6 +55508,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_adi_ohlc_open = False
                 else:
                     pass
+                
+                if ADI_피봇 == 0:
+
+                    if ADI_전저 > 0 and ADI_전고 > 0:
+                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_전일종가, ADI_시가, 5)
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Bollinger Band
                 df_adi_ta_graph['BBUpper_1st'], df_adi_ta_graph['BBMiddle_1st'], df_adi_ta_graph['BBLower_1st'] = talib.BBANDS(df_adi_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
@@ -55408,14 +55537,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # RSI
 
-                if ADI_피봇 == 0:
+                if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
-                    if ADI_전저 > 0 and ADI_전고 > 0:
-                        ADI_피봇 = calc_pivot(ADI_전저, ADI_전고, ADI_전일종가, ADI_시가, 5)
-                    else:
-                        pass
+                    self.tableWidget_cme.item(8, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(청색))
+
+                elif df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+
+                    self.tableWidget_cme.item(8, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(적색))
                 else:
-                    pass
+                    self.tableWidget_cme.item(8, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_cme.item(8, 0).setForeground(QBrush(노란색))
 
                 if "{0:.5f}".format(ADI_전저) != self.tableWidget_cme.item(8, 1).text():
                     item = QTableWidgetItem("{0:.5f}".format(ADI_전저))
