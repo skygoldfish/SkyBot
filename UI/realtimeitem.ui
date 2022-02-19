@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
+    <width>356</width>
     <height>891</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>293</width>
+     <width>317</width>
      <height>541</height>
     </rect>
    </property>
@@ -40,7 +40,7 @@
      <rect>
       <x>12</x>
       <y>26</y>
-      <width>269</width>
+      <width>291</width>
       <height>506</height>
      </rect>
     </property>
@@ -423,7 +423,7 @@
     <rect>
      <x>20</x>
      <y>720</y>
-     <width>293</width>
+     <width>317</width>
      <height>57</height>
     </rect>
    </property>
@@ -435,14 +435,14 @@
     </font>
    </property>
    <property name="title">
-    <string>FUTvsSP500 등락율비/허용오차/Plot 갱신주기</string>
+    <string>선물vsSP500 등락율비, 허용오차, Plot 갱신주기</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>14</x>
       <y>24</y>
-      <width>267</width>
+      <width>287</width>
       <height>21</height>
      </rect>
     </property>
@@ -515,7 +515,7 @@
     <rect>
      <x>20</x>
      <y>658</y>
-     <width>291</width>
+     <width>317</width>
      <height>55</height>
     </rect>
    </property>
@@ -527,18 +527,18 @@
     </font>
    </property>
    <property name="title">
-    <string>볼린저 이평주기/1st STD, 2nd STD</string>
+    <string>볼린저(주기, 1st STD, 2nd STD), RSI 주기</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>23</y>
-      <width>269</width>
+      <x>14</x>
+      <y>24</y>
+      <width>289</width>
       <height>21</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,2,2,4,2,2,3,2">
      <item>
       <widget class="QLabel" name="label_5">
        <property name="font">
@@ -549,7 +549,7 @@
         </font>
        </property>
        <property name="text">
-        <string>주기</string>
+        <string>B주기</string>
        </property>
       </widget>
      </item>
@@ -602,6 +602,27 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>R주기</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_rsi_period">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -610,7 +631,7 @@
     <rect>
      <x>20</x>
      <y>558</y>
-     <width>293</width>
+     <width>317</width>
      <height>91</height>
     </rect>
    </property>
@@ -629,7 +650,7 @@
      <rect>
       <x>12</x>
       <y>60</y>
-      <width>271</width>
+      <width>291</width>
       <height>22</height>
      </rect>
     </property>
@@ -674,7 +695,7 @@
      <rect>
       <x>12</x>
       <y>30</y>
-      <width>271</width>
+      <width>291</width>
       <height>22</height>
      </rect>
     </property>
@@ -720,7 +741,7 @@
     <rect>
      <x>20</x>
      <y>782</y>
-     <width>293</width>
+     <width>317</width>
      <height>83</height>
     </rect>
    </property>
@@ -737,61 +758,52 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>25</y>
-      <width>265</width>
-      <height>51</height>
+      <x>225</x>
+      <y>27</y>
+      <width>75</width>
+      <height>46</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_10">
-       <item>
-        <widget class="QCheckBox" name="checkBox_periodic_plot">
-         <property name="text">
-          <string>Option Table Periodic Update</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_tts">
-         <property name="text">
-          <string>TTS</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QCheckBox" name="checkBox_tts">
+       <property name="text">
+        <string>TTS</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_11">
-       <item>
-        <widget class="QCheckBox" name="checkBox_plot_sync">
-         <property name="text">
-          <string>Plot Sync</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_telegram">
-         <property name="text">
-          <string>Telegram</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QCheckBox" name="checkBox_telegram">
+       <property name="text">
+        <string>Telegram</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>17</x>
+      <y>27</y>
+      <width>207</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QCheckBox" name="checkBox_periodic_plot">
+       <property name="text">
+        <string>Option Table Periodic Update</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_plot_sync">
+       <property name="text">
+        <string>Plot Sync</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
