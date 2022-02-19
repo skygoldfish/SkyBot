@@ -758,39 +758,13 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>225</x>
-      <y>27</y>
-      <width>75</width>
-      <height>46</height>
+      <x>15</x>
+      <y>25</y>
+      <width>287</width>
+      <height>48</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QCheckBox" name="checkBox_tts">
-       <property name="text">
-        <string>TTS</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_telegram">
-       <property name="text">
-        <string>Telegram</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>17</x>
-      <y>27</y>
-      <width>207</width>
-      <height>46</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
       <widget class="QCheckBox" name="checkBox_periodic_plot">
        <property name="text">
@@ -799,11 +773,29 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_plot_sync">
-       <property name="text">
-        <string>Plot Sync</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QCheckBox" name="checkBox_plot_sync">
+         <property name="text">
+          <string>Plot Sync</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_tts">
+         <property name="text">
+          <string>TTS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_telegram">
+         <property name="text">
+          <string>Telegram</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
