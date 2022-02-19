@@ -353,7 +353,7 @@ class Ui_Dialog(object):
         self.lineEdit_rsi_period.setObjectName("lineEdit_rsi_period")
         self.horizontalLayout_2.addWidget(self.lineEdit_rsi_period)
         self.horizontalLayout_2.setStretch(0, 3)
-        self.horizontalLayout_2.setStretch(1, 2)
+        self.horizontalLayout_2.setStretch(1, 3)
         self.horizontalLayout_2.setStretch(2, 2)
         self.horizontalLayout_2.setStretch(3, 4)
         self.horizontalLayout_2.setStretch(4, 2)
