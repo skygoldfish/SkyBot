@@ -6443,8 +6443,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 
                                 nighttime_file.close()
 
-                                if os.path.isdir("d:/SkyBot_NM"):
-                                    shutil.copyfile("./nighttime.txt", "d:/SkyBot_NM/nighttime.txt")
+                                if TARGET_MONTH == 'CM':
+                                    if os.path.isdir("d:/SkyBot_NM"):
+                                        shutil.copyfile("./nighttime.txt", "d:/SkyBot_NM/nighttime.txt")
+                                else:
+                                    pass
                             
                             if CSV_FILE:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 데이타를 CSV파일로 저장합니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -6961,7 +6964,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
         start_time = timeit.default_timer()
-               
+
         self.call_node_color_clear() 
         self.call_open_check()
         self.call_only_cross_color_update()        
@@ -7004,7 +7007,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
         start_time = timeit.default_timer()
-             
+
         self.put_node_color_clear()        
         self.put_open_check()    
         self.put_only_cross_color_update()        
