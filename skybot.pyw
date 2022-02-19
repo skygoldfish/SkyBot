@@ -46873,8 +46873,7 @@ class Xing(object):
             #df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)      
 
         # 여기에서 주기적인 갱신을 진행
-        if self.caller.dialog['선물옵션전광판'] is not None:            
-
+        if self.caller.dialog['선물옵션전광판'] is not None:
             try:
                 if flag_score_board_start:
                     
