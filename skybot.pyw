@@ -34332,6 +34332,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
+                    df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
@@ -34862,6 +34865,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
+                    df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
@@ -34996,6 +35002,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot1_psar:
+
+                    df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -35132,6 +35141,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
+                    df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
@@ -35267,6 +35279,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
+                    df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
@@ -35400,6 +35415,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot1_psar:
+
+                    df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -35536,6 +35554,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot1_psar:
 
+                    df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
@@ -35669,6 +35690,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot1_psar:
+
+                    df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -35804,6 +35828,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot1_psar:
+
+                    df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -35945,6 +35972,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p1_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot1_psar:
+
+                    df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -36384,6 +36414,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot2_psar:
+
+                    df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot2_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -36916,6 +36949,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
+                    df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot2_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
@@ -37050,6 +37086,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot2_psar:
+
+                    df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -37186,6 +37225,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
+                    df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot2_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
@@ -37321,6 +37363,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
+                    df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
@@ -37454,6 +37499,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot2_psar:
+
+                    df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -37590,6 +37638,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot2_psar:
 
+                    df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot2_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
@@ -37723,6 +37774,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot2_psar:
+
+                    df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -37858,6 +37912,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot2_psar:
+
+                    df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -37999,6 +38056,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p2_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot2_psar:
+
+                    df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -38436,6 +38496,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot3_psar:
+
+                    df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)                
+                    df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot3_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -38969,6 +39032,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
+                    df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot3_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
@@ -39103,6 +39169,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot3_psar:
+
+                    df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -39239,6 +39308,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
+                    df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot3_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
@@ -39374,6 +39446,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
+                    df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
@@ -39507,6 +39582,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot3_psar:
+
+                    df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -39643,6 +39721,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot3_psar:
 
+                    df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot3_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
@@ -39776,6 +39857,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot3_psar:
+
+                    df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -39911,6 +39995,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot3_psar:
+
+                    df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -40052,6 +40139,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p3_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot3_psar:
+
+                    df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -40488,6 +40578,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot4_psar:
+
+                    df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)                
+                    df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot4_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -41020,6 +41113,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
+                    df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot4_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
@@ -41154,6 +41250,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot4_psar:
+
+                    df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -41290,6 +41389,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
+                    df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot4_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
@@ -41425,6 +41527,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
+                    df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
@@ -41558,6 +41663,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot4_psar:
+
+                    df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -41694,6 +41802,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot4_psar:
 
+                    df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot4_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
@@ -41827,6 +41938,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot4_psar:
+
+                    df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -41962,6 +42076,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot4_psar:
+
+                    df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -42103,6 +42220,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p4_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot4_psar:
+
+                    df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -42540,6 +42660,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot5_psar:
+
+                    df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)                
+                    df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot5_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -43072,6 +43195,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
+                    df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot5_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
@@ -43207,6 +43333,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
+                    df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot5_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
@@ -43341,6 +43470,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot5_psar:
+
+                    df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -43478,6 +43610,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
+                    df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
@@ -43611,6 +43746,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot5_psar:
+
+                    df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -43747,6 +43885,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot5_psar:
 
+                    df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot5_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
@@ -43880,6 +44021,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot5_psar:
+
+                    df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -44015,6 +44159,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot5_psar:
+
+                    df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -44156,6 +44303,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p5_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot5_psar:
+
+                    df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -44593,6 +44743,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot6_psar:
+
+                    df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)                
+                    df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot6_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -45125,6 +45278,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
+                    df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot6_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
@@ -45259,6 +45415,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot6_psar:
+
+                    df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -45395,6 +45554,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
+                    df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot6_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
@@ -45530,6 +45692,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
+                    df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
@@ -45663,6 +45828,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot6_psar:
+
+                    df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -45799,6 +45967,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 if flag_checkBox_plot6_psar:
 
+                    df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+
                     self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
                     self.plot6_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
@@ -45932,6 +46103,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot6_psar:
+
+                    df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -46067,6 +46241,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot6_psar:
+
+                    df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -46208,6 +46385,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.label_p6_2.setText(" BB Upper\n BB Middle\n BB Lower ")
 
                 if flag_checkBox_plot6_psar:
+
+                    df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+                    df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
                     self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
@@ -46671,13 +46851,27 @@ class Xing(object):
 
             self.caller.statusbar.showMessage(msg)
         else:
-            pass        
+            pass
 
         # 여기에서 주기적인 갱신을 진행
         if self.caller.dialog['선물옵션전광판'] is not None:
 
+            global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+
             try:
                 if flag_score_board_start:
+
+                    # 주요지표 계산
+                    #df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    #df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                    #df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)      
 
                     if dt.hour == KSE_START_HOUR:
                         report_interval = 5
@@ -49308,22 +49502,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
 
-                    flag_futures_cm_ohlc_open = False
-                
-                # Bollinger Band               
-                
-                # CHIMOKU
-                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
-
-                # Parabolic SAR
-                df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
+                    flag_futures_cm_ohlc_open = False                        
 
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
@@ -49395,28 +49574,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if fut_quote_energy_direction == 'call':
 
-                    if NightTime:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                    else:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))                        
 
                 elif fut_quote_energy_direction == 'put':
 
-                    if NightTime:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                    else:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))                        
                 else:
-                    if NightTime:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                    else:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                        self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                    self.dialog['선물옵션전광판'].tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))                        
 
                 item = QTableWidgetItem("CME\n({0:.2f}%)".format(SP500_등락율))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -49440,10 +49607,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
 
-                if NightTime:
-                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-                else:
-                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)                    
 
                 if 근월물_선물_시가 > 0:
                     선물_진폭비 = (근월물_선물_고가 - 근월물_선물_저가) / 근월물_선물_시가
@@ -49459,12 +49623,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setBackground(QBrush(라임))
                     item.setForeground(QBrush(검정색))
 
-                    if NightTime:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-                    else:
-                        self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.대비.value, item)                        
                 else:
-                    pass 
+                    pass
+
+                # ICHIMOKU
+                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
 
             elif tickdata['단축코드'] == CMSHCODE:
 
@@ -50723,21 +50887,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_futures_cm_ohlc_open = False
                 
-                # Bollinger Band
-                
-                # CHIMOKU
-                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
-                
-                # Parabolic SAR
-                df_futures_cm_ta_graph['PSAR'] = talib.SAR(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'Volume'] = fut_cm_volume_power
 
@@ -50805,7 +50954,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].fut_cm_update(tickdata)
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
-
+                
+                # ICHIMOKU
+                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
+                
             elif tickdata['단축코드'] == CMSHCODE:
 
                 # 그래프관련 처리 먼저...
@@ -52236,21 +52388,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-
                 # ICHIMOKU
                 df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                # Parabolic SAR
-                df_sp500_ta_graph['PSAR'] = talib.SAR(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -52486,21 +52626,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-            
                 # ICHIMOKU
-                df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                # Parabolic SAR
-                df_dow_ta_graph['PSAR'] = talib.SAR(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -52735,21 +52863,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-            
                 # ICHIMOKU
-                df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-                
-                # Parabolic SAR
-                df_nasdaq_ta_graph['PSAR'] = talib.SAR(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-                
+                #df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                                
                 if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -52982,21 +53098,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-            
                 # ICHIMOKU
-                df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                # Parabolic SAR
-                df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -53231,21 +53335,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-            
                 # ICHIMOKU
-                df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                # Parabolic SAR
-                df_wti_ta_graph['PSAR'] = talib.SAR(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -53478,21 +53570,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-            
                 # ICHIMOKU
-                df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                # Parabolic SAR
-                df_gold_ta_graph['PSAR'] = talib.SAR(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -53725,21 +53805,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-            
                 # ICHIMOKU
-                df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-                
-                # Parabolic SAR
-                df_euro_ta_graph['PSAR'] = talib.SAR(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-                
+                #df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                                
                 if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -53972,21 +54040,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-
                 # ICHIMOKU
-                df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-                
-                # Parabolic SAR
-                df_yen_ta_graph['PSAR'] = talib.SAR(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-
-                # MAMA
-                df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-                
+                #df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                                
                 if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
@@ -54219,21 +54275,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                # Bollinger Band
-
                 # ICHIMOKU
                 df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                # Parabolic SAR
-                df_adi_ta_graph['PSAR'] = talib.SAR(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
-                
-                # MAMA
-                df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
-
-                # CCI
-
-                # RSI
-
                 if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
