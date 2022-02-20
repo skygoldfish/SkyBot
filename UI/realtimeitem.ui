@@ -30,7 +30,7 @@
     </font>
    </property>
    <property name="title">
-    <string>실시간요청 항목</string>
+    <string>Real Time Request Item</string>
    </property>
    <property name="flat">
     <bool>false</bool>
@@ -446,7 +446,7 @@
     </font>
    </property>
    <property name="title">
-    <string>볼린저밴드 (이평주기, 1st STD, 2nd STD)</string>
+    <string>Double Bollinger Bands (이평주기, 1st STD, 2nd STD)</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -541,7 +541,7 @@
     </font>
    </property>
    <property name="title">
-    <string>내가, 외가 설정</string>
+    <string>ITM, OTM Setting</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -893,7 +893,7 @@
     </font>
    </property>
    <property name="title">
-    <string>일목균형지표</string>
+    <string>One Eye Balance Indicator</string>
    </property>
    <widget class="QCheckBox" name="checkBox_lagging_span">
     <property name="geometry">
