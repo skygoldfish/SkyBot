@@ -1823,9 +1823,9 @@ skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DashLine)
 goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
+bb_1st_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 bb_2nd_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 bb_middle_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
-bb_1st_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 psar_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
 rsi_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
