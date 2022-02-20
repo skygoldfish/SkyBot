@@ -2358,7 +2358,7 @@ if not UI_HIDE:
     else:
         pass
 
-    score_board_ui_type = 'scoreboard.ui'
+    scoreboard_ui_type = 'scoreboard.ui'
     chart_ui_type = 'skychart.ui'
     realtimeitem_ui_type = 'realtimeitem.ui'
     version_ui_type = 'version.ui'
@@ -4001,7 +4001,7 @@ if UI_HIDE:
         import scoreboard_ui
         Ui_선물옵션전광판 = scoreboard_ui.Ui_Dialog
 else:
-    Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
+    Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + scoreboard_ui_type)
 #####################################################################################################################################################################
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
