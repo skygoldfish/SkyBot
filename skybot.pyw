@@ -3998,7 +3998,7 @@ class 화면_버전(QDialog, Ui_버전):
 # 옵션전광판 UI Class
 #####################################################################################################################################################################
 if UI_HIDE:
-        import score_board_ui
+        import scoreboard_ui
         Ui_선물옵션전광판 = scoreboard_ui.Ui_Dialog
 else:
     Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + score_board_ui_type)
