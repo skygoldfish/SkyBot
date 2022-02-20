@@ -1826,15 +1826,18 @@ bb_middle_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 bb_1st_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 psar_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
-
-macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine) 
-MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
-# MACDHist_pen = 
+rsi_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+cci1_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
+cci2_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 
 mama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 fama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
+
+conv_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
+base_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
+lagging_span_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
 
 # Sky Chart Plot1
 plot1_x = 0
@@ -23073,11 +23076,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_psar_curve = self.plot1.plot(pen=psar_pen)
 
-        self.plot1_one_eye_curve = self.plot1.plot(pen=mama_pen)
+        self.plot1_mama_curve = self.plot1.plot(pen=mama_pen)
         self.plot1_fama_curve = self.plot1.plot(pen=fama_pen)
 
-        self.plot1_oe_conv_curve = self.plot1.plot(pen=mama_pen)
-        self.plot1_oe_base_curve = self.plot1.plot(pen=fama_pen)
+        self.plot1_oe_conv_curve = self.plot1.plot(pen=conv_pen)
+        self.plot1_oe_base_curve = self.plot1.plot(pen=base_pen)
         self.plot1_span_a_curve = self.plot1.plot(pen=span_a_pen)
         self.plot1_span_b_curve = self.plot1.plot(pen=span_b_pen)
 
@@ -23138,39 +23141,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_adi_alligator_jaw_curve = self.plot1.plot(pen=aqua_pen)
 
         # RSI Curve
-        self.plot1_futures_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_sp500_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_dow_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_nasdaq_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_hsi_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_wti_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_gold_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_euro_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_yen_rsi_curve = self.plot1.plot(pen=magenta_pen)
-        self.plot1_adi_rsi_curve = self.plot1.plot(pen=magenta_pen)
+        self.plot1_futures_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_sp500_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_dow_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_nasdaq_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_hsi_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_wti_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_gold_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_euro_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_yen_rsi_curve = self.plot1.plot(pen=rsi_pen)
+        self.plot1_adi_rsi_curve = self.plot1.plot(pen=rsi_pen)
 
         # CCI Curve
-        self.plot1_futures_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_sp500_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_dow_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_nasdaq_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_hsi_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_wti_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_gold_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_euro_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_yen_cci_25_curve = self.plot1.plot(pen=yellow_pen)
-        self.plot1_adi_cci_25_curve = self.plot1.plot(pen=yellow_pen)
+        self.plot1_futures_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_sp500_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_dow_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_nasdaq_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_hsi_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_wti_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_gold_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_euro_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_yen_cci1_curve = self.plot1.plot(pen=cci1_pen)
+        self.plot1_adi_cci1_curve = self.plot1.plot(pen=cci1_pen)
 
-        self.plot1_futures_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_sp500_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_dow_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_nasdaq_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_hsi_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_wti_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_gold_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_euro_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_yen_cci_50_curve = self.plot1.plot(pen=lime_pen)
-        self.plot1_adi_cci_50_curve = self.plot1.plot(pen=lime_pen)
+        self.plot1_futures_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_sp500_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_dow_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_nasdaq_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_hsi_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_wti_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_gold_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_euro_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_yen_cci2_curve = self.plot1.plot(pen=cci2_pen)
+        self.plot1_adi_cci2_curve = self.plot1.plot(pen=cci2_pen)
 
         self.plot1_cci_plus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
@@ -23271,11 +23274,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_psar_curve = self.plot2.plot(pen=psar_pen)
 
-        self.plot2_one_eye_curve = self.plot2.plot(pen=mama_pen)
+        self.plot2_mama_curve = self.plot2.plot(pen=mama_pen)
         self.plot2_fama_curve = self.plot2.plot(pen=fama_pen)
 
-        self.plot2_oe_conv_curve = self.plot2.plot(pen=mama_pen)
-        self.plot2_oe_base_curve = self.plot2.plot(pen=fama_pen)
+        self.plot2_oe_conv_curve = self.plot2.plot(pen=conv_pen)
+        self.plot2_oe_base_curve = self.plot2.plot(pen=base_pen)
         self.plot2_span_a_curve = self.plot2.plot(pen=span_a_pen)
         self.plot2_span_b_curve = self.plot2.plot(pen=span_b_pen)
 
@@ -23336,39 +23339,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_adi_alligator_jaw_curve = self.plot2.plot(pen=aqua_pen)
 
         # RSI Curve
-        self.plot2_futures_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_sp500_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_dow_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_nasdaq_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_hsi_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_wti_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_gold_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_euro_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_yen_rsi_curve = self.plot2.plot(pen=magenta_pen)
-        self.plot2_adi_rsi_curve = self.plot2.plot(pen=magenta_pen)
+        self.plot2_futures_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_sp500_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_dow_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_nasdaq_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_hsi_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_wti_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_gold_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_euro_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_yen_rsi_curve = self.plot2.plot(pen=rsi_pen)
+        self.plot2_adi_rsi_curve = self.plot2.plot(pen=rsi_pen)
 
         # CCI Curve
-        self.plot2_futures_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_sp500_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_dow_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_nasdaq_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_hsi_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_wti_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_gold_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_euro_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_yen_cci_25_curve = self.plot2.plot(pen=yellow_pen)
-        self.plot2_adi_cci_25_curve = self.plot2.plot(pen=yellow_pen)
+        self.plot2_futures_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_sp500_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_dow_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_nasdaq_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_hsi_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_wti_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_gold_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_euro_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_yen_cci1_curve = self.plot2.plot(pen=cci1_pen)
+        self.plot2_adi_cci1_curve = self.plot2.plot(pen=cci1_pen)
 
-        self.plot2_futures_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_sp500_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_dow_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_nasdaq_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_hsi_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_wti_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_gold_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_euro_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_yen_cci_50_curve = self.plot2.plot(pen=lime_pen)
-        self.plot2_adi_cci_50_curve = self.plot2.plot(pen=lime_pen)
+        self.plot2_futures_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_sp500_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_dow_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_nasdaq_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_hsi_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_wti_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_gold_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_euro_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_yen_cci2_curve = self.plot2.plot(pen=cci2_pen)
+        self.plot2_adi_cci2_curve = self.plot2.plot(pen=cci2_pen)
 
         self.plot2_cci_plus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         self.plot2_cci_minus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
@@ -23467,11 +23470,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_psar_curve = self.plot3.plot(pen=psar_pen)
 
-        self.plot3_one_eye_curve = self.plot3.plot(pen=mama_pen)
+        self.plot3_mama_curve = self.plot3.plot(pen=mama_pen)
         self.plot3_fama_curve = self.plot3.plot(pen=fama_pen)
 
-        self.plot3_oe_conv_curve = self.plot3.plot(pen=mama_pen)
-        self.plot3_oe_base_curve = self.plot3.plot(pen=fama_pen)
+        self.plot3_oe_conv_curve = self.plot3.plot(pen=conv_pen)
+        self.plot3_oe_base_curve = self.plot3.plot(pen=base_pen)
         self.plot3_span_a_curve = self.plot3.plot(pen=span_a_pen)
         self.plot3_span_b_curve = self.plot3.plot(pen=span_b_pen)
 
@@ -23532,39 +23535,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_adi_alligator_jaw_curve = self.plot3.plot(pen=aqua_pen)
 
         # RSI Curve
-        self.plot3_futures_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_sp500_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_dow_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_nasdaq_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_hsi_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_wti_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_gold_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_euro_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_yen_rsi_curve = self.plot3.plot(pen=magenta_pen)
-        self.plot3_adi_rsi_curve = self.plot3.plot(pen=magenta_pen)
+        self.plot3_futures_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_sp500_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_dow_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_nasdaq_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_hsi_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_wti_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_gold_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_euro_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_yen_rsi_curve = self.plot3.plot(pen=rsi_pen)
+        self.plot3_adi_rsi_curve = self.plot3.plot(pen=rsi_pen)
 
         # CCI Curve
-        self.plot3_futures_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_sp500_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_dow_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_nasdaq_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_hsi_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_wti_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_gold_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_euro_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_yen_cci_25_curve = self.plot3.plot(pen=yellow_pen)
-        self.plot3_adi_cci_25_curve = self.plot3.plot(pen=yellow_pen)
+        self.plot3_futures_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_sp500_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_dow_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_nasdaq_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_hsi_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_wti_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_gold_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_euro_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_yen_cci1_curve = self.plot3.plot(pen=cci1_pen)
+        self.plot3_adi_cci1_curve = self.plot3.plot(pen=cci1_pen)
 
-        self.plot3_futures_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_sp500_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_dow_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_nasdaq_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_hsi_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_wti_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_gold_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_euro_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_yen_cci_50_curve = self.plot3.plot(pen=lime_pen)
-        self.plot3_adi_cci_50_curve = self.plot3.plot(pen=lime_pen)
+        self.plot3_futures_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_sp500_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_dow_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_nasdaq_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_hsi_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_wti_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_gold_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_euro_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_yen_cci2_curve = self.plot3.plot(pen=cci2_pen)
+        self.plot3_adi_cci2_curve = self.plot3.plot(pen=cci2_pen)
 
         self.plot3_cci_plus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         self.plot3_cci_minus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
@@ -23663,11 +23666,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_psar_curve = self.plot4.plot(pen=psar_pen)
 
-        self.plot4_one_eye_curve = self.plot4.plot(pen=mama_pen)
+        self.plot4_mama_curve = self.plot4.plot(pen=mama_pen)
         self.plot4_fama_curve = self.plot4.plot(pen=fama_pen)
 
-        self.plot4_oe_conv_curve = self.plot4.plot(pen=mama_pen)
-        self.plot4_oe_base_curve = self.plot4.plot(pen=fama_pen)
+        self.plot4_oe_conv_curve = self.plot4.plot(pen=conv_pen)
+        self.plot4_oe_base_curve = self.plot4.plot(pen=base_pen)
         self.plot4_span_a_curve = self.plot4.plot(pen=span_a_pen)
         self.plot4_span_b_curve = self.plot4.plot(pen=span_b_pen)
 
@@ -23728,39 +23731,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_adi_alligator_jaw_curve = self.plot4.plot(pen=aqua_pen)
 
         # RSI Curve
-        self.plot4_futures_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_sp500_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_dow_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_nasdaq_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_hsi_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_wti_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_gold_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_euro_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_yen_rsi_curve = self.plot4.plot(pen=magenta_pen)
-        self.plot4_adi_rsi_curve = self.plot4.plot(pen=magenta_pen)
+        self.plot4_futures_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_sp500_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_dow_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_nasdaq_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_hsi_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_wti_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_gold_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_euro_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_yen_rsi_curve = self.plot4.plot(pen=rsi_pen)
+        self.plot4_adi_rsi_curve = self.plot4.plot(pen=rsi_pen)
 
         # CCI Curve
-        self.plot4_futures_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_sp500_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_dow_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_nasdaq_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_hsi_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_wti_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_gold_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_euro_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_yen_cci_25_curve = self.plot4.plot(pen=yellow_pen)
-        self.plot4_adi_cci_25_curve = self.plot4.plot(pen=yellow_pen)
+        self.plot4_futures_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_sp500_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_dow_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_nasdaq_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_hsi_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_wti_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_gold_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_euro_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_yen_cci1_curve = self.plot4.plot(pen=cci1_pen)
+        self.plot4_adi_cci1_curve = self.plot4.plot(pen=cci1_pen)
 
-        self.plot4_futures_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_sp500_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_dow_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_nasdaq_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_hsi_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_wti_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_gold_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_euro_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_yen_cci_50_curve = self.plot4.plot(pen=lime_pen)
-        self.plot4_adi_cci_50_curve = self.plot4.plot(pen=lime_pen)
+        self.plot4_futures_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_sp500_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_dow_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_nasdaq_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_hsi_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_wti_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_gold_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_euro_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_yen_cci2_curve = self.plot4.plot(pen=cci2_pen)
+        self.plot4_adi_cci2_curve = self.plot4.plot(pen=cci2_pen)
 
         self.plot4_cci_plus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         self.plot4_cci_minus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
@@ -23859,11 +23862,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_psar_curve = self.plot5.plot(pen=psar_pen)
 
-        self.plot5_one_eye_curve = self.plot5.plot(pen=mama_pen)
+        self.plot5_mama_curve = self.plot5.plot(pen=mama_pen)
         self.plot5_fama_curve = self.plot5.plot(pen=fama_pen)
 
-        self.plot5_oe_conv_curve = self.plot5.plot(pen=mama_pen)
-        self.plot5_oe_base_curve = self.plot5.plot(pen=fama_pen)
+        self.plot5_oe_conv_curve = self.plot5.plot(pen=conv_pen)
+        self.plot5_oe_base_curve = self.plot5.plot(pen=base_pen)
         self.plot5_span_a_curve = self.plot5.plot(pen=span_a_pen)
         self.plot5_span_b_curve = self.plot5.plot(pen=span_b_pen)
 
@@ -23924,39 +23927,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_adi_alligator_jaw_curve = self.plot5.plot(pen=aqua_pen)
 
         # RSI Curve
-        self.plot5_futures_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_sp500_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_dow_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_nasdaq_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_hsi_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_wti_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_gold_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_euro_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_yen_rsi_curve = self.plot5.plot(pen=magenta_pen)
-        self.plot5_adi_rsi_curve = self.plot5.plot(pen=magenta_pen)
+        self.plot5_futures_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_sp500_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_dow_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_nasdaq_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_hsi_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_wti_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_gold_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_euro_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_yen_rsi_curve = self.plot5.plot(pen=rsi_pen)
+        self.plot5_adi_rsi_curve = self.plot5.plot(pen=rsi_pen)
 
         # CCI Curve
-        self.plot5_futures_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_sp500_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_dow_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_nasdaq_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_hsi_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_wti_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_gold_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_euro_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_yen_cci_25_curve = self.plot5.plot(pen=yellow_pen)
-        self.plot5_adi_cci_25_curve = self.plot5.plot(pen=yellow_pen)
+        self.plot5_futures_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_sp500_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_dow_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_nasdaq_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_hsi_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_wti_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_gold_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_euro_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_yen_cci1_curve = self.plot5.plot(pen=cci1_pen)
+        self.plot5_adi_cci1_curve = self.plot5.plot(pen=cci1_pen)
 
-        self.plot5_futures_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_sp500_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_dow_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_nasdaq_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_hsi_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_wti_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_gold_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_euro_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_yen_cci_50_curve = self.plot5.plot(pen=lime_pen)
-        self.plot5_adi_cci_50_curve = self.plot5.plot(pen=lime_pen)
+        self.plot5_futures_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_sp500_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_dow_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_nasdaq_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_hsi_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_wti_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_gold_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_euro_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_yen_cci2_curve = self.plot5.plot(pen=cci2_pen)
+        self.plot5_adi_cci2_curve = self.plot5.plot(pen=cci2_pen)
 
         self.plot5_cci_plus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         self.plot5_cci_minus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
@@ -24055,11 +24058,11 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_psar_curve = self.plot6.plot(pen=psar_pen)
 
-        self.plot6_one_eye_curve = self.plot6.plot(pen=mama_pen)
+        self.plot6_mama_curve = self.plot6.plot(pen=mama_pen)
         self.plot6_fama_curve = self.plot6.plot(pen=fama_pen)
 
-        self.plot6_oe_conv_curve = self.plot6.plot(pen=mama_pen)
-        self.plot6_oe_base_curve = self.plot6.plot(pen=fama_pen)
+        self.plot6_oe_conv_curve = self.plot6.plot(pen=conv_pen)
+        self.plot6_oe_base_curve = self.plot6.plot(pen=base_pen)
         self.plot6_span_a_curve = self.plot6.plot(pen=span_a_pen)
         self.plot6_span_b_curve = self.plot6.plot(pen=span_b_pen)
 
@@ -24120,39 +24123,39 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_adi_alligator_jaw_curve = self.plot6.plot(pen=aqua_pen)
 
         # RSI Curve
-        self.plot6_futures_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_sp500_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_dow_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_nasdaq_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_hsi_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_wti_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_gold_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_euro_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_yen_rsi_curve = self.plot6.plot(pen=magenta_pen)
-        self.plot6_adi_rsi_curve = self.plot6.plot(pen=magenta_pen)
+        self.plot6_futures_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_sp500_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_dow_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_nasdaq_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_hsi_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_wti_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_gold_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_euro_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_yen_rsi_curve = self.plot6.plot(pen=rsi_pen)
+        self.plot6_adi_rsi_curve = self.plot6.plot(pen=rsi_pen)
 
         # CCI Curve
-        self.plot6_futures_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_sp500_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_dow_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_nasdaq_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_hsi_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_wti_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_gold_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_euro_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_yen_cci_25_curve = self.plot6.plot(pen=yellow_pen)
-        self.plot6_adi_cci_25_curve = self.plot6.plot(pen=yellow_pen)
+        self.plot6_futures_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_sp500_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_dow_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_nasdaq_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_hsi_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_wti_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_gold_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_euro_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_yen_cci1_curve = self.plot6.plot(pen=cci1_pen)
+        self.plot6_adi_cci1_curve = self.plot6.plot(pen=cci1_pen)
 
-        self.plot6_futures_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_sp500_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_dow_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_nasdaq_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_hsi_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_wti_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_gold_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_euro_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_yen_cci_50_curve = self.plot6.plot(pen=lime_pen)
-        self.plot6_adi_cci_50_curve = self.plot6.plot(pen=lime_pen)
+        self.plot6_futures_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_sp500_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_dow_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_nasdaq_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_hsi_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_wti_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_gold_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_euro_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_yen_cci2_curve = self.plot6.plot(pen=cci2_pen)
+        self.plot6_adi_cci2_curve = self.plot6.plot(pen=cci2_pen)
 
         self.plot6_cci_plus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         self.plot6_cci_minus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
@@ -25632,7 +25635,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot1_psar = False
 
             self.plot1_psar_curve.clear()            
-            self.plot1_one_eye_curve.clear()
+            self.plot1_mama_curve.clear()
             self.plot1_fama_curve.clear()
 
     def checkBox_plot2_psar_checkState(self):
@@ -25645,7 +25648,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot2_psar = False
 
             self.plot2_psar_curve.clear()
-            self.plot2_one_eye_curve.clear()
+            self.plot2_mama_curve.clear()
             self.plot2_fama_curve.clear()
 
     def checkBox_plot3_psar_checkState(self):
@@ -25658,7 +25661,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot3_psar = False
 
             self.plot3_psar_curve.clear()
-            self.plot3_one_eye_curve.clear()
+            self.plot3_mama_curve.clear()
             self.plot3_fama_curve.clear()
 
     def checkBox_plot4_psar_checkState(self):
@@ -25671,7 +25674,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot4_psar = False
 
             self.plot4_psar_curve.clear()
-            self.plot4_one_eye_curve.clear()
+            self.plot4_mama_curve.clear()
             self.plot4_fama_curve.clear()
 
     def checkBox_plot5_psar_checkState(self):
@@ -25684,7 +25687,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot5_psar = False
 
             self.plot5_psar_curve.clear()
-            self.plot5_one_eye_curve.clear()
+            self.plot5_mama_curve.clear()
             self.plot5_fama_curve.clear()
 
     def checkBox_plot6_psar_checkState(self):
@@ -25697,7 +25700,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             flag_checkBox_plot6_psar = False
 
             self.plot6_psar_curve.clear()
-            self.plot6_one_eye_curve.clear()
+            self.plot6_mama_curve.clear()
             self.plot6_fama_curve.clear()
 
     def plot1_clear(self):        
@@ -25803,7 +25806,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_psar_curve.clear()
 
-        self.plot1_one_eye_curve.clear()
+        self.plot1_mama_curve.clear()
         self.plot1_fama_curve.clear()
 
         self.plot1_oe_conv_curve.clear()
@@ -25822,27 +25825,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_yen_rsi_curve.clear()
         self.plot1_adi_rsi_curve.clear()
 
-        self.plot1_futures_cci_25_curve.clear()
-        self.plot1_sp500_cci_25_curve.clear()
-        self.plot1_dow_cci_25_curve.clear()
-        self.plot1_nasdaq_cci_25_curve.clear()
-        self.plot1_hsi_cci_25_curve.clear()
-        self.plot1_wti_cci_25_curve.clear()
-        self.plot1_gold_cci_25_curve.clear()
-        self.plot1_euro_cci_25_curve.clear()
-        self.plot1_yen_cci_25_curve.clear()
-        self.plot1_adi_cci_25_curve.clear()
+        self.plot1_futures_cci1_curve.clear()
+        self.plot1_sp500_cci1_curve.clear()
+        self.plot1_dow_cci1_curve.clear()
+        self.plot1_nasdaq_cci1_curve.clear()
+        self.plot1_hsi_cci1_curve.clear()
+        self.plot1_wti_cci1_curve.clear()
+        self.plot1_gold_cci1_curve.clear()
+        self.plot1_euro_cci1_curve.clear()
+        self.plot1_yen_cci1_curve.clear()
+        self.plot1_adi_cci1_curve.clear()
 
-        self.plot1_futures_cci_50_curve.clear()
-        self.plot1_sp500_cci_50_curve.clear()
-        self.plot1_dow_cci_50_curve.clear()
-        self.plot1_nasdaq_cci_50_curve.clear()
-        self.plot1_hsi_cci_50_curve.clear()
-        self.plot1_wti_cci_50_curve.clear()
-        self.plot1_gold_cci_50_curve.clear()
-        self.plot1_euro_cci_50_curve.clear()
-        self.plot1_yen_cci_50_curve.clear()
-        self.plot1_adi_cci_50_curve.clear()
+        self.plot1_futures_cci2_curve.clear()
+        self.plot1_sp500_cci2_curve.clear()
+        self.plot1_dow_cci2_curve.clear()
+        self.plot1_nasdaq_cci2_curve.clear()
+        self.plot1_hsi_cci2_curve.clear()
+        self.plot1_wti_cci2_curve.clear()
+        self.plot1_gold_cci2_curve.clear()
+        self.plot1_euro_cci2_curve.clear()
+        self.plot1_yen_cci2_curve.clear()
+        self.plot1_adi_cci2_curve.clear()
 
         self.label_11.setText(" - ")
         self.label_12.setText(" - ")
@@ -27167,7 +27170,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_psar_curve.clear()
 
-        self.plot2_one_eye_curve.clear()
+        self.plot2_mama_curve.clear()
         self.plot2_fama_curve.clear()
 
         self.plot2_oe_conv_curve.clear()
@@ -27186,27 +27189,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_yen_rsi_curve.clear()
         self.plot2_adi_rsi_curve.clear()
 
-        self.plot2_futures_cci_25_curve.clear()
-        self.plot2_sp500_cci_25_curve.clear()
-        self.plot2_dow_cci_25_curve.clear()
-        self.plot2_nasdaq_cci_25_curve.clear()
-        self.plot2_hsi_cci_25_curve.clear()
-        self.plot2_wti_cci_25_curve.clear()
-        self.plot2_gold_cci_25_curve.clear()
-        self.plot2_euro_cci_25_curve.clear()
-        self.plot2_yen_cci_25_curve.clear()
-        self.plot2_adi_cci_25_curve.clear()
+        self.plot2_futures_cci1_curve.clear()
+        self.plot2_sp500_cci1_curve.clear()
+        self.plot2_dow_cci1_curve.clear()
+        self.plot2_nasdaq_cci1_curve.clear()
+        self.plot2_hsi_cci1_curve.clear()
+        self.plot2_wti_cci1_curve.clear()
+        self.plot2_gold_cci1_curve.clear()
+        self.plot2_euro_cci1_curve.clear()
+        self.plot2_yen_cci1_curve.clear()
+        self.plot2_adi_cci1_curve.clear()
 
-        self.plot2_futures_cci_50_curve.clear()
-        self.plot2_sp500_cci_50_curve.clear()
-        self.plot2_dow_cci_50_curve.clear()
-        self.plot2_nasdaq_cci_50_curve.clear()
-        self.plot2_hsi_cci_50_curve.clear()
-        self.plot2_wti_cci_50_curve.clear()
-        self.plot2_gold_cci_50_curve.clear()
-        self.plot2_euro_cci_50_curve.clear()
-        self.plot2_yen_cci_50_curve.clear()
-        self.plot2_adi_cci_50_curve.clear()
+        self.plot2_futures_cci2_curve.clear()
+        self.plot2_sp500_cci2_curve.clear()
+        self.plot2_dow_cci2_curve.clear()
+        self.plot2_nasdaq_cci2_curve.clear()
+        self.plot2_hsi_cci2_curve.clear()
+        self.plot2_wti_cci2_curve.clear()
+        self.plot2_gold_cci2_curve.clear()
+        self.plot2_euro_cci2_curve.clear()
+        self.plot2_yen_cci2_curve.clear()
+        self.plot2_adi_cci2_curve.clear()
 
         self.label_21.setText(" - ")
         self.label_22.setText(" - ")
@@ -28531,7 +28534,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_psar_curve.clear()
 
-        self.plot3_one_eye_curve.clear()
+        self.plot3_mama_curve.clear()
         self.plot3_fama_curve.clear()
 
         self.plot3_oe_conv_curve.clear()
@@ -28550,27 +28553,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_yen_rsi_curve.clear()
         self.plot3_adi_rsi_curve.clear()
 
-        self.plot3_futures_cci_25_curve.clear()
-        self.plot3_sp500_cci_25_curve.clear()
-        self.plot3_dow_cci_25_curve.clear()
-        self.plot3_nasdaq_cci_25_curve.clear()
-        self.plot3_hsi_cci_25_curve.clear()
-        self.plot3_wti_cci_25_curve.clear()
-        self.plot3_gold_cci_25_curve.clear()
-        self.plot3_euro_cci_25_curve.clear()
-        self.plot3_yen_cci_25_curve.clear()
-        self.plot3_adi_cci_25_curve.clear()
+        self.plot3_futures_cci1_curve.clear()
+        self.plot3_sp500_cci1_curve.clear()
+        self.plot3_dow_cci1_curve.clear()
+        self.plot3_nasdaq_cci1_curve.clear()
+        self.plot3_hsi_cci1_curve.clear()
+        self.plot3_wti_cci1_curve.clear()
+        self.plot3_gold_cci1_curve.clear()
+        self.plot3_euro_cci1_curve.clear()
+        self.plot3_yen_cci1_curve.clear()
+        self.plot3_adi_cci1_curve.clear()
 
-        self.plot3_futures_cci_50_curve.clear()
-        self.plot3_sp500_cci_50_curve.clear()
-        self.plot3_dow_cci_50_curve.clear()
-        self.plot3_nasdaq_cci_50_curve.clear()
-        self.plot3_hsi_cci_50_curve.clear()
-        self.plot3_wti_cci_50_curve.clear()
-        self.plot3_gold_cci_50_curve.clear()
-        self.plot3_euro_cci_50_curve.clear()
-        self.plot3_yen_cci_50_curve.clear()
-        self.plot3_adi_cci_50_curve.clear()
+        self.plot3_futures_cci2_curve.clear()
+        self.plot3_sp500_cci2_curve.clear()
+        self.plot3_dow_cci2_curve.clear()
+        self.plot3_nasdaq_cci2_curve.clear()
+        self.plot3_hsi_cci2_curve.clear()
+        self.plot3_wti_cci2_curve.clear()
+        self.plot3_gold_cci2_curve.clear()
+        self.plot3_euro_cci2_curve.clear()
+        self.plot3_yen_cci2_curve.clear()
+        self.plot3_adi_cci2_curve.clear()
 
         self.label_31.setText(" - ")
         self.label_32.setText(" - ")
@@ -29895,7 +29898,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_psar_curve.clear()
 
-        self.plot4_one_eye_curve.clear()
+        self.plot4_mama_curve.clear()
         self.plot4_fama_curve.clear()
 
         self.plot4_oe_conv_curve.clear()
@@ -29914,27 +29917,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_yen_rsi_curve.clear()
         self.plot4_adi_rsi_curve.clear()
 
-        self.plot4_futures_cci_25_curve.clear()
-        self.plot4_sp500_cci_25_curve.clear()
-        self.plot4_dow_cci_25_curve.clear()
-        self.plot4_nasdaq_cci_25_curve.clear()
-        self.plot4_hsi_cci_25_curve.clear()
-        self.plot4_wti_cci_25_curve.clear()
-        self.plot4_gold_cci_25_curve.clear()
-        self.plot4_euro_cci_25_curve.clear()
-        self.plot4_yen_cci_25_curve.clear()
-        self.plot4_adi_cci_25_curve.clear()
+        self.plot4_futures_cci1_curve.clear()
+        self.plot4_sp500_cci1_curve.clear()
+        self.plot4_dow_cci1_curve.clear()
+        self.plot4_nasdaq_cci1_curve.clear()
+        self.plot4_hsi_cci1_curve.clear()
+        self.plot4_wti_cci1_curve.clear()
+        self.plot4_gold_cci1_curve.clear()
+        self.plot4_euro_cci1_curve.clear()
+        self.plot4_yen_cci1_curve.clear()
+        self.plot4_adi_cci1_curve.clear()
 
-        self.plot4_futures_cci_50_curve.clear()
-        self.plot4_sp500_cci_50_curve.clear()
-        self.plot4_dow_cci_50_curve.clear()
-        self.plot4_nasdaq_cci_50_curve.clear()
-        self.plot4_hsi_cci_50_curve.clear()
-        self.plot4_wti_cci_50_curve.clear()
-        self.plot4_gold_cci_50_curve.clear()
-        self.plot4_euro_cci_50_curve.clear()
-        self.plot4_yen_cci_50_curve.clear()
-        self.plot4_adi_cci_50_curve.clear()
+        self.plot4_futures_cci2_curve.clear()
+        self.plot4_sp500_cci2_curve.clear()
+        self.plot4_dow_cci2_curve.clear()
+        self.plot4_nasdaq_cci2_curve.clear()
+        self.plot4_hsi_cci2_curve.clear()
+        self.plot4_wti_cci2_curve.clear()
+        self.plot4_gold_cci2_curve.clear()
+        self.plot4_euro_cci2_curve.clear()
+        self.plot4_yen_cci2_curve.clear()
+        self.plot4_adi_cci2_curve.clear()
 
         self.label_41.setText(" - ")
         self.label_42.setText(" - ")
@@ -31259,7 +31262,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_psar_curve.clear()
 
-        self.plot5_one_eye_curve.clear()
+        self.plot5_mama_curve.clear()
         self.plot5_fama_curve.clear()
 
         self.plot5_oe_conv_curve.clear()
@@ -31278,27 +31281,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_yen_rsi_curve.clear()
         self.plot5_adi_rsi_curve.clear()
 
-        self.plot5_futures_cci_25_curve.clear()
-        self.plot5_sp500_cci_25_curve.clear()
-        self.plot5_dow_cci_25_curve.clear()
-        self.plot5_nasdaq_cci_25_curve.clear()
-        self.plot5_hsi_cci_25_curve.clear()
-        self.plot5_wti_cci_25_curve.clear()
-        self.plot5_gold_cci_25_curve.clear()
-        self.plot5_euro_cci_25_curve.clear()
-        self.plot5_yen_cci_25_curve.clear()
-        self.plot5_adi_cci_25_curve.clear()
+        self.plot5_futures_cci1_curve.clear()
+        self.plot5_sp500_cci1_curve.clear()
+        self.plot5_dow_cci1_curve.clear()
+        self.plot5_nasdaq_cci1_curve.clear()
+        self.plot5_hsi_cci1_curve.clear()
+        self.plot5_wti_cci1_curve.clear()
+        self.plot5_gold_cci1_curve.clear()
+        self.plot5_euro_cci1_curve.clear()
+        self.plot5_yen_cci1_curve.clear()
+        self.plot5_adi_cci1_curve.clear()
 
-        self.plot5_futures_cci_50_curve.clear()
-        self.plot5_sp500_cci_50_curve.clear()
-        self.plot5_dow_cci_50_curve.clear()
-        self.plot5_nasdaq_cci_50_curve.clear()
-        self.plot5_hsi_cci_50_curve.clear()
-        self.plot5_wti_cci_50_curve.clear()
-        self.plot5_gold_cci_50_curve.clear()
-        self.plot5_euro_cci_50_curve.clear()
-        self.plot5_yen_cci_50_curve.clear()
-        self.plot5_adi_cci_50_curve.clear()
+        self.plot5_futures_cci2_curve.clear()
+        self.plot5_sp500_cci2_curve.clear()
+        self.plot5_dow_cci2_curve.clear()
+        self.plot5_nasdaq_cci2_curve.clear()
+        self.plot5_hsi_cci2_curve.clear()
+        self.plot5_wti_cci2_curve.clear()
+        self.plot5_gold_cci2_curve.clear()
+        self.plot5_euro_cci2_curve.clear()
+        self.plot5_yen_cci2_curve.clear()
+        self.plot5_adi_cci2_curve.clear()
 
         self.label_51.setText(" - ")
         self.label_52.setText(" - ")
@@ -32623,7 +32626,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_psar_curve.clear()
 
-        self.plot6_one_eye_curve.clear()
+        self.plot6_mama_curve.clear()
         self.plot6_fama_curve.clear()
 
         self.plot6_oe_conv_curve.clear()
@@ -32642,27 +32645,27 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_yen_rsi_curve.clear()
         self.plot6_adi_rsi_curve.clear()
 
-        self.plot6_futures_cci_25_curve.clear()
-        self.plot6_sp500_cci_25_curve.clear()
-        self.plot6_dow_cci_25_curve.clear()
-        self.plot6_nasdaq_cci_25_curve.clear()
-        self.plot6_hsi_cci_25_curve.clear()
-        self.plot6_wti_cci_25_curve.clear()
-        self.plot6_gold_cci_25_curve.clear()
-        self.plot6_euro_cci_25_curve.clear()
-        self.plot6_yen_cci_25_curve.clear()
-        self.plot6_adi_cci_25_curve.clear()
+        self.plot6_futures_cci1_curve.clear()
+        self.plot6_sp500_cci1_curve.clear()
+        self.plot6_dow_cci1_curve.clear()
+        self.plot6_nasdaq_cci1_curve.clear()
+        self.plot6_hsi_cci1_curve.clear()
+        self.plot6_wti_cci1_curve.clear()
+        self.plot6_gold_cci1_curve.clear()
+        self.plot6_euro_cci1_curve.clear()
+        self.plot6_yen_cci1_curve.clear()
+        self.plot6_adi_cci1_curve.clear()
 
-        self.plot6_futures_cci_50_curve.clear()
-        self.plot6_sp500_cci_50_curve.clear()
-        self.plot6_dow_cci_50_curve.clear()
-        self.plot6_nasdaq_cci_50_curve.clear()
-        self.plot6_hsi_cci_50_curve.clear()
-        self.plot6_wti_cci_50_curve.clear()
-        self.plot6_gold_cci_50_curve.clear()
-        self.plot6_euro_cci_50_curve.clear()
-        self.plot6_yen_cci_50_curve.clear()
-        self.plot6_adi_cci_50_curve.clear()
+        self.plot6_futures_cci2_curve.clear()
+        self.plot6_sp500_cci2_curve.clear()
+        self.plot6_dow_cci2_curve.clear()
+        self.plot6_nasdaq_cci2_curve.clear()
+        self.plot6_hsi_cci2_curve.clear()
+        self.plot6_wti_cci2_curve.clear()
+        self.plot6_gold_cci2_curve.clear()
+        self.plot6_euro_cci2_curve.clear()
+        self.plot6_yen_cci2_curve.clear()
+        self.plot6_adi_cci2_curve.clear()
 
         self.label_61.setText(" - ")
         self.label_62.setText(" - ")
@@ -34310,7 +34313,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
@@ -34839,7 +34842,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
 
@@ -34973,7 +34976,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35107,7 +35110,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35241,7 +35244,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35374,7 +35377,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35508,7 +35511,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35641,7 +35644,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35775,7 +35778,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35915,7 +35918,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
@@ -35979,8 +35982,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                                 
-                self.plot1_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_futures_cci1_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_futures_cci2_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_futures_rsi_curve.setData(df_futures_cm_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 24:
@@ -36005,8 +36008,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_sp500_cci1_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_sp500_cci2_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_sp500_rsi_curve.setData(df_sp500_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 25:
@@ -36031,8 +36034,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_dow_cci1_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_dow_cci2_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_dow_rsi_curve.setData(df_dow_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 26:
@@ -36057,8 +36060,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_nasdaq_cci1_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_nasdaq_cci2_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_nasdaq_rsi_curve.setData(df_nasdaq_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 27:
@@ -36083,8 +36086,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 28:
@@ -36109,8 +36112,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_wti_cci1_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_wti_cci2_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_wti_rsi_curve.setData(df_wti_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 29:
@@ -36135,8 +36138,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_gold_cci1_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_gold_cci2_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_gold_rsi_curve.setData(df_gold_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 30:
@@ -36161,8 +36164,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_euro_cci1_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_euro_cci2_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_euro_rsi_curve.setData(df_euro_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 31:
@@ -36187,8 +36190,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_yen_cci1_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_yen_cci2_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_yen_rsi_curve.setData(df_yen_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 32:
@@ -36213,8 +36216,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_adi_cci1_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_adi_cci2_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot1_adi_rsi_curve.setData(df_adi_ta_graph['RSI'].astype(float))
             else:
                 pass
@@ -36382,7 +36385,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
@@ -36912,7 +36915,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))
 
@@ -37046,7 +37049,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37180,7 +37183,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37314,7 +37317,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37447,7 +37450,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37581,7 +37584,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37714,7 +37717,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37848,7 +37851,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -37988,7 +37991,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot2_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_one_eye_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    self.plot2_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
@@ -38052,8 +38055,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                                 
-                self.plot2_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_futures_cci1_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_futures_cci2_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_futures_rsi_curve.setData(df_futures_cm_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 24:
@@ -38078,8 +38081,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_sp500_cci1_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_sp500_cci2_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_sp500_rsi_curve.setData(df_sp500_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 25:
@@ -38104,8 +38107,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_dow_cci1_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_dow_cci2_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_dow_rsi_curve.setData(df_dow_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 26:
@@ -38130,8 +38133,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_nasdaq_cci1_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_nasdaq_cci2_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_nasdaq_rsi_curve.setData(df_nasdaq_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 27:
@@ -38156,8 +38159,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 28:
@@ -38183,8 +38186,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_wti_cci1_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_wti_cci2_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_wti_rsi_curve.setData(df_wti_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 29:
@@ -38209,8 +38212,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_gold_cci1_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_gold_cci2_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_gold_rsi_curve.setData(df_gold_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 30:
@@ -38235,8 +38238,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_euro_cci1_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_euro_cci2_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_euro_rsi_curve.setData(df_euro_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 31:
@@ -38261,8 +38264,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_yen_cci1_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_yen_cci2_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_yen_rsi_curve.setData(df_yen_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 32:
@@ -38287,8 +38290,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_adi_cci1_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_adi_cci2_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot2_adi_rsi_curve.setData(df_adi_ta_graph['RSI'].astype(float))
             else:
                 pass         
@@ -38454,7 +38457,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
@@ -38985,7 +38988,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))
 
@@ -39119,7 +39122,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -39253,7 +39256,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -39387,7 +39390,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_one_eye_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -39520,7 +39523,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -39654,7 +39657,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -39787,7 +39790,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -39921,7 +39924,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -40061,7 +40064,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot3_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot3_one_eye_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    self.plot3_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
@@ -40125,8 +40128,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                                 
-                self.plot3_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_futures_cci1_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_futures_cci2_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_futures_rsi_curve.setData(df_futures_cm_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 24:
@@ -40151,8 +40154,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_sp500_cci1_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_sp500_cci2_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_sp500_rsi_curve.setData(df_sp500_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 25:
@@ -40177,8 +40180,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_dow_cci1_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_dow_cci2_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_dow_rsi_curve.setData(df_dow_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 26:
@@ -40203,8 +40206,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_nasdaq_cci1_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_nasdaq_cci2_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_nasdaq_rsi_curve.setData(df_nasdaq_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 27:
@@ -40229,8 +40232,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 28:
@@ -40255,8 +40258,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_wti_cci1_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_wti_cci2_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_wti_rsi_curve.setData(df_wti_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 29:
@@ -40281,8 +40284,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_gold_cci1_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_gold_cci2_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_gold_rsi_curve.setData(df_gold_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 30:
@@ -40307,8 +40310,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_euro_cci1_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_euro_cci2_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_euro_rsi_curve.setData(df_euro_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 31:
@@ -40333,8 +40336,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_yen_cci1_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_yen_cci2_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_yen_rsi_curve.setData(df_yen_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 32:
@@ -40359,8 +40362,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_adi_cci1_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_adi_cci2_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot3_adi_rsi_curve.setData(df_adi_ta_graph['RSI'].astype(float))
             else:
                 pass
@@ -40525,7 +40528,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
@@ -41055,7 +41058,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))
 
@@ -41189,7 +41192,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -41323,7 +41326,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -41457,7 +41460,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -41590,7 +41593,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -41724,7 +41727,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -41857,7 +41860,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -41991,7 +41994,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -42131,7 +42134,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot4_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_one_eye_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    self.plot4_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
@@ -42195,8 +42198,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                                 
-                self.plot4_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_futures_cci1_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_futures_cci2_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_futures_rsi_curve.setData(df_futures_cm_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 24:
@@ -42221,8 +42224,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_sp500_cci1_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_sp500_cci2_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_sp500_rsi_curve.setData(df_sp500_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 25:
@@ -42247,8 +42250,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_dow_cci1_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_dow_cci2_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_dow_rsi_curve.setData(df_dow_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 26:
@@ -42273,8 +42276,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_nasdaq_cci1_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_nasdaq_cci2_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_nasdaq_rsi_curve.setData(df_nasdaq_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 27:
@@ -42299,8 +42302,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 28:
@@ -42325,8 +42328,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_wti_cci1_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_wti_cci2_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_wti_rsi_curve.setData(df_wti_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 29:
@@ -42351,8 +42354,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_gold_cci1_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_gold_cci2_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_gold_rsi_curve.setData(df_gold_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 30:
@@ -42377,8 +42380,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_euro_cci1_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_euro_cci2_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_euro_rsi_curve.setData(df_euro_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 31:
@@ -42403,8 +42406,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_yen_cci1_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_yen_cci2_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_yen_rsi_curve.setData(df_yen_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 32:
@@ -42429,8 +42432,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_adi_cci1_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_adi_cci2_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot4_adi_rsi_curve.setData(df_adi_ta_graph['RSI'].astype(float))
             else:
                 pass
@@ -42596,7 +42599,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
@@ -43126,7 +43129,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))
 
@@ -43260,7 +43263,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -43394,7 +43397,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -43529,7 +43532,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -43662,7 +43665,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -43796,7 +43799,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -43929,7 +43932,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -44063,7 +44066,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -44203,7 +44206,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot5_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_one_eye_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    self.plot5_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
@@ -44267,8 +44270,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                                 
-                self.plot5_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_futures_cci1_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_futures_cci2_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_futures_rsi_curve.setData(df_futures_cm_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 24:
@@ -44293,8 +44296,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_sp500_cci1_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_sp500_cci2_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_sp500_rsi_curve.setData(df_sp500_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 25:
@@ -44319,8 +44322,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_dow_cci1_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_dow_cci2_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_dow_rsi_curve.setData(df_dow_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 26:
@@ -44345,8 +44348,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_nasdaq_cci1_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_nasdaq_cci2_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_nasdaq_rsi_curve.setData(df_nasdaq_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 27:
@@ -44371,8 +44374,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 28:
@@ -44397,8 +44400,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_wti_cci1_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_wti_cci2_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_wti_rsi_curve.setData(df_wti_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 29:
@@ -44423,8 +44426,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_gold_cci1_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_gold_cci2_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_gold_rsi_curve.setData(df_gold_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 30:
@@ -44449,8 +44452,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_euro_cci1_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_euro_cci2_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_euro_rsi_curve.setData(df_euro_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 31:
@@ -44475,8 +44478,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_yen_cci1_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_yen_cci2_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_yen_rsi_curve.setData(df_yen_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 32:
@@ -44501,8 +44504,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_adi_cci1_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_adi_cci2_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot5_adi_rsi_curve.setData(df_adi_ta_graph['RSI'].astype(float))
             else:
                 pass
@@ -44668,7 +44671,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
@@ -45198,7 +45201,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))
 
@@ -45332,7 +45335,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -45466,7 +45469,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -45600,7 +45603,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
                     df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -45733,7 +45736,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -45867,7 +45870,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -46000,7 +46003,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -46134,7 +46137,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -46274,7 +46277,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot6_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_one_eye_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
+                    self.plot6_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
@@ -46338,8 +46341,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                                 
-                self.plot6_futures_cci_25_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_futures_cci_50_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_futures_cci1_curve.setData(df_futures_cm_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_futures_cci2_curve.setData(df_futures_cm_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_futures_rsi_curve.setData(df_futures_cm_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 24:
@@ -46364,8 +46367,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_sp500_cci_25_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_sp500_cci_50_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_sp500_cci1_curve.setData(df_sp500_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_sp500_cci2_curve.setData(df_sp500_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_sp500_rsi_curve.setData(df_sp500_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 25:
@@ -46390,8 +46393,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_dow_cci_25_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_dow_cci_50_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_dow_cci1_curve.setData(df_dow_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_dow_cci2_curve.setData(df_dow_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_dow_rsi_curve.setData(df_dow_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 26:
@@ -46416,8 +46419,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_nasdaq_cci_25_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_nasdaq_cci_50_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_nasdaq_cci1_curve.setData(df_nasdaq_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_nasdaq_cci2_curve.setData(df_nasdaq_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_nasdaq_rsi_curve.setData(df_nasdaq_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 27:
@@ -46442,8 +46445,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_hsi_cci_25_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_hsi_cci_50_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 28:
@@ -46468,8 +46471,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_wti_cci_25_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_wti_cci_50_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_wti_cci1_curve.setData(df_wti_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_wti_cci2_curve.setData(df_wti_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_wti_rsi_curve.setData(df_wti_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 29:
@@ -46494,8 +46497,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_gold_cci_25_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_gold_cci_50_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_gold_cci1_curve.setData(df_gold_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_gold_cci2_curve.setData(df_gold_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_gold_rsi_curve.setData(df_gold_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 30:
@@ -46520,8 +46523,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_euro_cci_25_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_euro_cci_50_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_euro_cci1_curve.setData(df_euro_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_euro_cci2_curve.setData(df_euro_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_euro_rsi_curve.setData(df_euro_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 31:
@@ -46546,8 +46549,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_yen_cci_25_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_yen_cci_50_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_yen_cci1_curve.setData(df_yen_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_yen_cci2_curve.setData(df_yen_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_yen_rsi_curve.setData(df_yen_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 32:
@@ -46572,8 +46575,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_adi_cci_25_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_adi_cci_50_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_adi_cci1_curve.setData(df_adi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_adi_cci2_curve.setData(df_adi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
                 self.plot6_adi_rsi_curve.setData(df_adi_ta_graph['RSI'].astype(float))
             else:
                 pass
