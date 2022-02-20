@@ -570,6 +570,8 @@ if TTS:
 else:
     flag_tts = False
 
+flag_one_eye_lagging_span = False
+
 FIXED_COREVAL = [1.20, 2.50, 3.50, 4.85, 5.50, 6.85]
 고정_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.50, 6.85]
 
@@ -1493,7 +1495,7 @@ df_futures_nm_graph = pd.DataFrame()
 df_sp500_graph = pd.DataFrame()
 df_dow_graph = pd.DataFrame()
 df_nasdaq_graph = pd.DataFrame()
-df_hangseng_graph = pd.DataFrame()
+df_hsi_graph = pd.DataFrame()
 df_wti_graph = pd.DataFrame()
 df_gold_graph = pd.DataFrame()
 df_euro_graph = pd.DataFrame()
@@ -1505,7 +1507,7 @@ df_futures_nm_ta_graph = pd.DataFrame()
 df_sp500_ta_graph = pd.DataFrame()
 df_dow_ta_graph = pd.DataFrame()
 df_nasdaq_ta_graph = pd.DataFrame()
-df_hangseng_ta_graph = pd.DataFrame()
+df_hsi_ta_graph = pd.DataFrame()
 df_wti_ta_graph = pd.DataFrame()
 df_gold_ta_graph = pd.DataFrame()
 df_euro_ta_graph = pd.DataFrame()
@@ -1517,7 +1519,7 @@ df_futures_nm_alligator_graph = pd.DataFrame()
 df_sp500_alligator_graph = pd.DataFrame()
 df_dow_alligator_graph = pd.DataFrame()
 df_nasdaq_alligator_graph = pd.DataFrame()
-df_hangseng_alligator_graph = pd.DataFrame()
+df_hsi_alligator_graph = pd.DataFrame()
 df_wti_alligator_graph = pd.DataFrame()
 df_gold_alligator_graph = pd.DataFrame()
 df_euro_alligator_graph = pd.DataFrame()
@@ -1970,7 +1972,7 @@ df_put_tick = pd.DataFrame()
 df_sp500_tick = pd.DataFrame()
 df_dow_tick = pd.DataFrame()
 df_nasdaq_tick = pd.DataFrame()
-df_hangseng_tick = pd.DataFrame()
+df_hsi_tick = pd.DataFrame()
 df_wti_tick = pd.DataFrame()
 df_gold_tick = pd.DataFrame()
 df_euro_tick = pd.DataFrame()
@@ -1984,7 +1986,7 @@ df_put_tick_ohlc = pd.DataFrame()
 df_sp500_tick_ohlc = pd.DataFrame()
 df_dow_tick_ohlc = pd.DataFrame()
 df_nasdaq_tick_ohlc = pd.DataFrame()
-df_hangseng_tick_ohlc = pd.DataFrame()
+df_hsi_tick_ohlc = pd.DataFrame()
 df_wti_tick_ohlc = pd.DataFrame()
 df_gold_tick_ohlc = pd.DataFrame()
 df_euro_tick_ohlc = pd.DataFrame()
@@ -2024,12 +2026,12 @@ df_nasdaq_ohlc_5min = pd.DataFrame()
 df_nasdaq_ohlc_15min = pd.DataFrame()
 
 # HANGSENG OHLC 연산
-hangseng_tick_list = []
-hangseng_value_list = []
-df_hangseng_ohlc = pd.DataFrame()
-df_hangseng_ohlc_1min = pd.DataFrame()
-df_hangseng_ohlc_5min = pd.DataFrame()
-df_hangseng_ohlc_15min = pd.DataFrame()
+hsi_tick_list = []
+hsi_value_list = []
+df_hsi_ohlc = pd.DataFrame()
+df_hsi_ohlc_1min = pd.DataFrame()
+df_hsi_ohlc_5min = pd.DataFrame()
+df_hsi_ohlc_15min = pd.DataFrame()
 
 # WTI OHLC 연산
 wti_tick_list = []
@@ -2092,7 +2094,7 @@ flag_futures_nm_ohlc_open = False
 flag_sp500_ohlc_open = False
 flag_dow_ohlc_open = False
 flag_nasdaq_ohlc_open = False
-flag_hangseng_ohlc_open = False
+flag_hsi_ohlc_open = False
 flag_wti_ohlc_open = False
 flag_gold_ohlc_open = False
 flag_euro_ohlc_open = False
@@ -2311,7 +2313,7 @@ futures_fibonacci_levels = []
 sp500_fibonacci_levels = []
 dow_fibonacci_levels = []
 nasdaq_fibonacci_levels = []
-hangseng_fibonacci_levels = []
+hsi_fibonacci_levels = []
 wti_fibonacci_levels = []
 gold_fibonacci_levels = []
 euro_fibonacci_levels = []
@@ -5766,7 +5768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
         global wti_tick_list, wti_value_list, df_wti_ohlc, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
         global euro_tick_list, euro_value_list, df_euro_ohlc, df_euro_ohlc_1min, df_euro_ohlc_5min, df_euro_ohlc_15min
-        global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
+        global hsi_tick_list, hsi_value_list, df_hsi_ohlc, df_hsi_ohlc_1min, df_hsi_ohlc_5min, df_hsi_ohlc_15min
         global gold_tick_list, gold_value_list, df_gold_ohlc, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
 
         start_time = timeit.default_timer()            
@@ -5914,21 +5916,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
         chetime = nowDate + ' ' + time_txt
 
-        hangseng_tick_list.append(chetime)
-        hangseng_value_list.append(HANGSENG_현재가)
+        hsi_tick_list.append(chetime)
+        hsi_value_list.append(HANGSENG_현재가)
 
-        temp_dict = {"value": hangseng_value_list}
-        df = pd.DataFrame(temp_dict, index=hangseng_tick_list)
+        temp_dict = {"value": hsi_value_list}
+        df = pd.DataFrame(temp_dict, index=hsi_tick_list)
 
         # Converting the index as DatetimeIndex
         df.index = pd.to_datetime(df.index)
 
         # 1 Minute resample
-        df_hangseng_ohlc_1min = df.resample('1T').ohlc()
+        df_hsi_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        #df_hangseng_ohlc_5min = df.resample('5T').ohlc()
+        #df_hsi_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        #df_hangseng_ohlc_15min = df.resample('15T').ohlc()
+        #df_hsi_ohlc_15min = df.resample('15T').ohlc()
 
         # GOLD OHLC 데이타프레임 생성        
         time_txt = CME_체결시간[0:2] + ':' + CME_체결시간[2:4] + ':' + CME_체결시간[4:6]
@@ -14741,7 +14743,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global pre_start
         global t2301_month_info
         global 진성맥점, SEARCH_MOVING_NODE
-        global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
+        global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
 
 
         dt = datetime.now()
@@ -15257,9 +15259,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global start_time_txt, end_time_txt
 
         global df_futures_cm_graph, df_futures_nm_graph, df_kp200_graph, df_demand_supply_graph
-        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
-        global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+        global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
         global view_actval
         
         global call_itm_count, call_max_actval
@@ -15553,7 +15555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_sp500_graph.at[0, 'Drate'] = 0
                 df_dow_graph.at[0, 'Drate'] = 0
                 df_nasdaq_graph.at[0, 'Drate'] = 0
-                df_hangseng_graph.at[0, 'Drate'] = 0
+                df_hsi_graph.at[0, 'Drate'] = 0
                 df_wti_graph.at[0, 'Drate'] = 0
                 df_gold_graph.at[0, 'Drate'] = 0
                 df_euro_graph.at[0, 'Drate'] = 0
@@ -15578,8 +15580,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_nasdaq_graph.at[1, 'Price'] = NASDAQ_시가
 
                 if HANGSENG_전일종가 > 0:
-                    df_hangseng_graph.at[0, 'Price'] = HANGSENG_전일종가
-                    df_hangseng_graph.at[1, 'Price'] = HANGSENG_시가
+                    df_hsi_graph.at[0, 'Price'] = HANGSENG_전일종가
+                    df_hsi_graph.at[1, 'Price'] = HANGSENG_시가
 
                 if WTI_전일종가 > 0:
                     df_wti_graph.at[0, 'Price'] = WTI_전일종가
@@ -16708,7 +16710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_euro_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_yen_graph.at[0, 'quote_remainder_ratio'] = 1.0
                 df_adi_graph.at[0, 'quote_remainder_ratio'] = 1.0
-                df_hangseng_graph.at[0, 'quote_remainder_ratio'] = 1.0                
+                df_hsi_graph.at[0, 'quote_remainder_ratio'] = 1.0                
 
                 df_sp500_graph.at[0, 'Drate'] = 0
                 df_dow_graph.at[0, 'Drate'] = 0
@@ -20473,7 +20475,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_sp500_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_dow_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
-            df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
+            df_hsi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_wti_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_gold_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
             df_euro_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
@@ -20481,28 +20483,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
             df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])           
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])           
             df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
 
             df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
-            df_hangseng_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+            df_hsi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
             df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI_1ST', 'CCI_2ND', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
 
             flag_t8433_response_ok = True
         else:
@@ -21261,6 +21263,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_yen.setChecked(YEN_CHK)
         self.checkBox_adi.setChecked(ADI_CHK)        
 
+        self.checkBox_lagging_span.setChecked(flag_one_eye_lagging_span)
         self.checkBox_periodic_plot.setChecked(flag_option_periodic_update_mode)
         self.checkBox_tts.setChecked(flag_tts)
         self.checkBox_plot_sync.setChecked(flag_plot_sync_mode)
@@ -21333,7 +21336,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_dow.stateChanged.connect(self.checkBox_dow_checkState)
         self.checkBox_sp500.stateChanged.connect(self.checkBox_sp500_checkState)
         self.checkBox_nasdaq.stateChanged.connect(self.checkBox_nasdaq_checkState)
-        self.checkBox_hangseng.stateChanged.connect(self.checkBox_hangseng_checkState)
+        self.checkBox_hangseng.stateChanged.connect(self.checkBox_hsi_checkState)
         self.checkBox_oil.stateChanged.connect(self.checkBox_oil_checkState)
         self.checkBox_gold.stateChanged.connect(self.checkBox_gold_checkState)
         self.checkBox_eurofx.stateChanged.connect(self.checkBox_euro_checkState)
@@ -21361,6 +21364,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_ichimoku_baseline_period.returnPressed.connect(self.change_ichimoku_baseline_period)
         self.lineEdit_ichimoku_conversionline_period.returnPressed.connect(self.change_ichimoku_conversionline_period)
         self.lineEdit_ichimoku_span_period.returnPressed.connect(self.change_ichimoku_span_period)
+        self.checkBox_lagging_span.stateChanged.connect(self.checkBox_lagging_span_state_change)
 
         self.lineEdit_tolerance.returnPressed.connect(self.change_view_time_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
@@ -22343,7 +22347,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         pass
 
-    def checkBox_hangseng_checkState(self):
+    def checkBox_hsi_checkState(self):
 
         dt = datetime.now()
 
@@ -22366,9 +22370,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                hangseng_ljust = HANGSENG.ljust(8)
+                hsi_ljust = HANGSENG.ljust(8)
 
-                self.parent.realtime_thread_dataworker.CancelRealData('OVC', hangseng_ljust)
+                self.parent.realtime_thread_dataworker.CancelRealData('OVC', hsi_ljust)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22476,6 +22480,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             flag_tts = False
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] TTS OFF (으)로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_lagging_span_state_change(self):
+
+        dt = datetime.now()
+
+        global flag_one_eye_lagging_span
+
+        if self.checkBox_lagging_span.isChecked() == True:
+
+            flag_one_eye_lagging_span = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 일목균형지표 후행 SPAN을 표시합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_one_eye_lagging_span = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 일목균형지표 후행 SPAN 표시설정을 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
@@ -23060,7 +23084,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_sp500_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_dow_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_nasdaq_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot1_hangseng_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot1_hsi_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_wti_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_gold_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot1_euro_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23083,6 +23107,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_base_curve = self.plot1.plot(pen=base_pen)
         self.plot1_span_a_curve = self.plot1.plot(pen=span_a_pen)
         self.plot1_span_b_curve = self.plot1.plot(pen=span_b_pen)
+        self.plot1_lagging_span_curve = self.plot1.plot(pen=lagging_span_pen)
 
         # 수급종합
         self.plot1_program_curve = self.plot1.plot(pen=magenta_pen3)
@@ -23258,7 +23283,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_sp500_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_dow_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_nasdaq_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot2_hangseng_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot2_hsi_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_wti_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_gold_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot2_euro_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23281,6 +23306,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_base_curve = self.plot2.plot(pen=base_pen)
         self.plot2_span_a_curve = self.plot2.plot(pen=span_a_pen)
         self.plot2_span_b_curve = self.plot2.plot(pen=span_b_pen)
+        self.plot2_lagging_span_curve = self.plot2.plot(pen=lagging_span_pen)
 
         # 수급종합
         self.plot2_program_curve = self.plot2.plot(pen=magenta_pen3)
@@ -23454,7 +23480,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_sp500_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_dow_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_nasdaq_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot3_hangseng_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot3_hsi_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_wti_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_gold_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot3_euro_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23477,6 +23503,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_base_curve = self.plot3.plot(pen=base_pen)
         self.plot3_span_a_curve = self.plot3.plot(pen=span_a_pen)
         self.plot3_span_b_curve = self.plot3.plot(pen=span_b_pen)
+        self.plot3_lagging_span_curve = self.plot3.plot(pen=lagging_span_pen)
 
         # 수급종합
         self.plot3_program_curve = self.plot3.plot(pen=magenta_pen3)
@@ -23650,7 +23677,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_sp500_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_dow_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_nasdaq_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot4_hangseng_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot4_hsi_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot4_wti_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_gold_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot4_euro_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23673,6 +23700,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_base_curve = self.plot4.plot(pen=base_pen)
         self.plot4_span_a_curve = self.plot4.plot(pen=span_a_pen)
         self.plot4_span_b_curve = self.plot4.plot(pen=span_b_pen)
+        self.plot4_lagging_span_curve = self.plot4.plot(pen=lagging_span_pen)
 
         # 수급종합
         self.plot4_program_curve = self.plot4.plot(pen=magenta_pen3)
@@ -23846,7 +23874,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_sp500_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_dow_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_nasdaq_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot5_hangseng_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        self.plot5_hsi_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_wti_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_gold_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot5_euro_curve = self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -23869,6 +23897,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_base_curve = self.plot5.plot(pen=base_pen)
         self.plot5_span_a_curve = self.plot5.plot(pen=span_a_pen)
         self.plot5_span_b_curve = self.plot5.plot(pen=span_b_pen)
+        self.plot5_lagging_span_curve = self.plot5.plot(pen=lagging_span_pen)
 
         # 수급종합
         self.plot5_program_curve = self.plot5.plot(pen=magenta_pen3)
@@ -24042,7 +24071,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_sp500_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_dow_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_nasdaq_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        self.plot6_hangseng_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        self.plot6_hsi_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         self.plot6_wti_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_gold_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         self.plot6_euro_curve = self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -24065,6 +24094,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_base_curve = self.plot6.plot(pen=base_pen)
         self.plot6_span_a_curve = self.plot6.plot(pen=span_a_pen)
         self.plot6_span_b_curve = self.plot6.plot(pen=span_b_pen)
+        self.plot6_lagging_span_curve = self.plot6.plot(pen=lagging_span_pen)
 
         # 수급종합
         self.plot6_program_curve = self.plot6.plot(pen=magenta_pen3)
@@ -24441,12 +24471,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex1 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
+                if not np.isnan(df_hsi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
-                    High = df_hangseng_graph.at[plot_x, 'High']
-                    Low = df_hangseng_graph.at[plot_x, 'Low']
-                    Close = df_hangseng_graph.at[plot_x, 'Close']
+                    Open = df_hsi_graph.at[plot_x, 'Open']                    
+                    High = df_hsi_graph.at[plot_x, 'High']
+                    Low = df_hsi_graph.at[plot_x, 'Low']
+                    Close = df_hsi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p1_1.setText(txt)
@@ -24623,12 +24653,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex2 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
+                if not np.isnan(df_hsi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
-                    High = df_hangseng_graph.at[plot_x, 'High']
-                    Low = df_hangseng_graph.at[plot_x, 'Low']
-                    Close = df_hangseng_graph.at[plot_x, 'Close']
+                    Open = df_hsi_graph.at[plot_x, 'Open']                    
+                    High = df_hsi_graph.at[plot_x, 'High']
+                    Low = df_hsi_graph.at[plot_x, 'Low']
+                    Close = df_hsi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p2_1.setText(txt)
@@ -24803,12 +24833,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex3 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
+                if not np.isnan(df_hsi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
-                    High = df_hangseng_graph.at[plot_x, 'High']
-                    Low = df_hangseng_graph.at[plot_x, 'Low']
-                    Close = df_hangseng_graph.at[plot_x, 'Close']
+                    Open = df_hsi_graph.at[plot_x, 'Open']                    
+                    High = df_hsi_graph.at[plot_x, 'High']
+                    Low = df_hsi_graph.at[plot_x, 'Low']
+                    Close = df_hsi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p3_1.setText(txt)
@@ -24983,12 +25013,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             
             elif comboindex4 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
+                if not np.isnan(df_hsi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
-                    High = df_hangseng_graph.at[plot_x, 'High']
-                    Low = df_hangseng_graph.at[plot_x, 'Low']
-                    Close = df_hangseng_graph.at[plot_x, 'Close']
+                    Open = df_hsi_graph.at[plot_x, 'Open']                    
+                    High = df_hsi_graph.at[plot_x, 'High']
+                    Low = df_hsi_graph.at[plot_x, 'Low']
+                    Close = df_hsi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p4_1.setText(txt)
@@ -25161,12 +25191,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex5 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
+                if not np.isnan(df_hsi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
-                    High = df_hangseng_graph.at[plot_x, 'High']
-                    Low = df_hangseng_graph.at[plot_x, 'Low']
-                    Close = df_hangseng_graph.at[plot_x, 'Close']
+                    Open = df_hsi_graph.at[plot_x, 'Open']                    
+                    High = df_hsi_graph.at[plot_x, 'High']
+                    Low = df_hsi_graph.at[plot_x, 'Low']
+                    Close = df_hsi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p5_1.setText(txt)
@@ -25341,12 +25371,12 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             elif comboindex6 == 16:
                 
-                if not np.isnan(df_hangseng_graph.at[plot_x, 'Price']):
+                if not np.isnan(df_hsi_graph.at[plot_x, 'Price']):
                     
-                    Open = df_hangseng_graph.at[plot_x, 'Open']                    
-                    High = df_hangseng_graph.at[plot_x, 'High']
-                    Low = df_hangseng_graph.at[plot_x, 'Low']
-                    Close = df_hangseng_graph.at[plot_x, 'Close']
+                    Open = df_hsi_graph.at[plot_x, 'Open']                    
+                    High = df_hsi_graph.at[plot_x, 'High']
+                    Low = df_hsi_graph.at[plot_x, 'Low']
+                    Close = df_hsi_graph.at[plot_x, 'Close']
 
                     txt = " X: {0:d}\n O: {1:.2f}\n H: {2:.2f}\n L\n C: {4:.2f} ".format(plot_x, Open, High, Low, Close)            
                     self.label_p6_1.setText(txt)
@@ -25788,7 +25818,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_sp500_curve.clear()
         self.plot1_dow_curve.clear()
         self.plot1_nasdaq_curve.clear()
-        self.plot1_hangseng_curve.clear()
+        self.plot1_hsi_curve.clear()
 
         self.plot1_wti_curve.clear()
         self.plot1_gold_curve.clear()
@@ -26515,34 +26545,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex1 == 16:
             
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_전일종가
+                hsi_전저 = HANGSENG_전일종가
             else:
-                hangseng_전저 = HANGSENG_전저
+                hsi_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_전일종가
+                hsi_전고 = HANGSENG_전일종가
             else:
-                hangseng_전고 = HANGSENG_전고
+                hsi_전고 = HANGSENG_전고
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_전일종가
+                hsi_피봇 = HANGSENG_전일종가
             else:
-                hangseng_피봇 = HANGSENG_피봇
+                hsi_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_전일종가
+                hsi_시가 = HANGSENG_전일종가
             else:
-                hangseng_시가 = HANGSENG_시가
+                hsi_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_전일종가
+                hsi_저가 = HANGSENG_전일종가
             else:
-                hangseng_저가 = HANGSENG_저가
+                hsi_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_전일종가
+                hsi_고가 = HANGSENG_전일종가
             else:
-                hangseng_고가 = HANGSENG_고가
+                hsi_고가 = HANGSENG_고가
 
             self.plot1_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
             self.plot1_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
@@ -26572,37 +26602,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_cci_plus_100_line.setValue(HANGSENG_전일종가)
             self.plot1_cci_minus_100_line.setValue(HANGSENG_전일종가)
                             
-            txt = ' {0} '.format(format(hangseng_전저, ','))
+            txt = ' {0} '.format(format(hsi_전저, ','))
             self.label_11.setText(txt)
-            self.plot1_ovc_jl_line.setValue(hangseng_전저)
+            self.plot1_ovc_jl_line.setValue(hsi_전저)
 
-            txt = ' {0} '.format(format(hangseng_전고, ','))
+            txt = ' {0} '.format(format(hsi_전고, ','))
             self.label_12.setText(txt)
-            self.plot1_ovc_jh_line.setValue(hangseng_전고)
+            self.plot1_ovc_jh_line.setValue(hsi_전고)
             
             txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_13.setText(txt)
             self.plot1_ovc_close_line.setValue(HANGSENG_전일종가)
 
-            txt = ' {0} '.format(format(hangseng_피봇, ','))
+            txt = ' {0} '.format(format(hsi_피봇, ','))
             self.label_14.setText(txt)
-            self.plot1_ovc_pivot_line.setValue(hangseng_피봇)
+            self.plot1_ovc_pivot_line.setValue(hsi_피봇)
             
-            txt = ' {0} '.format(format(hangseng_시가, ','))
+            txt = ' {0} '.format(format(hsi_시가, ','))
             self.label_15.setText(txt)
-            self.plot1_ovc_open_line.setValue(hangseng_시가)
+            self.plot1_ovc_open_line.setValue(hsi_시가)
 
-            txt = ' {0} '.format(format(hangseng_저가, ','))
+            txt = ' {0} '.format(format(hsi_저가, ','))
             self.label_16.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_16.setText(txt)
-            self.plot1_ovc_low_line.setValue(hangseng_저가)
+            self.plot1_ovc_low_line.setValue(hsi_저가)
 
             self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(hangseng_고가, ','))
+            txt = ' {0} '.format(format(hsi_고가, ','))
             self.label_18.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_18.setText(txt)
-            self.plot1_ovc_high_line.setValue(hangseng_고가)
+            self.plot1_ovc_high_line.setValue(hsi_고가)
 
         # WTI   
         elif comboindex1 == 17:
@@ -27152,7 +27182,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_sp500_curve.clear()
         self.plot2_dow_curve.clear()
         self.plot2_nasdaq_curve.clear()
-        self.plot2_hangseng_curve.clear()
+        self.plot2_hsi_curve.clear()
 
         self.plot2_wti_curve.clear()
         self.plot2_gold_curve.clear()
@@ -27879,34 +27909,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex2 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_전일종가
+                hsi_전저 = HANGSENG_전일종가
             else:
-                hangseng_전저 = HANGSENG_전저
+                hsi_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_전일종가
+                hsi_전고 = HANGSENG_전일종가
             else:
-                hangseng_전고 = HANGSENG_전고
+                hsi_전고 = HANGSENG_전고
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_전일종가
+                hsi_피봇 = HANGSENG_전일종가
             else:
-                hangseng_피봇 = HANGSENG_피봇
+                hsi_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_전일종가
+                hsi_시가 = HANGSENG_전일종가
             else:
-                hangseng_시가 = HANGSENG_시가
+                hsi_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_전일종가
+                hsi_저가 = HANGSENG_전일종가
             else:
-                hangseng_저가 = HANGSENG_저가
+                hsi_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_전일종가
+                hsi_고가 = HANGSENG_전일종가
             else:
-                hangseng_고가 = HANGSENG_고가
+                hsi_고가 = HANGSENG_고가
 
             self.plot2_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
             self.plot2_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
@@ -27936,37 +27966,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_cci_plus_100_line.setValue(HANGSENG_전일종가)
             self.plot2_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
-            txt = ' {0} '.format(format(hangseng_전저, ','))
+            txt = ' {0} '.format(format(hsi_전저, ','))
             self.label_21.setText(txt)
-            self.plot2_ovc_jl_line.setValue(hangseng_전저)
+            self.plot2_ovc_jl_line.setValue(hsi_전저)
 
-            txt = ' {0} '.format(format(hangseng_전고, ','))
+            txt = ' {0} '.format(format(hsi_전고, ','))
             self.label_22.setText(txt)
-            self.plot2_ovc_jh_line.setValue(hangseng_전고)
+            self.plot2_ovc_jh_line.setValue(hsi_전고)
             
             txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_23.setText(txt)
             self.plot2_ovc_close_line.setValue(HANGSENG_전일종가)
 
-            txt = ' {0} '.format(format(hangseng_피봇, ','))
+            txt = ' {0} '.format(format(hsi_피봇, ','))
             self.label_24.setText(txt)
-            self.plot2_ovc_pivot_line.setValue(hangseng_피봇)
+            self.plot2_ovc_pivot_line.setValue(hsi_피봇)
             
-            txt = ' {0} '.format(format(hangseng_시가, ','))
+            txt = ' {0} '.format(format(hsi_시가, ','))
             self.label_25.setText(txt)
-            self.plot2_ovc_open_line.setValue(hangseng_시가)
+            self.plot2_ovc_open_line.setValue(hsi_시가)
 
-            txt = ' {0} '.format(format(hangseng_저가, ','))
+            txt = ' {0} '.format(format(hsi_저가, ','))
             self.label_26.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_26.setText(txt)
-            self.plot2_ovc_low_line.setValue(hangseng_저가)
+            self.plot2_ovc_low_line.setValue(hsi_저가)
 
             self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(hangseng_고가, ','))
+            txt = ' {0} '.format(format(hsi_고가, ','))
             self.label_28.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_28.setText(txt)
-            self.plot2_ovc_high_line.setValue(hangseng_고가)
+            self.plot2_ovc_high_line.setValue(hsi_고가)
 
         # WTI  
         elif comboindex2 == 17:
@@ -28516,7 +28546,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_sp500_curve.clear()
         self.plot3_dow_curve.clear()
         self.plot3_nasdaq_curve.clear()
-        self.plot3_hangseng_curve.clear()
+        self.plot3_hsi_curve.clear()
 
         self.plot3_wti_curve.clear()
         self.plot3_gold_curve.clear()
@@ -29243,34 +29273,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex3 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_전일종가
+                hsi_전저 = HANGSENG_전일종가
             else:
-                hangseng_전저 = HANGSENG_전저
+                hsi_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_전일종가
+                hsi_전고 = HANGSENG_전일종가
             else:
-                hangseng_전고 = HANGSENG_전고
+                hsi_전고 = HANGSENG_전고
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_전일종가
+                hsi_피봇 = HANGSENG_전일종가
             else:
-                hangseng_피봇 = HANGSENG_피봇
+                hsi_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_전일종가
+                hsi_시가 = HANGSENG_전일종가
             else:
-                hangseng_시가 = HANGSENG_시가
+                hsi_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_전일종가
+                hsi_저가 = HANGSENG_전일종가
             else:
-                hangseng_저가 = HANGSENG_저가
+                hsi_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_전일종가
+                hsi_고가 = HANGSENG_전일종가
             else:
-                hangseng_고가 = HANGSENG_고가
+                hsi_고가 = HANGSENG_고가
 
             self.plot3_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
             self.plot3_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
@@ -29300,37 +29330,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_cci_plus_100_line.setValue(HANGSENG_전일종가)
             self.plot3_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
-            txt = ' {0} '.format(format(hangseng_전저, ','))
+            txt = ' {0} '.format(format(hsi_전저, ','))
             self.label_31.setText(txt)
-            self.plot3_ovc_jl_line.setValue(hangseng_전저)
+            self.plot3_ovc_jl_line.setValue(hsi_전저)
 
-            txt = ' {0} '.format(format(hangseng_전고, ','))
+            txt = ' {0} '.format(format(hsi_전고, ','))
             self.label_32.setText(txt)
-            self.plot3_ovc_jh_line.setValue(hangseng_전고)
+            self.plot3_ovc_jh_line.setValue(hsi_전고)
             
             txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_33.setText(txt)
             self.plot3_ovc_close_line.setValue(HANGSENG_전일종가)
 
-            txt = ' {0} '.format(format(hangseng_피봇, ','))
+            txt = ' {0} '.format(format(hsi_피봇, ','))
             self.label_34.setText(txt)
-            self.plot3_ovc_pivot_line.setValue(hangseng_피봇)
+            self.plot3_ovc_pivot_line.setValue(hsi_피봇)
             
-            txt = ' {0} '.format(format(hangseng_시가, ','))
+            txt = ' {0} '.format(format(hsi_시가, ','))
             self.label_35.setText(txt)
-            self.plot3_ovc_open_line.setValue(hangseng_시가)
+            self.plot3_ovc_open_line.setValue(hsi_시가)
 
-            txt = ' {0} '.format(format(hangseng_저가, ','))
+            txt = ' {0} '.format(format(hsi_저가, ','))
             self.label_36.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_36.setText(txt)
-            self.plot3_ovc_low_line.setValue(hangseng_저가)
+            self.plot3_ovc_low_line.setValue(hsi_저가)
 
             self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(hangseng_고가, ','))
+            txt = ' {0} '.format(format(hsi_고가, ','))
             self.label_38.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_38.setText(txt)
-            self.plot3_ovc_high_line.setValue(hangseng_고가)
+            self.plot3_ovc_high_line.setValue(hsi_고가)
 
         # WTI
         elif comboindex3 == 17:
@@ -29880,7 +29910,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_sp500_curve.clear()
         self.plot4_dow_curve.clear()
         self.plot4_nasdaq_curve.clear()
-        self.plot4_hangseng_curve.clear()
+        self.plot4_hsi_curve.clear()
 
         self.plot4_wti_curve.clear()
         self.plot4_gold_curve.clear()
@@ -30607,34 +30637,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex4 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_전일종가
+                hsi_전저 = HANGSENG_전일종가
             else:
-                hangseng_전저 = HANGSENG_전저
+                hsi_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_전일종가
+                hsi_전고 = HANGSENG_전일종가
             else:
-                hangseng_전고 = HANGSENG_전고
+                hsi_전고 = HANGSENG_전고
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_전일종가
+                hsi_피봇 = HANGSENG_전일종가
             else:
-                hangseng_피봇 = HANGSENG_피봇
+                hsi_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_전일종가
+                hsi_시가 = HANGSENG_전일종가
             else:
-                hangseng_시가 = HANGSENG_시가
+                hsi_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_전일종가
+                hsi_저가 = HANGSENG_전일종가
             else:
-                hangseng_저가 = HANGSENG_저가
+                hsi_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_전일종가
+                hsi_고가 = HANGSENG_전일종가
             else:
-                hangseng_고가 = HANGSENG_고가
+                hsi_고가 = HANGSENG_고가
 
             self.plot4_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
             self.plot4_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
@@ -30664,37 +30694,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_cci_plus_100_line.setValue(HANGSENG_전일종가)
             self.plot4_cci_minus_100_line.setValue(HANGSENG_전일종가)
                             
-            txt = ' {0} '.format(format(hangseng_전저, ','))
+            txt = ' {0} '.format(format(hsi_전저, ','))
             self.label_41.setText(txt)
-            self.plot4_ovc_jl_line.setValue(hangseng_전저)
+            self.plot4_ovc_jl_line.setValue(hsi_전저)
 
-            txt = ' {0} '.format(format(hangseng_전고, ','))
+            txt = ' {0} '.format(format(hsi_전고, ','))
             self.label_42.setText(txt)
-            self.plot4_ovc_jh_line.setValue(hangseng_전고)
+            self.plot4_ovc_jh_line.setValue(hsi_전고)
             
             txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_43.setText(txt)
             self.plot4_ovc_close_line.setValue(HANGSENG_전일종가)
 
-            txt = ' {0} '.format(format(hangseng_피봇, ','))
+            txt = ' {0} '.format(format(hsi_피봇, ','))
             self.label_44.setText(txt)
-            self.plot4_ovc_pivot_line.setValue(hangseng_피봇)
+            self.plot4_ovc_pivot_line.setValue(hsi_피봇)
             
-            txt = ' {0} '.format(format(hangseng_시가, ','))
+            txt = ' {0} '.format(format(hsi_시가, ','))
             self.label_45.setText(txt)
-            self.plot4_ovc_open_line.setValue(hangseng_시가)
+            self.plot4_ovc_open_line.setValue(hsi_시가)
 
-            txt = ' {0} '.format(format(hangseng_저가, ','))
+            txt = ' {0} '.format(format(hsi_저가, ','))
             self.label_46.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_46.setText(txt)
-            self.plot4_ovc_low_line.setValue(hangseng_저가)
+            self.plot4_ovc_low_line.setValue(hsi_저가)
 
             self.label_47.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(hangseng_고가, ','))
+            txt = ' {0} '.format(format(hsi_고가, ','))
             self.label_48.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_48.setText(txt)
-            self.plot4_ovc_high_line.setValue(hangseng_고가)
+            self.plot4_ovc_high_line.setValue(hsi_고가)
 
         # WTI    
         elif comboindex4 == 17:
@@ -31244,7 +31274,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_sp500_curve.clear()
         self.plot5_dow_curve.clear()
         self.plot5_nasdaq_curve.clear()
-        self.plot5_hangseng_curve.clear()
+        self.plot5_hsi_curve.clear()
 
         self.plot5_wti_curve.clear()
         self.plot5_gold_curve.clear()
@@ -31971,34 +32001,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex5 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_전일종가
+                hsi_전저 = HANGSENG_전일종가
             else:
-                hangseng_전저 = HANGSENG_전저
+                hsi_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_전일종가
+                hsi_전고 = HANGSENG_전일종가
             else:
-                hangseng_전고 = HANGSENG_전고
+                hsi_전고 = HANGSENG_전고
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_전일종가
+                hsi_피봇 = HANGSENG_전일종가
             else:
-                hangseng_피봇 = HANGSENG_피봇
+                hsi_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_전일종가
+                hsi_시가 = HANGSENG_전일종가
             else:
-                hangseng_시가 = HANGSENG_시가
+                hsi_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_전일종가
+                hsi_저가 = HANGSENG_전일종가
             else:
-                hangseng_저가 = HANGSENG_저가
+                hsi_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_전일종가
+                hsi_고가 = HANGSENG_전일종가
             else:
-                hangseng_고가 = HANGSENG_고가
+                hsi_고가 = HANGSENG_고가
 
             self.plot5_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
             self.plot5_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
@@ -32028,37 +32058,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_cci_plus_100_line.setValue(HANGSENG_전일종가)
             self.plot5_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
-            txt = ' {0} '.format(format(hangseng_전저, ','))
+            txt = ' {0} '.format(format(hsi_전저, ','))
             self.label_51.setText(txt)
-            self.plot5_ovc_jl_line.setValue(hangseng_전저)
+            self.plot5_ovc_jl_line.setValue(hsi_전저)
 
-            txt = ' {0} '.format(format(hangseng_전고, ','))
+            txt = ' {0} '.format(format(hsi_전고, ','))
             self.label_52.setText(txt)
-            self.plot5_ovc_jh_line.setValue(hangseng_전고)
+            self.plot5_ovc_jh_line.setValue(hsi_전고)
             
             txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_53.setText(txt)
             self.plot5_ovc_close_line.setValue(HANGSENG_전일종가)
 
-            txt = ' {0} '.format(format(hangseng_피봇, ','))
+            txt = ' {0} '.format(format(hsi_피봇, ','))
             self.label_54.setText(txt)
-            self.plot5_ovc_pivot_line.setValue(hangseng_피봇)
+            self.plot5_ovc_pivot_line.setValue(hsi_피봇)
             
-            txt = ' {0} '.format(format(hangseng_시가, ','))
+            txt = ' {0} '.format(format(hsi_시가, ','))
             self.label_55.setText(txt)
-            self.plot5_ovc_open_line.setValue(hangseng_시가)
+            self.plot5_ovc_open_line.setValue(hsi_시가)
 
-            txt = ' {0} '.format(format(hangseng_저가, ','))
+            txt = ' {0} '.format(format(hsi_저가, ','))
             self.label_56.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_56.setText(txt)
-            self.plot5_ovc_low_line.setValue(hangseng_저가)
+            self.plot5_ovc_low_line.setValue(hsi_저가)
 
             self.label_57.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(hangseng_고가, ','))
+            txt = ' {0} '.format(format(hsi_고가, ','))
             self.label_58.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_58.setText(txt)
-            self.plot5_ovc_high_line.setValue(hangseng_고가)
+            self.plot5_ovc_high_line.setValue(hsi_고가)
 
         # WTI
         elif comboindex5 == 17:
@@ -32608,7 +32638,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_sp500_curve.clear()
         self.plot6_dow_curve.clear()
         self.plot6_nasdaq_curve.clear()
-        self.plot6_hangseng_curve.clear()
+        self.plot6_hsi_curve.clear()
 
         self.plot6_wti_curve.clear()
         self.plot6_gold_curve.clear()
@@ -33335,34 +33365,34 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         elif comboindex6 == 16:
 
             if HANGSENG_전저 == 0:
-                hangseng_전저 = HANGSENG_전일종가
+                hsi_전저 = HANGSENG_전일종가
             else:
-                hangseng_전저 = HANGSENG_전저
+                hsi_전저 = HANGSENG_전저
 
             if HANGSENG_전고 == 0:
-                hangseng_전고 = HANGSENG_전일종가
+                hsi_전고 = HANGSENG_전일종가
             else:
-                hangseng_전고 = HANGSENG_전고
+                hsi_전고 = HANGSENG_전고
 
             if HANGSENG_피봇 == 0:
-                hangseng_피봇 = HANGSENG_전일종가
+                hsi_피봇 = HANGSENG_전일종가
             else:
-                hangseng_피봇 = HANGSENG_피봇
+                hsi_피봇 = HANGSENG_피봇
 
             if HANGSENG_시가 == 0:
-                hangseng_시가 = HANGSENG_전일종가
+                hsi_시가 = HANGSENG_전일종가
             else:
-                hangseng_시가 = HANGSENG_시가
+                hsi_시가 = HANGSENG_시가
 
             if HANGSENG_저가 == 0:
-                hangseng_저가 = HANGSENG_전일종가
+                hsi_저가 = HANGSENG_전일종가
             else:
-                hangseng_저가 = HANGSENG_저가
+                hsi_저가 = HANGSENG_저가
 
             if HANGSENG_고가 == 0:
-                hangseng_고가 = HANGSENG_전일종가
+                hsi_고가 = HANGSENG_전일종가
             else:
-                hangseng_고가 = HANGSENG_고가
+                hsi_고가 = HANGSENG_고가
 
             self.plot6_quote_remainder_ratio_base_line.setValue(HANGSENG_전일종가)
             self.plot6_nm_futures_quote_remainder_ratio_bottom_line.setValue(HANGSENG_전일종가)
@@ -33392,37 +33422,37 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_cci_plus_100_line.setValue(HANGSENG_전일종가)
             self.plot6_cci_minus_100_line.setValue(HANGSENG_전일종가)
                 
-            txt = ' {0} '.format(format(hangseng_전저, ','))
+            txt = ' {0} '.format(format(hsi_전저, ','))
             self.label_61.setText(txt)
-            self.plot6_ovc_jl_line.setValue(hangseng_전저)
+            self.plot6_ovc_jl_line.setValue(hsi_전저)
 
-            txt = ' {0} '.format(format(hangseng_전고, ','))
+            txt = ' {0} '.format(format(hsi_전고, ','))
             self.label_62.setText(txt)
-            self.plot6_ovc_jh_line.setValue(hangseng_전고)
+            self.plot6_ovc_jh_line.setValue(hsi_전고)
             
             txt = ' {0} '.format(format(HANGSENG_전일종가, ','))
             self.label_63.setText(txt)
             self.plot6_ovc_close_line.setValue(HANGSENG_전일종가)
 
-            txt = ' {0} '.format(format(hangseng_피봇, ','))
+            txt = ' {0} '.format(format(hsi_피봇, ','))
             self.label_64.setText(txt)
-            self.plot6_ovc_pivot_line.setValue(hangseng_피봇)
+            self.plot6_ovc_pivot_line.setValue(hsi_피봇)
             
-            txt = ' {0} '.format(format(hangseng_시가, ','))
+            txt = ' {0} '.format(format(hsi_시가, ','))
             self.label_65.setText(txt)
-            self.plot6_ovc_open_line.setValue(hangseng_시가)
+            self.plot6_ovc_open_line.setValue(hsi_시가)
 
-            txt = ' {0} '.format(format(hangseng_저가, ','))
+            txt = ' {0} '.format(format(hsi_저가, ','))
             self.label_66.setStyleSheet('background-color: skyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_66.setText(txt)
-            self.plot6_ovc_low_line.setValue(hangseng_저가)
+            self.plot6_ovc_low_line.setValue(hsi_저가)
 
             self.label_67.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            txt = ' {0} '.format(format(hangseng_고가, ','))
+            txt = ' {0} '.format(format(hsi_고가, ','))
             self.label_68.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
             self.label_68.setText(txt)
-            self.plot6_ovc_high_line.setValue(hangseng_고가)
+            self.plot6_ovc_high_line.setValue(hsi_고가)
 
         # WTI
         elif comboindex6 == 17:
@@ -34337,6 +34367,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_futures_cm_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34866,6 +34899,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_sp500_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -34999,6 +35035,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_dow_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -35134,6 +35173,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_nasdaq_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35201,32 +35243,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot1_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot1_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))
+                self.plot1_hsi_curve.setData(df_hsi_graph['Price'].astype(float))
 
                 if flag_checkBox_plot1_bband:
 
                     self.parent.Calc_Bollinger('HSI')            
 
-                    self.plot1_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot1_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
-                    self.plot1_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
-                    self.plot1_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot1_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot1_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot1_bollinger_1st_upper_curve.setData(df_hsi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot1_bollinger_1st_middle_curve.setData(df_hsi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot1_bollinger_1st_lower_curve.setData(df_hsi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot1_bollinger_2nd_upper_curve.setData(df_hsi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_middle_curve.setData(df_hsi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot1_bollinger_2nd_lower_curve.setData(df_hsi_ta_graph['BBLower_2nd'].astype(float))
 
-                    self.plot1_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
-                    self.plot1_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
-                    self.plot1_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
-                    self.plot1_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
-                    self.plot1_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+                    self.plot1_fibonacci_line1.setValue(hsi_fibonacci_levels[1])
+                    self.plot1_fibonacci_line2.setValue(hsi_fibonacci_levels[2])
+                    self.plot1_fibonacci_line3.setValue(hsi_fibonacci_levels[3])
+                    self.plot1_fibonacci_line4.setValue(hsi_fibonacci_levels[4])
+                    self.plot1_fibonacci_line5.setValue(hsi_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hsi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p1_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p1_2.setText(txt)
                 else:
                     self.plot1_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -35242,20 +35284,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.parent.Calc_PSAR_MAMA('HSI')
 
-                    self.plot1_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot1_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot1_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
+                    df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'PSAR'] > df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] < df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'PSAR'] < df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] > df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p1_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
                         self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'PSAR'], df_hsi_ta_graph.at[plot_time_index, 'MAMA'], df_hsi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p1_3.setText(txt)
                 else:
                     self.label_p1_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35263,23 +35305,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot1_one_eye:
 
-                    self.plot1_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot1_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-                    self.plot1_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
-                    self.plot1_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    self.plot1_oe_conv_curve.setData(df_hsi_ta_graph['OE_CONV'].astype(float))
+                    self.plot1_oe_base_curve.setData(df_hsi_ta_graph['OE_BASE'].astype(float))
+                    self.plot1_span_a_curve.setData(df_hsi_ta_graph['SPAN_A'].astype(float))
+                    self.plot1_span_b_curve.setData(df_hsi_ta_graph['SPAN_B'].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_hsi_ta_graph['LAGGING_SPAN'].astype(float))
+
+                    if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
-                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'], df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p1_4.setText(txt)
                     
                 else:
@@ -35400,6 +35445,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_wti_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -35535,6 +35583,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_gold_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -35667,6 +35718,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_euro_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -35801,6 +35855,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot1_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_yen_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -35942,6 +35999,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot1_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot1_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot1_lagging_span_curve.setData(df_adi_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p1_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36068,15 +36128,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
-                df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
+                df_hsi_ta_graph['CCI_1ST'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hsi_ta_graph['CCI_2ND'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
+                df_hsi_ta_graph['RSI'] = talib.RSI(df_hsi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
-                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
+                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hsi_ta_graph.at[plot_time_index, 'RSI'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
+                if df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
+                elif df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_17.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -36086,9 +36146,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_cci_plus_100_line.setValue(100)
                 self.plot1_cci_minus_100_line.setValue(-100)
                 
-                self.plot1_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot1_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
+                self.plot1_hsi_cci1_curve.setData(df_hsi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_hsi_cci2_curve.setData(df_hsi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot1_hsi_rsi_curve.setData(df_hsi_ta_graph['RSI'].astype(float))
 
             elif comboindex1 == 28:
 
@@ -36408,6 +36468,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_futures_cm_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -36939,6 +37002,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_sp500_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37072,6 +37138,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_dow_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -37207,6 +37276,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_nasdaq_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37274,32 +37346,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot2_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot2_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                
+                self.plot2_hsi_curve.setData(df_hsi_graph['Price'].astype(float))                
 
                 if flag_checkBox_plot2_bband:
 
                     self.parent.Calc_Bollinger('HSI')
             
-                    self.plot2_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot2_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
-                    self.plot2_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
-                    self.plot2_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot2_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot2_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot2_bollinger_1st_upper_curve.setData(df_hsi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot2_bollinger_1st_middle_curve.setData(df_hsi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot2_bollinger_1st_lower_curve.setData(df_hsi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot2_bollinger_2nd_upper_curve.setData(df_hsi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_middle_curve.setData(df_hsi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot2_bollinger_2nd_lower_curve.setData(df_hsi_ta_graph['BBLower_2nd'].astype(float))
 
-                    self.plot2_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
-                    self.plot2_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
-                    self.plot2_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
-                    self.plot2_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
-                    self.plot2_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+                    self.plot2_fibonacci_line1.setValue(hsi_fibonacci_levels[1])
+                    self.plot2_fibonacci_line2.setValue(hsi_fibonacci_levels[2])
+                    self.plot2_fibonacci_line3.setValue(hsi_fibonacci_levels[3])
+                    self.plot2_fibonacci_line4.setValue(hsi_fibonacci_levels[4])
+                    self.plot2_fibonacci_line5.setValue(hsi_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hsi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p2_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p2_2.setText(txt)
                 else:
                     self.plot2_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -37315,20 +37387,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.parent.Calc_PSAR_MAMA('HSI')
 
-                    self.plot2_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot2_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot2_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot2_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
+                    df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot2_fama_curve.setData(df.astype(float))                        
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'PSAR'] > df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] < df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'PSAR'] < df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] > df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p2_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
                         self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'PSAR'], df_hsi_ta_graph.at[plot_time_index, 'MAMA'], df_hsi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p2_3.setText(txt)
                 else:
                     self.label_p2_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37336,23 +37408,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot2_one_eye:
 
-                    self.plot2_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot2_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-                    self.plot2_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
-                    self.plot2_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    self.plot2_oe_conv_curve.setData(df_hsi_ta_graph['OE_CONV'].astype(float))
+                    self.plot2_oe_base_curve.setData(df_hsi_ta_graph['OE_BASE'].astype(float))
+                    self.plot2_span_a_curve.setData(df_hsi_ta_graph['SPAN_A'].astype(float))
+                    self.plot2_span_b_curve.setData(df_hsi_ta_graph['SPAN_B'].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_hsi_ta_graph['LAGGING_SPAN'].astype(float))
+
+                    if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p2_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
-                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'], df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p2_4.setText(txt)
                     
                 else:
@@ -37473,6 +37548,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_wti_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -37608,6 +37686,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_gold_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -37740,6 +37821,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_euro_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -37874,6 +37958,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot2_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_yen_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -38015,6 +38102,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot2_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot2_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot2_lagging_span_curve.setData(df_adi_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p2_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38141,15 +38231,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
-                df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
+                df_hsi_ta_graph['CCI_1ST'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hsi_ta_graph['CCI_2ND'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
+                df_hsi_ta_graph['RSI'] = talib.RSI(df_hsi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
-                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
+                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hsi_ta_graph.at[plot_time_index, 'RSI'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
+                if df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
+                elif df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_27.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -38159,9 +38249,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_cci_plus_100_line.setValue(100)
                 self.plot2_cci_minus_100_line.setValue(-100)
                 
-                self.plot2_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot2_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
+                self.plot2_hsi_cci1_curve.setData(df_hsi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_hsi_cci2_curve.setData(df_hsi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot2_hsi_rsi_curve.setData(df_hsi_ta_graph['RSI'].astype(float))
 
             elif comboindex2 == 28:
 
@@ -38480,6 +38570,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_futures_cm_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -39012,6 +39105,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_sp500_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39145,6 +39241,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_dow_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -39280,6 +39379,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_nasdaq_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39347,32 +39449,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot3_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot3_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))           
+                self.plot3_hsi_curve.setData(df_hsi_graph['Price'].astype(float))           
 
                 if flag_checkBox_plot3_bband:
 
                     self.parent.Calc_Bollinger('HSI')
             
-                    self.plot3_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot3_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
-                    self.plot3_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
-                    self.plot3_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot3_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot3_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot3_bollinger_1st_upper_curve.setData(df_hsi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot3_bollinger_1st_middle_curve.setData(df_hsi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot3_bollinger_1st_lower_curve.setData(df_hsi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot3_bollinger_2nd_upper_curve.setData(df_hsi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_middle_curve.setData(df_hsi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot3_bollinger_2nd_lower_curve.setData(df_hsi_ta_graph['BBLower_2nd'].astype(float))
 
-                    self.plot3_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
-                    self.plot3_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
-                    self.plot3_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
-                    self.plot3_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
-                    self.plot3_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+                    self.plot3_fibonacci_line1.setValue(hsi_fibonacci_levels[1])
+                    self.plot3_fibonacci_line2.setValue(hsi_fibonacci_levels[2])
+                    self.plot3_fibonacci_line3.setValue(hsi_fibonacci_levels[3])
+                    self.plot3_fibonacci_line4.setValue(hsi_fibonacci_levels[4])
+                    self.plot3_fibonacci_line5.setValue(hsi_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hsi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p3_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p3_2.setText(txt)
                 else:
                     self.plot3_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -39388,20 +39490,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.parent.Calc_PSAR_MAMA('HSI')
 
-                    self.plot3_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot3_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot1_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot1_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
+                    df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot3_fama_curve.setData(df.astype(float))                        
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'PSAR'] > df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] < df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'PSAR'] < df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] > df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p3_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
                         self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'PSAR'], df_hsi_ta_graph.at[plot_time_index, 'MAMA'], df_hsi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p3_3.setText(txt)
                 else:
                     self.label_p3_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39409,23 +39511,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot3_one_eye:
 
-                    self.plot3_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot3_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-                    self.plot3_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
-                    self.plot3_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    self.plot3_oe_conv_curve.setData(df_hsi_ta_graph['OE_CONV'].astype(float))
+                    self.plot3_oe_base_curve.setData(df_hsi_ta_graph['OE_BASE'].astype(float))
+                    self.plot3_span_a_curve.setData(df_hsi_ta_graph['SPAN_A'].astype(float))
+                    self.plot3_span_b_curve.setData(df_hsi_ta_graph['SPAN_B'].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_hsi_ta_graph['LAGGING_SPAN'].astype(float))
+
+                    if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p3_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
-                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'], df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p3_4.setText(txt)
                     
                 else:
@@ -39546,6 +39651,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_wti_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -39681,6 +39789,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_gold_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -39813,6 +39924,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_euro_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -39947,6 +40061,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot3_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_yen_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -40088,6 +40205,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot3_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot3_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot3_lagging_span_curve.setData(df_adi_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p3_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40214,15 +40334,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
-                df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
+                df_hsi_ta_graph['CCI_1ST'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hsi_ta_graph['CCI_2ND'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
+                df_hsi_ta_graph['RSI'] = talib.RSI(df_hsi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
-                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
+                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hsi_ta_graph.at[plot_time_index, 'RSI'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
+                if df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
+                elif df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_37.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -40232,9 +40352,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_cci_plus_100_line.setValue(100)
                 self.plot3_cci_minus_100_line.setValue(-100)
                 
-                self.plot3_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot3_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
+                self.plot3_hsi_cci1_curve.setData(df_hsi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_hsi_cci2_curve.setData(df_hsi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot3_hsi_rsi_curve.setData(df_hsi_ta_graph['RSI'].astype(float))
 
             elif comboindex3 == 28:
                 
@@ -40551,6 +40671,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_futures_cm_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -41082,6 +41205,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_sp500_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41215,6 +41341,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_dow_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -41350,6 +41479,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_nasdaq_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41417,32 +41549,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot4_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot4_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                
+                self.plot4_hsi_curve.setData(df_hsi_graph['Price'].astype(float))                
 
                 if flag_checkBox_plot4_bband:
 
                     self.parent.Calc_Bollinger('HSI')
             
-                    self.plot4_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot4_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
-                    self.plot4_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
-                    self.plot4_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot4_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot4_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot4_bollinger_1st_upper_curve.setData(df_hsi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot4_bollinger_1st_middle_curve.setData(df_hsi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot4_bollinger_1st_lower_curve.setData(df_hsi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot4_bollinger_2nd_upper_curve.setData(df_hsi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_middle_curve.setData(df_hsi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot4_bollinger_2nd_lower_curve.setData(df_hsi_ta_graph['BBLower_2nd'].astype(float))
 
-                    self.plot4_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
-                    self.plot4_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
-                    self.plot4_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
-                    self.plot4_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
-                    self.plot4_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+                    self.plot4_fibonacci_line1.setValue(hsi_fibonacci_levels[1])
+                    self.plot4_fibonacci_line2.setValue(hsi_fibonacci_levels[2])
+                    self.plot4_fibonacci_line3.setValue(hsi_fibonacci_levels[3])
+                    self.plot4_fibonacci_line4.setValue(hsi_fibonacci_levels[4])
+                    self.plot4_fibonacci_line5.setValue(hsi_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hsi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p4_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p4_2.setText(txt)
                 else:
                     self.plot4_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -41458,20 +41590,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.parent.Calc_PSAR_MAMA('HSI')
 
-                    self.plot4_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot4_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot4_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot4_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
+                    df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot4_fama_curve.setData(df.astype(float))                        
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'PSAR'] > df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] < df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'PSAR'] < df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] > df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p4_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
                         self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'PSAR'], df_hsi_ta_graph.at[plot_time_index, 'MAMA'], df_hsi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p4_3.setText(txt)
                 else:
                     self.label_p4_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41479,23 +41611,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot4_one_eye:
 
-                    self.plot4_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot4_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-                    self.plot4_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
-                    self.plot4_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    self.plot4_oe_conv_curve.setData(df_hsi_ta_graph['OE_CONV'].astype(float))
+                    self.plot4_oe_base_curve.setData(df_hsi_ta_graph['OE_BASE'].astype(float))
+                    self.plot4_span_a_curve.setData(df_hsi_ta_graph['SPAN_A'].astype(float))
+                    self.plot4_span_b_curve.setData(df_hsi_ta_graph['SPAN_B'].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_hsi_ta_graph['LAGGING_SPAN'].astype(float))
+
+                    if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p4_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p4_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
-                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'], df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p4_4.setText(txt)
                     
                 else:
@@ -41616,6 +41751,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_wti_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -41751,6 +41889,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_gold_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -41883,6 +42024,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_euro_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -42017,6 +42161,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot4_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_yen_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -42158,6 +42305,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot4_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot4_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot4_lagging_span_curve.setData(df_adi_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p4_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42284,15 +42434,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
-                df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
+                df_hsi_ta_graph['CCI_1ST'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hsi_ta_graph['CCI_2ND'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
+                df_hsi_ta_graph['RSI'] = talib.RSI(df_hsi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
-                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
+                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hsi_ta_graph.at[plot_time_index, 'RSI'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
+                if df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
+                elif df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_47.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -42302,9 +42452,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_cci_plus_100_line.setValue(100)
                 self.plot4_cci_minus_100_line.setValue(-100)
                 
-                self.plot4_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot4_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
+                self.plot4_hsi_cci1_curve.setData(df_hsi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_hsi_cci2_curve.setData(df_hsi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot4_hsi_rsi_curve.setData(df_hsi_ta_graph['RSI'].astype(float))
 
             elif comboindex4 == 28:
                 
@@ -42622,6 +42772,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_futures_cm_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -43153,6 +43306,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_sp500_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43286,6 +43442,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_dow_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -43421,6 +43580,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_nasdaq_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43489,32 +43651,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot5_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot5_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))              
+                self.plot5_hsi_curve.setData(df_hsi_graph['Price'].astype(float))              
 
                 if flag_checkBox_plot5_bband:
 
                     self.parent.Calc_Bollinger('HSI')
             
-                    self.plot5_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot5_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
-                    self.plot5_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
-                    self.plot5_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot5_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot5_bollinger_1st_upper_curve.setData(df_hsi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot5_bollinger_1st_middle_curve.setData(df_hsi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot5_bollinger_1st_lower_curve.setData(df_hsi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot5_bollinger_2nd_upper_curve.setData(df_hsi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_middle_curve.setData(df_hsi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot5_bollinger_2nd_lower_curve.setData(df_hsi_ta_graph['BBLower_2nd'].astype(float))
 
-                    self.plot5_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
-                    self.plot5_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
-                    self.plot5_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
-                    self.plot5_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
-                    self.plot5_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+                    self.plot5_fibonacci_line1.setValue(hsi_fibonacci_levels[1])
+                    self.plot5_fibonacci_line2.setValue(hsi_fibonacci_levels[2])
+                    self.plot5_fibonacci_line3.setValue(hsi_fibonacci_levels[3])
+                    self.plot5_fibonacci_line4.setValue(hsi_fibonacci_levels[4])
+                    self.plot5_fibonacci_line5.setValue(hsi_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hsi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p5_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p5_2.setText(txt)
                 else:
                     self.plot5_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -43530,20 +43692,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.parent.Calc_PSAR_MAMA('HSI')
 
-                    self.plot5_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot5_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot5_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot5_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
+                    df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot5_fama_curve.setData(df.astype(float))                        
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'PSAR'] > df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] < df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'PSAR'] < df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] > df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p5_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
                         self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'PSAR'], df_hsi_ta_graph.at[plot_time_index, 'MAMA'], df_hsi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p5_3.setText(txt)
                 else:
                     self.label_p5_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43551,23 +43713,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot5_one_eye:
 
-                    self.plot5_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot5_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-                    self.plot5_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
-                    self.plot5_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    self.plot5_oe_conv_curve.setData(df_hsi_ta_graph['OE_CONV'].astype(float))
+                    self.plot5_oe_base_curve.setData(df_hsi_ta_graph['OE_BASE'].astype(float))
+                    self.plot5_span_a_curve.setData(df_hsi_ta_graph['SPAN_A'].astype(float))
+                    self.plot5_span_b_curve.setData(df_hsi_ta_graph['SPAN_B'].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_hsi_ta_graph['LAGGING_SPAN'].astype(float))
+
+                    if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p5_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p5_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
-                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'], df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p5_4.setText(txt)
                     
                 else:
@@ -43688,6 +43853,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_wti_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -43823,6 +43991,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_gold_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -43955,6 +44126,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_euro_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -44089,6 +44263,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot5_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_yen_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -44230,6 +44407,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot5_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot5_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot5_lagging_span_curve.setData(df_adi_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p5_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44356,15 +44536,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
-                df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
+                df_hsi_ta_graph['CCI_1ST'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hsi_ta_graph['CCI_2ND'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
+                df_hsi_ta_graph['RSI'] = talib.RSI(df_hsi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
-                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
+                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hsi_ta_graph.at[plot_time_index, 'RSI'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
+                if df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
+                elif df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_57.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -44374,9 +44554,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_cci_plus_100_line.setValue(100)
                 self.plot5_cci_minus_100_line.setValue(-100)
                 
-                self.plot5_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot5_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
+                self.plot5_hsi_cci1_curve.setData(df_hsi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_hsi_cci2_curve.setData(df_hsi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot5_hsi_rsi_curve.setData(df_hsi_ta_graph['RSI'].astype(float))
 
             elif comboindex5 == 28:
                 
@@ -44694,6 +44874,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_futures_cm_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_futures_cm_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_futures_cm_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_futures_cm_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_futures_cm_ta_graph.at[plot_time_index, 'OE_CONV'] < df_futures_cm_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_futures_cm_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -45225,6 +45408,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_sp500_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_sp500_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_sp500_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45358,6 +45544,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_dow_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_dow_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_dow_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_dow_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_dow_ta_graph.at[plot_time_index, 'OE_CONV'] < df_dow_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_dow_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -45493,6 +45682,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_nasdaq_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_nasdaq_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_nasdaq_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_nasdaq_ta_graph.at[plot_time_index, 'OE_CONV'] < df_nasdaq_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_nasdaq_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45560,32 +45752,32 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_low_line.setValue(HANGSENG_저가)
                 self.plot6_ovc_high_line.setValue(HANGSENG_고가)                 
 
-                self.plot6_hangseng_curve.setData(df_hangseng_graph['Price'].astype(float))                
+                self.plot6_hsi_curve.setData(df_hsi_graph['Price'].astype(float))                
 
                 if flag_checkBox_plot6_bband:
 
                     self.parent.Calc_Bollinger('HSI')
             
-                    self.plot6_bollinger_1st_upper_curve.setData(df_hangseng_ta_graph['BBUpper_1st'].astype(float))
-                    self.plot6_bollinger_1st_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_1st'].astype(float))
-                    self.plot6_bollinger_1st_lower_curve.setData(df_hangseng_ta_graph['BBLower_1st'].astype(float))
-                    self.plot6_bollinger_2nd_upper_curve.setData(df_hangseng_ta_graph['BBUpper_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_middle_curve.setData(df_hangseng_ta_graph['BBMiddle_2nd'].astype(float))
-                    self.plot6_bollinger_2nd_lower_curve.setData(df_hangseng_ta_graph['BBLower_2nd'].astype(float))
+                    self.plot6_bollinger_1st_upper_curve.setData(df_hsi_ta_graph['BBUpper_1st'].astype(float))
+                    self.plot6_bollinger_1st_middle_curve.setData(df_hsi_ta_graph['BBMiddle_1st'].astype(float))
+                    self.plot6_bollinger_1st_lower_curve.setData(df_hsi_ta_graph['BBLower_1st'].astype(float))
+                    self.plot6_bollinger_2nd_upper_curve.setData(df_hsi_ta_graph['BBUpper_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_middle_curve.setData(df_hsi_ta_graph['BBMiddle_2nd'].astype(float))
+                    self.plot6_bollinger_2nd_lower_curve.setData(df_hsi_ta_graph['BBLower_2nd'].astype(float))
 
-                    self.plot6_fibonacci_line1.setValue(hangseng_fibonacci_levels[1])
-                    self.plot6_fibonacci_line2.setValue(hangseng_fibonacci_levels[2])
-                    self.plot6_fibonacci_line3.setValue(hangseng_fibonacci_levels[3])
-                    self.plot6_fibonacci_line4.setValue(hangseng_fibonacci_levels[4])
-                    self.plot6_fibonacci_line5.setValue(hangseng_fibonacci_levels[5])
+                    self.plot6_fibonacci_line1.setValue(hsi_fibonacci_levels[1])
+                    self.plot6_fibonacci_line2.setValue(hsi_fibonacci_levels[2])
+                    self.plot6_fibonacci_line3.setValue(hsi_fibonacci_levels[3])
+                    self.plot6_fibonacci_line4.setValue(hsi_fibonacci_levels[4])
+                    self.plot6_fibonacci_line5.setValue(hsi_fibonacci_levels[5])
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hangseng_ta_graph.at[plot_time_index, 'Price']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'] >= df_hsi_ta_graph.at[plot_time_index, 'Price']:
                         self.label_p6_2.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " BB U: {0:.0f}\n BB M: {1:.0f}\n BB L: {2:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hangseng_ta_graph.at[plot_time_index, 'BBLower_2nd'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'BBUpper_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBMiddle_2nd'], df_hsi_ta_graph.at[plot_time_index, 'BBLower_2nd'])
                     self.label_p6_2.setText(txt)
                 else:
                     self.plot6_fibonacci_line1.setValue(HANGSENG_전일종가)
@@ -45601,20 +45793,20 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.parent.Calc_PSAR_MAMA('HSI')
 
-                    self.plot6_psar_curve.setData(df_hangseng_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+                    self.plot6_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
-                    self.plot6_mama_curve.setData(df_hangseng_ta_graph['MAMA'].astype(float))
-                    df = df_hangseng_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
+                    self.plot6_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
+                    df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot6_fama_curve.setData(df.astype(float))                        
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] > df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] < df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    if df_hsi_ta_graph.at[plot_time_index, 'PSAR'] > df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] < df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'PSAR'] < df_hangseng_ta_graph.at[plot_time_index, 'Price'] and df_hangseng_ta_graph.at[plot_time_index, 'MAMA'] > df_hangseng_ta_graph.at[plot_time_index, 'FAMA']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'PSAR'] < df_hsi_ta_graph.at[plot_time_index, 'Price'] and df_hsi_ta_graph.at[plot_time_index, 'MAMA'] > df_hsi_ta_graph.at[plot_time_index, 'FAMA']:
                         self.label_p6_3.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold') 
                     else:
                         self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
-                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'PSAR'], df_hangseng_ta_graph.at[plot_time_index, 'MAMA'], df_hangseng_ta_graph.at[plot_time_index, 'FAMA'])
+                    txt = " PSAR: {0:.0f}\n MAMA: {1:.0f}\n FAMA: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'PSAR'], df_hsi_ta_graph.at[plot_time_index, 'MAMA'], df_hsi_ta_graph.at[plot_time_index, 'FAMA'])
                     self.label_p6_3.setText(txt)
                 else:
                     self.label_p6_3.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -45622,23 +45814,26 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 if flag_checkBox_plot6_one_eye:
 
-                    self.plot6_oe_conv_curve.setData(df_hangseng_ta_graph['OE_CONV'].astype(float))
-                    self.plot6_oe_base_curve.setData(df_hangseng_ta_graph['OE_BASE'].astype(float))
-                    self.plot6_span_a_curve.setData(df_hangseng_ta_graph['SPAN_A'].astype(float))
-                    self.plot6_span_b_curve.setData(df_hangseng_ta_graph['SPAN_B'].astype(float))
+                    self.plot6_oe_conv_curve.setData(df_hsi_ta_graph['OE_CONV'].astype(float))
+                    self.plot6_oe_base_curve.setData(df_hsi_ta_graph['OE_BASE'].astype(float))
+                    self.plot6_span_a_curve.setData(df_hsi_ta_graph['SPAN_A'].astype(float))
+                    self.plot6_span_b_curve.setData(df_hsi_ta_graph['SPAN_B'].astype(float))
 
-                    if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_hsi_ta_graph['LAGGING_SPAN'].astype(float))
+
+                    if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
-                    elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                        df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                    elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                        df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p6_4.setStyleSheet('background-color: red; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
                     else:
                         self.label_p6_4.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
 
                     txt = " 기준선: {0:.0f}\n 전환선: {1:.0f}\n SPAN A: {2:.0f} \n SPAN B: {3:.0f} ".format\
-                        (df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'], df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'], \
-                            df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
+                        (df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'], df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'], \
+                            df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'], df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B'])
                     self.label_p6_4.setText(txt)
                     
                 else:
@@ -45759,6 +45954,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_wti_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_wti_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_wti_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_wti_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_wti_ta_graph.at[plot_time_index, 'OE_CONV'] < df_wti_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_wti_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -45894,6 +46092,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_gold_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_gold_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_gold_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_gold_ta_graph.at[plot_time_index, 'OE_CONV'] < df_gold_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_gold_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -46026,6 +46227,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_euro_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_euro_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_euro_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_euro_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_euro_ta_graph.at[plot_time_index, 'OE_CONV'] < df_euro_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_euro_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -46160,6 +46364,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_oe_base_curve.setData(df_yen_ta_graph['OE_BASE'].astype(float))
                     self.plot6_span_a_curve.setData(df_yen_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_yen_ta_graph['SPAN_B'].astype(float))
+
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_yen_ta_graph['LAGGING_SPAN'].astype(float))
 
                     if df_yen_ta_graph.at[plot_time_index, 'OE_CONV'] < df_yen_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_yen_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -46301,6 +46508,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.plot6_span_a_curve.setData(df_adi_ta_graph['SPAN_A'].astype(float))
                     self.plot6_span_b_curve.setData(df_adi_ta_graph['SPAN_B'].astype(float))
 
+                    if flag_one_eye_lagging_span:
+                        self.plot6_lagging_span_curve.setData(df_adi_ta_graph['LAGGING_SPAN'].astype(float))
+
                     if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                         df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
                         self.label_p6_4.setStyleSheet('background-color: blue; color: white; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -46427,15 +46637,15 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
-                df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
+                df_hsi_ta_graph['CCI_1ST'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hsi_ta_graph['CCI_2ND'] = talib.CCI(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], df_hsi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
+                df_hsi_ta_graph['RSI'] = talib.RSI(df_hsi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
-                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
+                txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hsi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hsi_ta_graph.at[plot_time_index, 'RSI'])
 
-                if df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
+                if df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] > 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: red; font-family: Consolas; font-size: 9pt; font: Bold')
-                elif df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
+                elif df_hsi_ta_graph.at[plot_time_index, 'CCI_2ND'] < 0:
                     self.label_67.setStyleSheet('background-color: yellow; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold')
@@ -46445,9 +46655,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_cci_plus_100_line.setValue(100)
                 self.plot6_cci_minus_100_line.setValue(-100)
                 
-                self.plot6_hsi_cci1_curve.setData(df_hangseng_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_hsi_cci2_curve.setData(df_hangseng_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
-                self.plot6_hsi_rsi_curve.setData(df_hangseng_ta_graph['RSI'].astype(float))
+                self.plot6_hsi_cci1_curve.setData(df_hsi_ta_graph['CCI_1ST'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_hsi_cci2_curve.setData(df_hsi_ta_graph['CCI_2ND'].clip(lower=-CCI_CLIP, upper=CCI_CLIP).astype(float))
+                self.plot6_hsi_rsi_curve.setData(df_hsi_ta_graph['RSI'].astype(float))
 
             elif comboindex6 == 28:
                 
@@ -46771,19 +46981,19 @@ class Xing(object):
 
         if flag_t8433_response_ok:
 
-            global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+            global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
 
             # 주요지표 계산
-            #df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            #df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            #df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], lagging_span = self.caller.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)      
+            #df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], df_futures_cm_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            #df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], df_sp500_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], df_dow_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], df_nasdaq_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_hsi_ta_graph['OE_CONV'], df_hsi_ta_graph['OE_BASE'], df_hsi_ta_graph['SPAN_A'], df_hsi_ta_graph['SPAN_B'], df_hsi_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_hsi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_wti_ta_graph['OE_CONV'], df_wti_ta_graph['OE_BASE'], df_wti_ta_graph['SPAN_A'], df_wti_ta_graph['SPAN_B'], df_wti_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_wti_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], df_gold_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], df_euro_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], df_yen_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            #df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], df_adi_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)      
 
         # 여기에서 주기적인 갱신을 진행
         if self.caller.dialog['선물옵션전광판'] is not None:
@@ -49544,7 +49754,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # ICHIMOKU
-                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
+                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], df_futures_cm_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
 
             elif tickdata['단축코드'] == CMSHCODE:
 
@@ -50872,7 +51082,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].fut_cm_etc_update(tickdata)
                 
                 # ICHIMOKU
-                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
+                df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], df_futures_cm_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
                 
             elif tickdata['단축코드'] == CMSHCODE:
 
@@ -51981,8 +52191,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global CME_체결시간, cme_plot_hour, cme_plot_minute, cme_plot_sec, t0167_hour, t0167_minute, t0167_second
         global old_plot_time_index, plot_time_index
-        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hangseng_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
-        global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph        
+        global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
+        global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph        
 
         global SP500_전일종가, SP500_피봇, SP500_시가, SP500_저가, SP500_현재가, SP500_전일대비, SP500_등락율, SP500_진폭, SP500_고가        
         global DOW_전일종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
@@ -52000,18 +52210,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EURO_당일종가, YEN_당일종가, ADI_당일종가, HANGSENG_당일종가, GOLD_당일종가
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
-        global flag_sp500_ohlc_open, flag_dow_ohlc_open, flag_nasdaq_ohlc_open, flag_hangseng_ohlc_open
+        global flag_sp500_ohlc_open, flag_dow_ohlc_open, flag_nasdaq_ohlc_open, flag_hsi_ohlc_open
         global flag_wti_ohlc_open, flag_gold_ohlc_open, flag_euro_ohlc_open, flag_yen_ohlc_open, flag_adi_ohlc_open
 
         global SP500_종가대비, DOW_종가대비, NASDAQ_종가대비, HANGSENG_종가대비, WTI_종가대비, GOLD_종가대비, EURO_종가대비, YEN_종가대비, ADI_종가대비
         global SP500_시가대비, DOW_시가대비, NASDAQ_시가대비, HANGSENG_시가대비, WTI_시가대비, GOLD_시가대비, EURO_시가대비, YEN_시가대비, ADI_시가대비
         global SP500_진폭_틱, DOW_진폭_틱, NASDAQ_진폭_틱, HANGSENG_진폭_틱, WTI_진폭_틱, GOLD_진폭_틱, EURO_진폭_틱, YEN_진폭_틱, ADI_진폭_틱
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
-        global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hangseng_fibonacci_levels
+        global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hsi_fibonacci_levels
         global wti_fibonacci_levels, gold_fibonacci_levels, euro_fibonacci_levels, yen_fibonacci_levels, adi_fibonacci_levels
         global cme_close_hour
-        global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hangseng_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
-        global sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hangseng_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
+        global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
+        global sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
 
         try:
             dt = datetime.now()
@@ -52108,15 +52318,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if HANGSENG_현재가 == 0:
                     HANGSENG_현재가 = HANGSENG_전일종가
 
-                if not flag_hangseng_ohlc_open:
+                if not flag_hsi_ohlc_open:
 
-                    df_hangseng_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가
-                    df_hangseng_ta_graph.at[plot_time_index, 'High'] = HANGSENG_현재가
-                    df_hangseng_ta_graph.at[plot_time_index, 'Low'] = HANGSENG_현재가
+                    df_hsi_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가
+                    df_hsi_ta_graph.at[plot_time_index, 'High'] = HANGSENG_현재가
+                    df_hsi_ta_graph.at[plot_time_index, 'Low'] = HANGSENG_현재가
 
                     del HANGSENG_현재가_버퍼[:]
 
-                    flag_hangseng_ohlc_open = True
+                    flag_hsi_ohlc_open = True
                 else:
                     HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
 
@@ -52305,7 +52515,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # ICHIMOKU
-                df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], df_sp500_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
                 if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -52931,12 +53141,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             elif tickdata['종목코드'] == HANGSENG:
 
-                #df_hangseng_tick = df_hangseng_tick.append(tickdata, ignore_index=True)
+                #df_hsi_tick = df_hsi_tick.append(tickdata, ignore_index=True)
 
                 # 그래프 가격갱신
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
-                df_hangseng_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
-                df_hangseng_ta_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
+                df_hsi_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
+                df_hsi_ta_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
                 
                 HANGSENG_전일대비 = float(tickdata['전일대비'])
 
@@ -52957,30 +53167,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 HANGSENG_시가대비 = HANGSENG_현재가 - HANGSENG_시가                
 
-                #df_hangseng_graph.at[0, 'Price'] = HANGSENG_전일종가
+                #df_hsi_graph.at[0, 'Price'] = HANGSENG_전일종가
 
-                if df_hangseng_graph.at[1, 'Price'] == 0:
-                    df_hangseng_graph.at[1, 'Price'] = HANGSENG_시가
+                if df_hsi_graph.at[1, 'Price'] == 0:
+                    df_hsi_graph.at[1, 'Price'] = HANGSENG_시가
 
                 HANGSENG_진폭비 = HANGSENG_진폭 / HANGSENG_시가
 
                 # 1T OHLC 생성
-                df_hangseng_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_hangseng_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_hsi_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_hsi_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
-                df_hangseng_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                df_hangseng_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                df_hangseng_ta_graph['Close'].fillna(method='bfill', inplace=True)
+                df_hsi_ta_graph['High'].fillna(method='bfill', inplace=True) 
+                df_hsi_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                df_hsi_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                 if not np.isnan(HANGSENG_현재가):
 
-                    df_hangseng_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
+                    df_hsi_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
 
                     if cme_plot_sec == 0:
                         pass                        
                     else:
-                        if not np.isnan(df_hangseng_ta_graph.at[plot_time_index, 'Open']):
-                            df_hangseng_ta_graph.at[plot_time_index, 'Open'] = df_hangseng_ta_graph.at[plot_time_index - 1, 'Close']
+                        if not np.isnan(df_hsi_ta_graph.at[plot_time_index, 'Open']):
+                            df_hsi_ta_graph.at[plot_time_index, 'Open'] = df_hsi_ta_graph.at[plot_time_index - 1, 'Close']
                             del HANGSENG_현재가_버퍼[:]
                         else:
                             pass
@@ -52988,20 +53198,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         HANGSENG_현재가_버퍼.append(HANGSENG_현재가)                            
 
                         if max(HANGSENG_현재가_버퍼) > 0:
-                            df_hangseng_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
+                            df_hsi_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
                         else:
                             pass
 
                         if min(HANGSENG_현재가_버퍼) == 0:
 
                             if max(HANGSENG_현재가_버퍼) > 0:
-                                df_hangseng_ta_graph.at[plot_time_index, 'Low'] = max(HANGSENG_현재가_버퍼)
+                                df_hsi_ta_graph.at[plot_time_index, 'Low'] = max(HANGSENG_현재가_버퍼)
                             else:
                                 pass
                         else:
-                            df_hangseng_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)         
+                            df_hsi_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)         
 
-                        flag_hangseng_ohlc_open = False
+                        flag_hsi_ohlc_open = False
                 else:
                     pass
                 
@@ -53015,16 +53225,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # ICHIMOKU
-                #df_hangseng_ta_graph['OE_CONV'], df_hangseng_ta_graph['OE_BASE'], df_hangseng_ta_graph['SPAN_A'], df_hangseng_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_hangseng_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_hsi_ta_graph['OE_CONV'], df_hsi_ta_graph['OE_BASE'], df_hsi_ta_graph['SPAN_A'], df_hsi_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_hsi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
-                if df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                    df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                if df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(3, 0).setForeground(QBrush(cyan))
 
-                elif df_hangseng_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hangseng_ta_graph.at[plot_time_index, 'OE_BASE'] and \
-                    df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hangseng_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
+                elif df_hsi_ta_graph.at[plot_time_index, 'OE_CONV'] > df_hsi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
+                    df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] > df_hsi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
 
                     self.tableWidget_cme.item(3, 0).setBackground(QBrush(검정색))
                     self.tableWidget_cme.item(3, 0).setForeground(QBrush(magenta))
@@ -53076,9 +53286,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.tableWidget_cme.setItem(3, 5, item)
 
                     if HANGSENG_현재가 >= HANGSENG_시가:
-                        hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, True)
+                        hsi_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, True)
                     else:
-                        hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, False)
+                        hsi_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, False)
                 else:
                     pass
 
@@ -53095,7 +53305,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 10, item)
 
-                    hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, False)
+                    hsi_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, False)
                     self.ovc_node_coloring(3, hsi_tick_value, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
@@ -53113,7 +53323,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_cme.setItem(3, 10, item)
 
-                    hangseng_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, True)
+                    hsi_fibonacci_levels = self.Calc_Fibonacci_Levels(HANGSENG_저가, HANGSENG_고가, True)
                     self.ovc_node_coloring(3, hsi_tick_value, HANGSENG_전저, HANGSENG_전고, HANGSENG_전일종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_고가)
                 else:
                     pass
@@ -54192,7 +54402,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # ICHIMOKU
-                df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], lagging_span = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], df_adi_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
                 if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -54388,7 +54598,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     def Calc_Bollinger(self, type):
 
-        global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+        global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
 
         if type == 'FUT':
 
@@ -54412,8 +54622,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         elif type == 'HSI':
 
-            df_hangseng_ta_graph['BBUpper_1st'], df_hangseng_ta_graph['BBMiddle_1st'], df_hangseng_ta_graph['BBLower_1st'] = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
-            df_hangseng_ta_graph['BBUpper_2nd'], df_hangseng_ta_graph['BBMiddle_2nd'], df_hangseng_ta_graph['BBLower_2nd'] = talib.BBANDS(df_hangseng_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)            
+            df_hsi_ta_graph['BBUpper_1st'], df_hsi_ta_graph['BBMiddle_1st'], df_hsi_ta_graph['BBLower_1st'] = talib.BBANDS(df_hsi_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_1ST_STD, nbdevdn=BB_1ST_STD, matype=MA_TYPE)
+            df_hsi_ta_graph['BBUpper_2nd'], df_hsi_ta_graph['BBMiddle_2nd'], df_hsi_ta_graph['BBLower_2nd'] = talib.BBANDS(df_hsi_ta_graph['Close'], timeperiod=BB_PERIOD, nbdevup=BB_2ND_STD, nbdevdn=BB_2ND_STD, matype=MA_TYPE)            
             
         elif type == 'WTI':
 
@@ -54447,7 +54657,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #####################################################################################################################################################################
     def Calc_PSAR_MAMA(self, type):
 
-        global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hangseng_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+        global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
 
         if type == 'FUT':
 
@@ -54500,14 +54710,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif type == 'HSI':
 
             # Parabolic SAR
-            df_hangseng_ta_graph['PSAR'] = talib.SAR(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], acceleration=0.02, maximum=0.2)
+            df_hsi_ta_graph['PSAR'] = talib.SAR(df_hsi_ta_graph['High'], df_hsi_ta_graph['Low'], acceleration=0.02, maximum=0.2)
 
             # # MAMA
-            df_hangseng_ta_graph['MAMA'], df_hangseng_ta_graph['FAMA'] = talib.MAMA(df_hangseng_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
+            df_hsi_ta_graph['MAMA'], df_hsi_ta_graph['FAMA'] = talib.MAMA(df_hsi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_hangseng_ta_graph)
+            #i = Indicators(df_hsi_ta_graph)
             #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_hangseng_alligator_graph = i.df
+            #df_hsi_alligator_graph = i.df
             
         elif type == 'WTI':
 
