@@ -433,7 +433,7 @@
    <property name="geometry">
     <rect>
      <x>338</x>
-     <y>120</y>
+     <y>114</y>
      <width>399</width>
      <height>57</height>
     </rect>
@@ -530,7 +530,7 @@
      <x>338</x>
      <y>14</y>
      <width>399</width>
-     <height>93</height>
+     <height>89</height>
     </rect>
    </property>
    <property name="font">
@@ -543,93 +543,89 @@
    <property name="title">
     <string>ITM, OTM Setting</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>12</x>
-      <y>58</y>
-      <width>369</width>
-      <height>22</height>
+      <y>22</y>
+      <width>371</width>
+      <height>52</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
-      <widget class="QLabel" name="label_put_itm">
-       <property name="text">
-        <string>풋내가</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_call_itm">
+         <property name="text">
+          <string>콜내가</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_call_itm"/>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_call_otm">
+         <property name="text">
+          <string>콜외가</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_call_otm"/>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinBox_put_itm"/>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_put_otm">
-       <property name="text">
-        <string>풋외가</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="spinBox_put_otm"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>12</x>
-      <y>28</y>
-      <width>369</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_call_itm">
-       <property name="text">
-        <string>콜내가</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="spinBox_call_itm"/>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_call_otm">
-       <property name="text">
-        <string>콜외가</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="spinBox_call_otm"/>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_put_itm">
+         <property name="text">
+          <string>풋내가</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_put_itm"/>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_put_otm">
+         <property name="text">
+          <string>풋외가</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_put_otm"/>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
@@ -638,9 +634,9 @@
    <property name="geometry">
     <rect>
      <x>338</x>
-     <y>324</y>
+     <y>326</y>
      <width>399</width>
-     <height>231</height>
+     <height>229</height>
     </rect>
    </property>
    <property name="font">
@@ -785,7 +781,7 @@
    <property name="geometry">
     <rect>
      <x>338</x>
-     <y>188</y>
+     <y>182</y>
      <width>399</width>
      <height>55</height>
     </rect>
@@ -880,9 +876,9 @@
    <property name="geometry">
     <rect>
      <x>338</x>
-     <y>258</y>
+     <y>252</y>
      <width>399</width>
-     <height>55</height>
+     <height>59</height>
     </rect>
    </property>
    <property name="font">
@@ -919,7 +915,7 @@
     <property name="geometry">
      <rect>
       <x>12</x>
-      <y>20</y>
+      <y>24</y>
       <width>373</width>
       <height>21</height>
      </rect>
