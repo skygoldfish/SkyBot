@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>721</width>
+    <width>760</width>
     <height>569</height>
    </rect>
   </property>
@@ -39,7 +39,7 @@
     <property name="geometry">
      <rect>
       <x>14</x>
-      <y>26</y>
+      <y>22</y>
       <width>273</width>
       <height>506</height>
      </rect>
@@ -434,7 +434,7 @@
     <rect>
      <x>338</x>
      <y>120</y>
-     <width>359</width>
+     <width>399</width>
      <height>57</height>
     </rect>
    </property>
@@ -453,7 +453,7 @@
      <rect>
       <x>14</x>
       <y>22</y>
-      <width>333</width>
+      <width>369</width>
       <height>21</height>
      </rect>
     </property>
@@ -529,7 +529,7 @@
     <rect>
      <x>338</x>
      <y>14</y>
-     <width>359</width>
+     <width>399</width>
      <height>93</height>
     </rect>
    </property>
@@ -548,7 +548,7 @@
      <rect>
       <x>12</x>
       <y>58</y>
-      <width>335</width>
+      <width>369</width>
       <height>22</height>
      </rect>
     </property>
@@ -593,7 +593,7 @@
      <rect>
       <x>12</x>
       <y>28</y>
-      <width>335</width>
+      <width>369</width>
       <height>22</height>
      </rect>
     </property>
@@ -639,7 +639,7 @@
     <rect>
      <x>338</x>
      <y>324</y>
-     <width>361</width>
+     <width>399</width>
      <height>231</height>
     </rect>
    </property>
@@ -658,7 +658,7 @@
      <rect>
       <x>15</x>
       <y>25</y>
-      <width>331</width>
+      <width>367</width>
       <height>48</height>
      </rect>
     </property>
@@ -702,7 +702,7 @@
      <rect>
       <x>14</x>
       <y>84</y>
-      <width>333</width>
+      <width>369</width>
       <height>73</height>
      </rect>
     </property>
@@ -786,7 +786,7 @@
     <rect>
      <x>338</x>
      <y>188</y>
-     <width>359</width>
+     <width>399</width>
      <height>55</height>
     </rect>
    </property>
@@ -805,7 +805,7 @@
      <rect>
       <x>14</x>
       <y>20</y>
-      <width>333</width>
+      <width>369</width>
       <height>21</height>
      </rect>
     </property>
@@ -881,7 +881,7 @@
     <rect>
      <x>338</x>
      <y>258</y>
-     <width>359</width>
+     <width>399</width>
      <height>55</height>
     </rect>
    </property>
@@ -898,7 +898,7 @@
    <widget class="QCheckBox" name="checkBox_lagging_span">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>314</x>
       <y>-2</y>
       <width>69</width>
       <height>19</height>
@@ -920,7 +920,7 @@
      <rect>
       <x>12</x>
       <y>20</y>
-      <width>337</width>
+      <width>373</width>
       <height>21</height>
      </rect>
     </property>
