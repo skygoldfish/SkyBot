@@ -2317,8 +2317,8 @@ adi_fibonacci_levels = []
 
 RSI_PERIOD = 5
 
-CCI_1ST_PERIOD = 25
-CCI_2ND_PERIOD = 50
+CCI1_PERIOD = 25
+CCI2_PERIOD = 50
 CCI_CLIP = 400
 
 CONVERSION_LINE_PERIOD = 9
@@ -21280,6 +21280,21 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(RSI_PERIOD)
         self.lineEdit_rsi_period.setText(txt)
 
+        txt = str(CCI1_PERIOD)
+        self.lineEdit_cci1_period.setText(txt)
+
+        txt = str(CCI2_PERIOD)
+        self.lineEdit_cci2_period.setText(txt)
+
+        txt = str(BASE_LINE_PERIOD)
+        self.lineEdit_ichimoku_baseline_period.setText(txt)
+
+        txt = str(CONVERSION_LINE_PERIOD)
+        self.lineEdit_ichimoku_conversionline_period.setText(txt)
+
+        txt = str(SPAN_B_PERIOD)
+        self.lineEdit_ichimoku_span_period.setText(txt)
+
         txt = str(view_time_tolerance)
         self.lineEdit_tolerance.setText(txt)
 
@@ -21338,6 +21353,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_bb_1st_std.returnPressed.connect(self.change_bb_1st_std)
         self.lineEdit_bb_2nd_std.returnPressed.connect(self.change_bb_2nd_std)
         self.lineEdit_rsi_period.returnPressed.connect(self.change_rsi_period)
+        self.lineEdit_cci1_period.returnPressed.connect(self.change_cci1_period)
+        self.lineEdit_cci2_period.returnPressed.connect(self.change_cci2_period)
+        self.lineEdit_ichimoku_baseline_period.returnPressed.connect(self.change_ichimoku_baseline_period)
+        self.lineEdit_ichimoku_conversionline_period.returnPressed.connect(self.change_ichimoku_conversionline_period)
+        self.lineEdit_ichimoku_span_period.returnPressed.connect(self.change_ichimoku_span_period)
+
         self.lineEdit_tolerance.returnPressed.connect(self.change_view_time_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
         self.lineEdit_drate_ratio.returnPressed.connect(self.change_drate_ratio)
@@ -21536,6 +21557,66 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         RSI_PERIOD = int(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] RSI 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, RSI_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_cci1_period(self):
+
+        global CCI1_PERIOD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_cci1_period.text()
+        CCI1_PERIOD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] CCI1 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, CCI1_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_cci2_period(self):
+
+        global CCI2_PERIOD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_cci2_period.text()
+        CCI2_PERIOD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] CCI2 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, CCI2_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_ichimoku_baseline_period(self):
+
+        global BASE_LINE_PERIOD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_ichimoku_baseline_period.text()
+        BASE_LINE_PERIOD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 일목균형 기준선 주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, BASE_LINE_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_ichimoku_conversionline_period(self):
+
+        global CONVERSION_LINE_PERIOD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_ichimoku_conversionline_period.text()
+        CONVERSION_LINE_PERIOD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 일목균형 전환선 주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, CONVERSION_LINE_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_ichimoku_span_period(self):
+
+        global SPAN_B_PERIOD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_ichimoku_span_period.text()
+        SPAN_B_PERIOD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 일목균형 SPAN 주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, SPAN_B_PERIOD)
         self.parent.textBrowser.append(txt)
 
     def change_view_time_interval(self):
@@ -35880,8 +35961,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
-                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI1_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_futures_cm_ta_graph['RSI'] = talib.RSI(df_futures_cm_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'], df_futures_cm_ta_graph.at[plot_time_index, 'RSI'])
@@ -35906,8 +35987,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_sp500_ta_graph['RSI'] = talib.RSI(df_sp500_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'], df_sp500_ta_graph.at[plot_time_index, 'RSI'])
@@ -35932,8 +36013,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_dow_ta_graph['RSI'] = talib.RSI(df_dow_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'], df_dow_ta_graph.at[plot_time_index, 'RSI'])
@@ -35958,8 +36039,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_nasdaq_ta_graph['RSI'] = talib.RSI(df_nasdaq_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'], df_nasdaq_ta_graph.at[plot_time_index, 'RSI'])
@@ -35984,8 +36065,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
@@ -36010,8 +36091,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_wti_ta_graph['RSI'] = talib.RSI(df_wti_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'], df_wti_ta_graph.at[plot_time_index, 'RSI'])
@@ -36036,8 +36117,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_gold_ta_graph['RSI'] = talib.RSI(df_gold_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'], df_gold_ta_graph.at[plot_time_index, 'RSI'])
@@ -36062,8 +36143,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_euro_ta_graph['RSI'] = talib.RSI(df_euro_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'], df_euro_ta_graph.at[plot_time_index, 'RSI'])
@@ -36088,8 +36169,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_yen_ta_graph['RSI'] = talib.RSI(df_yen_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'], df_yen_ta_graph.at[plot_time_index, 'RSI'])
@@ -36114,8 +36195,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot1_time_line.setValue(plot_time_index)
 
-                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_adi_ta_graph['RSI'] = talib.RSI(df_adi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_adi_ta_graph.at[plot_time_index, 'RSI'])
@@ -37953,8 +38034,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
-                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI1_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_futures_cm_ta_graph['RSI'] = talib.RSI(df_futures_cm_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'], df_futures_cm_ta_graph.at[plot_time_index, 'RSI'])
@@ -37979,8 +38060,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_sp500_ta_graph['RSI'] = talib.RSI(df_sp500_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'], df_sp500_ta_graph.at[plot_time_index, 'RSI'])
@@ -38005,8 +38086,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_dow_ta_graph['RSI'] = talib.RSI(df_dow_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'], df_dow_ta_graph.at[plot_time_index, 'RSI'])
@@ -38031,8 +38112,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_nasdaq_ta_graph['RSI'] = talib.RSI(df_nasdaq_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'], df_nasdaq_ta_graph.at[plot_time_index, 'RSI'])
@@ -38057,8 +38138,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
@@ -38083,8 +38164,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_wti_ta_graph['RSI'] = talib.RSI(df_wti_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'], df_wti_ta_graph.at[plot_time_index, 'RSI'])
@@ -38110,8 +38191,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_gold_ta_graph['RSI'] = talib.RSI(df_gold_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'], df_gold_ta_graph.at[plot_time_index, 'RSI'])
@@ -38136,8 +38217,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_euro_ta_graph['RSI'] = talib.RSI(df_euro_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'], df_euro_ta_graph.at[plot_time_index, 'RSI'])
@@ -38162,8 +38243,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_yen_ta_graph['RSI'] = talib.RSI(df_yen_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'], df_yen_ta_graph.at[plot_time_index, 'RSI'])
@@ -38188,8 +38269,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot2_time_line.setValue(plot_time_index)
 
-                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_adi_ta_graph['RSI'] = talib.RSI(df_adi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_adi_ta_graph.at[plot_time_index, 'RSI'])
@@ -40026,8 +40107,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
-                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI1_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_futures_cm_ta_graph['RSI'] = talib.RSI(df_futures_cm_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'], df_futures_cm_ta_graph.at[plot_time_index, 'RSI'])
@@ -40052,8 +40133,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_sp500_ta_graph['RSI'] = talib.RSI(df_sp500_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'], df_sp500_ta_graph.at[plot_time_index, 'RSI'])
@@ -40078,8 +40159,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_dow_ta_graph['RSI'] = talib.RSI(df_dow_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'], df_dow_ta_graph.at[plot_time_index, 'RSI'])
@@ -40104,8 +40185,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_nasdaq_ta_graph['RSI'] = talib.RSI(df_nasdaq_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'], df_nasdaq_ta_graph.at[plot_time_index, 'RSI'])
@@ -40130,8 +40211,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
@@ -40156,8 +40237,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_wti_ta_graph['RSI'] = talib.RSI(df_wti_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'], df_wti_ta_graph.at[plot_time_index, 'RSI'])
@@ -40182,8 +40263,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_gold_ta_graph['RSI'] = talib.RSI(df_gold_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'], df_gold_ta_graph.at[plot_time_index, 'RSI'])
@@ -40208,8 +40289,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_euro_ta_graph['RSI'] = talib.RSI(df_euro_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'], df_euro_ta_graph.at[plot_time_index, 'RSI'])
@@ -40234,8 +40315,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_yen_ta_graph['RSI'] = talib.RSI(df_yen_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'], df_yen_ta_graph.at[plot_time_index, 'RSI'])
@@ -40260,8 +40341,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot3_time_line.setValue(plot_time_index)
 
-                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_adi_ta_graph['RSI'] = talib.RSI(df_adi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_adi_ta_graph.at[plot_time_index, 'RSI'])
@@ -42096,8 +42177,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
-                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI1_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_futures_cm_ta_graph['RSI'] = talib.RSI(df_futures_cm_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'], df_futures_cm_ta_graph.at[plot_time_index, 'RSI'])
@@ -42122,8 +42203,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_sp500_ta_graph['RSI'] = talib.RSI(df_sp500_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'], df_sp500_ta_graph.at[plot_time_index, 'RSI'])
@@ -42148,8 +42229,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_dow_ta_graph['RSI'] = talib.RSI(df_dow_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'], df_dow_ta_graph.at[plot_time_index, 'RSI'])
@@ -42174,8 +42255,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_nasdaq_ta_graph['RSI'] = talib.RSI(df_nasdaq_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'], df_nasdaq_ta_graph.at[plot_time_index, 'RSI'])
@@ -42200,8 +42281,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
@@ -42226,8 +42307,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_wti_ta_graph['RSI'] = talib.RSI(df_wti_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'], df_wti_ta_graph.at[plot_time_index, 'RSI'])
@@ -42252,8 +42333,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_gold_ta_graph['RSI'] = talib.RSI(df_gold_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'], df_gold_ta_graph.at[plot_time_index, 'RSI'])
@@ -42278,8 +42359,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_euro_ta_graph['RSI'] = talib.RSI(df_euro_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'], df_euro_ta_graph.at[plot_time_index, 'RSI'])
@@ -42304,8 +42385,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_yen_ta_graph['RSI'] = talib.RSI(df_yen_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'], df_yen_ta_graph.at[plot_time_index, 'RSI'])
@@ -42330,8 +42411,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot4_time_line.setValue(plot_time_index)
 
-                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_adi_ta_graph['RSI'] = talib.RSI(df_adi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_adi_ta_graph.at[plot_time_index, 'RSI'])
@@ -44168,8 +44249,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
-                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI1_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_futures_cm_ta_graph['RSI'] = talib.RSI(df_futures_cm_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'], df_futures_cm_ta_graph.at[plot_time_index, 'RSI'])
@@ -44194,8 +44275,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_sp500_ta_graph['RSI'] = talib.RSI(df_sp500_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'], df_sp500_ta_graph.at[plot_time_index, 'RSI'])
@@ -44220,8 +44301,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_dow_ta_graph['RSI'] = talib.RSI(df_dow_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'], df_dow_ta_graph.at[plot_time_index, 'RSI'])
@@ -44246,8 +44327,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_nasdaq_ta_graph['RSI'] = talib.RSI(df_nasdaq_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'], df_nasdaq_ta_graph.at[plot_time_index, 'RSI'])
@@ -44272,8 +44353,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
@@ -44298,8 +44379,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_wti_ta_graph['RSI'] = talib.RSI(df_wti_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'], df_wti_ta_graph.at[plot_time_index, 'RSI'])
@@ -44324,8 +44405,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_gold_ta_graph['RSI'] = talib.RSI(df_gold_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'], df_gold_ta_graph.at[plot_time_index, 'RSI'])
@@ -44350,8 +44431,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_euro_ta_graph['RSI'] = talib.RSI(df_euro_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'], df_euro_ta_graph.at[plot_time_index, 'RSI'])
@@ -44376,8 +44457,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_yen_ta_graph['RSI'] = talib.RSI(df_yen_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'], df_yen_ta_graph.at[plot_time_index, 'RSI'])
@@ -44402,8 +44483,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot5_time_line.setValue(plot_time_index)
 
-                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_adi_ta_graph['RSI'] = talib.RSI(df_adi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_adi_ta_graph.at[plot_time_index, 'RSI'])
@@ -46239,8 +46320,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)                
-                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_futures_cm_ta_graph['CCI_1ST'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI1_PERIOD)                
+                df_futures_cm_ta_graph['CCI_2ND'] = talib.CCI(df_futures_cm_ta_graph['High'], df_futures_cm_ta_graph['Low'], df_futures_cm_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_futures_cm_ta_graph['RSI'] = talib.RSI(df_futures_cm_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_futures_cm_ta_graph.at[plot_time_index, 'CCI_1ST'], df_futures_cm_ta_graph.at[plot_time_index, 'CCI_2ND'], df_futures_cm_ta_graph.at[plot_time_index, 'RSI'])
@@ -46265,8 +46346,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_sp500_ta_graph['CCI_1ST'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_sp500_ta_graph['CCI_2ND'] = talib.CCI(df_sp500_ta_graph['High'], df_sp500_ta_graph['Low'], df_sp500_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_sp500_ta_graph['RSI'] = talib.RSI(df_sp500_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_sp500_ta_graph.at[plot_time_index, 'CCI_1ST'], df_sp500_ta_graph.at[plot_time_index, 'CCI_2ND'], df_sp500_ta_graph.at[plot_time_index, 'RSI'])
@@ -46291,8 +46372,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_dow_ta_graph['CCI_1ST'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_dow_ta_graph['CCI_2ND'] = talib.CCI(df_dow_ta_graph['High'], df_dow_ta_graph['Low'], df_dow_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_dow_ta_graph['RSI'] = talib.RSI(df_dow_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_dow_ta_graph.at[plot_time_index, 'CCI_1ST'], df_dow_ta_graph.at[plot_time_index, 'CCI_2ND'], df_dow_ta_graph.at[plot_time_index, 'RSI'])
@@ -46317,8 +46398,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_nasdaq_ta_graph['CCI_1ST'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_nasdaq_ta_graph['CCI_2ND'] = talib.CCI(df_nasdaq_ta_graph['High'], df_nasdaq_ta_graph['Low'], df_nasdaq_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_nasdaq_ta_graph['RSI'] = talib.RSI(df_nasdaq_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_nasdaq_ta_graph.at[plot_time_index, 'CCI_1ST'], df_nasdaq_ta_graph.at[plot_time_index, 'CCI_2ND'], df_nasdaq_ta_graph.at[plot_time_index, 'RSI'])
@@ -46343,8 +46424,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_hangseng_ta_graph['CCI_1ST'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_hangseng_ta_graph['CCI_2ND'] = talib.CCI(df_hangseng_ta_graph['High'], df_hangseng_ta_graph['Low'], df_hangseng_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_hangseng_ta_graph['RSI'] = talib.RSI(df_hangseng_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_hangseng_ta_graph.at[plot_time_index, 'CCI_1ST'], df_hangseng_ta_graph.at[plot_time_index, 'CCI_2ND'], df_hangseng_ta_graph.at[plot_time_index, 'RSI'])
@@ -46369,8 +46450,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_wti_ta_graph['CCI_1ST'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_wti_ta_graph['CCI_2ND'] = talib.CCI(df_wti_ta_graph['High'], df_wti_ta_graph['Low'], df_wti_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_wti_ta_graph['RSI'] = talib.RSI(df_wti_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_wti_ta_graph.at[plot_time_index, 'CCI_1ST'], df_wti_ta_graph.at[plot_time_index, 'CCI_2ND'], df_wti_ta_graph.at[plot_time_index, 'RSI'])
@@ -46395,8 +46476,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_gold_ta_graph['CCI_1ST'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_gold_ta_graph['CCI_2ND'] = talib.CCI(df_gold_ta_graph['High'], df_gold_ta_graph['Low'], df_gold_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_gold_ta_graph['RSI'] = talib.RSI(df_gold_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_gold_ta_graph.at[plot_time_index, 'CCI_1ST'], df_gold_ta_graph.at[plot_time_index, 'CCI_2ND'], df_gold_ta_graph.at[plot_time_index, 'RSI'])
@@ -46421,8 +46502,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_euro_ta_graph['CCI_1ST'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_euro_ta_graph['CCI_2ND'] = talib.CCI(df_euro_ta_graph['High'], df_euro_ta_graph['Low'], df_euro_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_euro_ta_graph['RSI'] = talib.RSI(df_euro_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_euro_ta_graph.at[plot_time_index, 'CCI_1ST'], df_euro_ta_graph.at[plot_time_index, 'CCI_2ND'], df_euro_ta_graph.at[plot_time_index, 'RSI'])
@@ -46447,8 +46528,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_yen_ta_graph['CCI_1ST'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_yen_ta_graph['CCI_2ND'] = talib.CCI(df_yen_ta_graph['High'], df_yen_ta_graph['Low'], df_yen_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_yen_ta_graph['RSI'] = talib.RSI(df_yen_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_yen_ta_graph.at[plot_time_index, 'CCI_1ST'], df_yen_ta_graph.at[plot_time_index, 'CCI_2ND'], df_yen_ta_graph.at[plot_time_index, 'RSI'])
@@ -46473,8 +46554,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 
                 self.plot6_time_line.setValue(plot_time_index)
 
-                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_1ST_PERIOD)
-                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI_2ND_PERIOD)
+                df_adi_ta_graph['CCI_1ST'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI1_PERIOD)
+                df_adi_ta_graph['CCI_2ND'] = talib.CCI(df_adi_ta_graph['High'], df_adi_ta_graph['Low'], df_adi_ta_graph['Close'], timeperiod=CCI2_PERIOD)
                 df_adi_ta_graph['RSI'] = talib.RSI(df_adi_ta_graph['Close'], timeperiod=RSI_PERIOD)
 
                 txt = " CCI_1ST: {0:.0f}, CCI_2ND: {1:.0f}, RSI: {2:.0f} ".format(df_adi_ta_graph.at[plot_time_index, 'CCI_1ST'], df_adi_ta_graph.at[plot_time_index, 'CCI_2ND'], df_adi_ta_graph.at[plot_time_index, 'RSI'])
