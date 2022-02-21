@@ -78,6 +78,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtTest import *
 import pyqtgraph as pg
 import qdarkstyle
+#from darktheme.widget_template import DarkPalette
 
 #import qtmodern.styles
 #import qtmodern.windows
@@ -25583,7 +25584,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_oe_conv_curve.clear()
             self.plot1_oe_base_curve.clear()
             self.plot1_span_a_curve.clear()
-            self.plot1_span_b_curve.clear()                   
+            self.plot1_span_b_curve.clear()
+            self.plot1_lagging_span_curve.clear()              
 
     def checkBox_plot2_one_eye_checkState(self):
 
@@ -25598,6 +25600,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_oe_base_curve.clear()
             self.plot2_span_a_curve.clear()
             self.plot2_span_b_curve.clear()
+            self.plot2_lagging_span_curve.clear()
 
     def checkBox_plot3_one_eye_checkState(self):
 
@@ -25612,6 +25615,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_oe_base_curve.clear()
             self.plot3_span_a_curve.clear()
             self.plot3_span_b_curve.clear()
+            self.plot3_lagging_span_curve.clear()
 
     def checkBox_plot4_one_eye_checkState(self):
 
@@ -25626,6 +25630,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_oe_base_curve.clear()
             self.plot4_span_a_curve.clear()
             self.plot4_span_b_curve.clear()
+            self.plot4_lagging_span_curve.clear()
 
     def checkBox_plot5_one_eye_checkState(self):
 
@@ -25640,6 +25645,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_oe_base_curve.clear()
             self.plot5_span_a_curve.clear()
             self.plot5_span_b_curve.clear()
+            self.plot5_lagging_span_curve.clear()
 
     def checkBox_plot6_one_eye_checkState(self):
 
@@ -25654,6 +25660,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_oe_base_curve.clear()
             self.plot6_span_a_curve.clear()
             self.plot6_span_b_curve.clear()
+            self.plot6_lagging_span_curve.clear()
 
     def checkBox_plot1_psar_checkState(self):
 
@@ -25843,6 +25850,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_oe_base_curve.clear()
         self.plot1_span_a_curve.clear()
         self.plot1_span_b_curve.clear()
+        self.plot1_lagging_span_curve.clear()
 
         self.plot1_futures_rsi_curve.clear()
         self.plot1_sp500_rsi_curve.clear()
@@ -27207,6 +27215,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_oe_base_curve.clear()
         self.plot2_span_a_curve.clear()
         self.plot2_span_b_curve.clear()
+        self.plot2_lagging_span_curve.clear()
 
         self.plot2_futures_rsi_curve.clear()
         self.plot2_sp500_rsi_curve.clear()
@@ -28571,6 +28580,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_oe_base_curve.clear()
         self.plot3_span_a_curve.clear()
         self.plot3_span_b_curve.clear()
+        self.plot3_lagging_span_curve.clear()
 
         self.plot3_futures_rsi_curve.clear()
         self.plot3_sp500_rsi_curve.clear()
@@ -29935,6 +29945,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_oe_base_curve.clear()
         self.plot4_span_a_curve.clear()
         self.plot4_span_b_curve.clear()
+        self.plot4_lagging_span_curve.clear()
 
         self.plot4_futures_rsi_curve.clear()
         self.plot4_sp500_rsi_curve.clear()
@@ -31299,6 +31310,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_oe_base_curve.clear()
         self.plot5_span_a_curve.clear()
         self.plot5_span_b_curve.clear()
+        self.plot5_lagging_span_curve.clear()
 
         self.plot5_futures_rsi_curve.clear()
         self.plot5_sp500_rsi_curve.clear()
@@ -32663,6 +32675,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_oe_base_curve.clear()
         self.plot6_span_a_curve.clear()
         self.plot6_span_b_curve.clear()
+        self.plot6_lagging_span_curve.clear()
 
         self.plot6_futures_rsi_curve.clear()
         self.plot6_sp500_rsi_curve.clear()
@@ -56249,6 +56262,7 @@ if __name__ == "__main__":
     if DARK_STYLESHEET:    
         dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
         app.setStyleSheet(dark_stylesheet)
+        #app.setPalette(DarkPalette())
     else:
         pass
     
