@@ -2346,6 +2346,8 @@ flag_adi_one_eye_put = False
 flag_one_eye_call = False
 flag_one_eye_put = False
 
+DRATE_OFFSET = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -21319,6 +21321,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(SP500_FUT_시가_등락율비)
         self.lineEdit_drate_ratio.setText(txt)
 
+        txt = str(DRATE_OFFSET)
+        self.lineEdit_drate_offset.setText(txt)
+
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__) 
         
@@ -21382,6 +21387,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_tolerance.returnPressed.connect(self.change_view_time_interval)
         self.lineEdit_plot.returnPressed.connect(self.change_plot_interval)
         self.lineEdit_drate_ratio.returnPressed.connect(self.change_drate_ratio)
+        self.lineEdit_drate_offset.returnPressed.connect(self.change_drate_offset)
 
     def change_call_itm(self):
 
@@ -21699,6 +21705,18 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         SP500_FUT_시가_등락율비 = int(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] FUT vs SP500 등락율비를 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, SP500_FUT_시가_등락율비)
+        self.parent.textBrowser.append(txt)
+
+    def change_drate_offset(self):
+
+        global DRATE_OFFSET
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_drate_offset.text()
+        DRATE_OFFSET = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] DRATE OFFSET을 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, DRATE_OFFSET)
         self.parent.textBrowser.append(txt)
 
     def checkBox_cm_fut_price_checkState(self):
@@ -34618,7 +34636,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
                 self.plot1_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
 
-                self.plot1_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
+                self.plot1_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float) + DRATE_OFFSET)
                 
                 if DayTime:
 
@@ -36721,7 +36739,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
                 self.plot2_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
 
-                self.plot2_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'])
+                self.plot2_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float) + DRATE_OFFSET)
                 
                 if DayTime:
 
@@ -38823,7 +38841,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
                 self.plot3_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot3_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'])
+                self.plot3_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float) + DRATE_OFFSET)
                 
                 if DayTime:
 
@@ -40923,7 +40941,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
                 self.plot4_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot4_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
+                self.plot4_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float) + DRATE_OFFSET)
                 
                 if DayTime:
 
@@ -43024,7 +43042,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
                 self.plot5_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot5_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
+                self.plot5_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float) + DRATE_OFFSET)
                 
                 if DayTime:
 
@@ -45126,7 +45144,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_call_drate_curve.setData(df_call_information_graph['Drate'].astype(float))
                 self.plot6_put_drate_curve.setData(df_put_information_graph['Drate'].astype(float))
                 
-                self.plot6_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float))
+                self.plot6_cme_drate_curve.setData(SP500_FUT_시가_등락율비 * df_sp500_graph['Drate'].astype(float) + DRATE_OFFSET)
                 
                 if DayTime:
 
