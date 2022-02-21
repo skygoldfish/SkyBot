@@ -22500,6 +22500,13 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         else:
             flag_one_eye_lagging_span = False
 
+            self.parent.dialog['SkyChart'].plot1_lagging_span_curve.clear()
+            self.parent.dialog['SkyChart'].plot2_lagging_span_curve.clear()
+            self.parent.dialog['SkyChart'].plot3_lagging_span_curve.clear()
+            self.parent.dialog['SkyChart'].plot4_lagging_span_curve.clear()
+            self.parent.dialog['SkyChart'].plot5_lagging_span_curve.clear()
+            self.parent.dialog['SkyChart'].plot6_lagging_span_curve.clear()
+
             txt = '[{0:02d}:{1:02d}:{2:02d}] 일목균형지표 후행 SPAN 표시설정을 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
