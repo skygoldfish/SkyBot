@@ -21289,6 +21289,12 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(RSI_PERIOD)
         self.lineEdit_rsi_period.setText(txt)
 
+        txt = str(RSI_OFFSET)
+        self.lineEdit_rsi_offset.setText(txt)
+
+        txt = str(RSI_SCALE_FACTOR)
+        self.lineEdit_rsi_scale_factor.setText(txt)
+
         txt = str(CCI1_PERIOD)
         self.lineEdit_cci1_period.setText(txt)
 
@@ -21361,7 +21367,11 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.lineEdit_bb_period.returnPressed.connect(self.change_bb_period)
         self.lineEdit_bb_1st_std.returnPressed.connect(self.change_bb_1st_std)
         self.lineEdit_bb_2nd_std.returnPressed.connect(self.change_bb_2nd_std)
+
         self.lineEdit_rsi_period.returnPressed.connect(self.change_rsi_period)
+        self.lineEdit_rsi_offset.returnPressed.connect(self.change_rsi_offset)
+        self.lineEdit_rsi_scale_factor.returnPressed.connect(self.change_rsi_scale_factor)
+
         self.lineEdit_cci1_period.returnPressed.connect(self.change_cci1_period)
         self.lineEdit_cci2_period.returnPressed.connect(self.change_cci2_period)
         self.lineEdit_ichimoku_baseline_period.returnPressed.connect(self.change_ichimoku_baseline_period)
@@ -21567,6 +21577,30 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         RSI_PERIOD = int(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] RSI 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, RSI_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_rsi_offset(self):
+
+        global RSI_OFFSET
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_rsi_offset.text()
+        RSI_OFFSET = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] RSI OFFSET을 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, RSI_OFFSET)
+        self.parent.textBrowser.append(txt)
+
+    def change_rsi_scale_factor(self):
+
+        global RSI_SCALE_FACTOR
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_rsi_scale_factor.text()
+        RSI_SCALE_FACTOR = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] RSI SCALE FACTOR를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, RSI_SCALE_FACTOR)
         self.parent.textBrowser.append(txt)
 
     def change_cci1_period(self):

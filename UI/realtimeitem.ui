@@ -543,7 +543,7 @@
    <property name="title">
     <string>ITM, OTM Setting</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>12</x>
@@ -634,9 +634,9 @@
    <property name="geometry">
     <rect>
      <x>338</x>
-     <y>326</y>
+     <y>352</y>
      <width>399</width>
-     <height>229</height>
+     <height>203</height>
     </rect>
    </property>
    <property name="font">
@@ -649,7 +649,7 @@
    <property name="title">
     <string>User Switch</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>12</x>
@@ -783,7 +783,7 @@
      <x>338</x>
      <y>182</y>
      <width>399</width>
-     <height>55</height>
+     <height>83</height>
     </rect>
    </property>
    <property name="font">
@@ -794,7 +794,7 @@
     </font>
    </property>
    <property name="title">
-    <string>RSI 주기, CCI1 주기, CCI2 주기</string>
+    <string>RSI 주기, OFFET, SCALE &amp;&amp; CCI1 주기, CCI2 주기</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -837,6 +837,60 @@
         </font>
        </property>
        <property name="text">
+        <string>OFFSET</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_rsi_offset">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_14">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>SCALE</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_rsi_scale_factor">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>50</y>
+      <width>369</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_13">
+     <item>
+      <widget class="QLabel" name="label_17">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
         <string>CCI1 주기</string>
        </property>
       </widget>
@@ -849,7 +903,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_14">
+      <widget class="QLabel" name="label_21">
        <property name="font">
         <font>
          <family>Consolas</family>
@@ -876,7 +930,7 @@
    <property name="geometry">
     <rect>
      <x>338</x>
-     <y>252</y>
+     <y>280</y>
      <width>399</width>
      <height>59</height>
     </rect>
