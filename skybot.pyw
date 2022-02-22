@@ -21714,7 +21714,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         dt = datetime.now()
 
         txt = self.lineEdit_drate_offset.text()
-        DRATE_OFFSET = int(txt)
+        DRATE_OFFSET = float(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] DRATE OFFSET을 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, DRATE_OFFSET)
         self.parent.textBrowser.append(txt)
