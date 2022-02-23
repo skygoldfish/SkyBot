@@ -24381,14 +24381,14 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             else:
                 cme_open_hour  = 23
 
-            cme_start_time = (cme_open_hour  - NightTime_PreStart_Hour) * 60 + 30
+            CME_START_TIME = (cme_open_hour  - NightTime_PreStart_Hour) * 60 + 30
 
-            self.plot1_time_line_yagan_start.setValue(cme_start_time)
-            self.plot2_time_line_yagan_start.setValue(cme_start_time)
-            self.plot3_time_line_yagan_start.setValue(cme_start_time)
-            self.plot4_time_line_yagan_start.setValue(cme_start_time)
-            self.plot5_time_line_yagan_start.setValue(cme_start_time)
-            self.plot6_time_line_yagan_start.setValue(cme_start_time)
+            self.plot1_time_line_yagan_start.setValue(CME_START_TIME)
+            self.plot2_time_line_yagan_start.setValue(CME_START_TIME)
+            self.plot3_time_line_yagan_start.setValue(CME_START_TIME)
+            self.plot4_time_line_yagan_start.setValue(CME_START_TIME)
+            self.plot5_time_line_yagan_start.setValue(CME_START_TIME)
+            self.plot6_time_line_yagan_start.setValue(CME_START_TIME)
         else:
             # 시작시간 X축 표시(index 60은 시가)
             self.plot1_time_line_jugan_start.setValue(GuardTime)
