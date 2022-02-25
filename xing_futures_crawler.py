@@ -1,3 +1,4 @@
+import sys, os
 from datetime import datetime
 import pythoncom
 import math
@@ -58,7 +59,7 @@ else:
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
 # 여기에서 JIF, IJ, OVC, BM, PM등을 함께 요청
-def futures_crawler(queue: Queue, flag_high_speed=False, index_futures_quote=True, index_futures_tick=True):
+def futures_crawler(queue: Queue, main_proc_id, flag_high_speed=False, index_futures_quote=True, index_futures_tick=True):
 
     proc = mp.current_process()
     print(f'\r지수선물 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -149,6 +150,12 @@ def futures_crawler(queue: Queue, flag_high_speed=False, index_futures_quote=Tru
             pythoncom.PumpWaitingMessages()
 
             dt = datetime.now()
+
+            ppid = os.getppid()
+
+            if ppid != main_proc_id:
+                print("my parent is gone...\r")
+                sys.exit(1)
 
             if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
                 pass

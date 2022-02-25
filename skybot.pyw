@@ -56208,8 +56208,8 @@ if __name__ == "__main__":
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
 
-        proc = mp.current_process()
-        print(f'\r메인 Process Name = {proc.name}, Process ID = {proc.pid}')
+        main_proc = mp.current_process()
+        print(f'\r메인 Process Name = {main_proc.name}, Process ID = {main_proc.pid}')
         
         mp.set_start_method('spawn')
         #ctx = mp.get_context('spawn')
@@ -56226,7 +56226,7 @@ if __name__ == "__main__":
             INDEX_FUTURES_QUOTE = True        # 지수선물 전종목 호가
             INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
 
-            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, MP_FUT_HIGH_SPEED_MODE, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, main_proc.pid, MP_FUT_HIGH_SPEED_MODE, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
             futures_process.start()            
         
         if OPTION_TICK_REQUEST:
@@ -56250,7 +56250,7 @@ if __name__ == "__main__":
                 INDEX_OPTION_CM_TICK = False
                 INDEX_OPTION_NM_TICK = False
 
-            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, MP_OPTION_HIGH_SPEED_MODE, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, main_proc.pid, MP_OPTION_HIGH_SPEED_MODE, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
             option_tick_process.start()
 
         if OPTION_QUOTE_REQUEST:
@@ -56276,13 +56276,13 @@ if __name__ == "__main__":
                 INDEX_OPTION_CM_QUOTE = False      
                 INDEX_OPTION_NM_QUOTE = False
 
-            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, MP_OPTION_HIGH_SPEED_MODE, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, main_proc.pid, MP_OPTION_HIGH_SPEED_MODE, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
             option_quote_process.start()
 
         if OVC_REQUEST:
             
             ovcQ = mp.Queue()
-            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, MP_CME_HIGH_SPEED_MODE), daemon=True)
+            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, main_proc.pid, MP_CME_HIGH_SPEED_MODE), daemon=True)
             ovc_process.start()
     else:
         # 멀티프로세스가 아닌 경우

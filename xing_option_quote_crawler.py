@@ -1,3 +1,4 @@
+import sys, os
 from datetime import datetime
 import pythoncom
 import math
@@ -48,7 +49,7 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def option_quote_crawler(queue: Queue, flag_high_speed=False, call_itm_number=5, call_otm_number=5, put_itm_number=5, put_otm_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
+def option_quote_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call_itm_number=5, call_otm_number=5, put_itm_number=5, put_otm_number=5, index_option_cm_quote=False, index_option_nm_quote=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 호가 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -160,6 +161,12 @@ def option_quote_crawler(queue: Queue, flag_high_speed=False, call_itm_number=5,
             if index_option_cm_quote:
     
                 dt = datetime.now()
+
+                ppid = os.getppid()
+
+                if ppid != main_proc_id:
+                    print("my parent is gone...\r")
+                    sys.exit(1)
 
                 if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
                     pass

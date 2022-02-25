@@ -1,3 +1,4 @@
+import sys, os
 from datetime import datetime
 import pythoncom
 import math
@@ -58,10 +59,10 @@ else:
     is_real_server = False
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
-def ovc_crawler(queue: Queue, flag_high_speed=False):
+def ovc_crawler(queue: Queue, main_proc_id, flag_high_speed=False):
 
     proc = mp.current_process()
-    print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')
+    print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')    
 
     result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
     result.append('해외선물')
@@ -82,10 +83,16 @@ def ovc_crawler(queue: Queue, flag_high_speed=False):
         real_time_ovc_tick.set_ovc_code(GOLD)
         real_time_ovc_tick.set_ovc_code(EUROFX)
         real_time_ovc_tick.set_ovc_code(YEN)
-        real_time_ovc_tick.set_ovc_code(ADI)        
+        real_time_ovc_tick.set_ovc_code(ADI)
 
         while True:
             pythoncom.PumpWaitingMessages()
+
+            ppid = os.getppid()            
+
+            if ppid != main_proc_id:
+                print("my parent is gone...\r")
+                sys.exit(1)
 
             if DayTime:
                 if not flag_high_speed:

@@ -1,3 +1,4 @@
+import sys, os
 from datetime import datetime
 import pythoncom
 import math
@@ -49,7 +50,7 @@ else:
     config = {"id": ID, "password": PWD, "cert_password": "0"}
 
 #def option_tick_crawler(queue: Queue, tick_request_number=100, index_option_cm_tick=False, index_option_nm_tick=False):
-def option_tick_crawler(queue: Queue, flag_high_speed=False, call_itm_number=5, call_otm_number=15, put_itm_number=5, put_otm_number=15, index_option_cm_tick=False, index_option_nm_tick=False):
+def option_tick_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call_itm_number=5, call_otm_number=15, put_itm_number=5, put_otm_number=15, index_option_cm_tick=False, index_option_nm_tick=False):
 
     proc = mp.current_process()
     print(f'\r지수옵션 체결 Process Name = {proc.name}, Process ID = {proc.pid}')
@@ -151,6 +152,12 @@ def option_tick_crawler(queue: Queue, flag_high_speed=False, call_itm_number=5, 
 
         while True:
             pythoncom.PumpWaitingMessages()
+
+            ppid = os.getppid()
+
+            if ppid != main_proc_id:
+                print("my parent is gone...\r")
+                sys.exit(1)
 
             if index_option_cm_tick:
 
