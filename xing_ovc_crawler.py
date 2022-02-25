@@ -6,6 +6,7 @@ import time
 import multiprocessing as mp
 from multiprocessing import Queue
 from configparser import ConfigParser
+import psutil
 
 from xing_config import *
 from xing_api import *
@@ -92,6 +93,8 @@ def ovc_crawler(queue: Queue, main_proc_id, flag_high_speed=False):
 
             if ppid != main_proc_id:
                 print("my parent is gone...\r")
+                p = psutil.Process(os.getpid())
+                p.terminate()
                 sys.exit(1)
 
             if DayTime:

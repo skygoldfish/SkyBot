@@ -6,6 +6,7 @@ import time
 import multiprocessing as mp
 from multiprocessing import Queue
 from configparser import ConfigParser
+import psutil
 
 from xing_config import *
 from xing_api import *
@@ -53,7 +54,7 @@ def option_quote_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call
 
     proc = mp.current_process()
     print(f'\r지수옵션 호가 Process Name = {proc.name}, Process ID = {proc.pid}')
-                          
+
     result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
     result.append('지수옵션호가')
     
@@ -166,6 +167,8 @@ def option_quote_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call
 
                 if ppid != main_proc_id:
                     print("my parent is gone...\r")
+                    p = psutil.Process(os.getpid())
+                    p.terminate()
                     sys.exit(1)
 
                 if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
