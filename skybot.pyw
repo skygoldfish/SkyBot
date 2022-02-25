@@ -56270,7 +56270,7 @@ if __name__ == "__main__":
                 
             elif TARGET_MONTH == 'NM':
 
-                INDEX_OPTION_CM_QUOTE = False      
+                INDEX_OPTION_CM_QUOTE = False
                 INDEX_OPTION_NM_QUOTE = True             
             else:
                 INDEX_OPTION_CM_QUOTE = False      
