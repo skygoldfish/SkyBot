@@ -154,10 +154,13 @@ def futures_crawler(queue: Queue, main_proc_id, flag_high_speed=False, index_fut
 
             ppid = os.getppid()
 
-            if ppid != main_proc_id:
-                print("my parent is gone...\r")
-                p = psutil.Process(os.getpid())
-                p.terminate()
+            if psutil.Process(ppid) is not None:                            
+
+                if ppid != main_proc_id:
+                    print("Parent ID is different...\r")
+                    sys.exit(1)
+            else:
+                print("My parent is gone...\r")
                 sys.exit(1)
 
             if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:

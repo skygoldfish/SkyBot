@@ -63,7 +63,7 @@ else:
 def ovc_crawler(queue: Queue, main_proc_id, flag_high_speed=False):
 
     proc = mp.current_process()
-    print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')    
+    print(f'해외선물 Process Name = {proc.name}, Process ID = {proc.pid}')
 
     result = XingAPI.login(config["id"], config["password"], config["cert_password"], is_real_server)
     result.append('해외선물')
@@ -89,13 +89,16 @@ def ovc_crawler(queue: Queue, main_proc_id, flag_high_speed=False):
         while True:
             pythoncom.PumpWaitingMessages()
 
-            ppid = os.getppid()            
+            ppid = os.getppid()
 
-            if ppid != main_proc_id:
-                print("my parent is gone...\r")
-                p = psutil.Process(os.getpid())
-                p.terminate()
-                sys.exit(1)
+            if psutil.Process(ppid) is not None:                            
+
+                if ppid != main_proc_id:
+                    print("Parent ID is different...\r")
+                    sys.exit(1)
+            else:
+                print("My parent is gone...\r")
+                sys.exit(1)            
 
             if DayTime:
                 if not flag_high_speed:
