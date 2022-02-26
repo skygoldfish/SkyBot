@@ -2333,6 +2333,8 @@ CONVERSION_LINE_PERIOD = 9
 BASE_LINE_PERIOD = 25
 SPAN_B_PERIOD = 50
 
+SSL_PERIOD = 10
+
 flag_fut_one_eye_call = False
 flag_fut_one_eye_put = False
 
@@ -20488,28 +20490,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_adi_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'quote_remainder_ratio', 'Drate'])
 
             df_futures_cm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])           
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])           
             df_futures_nm_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
 
             df_sp500_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_dow_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_nasdaq_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_hsi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_wti_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_gold_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_euro_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_yen_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
-                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN'])
+                'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
 
             flag_t8433_response_ok = True
         else:
@@ -21303,6 +21305,9 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         txt = str(CCI2_PERIOD)
         self.lineEdit_cci2_period.setText(txt)
 
+        txt = str(SSL_PERIOD)
+        self.lineEdit_ssl_period.setText(txt)
+
         txt = str(BASE_LINE_PERIOD)
         self.lineEdit_ichimoku_baseline_period.setText(txt)
 
@@ -21379,6 +21384,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.lineEdit_cci1_period.returnPressed.connect(self.change_cci1_period)
         self.lineEdit_cci2_period.returnPressed.connect(self.change_cci2_period)
+        self.lineEdit_ssl_period.returnPressed.connect(self.change_ssl_period)
         self.lineEdit_ichimoku_baseline_period.returnPressed.connect(self.change_ichimoku_baseline_period)
         self.lineEdit_ichimoku_conversionline_period.returnPressed.connect(self.change_ichimoku_conversionline_period)
         self.lineEdit_ichimoku_span_period.returnPressed.connect(self.change_ichimoku_span_period)
@@ -21631,6 +21637,18 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         CCI2_PERIOD = int(txt)
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] CCI2 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, CCI2_PERIOD)
+        self.parent.textBrowser.append(txt)
+
+    def change_ssl_period(self):
+
+        global SSL_PERIOD
+
+        dt = datetime.now()
+
+        txt = self.lineEdit_ssl_period.text()
+        SSL_PERIOD = int(txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] SSL PERIOD 이평주기를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, SSL_PERIOD)
         self.parent.textBrowser.append(txt)
 
     def change_ichimoku_baseline_period(self):
@@ -54642,6 +54660,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
 
     #####################################################################################################################################################################
+    # SSL Channel Indicator
+    #####################################################################################################################################################################
+    def Calc_SSLChannels(self, dataframe, length=10, mode="sma"):
+        """
+        Source: https://www.tradingview.com/script/xzIoaIJC-SSL-channel/
+        Author: xmatthias
+        Pinescript Author: ErwinBeckers
+
+        SSL Channels.
+        Average over highs and lows form a channel - lines "flip" when close crosses
+        either of the 2 lines.
+        Trading ideas:
+            * Channel cross
+            * as confirmation based on up > down for long
+
+        Usage:
+            dataframe['SSLDown'], dataframe['SSLUp'] = Calc_SSLChannels(dataframe, 10, 'ema')
+        """
+
+        df = dataframe.copy()
+
+        if mode == "sma":
+            df["maHigh"] = df["high"].rolling(length).mean()
+            df["maLow"] = df["low"].rolling(length).mean()
+        elif mode == "ema":
+            df["maHigh"] = df["high"].ewm(length).mean()
+            df["maLow"] = df["low"].ewm(length).mean()
+
+        df["hlv"] = np.where(df["close"] > df["maHigh"], 1, np.where(df["close"] < df["maLow"], -1, np.NAN))
+        df["hlv"] = df["hlv"].ffill()
+
+        df["SSLDown"] = np.where(df["hlv"] < 0, df["maHigh"], df["maLow"])
+        df["SSLUp"] = np.where(df["hlv"] < 0, df["maLow"], df["maHigh"])
+
+        return df["SSLDown"], df["SSLUp"]
+
+    #####################################################################################################################################################################
     # ICHIMOKU
     #####################################################################################################################################################################
     def Calc_ICHIMOKU(
@@ -54748,9 +54803,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # MAMA
             df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
             
-            #i = Indicators(df_futures_cm_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_futures_cm_alligator_graph = i.df
+            # SSL
+            df_futures_cm_ta_graph['SSLDown'], df_futures_cm_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_futures_cm_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'SP500':
 
@@ -54760,9 +54814,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_sp500_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_sp500_alligator_graph = i.df            
+            # SSL
+            df_sp500_ta_graph['SSLDown'], df_sp500_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_sp500_ta_graph, SSL_PERIOD, 'ema')           
             
         elif type == 'DOW':
 
@@ -54772,9 +54825,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # MAMA(약 32 샘플후에 출력값이 나옴)
             df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_dow_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_dow_alligator_graph = i.df
+            # SSL
+            df_dow_ta_graph['SSLDown'], df_dow_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_dow_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'NASDAQ':
 
@@ -54784,9 +54836,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_nasdaq_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_nasdaq_alligator_graph = i.df
+            # SSL
+            df_nasdaq_ta_graph['SSLDown'], df_nasdaq_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_nasdaq_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'HSI':
 
@@ -54796,9 +54847,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_hsi_ta_graph['MAMA'], df_hsi_ta_graph['FAMA'] = talib.MAMA(df_hsi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_hsi_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_hsi_alligator_graph = i.df
+            # SSL
+            df_hsi_ta_graph['SSLDown'], df_hsi_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_hsi_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'WTI':
 
@@ -54808,9 +54858,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_wti_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_wti_alligator_graph = i.df
+            # SSL
+            df_wti_ta_graph['SSLDown'], df_wti_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_wti_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'GOLD':
 
@@ -54820,9 +54869,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_gold_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_gold_alligator_graph = i.df
+            # SSL
+            df_gold_ta_graph['SSLDown'], df_gold_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_gold_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'EURO':
 
@@ -54832,9 +54880,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_euro_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_euro_alligator_graph = i.df
+            # SSL
+            df_euro_ta_graph['SSLDown'], df_euro_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_euro_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'YEN':
 
@@ -54844,9 +54891,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_yen_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_yen_alligator_graph = i.df
+            # SSL
+            df_yen_ta_graph['SSLDown'], df_yen_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_yen_ta_graph, SSL_PERIOD, 'ema')
             
         elif type == 'ADI':
 
@@ -54856,9 +54902,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # # MAMA
             df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
-            #i = Indicators(df_adi_ta_graph)
-            #i.alligator(period_jaws=13, period_teeth=8, period_lips=5, shift_jaws=8, shift_teeth=5, shift_lips=3, column_name_jaws='alligator_jaws', column_name_teeth='alligator_teeth', column_name_lips='alligator_lips')
-            #df_adi_alligator_graph = i.df            
+            # SSL
+            df_adi_ta_graph['SSLDown'], df_adi_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_adi_ta_graph, SSL_PERIOD, 'ema')            
         else:
             pass
 
