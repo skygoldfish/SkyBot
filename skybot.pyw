@@ -1836,6 +1836,9 @@ cci2_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 mama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 fama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 
+sslup_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DashLine)
+ssldown_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DashLine)
+
 conv_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 base_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
@@ -23183,6 +23186,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_mama_curve = self.plot1.plot(pen=mama_pen)
         self.plot1_fama_curve = self.plot1.plot(pen=fama_pen)
 
+        self.plot1_sslup_curve = self.plot1.plot(pen=sslup_pen)
+        self.plot1_ssldown_curve = self.plot1.plot(pen=ssldown_pen)
+
         self.plot1_oe_conv_curve = self.plot1.plot(pen=conv_pen)
         self.plot1_oe_base_curve = self.plot1.plot(pen=base_pen)
         self.plot1_span_a_curve = self.plot1.plot(pen=span_a_pen)
@@ -23382,6 +23388,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_mama_curve = self.plot2.plot(pen=mama_pen)
         self.plot2_fama_curve = self.plot2.plot(pen=fama_pen)
 
+        self.plot2_sslup_curve = self.plot2.plot(pen=sslup_pen)
+        self.plot2_ssldown_curve = self.plot2.plot(pen=ssldown_pen)
+
         self.plot2_oe_conv_curve = self.plot2.plot(pen=conv_pen)
         self.plot2_oe_base_curve = self.plot2.plot(pen=base_pen)
         self.plot2_span_a_curve = self.plot2.plot(pen=span_a_pen)
@@ -23578,6 +23587,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_mama_curve = self.plot3.plot(pen=mama_pen)
         self.plot3_fama_curve = self.plot3.plot(pen=fama_pen)
+
+        self.plot3_sslup_curve = self.plot3.plot(pen=sslup_pen)
+        self.plot3_ssldown_curve = self.plot3.plot(pen=ssldown_pen)
 
         self.plot3_oe_conv_curve = self.plot3.plot(pen=conv_pen)
         self.plot3_oe_base_curve = self.plot3.plot(pen=base_pen)
@@ -23776,6 +23788,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_mama_curve = self.plot4.plot(pen=mama_pen)
         self.plot4_fama_curve = self.plot4.plot(pen=fama_pen)
 
+        self.plot4_sslup_curve = self.plot4.plot(pen=sslup_pen)
+        self.plot4_ssldown_curve = self.plot4.plot(pen=ssldown_pen)
+
         self.plot4_oe_conv_curve = self.plot4.plot(pen=conv_pen)
         self.plot4_oe_base_curve = self.plot4.plot(pen=base_pen)
         self.plot4_span_a_curve = self.plot4.plot(pen=span_a_pen)
@@ -23973,6 +23988,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_mama_curve = self.plot5.plot(pen=mama_pen)
         self.plot5_fama_curve = self.plot5.plot(pen=fama_pen)
 
+        self.plot5_sslup_curve = self.plot5.plot(pen=sslup_pen)
+        self.plot5_ssldown_curve = self.plot5.plot(pen=ssldown_pen)
+
         self.plot5_oe_conv_curve = self.plot5.plot(pen=conv_pen)
         self.plot5_oe_base_curve = self.plot5.plot(pen=base_pen)
         self.plot5_span_a_curve = self.plot5.plot(pen=span_a_pen)
@@ -24169,6 +24187,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_mama_curve = self.plot6.plot(pen=mama_pen)
         self.plot6_fama_curve = self.plot6.plot(pen=fama_pen)
+
+        self.plot6_sslup_curve = self.plot6.plot(pen=sslup_pen)
+        self.plot6_ssldown_curve = self.plot6.plot(pen=ssldown_pen)
 
         self.plot6_oe_conv_curve = self.plot6.plot(pen=conv_pen)
         self.plot6_oe_base_curve = self.plot6.plot(pen=base_pen)
@@ -25753,6 +25774,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1_psar_curve.clear()            
             self.plot1_mama_curve.clear()
             self.plot1_fama_curve.clear()
+            self.plot1_sslup_curve.clear()
+            self.plot1_ssldown_curve.clear()
 
     def checkBox_plot2_psar_checkState(self):
 
@@ -25766,6 +25789,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_psar_curve.clear()
             self.plot2_mama_curve.clear()
             self.plot2_fama_curve.clear()
+            self.plot2_sslup_curve.clear()
+            self.plot2_ssldown_curve.clear()
 
     def checkBox_plot3_psar_checkState(self):
 
@@ -25779,6 +25804,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_psar_curve.clear()
             self.plot3_mama_curve.clear()
             self.plot3_fama_curve.clear()
+            self.plot3_sslup_curve.clear()
+            self.plot3_ssldown_curve.clear()
 
     def checkBox_plot4_psar_checkState(self):
 
@@ -25792,6 +25819,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_psar_curve.clear()
             self.plot4_mama_curve.clear()
             self.plot4_fama_curve.clear()
+            self.plot4_sslup_curve.clear()
+            self.plot4_ssldown_curve.clear()
 
     def checkBox_plot5_psar_checkState(self):
 
@@ -25805,6 +25834,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_psar_curve.clear()
             self.plot5_mama_curve.clear()
             self.plot5_fama_curve.clear()
+            self.plot5_sslup_curve.clear()
+            self.plot5_ssldown_curve.clear()
 
     def checkBox_plot6_psar_checkState(self):
 
@@ -25818,6 +25849,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_psar_curve.clear()
             self.plot6_mama_curve.clear()
             self.plot6_fama_curve.clear()
+            self.plot6_sslup_curve.clear()
+            self.plot6_ssldown_curve.clear()
 
     def plot1_clear(self):        
 
@@ -25924,6 +25957,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_mama_curve.clear()
         self.plot1_fama_curve.clear()
+        self.plot1_sslup_curve.clear()
+        self.plot1_ssldown_curve.clear()
 
         self.plot1_oe_conv_curve.clear()
         self.plot1_oe_base_curve.clear()
@@ -27289,6 +27324,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot2_mama_curve.clear()
         self.plot2_fama_curve.clear()
+        self.plot2_sslup_curve.clear()
+        self.plot2_ssldown_curve.clear()
 
         self.plot2_oe_conv_curve.clear()
         self.plot2_oe_base_curve.clear()
@@ -28654,6 +28691,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot3_mama_curve.clear()
         self.plot3_fama_curve.clear()
+        self.plot3_sslup_curve.clear()
+        self.plot3_ssldown_curve.clear()
 
         self.plot3_oe_conv_curve.clear()
         self.plot3_oe_base_curve.clear()
@@ -30019,6 +30058,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_mama_curve.clear()
         self.plot4_fama_curve.clear()
+        self.plot4_sslup_curve.clear()
+        self.plot4_ssldown_curve.clear()
 
         self.plot4_oe_conv_curve.clear()
         self.plot4_oe_base_curve.clear()
@@ -31384,6 +31425,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot5_mama_curve.clear()
         self.plot5_fama_curve.clear()
+        self.plot5_sslup_curve.clear()
+        self.plot5_ssldown_curve.clear()
 
         self.plot5_oe_conv_curve.clear()
         self.plot5_oe_base_curve.clear()
@@ -32749,6 +32792,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_mama_curve.clear()
         self.plot6_fama_curve.clear()
+        self.plot6_sslup_curve.clear()
+        self.plot6_ssldown_curve.clear()
 
         self.plot6_oe_conv_curve.clear()
         self.plot6_oe_base_curve.clear()
@@ -34435,6 +34480,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_futures_cm_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
+                    self.plot1_sslup_curve.setData(df_futures_cm_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_futures_cm_ta_graph['SSLDown'].astype(float))
+
                     self.plot1_mama_curve.setData(df_futures_cm_ta_graph['MAMA'].astype(float))
                     df = df_futures_cm_ta_graph['FAMA'].apply(lambda x: 근월물_선물_저가 if x < 근월물_선물_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
@@ -34967,6 +35015,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_sp500_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
+                    self.plot1_sslup_curve.setData(df_sp500_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_sp500_ta_graph['SSLDown'].astype(float))
+
                     self.plot1_mama_curve.setData(df_sp500_ta_graph['MAMA'].astype(float))
                     df = df_sp500_ta_graph['FAMA'].apply(lambda x: SP500_저가 if x < SP500_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))
@@ -35103,6 +35154,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.parent.Calc_PSAR_MAMA('DOW')
 
                     self.plot1_psar_curve.setData(df_dow_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+
+                    self.plot1_sslup_curve.setData(df_dow_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_dow_ta_graph['SSLDown'].astype(float))
 
                     self.plot1_mama_curve.setData(df_dow_ta_graph['MAMA'].astype(float))
                     df = df_dow_ta_graph['FAMA'].apply(lambda x: DOW_저가 if x < DOW_저가 else x)
@@ -35241,6 +35295,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_nasdaq_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
+                    self.plot1_sslup_curve.setData(df_nasdaq_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_nasdaq_ta_graph['SSLDown'].astype(float))
+
                     self.plot1_mama_curve.setData(df_nasdaq_ta_graph['MAMA'].astype(float))
                     df = df_nasdaq_ta_graph['FAMA'].apply(lambda x: NASDAQ_저가 if x < NASDAQ_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
@@ -35378,6 +35435,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_hsi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
+                    self.plot1_sslup_curve.setData(df_hsi_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_hsi_ta_graph['SSLDown'].astype(float))
+
                     self.plot1_mama_curve.setData(df_hsi_ta_graph['MAMA'].astype(float))
                     df = df_hsi_ta_graph['FAMA'].apply(lambda x: HANGSENG_저가 if x < HANGSENG_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
@@ -35513,6 +35573,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.parent.Calc_PSAR_MAMA('WTI')
 
                     self.plot1_psar_curve.setData(df_wti_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+
+                    self.plot1_sslup_curve.setData(df_wti_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_wti_ta_graph['SSLDown'].astype(float))
 
                     self.plot1_mama_curve.setData(df_wti_ta_graph['MAMA'].astype(float))
                     df = df_wti_ta_graph['FAMA'].apply(lambda x: WTI_저가 if x < WTI_저가 else x)
@@ -35651,6 +35714,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
                     self.plot1_psar_curve.setData(df_gold_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
 
+                    self.plot1_sslup_curve.setData(df_gold_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_gold_ta_graph['SSLDown'].astype(float))
+
                     self.plot1_mama_curve.setData(df_gold_ta_graph['MAMA'].astype(float))
                     df = df_gold_ta_graph['FAMA'].apply(lambda x: GOLD_저가 if x < GOLD_저가 else x)
                     self.plot1_fama_curve.setData(df.astype(float))                        
@@ -35786,6 +35852,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.parent.Calc_PSAR_MAMA('EURO')
 
                     self.plot1_psar_curve.setData(df_euro_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+
+                    self.plot1_sslup_curve.setData(df_euro_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_euro_ta_graph['SSLDown'].astype(float))
 
                     self.plot1_mama_curve.setData(df_euro_ta_graph['MAMA'].astype(float))
                     df = df_euro_ta_graph['FAMA'].apply(lambda x: EURO_저가 if x < EURO_저가 else x)
@@ -35923,6 +35992,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.parent.Calc_PSAR_MAMA('YEN')
 
                     self.plot1_psar_curve.setData(df_yen_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+
+                    self.plot1_sslup_curve.setData(df_yen_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_yen_ta_graph['SSLDown'].astype(float))
 
                     self.plot1_mama_curve.setData(df_yen_ta_graph['MAMA'].astype(float))
                     df = df_yen_ta_graph['FAMA'].apply(lambda x: YEN_저가 if x < YEN_저가 else x)
@@ -36066,6 +36138,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                     self.parent.Calc_PSAR_MAMA('ADI')
 
                     self.plot1_psar_curve.setData(df_adi_ta_graph['PSAR'][0:plot_time_index+1].astype(float))
+
+                    self.plot1_sslup_curve.setData(df_adi_ta_graph['SSLUp'].astype(float))
+                    self.plot1_ssldown_curve.setData(df_adi_ta_graph['SSLDown'].astype(float))
 
                     self.plot1_mama_curve.setData(df_adi_ta_graph['MAMA'].astype(float))
                     df = df_adi_ta_graph['FAMA'].apply(lambda x: ADI_저가 if x < ADI_저가 else x)
