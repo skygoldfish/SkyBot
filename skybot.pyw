@@ -1833,8 +1833,8 @@ rsi_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 cci1_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 cci2_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 
-mama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
-fama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
+mama_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 sslup_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 ssldown_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
@@ -55040,7 +55040,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            #df_sp500_ta_graph['SSLDown'], df_sp500_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_sp500_ta_graph, SSL_PERIOD, 'sma')           
+            #df_sp500_ta_graph['SSLDown'], df_sp500_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_sp500_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'DOW':
 
