@@ -1836,8 +1836,8 @@ cci2_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 mama_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 fama_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 
-sslup_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DashLine)
-ssldown_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DashLine)
+sslup_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+ssldown_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 conv_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 base_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
