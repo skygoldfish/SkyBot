@@ -54907,13 +54907,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df = dataframe.copy()
 
         if mode == "sma":
-            df["maHigh"] = df["high"].rolling(length).mean()
-            df["maLow"] = df["low"].rolling(length).mean()
+            df["maHigh"] = df["High"].rolling(length).mean()
+            df["maLow"] = df["Low"].rolling(length).mean()
         elif mode == "ema":
-            df["maHigh"] = df["high"].ewm(length).mean()
-            df["maLow"] = df["low"].ewm(length).mean()
+            df["maHigh"] = df["High"].ewm(length).mean()
+            df["maLow"] = df["Low"].ewm(length).mean()
 
-        df["hlv"] = np.where(df["close"] > df["maHigh"], 1, np.where(df["close"] < df["maLow"], -1, np.NAN))
+        df["hlv"] = np.where(df["Close"] > df["maHigh"], 1, np.where(df["Close"] < df["maLow"], -1, np.NAN))
         df["hlv"] = df["hlv"].ffill()
 
         df["SSLDown"] = np.where(df["hlv"] < 0, df["maHigh"], df["maLow"])
