@@ -54901,7 +54901,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             * as confirmation based on up > down for long
 
         Usage:
-            dataframe['SSLDown'], dataframe['SSLUp'] = Calc_SSLChannels(dataframe, 10, 'ema')
+            dataframe['SSLDown'], dataframe['SSLUp'] = Calc_SSLChannels(dataframe, 10, 'sma')
         """
 
         df = dataframe.copy()
@@ -55029,7 +55029,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_futures_cm_ta_graph['MAMA'], df_futures_cm_ta_graph['FAMA'] = talib.MAMA(df_futures_cm_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
             
             # SSL
-            df_futures_cm_ta_graph['SSLDown'], df_futures_cm_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_futures_cm_ta_graph, SSL_PERIOD, 'ema')
+            df_futures_cm_ta_graph['SSLDown'], df_futures_cm_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_futures_cm_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'SP500':
 
@@ -55040,7 +55040,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_sp500_ta_graph['MAMA'], df_sp500_ta_graph['FAMA'] = talib.MAMA(df_sp500_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_sp500_ta_graph['SSLDown'], df_sp500_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_sp500_ta_graph, SSL_PERIOD, 'ema')           
+            df_sp500_ta_graph['SSLDown'], df_sp500_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_sp500_ta_graph, SSL_PERIOD, 'sma')           
             
         elif type == 'DOW':
 
@@ -55051,7 +55051,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_dow_ta_graph['MAMA'], df_dow_ta_graph['FAMA'] = talib.MAMA(df_dow_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_dow_ta_graph['SSLDown'], df_dow_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_dow_ta_graph, SSL_PERIOD, 'ema')
+            df_dow_ta_graph['SSLDown'], df_dow_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_dow_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'NASDAQ':
 
@@ -55062,7 +55062,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_nasdaq_ta_graph['MAMA'], df_nasdaq_ta_graph['FAMA'] = talib.MAMA(df_nasdaq_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_nasdaq_ta_graph['SSLDown'], df_nasdaq_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_nasdaq_ta_graph, SSL_PERIOD, 'ema')
+            df_nasdaq_ta_graph['SSLDown'], df_nasdaq_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_nasdaq_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'HSI':
 
@@ -55073,7 +55073,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_hsi_ta_graph['MAMA'], df_hsi_ta_graph['FAMA'] = talib.MAMA(df_hsi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_hsi_ta_graph['SSLDown'], df_hsi_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_hsi_ta_graph, SSL_PERIOD, 'ema')
+            df_hsi_ta_graph['SSLDown'], df_hsi_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_hsi_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'WTI':
 
@@ -55084,7 +55084,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_wti_ta_graph['MAMA'], df_wti_ta_graph['FAMA'] = talib.MAMA(df_wti_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_wti_ta_graph['SSLDown'], df_wti_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_wti_ta_graph, SSL_PERIOD, 'ema')
+            df_wti_ta_graph['SSLDown'], df_wti_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_wti_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'GOLD':
 
@@ -55095,7 +55095,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_gold_ta_graph['MAMA'], df_gold_ta_graph['FAMA'] = talib.MAMA(df_gold_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_gold_ta_graph['SSLDown'], df_gold_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_gold_ta_graph, SSL_PERIOD, 'ema')
+            df_gold_ta_graph['SSLDown'], df_gold_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_gold_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'EURO':
 
@@ -55106,7 +55106,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_euro_ta_graph['MAMA'], df_euro_ta_graph['FAMA'] = talib.MAMA(df_euro_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_euro_ta_graph['SSLDown'], df_euro_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_euro_ta_graph, SSL_PERIOD, 'ema')
+            df_euro_ta_graph['SSLDown'], df_euro_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_euro_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'YEN':
 
@@ -55117,7 +55117,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_yen_ta_graph['MAMA'], df_yen_ta_graph['FAMA'] = talib.MAMA(df_yen_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_yen_ta_graph['SSLDown'], df_yen_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_yen_ta_graph, SSL_PERIOD, 'ema')
+            df_yen_ta_graph['SSLDown'], df_yen_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_yen_ta_graph, SSL_PERIOD, 'sma')
             
         elif type == 'ADI':
 
@@ -55128,7 +55128,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             df_adi_ta_graph['MAMA'], df_adi_ta_graph['FAMA'] = talib.MAMA(df_adi_ta_graph['Close'], fastlimit=0.5, slowlimit=0.05)
 
             # SSL
-            df_adi_ta_graph['SSLDown'], df_adi_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_adi_ta_graph, SSL_PERIOD, 'ema')            
+            df_adi_ta_graph['SSLDown'], df_adi_ta_graph['SSLUp'] = self.Calc_SSLChannels(df_adi_ta_graph, SSL_PERIOD, 'sma')            
         else:
             pass
 
