@@ -52731,22 +52731,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if tickdata['종목코드'] == SP500:
+            if tickdata['종목코드'] == SP500:                
                 '''
-                df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)
+                df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)                
+                df = df_sp500_tick.copy()
 
-                df_sp500_tick.drop(columns=["system_time", "tr_code", "종목코드", "체결일자_현지", "체결일자_한국", "체결시간_현지", "전일대비", "전일대비기호", "시가", "고가", "저가", "등락율", \
+                df.drop(columns=["system_time", "tr_code", "종목코드", "체결일자_현지", "체결일자_한국", "체결시간_현지", "전일대비", "전일대비기호", "시가", "고가", "저가", "등락율", \
                     "건별체결수량", "누적체결수량", "체결구분", "매도누적체결수량", "매수누적체결수량", "장마감일"], inplace=True)
-
+                
                 # Converting the index as date
-                df_sp500_tick['timestamp'] = pd.to_datetime(df_sp500_tick['수신시간'], format='%H%M%S').dt.time
-                df_sp500_tick.set_index('timestamp', inplace=True)
+                df['수신시간'] = pd.to_datetime(df['수신시간'], format='%H%M%S')
+                df.set_index('수신시간', inplace=True)
+                df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_sp500_tick_ohlc = df_sp500_tick.copy()
-                df_sp500_tick_ohlc.drop(columns=["수신시간"], inplace=True)
-
-                #df_sp500_tick = df1.resample('1min').apply(ohlc_dict)
-                #data = df1.resample('1min').ohlc()
+                df_sp500_tick_ohlc = df.resample('1min').ohlc()
                 print(df_sp500_tick_ohlc)
                 '''
                 # 그래프 가격갱신
