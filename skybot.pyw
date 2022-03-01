@@ -52400,7 +52400,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if SP500_현재가 == 0:
                     SP500_현재가 = SP500_전일종가
-
+                
                 if not flag_sp500_ohlc_open:
 
                     df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가
@@ -52412,7 +52412,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_sp500_ohlc_open = True
                 else:
                     SP500_현재가_버퍼.append(SP500_현재가)
-
+                
                 if DOW_현재가 == 0:
                     DOW_현재가 = DOW_전일종가
 
@@ -52536,7 +52536,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             if tickdata['종목코드'] == SP500:                
-                
+                '''
                 df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)                
                 df = df_sp500_tick.copy()
 
@@ -52549,8 +52549,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
                 df_sp500_tick_ohlc = df.resample('1min').ohlc()
-                print(df_sp500_tick_ohlc)
-                
+                #print(df_sp500_tick_ohlc['체결가격', 'close'].tail(1))
+
+                df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_tick_ohlc['체결가격', 'open'].tail(1)
+                df_sp500_ta_graph.at[plot_time_index, 'High'] = df_sp500_tick_ohlc['체결가격', 'high'].tail(1)
+                df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_tick_ohlc['체결가격', 'low'].tail(1)
+                df_sp500_ta_graph.at[plot_time_index, 'Close'] = df_sp500_tick_ohlc['체결가격', 'close'].tail(1)
+                '''
                 # 그래프 가격갱신
                 SP500_현재가 = float(tickdata['체결가격'])
                 df_sp500_graph.at[plot_time_index, 'Price'] = SP500_현재가
@@ -52593,7 +52598,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_sp500_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_sp500_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-
+                
                 df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
                 df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
