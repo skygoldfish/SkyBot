@@ -1833,7 +1833,7 @@ rsi_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 cci1_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 cci2_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 
-mama_pen = pg.mkPen(pink, width=2, style=QtCore.Qt.DotLine)
+mama_pen = pg.mkPen(brown, width=2, style=QtCore.Qt.DotLine)
 fama_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DotLine)
 
 sslup_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
