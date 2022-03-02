@@ -53938,12 +53938,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_gold_ta_graph.at[plot_time_index, 'High'] = df_gold_tick_ohlc['체결가격', 'high'].tail(1)
                 df_gold_ta_graph.at[plot_time_index, 'Low'] = df_gold_tick_ohlc['체결가격', 'low'].tail(1)
                 df_gold_ta_graph.at[plot_time_index, 'Close'] = df_gold_tick_ohlc['체결가격', 'close'].tail(1)
-
+                '''
                 # 그래프 가격갱신
                 GOLD_현재가 = float(tickdata['체결가격'])
                 df_gold_graph.at[plot_time_index, 'Price'] = GOLD_현재가
                 df_gold_ta_graph.at[plot_time_index, 'Price'] = GOLD_현재가
-                '''
+                
                 GOLD_전일대비 = float(tickdata['전일대비'])
 
                 if tickdata['전일대비기호'] == '5':
