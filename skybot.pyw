@@ -2355,6 +2355,8 @@ flag_one_eye_put = False
 
 DRATE_OFFSET = 0
 
+분봉주기 = '1min'
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -49695,8 +49697,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if fut_plot_sec == 0:
 
-                df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-                df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
+                #df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
+                #df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
 
                 df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -49723,7 +49725,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_cm_fut_tick_ohlc = df.resample('1min').ohlc()
+                df_cm_fut_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_cm_fut_tick_ohlc.iloc[df_cm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_futures_cm_ta_graph.at[plot_time_index, 'High'] = df_cm_fut_tick_ohlc.iloc[df_cm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -49940,7 +49942,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df.set_index('수신시간', inplace=True)
                     df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                    df_nm_fut_tick_ohlc = df.resample('1min').ohlc()
+                    df_nm_fut_tick_ohlc = df.resample(분봉주기).ohlc()
 
                     df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_nm_fut_tick_ohlc.iloc[df_nm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                     df_futures_nm_ta_graph.at[plot_time_index, 'High'] = df_nm_fut_tick_ohlc.iloc[df_nm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -51132,8 +51134,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if fut_plot_sec == 0:
 
-                df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-                df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
+                #df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
+                #df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
 
                 df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -51160,7 +51162,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_cm_fut_tick_ohlc = df.resample('1min').ohlc()
+                df_cm_fut_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_cm_fut_tick_ohlc.iloc[df_cm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_futures_cm_ta_graph.at[plot_time_index, 'High'] = df_cm_fut_tick_ohlc.iloc[df_cm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -51319,7 +51321,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_nm_fut_tick_ohlc = df.resample('1min').ohlc()
+                df_nm_fut_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_nm_fut_tick_ohlc.iloc[df_nm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_futures_nm_ta_graph.at[plot_time_index, 'High'] = df_nm_fut_tick_ohlc.iloc[df_nm_fut_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -52511,7 +52513,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #if cme_plot_sec == 0 or plot_time_index != old_plot_time_index:
             if cme_plot_sec == 0:                
-                
+                '''
                 df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
                 df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
                 df_nasdaq_tick = df_nasdaq_tick.drop(df_nasdaq_tick.index[0:df_nasdaq_tick.shape[0]])
@@ -52521,7 +52523,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_euro_tick = df_euro_tick.drop(df_euro_tick.index[0:df_euro_tick.shape[0]])
                 df_yen_tick = df_yen_tick.drop(df_yen_tick.index[0:df_yen_tick.shape[0]])
                 df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])
-                                
+                '''                
                 df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
                 df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
@@ -52718,8 +52720,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_sp500_tick_ohlc = df.resample('1min').ohlc()
-                
+                df_sp500_tick_ohlc = df.resample(분봉주기).ohlc()
+                '''
+                print('\r')
+                print('*******************************************************************')
+                print(df_sp500_tick_ohlc)
+                print('*******************************************************************')
+                print('\r')
+                '''
                 df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_sp500_ta_graph.at[plot_time_index, 'High'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['체결가격', 'high']
                 df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['체결가격', 'low']
@@ -52977,7 +52985,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_dow_tick_ohlc = df.resample('1min').ohlc()
+                df_dow_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_dow_ta_graph.at[plot_time_index, 'Open'] = df_dow_tick_ohlc.iloc[df_dow_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_dow_ta_graph.at[plot_time_index, 'High'] = df_dow_tick_ohlc.iloc[df_dow_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -53231,7 +53239,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_nasdaq_tick_ohlc = df.resample('1min').ohlc()
+                df_nasdaq_tick_ohlc = df.resample(분봉주기).ohlc()
                 
                 df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = df_nasdaq_tick_ohlc.iloc[df_nasdaq_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_nasdaq_ta_graph.at[plot_time_index, 'High'] = df_nasdaq_tick_ohlc.iloc[df_nasdaq_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -53484,7 +53492,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_hsi_tick_ohlc = df.resample('1min').ohlc()
+                df_hsi_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_hsi_ta_graph.at[plot_time_index, 'Open'] = df_hsi_tick_ohlc.iloc[df_hsi_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_hsi_ta_graph.at[plot_time_index, 'High'] = df_hsi_tick_ohlc.iloc[df_hsi_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -53735,7 +53743,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_wti_tick_ohlc = df.resample('1min').ohlc()
+                df_wti_tick_ohlc = df.resample(분봉주기).ohlc()
                 
                 df_wti_ta_graph.at[plot_time_index, 'Open'] = df_wti_tick_ohlc.iloc[df_wti_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_wti_ta_graph.at[plot_time_index, 'High'] = df_wti_tick_ohlc.iloc[df_wti_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -53988,7 +53996,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_gold_tick_ohlc = df.resample('1min').ohlc()
+                df_gold_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_gold_ta_graph.at[plot_time_index, 'Open'] = df_gold_tick_ohlc.iloc[df_gold_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_gold_ta_graph.at[plot_time_index, 'High'] = df_gold_tick_ohlc.iloc[df_gold_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -54239,7 +54247,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_euro_tick_ohlc = df.resample('1min').ohlc()
+                df_euro_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_euro_ta_graph.at[plot_time_index, 'Open'] = df_euro_tick_ohlc.iloc[df_euro_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_euro_ta_graph.at[plot_time_index, 'High'] = df_euro_tick_ohlc.iloc[df_euro_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -54490,7 +54498,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_yen_tick_ohlc = df.resample('1min').ohlc()
+                df_yen_tick_ohlc = df.resample(분봉주기).ohlc()
 
                 df_yen_ta_graph.at[plot_time_index, 'Open'] = df_yen_tick_ohlc.iloc[df_yen_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_yen_ta_graph.at[plot_time_index, 'High'] = df_yen_tick_ohlc.iloc[df_yen_tick_ohlc.shape[0] - 1]['체결가격', 'high']
@@ -54741,7 +54749,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df.set_index('수신시간', inplace=True)
                 df['체결가격'] = pd.to_numeric(df['체결가격'])
 
-                df_adi_tick_ohlc = df.resample('1min').ohlc()
+                df_adi_tick_ohlc = df.resample(분봉주기).ohlc()
                 
                 df_adi_ta_graph.at[plot_time_index, 'Open'] = df_adi_tick_ohlc.iloc[df_adi_tick_ohlc.shape[0] - 1]['체결가격', 'open']
                 df_adi_ta_graph.at[plot_time_index, 'High'] = df_adi_tick_ohlc.iloc[df_adi_tick_ohlc.shape[0] - 1]['체결가격', 'high']
