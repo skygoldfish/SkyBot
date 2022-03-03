@@ -3950,6 +3950,7 @@ class PlotUpdateWorker6(QThread):
 ## The only required methods are paint() and boundingRect() 
 ## (see QGraphicsItem documentation)
 #####################################################################################################################################################################
+'''
 class CandlestickItem(pg.GraphicsObject):
     def __init__(self, data):
         pg.GraphicsObject.__init__(self)
@@ -3980,6 +3981,41 @@ class CandlestickItem(pg.GraphicsObject):
         ## or else we will get artifacts and possibly crashing.
         ## (in this case, QPicture does all the work of computing the bouning rect for us)
         return QtCore.QRectF(self.picture.boundingRect())
+'''
+class CandlestickItem(pg.GraphicsObject):
+    def __init__(self, data):
+        pg.GraphicsObject.__init__(self)
+        self.df = data 
+        self.generatePicture()
+
+    def generatePicture(self):
+        self.picture = QPicture()
+        p = QPainter(self.picture)
+
+        for i in range(len(self.df)):
+            index = self.df.index[i]
+            unix_ts = index.timestamp()
+            open = self.df.loc[index]['체결가격', 'open']
+            high = self.df.loc[index]['체결가격', 'high']
+            low = self.df.loc[index]['체결가격', 'low']
+            close = self.df.loc[index]['체결가격', 'close']
+
+            if close >= open:
+                p.setPen(pg.mkPen(color='r'))
+                p.setBrush(pg.mkBrush(color='r'))
+            else:
+                p.setPen(pg.mkPen(color='b'))
+                p.setBrush(pg.mkBrush(color='b'))
+
+            p.drawLine(QPointF(i, high), QPointF(i, low))
+            p.drawRect(QRectF(i-0.25, open, 0.5, close-open))
+        p.end()
+
+    def paint(self, p, *args):
+        p.drawPicture(0, 0, self.picture)
+
+    def boundingRect(self):
+        return QRectF(self.picture.boundingRect())
 
 #####################################################################################################################################################################
 # 버전 UI Class
@@ -34781,6 +34817,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(SP500_고가)                                
 
                 self.plot1_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
+                #item = CandlestickItem(df_sp500_tick_ohlc)
+                #self.plot1.addItem(item)
 
                 if flag_checkBox_plot1_bband:
 
@@ -49697,8 +49735,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if fut_plot_sec == 0:
 
-                #df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-                #df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
+                df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
+                df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
 
                 df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -51134,8 +51172,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if fut_plot_sec == 0:
 
-                #df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-                #df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
+                df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
+                df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
 
                 df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                 df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -52513,7 +52551,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #if cme_plot_sec == 0 or plot_time_index != old_plot_time_index:
             if cme_plot_sec == 0:                
-                '''
+                
                 df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
                 df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
                 df_nasdaq_tick = df_nasdaq_tick.drop(df_nasdaq_tick.index[0:df_nasdaq_tick.shape[0]])
@@ -52523,7 +52561,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_euro_tick = df_euro_tick.drop(df_euro_tick.index[0:df_euro_tick.shape[0]])
                 df_yen_tick = df_yen_tick.drop(df_yen_tick.index[0:df_yen_tick.shape[0]])
                 df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])
-                '''                
+                                
                 df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
                 df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
