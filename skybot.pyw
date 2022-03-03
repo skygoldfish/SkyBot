@@ -2357,6 +2357,9 @@ DRATE_OFFSET = 0
 
 분봉주기 = '1min'
 
+flag_fut_zero_sec = False
+flag_ovc_zero_sec = False
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -49720,6 +49723,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global old_plot_time_index, plot_time_index
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
         global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_nm_fut_tick, df_nm_fut_tick_ohlc
+        global flag_fut_zero_sec
         
         try:
             dt = datetime.now()
@@ -49733,7 +49737,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
                 fut_plot_sec = int(tickdata['수신시간'][4:6])
 
-            if fut_plot_sec == 0:
+            if fut_plot_sec != 0:
+                flag_fut_zero_sec = False
+
+            if fut_plot_sec == 0 and not flag_fut_zero_sec:
 
                 df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
                 df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
@@ -49747,6 +49754,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
                 df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+                flag_fut_zero_sec = True
             else:
                 pass
 
@@ -51142,6 +51151,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global old_plot_time_index, plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
         global df_cm_fut_tick, df_cm_fut_tick_ohlc
+        global flag_fut_zero_sec
 
         try:
             dt = datetime.now()
@@ -51170,7 +51180,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if fut_plot_sec == 0:
+            if fut_plot_sec != 0:
+                flag_fut_zero_sec = False
+
+            if fut_plot_sec == 0 and not flag_fut_zero_sec:
 
                 df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
                 df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
@@ -51184,6 +51197,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
                 df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+                flag_fut_zero_sec = True
             else:
                 pass
             
@@ -52504,6 +52519,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global cme_close_hour
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global df_sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
+        global flag_ovc_zero_sec
 
         try:
             dt = datetime.now()
@@ -52547,10 +52563,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 plot_time_index = old_plot_time_index
             else:
-                pass 
+                pass
 
-            #if cme_plot_sec == 0 or plot_time_index != old_plot_time_index:
-            if cme_plot_sec == 0:                
+            if cme_plot_sec != 0:
+                flag_ovc_zero_sec = False
+            
+            if cme_plot_sec == 0 and not flag_ovc_zero_sec:
                 
                 df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
                 df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
@@ -52606,6 +52624,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True)
                 df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+                flag_ovc_zero_sec = True
                 '''
                 if SP500_현재가 == 0:
                     SP500_현재가 = SP500_전일종가
