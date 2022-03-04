@@ -52604,6 +52604,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 flag_ovc_zero_sec = False
             
             if cme_plot_sec == 0 and not flag_ovc_zero_sec:
+
+                flag_ovc_zero_sec = True
                 
                 if flag_ohlc:
 
@@ -52615,9 +52617,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_gold_tick = df_gold_tick.drop(df_gold_tick.index[0:df_gold_tick.shape[0]])
                     df_euro_tick = df_euro_tick.drop(df_euro_tick.index[0:df_euro_tick.shape[0]])
                     df_yen_tick = df_yen_tick.drop(df_yen_tick.index[0:df_yen_tick.shape[0]])
-                    df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])
-
-                    flag_ovc_zero_sec = True
+                    df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])                    
 
                     df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -52666,140 +52666,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
-                    if SP500_현재가 == 0:
-                        SP500_현재가 = SP500_전일종가
-
-                    if not flag_sp500_ohlc_open:
-
-                        df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가
-                        df_sp500_ta_graph.at[plot_time_index, 'High'] = SP500_현재가
-                        df_sp500_ta_graph.at[plot_time_index, 'Low'] = SP500_현재가
-
-                        del SP500_현재가_버퍼[:]
-
-                        flag_sp500_ohlc_open = True
-                    else:
-                        SP500_현재가_버퍼.append(SP500_현재가)
-
-                    if DOW_현재가 == 0:
-                        DOW_현재가 = DOW_전일종가
-
-                    if not flag_dow_ohlc_open:
-
-                        df_dow_ta_graph.at[plot_time_index, 'Open'] = DOW_현재가
-                        df_dow_ta_graph.at[plot_time_index, 'High'] = DOW_현재가
-                        df_dow_ta_graph.at[plot_time_index, 'Low'] = DOW_현재가
-
-                        del DOW_현재가_버퍼[:]
-
-                        flag_dow_ohlc_open = True
-                    else:
-                        DOW_현재가_버퍼.append(DOW_현재가)
-
-                    if NASDAQ_현재가 == 0:
-                        NASDAQ_현재가 = NASDAQ_전일종가
-
-                    if not flag_nasdaq_ohlc_open:
-
-                        df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = NASDAQ_현재가
-                        df_nasdaq_ta_graph.at[plot_time_index, 'High'] = NASDAQ_현재가
-                        df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = NASDAQ_현재가
-
-                        del NASDAQ_현재가_버퍼[:]
-
-                        flag_nasdaq_ohlc_open = True
-                    else:
-                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
-
-                    if HANGSENG_현재가 == 0:
-                        HANGSENG_현재가 = HANGSENG_전일종가
-
-                    if not flag_hsi_ohlc_open:
-
-                        df_hsi_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가
-                        df_hsi_ta_graph.at[plot_time_index, 'High'] = HANGSENG_현재가
-                        df_hsi_ta_graph.at[plot_time_index, 'Low'] = HANGSENG_현재가
-
-                        del HANGSENG_현재가_버퍼[:]
-
-                        flag_hsi_ohlc_open = True
-                    else:
-                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
-
-                    if WTI_현재가 == 0:
-                        WTI_현재가 = WTI_전일종가
-
-                    if not flag_wti_ohlc_open:
-
-                        df_wti_ta_graph.at[plot_time_index, 'Open'] = WTI_현재가
-                        df_wti_ta_graph.at[plot_time_index, 'High'] = WTI_현재가
-                        df_wti_ta_graph.at[plot_time_index, 'Low'] = WTI_현재가
-
-                        del WTI_현재가_버퍼[:]
-
-                        flag_wti_ohlc_open = True
-                    else:
-                        WTI_현재가_버퍼.append(WTI_현재가)
-
-                    if GOLD_현재가 == 0:
-                        GOLD_현재가 = GOLD_전일종가
-
-                    if not flag_gold_ohlc_open:
-
-                        df_gold_ta_graph.at[plot_time_index, 'Open'] = GOLD_현재가
-                        df_gold_ta_graph.at[plot_time_index, 'High'] = GOLD_현재가
-                        df_gold_ta_graph.at[plot_time_index, 'Low'] = GOLD_현재가
-
-                        del GOLD_현재가_버퍼[:]
-
-                        flag_gold_ohlc_open = True
-                    else:
-                        GOLD_현재가_버퍼.append(GOLD_현재가)
-
-                    if EURO_현재가 == 0:
-                        EURO_현재가 = EURO_전일종가
-
-                    if not flag_euro_ohlc_open:
-
-                        df_euro_ta_graph.at[plot_time_index, 'Open'] = EURO_현재가
-                        df_euro_ta_graph.at[plot_time_index, 'High'] = EURO_현재가
-                        df_euro_ta_graph.at[plot_time_index, 'Low'] = EURO_현재가
-
-                        del EURO_현재가_버퍼[:]
-
-                        flag_euro_ohlc_open = True
-                    else:
-                        EURO_현재가_버퍼.append(EURO_현재가)
-
-                    if YEN_현재가 == 0:
-                        YEN_현재가 = YEN_전일종가
-
-                    if not flag_yen_ohlc_open:
-
-                        df_yen_ta_graph.at[plot_time_index, 'Open'] = YEN_현재가
-                        df_yen_ta_graph.at[plot_time_index, 'High'] = YEN_현재가
-                        df_yen_ta_graph.at[plot_time_index, 'Low'] = YEN_현재가
-
-                        del YEN_현재가_버퍼[:]
-
-                        flag_yen_ohlc_open = True
-                    else:
-                        YEN_현재가_버퍼.append(YEN_현재가)
-
-                    if ADI_현재가 == 0:
-                        ADI_현재가 = ADI_전일종가
-
-                    if not flag_adi_ohlc_open:
-
-                        df_adi_ta_graph.at[plot_time_index, 'Open'] = ADI_현재가
-                        df_adi_ta_graph.at[plot_time_index, 'High'] = ADI_현재가
-                        df_adi_ta_graph.at[plot_time_index, 'Low'] = ADI_현재가
-
-                        del ADI_현재가_버퍼[:]
-
-                        flag_adi_ohlc_open = True
-                    else:
-                        ADI_현재가_버퍼.append(ADI_현재가)                
+                    del SP500_현재가_버퍼[:]
+                    del DOW_현재가_버퍼[:]
+                    del NASDAQ_현재가_버퍼[:]
+                    del HANGSENG_현재가_버퍼[:]
+                    del WTI_현재가_버퍼[:]
+                    del GOLD_현재가_버퍼[:]
+                    del EURO_현재가_버퍼[:]
+                    del YEN_현재가_버퍼[:]
+                    del ADI_현재가_버퍼[:]
             else:
                 pass
 
@@ -52868,42 +52743,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not flag_ohlc:
 
+                    df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(SP500_현재가):
+                    df_sp500_ta_graph.at[plot_time_index, 'Close'] = SP500_현재가
 
-                        df_sp500_ta_graph.at[plot_time_index, 'Close'] = SP500_현재가                    
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:                        
-                            if not np.isnan(df_sp500_ta_graph.at[plot_time_index, 'Open']):
-                                df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_ta_graph.at[plot_time_index - 1, 'Close']
-                                del SP500_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            SP500_현재가_버퍼.append(SP500_현재가)                            
-
-                            if max(SP500_현재가_버퍼) > 0:
-                                df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(SP500_현재가_버퍼) == 0:
-
-                                if max(SP500_현재가_버퍼) > 0:
-                                    df_sp500_ta_graph.at[plot_time_index, 'Low'] = max(SP500_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)                                                 
-
-                            flag_sp500_ohlc_open = False                           
+                    if not SP500_현재가_버퍼:
+                        SP500_현재가_버퍼.append(SP500_현재가)
+                        df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가                        
                     else:
-                        pass
+                        SP500_현재가_버퍼.append(SP500_현재가)
+                        df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
+                        df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)
                     
                 if SP500_피봇 == 0:
 
@@ -53116,42 +52969,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_dow_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)                
+                    df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(DOW_현재가):
+                    df_dow_ta_graph.at[plot_time_index, 'Close'] = DOW_현재가
 
-                        df_dow_ta_graph.at[plot_time_index, 'Close'] = DOW_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_dow_ta_graph.at[plot_time_index, 'Open']):
-                                df_dow_ta_graph.at[plot_time_index, 'Open'] = df_dow_ta_graph.at[plot_time_index - 1, 'Close']
-                                del DOW_현재가_버퍼[:]
-                            else:
-                                pass
-                            
-                            DOW_현재가_버퍼.append(DOW_현재가)                            
-
-                            if max(DOW_현재가_버퍼) > 0:
-                                df_dow_ta_graph.at[plot_time_index, 'High'] = max(DOW_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(DOW_현재가_버퍼) == 0:
-
-                                if max(DOW_현재가_버퍼) > 0:
-                                    df_dow_ta_graph.at[plot_time_index, 'Low'] = max(DOW_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_dow_ta_graph.at[plot_time_index, 'Low'] = min(DOW_현재가_버퍼)             
-
-                            flag_dow_ohlc_open = False
+                    if not DOW_현재가_버퍼:
+                        DOW_현재가_버퍼.append(DOW_현재가)
+                        df_dow_ta_graph.at[plot_time_index, 'Open'] = DOW_현재가 
                     else:
-                        pass
+                        DOW_현재가_버퍼.append(DOW_현재가)
+                        df_dow_ta_graph.at[plot_time_index, 'High'] = max(DOW_현재가_버퍼)
+                        df_dow_ta_graph.at[plot_time_index, 'Low'] = min(DOW_현재가_버퍼)               
                     
                 if DOW_피봇 == 0:
 
@@ -53363,42 +53194,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_nasdaq_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_nasdaq_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_nasdaq_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_nasdaq_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(NASDAQ_현재가):
+                    df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = NASDAQ_현재가
 
-                        df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = NASDAQ_현재가 
-
-                        if cme_plot_sec == 0:
-                            pass                       
-                        else:
-                            if not np.isnan(df_nasdaq_ta_graph.at[plot_time_index, 'Open']):
-                                df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = df_nasdaq_ta_graph.at[plot_time_index - 1, 'Close']
-                                del NASDAQ_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                            
-
-                            if max(NASDAQ_현재가_버퍼) > 0:
-                                df_nasdaq_ta_graph.at[plot_time_index, 'High'] = max(NASDAQ_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(NASDAQ_현재가_버퍼) == 0:
-
-                                if max(NASDAQ_현재가_버퍼) > 0:
-                                    df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = max(NASDAQ_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = min(NASDAQ_현재가_버퍼)          
-
-                            flag_nasdaq_ohlc_open = False
+                    if not NASDAQ_현재가_버퍼:
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+                        df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = NASDAQ_현재가 
                     else:
-                        pass
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+                        df_nasdaq_ta_graph.at[plot_time_index, 'High'] = max(NASDAQ_현재가_버퍼)
+                        df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = min(NASDAQ_현재가_버퍼)
                     
                 if NASDAQ_피봇 == 0:
 
@@ -53608,42 +53417,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_hsi_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_hsi_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_hsi_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_hsi_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(HANGSENG_현재가):
+                    df_hsi_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
 
-                        df_hsi_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_hsi_ta_graph.at[plot_time_index, 'Open']):
-                                df_hsi_ta_graph.at[plot_time_index, 'Open'] = df_hsi_ta_graph.at[plot_time_index - 1, 'Close']
-                                del HANGSENG_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            HANGSENG_현재가_버퍼.append(HANGSENG_현재가)                            
-
-                            if max(HANGSENG_현재가_버퍼) > 0:
-                                df_hsi_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(HANGSENG_현재가_버퍼) == 0:
-
-                                if max(HANGSENG_현재가_버퍼) > 0:
-                                    df_hsi_ta_graph.at[plot_time_index, 'Low'] = max(HANGSENG_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_hsi_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)         
-
-                            flag_hsi_ohlc_open = False
+                    if not HANGSENG_현재가_버퍼:
+                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
+                        df_hsi_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가 
                     else:
-                        pass
+                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
+                        df_hsi_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
+                        df_hsi_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)
                     
                 if HANGSENG_피봇 == 0:
 
@@ -53855,42 +53642,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_wti_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_wti_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(WTI_현재가):
+                    df_wti_ta_graph.at[plot_time_index, 'Close'] = WTI_현재가
 
-                        df_wti_ta_graph.at[plot_time_index, 'Close'] = WTI_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_wti_ta_graph.at[plot_time_index, 'Open']):
-                                df_wti_ta_graph.at[plot_time_index, 'Open'] = df_wti_ta_graph.at[plot_time_index - 1, 'Close']
-                                del WTI_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            WTI_현재가_버퍼.append(WTI_현재가)                            
-
-                            if max(WTI_현재가_버퍼) > 0:
-                                df_wti_ta_graph.at[plot_time_index, 'High'] = max(WTI_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(WTI_현재가_버퍼) == 0:
-
-                                if max(WTI_현재가_버퍼) > 0:
-                                    df_wti_ta_graph.at[plot_time_index, 'Low'] = max(WTI_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_wti_ta_graph.at[plot_time_index, 'Low'] = min(WTI_현재가_버퍼)             
-
-                            flag_wti_ohlc_open = False
+                    if not WTI_현재가_버퍼:
+                        WTI_현재가_버퍼.append(WTI_현재가)
+                        df_wti_ta_graph.at[plot_time_index, 'Open'] = WTI_현재가 
                     else:
-                        pass
+                        WTI_현재가_버퍼.append(WTI_현재가)
+                        df_wti_ta_graph.at[plot_time_index, 'High'] = max(WTI_현재가_버퍼)
+                        df_wti_ta_graph.at[plot_time_index, 'Low'] = min(WTI_현재가_버퍼)
                     
                 if WTI_피봇 == 0:
 
@@ -54100,42 +53865,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_gold_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_gold_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(GOLD_현재가):
+                    df_gold_ta_graph.at[plot_time_index, 'Close'] = GOLD_현재가
 
-                        df_gold_ta_graph.at[plot_time_index, 'Close'] = GOLD_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_gold_ta_graph.at[plot_time_index, 'Open']):
-                                df_gold_ta_graph.at[plot_time_index, 'Open'] = df_gold_ta_graph.at[plot_time_index - 1, 'Close']
-                                del GOLD_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            GOLD_현재가_버퍼.append(GOLD_현재가)                            
-
-                            if max(GOLD_현재가_버퍼) > 0:
-                                df_gold_ta_graph.at[plot_time_index, 'High'] = max(GOLD_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(GOLD_현재가_버퍼) == 0:
-
-                                if max(GOLD_현재가_버퍼) > 0:
-                                    df_gold_ta_graph.at[plot_time_index, 'Low'] = max(GOLD_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_gold_ta_graph.at[plot_time_index, 'Low'] = min(GOLD_현재가_버퍼)           
-
-                            flag_gold_ohlc_open = False
+                    if not GOLD_현재가_버퍼:
+                        GOLD_현재가_버퍼.append(GOLD_현재가)
+                        df_gold_ta_graph.at[plot_time_index, 'Open'] = GOLD_현재가 
                     else:
-                        pass
+                        GOLD_현재가_버퍼.append(GOLD_현재가)
+                        df_gold_ta_graph.at[plot_time_index, 'High'] = max(GOLD_현재가_버퍼)
+                        df_gold_ta_graph.at[plot_time_index, 'Low'] = min(GOLD_현재가_버퍼)
                     
                 if GOLD_피봇 == 0:
 
@@ -54345,42 +54088,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_euro_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_euro_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(EURO_현재가):
+                    df_euro_ta_graph.at[plot_time_index, 'Close'] = EURO_현재가
 
-                        df_euro_ta_graph.at[plot_time_index, 'Close'] = EURO_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_euro_ta_graph.at[plot_time_index, 'Open']):
-                                df_euro_ta_graph.at[plot_time_index, 'Open'] = df_euro_ta_graph.at[plot_time_index - 1, 'Close']
-                                del EURO_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            EURO_현재가_버퍼.append(EURO_현재가)                            
-
-                            if max(EURO_현재가_버퍼) > 0:
-                                df_euro_ta_graph.at[plot_time_index, 'High'] = max(EURO_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(EURO_현재가_버퍼) == 0:
-
-                                if max(EURO_현재가_버퍼) > 0:
-                                    df_euro_ta_graph.at[plot_time_index, 'Low'] = max(EURO_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_euro_ta_graph.at[plot_time_index, 'Low'] = min(EURO_현재가_버퍼)            
-
-                            flag_euro_ohlc_open = False
+                    if not EURO_현재가_버퍼:
+                        EURO_현재가_버퍼.append(EURO_현재가)
+                        df_euro_ta_graph.at[plot_time_index, 'Open'] = EURO_현재가 
                     else:
-                        pass
+                        EURO_현재가_버퍼.append(EURO_현재가)
+                        df_euro_ta_graph.at[plot_time_index, 'High'] = max(EURO_현재가_버퍼)
+                        df_euro_ta_graph.at[plot_time_index, 'Low'] = min(EURO_현재가_버퍼)
                     
                 if EURO_피봇 == 0:
 
@@ -54590,42 +54311,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_yen_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_yen_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(YEN_현재가):
+                    df_yen_ta_graph.at[plot_time_index, 'Close'] = YEN_현재가
 
-                        df_yen_ta_graph.at[plot_time_index, 'Close'] = YEN_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_yen_ta_graph.at[plot_time_index, 'Open']):
-                                df_yen_ta_graph.at[plot_time_index, 'Open'] = df_yen_ta_graph.at[plot_time_index - 1, 'Close']
-                                del YEN_현재가_버퍼[:]
-                            else:
-                                pass
-                            
-                            YEN_현재가_버퍼.append(YEN_현재가)
-
-                            if max(YEN_현재가_버퍼) > 0:
-                                df_yen_ta_graph.at[plot_time_index, 'High'] = max(YEN_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(YEN_현재가_버퍼) == 0:
-
-                                if max(YEN_현재가_버퍼) > 0:
-                                    df_yen_ta_graph.at[plot_time_index, 'Low'] = max(YEN_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_yen_ta_graph.at[plot_time_index, 'Low'] = min(YEN_현재가_버퍼)              
-
-                            flag_yen_ohlc_open = False
+                    if not YEN_현재가_버퍼:
+                        YEN_현재가_버퍼.append(YEN_현재가)
+                        df_yen_ta_graph.at[plot_time_index, 'Open'] = YEN_현재가 
                     else:
-                        pass
+                        YEN_현재가_버퍼.append(YEN_현재가)
+                        df_yen_ta_graph.at[plot_time_index, 'High'] = max(YEN_현재가_버퍼)
+                        df_yen_ta_graph.at[plot_time_index, 'Low'] = min(YEN_현재가_버퍼)
                     
                 if YEN_피봇 == 0:
 
@@ -54835,42 +54534,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_adi_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                     df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(ADI_현재가):
+                    df_adi_ta_graph.at[plot_time_index, 'Close'] = ADI_현재가
 
-                        df_adi_ta_graph.at[plot_time_index, 'Close'] = ADI_현재가
-
-                        if cme_plot_sec == 0:
-                            pass                        
-                        else:
-                            if not np.isnan(df_adi_ta_graph.at[plot_time_index, 'Open']):
-                                df_adi_ta_graph.at[plot_time_index, 'Open'] = df_adi_ta_graph.at[plot_time_index - 1, 'Close']
-                                del ADI_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            ADI_현재가_버퍼.append(ADI_현재가)
-
-                            if max(ADI_현재가_버퍼) > 0:
-                                df_adi_ta_graph.at[plot_time_index, 'High'] = max(ADI_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(ADI_현재가_버퍼) == 0:
-
-                                if max(ADI_현재가_버퍼) > 0:
-                                    df_adi_ta_graph.at[plot_time_index, 'Low'] = max(ADI_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_adi_ta_graph.at[plot_time_index, 'Low'] = min(ADI_현재가_버퍼)             
-
-                            flag_adi_ohlc_open = False
+                    if not ADI_현재가_버퍼:
+                        ADI_현재가_버퍼.append(ADI_현재가)
+                        df_adi_ta_graph.at[plot_time_index, 'Open'] = ADI_현재가 
                     else:
-                        pass
+                        ADI_현재가_버퍼.append(ADI_현재가)
+                        df_adi_ta_graph.at[plot_time_index, 'High'] = max(ADI_현재가_버퍼)
+                        df_adi_ta_graph.at[plot_time_index, 'Low'] = min(ADI_현재가_버퍼)                        
                     
                 if ADI_피봇 == 0:
 
