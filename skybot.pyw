@@ -49768,6 +49768,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if fut_plot_sec == 0 and not flag_fut_zero_sec:
 
+                flag_fut_zero_sec = True
+
                 if flag_ohlc:
 
                     df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
@@ -49784,6 +49786,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+                if not flag_ohlc:
+
+                    del 근월물_선물_현재가_버퍼[:]
+                    del 차월물_선물_현재가_버퍼[:]
                                 
             else:
                 pass
@@ -49813,53 +49820,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if not flag_ohlc:
 
+                    df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                     df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if 근월물_선물_현재가 > 0:
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
-                        df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가                     
-
-                        if fut_plot_sec == 0:
-
-                            if not flag_futures_cm_ohlc_open:
-
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
-                                df_futures_cm_ta_graph.at[plot_time_index, 'High'] = 근월물_선물_현재가
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = 근월물_선물_현재가
-
-                                del 근월물_선물_현재가_버퍼[:]
-
-                                flag_futures_cm_ohlc_open = True
-                            else:
-                                근월물_선물_현재가_버퍼.append(근월물_선물_현재가)                            
-                        else:
-                            if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'Open']):
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'Close']
-                                del 근월물_선물_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
-
-                            if max(근월물_선물_현재가_버퍼) > 0:
-                                df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(근월물_선물_현재가_버퍼) == 0:
-
-                                if max(근월물_선물_현재가_버퍼) > 0:
-                                    df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = max(근월물_선물_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
-
-                            flag_futures_cm_ohlc_open = False
+                    if not 근월물_선물_현재가_버퍼:
+                        근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
                     else:
-                        pass                        
+                        근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)                                        
                     
                 self.dialog['선물옵션전광판'].fut_realdata['시가'] = 근월물_선물_시가
 
@@ -50013,49 +49987,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     # 1T OHLC 생성                    
                     if not flag_ohlc:
 
+                        df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                         df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                         df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                         df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_시가
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
 
-                        if cme_plot_sec == 0:
-
-                            if not flag_futures_nm_ohlc_open:
-
-                                df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_시가
-                                df_futures_nm_ta_graph.at[plot_time_index, 'High'] = 차월물_선물_시가
-                                df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_시가                            
-
-                                del 차월물_선물_현재가_버퍼[:]
-
-                                flag_futures_nm_ohlc_open = True
-                            else:
-                                차월물_선물_현재가_버퍼.append(차월물_선물_시가)                            
+                        if not 차월물_선물_현재가_버퍼:
+                            차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
                         else:
-                            if not np.isnan(df_futures_nm_ta_graph.at[plot_time_index, 'Open']):
-                                df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'Close']
-                                del 차월물_선물_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            차월물_선물_현재가_버퍼.append(차월물_선물_시가)
-
-                            if max(차월물_선물_현재가_버퍼) > 0:
-                                df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(차월물_선물_현재가_버퍼) == 0:
-
-                                if max(차월물_선물_현재가_버퍼) > 0:
-                                    df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = max(차월물_선물_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
-
-                            flag_futures_nm_ohlc_open = False
+                            차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                            df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
+                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
                         
                     item = QTableWidgetItem("{0:.2f}".format(차월물_선물_시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -51218,12 +51163,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if fut_plot_sec == 0 and not flag_fut_zero_sec:
 
+                flag_fut_zero_sec = True
+
                 if flag_ohlc:
 
                     df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
                     df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
-
-                    flag_fut_zero_sec = True
 
                     df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
@@ -51234,7 +51179,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                     df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
                     df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-                                
+
+                
+                if not flag_ohlc:
+
+                    del 근월물_선물_현재가_버퍼[:]
+                    del 차월물_선물_현재가_버퍼[:]                
             else:
                 pass
             
@@ -51266,56 +51216,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 if not flag_ohlc:
 
+                    df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                    df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                     df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
-                    if not np.isnan(근월물_선물_현재가):
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
-                        df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
-
-                        if fut_plot_sec == 0:
-
-                            if 근월물_선물_현재가 == 0:
-                                근월물_선물_현재가 = 근월물_선물_종가
-
-                            if not flag_futures_cm_ohlc_open:
-
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
-                                df_futures_cm_ta_graph.at[plot_time_index, 'High'] = 근월물_선물_현재가
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = 근월물_선물_현재가
-
-                                del 근월물_선물_현재가_버퍼[:]
-
-                                flag_futures_cm_ohlc_open = True
-                            else:
-                                근월물_선물_현재가_버퍼.append(근월물_선물_현재가)              
-                        else:
-                            if not np.isnan(df_futures_cm_ta_graph.at[plot_time_index, 'Open']):
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'Close']
-                                del 근월물_선물_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
-
-                            if max(근월물_선물_현재가_버퍼) > 0:
-                                df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(근월물_선물_현재가_버퍼) == 0:
-
-                                if max(근월물_선물_현재가_버퍼) > 0:
-                                    df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = max(근월물_선물_현재가_버퍼)
-                                else:
-                                    pass
-                            else:
-                                df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)  
-
-                            flag_futures_cm_ohlc_open = False
+                    if not 근월물_선물_현재가_버퍼:
+                        근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = 근월물_선물_현재가
                     else:
-                        pass
+                        근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
+                        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
                     
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'Volume'] = fut_cm_volume_power
@@ -51453,52 +51367,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 if not flag_ohlc:
 
+                    df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
                     df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+                    df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
                     df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
                     df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
 
-                    if fut_plot_sec == 0:
-
-                        if 차월물_선물_현재가 == 0:
-                            차월물_선물_현재가 = 근월물_선물_종가
-
-                        if not flag_futures_nm_ohlc_open:
-
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
-                            df_futures_nm_ta_graph.at[plot_time_index, 'High'] = 차월물_선물_현재가
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = 차월물_선물_현재가
-
-                            del 차월물_선물_현재가_버퍼[:]
-
-                            flag_futures_nm_ohlc_open = True
-                        else:
-                            차월물_선물_현재가_버퍼.append(차월물_선물_현재가)              
+                    if not 차월물_선물_현재가_버퍼:
+                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
                     else:
-                        if not np.isnan(df_futures_nm_ta_graph.at[plot_time_index, 'Open']):
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'Close']
-                            del 차월물_선물_현재가_버퍼[:]
-                        else:
-                            pass
-
-                        차월물_선물_현재가_버퍼.append(근월물_선물_현재가)
-
-                        if max(차월물_선물_현재가_버퍼) > 0:
-                            df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
-                        else:
-                            pass
-
-                        if min(차월물_선물_현재가_버퍼) == 0:
-
-                            if max(차월물_선물_현재가_버퍼) > 0:
-                                df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = max(차월물_선물_현재가_버퍼)
-                            else:
-                                pass
-                        else:
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
-
-                        flag_futures_nm_ohlc_open = False
+                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
                     
                 fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
