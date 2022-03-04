@@ -48735,8 +48735,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1})".format('COH0', time_gap_abs)
-            elif (szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1})".format('CEH0', time_gap_abs)
+            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1})".format('CEH0', time_gap_abs)
             elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1})".format('POH0', time_gap_abs)
             elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
@@ -48751,8 +48751,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
                 txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-            elif (szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201'):
-                 txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
+                txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
             elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
                 txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
             elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
@@ -48899,14 +48899,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if time_gap_abs >= view_time_tolerance:
             self.label_4th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
+            txt = "{0}\n({1})".format(tickdata['종목코드'], time_gap_abs)
         else:
             if flag_4th_process_queue_empty:
                 self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
                 self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         
-            txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+            txt = "{0}\n({1:.2f})".format(tickdata['종목코드'], args_processing_time)
 
         self.label_4th.setText(txt)                
 
