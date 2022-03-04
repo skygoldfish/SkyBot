@@ -2361,7 +2361,7 @@ DRATE_OFFSET = 0
 flag_fut_zero_sec = False
 flag_ovc_zero_sec = False
 
-flag_ohlc = True
+flag_ohlc = False
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -49733,6 +49733,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df['예상체결가격'] = pd.to_numeric(df['예상체결가격'])
 
         df_ohlc = df.resample(분봉주기)['예상체결가격'].ohlc().bfill()
+        QApplication.processEvents()
 
         return df_ohlc
 
@@ -51167,6 +51168,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df['현재가'] = pd.to_numeric(df['현재가'])
 
         df_ohlc = df.resample(분봉주기)['현재가'].ohlc().bfill()
+        QApplication.processEvents()
 
         return df_ohlc
         
@@ -52513,6 +52515,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df['체결가격'] = pd.to_numeric(df['체결가격'])
 
         df_ohlc = df.resample(분봉주기)['체결가격'].ohlc().bfill()
+        #QApplication.processEvents()
 
         return df_ohlc
 
