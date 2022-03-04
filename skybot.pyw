@@ -7019,7 +7019,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 등가변경됨 : {3} -> {4}\r'.format(dt.hour, dt.minute, dt.second, old_atm_txt, atm_txt)
             self.textBrowser.append(txt)
 
-            winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
+            if flag_tts:
+                winsound.PlaySound('Resources/doorbell.wav', winsound.SND_FILENAME)
         else:
             pass
 
@@ -47412,7 +47413,8 @@ class Xing(object):
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             
-                            winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
+                            if flag_tts:
+                                winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                         else:
                             pass
                     else:
@@ -47480,7 +47482,8 @@ class Xing(object):
                                 self.caller.textBrowser.append(send_txt)
                                 self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                                 
-                            winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
+                            if flag_tts:
+                                winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
                         else:
                             pass
                     else:

@@ -642,7 +642,7 @@ class Ui_Dialog(object):
         self.checkBox_search_moving_node.setText(_translate("Dialog", "Search Moving Node"))
         self.checkBox_plot_sync.setText(_translate("Dialog", "Plot Sync"))
         self.checkBox_telegram.setText(_translate("Dialog", "Telegram"))
-        self.checkBox_tts.setText(_translate("Dialog", "TTS"))
+        self.checkBox_tts.setText(_translate("Dialog", "Sound && TTS"))
         self.label_18.setText(_translate("Dialog", "선물 vs SP500 등락율비"))
         self.label_22.setText(_translate("Dialog", "Drate Offset"))
         self.label_19.setText(_translate("Dialog", "실시간수신 허용오차(초)"))
