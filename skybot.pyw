@@ -2268,6 +2268,7 @@ schedule_sec = 0
 flag_option_periodic_update_mode = OPTION_PERIODIC_UPDATE
 flag_plot_sync_mode = PLOT_SYNC_MODE
 flag_telegram_service = TELEGRAM_SERVICE
+flag_search_moving_node = SEARCH_MOVING_NODE
 
 flag_drop_reset1 = False
 flag_drop_reset2 = False
@@ -5982,7 +5983,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 콜 저가, 고가 맥점 컬러갱신
                         if flag_call_low_update:
 
-                            if SEARCH_MOVING_NODE and bms_node_list:
+                            if flag_search_moving_node and bms_node_list:
                                 self.search_moving_node()
                             else:
                                 pass
@@ -6001,7 +6002,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if flag_call_high_update:
 
-                            if SEARCH_MOVING_NODE and bms_node_list:
+                            if flag_search_moving_node and bms_node_list:
                                 self.search_moving_node()
                             else:
                                 pass
@@ -6021,7 +6022,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 풋 저가, 고가 맥점 컬러갱신
                         if flag_put_low_update:
 
-                            if SEARCH_MOVING_NODE and bms_node_list:
+                            if flag_search_moving_node and bms_node_list:
                                 self.search_moving_node()
                             else:
                                 pass
@@ -6040,7 +6041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if flag_put_high_update:
 
-                            if SEARCH_MOVING_NODE and bms_node_list:
+                            if flag_search_moving_node and bms_node_list:
                                 self.search_moving_node()
                             else:
                                 pass
@@ -6074,7 +6075,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_node_color_clear()
                                 flag_clear = True
                                 
-                                if SEARCH_MOVING_NODE and bms_node_list:
+                                if flag_search_moving_node and bms_node_list:
                                     self.search_moving_node()
                                 else:
                                     pass
@@ -6100,7 +6101,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_node_color_clear()
                                 flag_clear = True
 
-                                if SEARCH_MOVING_NODE and bms_node_list:
+                                if flag_search_moving_node and bms_node_list:
                                     self.search_moving_node()
                                 else:
                                     pass
@@ -6949,7 +6950,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         node_coloring = True
         refresh_coloring = True
 
-        if bms_node_list and SEARCH_MOVING_NODE:
+        if bms_node_list and flag_search_moving_node:
             self.search_moving_node()            
         else:
             pass
@@ -14599,9 +14600,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global pre_start
         global t2301_month_info
-        global 진성맥점, SEARCH_MOVING_NODE
+        global 진성맥점
         global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
-
 
         dt = datetime.now()
         '''
@@ -14642,7 +14642,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             if not self.flag_refresh:
                 
-                if SEARCH_MOVING_NODE:
+                if flag_search_moving_node:
                     self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
@@ -14666,10 +14666,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QTest.qWait(1000)                
             else:
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, SEARCH_MOVING_NODE)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, flag_search_moving_node)
                 self.textBrowser.append(txt)
 
-                if SEARCH_MOVING_NODE:
+                if flag_search_moving_node:
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
                     self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -17124,7 +17124,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(txt)
 
-            if SEARCH_MOVING_NODE:
+            if flag_search_moving_node:
                 self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                     QPushButton:hover {background-color: black; color: white} \
                                                     QPushButton:pressed {background-color: gold}')
@@ -18594,7 +18594,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 self.flag_refresh = True
 
-                if SEARCH_MOVING_NODE:
+                if flag_search_moving_node:
                     self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                         QPushButton:hover {background-color: black; color: white} \
                                                         QPushButton:pressed {background-color: gold}')
@@ -20045,7 +20045,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.flag_refresh = True
 
-                        if SEARCH_MOVING_NODE:
+                        if flag_search_moving_node:
                             self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                                 QPushButton:hover {background-color: black; color: white} \
                                                                 QPushButton:pressed {background-color: gold}') 
@@ -21125,6 +21125,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_tts.setChecked(flag_tts)
         self.checkBox_plot_sync.setChecked(flag_plot_sync_mode)
         self.checkBox_telegram.setChecked(flag_telegram_service)
+        self.checkBox_search_moving_node.setChecked(flag_search_moving_node)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -21218,6 +21219,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_tts.stateChanged.connect(self.checkBox_tts_state_change)
         self.checkBox_plot_sync.stateChanged.connect(self.checkBox_plot_sync_state_change)
         self.checkBox_telegram.stateChanged.connect(self.checkBox_telegram_state_change)
+        self.checkBox_search_moving_node.stateChanged.connect(self.checkBox_search_moving_node_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -22498,6 +22500,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             flag_telegram_service = False
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Telegram Service 모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_search_moving_node_change(self):
+
+        dt = datetime.now()
+
+        global flag_search_moving_node
+
+        if self.checkBox_search_moving_node.isChecked() == True:
+
+            flag_search_moving_node = True
+            
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 동적노드 탐색을 활설화합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_search_moving_node = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 동적노드 탐색을 비활설화합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
@@ -49517,7 +49539,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     receive_quote = False
 
-                    if SEARCH_MOVING_NODE:
+                    if flag_search_moving_node:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
                                                             QPushButton:pressed {background-color: gold}') 
@@ -49556,7 +49578,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     service_terminate = True
                     receive_quote = False
 
-                    if SEARCH_MOVING_NODE:
+                    if flag_search_moving_node:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
                                                             QPushButton:pressed {background-color: gold}')
@@ -49589,7 +49611,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     #service_terminate = True
                     #receive_quote = False
 
-                    if SEARCH_MOVING_NODE:
+                    if flag_search_moving_node:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
                                                             QPushButton:pressed {background-color: gold}')
@@ -51231,6 +51253,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가
                 df_futures_cm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
                 df_futures_cm_ta_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가
+                df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
                 # 1T OHLC 생성
                 
@@ -51238,11 +51261,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
                 df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
                 
-                if 근월물_선물_현재가 > 0:
+                if not np.isnan(근월물_선물_현재가):
 
-                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가                         
-
-                    #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
                     if fut_plot_sec == 0:
 
                         if 근월물_선물_현재가 == 0:
@@ -51426,16 +51446,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_graph.at[plot_time_index, 'Price'] = 차월물_선물_현재가
                 df_futures_nm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
                 df_futures_nm_ta_graph.at[plot_time_index, 'Price'] = 차월물_선물_현재가
+                df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
                                 
                 # 1T OHLC 생성
                 
                 df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
                 df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
                 df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
-                    
-                #if fut_plot_sec == 0 or plot_time_index != old_plot_time_index:
+                
                 if fut_plot_sec == 0:
 
                     if 차월물_선물_현재가 == 0:
