@@ -822,7 +822,7 @@
     </font>
    </property>
    <property name="title">
-    <string>RSI 주기, OFFET, SCALE &amp;&amp; CCI 1/2 주기 &amp;&amp; Rev 주기</string>
+    <string>RSI 주기, OFFET, SCALE &amp;&amp; CCI 1/2 주기 &amp;&amp; Resv 주기</string>
    </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -961,7 +961,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Rev 주기</string>
+        <string>Resv 주기</string>
        </property>
       </widget>
      </item>
