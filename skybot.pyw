@@ -6950,7 +6950,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         node_coloring = True
         refresh_coloring = True
 
-        if bms_node_list and flag_search_moving_node:
+        if bms_node_list:
             self.search_moving_node()            
         else:
             pass
@@ -14666,23 +14666,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.XQ_t8433.Query()                
                 QTest.qWait(1000)                
             else:
-
-                txt = '[{0:02d}:{1:02d}:{2:02d}] SEARCH_MOVING_NODE = {3}\r'.format(dt.hour, dt.minute, dt.second, flag_search_moving_node)
-                self.textBrowser.append(txt)
-
-                if flag_search_moving_node:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                        QPushButton:hover {background-color: black; color: white} \
-                                                        QPushButton:pressed {background-color: gold}')
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 동적맥점 탐색을 비활성화 합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
-                    self.pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                        QPushButton:hover {background-color: black; color: white} \
-                                                        QPushButton:pressed {background-color: gold}')
-
                 self.pushButton_start.setText(' Refreshing... ')
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
