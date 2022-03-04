@@ -52788,11 +52788,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)
                 df_sp500_tick_ohlc = self.make_ohlc_dataframe(df_sp500_tick)
 
-                df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['open']
-                df_sp500_ta_graph.at[plot_time_index, 'High'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['high']
-                df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['low']
-                df_sp500_ta_graph.at[plot_time_index, 'Close'] = df_sp500_tick_ohlc.iloc[df_sp500_tick_ohlc.shape[0] - 1]['close']
-                '''
+                df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 0]
+                df_sp500_ta_graph.at[plot_time_index, 'High'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 1]
+                df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 2]
+                df_sp500_ta_graph.at[plot_time_index, 'Close'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 3]
+                
                 print('\r')
                 print('*************************************************************************')
                 print(df_sp500_tick_ohlc)
@@ -52800,7 +52800,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('low =\r', df_sp500_ta_graph.at[plot_time_index, 'Low'])
                 print('*************************************************************************')
                 print('\r')
-                '''
+                
                 # 그래프 가격갱신
                 SP500_현재가 = float(tickdata['체결가격'])
                 df_sp500_graph.at[plot_time_index, 'Price'] = SP500_현재가
@@ -53045,10 +53045,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_tick = df_dow_tick.append(tickdata, ignore_index=True)
                 df_dow_tick_ohlc = self.make_ohlc_dataframe(df_dow_tick)
 
-                df_dow_ta_graph.at[plot_time_index, 'Open'] = df_dow_tick_ohlc.iloc[df_dow_tick_ohlc.shape[0] - 1]['open']
-                df_dow_ta_graph.at[plot_time_index, 'High'] = df_dow_tick_ohlc.iloc[df_dow_tick_ohlc.shape[0] - 1]['high']
-                df_dow_ta_graph.at[plot_time_index, 'Low'] = df_dow_tick_ohlc.iloc[df_dow_tick_ohlc.shape[0] - 1]['low']
-                df_dow_ta_graph.at[plot_time_index, 'Close'] = df_dow_tick_ohlc.iloc[df_dow_tick_ohlc.shape[0] - 1]['close']
+                df_dow_ta_graph.at[plot_time_index, 'Open'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 0]
+                df_dow_ta_graph.at[plot_time_index, 'High'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 1]
+                df_dow_ta_graph.at[plot_time_index, 'Low'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 2]
+                df_dow_ta_graph.at[plot_time_index, 'Close'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 DOW_현재가 = int(float(tickdata['체결가격']))
@@ -53289,10 +53289,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_nasdaq_tick = df_nasdaq_tick.append(tickdata, ignore_index=True)
                 df_nasdaq_tick_ohlc = self.make_ohlc_dataframe(df_nasdaq_tick)
                 
-                df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = df_nasdaq_tick_ohlc.iloc[df_nasdaq_tick_ohlc.shape[0] - 1]['open']
-                df_nasdaq_ta_graph.at[plot_time_index, 'High'] = df_nasdaq_tick_ohlc.iloc[df_nasdaq_tick_ohlc.shape[0] - 1]['high']
-                df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = df_nasdaq_tick_ohlc.iloc[df_nasdaq_tick_ohlc.shape[0] - 1]['low']
-                df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = df_nasdaq_tick_ohlc.iloc[df_nasdaq_tick_ohlc.shape[0] - 1]['close']
+                df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 0]
+                df_nasdaq_ta_graph.at[plot_time_index, 'High'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 1]
+                df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 2]
+                df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 NASDAQ_현재가 = float(tickdata['체결가격'])
@@ -53532,10 +53532,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_hsi_tick = df_hsi_tick.append(tickdata, ignore_index=True)
                 df_hsi_tick_ohlc = self.make_ohlc_dataframe(df_hsi_tick)
 
-                df_hsi_ta_graph.at[plot_time_index, 'Open'] = df_hsi_tick_ohlc.iloc[df_hsi_tick_ohlc.shape[0] - 1]['open']
-                df_hsi_ta_graph.at[plot_time_index, 'High'] = df_hsi_tick_ohlc.iloc[df_hsi_tick_ohlc.shape[0] - 1]['high']
-                df_hsi_ta_graph.at[plot_time_index, 'Low'] = df_hsi_tick_ohlc.iloc[df_hsi_tick_ohlc.shape[0] - 1]['low']
-                df_hsi_ta_graph.at[plot_time_index, 'Close'] = df_hsi_tick_ohlc.iloc[df_hsi_tick_ohlc.shape[0] - 1]['close']
+                df_hsi_ta_graph.at[plot_time_index, 'Open'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 0]
+                df_hsi_ta_graph.at[plot_time_index, 'High'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 1]
+                df_hsi_ta_graph.at[plot_time_index, 'Low'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 2]
+                df_hsi_ta_graph.at[plot_time_index, 'Close'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
@@ -53773,10 +53773,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_wti_tick = df_wti_tick.append(tickdata, ignore_index=True)
                 df_wti_tick_ohlc = self.make_ohlc_dataframe(df_wti_tick)
                 
-                df_wti_ta_graph.at[plot_time_index, 'Open'] = df_wti_tick_ohlc.iloc[df_wti_tick_ohlc.shape[0] - 1]['open']
-                df_wti_ta_graph.at[plot_time_index, 'High'] = df_wti_tick_ohlc.iloc[df_wti_tick_ohlc.shape[0] - 1]['high']
-                df_wti_ta_graph.at[plot_time_index, 'Low'] = df_wti_tick_ohlc.iloc[df_wti_tick_ohlc.shape[0] - 1]['low']
-                df_wti_ta_graph.at[plot_time_index, 'Close'] = df_wti_tick_ohlc.iloc[df_wti_tick_ohlc.shape[0] - 1]['close']
+                df_wti_ta_graph.at[plot_time_index, 'Open'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 0]
+                df_wti_ta_graph.at[plot_time_index, 'High'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 1]
+                df_wti_ta_graph.at[plot_time_index, 'Low'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 2]
+                df_wti_ta_graph.at[plot_time_index, 'Close'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 WTI_현재가 = float(tickdata['체결가격'])
@@ -54016,10 +54016,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_gold_tick = df_gold_tick.append(tickdata, ignore_index=True)
                 df_gold_tick_ohlc = self.make_ohlc_dataframe(df_gold_tick)
 
-                df_gold_ta_graph.at[plot_time_index, 'Open'] = df_gold_tick_ohlc.iloc[df_gold_tick_ohlc.shape[0] - 1]['open']
-                df_gold_ta_graph.at[plot_time_index, 'High'] = df_gold_tick_ohlc.iloc[df_gold_tick_ohlc.shape[0] - 1]['high']
-                df_gold_ta_graph.at[plot_time_index, 'Low'] = df_gold_tick_ohlc.iloc[df_gold_tick_ohlc.shape[0] - 1]['low']
-                df_gold_ta_graph.at[plot_time_index, 'Close'] = df_gold_tick_ohlc.iloc[df_gold_tick_ohlc.shape[0] - 1]['close']
+                df_gold_ta_graph.at[plot_time_index, 'Open'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 0]
+                df_gold_ta_graph.at[plot_time_index, 'High'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 1]
+                df_gold_ta_graph.at[plot_time_index, 'Low'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 2]
+                df_gold_ta_graph.at[plot_time_index, 'Close'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 GOLD_현재가 = float(tickdata['체결가격'])
@@ -54257,10 +54257,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_euro_tick = df_euro_tick.append(tickdata, ignore_index=True)
                 df_euro_tick_ohlc = self.make_ohlc_dataframe(df_euro_tick)
 
-                df_euro_ta_graph.at[plot_time_index, 'Open'] = df_euro_tick_ohlc.iloc[df_euro_tick_ohlc.shape[0] - 1]['open']
-                df_euro_ta_graph.at[plot_time_index, 'High'] = df_euro_tick_ohlc.iloc[df_euro_tick_ohlc.shape[0] - 1]['high']
-                df_euro_ta_graph.at[plot_time_index, 'Low'] = df_euro_tick_ohlc.iloc[df_euro_tick_ohlc.shape[0] - 1]['low']
-                df_euro_ta_graph.at[plot_time_index, 'Close'] = df_euro_tick_ohlc.iloc[df_euro_tick_ohlc.shape[0] - 1]['close']
+                df_euro_ta_graph.at[plot_time_index, 'Open'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 0]
+                df_euro_ta_graph.at[plot_time_index, 'High'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 1]
+                df_euro_ta_graph.at[plot_time_index, 'Low'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 2]
+                df_euro_ta_graph.at[plot_time_index, 'Close'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 EURO_현재가 = float(tickdata['체결가격'])
@@ -54498,10 +54498,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_yen_tick = df_yen_tick.append(tickdata, ignore_index=True)
                 df_yen_tick_ohlc = self.make_ohlc_dataframe(df_yen_tick)
 
-                df_yen_ta_graph.at[plot_time_index, 'Open'] = df_yen_tick_ohlc.iloc[df_yen_tick_ohlc.shape[0] - 1]['open']
-                df_yen_ta_graph.at[plot_time_index, 'High'] = df_yen_tick_ohlc.iloc[df_yen_tick_ohlc.shape[0] - 1]['high']
-                df_yen_ta_graph.at[plot_time_index, 'Low'] = df_yen_tick_ohlc.iloc[df_yen_tick_ohlc.shape[0] - 1]['low']
-                df_yen_ta_graph.at[plot_time_index, 'Close'] = df_yen_tick_ohlc.iloc[df_yen_tick_ohlc.shape[0] - 1]['close']
+                df_yen_ta_graph.at[plot_time_index, 'Open'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 0]
+                df_yen_ta_graph.at[plot_time_index, 'High'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 1]
+                df_yen_ta_graph.at[plot_time_index, 'Low'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 2]
+                df_yen_ta_graph.at[plot_time_index, 'Close'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 YEN_현재가 = float(tickdata['체결가격'])
@@ -54739,10 +54739,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_adi_tick = df_adi_tick.append(tickdata, ignore_index=True)
                 df_adi_tick_ohlc = self.make_ohlc_dataframe(df_adi_tick)
                 
-                df_adi_ta_graph.at[plot_time_index, 'Open'] = df_adi_tick_ohlc.iloc[df_adi_tick_ohlc.shape[0] - 1]['open']
-                df_adi_ta_graph.at[plot_time_index, 'High'] = df_adi_tick_ohlc.iloc[df_adi_tick_ohlc.shape[0] - 1]['high']
-                df_adi_ta_graph.at[plot_time_index, 'Low'] = df_adi_tick_ohlc.iloc[df_adi_tick_ohlc.shape[0] - 1]['low']
-                df_adi_ta_graph.at[plot_time_index, 'Close'] = df_adi_tick_ohlc.iloc[df_adi_tick_ohlc.shape[0] - 1]['close']
+                df_adi_ta_graph.at[plot_time_index, 'Open'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 0]
+                df_adi_ta_graph.at[plot_time_index, 'High'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 1]
+                df_adi_ta_graph.at[plot_time_index, 'Low'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 2]
+                df_adi_ta_graph.at[plot_time_index, 'Close'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 3]
                 
                 # 그래프 가격갱신
                 ADI_현재가 = float(tickdata['체결가격']) 
