@@ -516,8 +516,8 @@ CHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Chart Update Interval(ms
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
-UNDER_CALL_LIMIT_VAL = parser.getfloat('Initial Value', 'Under Call Limit Value')
-OVER_CALL_LIMIT_VAL = parser.getfloat('Initial Value', 'Over Call Limit Value')
+OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
+OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -47207,7 +47207,7 @@ class Xing(object):
                             self.caller.speaker.setText(txt)
 
                             if flag_telegram_service:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Oversold...\r".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(send_txt)
                         else:
                             pass
@@ -47217,7 +47217,7 @@ class Xing(object):
                             self.caller.speaker.setText(txt)
 
                             if flag_telegram_service:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Over Call...\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Overbought...\r".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(send_txt)
                         else:
                             pass
@@ -47229,7 +47229,7 @@ class Xing(object):
                         if flag_under_call:
 
                             if flag_telegram_service:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Under Call...\r".format(dt.hour, dt.minute, dt.second)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Oversold...\r".format(dt.hour, dt.minute, dt.second)
                                 ToYourTelegram(send_txt)
                         else:
                             pass
@@ -51573,12 +51573,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         else:
                             pass
 
-                        if 선물_차월물_호가_잔량비 < UNDER_CALL_LIMIT_VAL:
+                        if 선물_차월물_호가_잔량비 < OVER_SOLD_LIMIT_VAL:
                             flag_under_call = True
                         else:
                             flag_under_call = False
 
-                        if 선물_차월물_호가_잔량비 >= OVER_CALL_LIMIT_VAL:
+                        if 선물_차월물_호가_잔량비 >= OVER_BOUGHT_LIMIT_VAL:
                             flag_over_call = True
                         else:
                             flag_over_call = False
