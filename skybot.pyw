@@ -2361,7 +2361,7 @@ DRATE_OFFSET = 0
 flag_fut_zero_sec = False
 flag_ovc_zero_sec = False
 
-flag_ohlc = False
+flag_df_ohlc = False
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -5904,13 +5904,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         flag_broken_capture = True
 
-                        # 모든 쓰레드를 중지시킨다.
-                        self.KillScoreBoardAllThread()
-
                         ToYourTelegram('증권사 연결이 끊겼습니다...')
 
+                        # 모든 쓰레드를 중지시킨다.
+                        self.KillScoreBoardAllThread()                        
+
                         QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
-                        return
+                        self.parent.close()
                     else:
                         pass                               
 
@@ -21112,6 +21112,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_plot_sync.setChecked(flag_plot_sync_mode)
         self.checkBox_telegram.setChecked(flag_telegram_service)
         self.checkBox_search_moving_node.setChecked(flag_search_moving_node)
+        self.checkBox_df_ohlc.setChecked(flag_df_ohlc)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -21206,6 +21207,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_plot_sync.stateChanged.connect(self.checkBox_plot_sync_state_change)
         self.checkBox_telegram.stateChanged.connect(self.checkBox_telegram_state_change)
         self.checkBox_search_moving_node.stateChanged.connect(self.checkBox_search_moving_node_change)
+        self.checkBox_df_ohlc.stateChanged.connect(self.checkBox_df_ohlc_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -22391,6 +22393,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             flag_tts = False
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] TTS OFF (으)로 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)            
+
+    def checkBox_df_ohlc_state_change(self):
+
+        dt = datetime.now()
+
+        global flag_df_ohlc
+
+        if self.checkBox_df_ohlc.isChecked() == True:
+
+            flag_df_ohlc = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] DF OHLC 모드를 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_df_ohlc = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] DF OHLC 모드를 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
@@ -49721,6 +49743,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : yj_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
+    def clear_fut_ohlc_buffer(self):
+
+        global flag_fut_zero_sec
+        global df_futures_cm_ta_graph, df_futures_nm_ta_graph, df_cm_fut_tick, df_nm_fut_tick
+        global 근월물_선물_현재가_버퍼, 차월물_선물_현재가_버퍼 
+
+        flag_fut_zero_sec = True
+                
+        df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        if flag_df_ohlc:
+
+            df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
+            df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
+        else:
+            del 근월물_선물_현재가_버퍼[:]
+            del 차월물_선물_현재가_버퍼[:]
+
     def make_yfc_ohlc_dataframe(self, dataframe):
 
         df = dataframe.copy()
@@ -49742,8 +49790,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_market_service, 근월물_선물_종가대비_등락율, 선물_진폭비
         global flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor
         global DOW_기준_예상시가, SP500_기준_예상시가
-        global 근월물_선물_시가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
-        global 차월물_선물_시가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
+        global 근월물_선물_시가, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, df_futures_cm_graph, flag_futures_cm_ohlc_open
+        global 차월물_선물_시가, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         global 근월물_선물_저가, 근월물_선물_고가, 근월물_선물_피봇
         global 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇
         global old_plot_time_index, plot_time_index
@@ -49763,37 +49811,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
                 fut_plot_sec = int(tickdata['수신시간'][4:6])
 
-            if fut_plot_sec != 0:
-                flag_fut_zero_sec = False
-
             if fut_plot_sec == 0 and not flag_fut_zero_sec:
-
-                flag_fut_zero_sec = True
-
-                if flag_ohlc:
-
-                    df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-                    df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
-
-                    flag_fut_zero_sec = True
-
-                    df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                if not flag_ohlc:
-
-                    del 근월물_선물_현재가_버퍼[:]
-                    del 차월물_선물_현재가_버퍼[:]
-                                
+                self.clear_fut_ohlc_buffer()                                
             else:
-                pass
+                flag_fut_zero_sec = False
                         
             if tickdata['단축코드'] == GMSHCODE:
                                 
@@ -49806,7 +49827,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
                 df_futures_cm_graph.at[plot_time_index, 'Price'] = 근월물_선물_시가
 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_cm_fut_tick = df_cm_fut_tick.append(tickdata, ignore_index=True)                
                     df_cm_fut_tick_ohlc = self.make_yfc_ohlc_dataframe(df_cm_fut_tick)
@@ -49814,16 +49835,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 0]
                     df_futures_cm_ta_graph.at[plot_time_index, 'High'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 1]
                     df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 2]
-                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 3]
-
-                # 1T OHLC 생성
-                
-                if not flag_ohlc:
-
-                    df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
+                    df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 3]                
+                else:
 
                     df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
@@ -49968,72 +49981,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 차월물_선물_저가 = float(tickdata['예상체결가격'])
                 차월물_선물_고가 = float(tickdata['예상체결가격'])
 
-                # 그래프 가격갱신
-                if 차월물_선물_시가 > 0:
-                    
-                    df_futures_nm_graph.at[plot_time_index, 'Price'] = 차월물_선물_시가
-                    df_futures_nm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
-                    
-                    if flag_ohlc:
+                # 그래프 가격갱신                    
+                df_futures_nm_graph.at[plot_time_index, 'Price'] = 차월물_선물_시가
+                df_futures_nm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                
+                if flag_df_ohlc:
 
-                        df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)                
-                        df_nm_fut_tick_ohlc = self.make_yfc_ohlc_dataframe(df_nm_fut_tick)
+                    df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)                
+                    df_nm_fut_tick_ohlc = self.make_yfc_ohlc_dataframe(df_nm_fut_tick)
 
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 0]
-                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 1]
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 2]
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 3]
-                                        
-                    # 1T OHLC 생성                    
-                    if not flag_ohlc:
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 0]
+                    df_futures_nm_ta_graph.at[plot_time_index, 'High'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 1]
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 2]
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 3]
 
-                        df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                        df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                        df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
-                        df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
-
-                        if not 차월물_선물_현재가_버퍼:
-                            차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
-                        else:
-                            차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
-                            df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
-                            df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
-                        
-                    item = QTableWidgetItem("{0:.2f}".format(차월물_선물_시가))
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if 차월물_선물_시가 > 차월물_선물_종가:
-                        item.setForeground(QBrush(magenta))
-                        item.setBackground(QBrush(검정색))
-                    elif 차월물_선물_시가 < 차월물_선물_종가:
-                        item.setForeground(QBrush(cyan))
-                        item.setBackground(QBrush(검정색))
-                    else:
-                        item.setForeground(QBrush(흰색))
-                        item.setBackground(QBrush(검정색))
-
-                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
-
-                    시가갭 = 차월물_선물_시가 - 차월물_선물_종가
-
-                    item = QTableWidgetItem("{0:.2f}".format(시가갭))
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if 차월물_선물_시가 > 차월물_선물_종가:
-                        item.setBackground(QBrush(콜기준가색))
-                        item.setForeground(QBrush(검정색))
-                    elif 차월물_선물_시가 < 차월물_선물_종가:
-                        item.setBackground(QBrush(풋기준가색))
-                        item.setForeground(QBrush(흰색))
-                    else:
-                        item.setBackground(QBrush(흰색))
-
-                    self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)                    
                 else:
-                    pass
+
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
+
+                    if not 차월물_선물_현재가_버퍼:
+                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
+                    else:
+                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
+                    
+                item = QTableWidgetItem("{0:.2f}".format(차월물_선물_시가))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if 차월물_선물_시가 > 차월물_선물_종가:
+                    item.setForeground(QBrush(magenta))
+                    item.setBackground(QBrush(검정색))
+                elif 차월물_선물_시가 < 차월물_선물_종가:
+                    item.setForeground(QBrush(cyan))
+                    item.setBackground(QBrush(검정색))
+                else:
+                    item.setForeground(QBrush(흰색))
+                    item.setBackground(QBrush(검정색))
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+                시가갭 = 차월물_선물_시가 - 차월물_선물_종가
+
+                item = QTableWidgetItem("{0:.2f}".format(시가갭))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if 차월물_선물_시가 > 차월물_선물_종가:
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
+                elif 차월물_선물_시가 < 차월물_선물_종가:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.dialog['선물옵션전광판'].tableWidget_fut.setItem(0, Futures_column.시가갭.value, item) 
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.resizeRowsToContents()
                 self.dialog['선물옵션전광판'].tableWidget_fut.resizeColumnsToContents()
@@ -51128,8 +51131,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
         global old_plot_time_index, plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
-        global df_cm_fut_tick, df_cm_fut_tick_ohlc
+        global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_cm_fut_tick_ohlc, df_nm_fut_tick_ohlc
         global flag_fut_zero_sec
+        global 근월물_선물_현재가, 근월물_선물_현재가_버퍼, 차월물_선물_현재가, 차월물_선물_현재가_버퍼
 
         try:
             dt = datetime.now()
@@ -51158,39 +51162,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
             
-            if fut_plot_sec != 0:
-                flag_fut_zero_sec = False
-
             if fut_plot_sec == 0 and not flag_fut_zero_sec:
-
-                flag_fut_zero_sec = True
-
-                if flag_ohlc:
-
-                    df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-                    df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
-
-                    df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                
-                if not flag_ohlc:
-
-                    del 근월물_선물_현재가_버퍼[:]
-                    del 차월물_선물_현재가_버퍼[:]                
+                self.clear_fut_ohlc_buffer()                                
             else:
-                pass
+                flag_fut_zero_sec = False
             
             if tickdata['단축코드'] == GMSHCODE:
+
+                # 그래프관련 처리 먼저...
+                if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
+                    근월물_선물_현재가 = float('nan')
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                else:
+                    근월물_선물_현재가 = float(tickdata['현재가'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_cm_fut_tick = df_cm_fut_tick.append(tickdata, ignore_index=True)                
                     df_cm_fut_tick_ohlc = self.make_fut_ohlc_dataframe(df_cm_fut_tick)
@@ -51199,28 +51186,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_cm_ta_graph.at[plot_time_index, 'High'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 1]
                     df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 2]
                     df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 3]
-                
-                # 그래프관련 처리 먼저...
-                if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
-                    근월물_선물_현재가 = float('nan')
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 근월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
+
                 else:
-                    근월물_선물_현재가 = float(tickdata['현재가'])
-
-                df_futures_cm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
-                df_futures_cm_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가
-                df_futures_cm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
-                df_futures_cm_ta_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가                
-
-                # 1T OHLC 생성
-                if not flag_ohlc:
-
-                    df_futures_cm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_cm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
-                    df_futures_cm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
                     df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
                     if not 근월물_선물_현재가_버퍼:
@@ -51230,6 +51197,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         근월물_선물_현재가_버퍼.append(근월물_선물_현재가)
                         df_futures_cm_ta_graph.at[plot_time_index, 'High'] = max(근월물_선물_현재가_버퍼)
                         df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = min(근월물_선물_현재가_버퍼)
+
+                df_futures_cm_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_cm_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가
+                df_futures_cm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
+                df_futures_cm_ta_graph.at[plot_time_index, 'Price'] = 근월물_선물_현재가                
                     
                 fut_cm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
                 df_futures_cm_graph.at[plot_time_index, 'Volume'] = fut_cm_volume_power
@@ -51303,8 +51275,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], df_futures_cm_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
                 
             elif tickdata['단축코드'] == CMSHCODE:
+
+                # 그래프관련 처리 먼저...
+                if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
+                    차월물_선물_현재가 = float('nan')
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(txt)
+                else:
+                    차월물_선물_현재가 = float(tickdata['현재가'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)                
                     df_nm_fut_tick_ohlc = self.make_fut_ohlc_dataframe(df_nm_fut_tick)
@@ -51314,13 +51294,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 2]
                     df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 3]
                 
-                # 그래프관련 처리 먼저...
-                if float(tickdata['현재가']) == float('inf') or float(tickdata['현재가']) == float('-inf'):
-                    차월물_선물_현재가 = float('nan')
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 선물 현재가 무한대 오류발생...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(txt)
                 else:
-                    차월물_선물_현재가 = float(tickdata['현재가'])
+                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
+
+                    if not 차월물_선물_현재가_버퍼:
+                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
+                    else:
+                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
+                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)                
 
                 차월물_선물_종가대비_등락율 = float(tickdata['등락율'])
                 차월물_선물_시가등락율 = ((float(tickdata['시가']) - 차월물_선물_종가) / 차월물_선물_종가) * 100            
@@ -51363,25 +51346,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_futures_nm_graph.at[plot_time_index, 'Price'] = 차월물_선물_현재가
                 df_futures_nm_ta_graph.at[plot_time_index, 'Time'] = tickdata['수신시간']
                 df_futures_nm_ta_graph.at[plot_time_index, 'Price'] = 차월물_선물_현재가
-                                                
-                # 1T OHLC 생성
-                if not flag_ohlc:
-
-                    df_futures_nm_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_futures_nm_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True) 
-                    df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
-
-                    if not 차월물_선물_현재가_버퍼:
-                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = 차월물_선물_현재가
-                    else:
-                        차월물_선물_현재가_버퍼.append(차월물_선물_현재가)
-                        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = max(차월물_선물_현재가_버퍼)
-                        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = min(차월물_선물_현재가_버퍼)
-                    
+                                    
                 fut_nm_volume_power = int(tickdata['매수누적체결량']) - int(tickdata['매도누적체결량'])
 
                 temp = format(fut_nm_volume_power, ',')
@@ -52384,6 +52349,82 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : option_quote_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
 
+    def clear_ovc_ohlc_buffer(self):
+
+        global flag_ovc_zero_sec
+        global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
+        global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
+        global SP500_현재가_버퍼, DOW_현재가_버퍼, NASDAQ_현재가_버퍼, HANGSENG_현재가_버퍼, WTI_현재가_버퍼, GOLD_현재가_버퍼, EURO_현재가_버퍼, YEN_현재가_버퍼, ADI_현재가_버퍼
+
+        flag_ovc_zero_sec = True
+
+        df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_dow_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_nasdaq_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_nasdaq_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_nasdaq_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_nasdaq_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_hsi_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_hsi_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_hsi_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_hsi_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_wti_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_wti_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_gold_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_gold_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_euro_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_euro_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_yen_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_yen_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_adi_ta_graph['Open'].fillna(method='bfill', inplace=True)
+        df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
+        df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True)
+        df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
+        
+        if flag_df_ohlc:
+
+            #df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
+            df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
+            df_nasdaq_tick = df_nasdaq_tick.drop(df_nasdaq_tick.index[0:df_nasdaq_tick.shape[0]])
+            df_hsi_tick = df_hsi_tick.drop(df_hsi_tick.index[0:df_hsi_tick.shape[0]])
+            df_wti_tick = df_wti_tick.drop(df_wti_tick.index[0:df_wti_tick.shape[0]])
+            df_gold_tick = df_gold_tick.drop(df_gold_tick.index[0:df_gold_tick.shape[0]])
+            df_euro_tick = df_euro_tick.drop(df_euro_tick.index[0:df_euro_tick.shape[0]])
+            df_yen_tick = df_yen_tick.drop(df_yen_tick.index[0:df_yen_tick.shape[0]])
+            df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])
+        else:
+            del SP500_현재가_버퍼[:]
+            del DOW_현재가_버퍼[:]
+            del NASDAQ_현재가_버퍼[:]
+            del HANGSENG_현재가_버퍼[:]
+            del WTI_현재가_버퍼[:]
+            del GOLD_현재가_버퍼[:]
+            del EURO_현재가_버퍼[:]
+            del YEN_현재가_버퍼[:]
+            del ADI_현재가_버퍼[:]
+
     def make_ovc_ohlc_dataframe(self, dataframe):
 
         df = dataframe.copy()
@@ -52397,7 +52438,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df['체결가격'] = pd.to_numeric(df['체결가격'])
 
         df_ohlc = df.resample(분봉주기)['체결가격'].ohlc().bfill()
-        #QApplication.processEvents()
 
         return df_ohlc
 
@@ -52480,89 +52520,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 plot_time_index = old_plot_time_index
             else:
-                pass
-
-            if cme_plot_sec != 0:
-                flag_ovc_zero_sec = False
+                pass                
             
             if cme_plot_sec == 0 and not flag_ovc_zero_sec:
-
-                flag_ovc_zero_sec = True
-                
-                if flag_ohlc:
-
-                    df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
-                    df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
-                    df_nasdaq_tick = df_nasdaq_tick.drop(df_nasdaq_tick.index[0:df_nasdaq_tick.shape[0]])
-                    df_hsi_tick = df_hsi_tick.drop(df_hsi_tick.index[0:df_hsi_tick.shape[0]])
-                    df_wti_tick = df_wti_tick.drop(df_wti_tick.index[0:df_wti_tick.shape[0]])
-                    df_gold_tick = df_gold_tick.drop(df_gold_tick.index[0:df_gold_tick.shape[0]])
-                    df_euro_tick = df_euro_tick.drop(df_euro_tick.index[0:df_euro_tick.shape[0]])
-                    df_yen_tick = df_yen_tick.drop(df_yen_tick.index[0:df_yen_tick.shape[0]])
-                    df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])                    
-
-                    df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_dow_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_nasdaq_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_nasdaq_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_nasdaq_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_nasdaq_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_hsi_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_hsi_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_hsi_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_hsi_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_wti_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_wti_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_gold_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_gold_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_euro_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_euro_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_yen_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_yen_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_adi_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
-                
-                if not flag_ohlc:
-
-                    del SP500_현재가_버퍼[:]
-                    del DOW_현재가_버퍼[:]
-                    del NASDAQ_현재가_버퍼[:]
-                    del HANGSENG_현재가_버퍼[:]
-                    del WTI_현재가_버퍼[:]
-                    del GOLD_현재가_버퍼[:]
-                    del EURO_현재가_버퍼[:]
-                    del YEN_현재가_버퍼[:]
-                    del ADI_현재가_버퍼[:]
+                self.clear_ovc_ohlc_buffer()
             else:
-                pass
+                flag_ovc_zero_sec = False
 
-            if tickdata['종목코드'] == SP500:                
+            if tickdata['종목코드'] == SP500:
+
+                SP500_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
+
+                    start_time = timeit.default_timer()
 
                     df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)
                     df_sp500_tick_ohlc = self.make_ovc_ohlc_dataframe(df_sp500_tick)
@@ -52571,17 +52542,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_sp500_ta_graph.at[plot_time_index, 'High'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 1]
                     df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 2]
                     df_sp500_ta_graph.at[plot_time_index, 'Close'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 3]
+
+                    end_time = timeit.default_timer()
+                    processing_time = (end_time - start_time) * 1000
                     
                     print('\r')
                     print('*************************************************************************')
                     print(df_sp500_tick_ohlc)
                     print('OHLC high = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'High']))
                     print('OHLC low = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'Low']))
+                    print('OHLC Processing Time = {0:.2f} ms\r'.format(processing_time))
                     print('*************************************************************************')
                     print('\r')
+                else:
+                    df_sp500_ta_graph.at[plot_time_index, 'Close'] = SP500_현재가
+
+                    if not SP500_현재가_버퍼:
+                        SP500_현재가_버퍼.append(SP500_현재가)
+                        df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가                        
+                    else:
+                        SP500_현재가_버퍼.append(SP500_현재가)
+                        df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
+                        df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)
                     
-                # 그래프 가격갱신
-                SP500_현재가 = float(tickdata['체결가격'])
+                # 그래프 가격갱신                
                 df_sp500_graph.at[plot_time_index, 'Price'] = SP500_현재가
                 df_sp500_ta_graph.at[plot_time_index, 'Price'] = SP500_현재가
                 
@@ -52622,23 +52606,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_sp500_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_sp500_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-
-                if not flag_ohlc:
-
-                    df_sp500_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_sp500_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_sp500_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_sp500_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_sp500_ta_graph.at[plot_time_index, 'Close'] = SP500_현재가
-
-                    if not SP500_현재가_버퍼:
-                        SP500_현재가_버퍼.append(SP500_현재가)
-                        df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가                        
-                    else:
-                        SP500_현재가_버퍼.append(SP500_현재가)
-                        df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
-                        df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)
                     
                 if SP500_피봇 == 0:
 
@@ -52800,8 +52767,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == DOW:
+
+                DOW_현재가 = int(float(tickdata['체결가격']))
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_dow_tick = df_dow_tick.append(tickdata, ignore_index=True)
                     df_dow_tick_ohlc = self.make_ovc_ohlc_dataframe(df_dow_tick)
@@ -52810,9 +52779,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_dow_ta_graph.at[plot_time_index, 'High'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 1]
                     df_dow_ta_graph.at[plot_time_index, 'Low'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 2]
                     df_dow_ta_graph.at[plot_time_index, 'Close'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_dow_ta_graph.at[plot_time_index, 'Close'] = DOW_현재가
+
+                    if not DOW_현재가_버퍼:
+                        DOW_현재가_버퍼.append(DOW_현재가)
+                        df_dow_ta_graph.at[plot_time_index, 'Open'] = DOW_현재가 
+                    else:
+                        DOW_현재가_버퍼.append(DOW_현재가)
+                        df_dow_ta_graph.at[plot_time_index, 'High'] = max(DOW_현재가_버퍼)
+                        df_dow_ta_graph.at[plot_time_index, 'Low'] = min(DOW_현재가_버퍼)
                 
-                # 그래프 가격갱신
-                DOW_현재가 = int(float(tickdata['체결가격']))
+                # 그래프 가격갱신                
                 df_dow_graph.at[plot_time_index, 'Price'] = DOW_현재가
                 df_dow_ta_graph.at[plot_time_index, 'Price'] = DOW_현재가
                 
@@ -52848,23 +52827,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_dow_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_dow_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
-
-                    df_dow_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_dow_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_dow_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_dow_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_dow_ta_graph.at[plot_time_index, 'Close'] = DOW_현재가
-
-                    if not DOW_현재가_버퍼:
-                        DOW_현재가_버퍼.append(DOW_현재가)
-                        df_dow_ta_graph.at[plot_time_index, 'Open'] = DOW_현재가 
-                    else:
-                        DOW_현재가_버퍼.append(DOW_현재가)
-                        df_dow_ta_graph.at[plot_time_index, 'High'] = max(DOW_현재가_버퍼)
-                        df_dow_ta_graph.at[plot_time_index, 'Low'] = min(DOW_현재가_버퍼)               
                     
                 if DOW_피봇 == 0:
 
@@ -53026,8 +52988,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == NASDAQ:
+
+                NASDAQ_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_nasdaq_tick = df_nasdaq_tick.append(tickdata, ignore_index=True)
                     df_nasdaq_tick_ohlc = self.make_ovc_ohlc_dataframe(df_nasdaq_tick)
@@ -53036,9 +53000,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_nasdaq_ta_graph.at[plot_time_index, 'High'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 1]
                     df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 2]
                     df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = NASDAQ_현재가
+
+                    if not NASDAQ_현재가_버퍼:
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+                        df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = NASDAQ_현재가 
+                    else:
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+                        df_nasdaq_ta_graph.at[plot_time_index, 'High'] = max(NASDAQ_현재가_버퍼)
+                        df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = min(NASDAQ_현재가_버퍼)
                 
-                # 그래프 가격갱신
-                NASDAQ_현재가 = float(tickdata['체결가격'])
+                # 그래프 가격갱신                
                 df_nasdaq_graph.at[plot_time_index, 'Price'] = NASDAQ_현재가
                 df_nasdaq_ta_graph.at[plot_time_index, 'Price'] = NASDAQ_현재가
                 
@@ -53073,23 +53047,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_nasdaq_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
 
                 #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
-                
-                if not flag_ohlc:
-
-                    df_nasdaq_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_nasdaq_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_nasdaq_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_nasdaq_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = NASDAQ_현재가
-
-                    if not NASDAQ_현재가_버퍼:
-                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
-                        df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = NASDAQ_현재가 
-                    else:
-                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
-                        df_nasdaq_ta_graph.at[plot_time_index, 'High'] = max(NASDAQ_현재가_버퍼)
-                        df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = min(NASDAQ_현재가_버퍼)
                     
                 if NASDAQ_피봇 == 0:
 
@@ -53251,8 +53208,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
             
             elif tickdata['종목코드'] == HANGSENG:
+
+                HANGSENG_현재가 = int(float(tickdata['체결가격']))
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_hsi_tick = df_hsi_tick.append(tickdata, ignore_index=True)
                     df_hsi_tick_ohlc = self.make_ovc_ohlc_dataframe(df_hsi_tick)
@@ -53261,9 +53220,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_hsi_ta_graph.at[plot_time_index, 'High'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 1]
                     df_hsi_ta_graph.at[plot_time_index, 'Low'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 2]
                     df_hsi_ta_graph.at[plot_time_index, 'Close'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_hsi_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
+
+                    if not HANGSENG_현재가_버퍼:
+                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
+                        df_hsi_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가 
+                    else:
+                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
+                        df_hsi_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
+                        df_hsi_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)
                 
                 # 그래프 가격갱신
-                HANGSENG_현재가 = int(float(tickdata['체결가격']))
                 df_hsi_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
                 df_hsi_ta_graph.at[plot_time_index, 'Price'] = HANGSENG_현재가
                 
@@ -53296,23 +53265,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_hsi_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_hsi_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
-
-                    df_hsi_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_hsi_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_hsi_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_hsi_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_hsi_ta_graph.at[plot_time_index, 'Close'] = HANGSENG_현재가
-
-                    if not HANGSENG_현재가_버퍼:
-                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
-                        df_hsi_ta_graph.at[plot_time_index, 'Open'] = HANGSENG_현재가 
-                    else:
-                        HANGSENG_현재가_버퍼.append(HANGSENG_현재가)
-                        df_hsi_ta_graph.at[plot_time_index, 'High'] = max(HANGSENG_현재가_버퍼)
-                        df_hsi_ta_graph.at[plot_time_index, 'Low'] = min(HANGSENG_현재가_버퍼)
                     
                 if HANGSENG_피봇 == 0:
 
@@ -53474,8 +53426,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass            
             
             elif tickdata['종목코드'] == WTI:
+
+                WTI_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_wti_tick = df_wti_tick.append(tickdata, ignore_index=True)
                     df_wti_tick_ohlc = self.make_ovc_ohlc_dataframe(df_wti_tick)
@@ -53484,9 +53438,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_wti_ta_graph.at[plot_time_index, 'High'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 1]
                     df_wti_ta_graph.at[plot_time_index, 'Low'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 2]
                     df_wti_ta_graph.at[plot_time_index, 'Close'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_wti_ta_graph.at[plot_time_index, 'Close'] = WTI_현재가
+
+                    if not WTI_현재가_버퍼:
+                        WTI_현재가_버퍼.append(WTI_현재가)
+                        df_wti_ta_graph.at[plot_time_index, 'Open'] = WTI_현재가 
+                    else:
+                        WTI_현재가_버퍼.append(WTI_현재가)
+                        df_wti_ta_graph.at[plot_time_index, 'High'] = max(WTI_현재가_버퍼)
+                        df_wti_ta_graph.at[plot_time_index, 'Low'] = min(WTI_현재가_버퍼)
                 
                 # 그래프 가격갱신
-                WTI_현재가 = float(tickdata['체결가격'])
                 df_wti_graph.at[plot_time_index, 'Price'] = WTI_현재가
                 df_wti_ta_graph.at[plot_time_index, 'Price'] = WTI_현재가
                 
@@ -53520,24 +53484,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 1T OHLC 생성
                 df_wti_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_wti_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
-
-                    df_wti_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_wti_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_wti_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_wti_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_wti_ta_graph.at[plot_time_index, 'Close'] = WTI_현재가
-
-                    if not WTI_현재가_버퍼:
-                        WTI_현재가_버퍼.append(WTI_현재가)
-                        df_wti_ta_graph.at[plot_time_index, 'Open'] = WTI_현재가 
-                    else:
-                        WTI_현재가_버퍼.append(WTI_현재가)
-                        df_wti_ta_graph.at[plot_time_index, 'High'] = max(WTI_현재가_버퍼)
-                        df_wti_ta_graph.at[plot_time_index, 'Low'] = min(WTI_현재가_버퍼)
+                df_wti_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간                
                     
                 if WTI_피봇 == 0:
 
@@ -53699,8 +53646,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == GOLD:
+
+                GOLD_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_gold_tick = df_gold_tick.append(tickdata, ignore_index=True)
                     df_gold_tick_ohlc = self.make_ovc_ohlc_dataframe(df_gold_tick)
@@ -53709,9 +53658,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_gold_ta_graph.at[plot_time_index, 'High'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 1]
                     df_gold_ta_graph.at[plot_time_index, 'Low'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 2]
                     df_gold_ta_graph.at[plot_time_index, 'Close'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_gold_ta_graph.at[plot_time_index, 'Close'] = GOLD_현재가
+
+                    if not GOLD_현재가_버퍼:
+                        GOLD_현재가_버퍼.append(GOLD_현재가)
+                        df_gold_ta_graph.at[plot_time_index, 'Open'] = GOLD_현재가 
+                    else:
+                        GOLD_현재가_버퍼.append(GOLD_현재가)
+                        df_gold_ta_graph.at[plot_time_index, 'High'] = max(GOLD_현재가_버퍼)
+                        df_gold_ta_graph.at[plot_time_index, 'Low'] = min(GOLD_현재가_버퍼)
                 
-                # 그래프 가격갱신
-                GOLD_현재가 = float(tickdata['체결가격'])
+                # 그래프 가격갱신                
                 df_gold_graph.at[plot_time_index, 'Price'] = GOLD_현재가
                 df_gold_ta_graph.at[plot_time_index, 'Price'] = GOLD_현재가
                 
@@ -53743,24 +53702,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 # 1T OHLC 생성
                 df_gold_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_gold_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
-
-                    df_gold_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_gold_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_gold_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_gold_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_gold_ta_graph.at[plot_time_index, 'Close'] = GOLD_현재가
-
-                    if not GOLD_현재가_버퍼:
-                        GOLD_현재가_버퍼.append(GOLD_현재가)
-                        df_gold_ta_graph.at[plot_time_index, 'Open'] = GOLD_현재가 
-                    else:
-                        GOLD_현재가_버퍼.append(GOLD_현재가)
-                        df_gold_ta_graph.at[plot_time_index, 'High'] = max(GOLD_현재가_버퍼)
-                        df_gold_ta_graph.at[plot_time_index, 'Low'] = min(GOLD_현재가_버퍼)
+                df_gold_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간                
                     
                 if GOLD_피봇 == 0:
 
@@ -53922,8 +53864,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass            
             
             elif tickdata['종목코드'] == EURO:
+
+                EURO_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_euro_tick = df_euro_tick.append(tickdata, ignore_index=True)
                     df_euro_tick_ohlc = self.make_ovc_ohlc_dataframe(df_euro_tick)
@@ -53932,9 +53876,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_euro_ta_graph.at[plot_time_index, 'High'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 1]
                     df_euro_ta_graph.at[plot_time_index, 'Low'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 2]
                     df_euro_ta_graph.at[plot_time_index, 'Close'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_euro_ta_graph.at[plot_time_index, 'Close'] = EURO_현재가
+
+                    if not EURO_현재가_버퍼:
+                        EURO_현재가_버퍼.append(EURO_현재가)
+                        df_euro_ta_graph.at[plot_time_index, 'Open'] = EURO_현재가 
+                    else:
+                        EURO_현재가_버퍼.append(EURO_현재가)
+                        df_euro_ta_graph.at[plot_time_index, 'High'] = max(EURO_현재가_버퍼)
+                        df_euro_ta_graph.at[plot_time_index, 'Low'] = min(EURO_현재가_버퍼)
                 
-                # 그래프 가격갱신
-                EURO_현재가 = float(tickdata['체결가격'])
+                # 그래프 가격갱신                
                 df_euro_graph.at[plot_time_index, 'Price'] = EURO_현재가
                 df_euro_ta_graph.at[plot_time_index, 'Price'] = EURO_현재가
 
@@ -53967,23 +53921,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_euro_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_euro_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
-
-                    df_euro_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_euro_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_euro_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_euro_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_euro_ta_graph.at[plot_time_index, 'Close'] = EURO_현재가
-
-                    if not EURO_현재가_버퍼:
-                        EURO_현재가_버퍼.append(EURO_현재가)
-                        df_euro_ta_graph.at[plot_time_index, 'Open'] = EURO_현재가 
-                    else:
-                        EURO_현재가_버퍼.append(EURO_현재가)
-                        df_euro_ta_graph.at[plot_time_index, 'High'] = max(EURO_현재가_버퍼)
-                        df_euro_ta_graph.at[plot_time_index, 'Low'] = min(EURO_현재가_버퍼)
                     
                 if EURO_피봇 == 0:
 
@@ -54145,8 +54082,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == YEN:
+
+                YEN_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_yen_tick = df_yen_tick.append(tickdata, ignore_index=True)
                     df_yen_tick_ohlc = self.make_ovc_ohlc_dataframe(df_yen_tick)
@@ -54155,9 +54094,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_yen_ta_graph.at[plot_time_index, 'High'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 1]
                     df_yen_ta_graph.at[plot_time_index, 'Low'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 2]
                     df_yen_ta_graph.at[plot_time_index, 'Close'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_yen_ta_graph.at[plot_time_index, 'Close'] = YEN_현재가
+
+                    if not YEN_현재가_버퍼:
+                        YEN_현재가_버퍼.append(YEN_현재가)
+                        df_yen_ta_graph.at[plot_time_index, 'Open'] = YEN_현재가 
+                    else:
+                        YEN_현재가_버퍼.append(YEN_현재가)
+                        df_yen_ta_graph.at[plot_time_index, 'High'] = max(YEN_현재가_버퍼)
+                        df_yen_ta_graph.at[plot_time_index, 'Low'] = min(YEN_현재가_버퍼)
                 
-                # 그래프 가격갱신
-                YEN_현재가 = float(tickdata['체결가격'])
+                # 그래프 가격갱신                
                 df_yen_graph.at[plot_time_index, 'Price'] = YEN_현재가
                 df_yen_ta_graph.at[plot_time_index, 'Price'] = YEN_현재가
 
@@ -54190,23 +54139,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_yen_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_yen_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
-
-                    df_yen_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_yen_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_yen_ta_graph['Low'].fillna(method='bfill', inplace=True)
-                    df_yen_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_yen_ta_graph.at[plot_time_index, 'Close'] = YEN_현재가
-
-                    if not YEN_현재가_버퍼:
-                        YEN_현재가_버퍼.append(YEN_현재가)
-                        df_yen_ta_graph.at[plot_time_index, 'Open'] = YEN_현재가 
-                    else:
-                        YEN_현재가_버퍼.append(YEN_현재가)
-                        df_yen_ta_graph.at[plot_time_index, 'High'] = max(YEN_현재가_버퍼)
-                        df_yen_ta_graph.at[plot_time_index, 'Low'] = min(YEN_현재가_버퍼)
                     
                 if YEN_피봇 == 0:
 
@@ -54368,8 +54300,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
             elif tickdata['종목코드'] == ADI:
+
+                ADI_현재가 = float(tickdata['체결가격'])
                 
-                if flag_ohlc:
+                if flag_df_ohlc:
 
                     df_adi_tick = df_adi_tick.append(tickdata, ignore_index=True)
                     df_adi_tick_ohlc = self.make_ovc_ohlc_dataframe(df_adi_tick)
@@ -54378,9 +54312,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_adi_ta_graph.at[plot_time_index, 'High'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 1]
                     df_adi_ta_graph.at[plot_time_index, 'Low'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 2]
                     df_adi_ta_graph.at[plot_time_index, 'Close'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 3]
+                else:
+
+                    df_adi_ta_graph.at[plot_time_index, 'Close'] = ADI_현재가
+
+                    if not ADI_현재가_버퍼:
+                        ADI_현재가_버퍼.append(ADI_현재가)
+                        df_adi_ta_graph.at[plot_time_index, 'Open'] = ADI_현재가 
+                    else:
+                        ADI_현재가_버퍼.append(ADI_현재가)
+                        df_adi_ta_graph.at[plot_time_index, 'High'] = max(ADI_현재가_버퍼)
+                        df_adi_ta_graph.at[plot_time_index, 'Low'] = min(ADI_현재가_버퍼)
                 
-                # 그래프 가격갱신
-                ADI_현재가 = float(tickdata['체결가격']) 
+                # 그래프 가격갱신                
                 df_adi_graph.at[plot_time_index, 'Price'] = ADI_현재가
                 df_adi_ta_graph.at[plot_time_index, 'Price'] = ADI_현재가                         
 
@@ -54413,24 +54357,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 1T OHLC 생성
                 df_adi_graph.at[plot_time_index, 'Time'] = CME_체결시간
                 df_adi_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                
-                if not flag_ohlc:
 
-                    df_adi_ta_graph['Open'].fillna(method='bfill', inplace=True)
-                    df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
-                    df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True) 
-                    df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
-
-                    df_adi_ta_graph.at[plot_time_index, 'Close'] = ADI_현재가
-
-                    if not ADI_현재가_버퍼:
-                        ADI_현재가_버퍼.append(ADI_현재가)
-                        df_adi_ta_graph.at[plot_time_index, 'Open'] = ADI_현재가 
-                    else:
-                        ADI_현재가_버퍼.append(ADI_현재가)
-                        df_adi_ta_graph.at[plot_time_index, 'High'] = max(ADI_현재가_버퍼)
-                        df_adi_ta_graph.at[plot_time_index, 'Low'] = min(ADI_현재가_버퍼)                        
-                    
                 if ADI_피봇 == 0:
 
                     if ADI_전저 > 0 and ADI_전고 > 0:
