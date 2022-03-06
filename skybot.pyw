@@ -6974,7 +6974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 All Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] All 옵션 Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)
         print(txt)        
 
