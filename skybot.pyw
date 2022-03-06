@@ -1316,10 +1316,10 @@ flag_kp200_high = False
 옵션잔존일 = 0
 
 CME_체결시간 = '000000'
-cme_plot_hour = 0
-cme_plot_minute = 0
-cme_plot_sec = 0
-cme_close_hour = 6
+해외선물_수신_시 = 0
+해외선물_수신_분 = 0
+해외선물_수신_초 = 0
+해외선물_장마감_시 = 6
 
 fut_plot_sec = 0
 
@@ -15162,11 +15162,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 night_time = t0167_hour
 
                 if SUMMER_TIME:
-                    cme_close_hour = 6
+                    해외선물_장마감_시 = 6
                 else:
-                    cme_close_hour = 7
+                    해외선물_장마감_시 = 7
 
-                if 0 <= night_time <= cme_close_hour:
+                if 0 <= night_time <= 해외선물_장마감_시:
                     night_time = night_time + 24
                 else:
                     pass
@@ -16081,7 +16081,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     callho_result.append(lstho)
 
                 columns = ['단축코드', '체결시간', '행사가', 'OLOH', '기준가', '월저', '월고', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-                           '현재가', '고가', '대비', '진폭', '순거래량', '수정거래량', '순미결', '수정미결', '순미결증감', '수정미결증감']
+                        '현재가', '고가', '대비', '진폭', '순거래량', '수정거래량', '순미결', '수정미결', '순미결증감', '수정미결증감']
 
                 df_call = DataFrame(data=t2301_call, columns=columns)
 
@@ -47646,11 +47646,11 @@ class Xing(object):
                 night_time = t0167_hour
 
                 if SUMMER_TIME:
-                    cme_close_hour = 6
+                    해외선물_장마감_시 = 6
                 else:
-                    cme_close_hour = 7
+                    해외선물_장마감_시 = 7
 
-                if 0 <= night_time <= cme_close_hour:
+                if 0 <= night_time <= 해외선물_장마감_시:
                     night_time = night_time + 24
                 else:
                     pass
@@ -48186,11 +48186,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 night_time = t0167_hour
 
                 if SUMMER_TIME:
-                    cme_close_hour = 6
+                    해외선물_장마감_시 = 6
                 else:
-                    cme_close_hour = 7
+                    해외선물_장마감_시 = 7
 
-                if 0 <= night_time <= cme_close_hour:
+                if 0 <= night_time <= 해외선물_장마감_시:
                     night_time = night_time + 24
                 else:
                     pass
@@ -49762,7 +49762,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
         if flag_df_ohlc:
-
             df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
             df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
         else:
@@ -49811,11 +49810,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
                 fut_plot_sec = int(tickdata['수신시간'][4:6])
 
-            if fut_plot_sec == 0 and not flag_fut_zero_sec:
-                self.clear_fut_ohlc_buffer()                                
-            else:
-                flag_fut_zero_sec = False
-                        
             if tickdata['단축코드'] == GMSHCODE:
                                 
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
@@ -51857,11 +51851,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 option_plot_hour = int(tickdata['수신시간'][0:2])
 
                 if SUMMER_TIME:
-                    cme_close_hour = 6
+                    해외선물_장마감_시 = 6
                 else:
-                    cme_close_hour = 7
+                    해외선물_장마감_시 = 7
 
-                if 0 <= option_plot_hour <= cme_close_hour:
+                if 0 <= option_plot_hour <= 해외선물_장마감_시:
                     option_plot_hour = option_plot_hour + 24
                 else:
                     pass
@@ -52448,7 +52442,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ovc_update(self, tickdata):
 
-        global CME_체결시간, cme_plot_hour, cme_plot_minute, cme_plot_sec, t0167_hour, t0167_minute, t0167_second
+        global CME_체결시간, 해외선물_수신_시, 해외선물_수신_분, 해외선물_수신_초, t0167_hour, t0167_minute, t0167_second
         global old_plot_time_index, plot_time_index
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
         global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph        
@@ -52478,7 +52472,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
         global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hsi_fibonacci_levels
         global wti_fibonacci_levels, gold_fibonacci_levels, euro_fibonacci_levels, yen_fibonacci_levels, adi_fibonacci_levels
-        global cme_close_hour
+        global 해외선물_장마감_시
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global df_sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
         global flag_ovc_zero_sec
@@ -52488,13 +52482,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             CME_체결시간 = tickdata['수신시간']
 
-            cme_plot_hour = int(tickdata['수신시간'][0:2])
-            cme_plot_minute = int(tickdata['수신시간'][2:4])
-            cme_plot_sec = int(tickdata['수신시간'][4:6])
+            해외선물_수신_시 = int(tickdata['수신시간'][0:2])
+            해외선물_수신_분 = int(tickdata['수신시간'][2:4])
+            해외선물_수신_초 = int(tickdata['수신시간'][4:6])
 
-            t0167_hour = cme_plot_hour
-            t0167_minute = cme_plot_minute
-            t0167_second = cme_plot_sec
+            t0167_hour = 해외선물_수신_시
+            t0167_minute = 해외선물_수신_분
+            t0167_second = 해외선물_수신_초
 
             # 과거값 저장
             old_plot_time_index = plot_time_index                       
@@ -52503,19 +52497,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if NightTime:
 
                 if SUMMER_TIME:
-                    cme_close_hour = 6
+                    해외선물_장마감_시 = 6
                 else:
-                    cme_close_hour = 7
+                    해외선물_장마감_시 = 7
 
-                if 0 <= cme_plot_hour <= cme_close_hour:
-                    cme_plot_hour = cme_plot_hour + 24
+                if 0 <= 해외선물_수신_시 <= 해외선물_장마감_시:
+                    해외선물_수신_시 = 해외선물_수신_시 + 24
                 else:
                     pass
 
-                plot_time_index = (cme_plot_hour - NightTime_PreStart_Hour) * 60 + cme_plot_minute + 1                          
+                plot_time_index = (해외선물_수신_시 - NightTime_PreStart_Hour) * 60 + 해외선물_수신_분 + 1                          
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
-                plot_time_index = (cme_plot_hour - DayTime_PreStart_Hour) * 60 + cme_plot_minute + 1
+                plot_time_index = (해외선물_수신_시 - DayTime_PreStart_Hour) * 60 + 해외선물_수신_분 + 1
 
             if plot_time_index < 0:                    
 
@@ -52527,8 +52521,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass                
             
-            if cme_plot_sec == 0 and not flag_ovc_zero_sec:
+            if 해외선물_수신_초 == 0 and not flag_ovc_zero_sec:
                 self.clear_ovc_ohlc_buffer()
+
+                if pre_start:
+                    self.clear_fut_ohlc_buffer()
             else:
                 flag_ovc_zero_sec = False
 
