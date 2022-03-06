@@ -11128,7 +11128,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if not flag_fut_nm_ol:
 
-                if TARGET_MONTH == 'CM':
+                if TARGET_MONTH == 'CM' and flag_tts:
                     txt = 'NM 상승'
                     self.parent.speaker.setText(txt)
 
@@ -11156,7 +11156,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_fut_nm_oh:
 
-                if TARGET_MONTH == 'CM':
+                if TARGET_MONTH == 'CM' and flag_tts:
                     txt = 'NM 하강'
                     self.parent.speaker.setText(txt)
 
@@ -19652,7 +19652,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.textBrowser.append(txt)
                         print(txt)
 
-                        if flag_tts:
+                        if 0:
                             speak_txt = '나머지 데이타를 10분후에 요청합니다'
                             self.parent.speaker.setText(speak_txt)
                             QTest.qWait(1500)
@@ -47203,8 +47203,10 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'CM' and dt.second % 5 == 0:
 
                         if flag_under_call:
-                            txt = '과매도 구간진입'
-                            self.caller.speaker.setText(txt)
+
+                            if flag_tts:
+                                txt = '과매도 구간진입'
+                                self.caller.speaker.setText(txt)
 
                             if flag_telegram_service:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] Oversold...\r".format(dt.hour, dt.minute, dt.second)
@@ -47213,8 +47215,10 @@ class Xing(object):
                             pass
 
                         if flag_over_call:
-                            txt = '과매수 구간진입'
-                            self.caller.speaker.setText(txt)
+
+                            if flag_tts:
+                                txt = '과매수 구간진입'
+                                self.caller.speaker.setText(txt)
 
                             if flag_telegram_service:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] Overbought...\r".format(dt.hour, dt.minute, dt.second)
@@ -47225,14 +47229,6 @@ class Xing(object):
                         pass
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
-
-                        if flag_under_call:
-
-                            if flag_telegram_service:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Oversold...\r".format(dt.hour, dt.minute, dt.second)
-                                ToYourTelegram(send_txt)
-                        else:
-                            pass
 
                         if flag_call_strong:
                             if DayTime:
@@ -47434,10 +47430,12 @@ class Xing(object):
                             self.caller.textBrowser.append(txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)                            
 
-                            if flag_tts and (flag_call_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node):
+                            if (flag_call_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
-                                self.caller.speaker.setText(txt)
+
+                                if flag_tts:
+                                    self.caller.speaker.setText(txt)
 
                                 if flag_telegram_service:
                                     ToYourTelegram(txt)
@@ -47451,10 +47449,12 @@ class Xing(object):
                             self.caller.textBrowser.append(txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-                            if flag_tts and (flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_kp200_high_node):
+                            if (flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_kp200_high_node):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
-                                self.caller.speaker.setText(txt)
+
+                                if flag_tts:
+                                    self.caller.speaker.setText(txt)
 
                                 if flag_telegram_service:
                                     ToYourTelegram(txt)
@@ -51078,7 +51078,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_supply.setItem(0, 7, item)
 
-                if 수급방향 != 과거_수급방향:
+                if 수급방향 != 과거_수급방향 and flag_tts:
                     send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 수급방향이 {3}에서 {4}로 바뀜 ★\r".format(dt.hour, dt.minute, dt.second, 과거_수급방향, 수급방향)
                     self.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
@@ -51092,7 +51092,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         speak_txt = 'None'
 
-                    self.speaker.setText(speak_txt)
+                    if flag_tts:
+                        self.speaker.setText(speak_txt)
                 else:
                     pass
             else:
@@ -52028,15 +52029,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = 'NM All Up'
-                            self.speaker.setText(txt)
+                            if flag_tts:
+                                txt = 'NM All Up'
+                                self.speaker.setText(txt)
                         else:
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜...\r'.format(dt.hour, dt.minute, dt.second)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = 'NM 콜'
-                            self.speaker.setText(txt)
+                            if flag_tts:
+                                txt = 'NM 콜'
+                                self.speaker.setText(txt)
                     else:
                         pass
 
@@ -52057,15 +52060,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = 'NM All Down'
-                            self.speaker.setText(txt)
+                            if flag_tts:
+                                txt = 'NM All Down'
+                                self.speaker.setText(txt)
                         else:
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋...\r'.format(dt.hour, dt.minute, dt.second)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
-                            txt = 'NM 풋'
-                            self.speaker.setText(txt)
+                            if flag_tts:
+                                txt = 'NM 풋'
+                                self.speaker.setText(txt)
                     else:
                         pass
                 else:
