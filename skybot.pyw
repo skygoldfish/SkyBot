@@ -1315,7 +1315,7 @@ flag_kp200_high = False
 
 옵션잔존일 = 0
 
-CME_체결시간 = '000000'
+해외선물_수신시간 = '000000'
 해외선물_수신_시 = 0
 해외선물_수신_분 = 0
 해외선물_수신_초 = 0
@@ -36335,7 +36335,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         finally:
             # 해외선물 한국시간 표시
-            if CME_체결시간 == '000000':
+            if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)
             else:                
                 if flag_call_low_in_fixed_coreval:
@@ -38467,7 +38467,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if CME_체결시간 == '000000':
+            if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot2_processing_time)
             else:
                 if flag_put_low_in_fixed_coreval:
@@ -40599,7 +40599,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if CME_체결시간 == '000000':
+            if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot3_processing_time)
             else:
                 if flag_kp200_low_node:
@@ -42729,7 +42729,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if CME_체결시간 == '000000':
+            if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot4_processing_time)
             else:
                 if flag_call_high_in_fixed_coreval:
@@ -44861,7 +44861,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if CME_체결시간 == '000000':
+            if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot5_processing_time)
             else:
                 if flag_put_high_in_fixed_coreval:
@@ -46992,7 +46992,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.parent.textBrowser.append(txt)
 
         finally:
-            if CME_체결시간 == '000000':
+            if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot6_processing_time)
             else:
                 if flag_kp200_high_node:
@@ -52442,7 +52442,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ovc_update(self, tickdata):
 
-        global CME_체결시간, 해외선물_수신_시, 해외선물_수신_분, 해외선물_수신_초, t0167_hour, t0167_minute, t0167_second
+        global 해외선물_수신시간, 해외선물_수신_시, 해외선물_수신_분, 해외선물_수신_초, t0167_hour, t0167_minute, t0167_second
         global old_plot_time_index, plot_time_index
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
         global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph        
@@ -52480,7 +52480,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             dt = datetime.now()
 
-            CME_체결시간 = tickdata['수신시간']
+            해외선물_수신시간 = tickdata['수신시간']
 
             해외선물_수신_시 = int(tickdata['수신시간'][0:2])
             해외선물_수신_분 = int(tickdata['수신시간'][2:4])
@@ -52606,8 +52606,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #SP500_체결가격 = locale.format('%.2f', SP500_현재가, 1)
 
                 # 1T OHLC 생성
-                df_sp500_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_sp500_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_sp500_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_sp500_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
                     
                 if SP500_피봇 == 0:
 
@@ -52827,8 +52827,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 df_dow_graph.at[plot_time_index, 'Drate'] = DOW_등락율
 
                 # 1T OHLC 생성
-                df_dow_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_dow_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_dow_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_dow_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
                     
                 if DOW_피봇 == 0:
 
@@ -53045,8 +53045,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 NASDAQ_진폭비 = NASDAQ_진폭 / NASDAQ_시가
 
                 # 1T OHLC 생성
-                df_nasdaq_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_nasdaq_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_nasdaq_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_nasdaq_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
 
                 #NASDAQ_체결가격 = locale.format('%.2f', NASDAQ_현재가, 1)
                     
@@ -53265,8 +53265,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 HANGSENG_진폭비 = HANGSENG_진폭 / HANGSENG_시가
 
                 # 1T OHLC 생성
-                df_hsi_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_hsi_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_hsi_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_hsi_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
                     
                 if HANGSENG_피봇 == 0:
 
@@ -53485,8 +53485,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #WTI_체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
                 # 1T OHLC 생성
-                df_wti_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_wti_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간                
+                df_wti_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_wti_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간                
                     
                 if WTI_피봇 == 0:
 
@@ -53703,8 +53703,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 GOLD_진폭비 = GOLD_진폭 / GOLD_시가
 
                 # 1T OHLC 생성
-                df_gold_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_gold_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간                
+                df_gold_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_gold_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간                
                     
                 if GOLD_피봇 == 0:
 
@@ -53921,8 +53921,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 EURO_진폭비 = EURO_진폭 / EURO_시가
 
                 # 1T OHLC 생성
-                df_euro_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_euro_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_euro_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_euro_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
                     
                 if EURO_피봇 == 0:
 
@@ -54139,8 +54139,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 YEN_진폭비 = YEN_진폭 / YEN_시가
 
                 # 1T OHLC 생성
-                df_yen_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_yen_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_yen_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_yen_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
                     
                 if YEN_피봇 == 0:
 
@@ -54357,8 +54357,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ADI_진폭비 = ADI_진폭 / ADI_시가
 
                 # 1T OHLC 생성
-                df_adi_graph.at[plot_time_index, 'Time'] = CME_체결시간
-                df_adi_ta_graph.at[plot_time_index, 'Time'] = CME_체결시간
+                df_adi_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
+                df_adi_ta_graph.at[plot_time_index, 'Time'] = 해외선물_수신시간
 
                 if ADI_피봇 == 0:
 
