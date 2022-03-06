@@ -52433,6 +52433,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # Converting the index as date
         df['수신시간'] = pd.to_datetime(date.today().strftime('%Y-%m-%d') + ' ' + df['수신시간'], format='%Y-%m-%d %H%M%S')
+        #df['수신시간'] = pd.to_datetime(datetime.datetime.strptime(dataframe['체결일자_한국'], '%Y%m%d') + ' ' + df['수신시간'], format='%Y-%m-%d %H%M%S')
         df.set_index('수신시간', inplace=True)
         df['체결가격'] = pd.to_numeric(df['체결가격'])
 
