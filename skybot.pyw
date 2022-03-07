@@ -49810,6 +49810,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
                 fut_plot_sec = int(tickdata['수신시간'][4:6])
 
+            # OHLC 리셋은 해외선물 수신시 실행
+
             if tickdata['단축코드'] == GMSHCODE:
                                 
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
@@ -51160,6 +51162,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if fut_plot_sec == 0 and not flag_fut_zero_sec:
                 self.clear_fut_ohlc_buffer()                                
             else:
+                pass
+
+            if fut_plot_sec != 0 and flag_fut_zero_sec:
                 flag_fut_zero_sec = False
             
             if tickdata['단축코드'] == GMSHCODE:
@@ -52404,7 +52409,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         if flag_df_ohlc:
 
-            #df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
+            df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
             df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
             df_nasdaq_tick = df_nasdaq_tick.drop(df_nasdaq_tick.index[0:df_nasdaq_tick.shape[0]])
             df_hsi_tick = df_hsi_tick.drop(df_hsi_tick.index[0:df_hsi_tick.shape[0]])
@@ -52476,7 +52481,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 해외선물_장마감_시
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global df_sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
-        global flag_ovc_zero_sec
+        global flag_ovc_zero_sec, flag_fut_zero_sec
 
         try:
             dt = datetime.now()
@@ -52523,12 +52528,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass                
             
             if 해외선물_수신_초 == 0 and not flag_ovc_zero_sec:
+
                 self.clear_ovc_ohlc_buffer()
 
                 if pre_start:
                     self.clear_fut_ohlc_buffer()
             else:
+                pass
+
+            if 해외선물_수신_초 != 0 and flag_ovc_zero_sec:
                 flag_ovc_zero_sec = False
+
+            if pre_start:
+                if 해외선물_수신_초 != 0 and flag_fut_zero_sec:
+                    flag_fut_zero_sec = False
 
             if tickdata['종목코드'] == SP500:
 
@@ -52562,7 +52575,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     if not SP500_현재가_버퍼:
                         SP500_현재가_버퍼.append(SP500_현재가)
-                        df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가                        
+                        df_sp500_ta_graph.at[plot_time_index, 'Open'] = SP500_현재가
+                        '''
+                        print('\r')
+                        print('*************************************************************************')                
+                        print('sp500 open = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'Open']))
+                        print('*************************************************************************')
+                        print('\r')
+                        '''
                     else:
                         SP500_현재가_버퍼.append(SP500_현재가)
                         df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
