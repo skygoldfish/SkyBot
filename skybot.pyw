@@ -52579,7 +52579,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         '''
                         print('\r')
                         print('*************************************************************************')                
-                        print('sp500 open = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'Open']))
+                        print('수신시간 = {0}, SP500 Open = {1}\r'.format(tickdata['수신시간'], df_sp500_ta_graph.at[plot_time_index, 'Open']))
                         print('*************************************************************************')
                         print('\r')
                         '''
