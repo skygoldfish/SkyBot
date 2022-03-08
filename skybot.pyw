@@ -51127,8 +51127,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         df = dataframe.copy()
 
-        df.drop(columns=["system_time", "tr_code", "대비기호", "전일대비", "등락율", "시가", "고가", "저가", "체결구분", "체결량", "누적거래량", "누적거래대금", "매도누적체결량", "매도누적체결건수",  \
-            "매수누적체결량", "매수누적체결건수", "체결강도", "매도호가1", "매수호가1", "미결제약정수량", "KOSPI200지수", "이론가", "괴리율", "시장BASIS", "이론BASIS", "미결제약정증감", "장운영정보", "전일동시간대거래량", "단축코드"], inplace=True)
+        #df.drop(columns=["system_time", "tr_code", "대비기호", "전일대비", "등락율", "시가", "고가", "저가", "체결구분", "체결량", "누적거래량", "누적거래대금", "매도누적체결량", "매도누적체결건수",  \
+        #    "매수누적체결량", "매수누적체결건수", "체결강도", "매도호가1", "매수호가1", "미결제약정수량", "KOSPI200지수", "이론가", "괴리율", "시장BASIS", "이론BASIS", "미결제약정증감", "장운영정보", "전일동시간대거래량", "단축코드"], inplace=True)
         
         # Converting the index as date
         df['수신시간'] = pd.to_datetime(date.today().strftime('%Y-%m-%d') + ' ' + df['수신시간'], format='%Y-%m-%d %H%M%S')
@@ -51136,7 +51136,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df['현재가'] = pd.to_numeric(df['현재가'])
 
         df_ohlc = df.resample(분봉주기)['현재가'].ohlc().bfill()
-        QApplication.processEvents()
 
         return df_ohlc
         
@@ -52465,8 +52464,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         df = dataframe.copy()
 
-        df.drop(columns=["system_time", "tr_code", "종목코드", "체결일자_현지", "체결일자_한국", "체결시간_현지", "전일대비", "전일대비기호", "시가", "고가", "저가", "등락율", \
-            "건별체결수량", "누적체결수량", "체결구분", "매도누적체결수량", "매수누적체결수량", "장마감일"], inplace=True)
+        #df.drop(columns=["system_time", "tr_code", "종목코드", "체결일자_현지", "체결일자_한국", "체결시간_현지", "전일대비", "전일대비기호", "시가", "고가", "저가", "등락율", \
+        #    "건별체결수량", "누적체결수량", "체결구분", "매도누적체결수량", "매수누적체결수량", "장마감일"], inplace=True)
         
         # Converting the index as date
         df['수신시간'] = pd.to_datetime(date.today().strftime('%Y-%m-%d') + ' ' + df['수신시간'], format='%Y-%m-%d %H%M%S')
