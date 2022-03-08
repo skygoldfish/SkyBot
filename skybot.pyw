@@ -2363,6 +2363,19 @@ flag_ovc_zero_sec = False
 
 flag_df_ohlc = False
 
+fut_cm_tick_list = []
+fut_nm_tick_list = []
+
+sp500_tick_list = []
+dow_tick_list = []
+nasdaq_tick_list = []
+hsi_tick_list = []
+wti_tick_list = []
+gold_tick_list = []
+euro_tick_list = []
+yen_tick_list = []
+adi_tick_list = []
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -49747,7 +49760,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global flag_fut_zero_sec
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph, df_cm_fut_tick, df_nm_fut_tick
-        global 근월물_선물_현재가_버퍼, 차월물_선물_현재가_버퍼 
+        global 근월물_선물_현재가_버퍼, 차월물_선물_현재가_버퍼
+        global fut_cm_tick_list, fut_nm_tick_list
 
         flag_fut_zero_sec = True
                 
@@ -49762,8 +49776,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
         if flag_df_ohlc:
-            df_cm_fut_tick = df_cm_fut_tick.drop(df_cm_fut_tick.index[0:df_cm_fut_tick.shape[0]])
-            df_nm_fut_tick = df_nm_fut_tick.drop(df_nm_fut_tick.index[0:df_nm_fut_tick.shape[0]])
+            del fut_cm_tick_list[:]
+            del fut_nm_tick_list[:]
         else:
             del 근월물_선물_현재가_버퍼[:]
             del 차월물_선물_현재가_버퍼[:]
@@ -49797,6 +49811,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
         global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_nm_fut_tick, df_nm_fut_tick_ohlc
         global flag_fut_zero_sec
+        global fut_cm_tick_list, fut_nm_tick_list
         
         try:
             dt = datetime.now()
@@ -49825,7 +49840,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if flag_df_ohlc:
 
-                    df_cm_fut_tick = df_cm_fut_tick.append(tickdata, ignore_index=True)                
+                    #df_cm_fut_tick = df_cm_fut_tick.append(tickdata, ignore_index=True)
+
+                    fut_cm_tick_list.append(tickdata)
+                    df_cm_fut_tick = pd.DataFrame(fut_cm_tick_list)
+
                     df_cm_fut_tick_ohlc = self.make_yfc_ohlc_dataframe(df_cm_fut_tick)
 
                     df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 0]
@@ -49983,7 +50002,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)                
+                    #df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)
+
+                    fut_nm_tick_list.append(tickdata)
+                    df_nm_fut_tick = pd.DataFrame(fut_nm_tick_list)
+
                     df_nm_fut_tick_ohlc = self.make_yfc_ohlc_dataframe(df_nm_fut_tick)
 
                     df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 0]
@@ -51104,8 +51127,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         df = dataframe.copy()
 
-        df.drop(columns=["system_time", "tr_code", "대비기호", "전일대비", "등락율", "현재가", "시가", "고가", "저가", "체결구분", "체결량", "누적거래량", "누적거래대금", "매도누적체결량", "매도누적체결건수",  \
-            "매수누적체결수량", "매수누적체결건수", "체결강도", "매도호가1", "매수호가1", "미결제약정수량", "KOSPI200지수", "이론가", "괴리율", "시장BASIS", "이론BASIS", "미결제약정증감", "장운영정보", "전일동시간대거래량", "단축코드"], inplace=True)
+        df.drop(columns=["system_time", "tr_code", "대비기호", "전일대비", "등락율", "시가", "고가", "저가", "체결구분", "체결량", "누적거래량", "누적거래대금", "매도누적체결량", "매도누적체결건수",  \
+            "매수누적체결량", "매수누적체결건수", "체결강도", "매도호가1", "매수호가1", "미결제약정수량", "KOSPI200지수", "이론가", "괴리율", "시장BASIS", "이론BASIS", "미결제약정증감", "장운영정보", "전일동시간대거래량", "단축코드"], inplace=True)
         
         # Converting the index as date
         df['수신시간'] = pd.to_datetime(date.today().strftime('%Y-%m-%d') + ' ' + df['수신시간'], format='%Y-%m-%d %H%M%S')
@@ -51128,9 +51151,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
         global old_plot_time_index, plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
-        global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_cm_fut_tick_ohlc, df_nm_fut_tick_ohlc
+        global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_nm_fut_tick, df_nm_fut_tick_ohlc
         global flag_fut_zero_sec
         global 근월물_선물_현재가, 근월물_선물_현재가_버퍼, 차월물_선물_현재가, 차월물_선물_현재가_버퍼
+        global fut_cm_tick_list, fut_nm_tick_list
 
         try:
             dt = datetime.now()
@@ -51179,7 +51203,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_cm_fut_tick = df_cm_fut_tick.append(tickdata, ignore_index=True)                
+                    #df_cm_fut_tick = df_cm_fut_tick.append(tickdata, ignore_index=True)
+
+                    fut_cm_tick_list.append(tickdata)
+                    df_cm_fut_tick = pd.DataFrame(fut_cm_tick_list)
+
                     df_cm_fut_tick_ohlc = self.make_fut_ohlc_dataframe(df_cm_fut_tick)
 
                     df_futures_cm_ta_graph.at[plot_time_index, 'Open'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 0]
@@ -51286,7 +51314,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)                
+                    #df_nm_fut_tick = df_nm_fut_tick.append(tickdata, ignore_index=True)
+
+                    fut_nm_tick_list.append(tickdata)
+                    df_nm_fut_tick = pd.DataFrame(fut_nm_tick_list)
+
                     df_nm_fut_tick_ohlc = self.make_fut_ohlc_dataframe(df_nm_fut_tick)
 
                     df_futures_nm_ta_graph.at[plot_time_index, 'Open'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 0]
@@ -52359,6 +52391,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global SP500_현재가_버퍼, DOW_현재가_버퍼, NASDAQ_현재가_버퍼, HANGSENG_현재가_버퍼, WTI_현재가_버퍼, GOLD_현재가_버퍼, EURO_현재가_버퍼, YEN_현재가_버퍼, ADI_현재가_버퍼
+        global sp500_tick_list, dow_tick_list, nasdaq_tick_list, hsi_tick_list, wti_tick_list, gold_tick_list, euro_tick_list, yen_tick_list, adi_tick_list 
 
         flag_ovc_zero_sec = True
 
@@ -52408,16 +52441,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
         
         if flag_df_ohlc:
-
-            df_sp500_tick = df_sp500_tick.drop(df_sp500_tick.index[0:df_sp500_tick.shape[0]])
-            df_dow_tick = df_dow_tick.drop(df_dow_tick.index[0:df_dow_tick.shape[0]])
-            df_nasdaq_tick = df_nasdaq_tick.drop(df_nasdaq_tick.index[0:df_nasdaq_tick.shape[0]])
-            df_hsi_tick = df_hsi_tick.drop(df_hsi_tick.index[0:df_hsi_tick.shape[0]])
-            df_wti_tick = df_wti_tick.drop(df_wti_tick.index[0:df_wti_tick.shape[0]])
-            df_gold_tick = df_gold_tick.drop(df_gold_tick.index[0:df_gold_tick.shape[0]])
-            df_euro_tick = df_euro_tick.drop(df_euro_tick.index[0:df_euro_tick.shape[0]])
-            df_yen_tick = df_yen_tick.drop(df_yen_tick.index[0:df_yen_tick.shape[0]])
-            df_adi_tick = df_adi_tick.drop(df_adi_tick.index[0:df_adi_tick.shape[0]])
+            del sp500_tick_list[:]
+            del dow_tick_list[:]
+            del nasdaq_tick_list[:]
+            del hsi_tick_list[:]
+            del wti_tick_list[:]
+            del gold_tick_list[:]
+            del euro_tick_list[:]
+            del yen_tick_list[:]
+            del adi_tick_list[:] 
         else:
             del SP500_현재가_버퍼[:]
             del DOW_현재가_버퍼[:]
@@ -52482,6 +52514,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global df_sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
         global flag_ovc_zero_sec, flag_fut_zero_sec
+        global sp500_tick_list, dow_tick_list, nasdaq_tick_list, hsi_tick_list, wti_tick_list, gold_tick_list, euro_tick_list, yen_tick_list, adi_tick_list
 
         try:
             dt = datetime.now()
@@ -52549,9 +52582,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    start_time = timeit.default_timer()
+                    #start_time = timeit.default_timer()
+                    #df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)
 
-                    df_sp500_tick = df_sp500_tick.append(tickdata, ignore_index=True)
+                    sp500_tick_list.append(tickdata)
+                    df_sp500_tick = pd.DataFrame(sp500_tick_list)
+
                     df_sp500_tick_ohlc = self.make_ovc_ohlc_dataframe(df_sp500_tick)
 
                     df_sp500_ta_graph.at[plot_time_index, 'Open'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 0]
@@ -52559,18 +52595,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 2]
                     df_sp500_ta_graph.at[plot_time_index, 'Close'] = df_sp500_tick_ohlc.iat[df_sp500_tick_ohlc.shape[0] - 1, 3]
 
-                    end_time = timeit.default_timer()
-                    processing_time = (end_time - start_time) * 1000
-                    
+                    #end_time = timeit.default_timer()
+                    #processing_time = (end_time - start_time) * 1000
+                    '''
                     print('\r')
                     print('*************************************************************************')
-                    print(df_sp500_tick_ohlc)
+                    print(df_sp500_tick)
                     print('OHLC high = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'High']))
                     print('OHLC low = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'Low']))
                     print('OHLC Processing Time = {0:.2f} ms\r'.format(processing_time))
                     print('*************************************************************************')
                     print('\r')
+                    '''
                 else:
+                    # DF OHLC 대비 10배 이상 속도차이가 남
+                    #start_time = timeit.default_timer()
                     df_sp500_ta_graph.at[plot_time_index, 'Close'] = SP500_현재가
 
                     if not SP500_현재가_버퍼:
@@ -52587,7 +52626,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         SP500_현재가_버퍼.append(SP500_현재가)
                         df_sp500_ta_graph.at[plot_time_index, 'High'] = max(SP500_현재가_버퍼)
                         df_sp500_ta_graph.at[plot_time_index, 'Low'] = min(SP500_현재가_버퍼)
-                    
+                    '''
+                    end_time = timeit.default_timer()
+                    processing_time = (end_time - start_time) * 1000
+
+                    print('\r')
+                    print('*************************************************************************')
+                    print(SP500_현재가_버퍼)
+                    print('OHLC high = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'High']))
+                    print('OHLC low = {0}\r'.format(df_sp500_ta_graph.at[plot_time_index, 'Low']))
+                    print('OHLC Processing Time = {0:.2f} ms\r'.format(processing_time))
+                    print('*************************************************************************')
+                    print('\r')
+                    '''
                 # 그래프 가격갱신                
                 df_sp500_graph.at[plot_time_index, 'Price'] = SP500_현재가
                 df_sp500_ta_graph.at[plot_time_index, 'Price'] = SP500_현재가
@@ -52795,7 +52846,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_dow_tick = df_dow_tick.append(tickdata, ignore_index=True)
+                    #df_dow_tick = df_dow_tick.append(tickdata, ignore_index=True)
+
+                    dow_tick_list.append(tickdata)
+                    df_dow_tick = pd.DataFrame(dow_tick_list)
+
                     df_dow_tick_ohlc = self.make_ovc_ohlc_dataframe(df_dow_tick)
 
                     df_dow_ta_graph.at[plot_time_index, 'Open'] = df_dow_tick_ohlc.iat[df_dow_tick_ohlc.shape[0] - 1, 0]
@@ -53016,7 +53071,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_nasdaq_tick = df_nasdaq_tick.append(tickdata, ignore_index=True)
+                    #df_nasdaq_tick = df_nasdaq_tick.append(tickdata, ignore_index=True)
+
+                    nasdaq_tick_list.append(tickdata)
+                    df_nasdaq_tick = pd.DataFrame(nasdaq_tick_list)
+
                     df_nasdaq_tick_ohlc = self.make_ovc_ohlc_dataframe(df_nasdaq_tick)
 
                     df_nasdaq_ta_graph.at[plot_time_index, 'Open'] = df_nasdaq_tick_ohlc.iat[df_nasdaq_tick_ohlc.shape[0] - 1, 0]
@@ -53236,7 +53295,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_hsi_tick = df_hsi_tick.append(tickdata, ignore_index=True)
+                    #df_hsi_tick = df_hsi_tick.append(tickdata, ignore_index=True)
+
+                    hsi_tick_list.append(tickdata)
+                    df_hsi_tick = pd.DataFrame(hsi_tick_list)
+
                     df_hsi_tick_ohlc = self.make_ovc_ohlc_dataframe(df_hsi_tick)
 
                     df_hsi_ta_graph.at[plot_time_index, 'Open'] = df_hsi_tick_ohlc.iat[df_hsi_tick_ohlc.shape[0] - 1, 0]
@@ -53454,7 +53517,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_wti_tick = df_wti_tick.append(tickdata, ignore_index=True)
+                    #df_wti_tick = df_wti_tick.append(tickdata, ignore_index=True)
+
+                    wti_tick_list.append(tickdata)
+                    df_wti_tick = pd.DataFrame(wti_tick_list)
+
                     df_wti_tick_ohlc = self.make_ovc_ohlc_dataframe(df_wti_tick)
 
                     df_wti_ta_graph.at[plot_time_index, 'Open'] = df_wti_tick_ohlc.iat[df_wti_tick_ohlc.shape[0] - 1, 0]
@@ -53674,7 +53741,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_gold_tick = df_gold_tick.append(tickdata, ignore_index=True)
+                    #df_gold_tick = df_gold_tick.append(tickdata, ignore_index=True)
+
+                    gold_tick_list.append(tickdata)
+                    df_gold_tick = pd.DataFrame(gold_tick_list)
+
                     df_gold_tick_ohlc = self.make_ovc_ohlc_dataframe(df_gold_tick)
 
                     df_gold_ta_graph.at[plot_time_index, 'Open'] = df_gold_tick_ohlc.iat[df_gold_tick_ohlc.shape[0] - 1, 0]
@@ -53892,7 +53963,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_euro_tick = df_euro_tick.append(tickdata, ignore_index=True)
+                    #df_euro_tick = df_euro_tick.append(tickdata, ignore_index=True)
+
+                    euro_tick_list.append(tickdata)
+                    df_euro_tick = pd.DataFrame(euro_tick_list)
+
                     df_euro_tick_ohlc = self.make_ovc_ohlc_dataframe(df_euro_tick)
 
                     df_euro_ta_graph.at[plot_time_index, 'Open'] = df_euro_tick_ohlc.iat[df_euro_tick_ohlc.shape[0] - 1, 0]
@@ -54110,7 +54185,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_yen_tick = df_yen_tick.append(tickdata, ignore_index=True)
+                    #df_yen_tick = df_yen_tick.append(tickdata, ignore_index=True)
+
+                    yen_tick_list.append(tickdata)
+                    df_yen_tick = pd.DataFrame(yen_tick_list)
+
                     df_yen_tick_ohlc = self.make_ovc_ohlc_dataframe(df_yen_tick)
 
                     df_yen_ta_graph.at[plot_time_index, 'Open'] = df_yen_tick_ohlc.iat[df_yen_tick_ohlc.shape[0] - 1, 0]
@@ -54328,7 +54407,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if flag_df_ohlc:
 
-                    df_adi_tick = df_adi_tick.append(tickdata, ignore_index=True)
+                    #df_adi_tick = df_adi_tick.append(tickdata, ignore_index=True)
+
+                    adi_tick_list.append(tickdata)
+                    df_adi_tick = pd.DataFrame(adi_tick_list)
+
                     df_adi_tick_ohlc = self.make_ovc_ohlc_dataframe(df_adi_tick)
 
                     df_adi_ta_graph.at[plot_time_index, 'Open'] = df_adi_tick_ohlc.iat[df_adi_tick_ohlc.shape[0] - 1, 0]
