@@ -1158,6 +1158,7 @@ t2301_month_info = ''
 t2835_month_info = ''
 
 kp200_피봇 = 0
+KP200_당일예상시가 = 0
 KP200_당일시가 = 0
 kp200_저가 = 0
 kp200_현재가 = 0
@@ -49672,7 +49673,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yj_update(self, tickdata):
 
-        global df_futures_cm_graph, df_kp200_graph, KP200_당일시가
+        global df_futures_cm_graph, df_kp200_graph, KP200_당일예상시가
         global plot_time_index
 
         try:
@@ -49683,38 +49684,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 plot_time_index = (int(tickdata['수신시간'][0:2]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][2:4]) + 1
 
-            if tickdata['업종코드'] == KOSPI200:
+            if tickdata['업종코드'] == KOSPI200 and float(tickdata['예상지수']) > 0:
 
-                KP200_당일시가 = float(tickdata['예상지수'])
+                KP200_당일예상시가 = float(tickdata['예상지수'])
 
-                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
-                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일시가
+                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일예상시가
+                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일예상시가
 
-                #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
-                df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일시가
+                #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일예상시가
+                df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일예상시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))  
 
-                if KP200_당일시가 > KP200_전일종가:
+                if KP200_당일예상시가 > KP200_전일종가:
                     item.setForeground(QBrush(적색))                
-                elif KP200_당일시가 < KP200_전일종가:
+                elif KP200_당일예상시가 < KP200_전일종가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                시가갭 = KP200_당일시가 - KP200_전일종가
+                시가갭 = KP200_당일예상시가 - KP200_전일종가
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if KP200_당일시가 > KP200_전일종가:
+                if KP200_당일예상시가 > KP200_전일종가:
                     item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
-                elif KP200_당일시가 < KP200_전일종가:
+                elif KP200_당일예상시가 < KP200_전일종가:
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
@@ -49724,7 +49725,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
                 if 근월물_선물_시가 > 0:
-                    예상_Basis = 근월물_선물_시가 - KP200_당일시가                            
+                    예상_Basis = 근월물_선물_시가 - KP200_당일예상시가                            
                 else:
                     pass
 
@@ -49827,7 +49828,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             # OHLC 리셋은 해외선물 수신시 실행
 
-            if tickdata['단축코드'] == GMSHCODE:
+            if tickdata['단축코드'] == GMSHCODE and float(tickdata['예상체결가격']) > 0:
                                 
                 근월물_선물_시가 = float(tickdata['예상체결가격'])
                 근월물_선물_현재가 = float(tickdata['예상체결가격'])
@@ -49852,7 +49853,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 2]
                     df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = df_cm_fut_tick_ohlc.iat[df_cm_fut_tick_ohlc.shape[0] - 1, 3]                
                 else:
-
                     df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = 근월물_선물_현재가
 
                     if not 근월물_선물_현재가_버퍼:
@@ -49989,7 +49989,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # ICHIMOKU
                 df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], df_futures_cm_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)                
 
-            elif tickdata['단축코드'] == CMSHCODE:
+            elif tickdata['단축코드'] == CMSHCODE and float(tickdata['예상체결가격']) > 0:
 
                 차월물_선물_시가 = float(tickdata['예상체결가격'])
                 차월물_선물_현재가 = float(tickdata['예상체결가격'])
@@ -50013,9 +50013,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_futures_nm_ta_graph.at[plot_time_index, 'High'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 1]
                     df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 2]
                     df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = df_nm_fut_tick_ohlc.iat[df_nm_fut_tick_ohlc.shape[0] - 1, 3]
-
                 else:
-
                     df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = 차월물_선물_현재가
 
                     if not 차월물_선물_현재가_버퍼:
@@ -52383,6 +52381,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : option_quote_update 에서 {3}타입의 {4}예외가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, type(e).__name__, str(e))
             self.textBrowser.append(txt)
+
+    def normalization(df_input, a, b):
+
+        # 범위 from a to b
+        min_value = df_input.min()
+        max_value = df_input.max()
+
+        return df_input.apply(lambda x: (b - a) * (x - min_value)/ (max_value - min_value) + a, axis=0)
 
     def clear_ovc_ohlc_buffer(self):
 
