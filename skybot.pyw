@@ -520,15 +520,15 @@ OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
 
 # [9]. << Code of the Foreign Futures (H/M/U/Z) >>
-SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
-HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
-WTI = parser.get('Code of the Foreign Futures', 'WTI')
-GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-EURO = parser.get('Code of the Foreign Futures', 'EUROFX')
-YEN = parser.get('Code of the Foreign Futures', 'YEN')
-ADI = parser.get('Code of the Foreign Futures', 'ADI')
+SP500_CODE = parser.get('Code of the Foreign Futures', 'S&P 500')
+DOW_CODE = parser.get('Code of the Foreign Futures', 'DOW')
+NASDAQ_CODE = parser.get('Code of the Foreign Futures', 'NASDAQ')
+HANGSENG_CODE = parser.get('Code of the Foreign Futures', 'HANGSENG')
+WTI_CODE = parser.get('Code of the Foreign Futures', 'WTI')
+GOLD_CODE = parser.get('Code of the Foreign Futures', 'GOLD')
+EURO_CODE = parser.get('Code of the Foreign Futures', 'EUROFX')
+YEN_CODE = parser.get('Code of the Foreign Futures', 'YEN')
+ADI_CODE = parser.get('Code of the Foreign Futures', 'ADI')
 
 # [10]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
@@ -4119,7 +4119,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atexit.register(self.__del__)     
         
         global TARGET_MONTH, MONTH_FIRSTDAY
-        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
+        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500_CODE, DOW_CODE, NASDAQ_CODE, fut_code
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
         
@@ -4184,7 +4184,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.showMaximized()        
         
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
-            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH, SP500, DOW, NASDAQ, WTI))
+            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH, SP500_CODE, DOW_CODE, NASDAQ_CODE, WTI_CODE))
         
         # 위젯 초기화
         self.textBrowser.setStyleSheet("background-color: black; color: springgreen; font-family: Consolas; font-size: 9pt; font: Normal")
@@ -20826,7 +20826,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20839,7 +20839,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20852,7 +20852,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20865,7 +20865,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20878,7 +20878,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', EURO)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', EURO_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20891,7 +20891,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -20904,7 +20904,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD)
+            self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD_CODE)
 
             self.realdata_request_number += 1                    
         else:
@@ -21133,6 +21133,33 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.spinBox_put_itm.setValue(put_itm_number)
         self.spinBox_put_otm.setValue(put_otm_number)
 
+        txt = str(SP500_CODE)
+        self.lineEdit_sp500.setText(txt)
+
+        txt = str(DOW_CODE)
+        self.lineEdit_dow.setText(txt)
+
+        txt = str(NASDAQ_CODE)
+        self.lineEdit_nasdaq.setText(txt)
+
+        txt = str(HANGSENG_CODE)
+        self.lineEdit_hsi.setText(txt)
+
+        txt = str(WTI_CODE)
+        self.lineEdit_wti.setText(txt)
+
+        txt = str(GOLD_CODE)
+        self.lineEdit_gold.setText(txt)
+
+        txt = str(EURO_CODE)
+        self.lineEdit_euro.setText(txt)
+
+        txt = str(YEN_CODE)
+        self.lineEdit_yen.setText(txt)
+
+        txt = str(ADI_CODE)
+        self.lineEdit_adi.setText(txt)
+
         txt = str(BB_PERIOD)
         self.lineEdit_bb_period.setText(txt)
 
@@ -21204,6 +21231,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_nm_opt_quote_1.stateChanged.connect(self.checkBox_nm_opt_quote_1_checkState)
         self.checkBox_kospi_kosdaq.stateChanged.connect(self.checkBox_kospi_kosdaq_checkState)
         self.checkBox_supply_demand.stateChanged.connect(self.checkBox_supply_demand_checkState)
+
         self.checkBox_dow.stateChanged.connect(self.checkBox_dow_checkState)
         self.checkBox_sp500.stateChanged.connect(self.checkBox_sp500_checkState)
         self.checkBox_nasdaq.stateChanged.connect(self.checkBox_nasdaq_checkState)
@@ -21215,6 +21243,16 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_adi.stateChanged.connect(self.checkBox_adi_checkState)
         
         self.checkBox_news.stateChanged.connect(self.checkBox_news_checkState)
+
+        self.lineEdit_sp500.returnPressed.connect(self.change_sp500_code)
+        self.lineEdit_dow.returnPressed.connect(self.change_dow_code)
+        self.lineEdit_nasdaq.returnPressed.connect(self.change_nasdaq_code)
+        self.lineEdit_hsi.returnPressed.connect(self.change_hsi_code)
+        self.lineEdit_wti.returnPressed.connect(self.change_wti_code)
+        self.lineEdit_gold.returnPressed.connect(self.change_gold_code)
+        self.lineEdit_euro.returnPressed.connect(self.change_euro_code)
+        self.lineEdit_yen.returnPressed.connect(self.change_yen_code)
+        self.lineEdit_adi.returnPressed.connect(self.change_adi_code)
 
         self.checkBox_periodic_plot.stateChanged.connect(self.checkBox_periodic_plot_state_change)
         self.checkBox_tts.stateChanged.connect(self.checkBox_tts_state_change)
@@ -21396,6 +21434,96 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
         self.checkBox_nm_opt_price_1.setText(nm_price_part_txt)
         self.checkBox_nm_opt_quote_1.setText(nm_quote_part_txt)
+
+    def change_sp500_code(self):
+
+        global SP500_CODE
+
+        dt = datetime.now()
+        SP500_CODE = self.lineEdit_sp500.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] SP500_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, SP500_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_dow_code(self):
+
+        global DOW_CODE
+
+        dt = datetime.now()
+        DOW_CODE = self.lineEdit_dow.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] DOW_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, DOW_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_nasdaq_code(self):
+
+        global NASDAQ_CODE
+
+        dt = datetime.now()
+        NASDAQ_CODE = self.lineEdit_nasdaq.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, NASDAQ_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_hsi_code(self):
+
+        global HANGSENG_CODE
+
+        dt = datetime.now()
+        HANGSENG_CODE = self.lineEdit_hsi.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, HANGSENG_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_wti_code(self):
+
+        global WTI_CODE
+
+        dt = datetime.now()
+        WTI_CODE = self.lineEdit_wti.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] WTI_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, WTI_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_gold_code(self):
+
+        global GOLD_CODE
+
+        dt = datetime.now()
+        GOLD_CODE = self.lineEdit_gold.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, GOLD_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_euro_code(self):
+
+        global EURO_CODE
+
+        dt = datetime.now()
+        EURO_CODE = self.lineEdit_euro.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] EURO_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, EURO_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_yen_code(self):
+
+        global YEN_CODE
+
+        dt = datetime.now()
+        YEN_CODE = self.lineEdit_yen.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] YEN_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, YEN_CODE)
+        self.parent.textBrowser.append(txt)
+
+    def change_adi_code(self):
+
+        global ADI_CODE
+
+        dt = datetime.now()
+        ADI_CODE = self.lineEdit_adi.text()
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] ADI_CODE를 {3}(으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, ADI_CODE)
+        self.parent.textBrowser.append(txt)
 
     def change_bb_period(self):
 
@@ -22118,7 +22246,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', DOW_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 DOW를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22129,7 +22257,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                dow_ljust = DOW.ljust(8)
+                dow_ljust = DOW_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', dow_ljust)
 
@@ -22150,7 +22278,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', SP500_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 S&P 500을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22161,7 +22289,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                sp500_ljust = SP500.ljust(8)
+                sp500_ljust = SP500_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', sp500_ljust)
 
@@ -22182,7 +22310,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', NASDAQ_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 NASDAQ을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22193,7 +22321,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                nasdaq_ljust = NASDAQ.ljust(8)
+                nasdaq_ljust = NASDAQ_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', nasdaq_ljust)
 
@@ -22214,7 +22342,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', WTI_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 WTI OIL을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22225,7 +22353,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                wti_ljust = WTI.ljust(8)
+                wti_ljust = WTI_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', wti_ljust)
 
@@ -22246,7 +22374,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', EURO)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', EURO_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 EURO을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22257,7 +22385,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                euro_ljust = EURO.ljust(8)
+                euro_ljust = EURO_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', euro_ljust)
 
@@ -22286,7 +22414,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', HANGSENG_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 HANGSENG을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22297,7 +22425,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                hsi_ljust = HANGSENG.ljust(8)
+                hsi_ljust = HANGSENG_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', hsi_ljust)
 
@@ -22318,7 +22446,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD)
+                self.parent.realtime_thread_dataworker.RequestRealData('OVC', GOLD_CODE)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 GOLD를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.textBrowser.append(txt)
@@ -22329,7 +22457,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
 
             if self.parent.dialog['선물옵션전광판'] is not None and self.parent.dialog['선물옵션전광판'].flag_score_board_open:
 
-                gold_ljust = GOLD.ljust(8)
+                gold_ljust = GOLD_CODE.ljust(8)
 
                 self.parent.realtime_thread_dataworker.CancelRealData('OVC', gold_ljust)
 
@@ -52626,7 +52754,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if 해외선물_수신_초 != 0 and flag_fut_zero_sec:
                     flag_fut_zero_sec = False
 
-            if tickdata['종목코드'] == SP500:
+            if tickdata['종목코드'] == SP500_CODE:
 
                 SP500_현재가 = float(tickdata['체결가격'])
                 
@@ -52890,7 +53018,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == DOW:
+            elif tickdata['종목코드'] == DOW_CODE:
 
                 DOW_현재가 = int(float(tickdata['체결가격']))
                 
@@ -53115,7 +53243,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == NASDAQ:
+            elif tickdata['종목코드'] == NASDAQ_CODE:
 
                 NASDAQ_현재가 = float(tickdata['체결가격'])
                 
@@ -53339,7 +53467,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
             
-            elif tickdata['종목코드'] == HANGSENG:
+            elif tickdata['종목코드'] == HANGSENG_CODE:
 
                 HANGSENG_현재가 = int(float(tickdata['체결가격']))
                 
@@ -53561,7 +53689,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass            
             
-            elif tickdata['종목코드'] == WTI:
+            elif tickdata['종목코드'] == WTI_CODE:
 
                 WTI_현재가 = float(tickdata['체결가격'])
                 
@@ -53785,7 +53913,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == GOLD:
+            elif tickdata['종목코드'] == GOLD_CODE:
 
                 GOLD_현재가 = float(tickdata['체결가격'])
                 
@@ -54007,7 +54135,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass            
             
-            elif tickdata['종목코드'] == EURO:
+            elif tickdata['종목코드'] == EURO_CODE:
 
                 EURO_현재가 = float(tickdata['체결가격'])
                 
@@ -54229,7 +54357,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == YEN:
+            elif tickdata['종목코드'] == YEN_CODE:
 
                 YEN_현재가 = float(tickdata['체결가격'])
                 
@@ -54451,7 +54579,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-            elif tickdata['종목코드'] == ADI:
+            elif tickdata['종목코드'] == ADI_CODE:
 
                 ADI_현재가 = float(tickdata['체결가격'])
                 
