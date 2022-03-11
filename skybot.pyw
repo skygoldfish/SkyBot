@@ -1834,7 +1834,7 @@ rsi_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 cci1_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 cci2_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 
-mama_pen = pg.mkPen(brown, width=2, style=QtCore.Qt.DotLine)
+mama_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
 fama_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DotLine)
 
 sslup_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
@@ -49776,6 +49776,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df_futures_nm_ta_graph['Low'].fillna(method='bfill', inplace=True)
         df_futures_nm_ta_graph['Close'].fillna(method='bfill', inplace=True)
 
+        df_futures_cm_ta_graph.at[plot_time_index, 'Close'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'Close']
+        df_futures_nm_ta_graph.at[plot_time_index, 'Close'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'Close']
+
+        df_futures_cm_ta_graph.at[plot_time_index, 'High'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'High']
+        df_futures_nm_ta_graph.at[plot_time_index, 'High'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'High']
+
+        df_futures_cm_ta_graph.at[plot_time_index, 'Low'] = df_futures_cm_ta_graph.at[plot_time_index - 1, 'Low']
+        df_futures_nm_ta_graph.at[plot_time_index, 'Low'] = df_futures_nm_ta_graph.at[plot_time_index - 1, 'Low']
+
         if flag_df_ohlc:
             del fut_cm_tick_list[:]
             del fut_nm_tick_list[:]
@@ -52388,7 +52397,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         min_value = df_input.min()
         max_value = df_input.max()
 
-        return df_input.apply(lambda x: (b - a) * (x - min_value)/ (max_value - min_value) + a, axis=0)
+        return df_input.apply(lambda x: (b - a) * (x - min_value)/ (max_value - min_value) + a)
 
     def clear_ovc_ohlc_buffer(self):
 
@@ -52444,6 +52453,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         df_adi_ta_graph['High'].fillna(method='bfill', inplace=True) 
         df_adi_ta_graph['Low'].fillna(method='bfill', inplace=True)
         df_adi_ta_graph['Close'].fillna(method='bfill', inplace=True)
+
+        df_sp500_ta_graph.at[plot_time_index, 'Close'] = df_sp500_ta_graph.at[plot_time_index - 1, 'Close']
+        df_dow_ta_graph.at[plot_time_index, 'Close'] = df_dow_ta_graph.at[plot_time_index - 1, 'Close']
+        df_nasdaq_ta_graph.at[plot_time_index, 'Close'] = df_nasdaq_ta_graph.at[plot_time_index - 1, 'Close']
+        df_hsi_ta_graph.at[plot_time_index, 'Close'] = df_hsi_ta_graph.at[plot_time_index - 1, 'Close']
+        df_wti_ta_graph.at[plot_time_index, 'Close'] = df_wti_ta_graph.at[plot_time_index - 1, 'Close']
+        df_gold_ta_graph.at[plot_time_index, 'Close'] = df_gold_ta_graph.at[plot_time_index - 1, 'Close']
+        df_euro_ta_graph.at[plot_time_index, 'Close'] = df_euro_ta_graph.at[plot_time_index - 1, 'Close']
+        df_yen_ta_graph.at[plot_time_index, 'Close'] = df_yen_ta_graph.at[plot_time_index - 1, 'Close']
+        df_adi_ta_graph.at[plot_time_index, 'Close'] = df_adi_ta_graph.at[plot_time_index - 1, 'Close']
+
+        df_sp500_ta_graph.at[plot_time_index, 'High'] = df_sp500_ta_graph.at[plot_time_index - 1, 'High']
+        df_dow_ta_graph.at[plot_time_index, 'High'] = df_dow_ta_graph.at[plot_time_index - 1, 'High']
+        df_nasdaq_ta_graph.at[plot_time_index, 'High'] = df_nasdaq_ta_graph.at[plot_time_index - 1, 'High']
+        df_hsi_ta_graph.at[plot_time_index, 'High'] = df_hsi_ta_graph.at[plot_time_index - 1, 'High']
+        df_wti_ta_graph.at[plot_time_index, 'High'] = df_wti_ta_graph.at[plot_time_index - 1, 'High']
+        df_gold_ta_graph.at[plot_time_index, 'High'] = df_gold_ta_graph.at[plot_time_index - 1, 'High']
+        df_euro_ta_graph.at[plot_time_index, 'High'] = df_euro_ta_graph.at[plot_time_index - 1, 'High']
+        df_yen_ta_graph.at[plot_time_index, 'High'] = df_yen_ta_graph.at[plot_time_index - 1, 'High']
+        df_adi_ta_graph.at[plot_time_index, 'High'] = df_adi_ta_graph.at[plot_time_index - 1, 'High']
+
+        df_sp500_ta_graph.at[plot_time_index, 'Low'] = df_sp500_ta_graph.at[plot_time_index - 1, 'Low']
+        df_dow_ta_graph.at[plot_time_index, 'Low'] = df_dow_ta_graph.at[plot_time_index - 1, 'Low']
+        df_nasdaq_ta_graph.at[plot_time_index, 'Low'] = df_nasdaq_ta_graph.at[plot_time_index - 1, 'Low']
+        df_hsi_ta_graph.at[plot_time_index, 'Low'] = df_hsi_ta_graph.at[plot_time_index - 1, 'Low']
+        df_wti_ta_graph.at[plot_time_index, 'Low'] = df_wti_ta_graph.at[plot_time_index - 1, 'Low']
+        df_gold_ta_graph.at[plot_time_index, 'Low'] = df_gold_ta_graph.at[plot_time_index - 1, 'Low']
+        df_euro_ta_graph.at[plot_time_index, 'Low'] = df_euro_ta_graph.at[plot_time_index - 1, 'Low']
+        df_yen_ta_graph.at[plot_time_index, 'Low'] = df_yen_ta_graph.at[plot_time_index - 1, 'Low']
+        df_adi_ta_graph.at[plot_time_index, 'Low'] = df_adi_ta_graph.at[plot_time_index - 1, 'Low']
+
+        print('\r')
+        print('*************************************************************************')                
+        print('수신시간 = {0}, ADI Close = {1}\r'.format(plot_time_index, df_adi_ta_graph.at[plot_time_index, 'Close']))
+        print('*************************************************************************')
+        print('\r')
         
         if flag_df_ohlc:
             del sp500_tick_list[:]
