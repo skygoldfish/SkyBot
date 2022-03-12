@@ -54,6 +54,7 @@ from talib import MA_Type
 #from tapy import Indicators
 import functools
 import shutil
+import requests
 
 #import pyttsx3
 #from gtts import gTTS
@@ -2376,6 +2377,8 @@ gold_tick_list = []
 euro_tick_list = []
 yen_tick_list = []
 adi_tick_list = []
+
+PUBLIC_IP = ''
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -47711,8 +47714,13 @@ class Xing(object):
     def main_login(self, url, id, pwd, cert):
 
         System_Time = datetime.now().strftime('%H:%M:%S')
-
+        
         txt = '[{0}] Welcome to SkyBot.\r'.format(System_Time)
+        self.caller.textBrowser.append(txt)
+        
+        PUBLIC_IP = requests.get("https://api.ipify.org").text
+
+        txt = 'Public IP 주소 : {0}\r'.format(PUBLIC_IP)
         self.caller.textBrowser.append(txt)
 
         if TARGET_MONTH == 'NM':
@@ -56452,7 +56460,7 @@ if __name__ == "__main__":
         Speak(txt)
         sys.exit(0)
     else:
-        flag_internet = True        
+        flag_internet = True
 
     # 멀티프로세스
     if MULTIPROCESS and flag_internet:
