@@ -2408,26 +2408,52 @@ print('\r')
 #####################################################################################################################################################################
 # 전역함수 --> 클래스로 처리?
 #####################################################################################################################################################################
+
 '''
-def sqliteconn():
-    conn = sqlite3.connect(DATABASE)
-    return conn
+test = [True, False, False, True, True, False, True, True, False, False, False, True]
+
+class PhaseTransitionDetector:
+    """Detects Phase transitions on an external signal."""
+
+    def __init__(self, reader, action_true, action_false):
+        self.reader = reader
+        self.action_true = action_true
+        self.action_false = action_false
+        self.last_value = reader()    # initialize value
+
+    def test(self):
+        new_value = self.reader()
+
+        if new_value is not None and new_value is not self.last_value:
+            if new_value:
+                self.action_true()
+            else:
+                self.action_false()
+
+        self.last_value = new_value
+
+# simple self-test
+if __name__ == '__main__':
+    
+    vlist = test
+    vgen = (v for v in vlist)              # generator for value sequence
+
+    def test_reader():                     # generate test sequence
+        value = next(vgen)
+        print("Read:", value)
+        return value
+
+    def printer_true():
+        print("Phase transition from false to true")
+
+    def printer_false():
+        print("Phase transition from true to false")
+
+    test_subject = PhaseTransitionDetector(test_reader, printer_true, printer_false)
+    
+    for i in range(len(vlist)-1):
+        test_subject.test()
 '''
-
-def check_value_transit(val):
-
-    global _prev_value
-
-    change = None
-
-    if val and not _prev_value:
-        change = 'up'
-    elif _prev_value and not val:
-        change = 'down'
-        
-    _prev_value = val
-
-    return change
 
 def calc_pivot(jl, jh, jc, do, float_index):
     if jl > 0 and jh > 0 and jc > 0 and do > 0:
