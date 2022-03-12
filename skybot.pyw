@@ -5910,6 +5910,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
+                self.textBrowser.append(txt)
                 print(txt)
 
                 if TARGET_MONTH == 'CM' and not flag_broken_capture:
@@ -5931,10 +5932,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     ToYourTelegram('증권사 연결이 끊겼습니다...')
 
                     # 모든 쓰레드를 중지시킨다.
-                    self.KillScoreBoardAllThread()                        
+                    #self.KillScoreBoardAllThread()                        
 
-                    QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
-                    self.parent.close()
+                    #QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
+                    #self.parent.close()
                 else:
                     pass                               
 
