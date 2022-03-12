@@ -1360,7 +1360,7 @@ option_volume_power = 0
 
 # 모든 시간은 해외선물 기준으로 처리
 plot_time_index = 0
-old_plot_time_index = 0
+prev_plot_time_index = 0
 
 server_x_idx = 0
 
@@ -1542,7 +1542,7 @@ put_cell_widget = []
 atm_txt = ''
 atm_val = 0
 ATM_INDEX = 0
-old_atm_index = 0
+prev_atm_index = 0
 jgubun = ''
 
 start_time = 0
@@ -1844,7 +1844,7 @@ conv_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 base_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
-lagging_span_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
+lagging_span_pen = pg.mkPen(purple, width=2, style=QtCore.Qt.DotLine)
 
 # Sky Chart Plot1
 plot1_x = 0
@@ -2413,6 +2413,21 @@ def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
 '''
+
+def check_value_transit(val):
+
+    global _prev_value
+
+    change = None
+
+    if val and not _prev_value:
+        change = 'up'
+    elif _prev_value and not val:
+        change = 'down'
+        
+    _prev_value = val
+
+    return change
 
 def calc_pivot(jl, jh, jc, do, float_index):
     if jl > 0 and jh > 0 and jc > 0 and do > 0:
@@ -5859,76 +5874,71 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_screen_update_is_running = True
 
             self.alternate_flag = not self.alternate_flag
-            
-            # 온라인 여부확인
-            online_state = self.parent.xing.main_connection.IsConnected()
-            
+                        
             ipaddress = socket.gethostbyname(socket.gethostname())
 
-            if not online_state:
+            if ipaddress == '127.0.0.1':
 
-                if ipaddress == '127.0.0.1':
-                    # 인터넷 연결확인
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.parent.statusbar.showMessage(txt)
+                # 인터넷 연결확인
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.statusbar.showMessage(txt)
+                self.textBrowser.append(txt)
+                print(txt)
 
-                    if not flag_broken_capture:                
+                if TARGET_MONTH == 'CM' and not flag_internet_connection_broken:
+                    self.capture_screenshot()
 
-                        self.textBrowser.append(txt)
-                        print(txt)
+                    file = open('inernet_error.log', 'w', encoding='UTF-8')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
 
-                        self.parent.statusbar.showMessage(txt)
-
-                        if TARGET_MONTH == 'CM':
-                            self.capture_screenshot()
-                        else:
-                            pass              
-
-                        file = open('inernet_error.log', 'w', encoding='UTF-8')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
-
-                        flag_broken_capture = True
-
-                        QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
-                        return  
-                    else:
-                        pass
-                
+                    flag_broken_capture = True
                     flag_internet_connection_broken = True
+
+                    #QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
                 else:
-                    # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    pass
+
+                return
+
+            # 온라인 여부확인
+            online_state = self.parent.xing.main_connection.IsConnected()
+
+            if not online_state:
+                
+                # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                self.parent.statusbar.showMessage(txt)
+                print(txt)
+
+                if TARGET_MONTH == 'CM' and not flag_broken_capture:
+
+                    self.textBrowser.append(txt)
+                    print(txt)
+
                     self.parent.statusbar.showMessage(txt)
 
-                    if TARGET_MONTH == 'CM' and not flag_broken_capture:
+                    self.capture_screenshot()              
 
-                        self.textBrowser.append(txt)
-                        print(txt)
+                    file = open('sc_error.log', 'w', encoding='UTF-8')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
 
-                        self.parent.statusbar.showMessage(txt)
+                    flag_broken_capture = True
 
-                        self.capture_screenshot()              
+                    ToYourTelegram('증권사 연결이 끊겼습니다...')
 
-                        file = open('sc_error.log', 'w', encoding='UTF-8')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
+                    # 모든 쓰레드를 중지시킨다.
+                    self.KillScoreBoardAllThread()                        
 
-                        flag_broken_capture = True
+                    QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
+                    self.parent.close()
+                else:
+                    pass                               
 
-                        ToYourTelegram('증권사 연결이 끊겼습니다...')
-
-                        # 모든 쓰레드를 중지시킨다.
-                        self.KillScoreBoardAllThread()                        
-
-                        QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
-                        self.parent.close()
-                    else:
-                        pass                               
-
-                    flag_service_provider_broken = True              
+                flag_service_provider_broken = True              
             else:
                 flag_internet_connection_broken = False
                 flag_service_provider_broken = False
@@ -6995,7 +7005,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def display_atm(self, blink):
 
         global basis
-        global atm_txt, ATM_INDEX, old_atm_index, call_atm_value, put_atm_value 
+        global atm_txt, ATM_INDEX, prev_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
         global selected_call, selected_put, flag_calltable_checkstate_changed, flag_puttable_checkstate_changed
         
@@ -7004,24 +7014,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
         
         # 등가 check & coloring        
-        old_atm_index = ATM_INDEX
-        old_atm_txt = atm_txt
+        prev_atm_index = ATM_INDEX
+        prev_atm_txt = atm_txt
 
         atm_txt = self.get_atm_txt(self.fut_realdata['KP200'])
         ATM_INDEX = opt_actval.index(atm_txt)
         
-        if ATM_INDEX != old_atm_index:
+        if ATM_INDEX != prev_atm_index:
 
-            self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
-            self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_call.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
+            self.tableWidget_call.item(prev_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
+            self.tableWidget_call.item(prev_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.cellWidget(prev_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
             self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_call.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
             self.tableWidget_call.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
 
-            self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
-            self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-            self.tableWidget_put.cellWidget(old_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
+            self.tableWidget_put.item(prev_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
+            self.tableWidget_put.item(prev_atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.cellWidget(prev_atm_index, 0).findChild(type(QCheckBox())).setChecked(Qt.Unchecked)
             self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.item(ATM_INDEX, Option_column.행사가.value).setForeground(QBrush(검정색))
             self.tableWidget_put.cellWidget(ATM_INDEX, 0).findChild(type(QCheckBox())).setChecked(Qt.Checked)
@@ -7032,7 +7042,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_calltable_checkstate_changed = True
             flag_puttable_checkstate_changed = True
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가변경됨 : {3} -> {4}\r'.format(dt.hour, dt.minute, dt.second, old_atm_txt, atm_txt)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 등가변경됨 : {3} -> {4}\r'.format(dt.hour, dt.minute, dt.second, prev_atm_txt, atm_txt)
             self.textBrowser.append(txt)
 
             if flag_tts:
@@ -11525,7 +11535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def fut_cm_update(self, tickdata):        
 
         global df_fut
-        global atm_txt, atm_val, ATM_INDEX, old_atm_index        
+        global atm_txt, atm_val, ATM_INDEX, prev_atm_index        
         global 근월물_선물_시가, 근월물_선물_현재가, 근월물_선물_저가, 근월물_선물_고가, 근월물_선물_피봇
         global fut_cm_volume_power
         global flag_first_arrive, fut_first_arrive_time
@@ -15063,7 +15073,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global GMSHCODE, CMSHCODE, CCMSHCODE, fut_code
         global opt_actval
-        global ATM_INDEX, old_atm_index
+        global ATM_INDEX, prev_atm_index
         global df_call_information_graph, df_put_information_graph
         global df_call_graph, df_put_graph
         global atm_txt, atm_val
@@ -17199,7 +17209,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 atm_txt = self.get_atm_txt(kp200_현재가)
 
             ATM_INDEX = opt_actval.index(atm_txt)
-            old_atm_index = ATM_INDEX
+            prev_atm_index = ATM_INDEX
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] 등가지수는 {3}({4})입니다.\r'.format(dt.hour, dt.minute, dt.second, atm_txt, ATM_INDEX)
             self.parent.textBrowser.append(txt)
@@ -49820,7 +49830,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일예상시가
 
                 #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일예상시가
-                df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일예상시가
+
+                if KP200_당일예상시가 < KP200_COREVAL[3]:
+                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_COREVAL[3]
+                elif KP200_당일예상시가 > KP200_COREVAL[6]:
+                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_COREVAL[6]
+                else:
+                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일예상시가
 
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
@@ -49945,7 +49961,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 차월물_선물_시가, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, df_futures_nm_graph, flag_futures_nm_ohlc_open
         global 근월물_선물_저가, 근월물_선물_고가, 근월물_선물_피봇
         global 차월물_선물_저가, 차월물_선물_고가, 차월물_선물_피봇
-        global old_plot_time_index, plot_time_index
+        global prev_plot_time_index, plot_time_index
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
         global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_nm_fut_tick, df_nm_fut_tick_ohlc
         global flag_fut_zero_sec
@@ -49954,7 +49970,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             dt = datetime.now()
 
-            old_plot_time_index = plot_time_index
+            prev_plot_time_index = plot_time_index
 
             if len(tickdata['수신시간']) == 5:
                 plot_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
@@ -51283,7 +51299,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_futures_nm_graph, 차월물_선물_현재가, 차월물_선물_현재가_버퍼, flag_futures_nm_ohlc_open
         global flag_cm_drate_scale_factor_set, flag_nm_drate_scale_factor_set
         global 차월물_선물_종가대비_등락율, 차월물_선물_시가대비_등락율, 차월물_선물_시가등락율
-        global old_plot_time_index, plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
+        global prev_plot_time_index, plot_time_index, fut_plot_sec, SP500_FUT_시가_등락율비
         global df_futures_cm_ta_graph, df_futures_nm_ta_graph
         global df_cm_fut_tick, df_cm_fut_tick_ohlc, df_nm_fut_tick, df_nm_fut_tick_ohlc
         global flag_fut_zero_sec
@@ -51298,7 +51314,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            old_plot_time_index = plot_time_index
+            prev_plot_time_index = plot_time_index
 
             if len(tickdata['수신시간']) == 5:
                 plot_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
@@ -51313,7 +51329,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                plot_time_index = old_plot_time_index
+                plot_time_index = prev_plot_time_index
             else:
                 pass
             
@@ -51965,7 +51981,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 콜_현재가, 풋_현재가
         global flag_cm_drate_scale_factor_set
         global flag_nm_oloh_direction_call_set, flag_nm_oloh_direction_put_set
-        global old_plot_time_index, plot_time_index
+        global prev_plot_time_index, plot_time_index
 
         try:
             dt = datetime.now()
@@ -52011,7 +52027,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            old_plot_time_index = plot_time_index
+            prev_plot_time_index = plot_time_index
 
             if DayTime:
                 if len(tickdata['수신시간']) == 5:
@@ -52039,7 +52055,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                plot_time_index = old_plot_time_index
+                plot_time_index = prev_plot_time_index
             else:
                 pass
 
@@ -52303,7 +52319,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 옵션_잔량비차
         global 콜_잔량비_최소, 콜_잔량비_최대, 풋_잔량비_최소, 풋_잔량비_최대
         global 옵션_잔량비_최소, 옵션_잔량비_최대
-        global old_plot_time_index, plot_time_index
+        global prev_plot_time_index, plot_time_index
         global call_quote, put_quote
 
         try:
@@ -52314,7 +52330,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            old_plot_time_index = plot_time_index
+            prev_plot_time_index = plot_time_index
 
             if DayTime:
                 if len(tickdata['수신시간']) == 5:
@@ -52343,7 +52359,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                plot_time_index = old_plot_time_index
+                plot_time_index = prev_plot_time_index
             else:
                 pass
 
@@ -52659,7 +52675,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def ovc_update(self, tickdata):
 
         global 해외선물_수신시간, 해외선물_수신_시, 해외선물_수신_분, 해외선물_수신_초, t0167_hour, t0167_minute, t0167_second
-        global old_plot_time_index, plot_time_index
+        global prev_plot_time_index, plot_time_index
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
         global df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph        
 
@@ -52708,7 +52724,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             t0167_second = 해외선물_수신_초
 
             # 과거값 저장
-            old_plot_time_index = plot_time_index                       
+            prev_plot_time_index = plot_time_index                       
 
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
@@ -52734,7 +52750,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
                 self.textBrowser.append(txt)
 
-                plot_time_index = old_plot_time_index
+                plot_time_index = prev_plot_time_index
             else:
                 pass                
             
@@ -56387,7 +56403,9 @@ if __name__ == "__main__":
 
     if ipaddress == '127.0.0.1':
         flag_internet = False
-        Speak('인터넷 연결을 확인해주세요.')
+        txt = '인터넷 연결을 확인해주세요.'
+        print(txt)
+        Speak(txt)
         sys.exit(0)
     else:
         flag_internet = True    
