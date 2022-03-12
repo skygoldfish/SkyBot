@@ -5928,6 +5928,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     file.close()
 
                     flag_broken_capture = True
+                    flag_service_provider_broken = True 
 
                     ToYourTelegram('증권사 연결이 끊겼습니다...')
 
@@ -5939,7 +5940,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                               
 
-                flag_service_provider_broken = True              
+                return
             else:
                 flag_internet_connection_broken = False
                 flag_service_provider_broken = False
