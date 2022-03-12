@@ -150,7 +150,7 @@ FOREIGNER = "0017"
 INSTITUTIONAL = "0018"
 NONAME = "9999"
 
-flag_internet_connection_broken = False
+flag_internet_connection_broken_lst = []
 flag_service_provider_broken = False
 flag_broken_capture = False
 
@@ -4163,6 +4163,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500_CODE, DOW_CODE, NASDAQ_CODE, fut_code
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
+        global flag_internet_connection_broken_lst
         
         # 이벤트루프 & 쓰레드 정의, 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_call_event_loop = QEventLoop()
@@ -4513,6 +4514,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QApplication.processEvents()
             else:
                 pass
+
+        flag_internet_connection_broken_lst.append(False)
 
         txt = ' 선물옵션 전광판 초기화완료\r'
         self.parent.statusbar.showMessage(txt)
@@ -5874,7 +5877,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #@pyqtSlot(int, int, int, int)
     def update_screen(self):
 
-        global flag_internet_connection_broken, flag_service_provider_broken
+        global flag_internet_connection_broken_lst, flag_service_provider_broken
         global flag_screen_update_is_running
 
         global flag_kp200_low, flag_kp200_high
@@ -5903,15 +5906,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
             ipaddress = socket.gethostbyname(socket.gethostname())
 
+            # 인터넷 연결확인
             if ipaddress == '127.0.0.1':
 
-                # 인터넷 연결확인
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                self.parent.statusbar.showMessage(txt)
-                self.textBrowser.append(txt)
-                print(txt)
+                if TARGET_MONTH == 'CM' and not flag_internet_connection_broken_lst[-1]:
 
-                if TARGET_MONTH == 'CM' and not flag_internet_connection_broken:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    
                     self.capture_screenshot()
 
                     file = open('inernet_error.log', 'w', encoding='UTF-8')
@@ -5919,14 +5920,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     file.write(text)
                     file.close()
 
+                    self.parent.statusbar.showMessage(txt)
+                    self.parent.textBrowser.append(txt)
+                    self.textBrowser.append(txt)
+                    print(txt)
+
                     flag_broken_capture = True
-                    flag_internet_connection_broken = True
+                    flag_internet_connection_broken_lst.append(True)
 
                     #QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
                 else:
                     pass
 
                 return
+            else:
+                flag_internet_connection_broken_lst.append(False)
+
+                if flag_internet_connection_broken_lst[-1] != flag_internet_connection_broken_lst[-2]:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 복구되었습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.statusbar.showMessage(txt)
+                    self.parent.textBrowser.append(txt)
+                    self.textBrowser.append(txt)
+                    print(txt)
+
+                    ToYourTelegram(txt)
 
             # 온라인 여부확인
             online_state = self.parent.xing.main_connection.IsConnected()
@@ -5968,11 +5985,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 return
             else:
-                flag_internet_connection_broken = False
                 flag_service_provider_broken = False
                         
             # 옵션 행사가가 200개 이상일 경우 대응
-            if flag_t8416_rerequest and not flag_internet_connection_broken and self.alternate_flag:
+            if flag_t8416_rerequest and not flag_internet_connection_broken_lst[-1] and self.alternate_flag:
 
                 system_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -5992,7 +6008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
                         
             # 실시간 서비스
-            if (not flag_internet_connection_broken and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
+            if (not flag_internet_connection_broken_lst[-1] and not flag_service_provider_broken) and FLAG_GUEST_CONTROL:
                 
                 self.display_atm(self.alternate_flag)
                 
@@ -6244,7 +6260,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
-            if (not flag_internet_connection_broken and not flag_service_provider_broken):
+            if (not flag_internet_connection_broken_lst[-1] and not flag_service_provider_broken):
                 
                 if NightTime:                    
 
@@ -56436,7 +56452,7 @@ if __name__ == "__main__":
         Speak(txt)
         sys.exit(0)
     else:
-        flag_internet = True    
+        flag_internet = True        
 
     # 멀티프로세스
     if MULTIPROCESS and flag_internet:
