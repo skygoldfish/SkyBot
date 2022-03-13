@@ -597,15 +597,23 @@ bms_node_frequency_list = []
 flag_call_open_in_fixed_coreval = False
 flag_put_open_in_fixed_coreval = False
 
-flag_call_low_in_fixed_coreval = False
-flag_call_high_in_fixed_coreval = False
-flag_put_low_in_fixed_coreval = False
-flag_put_high_in_fixed_coreval = False
+flag_call_open_in_fixed_coreval_list = []
+flag_put_open_in_fixed_coreval_list = []
 
-call_low_val_in_fixed_coreval = []
-call_high_val_in_fixed_coreval = []
-put_low_val_in_fixed_coreval = []
-put_high_val_in_fixed_coreval = []
+#flag_call_low_in_fixed_coreval_list = False
+#flag_call_high_in_fixed_coreval_list = False
+#flag_put_low_in_fixed_coreval_list = False
+#flag_put_high_in_fixed_coreval_list = False
+
+flag_call_low_in_fixed_coreval_list = []
+flag_call_high_in_fixed_coreval_list = []
+flag_put_low_in_fixed_coreval_list = []
+flag_put_high_in_fixed_coreval_list = []
+
+#call_low_val_in_fixed_coreval = []
+#call_high_val_in_fixed_coreval = []
+#put_low_val_in_fixed_coreval = []
+#put_high_val_in_fixed_coreval = []
 
 if os.path.exists('HL-List.txt'):
 
@@ -1555,17 +1563,26 @@ CM_행사가 = []
 NM_행사가 = []
 
 call_행사가 = []
-call_기준가 = []
-call_월저 = []
-call_월고 = []
-call_전저 = []
-call_전고 = []
-call_종가 = []
-call_피봇 = []
-call_시가 = []
-call_저가 = []
-call_고가 = []
+call_기준가리스트 = []
+call_월저리스트 = []
+call_월고리스트 = []
+call_전저리스트 = []
+call_전고리스트 = []
+call_종가리스트 = []
+call_피봇리스트 = []
+call_시가리스트 = []
+call_저가리스트 = []
+call_고가리스트 = []
 call_진폭 = []
+
+콜시가_COREVAL_교집합 = []
+콜시가_FIXED_COREVAL_교집합 = []
+콜저가_COREVAL_교집합 = []
+콜저가_진성맥점_교집합 = []
+콜저가_FIXED_COREVAL_교집합 = []
+콜고가_COREVAL_교집합 = []
+콜고가_진성맥점_교집합 = []
+콜고가_FIXED_COREVAL_교집합 = []
 
 콜_순미결합 = 0
 콜_수정미결합 = 0
@@ -1584,17 +1601,26 @@ call_저가_node_list = []
 call_고가_node_list = []
 
 put_행사가 = []
-put_기준가 = []
-put_월저 = []
-put_월고 = []
-put_전저 = []
-put_전고 = []
-put_종가 = []
-put_피봇 = []
-put_시가 = []
-put_저가 = []
-put_고가 = []
+put_기준가리스트 = []
+put_월저리스트 = []
+put_월고리스트 = []
+put_전저리스트 = []
+put_전고리스트 = []
+put_종가리스트 = []
+put_피봇리스트 = []
+put_시가리스트 = []
+put_저가리스트 = []
+put_고가리스트 = []
 put_진폭 = []
+
+풋시가_COREVAL_교집합 = []
+풋시가_FIXED_COREVAL_교집합 = []
+풋저가_COREVAL_교집합 = []
+풋저가_진성맥점_교집합 = []
+풋저가_FIXED_COREVAL_교집합 = []
+풋고가_COREVAL_교집합 = []
+풋고가_진성맥점_교집합 = []
+풋고가_FIXED_COREVAL_교집합 = []
 
 풋_순미결합 = 0
 풋_순미결퍼센트 = 0
@@ -1611,6 +1637,183 @@ put_피봇_node_list = []
 put_시가_node_list = []
 put_저가_node_list = []
 put_고가_node_list = []
+
+콜저가_풋시가_노드_교집합 = []
+콜고가_풋시가_노드_교집합 = []
+
+콜저가_풋기준가_노드_교집합 = []
+콜고가_풋기준가_노드_교집합 = []
+
+콜저가_풋월저_노드_교집합 = []
+콜고가_풋월저_노드_교집합 = []
+
+콜저가_풋월고_노드_교집합 = []
+콜고가_풋월고_노드_교집합 = []
+
+콜저가_풋전저_노드_교집합 = []
+콜고가_풋전저_노드_교집합 = []
+
+콜저가_풋전고_노드_교집합 = []
+콜고가_풋전고_노드_교집합 = []
+
+콜저가_풋종가_노드_교집합 = []
+콜고가_풋종가_노드_교집합 = []
+
+콜저가_풋피봇_노드_교집합 = []
+콜고가_풋피봇_노드_교집합 = []
+
+콜저가_콜시가_노드_교집합 = []
+콜고가_콜시가_노드_교집합 = []
+
+콜저가_콜기준가_노드_교집합 = []
+콜고가_콜기준가_노드_교집합 = []
+
+콜저가_콜월저_노드_교집합 = []
+콜고가_콜월저_노드_교집합 = []
+
+콜저가_콜월고_노드_교집합 = []
+콜고가_콜월고_노드_교집합 = []
+
+콜저가_콜전저_노드_교집합 = []
+콜고가_콜전저_노드_교집합 = []
+
+콜저가_콜전고_노드_교집합 = []
+콜고가_콜전고_노드_교집합 = []
+
+콜저가_콜종가_노드_교집합 = []
+콜고가_콜종가_노드_교집합 = []
+
+콜저가_콜피봇_노드_교집합 = []
+콜고가_콜피봇_노드_교집합 = []
+
+콜기준가_풋저가_노드_교집합 = []
+콜기준가_풋고가_노드_교집합 = []
+콜기준가_콜저가_노드_교집합 = []
+콜기준가_콜고가_노드_교집합 = []
+
+콜월저_풋저가_노드_교집합 = []
+콜월저_풋고가_노드_교집합 = []
+콜월저_콜저가_노드_교집합 = []
+콜월저_콜고가_노드_교집합 = []
+
+콜월고_풋저가_노드_교집합 = []
+콜월고_풋고가_노드_교집합 = []
+콜월고_콜저가_노드_교집합 = []
+콜월고_콜고가_노드_교집합 = []
+
+콜전저_풋저가_노드_교집합 = []
+콜전저_풋고가_노드_교집합 = []
+콜전저_콜저가_노드_교집합 = []
+콜전저_콜고가_노드_교집합 = []
+
+콜전고_풋저가_노드_교집합 = []
+콜전고_풋고가_노드_교집합 = []
+콜전고_콜저가_노드_교집합 = []
+콜전고_콜고가_노드_교집합 = []
+
+콜종가_풋저가_노드_교집합 = []
+콜종가_풋고가_노드_교집합 = []
+콜종가_콜저가_노드_교집합 = []
+콜종가_콜고가_노드_교집합 = []
+
+콜피봇_풋저가_노드_교집합 = []
+콜피봇_풋고가_노드_교집합 = []
+콜피봇_콜저가_노드_교집합 = []
+콜피봇_콜고가_노드_교집합 = []
+
+콜시가_풋저가_노드_교집합 = []
+콜시가_풋고가_노드_교집합 = []
+콜시가_콜저가_노드_교집합 = []
+콜시가_콜고가_노드_교집합 = []
+
+
+풋저가_콜시가_노드_교집합 = []
+풋고가_콜시가_노드_교집합 = []
+
+풋저가_콜기준가_노드_교집합 = []
+풋고가_콜기준가_노드_교집합 = []
+
+풋저가_콜월저_노드_교집합 = []
+풋고가_콜월저_노드_교집합 = []
+
+풋저가_콜월고_노드_교집합 = []
+풋고가_콜월고_노드_교집합 = []
+
+풋저가_콜전저_노드_교집합 = []
+풋고가_콜전저_노드_교집합 = []
+
+풋저가_콜전고_노드_교집합 = []
+풋고가_콜전고_노드_교집합 = []
+
+풋저가_콜종가_노드_교집합 = []
+풋고가_콜종가_노드_교집합 = []
+
+풋저가_콜피봇_노드_교집합 = []
+풋고가_콜피봇_노드_교집합 = []
+
+풋저가_풋시가_노드_교집합 = []
+풋고가_풋시가_노드_교집합 = []
+
+풋저가_풋기준가_노드_교집합 = []
+풋고가_풋기준가_노드_교집합 = []
+
+풋저가_풋월저_노드_교집합 = []
+풋고가_풋월저_노드_교집합 = []
+
+풋저가_풋월고_노드_교집합 = []
+풋고가_풋월고_노드_교집합 = []
+
+풋저가_풋전저_노드_교집합 = []
+풋고가_풋전저_노드_교집합 = []
+
+풋저가_풋전고_노드_교집합 = []
+풋고가_풋전고_노드_교집합 = []
+
+풋저가_풋종가_노드_교집합 = []
+풋고가_풋종가_노드_교집합 = []
+
+풋저가_풋피봇_노드_교집합 = []
+풋고가_풋피봇_노드_교집합 = []
+
+풋기준가_콜저가_노드_교집합 = []
+풋기준가_콜고가_노드_교집합 = []
+풋기준가_풋저가_노드_교집합 = []
+풋기준가_풋고가_노드_교집합 = []
+
+풋월저_콜저가_노드_교집합 = []
+풋월저_콜고가_노드_교집합 = []
+풋월저_풋저가_노드_교집합 = []
+풋월저_풋고가_노드_교집합 = []
+
+풋월고_콜저가_노드_교집합 = []
+풋월고_콜고가_노드_교집합 = []
+풋월고_풋저가_노드_교집합 = []
+풋월고_풋고가_노드_교집합 = []
+
+풋전저_콜저가_노드_교집합 = []
+풋전저_콜고가_노드_교집합 = []
+풋전저_풋저가_노드_교집합 = []
+풋전저_풋고가_노드_교집합 = []
+
+풋전고_콜저가_노드_교집합 = []
+풋전고_콜고가_노드_교집합 = []
+풋전고_풋저가_노드_교집합 = []
+풋전고_풋고가_노드_교집합 = []
+
+풋종가_콜저가_노드_교집합 = []
+풋종가_콜고가_노드_교집합 = []
+풋종가_풋저가_노드_교집합 = []
+풋종가_풋고가_노드_교집합 = []
+
+풋피봇_콜저가_노드_교집합 = []
+풋피봇_콜고가_노드_교집합 = []
+풋피봇_풋저가_노드_교집합 = []
+풋피봇_풋고가_노드_교집합 = []
+
+풋시가_콜저가_노드_교집합 = []
+풋시가_콜고가_노드_교집합 = []
+풋시가_풋저가_노드_교집합 = []
+풋시가_풋고가_노드_교집합 = []
 
 call_scroll_begin_position = 0
 call_scroll_end_position = 0
@@ -2377,8 +2580,6 @@ gold_tick_list = []
 euro_tick_list = []
 yen_tick_list = []
 adi_tick_list = []
-
-PUBLIC_IP = ''
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -4167,6 +4368,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
         global flag_internet_connection_broken_lst
+        global flag_call_low_in_fixed_coreval_list, flag_call_high_in_fixed_coreval_list, flag_put_low_in_fixed_coreval_list, flag_put_high_in_fixed_coreval_list
+        global flag_call_open_in_fixed_coreval_list, flag_put_open_in_fixed_coreval_list
         
         # 이벤트루프 & 쓰레드 정의, 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_call_event_loop = QEventLoop()
@@ -4519,6 +4722,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
         flag_internet_connection_broken_lst.append(False)
+
+        flag_call_open_in_fixed_coreval_list.append(False)
+        flag_put_open_in_fixed_coreval_list.append(False)
+
+        flag_call_low_in_fixed_coreval_list.append(False)
+        flag_call_high_in_fixed_coreval_list.append(False)
+        flag_put_low_in_fixed_coreval_list.append(False)
+        flag_put_high_in_fixed_coreval_list.append(False)
 
         txt = ' 선물옵션 전광판 초기화완료\r'
         self.parent.statusbar.showMessage(txt)
@@ -6158,7 +6369,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.call_open_check()   
                             self.call_cross_color_update()        
                             self.call_node_color_update()
-                            self.call_coreval_color_update()
+                            #self.call_coreval_color_update()
+                            self.call_low_coreval_color_update()
+                            self.call_high_coreval_color_update()
 
                         elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
@@ -6184,7 +6397,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_open_check()
                             self.put_cross_color_update()         
                             self.put_node_color_update()
-                            self.put_coreval_color_update()
+                            #self.put_coreval_color_update()
+                            self.put_low_coreval_color_update()
+                            self.put_high_coreval_color_update()
 
                         else:
                             pass
@@ -6202,38 +6417,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if True:
                     
                         # 진성 의미가인 경우 blinking(매우 중요 !!!)
-                        if flag_call_open_in_fixed_coreval:
+                        if 콜시가_FIXED_COREVAL_교집합:
                             self.call_open_coreval_color_blink(not self.alternate_flag)
                         else:
                             pass
 
-                        if flag_put_open_in_fixed_coreval:
+                        if 풋시가_FIXED_COREVAL_교집합:
                             self.put_open_coreval_color_blink(not self.alternate_flag)
                         else:
                             pass
 
-                        if flag_call_low_coreval:
+                        if 콜저가_진성맥점_교집합:
                             self.call_low_coreval_color_blink(self.alternate_flag)
                         else:                        
                             call_low_coreval_txt = ''
                             call_low_node_list = []
                             call_low_node_txt = ''
 
-                        if flag_call_high_coreval:
+                        if 콜고가_진성맥점_교집합:
                             self.call_high_coreval_color_blink(self.alternate_flag)
                         else:
                             call_high_coreval_txt = ''
                             call_high_node_list = []
                             call_high_node_txt = ''
 
-                        if flag_put_low_coreval:
+                        if 풋저가_진성맥점_교집합:
                             self.put_low_coreval_color_blink(self.alternate_flag)
                         else:
                             put_low_coreval_txt = ''
                             put_low_node_list = []
                             put_low_node_txt = ''
 
-                        if flag_put_high_coreval:
+                        if 풋고가_진성맥점_교집합:
                             self.put_high_coreval_color_blink(self.alternate_flag)                        
                         else:
                             put_high_coreval_txt = '' 
@@ -6581,7 +6796,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def opt_high_low_list_update(self):
 
-        global call_저가, call_고가, put_저가, put_고가 
+        global call_저가리스트, call_고가리스트, put_저가리스트, put_고가리스트 
         global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
 
         dt = datetime.now()
@@ -6593,30 +6808,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         high_low_list = []
         moving_list = []
         
-        call_저가 = df_call['저가'].values.tolist()
-        call_고가 = df_call['고가'].values.tolist()
-        put_저가 = df_put['저가'].values.tolist()
-        put_고가 = df_put['고가'].values.tolist()
+        call_저가리스트 = df_call['저가'].values.tolist()
+        call_고가리스트 = df_call['고가'].values.tolist()
+        put_저가리스트 = df_put['저가'].values.tolist()
+        put_고가리스트 = df_put['고가'].values.tolist()
         
-        call_저가.sort()
-        index1 = bisect(call_저가, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(call_저가, SEARCH_MOVING_NODE_END_VALUE)
-        call_low_list = call_저가[index1:index2]
+        call_저가리스트.sort()
+        index1 = bisect(call_저가리스트, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(call_저가리스트, SEARCH_MOVING_NODE_END_VALUE)
+        call_low_list = call_저가리스트[index1:index2]
 
-        call_고가.sort()
-        index1 = bisect(call_고가, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(call_고가, SEARCH_MOVING_NODE_END_VALUE)
-        call_high_list = call_고가[index1:index2]
+        call_고가리스트.sort()
+        index1 = bisect(call_고가리스트, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(call_고가리스트, SEARCH_MOVING_NODE_END_VALUE)
+        call_high_list = call_고가리스트[index1:index2]
 
-        put_저가.sort()
-        index1 = bisect(put_저가, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(put_저가, SEARCH_MOVING_NODE_END_VALUE)
-        put_low_list = put_저가[index1:index2]
+        put_저가리스트.sort()
+        index1 = bisect(put_저가리스트, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(put_저가리스트, SEARCH_MOVING_NODE_END_VALUE)
+        put_low_list = put_저가리스트[index1:index2]
 
-        put_고가.sort()
-        index1 = bisect(put_고가, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(put_고가, SEARCH_MOVING_NODE_END_VALUE)
-        put_high_list = put_고가[index1:index2]
+        put_고가리스트.sort()
+        index1 = bisect(put_고가리스트, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(put_고가리스트, SEARCH_MOVING_NODE_END_VALUE)
+        put_high_list = put_고가리스트[index1:index2]
 
         high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
         high_low_list.sort()
@@ -6908,14 +7123,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_open_check()
         self.call_cross_color_update()        
         self.call_node_color_update()
-        self.call_coreval_color_update()
+        #self.call_coreval_color_update()
+        self.call_low_coreval_color_update()
+        self.call_high_coreval_color_update()
 
         node_coloring = False
         call_scroll = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)
         print(txt)
 
@@ -6932,7 +7149,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)
 
     def call_high_node_coloring(self):
@@ -6948,7 +7165,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)            
     
     def put_scroll_coloring(self):
@@ -6967,14 +7184,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_open_check()
         self.put_cross_color_update()        
         self.put_node_color_update()
-        self.put_coreval_color_update()
+        #self.put_coreval_color_update()
+        self.put_low_coreval_color_update()
+        self.put_high_coreval_color_update()
 
         node_coloring = False
         put_scroll = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)
         print(txt)
 
@@ -6991,7 +7210,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)
 
     def put_high_node_coloring(self):
@@ -7007,7 +7226,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check  ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(txt)
 
     # 탐색순서가 중요(교차탐색) !!!
@@ -7032,13 +7251,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_open_check()
         self.call_cross_color_update()
         self.call_node_color_update()
-        self.call_coreval_color_update()
+        #self.call_coreval_color_update()
+        self.call_low_coreval_color_update()
+        self.call_high_coreval_color_update()
 
         self.put_node_color_clear()
         self.put_open_check()        
         self.put_cross_color_update()        
         self.put_node_color_update()
-        self.put_coreval_color_update()        
+        #self.put_coreval_color_update()
+        self.put_low_coreval_color_update()
+        self.put_high_coreval_color_update()       
         
         node_coloring = False
         refresh_coloring = False
@@ -7976,6 +8199,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def call_open_coreval_color_blink(self, blink):
 
+        for i in range(len(콜시가_FIXED_COREVAL_교집합)):
+            index = call_시가리스트.index(콜시가_FIXED_COREVAL_교집합[i])
+
+            if blink:
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(노란색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(적색))                    
+            else:
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(검정색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(노란색))
+
+        '''
         if self.call_open_list:
             loop_list = self.call_open_list
         else:
@@ -8000,18 +8234,48 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
             else:
                 pass
+        '''
 
     def call_low_coreval_color_blink(self, blink):
 
         global call_low_node_count, call_low_node_list, call_low_node_txt
         global telegram_send_txt_call_low
-        global flag_call_low_in_fixed_coreval, call_low_val_in_fixed_coreval
+        global flag_call_low_in_fixed_coreval_list
+        global 콜저가_진성맥점_교집합, 콜저가_FIXED_COREVAL_교집합
 
         dt = datetime.now()
 
-        flag_call_low_in_fixed_coreval = False
-        call_low_val_in_fixed_coreval.clear()
+        #flag_call_low_in_fixed_coreval_list = False
+        #call_low_val_in_fixed_coreval.clear()
+
+        #콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
+        #콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
+
+        count = len(콜저가_진성맥점_교집합)
         
+        if 콜저가_진성맥점_교집합:
+            for i in range(len(콜저가_진성맥점_교집합)):
+                index = call_저가리스트.index(콜저가_진성맥점_교집합[i])
+
+                if blink:
+                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(대맥점색))
+
+        if 콜저가_FIXED_COREVAL_교집합:
+            for i in range(len(콜저가_FIXED_COREVAL_교집합)):
+                index = call_저가리스트.index(콜저가_FIXED_COREVAL_교집합[i])
+
+                if blink:
+                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(적색))
+                else:
+                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(노란색))
+
+        '''
         if self.call_open_list:
             loop_list = self.call_open_list
         else:
@@ -8047,7 +8311,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in FIXED_COREVAL:
 
-                flag_call_low_in_fixed_coreval = True
+                #flag_call_low_in_fixed_coreval_list = True
                 call_low_val_in_fixed_coreval.append(저가)
 
                 if blink:
@@ -8058,6 +8322,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
             else:
                 pass
+        '''
 
         if call_low_node_list and call_low_node_txt == '':
 
@@ -8134,7 +8399,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
         else:
-
             if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★ +':
             
                 item = QTableWidgetItem('★ +')
@@ -8158,13 +8422,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_high_node_count, call_high_node_list, call_high_node_txt
         global telegram_send_txt_call_high
-        global flag_call_high_in_fixed_coreval, call_high_val_in_fixed_coreval
+        global flag_call_high_in_fixed_coreval_list
+        global 콜고가_진성맥점_교집합, 콜고가_FIXED_COREVAL_교집합
 
         dt = datetime.now()
 
-        flag_call_high_in_fixed_coreval = False
-        call_high_val_in_fixed_coreval.clear()
+        #flag_call_high_in_fixed_coreval_list = False
+        #call_high_val_in_fixed_coreval.clear()
+
+        #콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
+        #콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
+
+        count = len(콜고가_진성맥점_교집합)
         
+        if 콜고가_진성맥점_교집합:
+            for i in range(len(콜고가_진성맥점_교집합)):
+                index = call_고가리스트.index(콜고가_진성맥점_교집합[i])
+
+                if blink:
+                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(대맥점색))
+
+        if 콜고가_FIXED_COREVAL_교집합:
+            for i in range(len(콜고가_FIXED_COREVAL_교집합)):
+                index = call_고가리스트.index(콜고가_FIXED_COREVAL_교집합[i])
+
+                if blink:
+                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(적색))
+                else:
+                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(노란색))
+
+        '''
         if self.call_open_list:
             loop_list = self.call_open_list
         else:
@@ -8200,7 +8493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 고가 in FIXED_COREVAL:
 
-                flag_call_high_in_fixed_coreval = True
+                flag_call_high_in_fixed_coreval_list.append(True)
                 call_high_val_in_fixed_coreval.append(고가)
                     
                 if blink:
@@ -8211,6 +8504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
             else:
                 pass
+        '''
 
         if call_high_node_list and call_high_node_txt == '':
 
@@ -8307,20 +8601,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
+    '''
     def call_coreval_color_update(self):
 
         global flag_call_low_coreval, flag_call_high_coreval
         global call_low_node_count, call_high_node_count
         global telegram_send_txt_call_low, telegram_send_txt_call_high
-        global flag_call_low_in_fixed_coreval, flag_call_high_in_fixed_coreval
+        global flag_call_low_in_fixed_coreval_list, flag_call_high_in_fixed_coreval_list
 
         dt = datetime.now()
         
         flag_call_low_coreval = False
         flag_call_high_coreval = False
 
-        flag_call_low_in_fixed_coreval = False
-        flag_call_high_in_fixed_coreval = False
+        #flag_call_low_in_fixed_coreval_list = False
+        #flag_call_high_in_fixed_coreval_list = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8377,7 +8672,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 저가 in FIXED_COREVAL:
-                    flag_call_low_in_fixed_coreval = True
+                    flag_call_low_in_fixed_coreval_list.append(True)
                 else:
                     pass
 
@@ -8403,7 +8698,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 고가 in FIXED_COREVAL:
-                    flag_call_high_in_fixed_coreval = True
+                    flag_call_high_in_fixed_coreval_list.append(True)
                 else:
                     pass
             else:
@@ -8458,15 +8753,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             item = QTableWidgetItem('★ +')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)        
+    '''
 
     def call_low_coreval_color_update(self):
 
         global flag_call_low_coreval
-        global flag_call_low_in_fixed_coreval
+        global flag_call_low_in_fixed_coreval_list
+        global 콜시가_COREVAL_교집합, 콜저가_COREVAL_교집합, 콜저가_진성맥점_교집합, 콜저가_FIXED_COREVAL_교집합
 
-        flag_call_low_coreval = False
-        flag_call_low_in_fixed_coreval = False
+        #flag_call_low_coreval = False
+        #flag_call_low_in_fixed_coreval_list = False
 
+        #콜시가_COREVAL_교집합 = list(set(call_시가리스트) & set(COREVAL))
+        #콜저가_COREVAL_교집합 = list(set(call_저가리스트) & set(COREVAL))
+        #콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
+        #콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
+
+        if 콜시가_COREVAL_교집합:
+            for i in range(len(콜시가_COREVAL_교집합)):
+                index = call_시가리스트.index(콜시가_COREVAL_교집합[i])
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        if 콜저가_COREVAL_교집합:
+            for i in range(len(콜저가_COREVAL_교집합)):
+                index = call_저가리스트.index(콜저가_COREVAL_교집합[i])
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        #if 콜저가_진성맥점_교집합:
+        #    flag_call_low_coreval = True
+
+        '''
         if self.call_open_list:
             loop_list = self.call_open_list
         else:
@@ -8502,20 +8820,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 저가 in FIXED_COREVAL:
-                    flag_call_low_in_fixed_coreval = True
+                    flag_call_low_in_fixed_coreval_list.append(True)
                 else:
                     pass                
             else:
                 pass
+        '''
 
     def call_high_coreval_color_update(self):
 
         global flag_call_high_coreval
-        global flag_call_high_in_fixed_coreval
+        global flag_call_high_in_fixed_coreval_list
+        global 콜시가_COREVAL_교집합, 콜고가_COREVAL_교집합, 콜고가_진성맥점_교집합, 콜고가_FIXED_COREVAL_교집합
 
-        flag_call_high_coreval = False
-        flag_call_high_in_fixed_coreval = False
+        #flag_call_high_coreval = False
+        #flag_call_high_in_fixed_coreval_list = False
 
+        #콜시가_COREVAL_교집합 = list(set(call_시가리스트) & set(COREVAL))
+        #콜고가_COREVAL_교집합 = list(set(call_고가리스트) & set(COREVAL))
+        #콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
+        #콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
+
+        if 콜시가_COREVAL_교집합:
+            for i in range(len(콜시가_COREVAL_교집합)):
+                index = call_시가리스트.index(콜시가_COREVAL_교집합[i])
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        if 콜고가_COREVAL_교집합:
+            for i in range(len(콜고가_COREVAL_교집합)):
+                index = call_고가리스트.index(콜고가_COREVAL_교집합[i])
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        #if 콜고가_진성맥점_교집합:
+        #    flag_call_high_coreval = True
+
+        '''
         if self.call_open_list:
             loop_list = self.call_open_list
         else:
@@ -8551,11 +8892,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 고가 in FIXED_COREVAL:
-                    flag_call_high_in_fixed_coreval = True
+                    flag_call_high_in_fixed_coreval_list.append(True)
                 else:
                     pass
             else:
                 pass
+        '''
 
     # 콜 컬러링 Apply 함수
     # 콜 저가, 고가가 풋시가에 있는지 검사
@@ -8563,7 +8905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
-            i = call_저가.index(x) + 1
+            i = call_저가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))            
@@ -8574,7 +8916,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
-            i = call_고가.index(x) + 1
+            i = call_고가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))            
@@ -8586,7 +8928,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
-            i = call_저가.index(x) + 1
+            i = call_저가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))       
@@ -8597,7 +8939,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
-            i = call_고가.index(x) + 1
+            i = call_고가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))       
@@ -8609,7 +8951,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
-            i = call_저가.index(x) + 1
+            i = call_저가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))      
@@ -8620,7 +8962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
-            i = call_고가.index(x) + 1
+            i = call_고가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))      
@@ -8632,7 +8974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
-            i = call_저가.index(x) + 1
+            i = call_저가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))  
@@ -8643,7 +8985,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
-            i = call_고가.index(x) + 1
+            i = call_고가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))  
@@ -8655,7 +8997,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
-            i = call_저가.index(x) + 1
+            i = call_저가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -8666,7 +9008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
-            i = call_고가.index(x) + 1
+            i = call_고가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
@@ -8678,7 +9020,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
-            i = call_저가.index(x) + 1
+            i = call_저가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -8689,7 +9031,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
-            i = call_고가.index(x) + 1
+            i = call_고가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
@@ -8701,7 +9043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
-            i = call_종가.index(x) + 1
+            i = call_종가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))         
@@ -8712,7 +9054,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
-            i = call_종가.index(x) + 1
+            i = call_종가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))         
@@ -8723,7 +9065,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
-            i = call_종가.index(x) + 1
+            i = call_종가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))         
@@ -8734,7 +9076,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
-            i = call_종가.index(x) + 1
+            i = call_종가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))         
@@ -8746,7 +9088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
-            i = call_피봇.index(x) + 1
+            i = call_피봇리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))       
@@ -8757,7 +9099,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
-            i = call_피봇.index(x) + 1
+            i = call_피봇리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))       
@@ -8768,7 +9110,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
-            i = call_피봇.index(x) + 1
+            i = call_피봇리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))       
@@ -8779,7 +9121,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
-            i = call_피봇.index(x) + 1
+            i = call_피봇리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))       
@@ -8791,7 +9133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
-            i = call_시가.index(x) + 1
+            i = call_시가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
@@ -8802,7 +9144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
-            i = call_시가.index(x) + 1
+            i = call_시가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
@@ -8813,7 +9155,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
-            i = call_시가.index(x) + 1
+            i = call_시가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
@@ -8824,7 +9166,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
-            i = call_시가.index(x) + 1
+            i = call_시가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))     
@@ -8836,7 +9178,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in COREVAL:
 
-            i = call_시가.index(x) + 1
+            i = call_시가리스트.index(x) + 1
 
             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))  
@@ -8846,12 +9188,357 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_node_color_update(self):
         
         global call_scroll_end_position
+        global 콜저가_풋시가_노드_교집합, 콜고가_풋시가_노드_교집합, 콜저가_풋기준가_노드_교집합, 콜고가_풋기준가_노드_교집합, 콜저가_풋월저_노드_교집합, 콜고가_풋월저_노드_교집합
+        global 콜저가_풋월고_노드_교집합, 콜고가_풋월고_노드_교집합, 콜저가_풋전저_노드_교집합, 콜고가_풋전저_노드_교집합, 콜저가_풋전고_노드_교집합, 콜고가_풋전고_노드_교집합
+        global 콜저가_풋종가_노드_교집합, 콜고가_풋종가_노드_교집합, 콜저가_풋피봇_노드_교집합, 콜고가_풋피봇_노드_교집합, 콜저가_콜시가_노드_교집합, 콜고가_콜시가_노드_교집합
+        global 콜저가_콜기준가_노드_교집합, 콜고가_콜기준가_노드_교집합, 콜저가_콜월저_노드_교집합, 콜고가_콜월저_노드_교집합, 콜저가_콜월고_노드_교집합, 콜고가_콜월고_노드_교집합
+        global 콜저가_콜전저_노드_교집합, 콜고가_콜전저_노드_교집합, 콜저가_콜전고_노드_교집합, 콜고가_콜전고_노드_교집합, 콜저가_콜종가_노드_교집합, 콜고가_콜종가_노드_교집합
+        global 콜저가_콜피봇_노드_교집합, 콜고가_콜피봇_노드_교집합
+        global 콜기준가_풋저가_노드_교집합, 콜기준가_풋고가_노드_교집합, 콜기준가_콜저가_노드_교집합, 콜기준가_콜고가_노드_교집합
+        global 콜월저_풋저가_노드_교집합, 콜월저_풋고가_노드_교집합, 콜월저_콜저가_노드_교집합, 콜월저_콜고가_노드_교집합
+        global 콜월고_풋저가_노드_교집합, 콜월고_풋고가_노드_교집합, 콜월고_콜저가_노드_교집합, 콜월고_콜고가_노드_교집합
+        global 콜전저_풋저가_노드_교집합, 콜전저_풋고가_노드_교집합, 콜전저_콜저가_노드_교집합, 콜전저_콜고가_노드_교집합
+        global 콜전고_풋저가_노드_교집합, 콜전고_풋고가_노드_교집합, 콜전고_콜저가_노드_교집합, 콜전고_콜고가_노드_교집합
+        global 콜종가_풋저가_노드_교집합, 콜종가_풋고가_노드_교집합, 콜종가_콜저가_노드_교집합, 콜종가_콜고가_노드_교집합
+        global 콜피봇_풋저가_노드_교집합, 콜피봇_풋고가_노드_교집합, 콜피봇_콜저가_노드_교집합, 콜피봇_콜고가_노드_교집합
+        global 콜시가_풋저가_노드_교집합, 콜시가_풋고가_노드_교집합, 콜시가_콜저가_노드_교집합, 콜시가_콜고가_노드_교집합
 
+        '''
+        콜저가_풋시가_노드_교집합 = list(set(call_저가리스트) & set(put_시가_node_list))
+        print('콜저가_풋시가_노드_교집합 = {0}\r'.format(콜저가_풋시가_노드_교집합))
+
+        if 콜저가_풋시가_노드_교집합:
+            for i in range(len(콜저가_풋시가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋시가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋시가색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_풋시가_노드_교집합 = list(set(call_고가리스트) & set(put_시가_node_list))
+        print('콜고가_풋시가_노드_교집합 = {0}\r'.format(콜고가_풋시가_노드_교집합))
+
+        if 콜고가_풋시가_노드_교집합:
+            for i in range(len(콜고가_풋시가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋시가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋시가색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        콜저가_풋기준가_노드_교집합 = list(set(call_저가리스트) & set(put_기준가_node_list))
+        print('콜저가_풋기준가_노드_교집합 = {0}\r'.format(콜저가_풋기준가_노드_교집합))
+
+        if 콜저가_풋기준가_노드_교집합:
+            for i in range(len(콜저가_풋기준가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋기준가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋기준가색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_풋기준가_노드_교집합 = list(set(call_고가리스트) & set(put_기준가_node_list))
+        print('콜고가_풋기준가_노드_교집합 = {0}\r'.format(콜고가_풋기준가_노드_교집합))
+
+        if 콜고가_풋기준가_노드_교집합:
+            for i in range(len(콜고가_풋기준가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋기준가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋기준가색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        콜저가_풋월저_노드_교집합 = list(set(call_저가리스트) & set(put_월저_node_list))
+        print('콜저가_풋월저_노드_교집합 = {0}\r'.format(콜저가_풋월저_노드_교집합))
+
+        if 콜저가_풋월저_노드_교집합:
+            for i in range(len(콜저가_풋월저_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋월저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋월저색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_풋월저_노드_교집합 = list(set(call_고가리스트) & set(put_월저_node_list))
+        print('콜고가_풋월저_노드_교집합 = {0}\r'.format(콜고가_풋월저_노드_교집합))
+
+        if 콜고가_풋월저_노드_교집합:
+            for i in range(len(콜고가_풋월저_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋월저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋월저색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        콜저가_풋월고_노드_교집합 = list(set(call_저가리스트) & set(put_월고_node_list))
+        print('콜저가_풋월고_노드_교집합 = {0}\r'.format(콜저가_풋월고_노드_교집합))
+
+        if 콜저가_풋월고_노드_교집합:
+            for i in range(len(콜저가_풋월고_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋월고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋월고색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_풋월고_노드_교집합 = list(set(call_고가리스트) & set(put_월고_node_list))
+        print('콜고가_풋월고_노드_교집합 = {0}\r'.format(콜고가_풋월고_노드_교집합))
+
+        if 콜고가_풋월고_노드_교집합:
+            for i in range(len(콜고가_풋월고_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋월고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋월고색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        콜저가_풋전저_노드_교집합 = list(set(call_저가리스트) & set(put_전저_node_list))
+        print('콜저가_풋전저_노드_교집합 = {0}\r'.format(콜저가_풋전저_노드_교집합))
+
+        if 콜저가_풋전저_노드_교집합:
+            for i in range(len(콜저가_풋전저_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋전저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋전저색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_풋전저_노드_교집합 = list(set(call_고가리스트) & set(put_전저_node_list))
+        print('콜고가_풋전저_노드_교집합 = {0}\r'.format(콜고가_풋전저_노드_교집합))
+
+        if 콜고가_풋전저_노드_교집합:
+            for i in range(len(콜고가_풋전저_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋전저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋전저색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        콜저가_풋전고_노드_교집합 = list(set(call_저가리스트) & set(put_전고_node_list))
+        print('콜저가_풋전고_노드_교집합 = {0}\r'.format(콜저가_풋전고_노드_교집합))
+
+        if 콜저가_풋전고_노드_교집합:
+            for i in range(len(콜저가_풋전고_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋전고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋전저색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_풋전고_노드_교집합 = list(set(call_고가리스트) & set(put_전고_node_list))
+        print('콜고가_풋전고_노드_교집합 = {0}\r'.format(콜고가_풋전고_노드_교집합))
+
+        if 콜고가_풋전고_노드_교집합:
+            for i in range(len(콜고가_풋전고_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋전고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋전고색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_풋종가_노드_교집합 = list(set(call_저가리스트) & set(put_종가_node_list))
+        print('콜저가_풋종가_노드_교집합 = {0}\r'.format(콜저가_풋종가_노드_교집합))
+
+        if 콜저가_풋종가_노드_교집합:
+            for i in range(len(콜저가_풋종가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋종가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋종가색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_풋종가_노드_교집합 = list(set(call_고가리스트) & set(put_종가_node_list))
+        print('콜고가_풋종가_노드_교집합 = {0}\r'.format(콜고가_풋종가_노드_교집합))
+
+        if 콜고가_풋종가_노드_교집합:
+            for i in range(len(콜고가_풋종가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋종가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋종가색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_풋피봇_노드_교집합 = list(set(call_저가리스트) & set(put_피봇_node_list))
+        print('콜저가_풋피봇_노드_교집합 = {0}\r'.format(콜저가_풋피봇_노드_교집합))
+
+        if 콜저가_풋피봇_노드_교집합:
+            for i in range(len(콜저가_풋피봇_노드_교집합)):
+                index = call_저가리스트.index(콜저가_풋피봇_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(풋피봇색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_풋피봇_노드_교집합 = list(set(call_고가리스트) & set(put_피봇_node_list))
+        print('콜고가_풋피봇_노드_교집합 = {0}\r'.format(콜고가_풋피봇_노드_교집합))
+
+        if 콜고가_풋피봇_노드_교집합:
+            for i in range(len(콜고가_풋피봇_노드_교집합)):
+                index = call_고가리스트.index(콜고가_풋피봇_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(풋피봇색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜시가_노드_교집합 = list(set(call_저가리스트) & set(call_시가_node_list))
+        print('콜저가_콜시가_노드_교집합 = {0}\r'.format(콜저가_콜시가_노드_교집합))
+
+        if 콜저가_콜시가_노드_교집합:
+            for i in range(len(콜저가_콜시가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜시가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜시가색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜시가_노드_교집합 = list(set(call_고가리스트) & set(call_시가_node_list))
+        print('콜고가_콜시가_노드_교집합 = {0}\r'.format(콜고가_콜시가_노드_교집합))
+
+        if 콜고가_콜시가_노드_교집합:
+            for i in range(len(콜고가_콜시가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜시가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜시가색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜기준가_노드_교집합 = list(set(call_저가리스트) & set(call_기준가_node_list))
+        print('콜저가_콜기준가_노드_교집합 = {0}\r'.format(콜저가_콜기준가_노드_교집합))
+
+        if 콜저가_콜기준가_노드_교집합:
+            for i in range(len(콜저가_콜기준가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜기준가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜기준가_노드_교집합 = list(set(call_고가리스트) & set(call_기준가_node_list))
+        print('콜고가_콜기준가_노드_교집합 = {0}\r'.format(콜고가_콜기준가_노드_교집합))
+
+        if 콜고가_콜기준가_노드_교집합:
+            for i in range(len(콜고가_콜기준가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜기준가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜월저_노드_교집합 = list(set(call_저가리스트) & set(call_월저_node_list))
+        print('콜저가_콜월저_노드_교집합 = {0}\r'.format(콜저가_콜월저_노드_교집합))
+
+        if 콜저가_콜월저_노드_교집합:
+            for i in range(len(콜저가_콜월저_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜월저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜월저색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        콜고가_콜월저_노드_교집합 = list(set(call_고가리스트) & set(call_월저_node_list))
+        print('콜고가_콜월저_노드_교집합 = {0}\r'.format(콜고가_콜월저_노드_교집합))
+
+        if 콜고가_콜월저_노드_교집합:
+            for i in range(len(콜고가_콜월저_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜월저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜월저색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        콜저가_콜월고_노드_교집합 = list(set(call_저가리스트) & set(call_월고_node_list))
+        print('콜저가_콜월고_노드_교집합 = {0}\r'.format(콜저가_콜월고_노드_교집합))
+
+        if 콜저가_콜월고_노드_교집합:
+            for i in range(len(콜저가_콜월고_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜월고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜월고색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜월고_노드_교집합 = list(set(call_고가리스트) & set(call_월고_node_list))
+        print('콜고가_콜월고_노드_교집합 = {0}\r'.format(콜고가_콜월고_노드_교집합))
+
+        if 콜고가_콜월고_노드_교집합:
+            for i in range(len(콜고가_콜월고_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜월고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜월고색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜전저_노드_교집합 = list(set(call_저가리스트) & set(call_전저_node_list))
+        print('콜저가_콜전저_노드_교집합 = {0}\r'.format(콜저가_콜전저_노드_교집합))
+
+        if 콜저가_콜전저_노드_교집합:
+            for i in range(len(콜저가_콜전저_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜전저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜전저색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜전저_노드_교집합 = list(set(call_고가리스트) & set(call_전저_node_list))
+        print('콜고가_콜전저_노드_교집합 = {0}\r'.format(콜고가_콜전저_노드_교집합))
+
+        if 콜고가_콜전저_노드_교집합:
+            for i in range(len(콜고가_콜전저_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜전저_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜전저색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜전고_노드_교집합 = list(set(call_저가리스트) & set(call_전고_node_list))
+        print('콜저가_콜전고_노드_교집합 = {0}\r'.format(콜저가_콜전고_노드_교집합))
+
+        if 콜저가_콜전고_노드_교집합:
+            for i in range(len(콜저가_콜전고_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜전고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜전고색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜전고_노드_교집합 = list(set(call_고가리스트) & set(call_전고_node_list))
+        print('콜고가_콜전고_노드_교집합 = {0}\r'.format(콜고가_콜전고_노드_교집합))
+
+        if 콜고가_콜전고_노드_교집합:
+            for i in range(len(콜고가_콜전고_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜전고_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜전고색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜종가_노드_교집합 = list(set(call_저가리스트) & set(call_종가_node_list))
+        print('콜저가_콜종가_노드_교집합 = {0}\r'.format(콜저가_콜종가_노드_교집합))
+
+        if 콜저가_콜종가_노드_교집합:
+            for i in range(len(콜저가_콜종가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜종가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜종가색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜종가_노드_교집합 = list(set(call_고가리스트) & set(call_종가_node_list))
+        print('콜고가_콜종가_노드_교집합 = {0}\r'.format(콜고가_콜종가_노드_교집합))
+
+        if 콜고가_콜종가_노드_교집합:
+            for i in range(len(콜고가_콜종가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜종가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜종가색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        콜저가_콜피봇_노드_교집합 = list(set(call_저가리스트) & set(call_피봇_node_list))
+        print('콜저가_콜피봇_노드_교집합 = {0}\r'.format(콜저가_콜피봇_노드_교집합))
+
+        if 콜저가_콜피봇_노드_교집합:
+            for i in range(len(콜저가_콜피봇_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜피봇_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        콜고가_콜피봇_노드_교집합 = list(set(call_고가리스트) & set(call_피봇_node_list))
+        print('콜고가_콜피봇_노드_교집합 = {0}\r'.format(콜고가_콜피봇_노드_교집합))
+
+        if 콜고가_콜피봇_노드_교집합:
+            for i in range(len(콜고가_콜피봇_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜피봇_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+
+        콜기준가_풋저가_노드_교집합 = list(set(call_기준가리스트) & set(put_저가_node_list))
+
+        if 콜기준가_풋저가_노드_교집합:
+            for i in range(len(콜기준가_풋저가_노드_교집합)):
+                index = call_기준가리스트.index(콜기준가_풋저가_노드_교집합[i])
+
+        콜기준가_풋고가_노드_교집합 = list(set(call_기준가리스트) & set(put_고가_node_list))
+        '''
+        
         if call_scroll_end_position > option_pairs_count:
             call_scroll_end_position = option_pairs_count
         else:
             pass
-
+        
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
             저가 = df_call.at[i, '저가']
@@ -9399,14 +10086,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass         
                 else:
                     pass            
-
+        
     # 풋 컬러링 Apply 함수
     # 풋 저가, 고가가 콜시가에 있는지 검사
     def check_put_low_isin_call_open_list(self, x):
 
         if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
-            i = put_저가.index(x) + 1
+            i = put_저가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))            
@@ -9417,7 +10104,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_시가_node_list:
 
-            i = put_고가.index(x) + 1
+            i = put_고가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))            
@@ -9429,7 +10116,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
-            i = put_저가.index(x) + 1
+            i = put_저가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))            
@@ -9440,7 +10127,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_종가_node_list:
 
-            i = put_고가.index(x) + 1
+            i = put_고가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))            
@@ -9452,7 +10139,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
-            i = put_저가.index(x) + 1
+            i = put_저가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))            
@@ -9463,7 +10150,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_피봇_node_list:
 
-            i = put_고가.index(x) + 1
+            i = put_고가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜피봇색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))            
@@ -9475,7 +10162,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
-            i = put_저가.index(x) + 1
+            i = put_저가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))            
@@ -9486,7 +10173,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_시가_node_list:
 
-            i = put_고가.index(x) + 1
+            i = put_고가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))            
@@ -9498,7 +10185,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
-            i = put_저가.index(x) + 1
+            i = put_저가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))            
@@ -9509,7 +10196,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_종가_node_list:
 
-            i = put_고가.index(x) + 1
+            i = put_고가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))            
@@ -9521,7 +10208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
-            i = put_저가.index(x) + 1
+            i = put_저가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))            
@@ -9532,7 +10219,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_피봇_node_list:
 
-            i = put_고가.index(x) + 1
+            i = put_고가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))            
@@ -9544,7 +10231,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
-            i = put_종가.index(x) + 1
+            i = put_종가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))            
@@ -9555,7 +10242,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
-            i = put_종가.index(x) + 1
+            i = put_종가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))            
@@ -9566,7 +10253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
-            i = put_종가.index(x) + 1
+            i = put_종가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))            
@@ -9577,7 +10264,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
-            i = put_종가.index(x) + 1
+            i = put_종가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
             self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))            
@@ -9589,7 +10276,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
-            i = put_피봇.index(x) + 1
+            i = put_피봇리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))            
@@ -9600,7 +10287,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
-            i = put_피봇.index(x) + 1
+            i = put_피봇리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))            
@@ -9611,7 +10298,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
-            i = put_피봇.index(x) + 1
+            i = put_피봇리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))            
@@ -9622,7 +10309,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
-            i = put_피봇.index(x) + 1
+            i = put_피봇리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(풋피봇색))
             self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))            
@@ -9634,7 +10321,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_저가_node_list:
 
-            i = put_시가.index(x) + 1
+            i = put_시가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(흰색))            
@@ -9645,7 +10332,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in call_고가_node_list:
 
-            i = put_시가.index(x) + 1
+            i = put_시가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(흰색))            
@@ -9656,7 +10343,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_저가_node_list:
 
-            i = put_시가.index(x) + 1
+            i = put_시가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(흰색))            
@@ -9667,7 +10354,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in put_고가_node_list:
 
-            i = put_시가.index(x) + 1
+            i = put_시가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(풋시가색))
             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(흰색))            
@@ -9679,7 +10366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if x > OTM_SEARCH_START_VAL and x in COREVAL:
 
-            i = put_시가.index(x) + 1
+            i = put_시가리스트.index(x) + 1
 
             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))            
@@ -9689,11 +10376,80 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_node_color_update(self):
         
         global put_scroll_end_position
+        global 풋저가_콜시가_노드_교집합, 풋고가_콜시가_노드_교집합, 풋저가_콜기준가_노드_교집합, 풋고가_콜기준가_노드_교집합, 풋저가_콜월저_노드_교집합, 풋고가_콜월저_노드_교집합
+        global 풋저가_콜월고_노드_교집합, 풋고가_콜월고_노드_교집합, 풋저가_콜전저_노드_교집합, 풋고가_콜전저_노드_교집합, 풋저가_콜전고_노드_교집합, 풋고가_콜전고_노드_교집합
+        global 풋저가_콜종가_노드_교집합, 풋고가_콜종가_노드_교집합, 풋저가_콜피봇_노드_교집합, 풋고가_콜피봇_노드_교집합, 풋저가_풋시가_노드_교집합, 풋고가_풋시가_노드_교집합
+        global 풋저가_풋기준가_노드_교집합, 풋고가_풋기준가_노드_교집합, 풋저가_풋월저_노드_교집합, 풋고가_풋월저_노드_교집합, 풋저가_풋월고_노드_교집합, 풋고가_풋월고_노드_교집합
+        global 풋저가_풋전저_노드_교집합, 풋고가_풋전저_노드_교집합, 풋저가_풋전고_노드_교집합, 풋고가_풋전고_노드_교집합, 풋저가_풋종가_노드_교집합, 풋고가_풋종가_노드_교집합
+        global 풋저가_풋피봇_노드_교집합, 풋고가_풋피봇_노드_교집합
+
+        print('\r')
+        print('*********************************************************************************************************************************')
+        print('put_기준가리스트 = {0}\r'.format(put_기준가리스트))
+        print('put_월저리스트 = {0}\r'.format(put_월저리스트))
+        print('put_월고리스트 = {0}\r'.format(put_월고리스트))
+        print('put_전저리스트 = {0}\r'.format(put_전저리스트))
+        print('put_전고리스트 = {0}\r'.format(put_전고리스트))
+        print('put_종가리스트 = {0}\r'.format(put_종가리스트))
+        print('put_피봇리스트 = {0}\r'.format(put_피봇리스트))
+        print('put_시가리스트 = {0}\r'.format(put_시가리스트))
+        print('put_저가리스트 = {0}\r'.format(put_저가리스트))
+        print('put_고가리스트 = {0}\r'.format(put_고가리스트))
+        print('*********************************************************************************************************************************')
+        print('\r')
 
         if put_scroll_end_position > option_pairs_count:
             put_scroll_end_position = option_pairs_count
         else:
             pass
+
+        풋저가_콜시가_노드_교집합 = list(set(put_저가리스트) & set(call_시가_node_list))
+        풋고가_콜시가_노드_교집합 = list(set(put_고가리스트) & set(call_시가_node_list))
+
+        풋저가_콜기준가_노드_교집합 = list(set(put_저가리스트) & set(call_기준가_node_list))
+        풋고가_콜기준가_노드_교집합 = list(set(put_고가리스트) & set(call_기준가_node_list))
+
+        풋저가_콜월저_노드_교집합 = list(set(put_저가리스트) & set(call_월저_node_list))
+        풋고가_콜월저_노드_교집합 = list(set(put_고가리스트) & set(call_월저_node_list))
+
+        풋저가_콜월고_노드_교집합 = list(set(put_저가리스트) & set(call_월고_node_list))
+        풋고가_콜월고_노드_교집합 = list(set(put_고가리스트) & set(call_월고_node_list))
+
+        풋저가_콜전저_노드_교집합 = list(set(put_저가리스트) & set(call_전저_node_list))
+        풋고가_콜전저_노드_교집합 = list(set(put_고가리스트) & set(call_전저_node_list))
+
+        풋저가_콜전고_노드_교집합 = list(set(put_저가리스트) & set(call_전고_node_list))
+        풋고가_콜전고_노드_교집합 = list(set(put_고가리스트) & set(call_전고_node_list))
+
+        풋저가_콜종가_노드_교집합 = list(set(put_저가리스트) & set(call_종가_node_list))
+        풋고가_콜종가_노드_교집합 = list(set(put_고가리스트) & set(call_종가_node_list))
+
+        풋저가_콜피봇_노드_교집합 = list(set(put_저가리스트) & set(call_피봇_node_list))
+        풋고가_콜피봇_노드_교집합 = list(set(put_고가리스트) & set(call_피봇_node_list))
+
+        풋저가_풋시가_노드_교집합 = list(set(put_저가리스트) & set(put_시가_node_list))
+        풋고가_풋시가_노드_교집합 = list(set(put_고가리스트) & set(put_시가_node_list))
+
+        풋저가_풋기준가_노드_교집합 = list(set(put_저가리스트) & set(put_기준가_node_list))
+        풋고가_풋기준가_노드_교집합 = list(set(put_고가리스트) & set(put_기준가_node_list))
+
+        풋저가_풋월저_노드_교집합 = list(set(put_저가리스트) & set(put_월저_node_list))
+        풋고가_풋월저_노드_교집합 = list(set(put_고가리스트) & set(put_월저_node_list))
+
+        풋저가_풋월고_노드_교집합 = list(set(put_저가리스트) & set(put_월고_node_list))
+        풋고가_풋월고_노드_교집합 = list(set(put_고가리스트) & set(put_월고_node_list))
+
+        풋저가_풋전저_노드_교집합 = list(set(put_저가리스트) & set(put_전저_node_list))
+        풋고가_풋전저_노드_교집합 = list(set(put_고가리스트) & set(put_전저_node_list))
+
+        풋저가_풋전고_노드_교집합 = list(set(put_저가리스트) & set(put_전고_node_list))
+        풋고가_풋전고_노드_교집합 = list(set(put_고가리스트) & set(put_전고_node_list))
+
+        풋저가_풋종가_노드_교집합 = list(set(put_저가리스트) & set(put_종가_node_list))
+        풋고가_풋종가_노드_교집합 = list(set(put_고가리스트) & set(put_종가_node_list))
+
+        풋저가_풋피봇_노드_교집합 = list(set(put_저가리스트) & set(put_피봇_node_list))
+        풋고가_풋피봇_노드_교집합 = list(set(put_고가리스트) & set(put_피봇_node_list))
         
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -10332,6 +11088,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def put_open_coreval_color_blink(self, blink):
 
+        for i in range(len(풋시가_FIXED_COREVAL_교집합)):
+            index = put_시가리스트.index(풋시가_FIXED_COREVAL_교집합[i])
+
+            if blink:
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(노란색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(적색))                    
+            else:
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(검정색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(노란색))
+
+        '''
         if self.put_open_list:
             loop_list = self.put_open_list
         else:
@@ -10356,18 +11123,48 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(노란색))
             else:
                 pass
-      
+        '''
+
     def put_low_coreval_color_blink(self, blink):
 
         global put_low_node_count, put_low_node_list, put_low_node_txt
         global telegram_send_txt_put_low
-        global flag_put_low_in_fixed_coreval, put_low_val_in_fixed_coreval
+        global flag_put_low_in_fixed_coreval_list
+        global 풋저가_진성맥점_교집합, 풋저가_FIXED_COREVAL_교집합
 
         dt = datetime.now()
 
-        flag_put_low_in_fixed_coreval = False
-        put_low_val_in_fixed_coreval.clear()
+        #flag_put_low_in_fixed_coreval_list = False
+        #put_low_val_in_fixed_coreval.clear()
         
+        #풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
+        #풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
+
+        count = len(풋저가_진성맥점_교집합)
+        
+        if 풋저가_진성맥점_교집합:
+            for i in range(len(풋저가_진성맥점_교집합)):
+                index = put_저가리스트.index(풋저가_진성맥점_교집합[i])
+
+                if blink:
+                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(대맥점색))
+
+        if 풋저가_FIXED_COREVAL_교집합:
+            for i in range(len(풋저가_FIXED_COREVAL_교집합)):
+                index = put_저가리스트.index(풋저가_FIXED_COREVAL_교집합[i])
+
+                if blink:
+                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(적색))
+                else:
+                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(노란색))
+
+        '''
         if self.put_open_list:
             loop_list = self.put_open_list
         else:
@@ -10403,7 +11200,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in FIXED_COREVAL:
 
-                flag_put_low_in_fixed_coreval = True
+                flag_put_low_in_fixed_coreval_list.append(True)
                 put_low_val_in_fixed_coreval.append(저가)
 
                 if blink:
@@ -10414,6 +11211,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(노란색))
             else:
                 pass
+        '''
 
         if put_low_node_list and put_low_node_txt == '':
 
@@ -10514,13 +11312,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_high_node_count, put_high_node_list, put_high_node_txt
         global telegram_send_txt_put_high
-        global flag_put_high_in_fixed_coreval, put_high_val_in_fixed_coreval
+        global flag_put_high_in_fixed_coreval_list
+        global 풋고가_진성맥점_교집합, 풋고가_FIXED_COREVAL_교집합 
 
         dt = datetime.now()
 
-        flag_put_high_in_fixed_coreval = False
-        put_high_val_in_fixed_coreval.clear()
+        #flag_put_high_in_fixed_coreval_list = False
+        #put_high_val_in_fixed_coreval.clear()
 
+        #풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
+        #풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
+
+        count = len(풋고가_진성맥점_교집합)
+        
+        if 풋고가_진성맥점_교집합:
+            for i in range(len(풋고가_진성맥점_교집합)):
+                index = put_고가리스트.index(풋고가_진성맥점_교집합[i])
+
+                if blink:
+                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(대맥점색))
+
+        if 풋고가_FIXED_COREVAL_교집합:
+            for i in range(len(풋고가_FIXED_COREVAL_교집합)):
+                index = put_고가리스트.index(풋고가_FIXED_COREVAL_교집합[i])
+
+                if blink:
+                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(적색))
+                else:
+                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(노란색))
+
+        '''
         if self.put_open_list:
             loop_list = self.put_open_list
         else:
@@ -10556,7 +11383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 고가 in FIXED_COREVAL:
 
-                flag_put_high_in_fixed_coreval = True
+                flag_put_high_in_fixed_coreval_list.append(True)
                 put_high_val_in_fixed_coreval.append(고가)
 
                 if blink:
@@ -10567,6 +11394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(노란색))
             else:
                 pass
+        '''
 
         if put_high_node_list and put_high_node_txt == '':
 
@@ -10663,20 +11491,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
     
+    '''
     def put_coreval_color_update(self):
 
         global flag_put_low_coreval, flag_put_high_coreval
         global put_low_node_count, put_high_node_count
         global telegram_send_txt_put_low, telegram_send_txt_put_high
-        global flag_put_low_in_fixed_coreval, flag_put_high_in_fixed_coreval
+        global flag_put_low_in_fixed_coreval_list, flag_put_high_in_fixed_coreval_list
 
         dt = datetime.now()
         
         flag_put_low_coreval = False
         flag_put_high_coreval = False
 
-        flag_put_low_in_fixed_coreval = False
-        flag_put_high_in_fixed_coreval = False
+        #flag_put_low_in_fixed_coreval_list = False
+        #flag_put_high_in_fixed_coreval_list = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -10733,7 +11562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 저가 in FIXED_COREVAL:
-                    flag_put_low_in_fixed_coreval = True
+                    flag_put_low_in_fixed_coreval_list.append(True)
                 else:
                     pass
 
@@ -10760,7 +11589,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 고가 in FIXED_COREVAL:
-                    flag_put_high_in_fixed_coreval = True
+                    flag_put_high_in_fixed_coreval_list.append(True)
                 else:
                     pass
             else:
@@ -10815,15 +11644,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             item = QTableWidgetItem('★ +')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-        
+    '''
+
     def put_low_coreval_color_update(self):
 
         global flag_put_low_coreval
-        global flag_put_low_in_fixed_coreval
+        global flag_put_low_in_fixed_coreval_list
+        global 풋시가_COREVAL_교집합, 풋저가_COREVAL_교집합, 풋저가_진성맥점_교집합, 풋저가_FIXED_COREVAL_교집합
 
-        flag_put_low_coreval = False
-        flag_put_low_in_fixed_coreval = False
+        #flag_put_low_coreval = False
+        #flag_put_low_in_fixed_coreval_list = False
 
+        #풋시가_COREVAL_교집합 = list(set(put_시가리스트) & set(COREVAL))
+        #풋저가_COREVAL_교집합 = list(set(put_저가리스트) & set(COREVAL))
+        #풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
+        #풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
+
+        if 풋시가_COREVAL_교집합:
+            for i in range(len(풋시가_COREVAL_교집합)):
+                index = put_시가리스트.index(풋시가_COREVAL_교집합[i])
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        if 풋저가_COREVAL_교집합:
+            for i in range(len(풋저가_COREVAL_교집합)):
+                index = put_저가리스트.index(풋저가_COREVAL_교집합[i])
+                self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        #if 풋저가_진성맥점_교집합:
+        #    flag_put_low_coreval = True
+
+        '''
         if self.put_open_list:
             loop_list = self.put_open_list
         else:
@@ -10859,20 +11711,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 저가 in FIXED_COREVAL:
-                    flag_put_low_in_fixed_coreval = True
+                    flag_put_low_in_fixed_coreval_list.append(True)
                 else:
                     pass                
             else:
                 pass 
+        '''
 
     def put_high_coreval_color_update(self):
 
         global flag_put_high_coreval
-        global flag_put_high_in_fixed_coreval
+        global flag_put_high_in_fixed_coreval_list
+        global 풋시가_COREVAL_교집합, 풋고가_COREVAL_교집합, 풋고가_진성맥점_교집합, 풋고가_FIXED_COREVAL_교집합
 
-        flag_put_high_coreval = False
-        flag_put_high_in_fixed_coreval = False
+        #flag_put_high_coreval = False
+        #flag_put_high_in_fixed_coreval_list = False
 
+        #풋시가_COREVAL_교집합 = list(set(put_시가리스트) & set(COREVAL))
+        #풋고가_COREVAL_교집합 = list(set(put_고가리스트) & set(COREVAL))
+        #풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
+        #풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
+
+        if 풋시가_COREVAL_교집합:
+            for i in range(len(풋시가_COREVAL_교집합)):
+                index = put_시가리스트.index(풋시가_COREVAL_교집합[i])
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        if 풋고가_COREVAL_교집합:
+            for i in range(len(풋고가_COREVAL_교집합)):
+                index = put_고가리스트.index(풋고가_COREVAL_교집합[i])
+                self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
+        #if 풋고가_진성맥점_교집합:
+        #    flag_put_high_coreval = True
+
+        '''
         if self.put_open_list:
             loop_list = self.put_open_list
         else:
@@ -10908,12 +11783,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if 고가 in FIXED_COREVAL:
-                    flag_put_high_in_fixed_coreval = True
+                    flag_put_high_in_fixed_coreval_list.append(True)
                 else:
                     pass
             else:
                 pass
-    
+        '''
+
     def kp200_node_color_clear(self):
 
         self.tableWidget_fut.item(2, Futures_column.전저.value).setBackground(QBrush(흰색))
@@ -12437,8 +13313,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_call
         global df_call_graph
         global atm_txt, ATM_INDEX, call_atm_value
-        global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
-        global call_저가, call_저가_node_list, call_고가, call_고가_node_list
+        global call_시가리스트, call_시가_node_list, call_피봇리스트, call_피봇_node_list, 콜시가리스트
+        global call_저가리스트, call_저가_node_list, call_고가리스트, call_고가_node_list
         global opt_callreal_update_counter
         global df_call_volume, call_volume_power, df_call_information_graph, df_put_information_graph
         global node_coloring
@@ -12448,7 +13324,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_gap_percent, call_db_percent, call_otm_cdb, call_otm_cdb_percent, call_otm_jdb, call_otm_jdb_percent
         global call_otm_cdb_percent_mean
         global 콜_등가_등락율, 콜_등가_시가등락율, plot_drate_scale_factor
-        global flag_call_open_in_fixed_coreval      
+        global flag_call_open_in_fixed_coreval
+        global flag_call_low_in_fixed_coreval_list, flag_call_high_in_fixed_coreval_list
+        global 콜시가_COREVAL_교집합, 콜시가_FIXED_COREVAL_교집합, 콜저가_COREVAL_교집합, 콜저가_진성맥점_교집합, 콜저가_FIXED_COREVAL_교집합, 콜고가_COREVAL_교집합, 콜고가_진성맥점_교집합, 콜고가_FIXED_COREVAL_교집합
 
         try:
             dt = datetime.now()
@@ -12605,8 +13483,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                call_시가 = df_call['시가'].values.tolist()
-                call_시가_node_list = self.make_node_list(call_시가)                
+                call_시가리스트 = df_call['시가'].values.tolist()
+                call_시가_node_list = self.make_node_list(call_시가리스트)
+
+                콜시가_COREVAL_교집합 = list(set(call_시가리스트) & set(COREVAL))
+                콜시가_FIXED_COREVAL_교집합 = list(set(call_시가리스트) & set(FIXED_COREVAL))
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
                     (dt.hour, dt.minute, dt.second, 콜시가)
@@ -12637,8 +13518,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
 
-                call_피봇 = df_call['피봇'].values.tolist()
-                call_피봇_node_list = self.make_node_list(call_피봇)
+                call_피봇리스트 = df_call['피봇'].values.tolist()
+                call_피봇_node_list = self.make_node_list(call_피봇리스트)
             else:
                 pass
 
@@ -12707,8 +13588,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem('▼')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                    call_저가 = df_call['저가'].values.tolist()
-                    call_저가_node_list = self.make_node_list(call_저가)
+                    call_저가리스트 = df_call['저가'].values.tolist()
+                    call_저가_node_list = self.make_node_list(call_저가리스트)
+
+                    콜저가_COREVAL_교집합 = list(set(call_저가리스트) & set(COREVAL))
+                    콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
+                    콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
+
+                    if 콜저가_FIXED_COREVAL_교집합:
+                        flag_call_low_in_fixed_coreval_list.append(True)
+                    else:
+                        flag_call_low_in_fixed_coreval_list.append(False)
 
                     if SEARCH_MOVING_NODE_START_VALUE < 콜저가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
@@ -12822,8 +13712,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem('▲')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                    call_고가 = df_call['고가'].values.tolist()
-                    call_고가_node_list = self.make_node_list(call_고가)
+                    call_고가리스트 = df_call['고가'].values.tolist()
+                    call_고가_node_list = self.make_node_list(call_고가리스트)
+
+                    콜고가_COREVAL_교집합 = list(set(call_고가리스트) & set(COREVAL))
+                    콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
+                    콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
+
+                    if 콜고가_FIXED_COREVAL_교집합:
+                        flag_call_high_in_fixed_coreval_list.append(True)
+                    else:
+                        flag_call_high_in_fixed_coreval_list.append(False)
 
                     if SEARCH_MOVING_NODE_START_VALUE < 콜고가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
@@ -13543,8 +14442,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_put
         global df_put_graph
         global atm_txt, ATM_INDEX, put_atm_value
-        global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
-        global put_저가, put_저가_node_list, put_고가, put_고가_node_list
+        global put_시가리스트, put_시가_node_list, put_피봇리스트, put_피봇_node_list, 풋시가리스트
+        global put_저가리스트, put_저가_node_list, put_고가리스트, put_고가_node_list
         global opt_putreal_update_counter
         global df_put_volume, put_volume_power, df_put_information_graph
         global put_max_actval, put_open, put_ol, put_oh
@@ -13554,6 +14453,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_otm_cdb_percent_mean
         global 풋_등가_등락율, 풋_등가_시가등락율, plot_drate_scale_factor
         global flag_put_open_in_fixed_coreval
+        global flag_put_low_in_fixed_coreval_list, flag_put_high_in_fixed_coreval_list
+        global 풋시가_COREVAL_교집합, 풋시가_FIXED_COREVAL_교집합, 풋저가_COREVAL_교집합, 풋저가_진성맥점_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_COREVAL_교집합, 풋고가_진성맥점_교집합, 풋고가_FIXED_COREVAL_교집합
 
         try:
             dt = datetime.now()
@@ -13710,8 +14611,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                put_시가 = df_put['시가'].values.tolist()
-                put_시가_node_list = self.make_node_list(put_시가)                
+                put_시가리스트 = df_put['시가'].values.tolist()
+                put_시가_node_list = self.make_node_list(put_시가리스트)
+
+                풋시가_COREVAL_교집합 = list(set(put_시가리스트) & set(COREVAL))
+                풋시가_FIXED_COREVAL_교집합 = list(set(put_시가리스트) & set(FIXED_COREVAL))
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
                     (dt.hour, dt.minute, dt.second, 풋시가)
@@ -13742,8 +14646,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
                 
-                put_피봇 = df_put['피봇'].values.tolist()
-                put_피봇_node_list = self.make_node_list(put_피봇)
+                put_피봇리스트 = df_put['피봇'].values.tolist()
+                put_피봇_node_list = self.make_node_list(put_피봇리스트)
             else:
                 pass
             
@@ -13812,8 +14716,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem('▼')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                    put_저가 = df_put['저가'].values.tolist()
-                    put_저가_node_list = self.make_node_list(put_저가)
+                    put_저가리스트 = df_put['저가'].values.tolist()
+                    put_저가_node_list = self.make_node_list(put_저가리스트)
+
+                    풋저가_COREVAL_교집합 = list(set(put_저가리스트) & set(COREVAL))
+                    풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
+                    풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
+
+                    if 풋저가_FIXED_COREVAL_교집합:
+                        flag_put_low_in_fixed_coreval_list.append(True)
+                    else:
+                        flag_put_low_in_fixed_coreval_list.append(False)
 
                     if SEARCH_MOVING_NODE_START_VALUE < 풋저가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
@@ -13927,8 +14840,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem('▲')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                    put_고가 = df_put['고가'].values.tolist()
-                    put_고가_node_list = self.make_node_list(put_고가)
+                    put_고가리스트 = df_put['고가'].values.tolist()
+                    put_고가_node_list = self.make_node_list(put_고가리스트)
+
+                    풋고가_COREVAL_교집합 = list(set(put_고가리스트) & set(COREVAL))
+                    풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
+                    풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
+
+                    if 풋고가_FIXED_COREVAL_교집합:
+                        flag_put_high_in_fixed_coreval_list.append(True)
+                    else:
+                        flag_put_high_in_fixed_coreval_list.append(False)
 
                     if SEARCH_MOVING_NODE_START_VALUE < 풋고가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
@@ -15137,13 +16059,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_행사가, put_행사가
 
-        global call_기준가, call_월저, call_월고, call_전저, call_전고, call_종가, call_피봇, \
-            call_시가, call_저가, call_고가, call_진폭
+        global call_기준가리스트, call_월저리스트, call_월고리스트, call_전저리스트, call_전고리스트, call_종가리스트, call_피봇리스트, \
+            call_시가리스트, call_저가리스트, call_고가리스트, call_진폭
         global call_기준가_node_list, call_월저_node_list, call_월고_node_list, call_전저_node_list, call_전고_node_list, \
             call_종가_node_list, call_피봇_node_list, call_시가_node_list, call_저가_node_list, call_고가_node_list
 
-        global put_기준가, put_월저, put_월고, put_전저, put_전고, put_종가, put_피봇, \
-            put_시가, put_저가, put_고가, put_진폭
+        global put_기준가리스트, put_월저리스트, put_월고리스트, put_전저리스트, put_전고리스트, put_종가리스트, put_피봇리스트, \
+            put_시가리스트, put_저가리스트, put_고가리스트, put_진폭
         global put_기준가_node_list, put_월저_node_list, put_월고_node_list, put_전저_node_list, put_전고_node_list, \
             put_종가_node_list, put_피봇_node_list, put_시가_node_list, put_저가_node_list, put_고가_node_list
 
@@ -16529,40 +17451,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(txt)
                 
-                call_저가 = df_call['저가'].values.tolist()
+                call_저가리스트 = df_call['저가'].values.tolist()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] call_저가리스트 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가리스트)
                 print(txt)
 
-                call_고가 = df_call['고가'].values.tolist()
+                call_고가리스트 = df_call['고가'].values.tolist()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] call_고가리스트 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가리스트)
                 print(txt)
 
-                put_저가 = df_put['저가'].values.tolist()
+                put_저가리스트 = df_put['저가'].values.tolist()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] put_저가리스트 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가리스트)
                 print(txt)
 
-                put_고가 = df_put['고가'].values.tolist()
+                put_고가리스트 = df_put['고가'].values.tolist()
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가리스트 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가리스트)
                 print(txt)
                 
                 if not pre_start:
 
                     # 콜 컬러링 리스트 작성
-                    call_시가 = df_call['시가'].values.tolist()
-                    call_시가_node_list = self.make_node_list(call_시가)
+                    call_시가리스트 = df_call['시가'].values.tolist()
+                    call_시가_node_list = self.make_node_list(call_시가리스트)
 
-                    call_피봇 = df_call['피봇'].values.tolist()
-                    call_피봇_node_list = self.make_node_list(call_피봇)
+                    call_피봇리스트 = df_call['피봇'].values.tolist()
+                    call_피봇_node_list = self.make_node_list(call_피봇리스트)
                     
-                    call_저가 = df_call['저가'].values.tolist()
-                    call_저가_node_list = self.make_node_list(call_저가)
+                    call_저가리스트 = df_call['저가'].values.tolist()
+                    call_저가_node_list = self.make_node_list(call_저가리스트)
 
-                    call_고가 = df_call['고가'].values.tolist()
-                    call_고가_node_list = self.make_node_list(call_고가)
+                    call_고가리스트 = df_call['고가'].values.tolist()
+                    call_고가_node_list = self.make_node_list(call_고가리스트)
                     
                     call_진폭 = df_call['진폭'].values.tolist()
                     진폭최대값 = max(call_진폭)
@@ -16572,17 +17494,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
                     # 풋 컬러링 리스트 작성
-                    put_시가 = df_put['시가'].values.tolist()
-                    put_시가_node_list = self.make_node_list(put_시가)
+                    put_시가리스트 = df_put['시가'].values.tolist()
+                    put_시가_node_list = self.make_node_list(put_시가리스트)
 
-                    put_피봇 = df_put['피봇'].values.tolist()
-                    put_피봇_node_list = self.make_node_list(put_피봇)
+                    put_피봇리스트 = df_put['피봇'].values.tolist()
+                    put_피봇_node_list = self.make_node_list(put_피봇리스트)
                     
-                    put_저가 = df_put['저가'].values.tolist()
-                    put_저가_node_list = self.make_node_list(put_저가)
+                    put_저가리스트 = df_put['저가'].values.tolist()
+                    put_저가_node_list = self.make_node_list(put_저가리스트)
 
-                    put_고가 = df_put['고가'].values.tolist()
-                    put_고가_node_list = self.make_node_list(put_고가)
+                    put_고가리스트 = df_put['고가'].values.tolist()
+                    put_고가_node_list = self.make_node_list(put_고가리스트)
                     
                     put_진폭 = df_put['진폭'].values.tolist()
                     진폭최대값 = max(put_진폭)
@@ -16750,10 +17672,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     del self.call_open_list[:]
                     del self.put_open_list[:]
 
-                    del call_저가[:]
-                    del call_고가[:]
-                    del put_저가[:]
-                    del put_고가[:]
+                    del call_저가리스트[:]
+                    del call_고가리스트[:]
+                    del put_저가리스트[:]
+                    del put_고가리스트[:]
 
                     for i in range(option_pairs_count):
 
@@ -17034,29 +17956,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
                     
-                    call_시가 = df_call['시가'].values.tolist()
-                    call_시가_node_list = self.make_node_list(call_시가)
+                    call_시가리스트 = df_call['시가'].values.tolist()
+                    call_시가_node_list = self.make_node_list(call_시가리스트)
 
-                    call_피봇 = df_call['피봇'].values.tolist()
-                    call_피봇_node_list = self.make_node_list(call_피봇)
+                    call_피봇리스트 = df_call['피봇'].values.tolist()
+                    call_피봇_node_list = self.make_node_list(call_피봇리스트)
                     
-                    call_저가 = df_call['저가'].values.tolist()
-                    call_저가_node_list = self.make_node_list(call_저가)
+                    call_저가리스트 = df_call['저가'].values.tolist()
+                    call_저가_node_list = self.make_node_list(call_저가리스트)
 
-                    call_고가 = df_call['고가'].values.tolist()
-                    call_고가_node_list = self.make_node_list(call_고가)
+                    call_고가리스트 = df_call['고가'].values.tolist()
+                    call_고가_node_list = self.make_node_list(call_고가리스트)
                     
-                    put_시가 = df_put['시가'].values.tolist()
-                    put_시가_node_list = self.make_node_list(put_시가)
+                    put_시가리스트 = df_put['시가'].values.tolist()
+                    put_시가_node_list = self.make_node_list(put_시가리스트)
 
-                    put_피봇 = df_put['피봇'].values.tolist()
-                    put_피봇_node_list = self.make_node_list(put_피봇)
+                    put_피봇리스트 = df_put['피봇'].values.tolist()
+                    put_피봇_node_list = self.make_node_list(put_피봇리스트)
                     
-                    put_저가 = df_put['저가'].values.tolist()
-                    put_저가_node_list = self.make_node_list(put_저가)
+                    put_저가리스트 = df_put['저가'].values.tolist()
+                    put_저가_node_list = self.make_node_list(put_저가리스트)
 
-                    put_고가 = df_put['고가'].values.tolist()
-                    put_고가_node_list = self.make_node_list(put_고가)                    
+                    put_고가리스트 = df_put['고가'].values.tolist()
+                    put_고가_node_list = self.make_node_list(put_고가리스트)                    
                     
                     self.opt_high_low_list_update()                    
 
@@ -18356,26 +19278,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     abs(call_atm_value - put_atm_value))
                 self.label_atm.setText(txt)             
 
-                call_전저 = df_call['전저'].values.tolist()
-                call_전저_node_list = self.make_node_list(call_전저)
+                call_전저리스트 = df_call['전저'].values.tolist()
+                call_전저_node_list = self.make_node_list(call_전저리스트)
 
-                call_전고 = df_call['전고'].values.tolist()
-                call_전고_node_list = self.make_node_list(call_전고)
+                call_전고리스트 = df_call['전고'].values.tolist()
+                call_전고_node_list = self.make_node_list(call_전고리스트)
 
-                call_종가 = df_call['종가'].values.tolist()
-                call_종가_node_list = self.make_node_list(call_종가)
+                call_종가리스트 = df_call['종가'].values.tolist()
+                call_종가_node_list = self.make_node_list(call_종가리스트)
                 
-                call_피봇 = df_call['피봇'].values.tolist()
-                call_피봇_node_list = self.make_node_list(call_피봇)
+                call_피봇리스트 = df_call['피봇'].values.tolist()
+                call_피봇_node_list = self.make_node_list(call_피봇리스트)
 
-                call_시가 = df_call['시가'].values.tolist()
-                call_시가_node_list = self.make_node_list(call_시가)
+                call_시가리스트 = df_call['시가'].values.tolist()
+                call_시가_node_list = self.make_node_list(call_시가리스트)
                 
-                call_저가 = df_call['저가'].values.tolist()
-                call_저가_node_list = self.make_node_list(call_저가)
+                call_저가리스트 = df_call['저가'].values.tolist()
+                call_저가_node_list = self.make_node_list(call_저가리스트)
 
-                call_고가 = df_call['고가'].values.tolist()
-                call_고가_node_list = self.make_node_list(call_고가)
+                call_고가리스트 = df_call['고가'].values.tolist()
+                call_고가_node_list = self.make_node_list(call_고가리스트)
                 
                 call_진폭 = df_call['진폭'].values.tolist()
                 진폭최대값 = max(call_진폭)
@@ -18384,26 +19306,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(max_txt)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
-                put_전저 = df_put['전저'].values.tolist()
-                put_전저_node_list = self.make_node_list(put_전저)
+                put_전저리스트 = df_put['전저'].values.tolist()
+                put_전저_node_list = self.make_node_list(put_전저리스트)
 
-                put_전고 = df_put['전고'].values.tolist()
-                put_전고_node_list = self.make_node_list(put_전고)
+                put_전고리스트 = df_put['전고'].values.tolist()
+                put_전고_node_list = self.make_node_list(put_전고리스트)
 
-                put_종가 = df_put['종가'].values.tolist()
-                put_종가_node_list = self.make_node_list(put_종가)
+                put_종가리스트 = df_put['종가'].values.tolist()
+                put_종가_node_list = self.make_node_list(put_종가리스트)
                 
-                put_피봇 = df_put['피봇'].values.tolist()
-                put_피봇_node_list = self.make_node_list(put_피봇)
+                put_피봇리스트 = df_put['피봇'].values.tolist()
+                put_피봇_node_list = self.make_node_list(put_피봇리스트)
 
-                put_시가 = df_put['시가'].values.tolist()
-                put_시가_node_list = self.make_node_list(put_시가)
+                put_시가리스트 = df_put['시가'].values.tolist()
+                put_시가_node_list = self.make_node_list(put_시가리스트)
                 
-                put_저가 = df_put['저가'].values.tolist()
-                put_저가_node_list = self.make_node_list(put_저가)
+                put_저가리스트 = df_put['저가'].values.tolist()
+                put_저가_node_list = self.make_node_list(put_저가리스트)
 
-                put_고가 = df_put['고가'].values.tolist()
-                put_고가_node_list = self.make_node_list(put_고가)
+                put_고가리스트 = df_put['고가'].values.tolist()
+                put_고가_node_list = self.make_node_list(put_고가리스트)
                 
                 put_진폭 = df_put['진폭'].values.tolist()
                 진폭최대값 = max(put_진폭)
@@ -18855,29 +19777,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 # Node 리스트 갱신
-                call_시가 = df_call['시가'].values.tolist()
-                call_시가_node_list = self.make_node_list(call_시가)
+                call_시가리스트 = df_call['시가'].values.tolist()
+                call_시가_node_list = self.make_node_list(call_시가리스트)
 
-                call_피봇 = df_call['피봇'].values.tolist()
-                call_피봇_node_list = self.make_node_list(call_피봇)
+                call_피봇리스트 = df_call['피봇'].values.tolist()
+                call_피봇_node_list = self.make_node_list(call_피봇리스트)
                 
-                call_저가 = df_call['저가'].values.tolist()
-                call_저가_node_list = self.make_node_list(call_저가)
+                call_저가리스트 = df_call['저가'].values.tolist()
+                call_저가_node_list = self.make_node_list(call_저가리스트)
 
-                call_고가 = df_call['고가'].values.tolist()
-                call_고가_node_list = self.make_node_list(call_고가)
+                call_고가리스트 = df_call['고가'].values.tolist()
+                call_고가_node_list = self.make_node_list(call_고가리스트)
                 
-                put_시가 = df_put['시가'].values.tolist()
-                put_시가_node_list = self.make_node_list(put_시가)
+                put_시가리스트 = df_put['시가'].values.tolist()
+                put_시가_node_list = self.make_node_list(put_시가리스트)
 
-                put_피봇 = df_put['피봇'].values.tolist()
-                put_피봇_node_list = self.make_node_list(put_피봇)
+                put_피봇리스트 = df_put['피봇'].values.tolist()
+                put_피봇_node_list = self.make_node_list(put_피봇리스트)
                 
-                put_저가 = df_put['저가'].values.tolist()
-                put_저가_node_list = self.make_node_list(put_저가)
+                put_저가리스트 = df_put['저가'].values.tolist()
+                put_저가_node_list = self.make_node_list(put_저가리스트)
 
-                put_고가 = df_put['고가'].values.tolist()
-                put_고가_node_list = self.make_node_list(put_고가)
+                put_고가리스트 = df_put['고가'].values.tolist()
+                put_고가_node_list = self.make_node_list(put_고가리스트)
 
                 print('t2835 call low =', call_저가_node_list)
                 print('t2835 call high =', call_고가_node_list)
@@ -19167,27 +20089,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if t8416_call_count == t8416_option_pairs_count - new_actval_down_count:
 
-                            call_기준가 = df_call['기준가'].values.tolist()
-                            call_월저 = df_call['월저'].values.tolist()
-                            call_월고 = df_call['월고'].values.tolist()
-                            call_전저 = df_call['전저'].values.tolist()
-                            call_전고 = df_call['전고'].values.tolist()
-                            call_종가 = df_call['종가'].values.tolist()
-                            call_피봇 = df_call['피봇'].values.tolist()
-                            call_시가 = df_call['시가'].values.tolist()
-                            call_저가 = df_call['저가'].values.tolist()
-                            call_고가 = df_call['고가'].values.tolist()
+                            call_기준가리스트 = df_call['기준가'].values.tolist()
+                            call_월저리스트 = df_call['월저'].values.tolist()
+                            call_월고리스트 = df_call['월고'].values.tolist()
+                            call_전저리스트 = df_call['전저'].values.tolist()
+                            call_전고리스트 = df_call['전고'].values.tolist()
+                            call_종가리스트 = df_call['종가'].values.tolist()
+                            call_피봇리스트 = df_call['피봇'].values.tolist()
+                            call_시가리스트 = df_call['시가'].values.tolist()
+                            call_저가리스트 = df_call['저가'].values.tolist()
+                            call_고가리스트 = df_call['고가'].values.tolist()
 
-                            call_기준가_node_list = self.make_node_list(call_기준가)
-                            call_월저_node_list = self.make_node_list(call_월저)
-                            call_월고_node_list = self.make_node_list(call_월고)
-                            call_전저_node_list = self.make_node_list(call_전저)
-                            call_전고_node_list = self.make_node_list(call_전고)
-                            call_종가_node_list = self.make_node_list(call_종가)
-                            call_피봇_node_list = self.make_node_list(call_피봇)
-                            call_시가_node_list = self.make_node_list(call_시가)
-                            call_저가_node_list = self.make_node_list(call_저가)
-                            call_고가_node_list = self.make_node_list(call_고가)
+                            call_기준가_node_list = self.make_node_list(call_기준가리스트)
+                            call_월저_node_list = self.make_node_list(call_월저리스트)
+                            call_월고_node_list = self.make_node_list(call_월고리스트)
+                            call_전저_node_list = self.make_node_list(call_전저리스트)
+                            call_전고_node_list = self.make_node_list(call_전고리스트)
+                            call_종가_node_list = self.make_node_list(call_종가리스트)
+                            call_피봇_node_list = self.make_node_list(call_피봇리스트)
+                            call_시가_node_list = self.make_node_list(call_시가리스트)
+                            call_저가_node_list = self.make_node_list(call_저가리스트)
+                            call_고가_node_list = self.make_node_list(call_고가리스트)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
@@ -19436,27 +20358,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # to be checked !!!
                 if t8416_call_count == count - 1:
 
-                    call_기준가 = df_call['기준가'].values.tolist()
-                    call_월저 = df_call['월저'].values.tolist()
-                    call_월고 = df_call['월고'].values.tolist()
-                    call_전저 = df_call['전저'].values.tolist()
-                    call_전고 = df_call['전고'].values.tolist()
-                    call_종가 = df_call['종가'].values.tolist()
-                    call_피봇 = df_call['피봇'].values.tolist()
-                    call_시가 = df_call['시가'].values.tolist()
-                    call_저가 = df_call['저가'].values.tolist()
-                    call_고가 = df_call['고가'].values.tolist()
+                    call_기준가리스트 = df_call['기준가'].values.tolist()
+                    call_월저리스트 = df_call['월저'].values.tolist()
+                    call_월고리스트 = df_call['월고'].values.tolist()
+                    call_전저리스트 = df_call['전저'].values.tolist()
+                    call_전고리스트 = df_call['전고'].values.tolist()
+                    call_종가리스트 = df_call['종가'].values.tolist()
+                    call_피봇리스트 = df_call['피봇'].values.tolist()
+                    call_시가리스트 = df_call['시가'].values.tolist()
+                    call_저가리스트 = df_call['저가'].values.tolist()
+                    call_고가리스트 = df_call['고가'].values.tolist()
 
-                    call_기준가_node_list = self.make_node_list(call_기준가)
-                    call_월저_node_list = self.make_node_list(call_월저)
-                    call_월고_node_list = self.make_node_list(call_월고)
-                    call_전저_node_list = self.make_node_list(call_전저)
-                    call_전고_node_list = self.make_node_list(call_전고)
-                    call_종가_node_list = self.make_node_list(call_종가)
-                    call_피봇_node_list = self.make_node_list(call_피봇)
-                    call_시가_node_list = self.make_node_list(call_시가)
-                    call_저가_node_list = self.make_node_list(call_저가)
-                    call_고가_node_list = self.make_node_list(call_고가)
+                    call_기준가_node_list = self.make_node_list(call_기준가리스트)
+                    call_월저_node_list = self.make_node_list(call_월저리스트)
+                    call_월고_node_list = self.make_node_list(call_월고리스트)
+                    call_전저_node_list = self.make_node_list(call_전저리스트)
+                    call_전고_node_list = self.make_node_list(call_전고리스트)
+                    call_종가_node_list = self.make_node_list(call_종가리스트)
+                    call_피봇_node_list = self.make_node_list(call_피봇리스트)
+                    call_시가_node_list = self.make_node_list(call_시가리스트)
+                    call_저가_node_list = self.make_node_list(call_저가리스트)
+                    call_고가_node_list = self.make_node_list(call_고가리스트)
+                    
+                    print('\r')
+                    print('###########################################################################')
+                    print('call 시가 = {0}\r'.format(call_시가리스트))
+                    print('call 저가 = {0}\r'.format(call_저가리스트))
+                    print('call 고가 = {0}\r'.format(call_고가리스트))
+                    print('###########################################################################')
+                    print('\r')
 
                     print('======================================================================================================================================================================\r')
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
@@ -19745,27 +20675,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(df_put)
                     print('\r')
                     '''
-                    put_기준가 = df_put['기준가'].values.tolist()
-                    put_월저 = df_put['월저'].values.tolist()
-                    put_월고 = df_put['월고'].values.tolist()
-                    put_전저 = df_put['전저'].values.tolist()
-                    put_전고 = df_put['전고'].values.tolist()
-                    put_종가 = df_put['종가'].values.tolist()
-                    put_피봇 = df_put['피봇'].values.tolist()
-                    put_시가 = df_put['시가'].values.tolist()
-                    put_저가 = df_put['저가'].values.tolist()
-                    put_고가 = df_put['고가'].values.tolist()
+                    put_기준가리스트 = df_put['기준가'].values.tolist()
+                    put_월저리스트 = df_put['월저'].values.tolist()
+                    put_월고리스트 = df_put['월고'].values.tolist()
+                    put_전저리스트 = df_put['전저'].values.tolist()
+                    put_전고리스트 = df_put['전고'].values.tolist()
+                    put_종가리스트 = df_put['종가'].values.tolist()
+                    put_피봇리스트 = df_put['피봇'].values.tolist()
+                    put_시가리스트 = df_put['시가'].values.tolist()
+                    put_저가리스트 = df_put['저가'].values.tolist()
+                    put_고가리스트 = df_put['고가'].values.tolist()
 
-                    put_기준가_node_list = self.make_node_list(put_기준가)
-                    put_월저_node_list = self.make_node_list(put_월저)
-                    put_월고_node_list = self.make_node_list(put_월고)
-                    put_전저_node_list = self.make_node_list(put_전저)
-                    put_전고_node_list = self.make_node_list(put_전고)
-                    put_종가_node_list = self.make_node_list(put_종가)
-                    put_피봇_node_list = self.make_node_list(put_피봇)
-                    put_시가_node_list = self.make_node_list(put_시가)
-                    put_저가_node_list = self.make_node_list(put_저가)
-                    put_고가_node_list = self.make_node_list(put_고가)
+                    put_기준가_node_list = self.make_node_list(put_기준가리스트)
+                    put_월저_node_list = self.make_node_list(put_월저리스트)
+                    put_월고_node_list = self.make_node_list(put_월고리스트)
+                    put_전저_node_list = self.make_node_list(put_전저리스트)
+                    put_전고_node_list = self.make_node_list(put_전고리스트)
+                    put_종가_node_list = self.make_node_list(put_종가리스트)
+                    put_피봇_node_list = self.make_node_list(put_피봇리스트)
+                    put_시가_node_list = self.make_node_list(put_시가리스트)
+                    put_저가_node_list = self.make_node_list(put_저가리스트)
+                    put_고가_node_list = self.make_node_list(put_고가리스트)
+
+                    print('\r')
+                    print('###########################################################################')
+                    print('put 시가 = {0}\r'.format(put_시가리스트))
+                    print('put 저가 = {0}\r'.format(put_저가리스트))
+                    print('put 고가 = {0}\r'.format(put_고가리스트))
+                    print('###########################################################################')
+                    print('\r')
                     
                     if ResizeRowsToContents:
                         self.tableWidget_put.resizeRowsToContents()
@@ -36537,9 +37475,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)
             else:                
-                if flag_call_low_in_fixed_coreval:
+                if flag_call_low_in_fixed_coreval_list[-1]:
                     self.label_time_1.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' [{0:02d}:{1:02d}:{2:02d}] ♦ CL({3}) {4:.2f} ms '.format(dt.hour, dt.minute, dt.second, call_low_val_in_fixed_coreval, plot1_processing_time)
+                    txt = ' [{0:02d}:{1:02d}:{2:02d}] ♦ CL({3}) {4:.2f} ms '.format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합, plot1_processing_time)
                 else:
                     self.label_time_1.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot1_processing_time)    
@@ -38669,9 +39607,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot2_processing_time)
             else:
-                if flag_put_low_in_fixed_coreval:
+                if flag_put_low_in_fixed_coreval_list[-1]:
                     self.label_time_2.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' ♠ PL({0}) {1:.2f} ms '.format(put_low_val_in_fixed_coreval, plot2_processing_time)
+                    txt = ' ♠ PL({0}) {1:.2f} ms '.format(풋저가_FIXED_COREVAL_교집합, plot2_processing_time)
                 else:
                     self.label_time_2.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot2_processing_time)           
@@ -42931,9 +43869,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot4_processing_time)
             else:
-                if flag_call_high_in_fixed_coreval:
+                if flag_call_high_in_fixed_coreval_list[-1]:
                     self.label_time_4.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' ♦ CH({0}) {1:.2f} ms '.format(call_high_val_in_fixed_coreval, plot4_processing_time)
+                    txt = ' ♦ CH({0}) {1:.2f} ms '.format(콜고가_FIXED_COREVAL_교집합, plot4_processing_time)
                 else:
                     self.label_time_4.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot4_processing_time)
@@ -45063,9 +46001,9 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot5_processing_time)
             else:
-                if flag_put_high_in_fixed_coreval:
+                if flag_put_high_in_fixed_coreval_list[-1]:
                     self.label_time_5.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
-                    txt = ' ♠ PH({0}) {1:.2f} ms '.format(put_high_val_in_fixed_coreval, plot5_processing_time)
+                    txt = ' ♠ PH({0}) {1:.2f} ms '.format(풋고가_FIXED_COREVAL_교집합, plot5_processing_time)
                 else:
                     self.label_time_5.setStyleSheet('background-color: lawngreen; color: blue; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' {0:.2f} ms '.format(plot5_processing_time)
@@ -47427,6 +48365,192 @@ class Xing(object):
                     else:
                         pass
 
+                    if self.clocktick:
+
+                        if flag_call_low_in_fixed_coreval_list[-1] and not flag_call_low_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 콜저가 주요맥점 생성'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 콜저가 주요맥점 생성'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if not flag_call_low_in_fixed_coreval_list[-1] and flag_call_low_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 콜저가 주요맥점 소멸'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 콜저가 주요맥점 소멸'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if flag_call_high_in_fixed_coreval_list[-1] and not flag_call_high_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 콜고가 주요맥점 생성'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 콜고가 주요맥점 생성'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if not flag_call_high_in_fixed_coreval_list[-1] and flag_call_high_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 콜고가 주요맥점 소멸'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 콜고가 주요맥점 소멸'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if flag_put_low_in_fixed_coreval_list[-1] and not flag_put_low_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 풋저가 주요맥점 생성'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 풋저가 주요맥점 생성'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if not flag_put_low_in_fixed_coreval_list[-1] and flag_put_low_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 풋저가 주요맥점 소멸'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 풋저가 주요맥점 소멸'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if flag_put_high_in_fixed_coreval_list[-1] and not flag_put_high_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 풋고가 주요맥점 생성'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 풋고가 주요맥점 생성'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
+                        if not flag_put_high_in_fixed_coreval_list[-1] and flag_put_high_in_fixed_coreval_list[-2]:
+
+                            if TARGET_MONTH == 'CM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                            if TARGET_MONTH == 'NM':
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if TARGET_MONTH == 'CM':
+                                txt = 'CM 풋고가 주요맥점 소멸'
+
+                            if TARGET_MONTH == 'NM':
+                                txt = 'NM 풋고가 주요맥점 소멸'
+
+                            if flag_tts:                                
+                                self.caller.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                    ToYourTelegram(txt)
+                    
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
@@ -47583,42 +48707,39 @@ class Xing(object):
 
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
 
-                        if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node or flag_kp200_high_node:
+                        if flag_call_low_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_call_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, call_low_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_call_high_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_call_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, call_high_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_put_low_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_put_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, put_low_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_put_high_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_put_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, put_high_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_kp200_low_node:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 주요맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_kp200_low_node:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-
-                            if flag_kp200_high_node:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 주요맥점 발생!\r".format(dt.hour, dt.minute, dt.second)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                            
+                        if flag_kp200_high_node:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 주요맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        
+                        if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node or flag_kp200_high_node:
                             if flag_tts:
                                 winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
-                        else:
-                            pass
                     else:
                         pass
 
@@ -47629,11 +48750,12 @@ class Xing(object):
                             self.caller.textBrowser.append(txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)                            
 
-                            if (flag_call_low_in_fixed_coreval or flag_put_high_in_fixed_coreval or flag_kp200_low_node):
+                            if (flag_call_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
 
                                 if flag_tts:
+                                    txt = 'NM Strong Call'
                                     self.caller.speaker.setText(txt)
 
                                 if flag_telegram_service:
@@ -47648,11 +48770,12 @@ class Xing(object):
                             self.caller.textBrowser.append(txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-                            if (flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_kp200_high_node):
+                            if (flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_kp200_high_node):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
 
                                 if flag_tts:
+                                    txt = 'NM Strong Put'
                                     self.caller.speaker.setText(txt)
 
                                 if flag_telegram_service:
@@ -47665,33 +48788,30 @@ class Xing(object):
                         pass
 
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
-
-                        if flag_call_low_in_fixed_coreval or flag_call_high_in_fixed_coreval or flag_put_low_in_fixed_coreval or flag_put_high_in_fixed_coreval:
                             
-                            if flag_call_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, call_low_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_call_low_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_call_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, call_high_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_call_high_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_put_low_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, put_low_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                        if flag_put_low_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                            if flag_put_high_in_fixed_coreval:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, put_high_val_in_fixed_coreval)
-                                self.caller.textBrowser.append(send_txt)
-                                self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                                
+                        if flag_put_high_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            self.caller.textBrowser.append(send_txt)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+                            
+                        if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1]:
                             if flag_tts:
                                 winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
-                        else:
-                            pass
                     else:
                         pass
 
