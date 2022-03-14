@@ -6110,6 +6110,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_low_node_list, call_high_node_list, put_low_node_list, put_high_node_list
         global call_low_node_txt, call_high_node_txt, put_low_node_txt, put_high_node_txt
         global kp200_low_node_txt, kp200_high_node_txt
+        global flag_call_low_in_fixed_coreval_list, flag_call_high_in_fixed_coreval_list, flag_put_low_in_fixed_coreval_list, flag_put_high_in_fixed_coreval_list
+        global 콜저가_진성맥점_교집합, 콜고가_진성맥점_교집합, 풋저가_진성맥점_교집합, 풋고가_진성맥점_교집합
+        global 콜저가_FIXED_COREVAL_교집합, 콜고가_FIXED_COREVAL_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_FIXED_COREVAL_교집합
 
         try:
             dt = datetime.now()
@@ -6414,58 +6417,70 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if True:
+                    콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
+                    콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
+
+                    콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
+                    콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
+
+                    풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
+                    풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
+
+                    풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
+                    풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
                     
-                        # 진성 의미가인 경우 blinking(매우 중요 !!!)
-                        if 콜시가_FIXED_COREVAL_교집합:
-                            self.call_open_coreval_color_blink(not self.alternate_flag)
-                        else:
-                            pass
-
-                        if 풋시가_FIXED_COREVAL_교집합:
-                            self.put_open_coreval_color_blink(not self.alternate_flag)
-                        else:
-                            pass
-
-                        if 콜저가_진성맥점_교집합:
-                            self.call_low_coreval_color_blink(self.alternate_flag)
-                        else:                        
-                            call_low_coreval_txt = ''
-                            call_low_node_list = []
-                            call_low_node_txt = ''
-
-                        if 콜고가_진성맥점_교집합:
-                            self.call_high_coreval_color_blink(self.alternate_flag)
-                        else:
-                            call_high_coreval_txt = ''
-                            call_high_node_list = []
-                            call_high_node_txt = ''
-
-                        if 풋저가_진성맥점_교집합:
-                            self.put_low_coreval_color_blink(self.alternate_flag)
-                        else:
-                            put_low_coreval_txt = ''
-                            put_low_node_list = []
-                            put_low_node_txt = ''
-
-                        if 풋고가_진성맥점_교집합:
-                            self.put_high_coreval_color_blink(self.alternate_flag)                        
-                        else:
-                            put_high_coreval_txt = '' 
-                            put_high_node_list = []
-                            put_high_node_txt = ''                                                    
-
-                        if flag_kp200_low_node:
-                            self.kp200_low_color_blink(self.alternate_flag)
-                        else:
-                            kp200_low_node_txt = ''
-
-                        if flag_kp200_high_node:
-                            self.kp200_high_color_blink(self.alternate_flag)
-                        else:
-                            kp200_high_node_txt = ''
+                    # 진성 의미가인 경우 blinking(매우 중요 !!!)
+                    if 콜시가_FIXED_COREVAL_교집합:
+                        self.call_open_coreval_color_blink(not self.alternate_flag)
                     else:
-                        pass                                      
+                        pass
+
+                    if 풋시가_FIXED_COREVAL_교집합:
+                        self.put_open_coreval_color_blink(not self.alternate_flag)
+                    else:
+                        pass
+
+                    if 콜저가_FIXED_COREVAL_교집합:
+                        flag_call_low_in_fixed_coreval_list.append(True)
+                        self.call_low_coreval_color_blink(self.alternate_flag)
+                    else:
+                        flag_call_low_in_fixed_coreval_list.append(False)                        
+                        call_low_coreval_txt = ''
+                        call_low_node_txt = ''
+
+                    if 콜고가_FIXED_COREVAL_교집합:
+                        flag_call_high_in_fixed_coreval_list.append(True)
+                        self.call_high_coreval_color_blink(self.alternate_flag)
+                    else:
+                        flag_call_high_in_fixed_coreval_list.append(False)
+                        call_high_coreval_txt = ''
+                        call_high_node_txt = ''
+
+                    if 풋저가_FIXED_COREVAL_교집합:
+                        flag_put_low_in_fixed_coreval_list.append(True)
+                        self.put_low_coreval_color_blink(self.alternate_flag)
+                    else:
+                        flag_put_low_in_fixed_coreval_list.append(False)
+                        put_low_coreval_txt = ''
+                        put_low_node_txt = ''
+
+                    if 풋고가_FIXED_COREVAL_교집합:
+                        flag_put_high_in_fixed_coreval_list.append(True)
+                        self.put_high_coreval_color_blink(self.alternate_flag)                        
+                    else:
+                        flag_put_high_in_fixed_coreval_list.append(False)
+                        put_high_coreval_txt = '' 
+                        put_high_node_txt = ''                                                    
+
+                    if flag_kp200_low_node:
+                        self.kp200_low_color_blink(self.alternate_flag)
+                    else:
+                        kp200_low_node_txt = ''
+
+                    if flag_kp200_high_node:
+                        self.kp200_high_color_blink(self.alternate_flag)
+                    else:
+                        kp200_high_node_txt = ''                 
 
                     # 비대칭장 탐색
                     if abs(call_otm_cdb_percent_mean) > 0 and abs(put_otm_cdb_percent_mean) > 0:
@@ -6812,26 +6827,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_고가리스트 = df_call['고가'].values.tolist()
         put_저가리스트 = df_put['저가'].values.tolist()
         put_고가리스트 = df_put['고가'].values.tolist()
+
+        call_low_temp_list = call_저가리스트.copy()
+        call_high_temp_list = call_고가리스트.copy()
+        put_low_temp_list = put_저가리스트.copy()
+        put_high_temp_list = put_고가리스트.copy()
         
-        call_저가리스트.sort()
-        index1 = bisect(call_저가리스트, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(call_저가리스트, SEARCH_MOVING_NODE_END_VALUE)
-        call_low_list = call_저가리스트[index1:index2]
+        call_low_temp_list.sort()
+        index1 = bisect(call_low_temp_list, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(call_low_temp_list, SEARCH_MOVING_NODE_END_VALUE)
+        call_low_list = call_low_temp_list[index1:index2]
 
-        call_고가리스트.sort()
-        index1 = bisect(call_고가리스트, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(call_고가리스트, SEARCH_MOVING_NODE_END_VALUE)
-        call_high_list = call_고가리스트[index1:index2]
+        call_high_temp_list.sort()
+        index1 = bisect(call_high_temp_list, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(call_high_temp_list, SEARCH_MOVING_NODE_END_VALUE)
+        call_high_list = call_high_temp_list[index1:index2]
 
-        put_저가리스트.sort()
-        index1 = bisect(put_저가리스트, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(put_저가리스트, SEARCH_MOVING_NODE_END_VALUE)
-        put_low_list = put_저가리스트[index1:index2]
+        put_low_temp_list.sort()
+        index1 = bisect(put_low_temp_list, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(put_low_temp_list, SEARCH_MOVING_NODE_END_VALUE)
+        put_low_list = put_low_temp_list[index1:index2]
 
-        put_고가리스트.sort()
-        index1 = bisect(put_고가리스트, SEARCH_MOVING_NODE_START_VALUE)
-        index2 = bisect(put_고가리스트, SEARCH_MOVING_NODE_END_VALUE)
-        put_high_list = put_고가리스트[index1:index2]
+        put_high_temp_list.sort()
+        index1 = bisect(put_high_temp_list, SEARCH_MOVING_NODE_START_VALUE)
+        index2 = bisect(put_high_temp_list, SEARCH_MOVING_NODE_END_VALUE)
+        put_high_list = put_high_temp_list[index1:index2]
 
         high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
         high_low_list.sort()
@@ -6880,8 +6900,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.textBrowser.append(txt)
         print(txt)
                 
-        동적맥점_리스트 = []
-        동적맥점_빈도수_리스트 = []
+        동적맥점_리스트.clear()
+        동적맥점_빈도수_리스트.clear()
 
         OLD_진성맥점 = 진성맥점[:]
 
@@ -7235,6 +7255,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global coloring_done_time
         global node_coloring
         global refresh_coloring
+        global 콜저가_진성맥점_교집합, 콜저가_FIXED_COREVAL_교집합, 콜고가_진성맥점_교집합, 콜고가_FIXED_COREVAL_교집합, 풋저가_진성맥점_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_진성맥점_교집합, 풋고가_FIXED_COREVAL_교집합
 
         dt = datetime.now()
         start_time = timeit.default_timer()
@@ -7245,7 +7266,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if bms_node_list:
             self.search_moving_node()            
         else:
-            pass
+            pass      
         
         self.call_node_color_clear()
         self.call_open_check()
@@ -7265,6 +7286,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         node_coloring = False
         refresh_coloring = False
+
+        콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
+        콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
+
+        콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
+        콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
+
+        풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
+        풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
+
+        풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
+        풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
+
+        print('\r')
+        print('###########################################################################')
+        print('콜저가_진성맥점_교집합 = {0}\r'.format(콜저가_진성맥점_교집합))
+        print('콜고가_진성맥점_교집합 = {0}\r'.format(콜고가_진성맥점_교집합))
+        print('풋저가_진성맥점_교집합 = {0}\r'.format(풋저가_진성맥점_교집합))
+        print('풋고가_진성맥점_교집합 = {0}\r'.format(풋고가_진성맥점_교집합))
+        print('###########################################################################')
+        print('\r')
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -8251,19 +8293,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
         #콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
 
+        call_low_node_list.clear()
+        call_low_node_old_count = call_low_node_count
+
         count = len(콜저가_진성맥점_교집합)
+        call_low_node_count = count
         
         if 콜저가_진성맥점_교집합:
             for i in range(len(콜저가_진성맥점_교집합)):
-                index = call_저가리스트.index(콜저가_진성맥점_교집합[i])
-
+                #index = call_저가리스트.index(콜저가_진성맥점_교집합[i])
+                call_low_node_list.append(콜저가_진성맥점_교집합[i])
+        '''
                 if blink:
                     self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
                 else:
                     self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(대맥점색))
-
+        '''
         if 콜저가_FIXED_COREVAL_교집합:
             for i in range(len(콜저가_FIXED_COREVAL_교집합)):
                 index = call_저가리스트.index(콜저가_FIXED_COREVAL_교집합[i])
@@ -8282,7 +8329,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = self.opt_total_actval_list
 
         count = 0
-        call_low_node_list = [] 
+        call_low_node_list.clear() 
 
         call_low_node_old_count = call_low_node_count
 
@@ -8336,9 +8383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass                        
         else:
-            call_low_node_txt == ''
-
-        call_low_node_count = count
+            call_low_node_txt == ''        
 
         if count == 0:
 
@@ -8433,19 +8478,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
         #콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
 
+        call_high_node_list.clear()
+        call_high_node_old_count = call_high_node_count
+
         count = len(콜고가_진성맥점_교집합)
+        call_high_node_count = count
         
         if 콜고가_진성맥점_교집합:
             for i in range(len(콜고가_진성맥점_교집합)):
-                index = call_고가리스트.index(콜고가_진성맥점_교집합[i])
-
+                #index = call_고가리스트.index(콜고가_진성맥점_교집합[i])
+                call_high_node_list.append(콜고가_진성맥점_교집합[i])
+        '''
                 if blink:
                     self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
                     self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(대맥점색))
-
+        '''
         if 콜고가_FIXED_COREVAL_교집합:
             for i in range(len(콜고가_FIXED_COREVAL_교집합)):
                 index = call_고가리스트.index(콜고가_FIXED_COREVAL_교집합[i])
@@ -8464,7 +8514,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = self.opt_total_actval_list 
 
         count = 0
-        call_high_node_list = [] 
+        call_high_node_list.clear() 
 
         call_high_node_old_count = call_high_node_count
 
@@ -8518,9 +8568,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            call_high_node_txt == ''
-
-        call_high_node_count = count 
+            call_high_node_txt == ''        
 
         if count == 0:
 
@@ -9532,6 +9580,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 index = call_기준가리스트.index(콜기준가_풋저가_노드_교집합[i])
 
         콜기준가_풋고가_노드_교집합 = list(set(call_기준가리스트) & set(put_고가_node_list))
+
+        if 콜기준가_풋고가_노드_교집합:
+            for i in range(len(콜기준가_풋고가_노드_교집합)):
+                index = call_기준가리스트.index(콜기준가_풋고가_노드_교집합[i])
+
+        콜기준가_콜저가_노드_교집합 = list(set(call_기준가리스트) & set(call_저가_node_list))
+
+        if 콜기준가_콜저가_노드_교집합:
+            for i in range(len(콜기준가_콜저가_노드_교집합)):
+                index = call_기준가리스트.index(콜기준가_콜저가_노드_교집합[i])
+
+        콜기준가_콜고가_노드_교집합 = list(set(call_기준가리스트) & set(call_고가_node_list))
+
+        if 콜기준가_콜고가_노드_교집합:
+            for i in range(len(콜기준가_콜고가_노드_교집합)):
+                index = call_기준가리스트.index(콜기준가_콜고가_노드_교집합[i])
+
+        콜월저_풋저가_노드_교집합 = list(set(call_월저리스트) & set(put_저가_node_list))
+        콜월저_풋고가_노드_교집합 = list(set(call_월저리스트) & set(put_고가_node_list))
+        콜월저_콜저가_노드_교집합 = list(set(call_월저리스트) & set(call_저가_node_list))
+        콜월저_콜고가_노드_교집합 = list(set(call_월저리스트) & set(call_고가_node_list))
+
+        콜월고_풋저가_노드_교집합 = list(set(call_월고리스트) & set(put_저가_node_list))
+        콜월고_풋고가_노드_교집합 = list(set(call_월고리스트) & set(put_고가_node_list))
+        콜월고_콜저가_노드_교집합 = list(set(call_월고리스트) & set(call_저가_node_list))
+        콜월고_콜고가_노드_교집합 = list(set(call_월고리스트) & set(call_고가_node_list))
+
+        콜전저_풋저가_노드_교집합 = []
+        콜전저_풋고가_노드_교집합 = []
+        콜전저_콜저가_노드_교집합 = []
+        콜전저_콜고가_노드_교집합 = []
+
+        콜전고_풋저가_노드_교집합 = []
+        콜전고_풋고가_노드_교집합 = []
+        콜전고_콜저가_노드_교집합 = []
+        콜전고_콜고가_노드_교집합 = []
+
+        콜종가_풋저가_노드_교집합 = []
+        콜종가_풋고가_노드_교집합 = []
+        콜종가_콜저가_노드_교집합 = []
+        콜종가_콜고가_노드_교집합 = []
+
+        콜피봇_풋저가_노드_교집합 = []
+        콜피봇_풋고가_노드_교집합 = []
+        콜피봇_콜저가_노드_교집합 = []
+        콜피봇_콜고가_노드_교집합 = []
+
+        콜시가_풋저가_노드_교집합 = []
+        콜시가_풋고가_노드_교집합 = []
+        콜시가_콜저가_노드_교집합 = []
+        콜시가_콜고가_노드_교집합 = []
+
         '''
         
         if call_scroll_end_position > option_pairs_count:
@@ -11140,22 +11240,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
         #풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
 
+        #print('풋저가_FIXED_COREVAL_교집합 = {0}\r'.format(풋저가_FIXED_COREVAL_교집합))
+
+        put_low_node_list.clear()
+        put_low_node_old_count = put_low_node_count
+
         count = len(풋저가_진성맥점_교집합)
+        put_low_node_count = count
         
         if 풋저가_진성맥점_교집합:
             for i in range(len(풋저가_진성맥점_교집합)):
-                index = put_저가리스트.index(풋저가_진성맥점_교집합[i])
-
+                #index = put_저가리스트.index(풋저가_진성맥점_교집합[i])
+                put_low_node_list.append(풋저가_진성맥점_교집합[i])
+        '''
                 if blink:
                     self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
                 else:
                     self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(대맥점색))
-
+        '''
         if 풋저가_FIXED_COREVAL_교집합:
             for i in range(len(풋저가_FIXED_COREVAL_교집합)):
                 index = put_저가리스트.index(풋저가_FIXED_COREVAL_교집합[i])
+                #print('풋저가_FIXED_COREVAL_교집합 index = {0}\r'.format(index))
 
                 if blink:
                     self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(노란색))
@@ -11171,7 +11279,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = self.opt_total_actval_list
 
         count = 0
-        put_low_node_list = [] 
+        put_low_node_list.clear() 
 
         put_low_node_old_count = put_low_node_count
 
@@ -11226,8 +11334,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
         else:
             put_low_node_txt == ''    
-
-        put_low_node_count = count
 
         if count == 0:
 
@@ -11323,19 +11429,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
         #풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
 
+        put_high_node_list.clear()
+        put_high_node_old_count = put_high_node_count
+
         count = len(풋고가_진성맥점_교집합)
-        
+        put_high_node_count = count
+
         if 풋고가_진성맥점_교집합:
             for i in range(len(풋고가_진성맥점_교집합)):
-                index = put_고가리스트.index(풋고가_진성맥점_교집합[i])
-
+                #index = put_고가리스트.index(풋고가_진성맥점_교집합[i])
+                put_high_node_list.append(풋고가_진성맥점_교집합[i])
+        '''        
                 if blink:
                     self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
                     self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(대맥점색))
-
+        '''
         if 풋고가_FIXED_COREVAL_교집합:
             for i in range(len(풋고가_FIXED_COREVAL_교집합)):
                 index = put_고가리스트.index(풋고가_FIXED_COREVAL_교집합[i])
@@ -11354,7 +11465,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = self.opt_total_actval_list
 
         count = 0
-        put_high_node_list = []
+        put_high_node_list.clear()
 
         put_high_node_old_count = put_high_node_count
 
@@ -11408,9 +11519,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            put_high_node_txt == ''
-
-        put_high_node_count = count
+            put_high_node_txt == ''        
 
         if count == 0:
 
@@ -12621,7 +12730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     uptrend = False
                     
-                futures_fibonacci_levels = []
+                futures_fibonacci_levels.clear()
 
                 max_level = 근월물_선물_고가
                 min_level = 근월물_선물_저가
@@ -12747,7 +12856,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
 
-                futures_fibonacci_levels = []
+                futures_fibonacci_levels.clear()
 
                 max_level = 근월물_선물_고가
                 min_level = 근월물_선물_저가
@@ -12808,7 +12917,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
 
-                futures_fibonacci_levels = []
+                futures_fibonacci_levels.clear()
 
                 max_level = 근월물_선물_고가
                 min_level = 근월물_선물_저가
@@ -16124,6 +16233,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 근월물_선물_시가등락율, 차월물_선물_시가등락율
         global FUT_당일종가
         global flag_call_open_in_fixed_coreval, flag_put_open_in_fixed_coreval
+        global 콜저가_진성맥점_교집합, 콜저가_FIXED_COREVAL_교집합, 콜고가_진성맥점_교집합, 콜고가_FIXED_COREVAL_교집합, 풋저가_진성맥점_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_진성맥점_교집합, 풋고가_FIXED_COREVAL_교집합
 
         dt = datetime.now()
 
@@ -20702,6 +20812,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('put 시가 = {0}\r'.format(put_시가리스트))
                     print('put 저가 = {0}\r'.format(put_저가리스트))
                     print('put 고가 = {0}\r'.format(put_고가리스트))
+                    print('###########################################################################')
+                    print('\r')
+
+                    콜저가_진성맥점_교집합 = list(set(call_저가리스트) & set(진성맥점))
+                    콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
+
+                    콜고가_진성맥점_교집합 = list(set(call_고가리스트) & set(진성맥점))
+                    콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
+
+                    풋저가_진성맥점_교집합 = list(set(put_저가리스트) & set(진성맥점))
+                    풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
+
+                    풋고가_진성맥점_교집합 = list(set(put_고가리스트) & set(진성맥점))
+                    풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
+
+                    print('\r')
+                    print('###########################################################################')
+                    print('콜저가_진성맥점_교집합 = {0}\r'.format(콜저가_진성맥점_교집합))
+                    print('콜고가_진성맥점_교집합 = {0}\r'.format(콜고가_진성맥점_교집합))
+                    print('풋저가_진성맥점_교집합 = {0}\r'.format(풋저가_진성맥점_교집합))
+                    print('풋고가_진성맥점_교집합 = {0}\r'.format(풋고가_진성맥점_교집합))
                     print('###########################################################################')
                     print('\r')
                     
@@ -48708,22 +48839,22 @@ class Xing(object):
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
 
                         if flag_call_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_call_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♦ 콜고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♠ 풋고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
@@ -48790,22 +48921,22 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
                             
                         if flag_call_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_call_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 콜고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ 풋고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점({3}) 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             
