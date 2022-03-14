@@ -9249,7 +9249,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜시가_풋저가_노드_교집합, 콜시가_풋고가_노드_교집합, 콜시가_콜저가_노드_교집합, 콜시가_콜고가_노드_교집합
         
         콜저가_풋시가_노드_교집합 = list(set(call_저가리스트) & set(put_시가_node_list))
-        #print('콜저가_풋시가_노드_교집합 = {0}\r'.format(콜저가_풋시가_노드_교집합))
 
         if 콜저가_풋시가_노드_교집합 and put_node_state['시가']:
             for i in range(len(콜저가_풋시가_노드_교집합)):
@@ -9259,7 +9258,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋시가_노드_교집합 = list(set(call_고가리스트) & set(put_시가_node_list))
-        #print('콜고가_풋시가_노드_교집합 = {0}\r'.format(콜고가_풋시가_노드_교집합))
 
         if 콜고가_풋시가_노드_교집합 and put_node_state['시가']:
             for i in range(len(콜고가_풋시가_노드_교집합)):
@@ -9269,7 +9267,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋기준가_노드_교집합 = list(set(call_저가리스트) & set(put_기준가_node_list))
-        #print('콜저가_풋기준가_노드_교집합 = {0}\r'.format(콜저가_풋기준가_노드_교집합))
 
         if 콜저가_풋기준가_노드_교집합 and put_node_state['기준가']:
             for i in range(len(콜저가_풋기준가_노드_교집합)):
@@ -9279,7 +9276,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋기준가_노드_교집합 = list(set(call_고가리스트) & set(put_기준가_node_list))
-        #print('콜고가_풋기준가_노드_교집합 = {0}\r'.format(콜고가_풋기준가_노드_교집합))
 
         if 콜고가_풋기준가_노드_교집합 and put_node_state['기준가']:
             for i in range(len(콜고가_풋기준가_노드_교집합)):
@@ -9289,7 +9285,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋월저_노드_교집합 = list(set(call_저가리스트) & set(put_월저_node_list))
-        #print('콜저가_풋월저_노드_교집합 = {0}\r'.format(콜저가_풋월저_노드_교집합))
 
         if 콜저가_풋월저_노드_교집합 and put_node_state['월저']:
             for i in range(len(콜저가_풋월저_노드_교집합)):
@@ -9299,7 +9294,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋월저_노드_교집합 = list(set(call_고가리스트) & set(put_월저_node_list))
-        #print('콜고가_풋월저_노드_교집합 = {0}\r'.format(콜고가_풋월저_노드_교집합))
 
         if 콜고가_풋월저_노드_교집합 and put_node_state['월저']:
             for i in range(len(콜고가_풋월저_노드_교집합)):
@@ -9309,7 +9303,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋월고_노드_교집합 = list(set(call_저가리스트) & set(put_월고_node_list))
-        #print('콜저가_풋월고_노드_교집합 = {0}\r'.format(콜저가_풋월고_노드_교집합))
 
         if 콜저가_풋월고_노드_교집합 and put_node_state['월고']:
             for i in range(len(콜저가_풋월고_노드_교집합)):
@@ -9319,7 +9312,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋월고_노드_교집합 = list(set(call_고가리스트) & set(put_월고_node_list))
-        #print('콜고가_풋월고_노드_교집합 = {0}\r'.format(콜고가_풋월고_노드_교집합))
 
         if 콜고가_풋월고_노드_교집합 and put_node_state['월고']:
             for i in range(len(콜고가_풋월고_노드_교집합)):
@@ -9329,7 +9321,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋전저_노드_교집합 = list(set(call_저가리스트) & set(put_전저_node_list))
-        #print('콜저가_풋전저_노드_교집합 = {0}\r'.format(콜저가_풋전저_노드_교집합))
 
         if 콜저가_풋전저_노드_교집합 and put_node_state['전저']:
             for i in range(len(콜저가_풋전저_노드_교집합)):
@@ -9339,7 +9330,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋전저_노드_교집합 = list(set(call_고가리스트) & set(put_전저_node_list))
-        #print('콜고가_풋전저_노드_교집합 = {0}\r'.format(콜고가_풋전저_노드_교집합))
 
         if 콜고가_풋전저_노드_교집합 and put_node_state['전저']:
             for i in range(len(콜고가_풋전저_노드_교집합)):
@@ -9349,7 +9339,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋전고_노드_교집합 = list(set(call_저가리스트) & set(put_전고_node_list))
-        #print('콜저가_풋전고_노드_교집합 = {0}\r'.format(콜저가_풋전고_노드_교집합))
 
         if 콜저가_풋전고_노드_교집합 and put_node_state['전고']:
             for i in range(len(콜저가_풋전고_노드_교집합)):
@@ -9359,7 +9348,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋전고_노드_교집합 = list(set(call_고가리스트) & set(put_전고_node_list))
-        #print('콜고가_풋전고_노드_교집합 = {0}\r'.format(콜고가_풋전고_노드_교집합))
 
         if 콜고가_풋전고_노드_교집합 and put_node_state['전고']:
             for i in range(len(콜고가_풋전고_노드_교집합)):
@@ -9369,7 +9357,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_풋종가_노드_교집합 = list(set(call_저가리스트) & set(put_종가_node_list))
-        #print('콜저가_풋종가_노드_교집합 = {0}\r'.format(콜저가_풋종가_노드_교집합))
 
         if 콜저가_풋종가_노드_교집합 and put_node_state['종가']:
             for i in range(len(콜저가_풋종가_노드_교집합)):
@@ -9379,7 +9366,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_풋종가_노드_교집합 = list(set(call_고가리스트) & set(put_종가_node_list))
-        #print('콜고가_풋종가_노드_교집합 = {0}\r'.format(콜고가_풋종가_노드_교집합))
 
         if 콜고가_풋종가_노드_교집합 and put_node_state['종가']:
             for i in range(len(콜고가_풋종가_노드_교집합)):
@@ -9389,7 +9375,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_풋피봇_노드_교집합 = list(set(call_저가리스트) & set(put_피봇_node_list))
-        #print('콜저가_풋피봇_노드_교집합 = {0}\r'.format(콜저가_풋피봇_노드_교집합))
 
         if 콜저가_풋피봇_노드_교집합 and put_node_state['피봇']:
             for i in range(len(콜저가_풋피봇_노드_교집합)):
@@ -9399,7 +9384,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_풋피봇_노드_교집합 = list(set(call_고가리스트) & set(put_피봇_node_list))
-        #print('콜고가_풋피봇_노드_교집합 = {0}\r'.format(콜고가_풋피봇_노드_교집합))
 
         if 콜고가_풋피봇_노드_교집합 and put_node_state['피봇']:
             for i in range(len(콜고가_풋피봇_노드_교집합)):
@@ -9409,7 +9393,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜시가_노드_교집합 = list(set(call_저가리스트) & set(call_시가_node_list))
-        #print('콜저가_콜시가_노드_교집합 = {0}\r'.format(콜저가_콜시가_노드_교집합))
 
         if 콜저가_콜시가_노드_교집합 and call_node_state['시가']:
             for i in range(len(콜저가_콜시가_노드_교집합)):
@@ -9419,7 +9402,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜시가_노드_교집합 = list(set(call_고가리스트) & set(call_시가_node_list))
-        #print('콜고가_콜시가_노드_교집합 = {0}\r'.format(콜고가_콜시가_노드_교집합))
 
         if 콜고가_콜시가_노드_교집합 and call_node_state['시가']:
             for i in range(len(콜고가_콜시가_노드_교집합)):
@@ -9429,7 +9411,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜기준가_노드_교집합 = list(set(call_저가리스트) & set(call_기준가_node_list))
-        #print('콜저가_콜기준가_노드_교집합 = {0}\r'.format(콜저가_콜기준가_노드_교집합))
 
         if 콜저가_콜기준가_노드_교집합 and call_node_state['기준가']:
             for i in range(len(콜저가_콜기준가_노드_교집합)):
@@ -9439,7 +9420,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜기준가_노드_교집합 = list(set(call_고가리스트) & set(call_기준가_node_list))
-        #print('콜고가_콜기준가_노드_교집합 = {0}\r'.format(콜고가_콜기준가_노드_교집합))
 
         if 콜고가_콜기준가_노드_교집합 and call_node_state['기준가']:
             for i in range(len(콜고가_콜기준가_노드_교집합)):
@@ -9449,7 +9429,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜월저_노드_교집합 = list(set(call_저가리스트) & set(call_월저_node_list))
-        #print('콜저가_콜월저_노드_교집합 = {0}\r'.format(콜저가_콜월저_노드_교집합))
 
         if 콜저가_콜월저_노드_교집합 and call_node_state['월저']:
             for i in range(len(콜저가_콜월저_노드_교집합)):
@@ -9459,7 +9438,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_콜월저_노드_교집합 = list(set(call_고가리스트) & set(call_월저_node_list))
-        #print('콜고가_콜월저_노드_교집합 = {0}\r'.format(콜고가_콜월저_노드_교집합))
 
         if 콜고가_콜월저_노드_교집합 and call_node_state['월저']:
             for i in range(len(콜고가_콜월저_노드_교집합)):
@@ -9469,7 +9447,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_콜월고_노드_교집합 = list(set(call_저가리스트) & set(call_월고_node_list))
-        #print('콜저가_콜월고_노드_교집합 = {0}\r'.format(콜저가_콜월고_노드_교집합))
 
         if 콜저가_콜월고_노드_교집합 and call_node_state['월고']:
             for i in range(len(콜저가_콜월고_노드_교집합)):
@@ -9479,7 +9456,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜월고_노드_교집합 = list(set(call_고가리스트) & set(call_월고_node_list))
-        #print('콜고가_콜월고_노드_교집합 = {0}\r'.format(콜고가_콜월고_노드_교집합))
 
         if 콜고가_콜월고_노드_교집합 and call_node_state['월고']:
             for i in range(len(콜고가_콜월고_노드_교집합)):
@@ -9489,7 +9465,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜전저_노드_교집합 = list(set(call_저가리스트) & set(call_전저_node_list))
-        #print('콜저가_콜전저_노드_교집합 = {0}\r'.format(콜저가_콜전저_노드_교집합))
 
         if 콜저가_콜전저_노드_교집합 and call_node_state['전저']:
             for i in range(len(콜저가_콜전저_노드_교집합)):
@@ -9499,7 +9474,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜전저_노드_교집합 = list(set(call_고가리스트) & set(call_전저_node_list))
-        #print('콜고가_콜전저_노드_교집합 = {0}\r'.format(콜고가_콜전저_노드_교집합))
 
         if 콜고가_콜전저_노드_교집합 and call_node_state['전저']:
             for i in range(len(콜고가_콜전저_노드_교집합)):
@@ -9509,7 +9483,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜전고_노드_교집합 = list(set(call_저가리스트) & set(call_전고_node_list))
-        #print('콜저가_콜전고_노드_교집합 = {0}\r'.format(콜저가_콜전고_노드_교집합))
 
         if 콜저가_콜전고_노드_교집합 and call_node_state['전고']:
             for i in range(len(콜저가_콜전고_노드_교집합)):
@@ -9519,7 +9492,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜전고_노드_교집합 = list(set(call_고가리스트) & set(call_전고_node_list))
-        #print('콜고가_콜전고_노드_교집합 = {0}\r'.format(콜고가_콜전고_노드_교집합))
 
         if 콜고가_콜전고_노드_교집합 and call_node_state['전고']:
             for i in range(len(콜고가_콜전고_노드_교집합)):
@@ -9529,7 +9501,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜종가_노드_교집합 = list(set(call_저가리스트) & set(call_종가_node_list))
-        #print('콜저가_콜종가_노드_교집합 = {0}\r'.format(콜저가_콜종가_노드_교집합))
 
         if 콜저가_콜종가_노드_교집합 and call_node_state['종가']:
             for i in range(len(콜저가_콜종가_노드_교집합)):
@@ -9539,7 +9510,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜종가_노드_교집합 = list(set(call_고가리스트) & set(call_종가_node_list))
-        #print('콜고가_콜종가_노드_교집합 = {0}\r'.format(콜고가_콜종가_노드_교집합))
 
         if 콜고가_콜종가_노드_교집합 and call_node_state['종가']:
             for i in range(len(콜고가_콜종가_노드_교집합)):
@@ -9549,7 +9519,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜피봇_노드_교집합 = list(set(call_저가리스트) & set(call_피봇_node_list))
-        #print('콜저가_콜피봇_노드_교집합 = {0}\r'.format(콜저가_콜피봇_노드_교집합))
 
         if 콜저가_콜피봇_노드_교집합 and call_node_state['피봇']:
             for i in range(len(콜저가_콜피봇_노드_교집합)):
@@ -9559,7 +9528,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜피봇_노드_교집합 = list(set(call_고가리스트) & set(call_피봇_node_list))
-        #print('콜고가_콜피봇_노드_교집합 = {0}\r'.format(콜고가_콜피봇_노드_교집합))
 
         if 콜고가_콜피봇_노드_교집합 and call_node_state['피봇']:
             for i in range(len(콜고가_콜피봇_노드_교집합)):
@@ -10713,7 +10681,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋전고_콜저가_노드_교집합, 풋전고_콜고가_노드_교집합, 풋전고_풋저가_노드_교집합, 풋전고_풋고가_노드_교집합
         global 풋종가_콜저가_노드_교집합, 풋종가_콜고가_노드_교집합, 풋종가_풋저가_노드_교집합, 풋종가_풋고가_노드_교집합
         global 풋피봇_콜저가_노드_교집합, 풋피봇_콜고가_노드_교집합, 풋피봇_풋저가_노드_교집합, 풋피봇_풋고가_노드_교집합
-        global 풋시가_콜저가_노드_교집합, 풋시가_콜고가_노드_교집합, 풋시가_풋저가_노드_교집합, 풋시가_풋고가_노드_교집합    
+        global 풋시가_콜저가_노드_교집합, 풋시가_콜고가_노드_교집합, 풋시가_풋저가_노드_교집합, 풋시가_풋고가_노드_교집합
 
 
         풋저가_콜시가_노드_교집합 = list(set(put_저가리스트) & set(call_시가_node_list))
@@ -14458,6 +14426,52 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         flag_call_low_in_fixed_coreval_list.append(False)
 
+                    if flag_call_low_in_fixed_coreval_list[-1] and not flag_call_low_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 콜저가 주요맥점 생성'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 콜저가 주요맥점 생성'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
+
+                    if not flag_call_low_in_fixed_coreval_list[-1] and flag_call_low_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 콜저가 주요맥점 소멸'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 콜저가 주요맥점 소멸'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
+
                     if SEARCH_MOVING_NODE_START_VALUE < 콜저가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
                         빈도수 = moving_list.count(콜저가)
@@ -14581,6 +14595,52 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_call_high_in_fixed_coreval_list.append(True)
                     else:
                         flag_call_high_in_fixed_coreval_list.append(False)
+
+                    if flag_call_high_in_fixed_coreval_list[-1] and not flag_call_high_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 콜고가 주요맥점 생성'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 콜고가 주요맥점 생성'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
+
+                    if not flag_call_high_in_fixed_coreval_list[-1] and flag_call_high_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 콜고가 주요맥점 소멸'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 콜고가 주요맥점 소멸'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
 
                     if SEARCH_MOVING_NODE_START_VALUE < 콜고가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
@@ -15586,6 +15646,52 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         flag_put_low_in_fixed_coreval_list.append(False)
 
+                    if flag_put_low_in_fixed_coreval_list[-1] and not flag_put_low_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 풋저가 주요맥점 생성'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 풋저가 주요맥점 생성'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
+
+                    if not flag_put_low_in_fixed_coreval_list[-1] and flag_put_low_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 풋저가 주요맥점 소멸'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 풋저가 주요맥점 소멸'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
+
                     if SEARCH_MOVING_NODE_START_VALUE < 풋저가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
                         빈도수 = moving_list.count(풋저가)
@@ -15709,6 +15815,52 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_put_high_in_fixed_coreval_list.append(True)
                     else:
                         flag_put_high_in_fixed_coreval_list.append(False)
+
+                    if flag_put_high_in_fixed_coreval_list[-1] and not flag_put_high_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점({3}) 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 풋고가 주요맥점 생성'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 풋고가 주요맥점 생성'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
+
+                    if not flag_put_high_in_fixed_coreval_list[-1] and flag_put_high_in_fixed_coreval_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                        if TARGET_MONTH == 'NM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점({3}) 소멸!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+
+                        self.parent.textBrowser.append(txt)
+                        self.textBrowser.append(txt)
+
+                        if TARGET_MONTH == 'CM':
+                            txt = 'CM 풋고가 주요맥점 소멸'
+
+                        if TARGET_MONTH == 'NM':
+                            txt = 'NM 풋고가 주요맥점 소멸'
+
+                        if flag_tts:                                
+                            self.parent.speaker.setText(txt)
+
+                        if flag_telegram_service:
+                                ToYourTelegram(txt)
 
                     if SEARCH_MOVING_NODE_START_VALUE < 풋고가 < SEARCH_MOVING_NODE_END_VALUE:
                         self.opt_high_low_list_update()
@@ -49245,8 +49397,9 @@ class Xing(object):
                     else:
                         pass
 
+                    '''
                     if self.clocktick:
-
+                        
                         if flag_call_low_in_fixed_coreval_list[-1] and not flag_call_low_in_fixed_coreval_list[-2]:
 
                             if TARGET_MONTH == 'CM':
@@ -49292,7 +49445,7 @@ class Xing(object):
 
                             if flag_telegram_service:
                                     ToYourTelegram(txt)
-
+                        
                         if flag_call_high_in_fixed_coreval_list[-1] and not flag_call_high_in_fixed_coreval_list[-2]:
 
                             if TARGET_MONTH == 'CM':
@@ -49430,7 +49583,7 @@ class Xing(object):
 
                             if flag_telegram_service:
                                     ToYourTelegram(txt)
-                    
+                    '''
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
