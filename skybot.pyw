@@ -8268,6 +8268,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def call_only_cross_color_update(self):
 
+        콜저가_콜고가_노드_교집합 = list(set(call_저가리스트) & set(call_고가_node_list))
+
+        if 콜저가_콜고가_노드_교집합:
+            for i in range(len(콜저가_콜고가_노드_교집합)):
+                index = call_저가리스트.index(콜저가_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색)) 
+
+        콜고가_콜저가_노드_교집합 = list(set(call_고가리스트) & set(call_저가_node_list))
+
+        if 콜고가_콜저가_노드_교집합:
+            for i in range(len(콜고가_콜저가_노드_교집합)):
+                index = call_고가리스트.index(콜고가_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        '''
         global call_scroll_end_position
 
         if call_scroll_end_position > option_pairs_count:
@@ -8297,9 +8316,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
+        '''
     
     def put_only_cross_color_update(self):
 
+        풋저가_풋고가_노드_교집합 = list(set(put_저가리스트) & set(put_고가_node_list))
+
+        if 풋저가_풋고가_노드_교집합:
+            for i in range(len(풋저가_풋고가_노드_교집합)):
+                index = put_저가리스트.index(풋저가_풋고가_노드_교집합[i])
+
+                self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
+                self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+        풋고가_풋저가_노드_교집합 = list(set(put_고가리스트) & set(put_저가_node_list))
+
+        if 풋고가_풋저가_노드_교집합:
+            for i in range(len(풋고가_풋저가_노드_교집합)):
+                index = put_고가리스트.index(풋고가_풋저가_노드_교집합[i])
+
+                self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
+                self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+
+        '''
         global put_scroll_end_position
 
         if put_scroll_end_position > option_pairs_count:
@@ -8328,7 +8367,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass           
+                pass
+        '''           
 
     def kp200_low_color_blink(self, blink):
 
