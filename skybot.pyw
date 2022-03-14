@@ -9253,7 +9253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         '''
         콜저가_풋시가_노드_교집합 = list(set(call_저가리스트) & set(put_시가_node_list))
-        print('콜저가_풋시가_노드_교집합 = {0}\r'.format(콜저가_풋시가_노드_교집합))
+        #print('콜저가_풋시가_노드_교집합 = {0}\r'.format(콜저가_풋시가_노드_교집합))
 
         if 콜저가_풋시가_노드_교집합:
             for i in range(len(콜저가_풋시가_노드_교집합)):
@@ -9263,7 +9263,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋시가_노드_교집합 = list(set(call_고가리스트) & set(put_시가_node_list))
-        print('콜고가_풋시가_노드_교집합 = {0}\r'.format(콜고가_풋시가_노드_교집합))
+        #print('콜고가_풋시가_노드_교집합 = {0}\r'.format(콜고가_풋시가_노드_교집합))
 
         if 콜고가_풋시가_노드_교집합:
             for i in range(len(콜고가_풋시가_노드_교집합)):
@@ -9273,7 +9273,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋기준가_노드_교집합 = list(set(call_저가리스트) & set(put_기준가_node_list))
-        print('콜저가_풋기준가_노드_교집합 = {0}\r'.format(콜저가_풋기준가_노드_교집합))
+        #print('콜저가_풋기준가_노드_교집합 = {0}\r'.format(콜저가_풋기준가_노드_교집합))
 
         if 콜저가_풋기준가_노드_교집합:
             for i in range(len(콜저가_풋기준가_노드_교집합)):
@@ -9283,7 +9283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋기준가_노드_교집합 = list(set(call_고가리스트) & set(put_기준가_node_list))
-        print('콜고가_풋기준가_노드_교집합 = {0}\r'.format(콜고가_풋기준가_노드_교집합))
+        #print('콜고가_풋기준가_노드_교집합 = {0}\r'.format(콜고가_풋기준가_노드_교집합))
 
         if 콜고가_풋기준가_노드_교집합:
             for i in range(len(콜고가_풋기준가_노드_교집합)):
@@ -9293,7 +9293,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋월저_노드_교집합 = list(set(call_저가리스트) & set(put_월저_node_list))
-        print('콜저가_풋월저_노드_교집합 = {0}\r'.format(콜저가_풋월저_노드_교집합))
+        #print('콜저가_풋월저_노드_교집합 = {0}\r'.format(콜저가_풋월저_노드_교집합))
 
         if 콜저가_풋월저_노드_교집합:
             for i in range(len(콜저가_풋월저_노드_교집합)):
@@ -9303,7 +9303,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋월저_노드_교집합 = list(set(call_고가리스트) & set(put_월저_node_list))
-        print('콜고가_풋월저_노드_교집합 = {0}\r'.format(콜고가_풋월저_노드_교집합))
+        #print('콜고가_풋월저_노드_교집합 = {0}\r'.format(콜고가_풋월저_노드_교집합))
 
         if 콜고가_풋월저_노드_교집합:
             for i in range(len(콜고가_풋월저_노드_교집합)):
@@ -9313,7 +9313,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋월고_노드_교집합 = list(set(call_저가리스트) & set(put_월고_node_list))
-        print('콜저가_풋월고_노드_교집합 = {0}\r'.format(콜저가_풋월고_노드_교집합))
+        #print('콜저가_풋월고_노드_교집합 = {0}\r'.format(콜저가_풋월고_노드_교집합))
 
         if 콜저가_풋월고_노드_교집합:
             for i in range(len(콜저가_풋월고_노드_교집합)):
@@ -9323,7 +9323,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋월고_노드_교집합 = list(set(call_고가리스트) & set(put_월고_node_list))
-        print('콜고가_풋월고_노드_교집합 = {0}\r'.format(콜고가_풋월고_노드_교집합))
+        #print('콜고가_풋월고_노드_교집합 = {0}\r'.format(콜고가_풋월고_노드_교집합))
 
         if 콜고가_풋월고_노드_교집합:
             for i in range(len(콜고가_풋월고_노드_교집합)):
@@ -9333,7 +9333,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋전저_노드_교집합 = list(set(call_저가리스트) & set(put_전저_node_list))
-        print('콜저가_풋전저_노드_교집합 = {0}\r'.format(콜저가_풋전저_노드_교집합))
+        #print('콜저가_풋전저_노드_교집합 = {0}\r'.format(콜저가_풋전저_노드_교집합))
 
         if 콜저가_풋전저_노드_교집합:
             for i in range(len(콜저가_풋전저_노드_교집합)):
@@ -9343,7 +9343,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋전저_노드_교집합 = list(set(call_고가리스트) & set(put_전저_node_list))
-        print('콜고가_풋전저_노드_교집합 = {0}\r'.format(콜고가_풋전저_노드_교집합))
+        #print('콜고가_풋전저_노드_교집합 = {0}\r'.format(콜고가_풋전저_노드_교집합))
 
         if 콜고가_풋전저_노드_교집합:
             for i in range(len(콜고가_풋전저_노드_교집합)):
@@ -9353,7 +9353,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_풋전고_노드_교집합 = list(set(call_저가리스트) & set(put_전고_node_list))
-        print('콜저가_풋전고_노드_교집합 = {0}\r'.format(콜저가_풋전고_노드_교집합))
+        #print('콜저가_풋전고_노드_교집합 = {0}\r'.format(콜저가_풋전고_노드_교집합))
 
         if 콜저가_풋전고_노드_교집합:
             for i in range(len(콜저가_풋전고_노드_교집합)):
@@ -9363,7 +9363,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_풋전고_노드_교집합 = list(set(call_고가리스트) & set(put_전고_node_list))
-        print('콜고가_풋전고_노드_교집합 = {0}\r'.format(콜고가_풋전고_노드_교집합))
+        #print('콜고가_풋전고_노드_교집합 = {0}\r'.format(콜고가_풋전고_노드_교집합))
 
         if 콜고가_풋전고_노드_교집합:
             for i in range(len(콜고가_풋전고_노드_교집합)):
@@ -9373,7 +9373,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_풋종가_노드_교집합 = list(set(call_저가리스트) & set(put_종가_node_list))
-        print('콜저가_풋종가_노드_교집합 = {0}\r'.format(콜저가_풋종가_노드_교집합))
+        #print('콜저가_풋종가_노드_교집합 = {0}\r'.format(콜저가_풋종가_노드_교집합))
 
         if 콜저가_풋종가_노드_교집합:
             for i in range(len(콜저가_풋종가_노드_교집합)):
@@ -9383,7 +9383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_풋종가_노드_교집합 = list(set(call_고가리스트) & set(put_종가_node_list))
-        print('콜고가_풋종가_노드_교집합 = {0}\r'.format(콜고가_풋종가_노드_교집합))
+        #print('콜고가_풋종가_노드_교집합 = {0}\r'.format(콜고가_풋종가_노드_교집합))
 
         if 콜고가_풋종가_노드_교집합:
             for i in range(len(콜고가_풋종가_노드_교집합)):
@@ -9393,7 +9393,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_풋피봇_노드_교집합 = list(set(call_저가리스트) & set(put_피봇_node_list))
-        print('콜저가_풋피봇_노드_교집합 = {0}\r'.format(콜저가_풋피봇_노드_교집합))
+        #print('콜저가_풋피봇_노드_교집합 = {0}\r'.format(콜저가_풋피봇_노드_교집합))
 
         if 콜저가_풋피봇_노드_교집합:
             for i in range(len(콜저가_풋피봇_노드_교집합)):
@@ -9403,7 +9403,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_풋피봇_노드_교집합 = list(set(call_고가리스트) & set(put_피봇_node_list))
-        print('콜고가_풋피봇_노드_교집합 = {0}\r'.format(콜고가_풋피봇_노드_교집합))
+        #print('콜고가_풋피봇_노드_교집합 = {0}\r'.format(콜고가_풋피봇_노드_교집합))
 
         if 콜고가_풋피봇_노드_교집합:
             for i in range(len(콜고가_풋피봇_노드_교집합)):
@@ -9413,7 +9413,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜시가_노드_교집합 = list(set(call_저가리스트) & set(call_시가_node_list))
-        print('콜저가_콜시가_노드_교집합 = {0}\r'.format(콜저가_콜시가_노드_교집합))
+        #print('콜저가_콜시가_노드_교집합 = {0}\r'.format(콜저가_콜시가_노드_교집합))
 
         if 콜저가_콜시가_노드_교집합:
             for i in range(len(콜저가_콜시가_노드_교집합)):
@@ -9423,7 +9423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜시가_노드_교집합 = list(set(call_고가리스트) & set(call_시가_node_list))
-        print('콜고가_콜시가_노드_교집합 = {0}\r'.format(콜고가_콜시가_노드_교집합))
+        #print('콜고가_콜시가_노드_교집합 = {0}\r'.format(콜고가_콜시가_노드_교집합))
 
         if 콜고가_콜시가_노드_교집합:
             for i in range(len(콜고가_콜시가_노드_교집합)):
@@ -9433,7 +9433,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜기준가_노드_교집합 = list(set(call_저가리스트) & set(call_기준가_node_list))
-        print('콜저가_콜기준가_노드_교집합 = {0}\r'.format(콜저가_콜기준가_노드_교집합))
+        #print('콜저가_콜기준가_노드_교집합 = {0}\r'.format(콜저가_콜기준가_노드_교집합))
 
         if 콜저가_콜기준가_노드_교집합:
             for i in range(len(콜저가_콜기준가_노드_교집합)):
@@ -9443,7 +9443,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜기준가_노드_교집합 = list(set(call_고가리스트) & set(call_기준가_node_list))
-        print('콜고가_콜기준가_노드_교집합 = {0}\r'.format(콜고가_콜기준가_노드_교집합))
+        #print('콜고가_콜기준가_노드_교집합 = {0}\r'.format(콜고가_콜기준가_노드_교집합))
 
         if 콜고가_콜기준가_노드_교집합:
             for i in range(len(콜고가_콜기준가_노드_교집합)):
@@ -9453,7 +9453,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜월저_노드_교집합 = list(set(call_저가리스트) & set(call_월저_node_list))
-        print('콜저가_콜월저_노드_교집합 = {0}\r'.format(콜저가_콜월저_노드_교집합))
+        #print('콜저가_콜월저_노드_교집합 = {0}\r'.format(콜저가_콜월저_노드_교집합))
 
         if 콜저가_콜월저_노드_교집합:
             for i in range(len(콜저가_콜월저_노드_교집합)):
@@ -9463,7 +9463,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
 
         콜고가_콜월저_노드_교집합 = list(set(call_고가리스트) & set(call_월저_node_list))
-        print('콜고가_콜월저_노드_교집합 = {0}\r'.format(콜고가_콜월저_노드_교집합))
+        #print('콜고가_콜월저_노드_교집합 = {0}\r'.format(콜고가_콜월저_노드_교집합))
 
         if 콜고가_콜월저_노드_교집합:
             for i in range(len(콜고가_콜월저_노드_교집합)):
@@ -9473,7 +9473,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
         콜저가_콜월고_노드_교집합 = list(set(call_저가리스트) & set(call_월고_node_list))
-        print('콜저가_콜월고_노드_교집합 = {0}\r'.format(콜저가_콜월고_노드_교집합))
+        #print('콜저가_콜월고_노드_교집합 = {0}\r'.format(콜저가_콜월고_노드_교집합))
 
         if 콜저가_콜월고_노드_교집합:
             for i in range(len(콜저가_콜월고_노드_교집합)):
@@ -9483,7 +9483,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜월고_노드_교집합 = list(set(call_고가리스트) & set(call_월고_node_list))
-        print('콜고가_콜월고_노드_교집합 = {0}\r'.format(콜고가_콜월고_노드_교집합))
+        #print('콜고가_콜월고_노드_교집합 = {0}\r'.format(콜고가_콜월고_노드_교집합))
 
         if 콜고가_콜월고_노드_교집합:
             for i in range(len(콜고가_콜월고_노드_교집합)):
@@ -9493,7 +9493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜전저_노드_교집합 = list(set(call_저가리스트) & set(call_전저_node_list))
-        print('콜저가_콜전저_노드_교집합 = {0}\r'.format(콜저가_콜전저_노드_교집합))
+        #print('콜저가_콜전저_노드_교집합 = {0}\r'.format(콜저가_콜전저_노드_교집합))
 
         if 콜저가_콜전저_노드_교집합:
             for i in range(len(콜저가_콜전저_노드_교집합)):
@@ -9503,7 +9503,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜전저_노드_교집합 = list(set(call_고가리스트) & set(call_전저_node_list))
-        print('콜고가_콜전저_노드_교집합 = {0}\r'.format(콜고가_콜전저_노드_교집합))
+        #print('콜고가_콜전저_노드_교집합 = {0}\r'.format(콜고가_콜전저_노드_교집합))
 
         if 콜고가_콜전저_노드_교집합:
             for i in range(len(콜고가_콜전저_노드_교집합)):
@@ -9513,7 +9513,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜전고_노드_교집합 = list(set(call_저가리스트) & set(call_전고_node_list))
-        print('콜저가_콜전고_노드_교집합 = {0}\r'.format(콜저가_콜전고_노드_교집합))
+        #print('콜저가_콜전고_노드_교집합 = {0}\r'.format(콜저가_콜전고_노드_교집합))
 
         if 콜저가_콜전고_노드_교집합:
             for i in range(len(콜저가_콜전고_노드_교집합)):
@@ -9523,7 +9523,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜전고_노드_교집합 = list(set(call_고가리스트) & set(call_전고_node_list))
-        print('콜고가_콜전고_노드_교집합 = {0}\r'.format(콜고가_콜전고_노드_교집합))
+        #print('콜고가_콜전고_노드_교집합 = {0}\r'.format(콜고가_콜전고_노드_교집합))
 
         if 콜고가_콜전고_노드_교집합:
             for i in range(len(콜고가_콜전고_노드_교집합)):
@@ -9533,7 +9533,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜종가_노드_교집합 = list(set(call_저가리스트) & set(call_종가_node_list))
-        print('콜저가_콜종가_노드_교집합 = {0}\r'.format(콜저가_콜종가_노드_교집합))
+        #print('콜저가_콜종가_노드_교집합 = {0}\r'.format(콜저가_콜종가_노드_교집합))
 
         if 콜저가_콜종가_노드_교집합:
             for i in range(len(콜저가_콜종가_노드_교집합)):
@@ -9543,7 +9543,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜종가_노드_교집합 = list(set(call_고가리스트) & set(call_종가_node_list))
-        print('콜고가_콜종가_노드_교집합 = {0}\r'.format(콜고가_콜종가_노드_교집합))
+        #print('콜고가_콜종가_노드_교집합 = {0}\r'.format(콜고가_콜종가_노드_교집합))
 
         if 콜고가_콜종가_노드_교집합:
             for i in range(len(콜고가_콜종가_노드_교집합)):
@@ -9553,7 +9553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
         콜저가_콜피봇_노드_교집합 = list(set(call_저가리스트) & set(call_피봇_node_list))
-        print('콜저가_콜피봇_노드_교집합 = {0}\r'.format(콜저가_콜피봇_노드_교집합))
+        #print('콜저가_콜피봇_노드_교집합 = {0}\r'.format(콜저가_콜피봇_노드_교집합))
 
         if 콜저가_콜피봇_노드_교집합:
             for i in range(len(콜저가_콜피봇_노드_교집합)):
@@ -9563,7 +9563,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
         콜고가_콜피봇_노드_교집합 = list(set(call_고가리스트) & set(call_피봇_node_list))
-        print('콜고가_콜피봇_노드_교집합 = {0}\r'.format(콜고가_콜피봇_노드_교집합))
+        #print('콜고가_콜피봇_노드_교집합 = {0}\r'.format(콜고가_콜피봇_노드_교집합))
 
         if 콜고가_콜피봇_노드_교집합:
             for i in range(len(콜고가_콜피봇_노드_교집합)):
@@ -9579,11 +9579,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(len(콜기준가_풋저가_노드_교집합)):
                 index = call_기준가리스트.index(콜기준가_풋저가_노드_교집합[i])
 
+                self.tableWidget_call.item(index, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_call.item(index, Option_column.기준가.value).setForeground(QBrush(검정색))
+
         콜기준가_풋고가_노드_교집합 = list(set(call_기준가리스트) & set(put_고가_node_list))
 
         if 콜기준가_풋고가_노드_교집합:
             for i in range(len(콜기준가_풋고가_노드_교집합)):
                 index = call_기준가리스트.index(콜기준가_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_call.item(index, Option_column.기준가.value).setForeground(QBrush(검정색))
 
         콜기준가_콜저가_노드_교집합 = list(set(call_기준가리스트) & set(call_저가_node_list))
 
@@ -9591,49 +9597,271 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(len(콜기준가_콜저가_노드_교집합)):
                 index = call_기준가리스트.index(콜기준가_콜저가_노드_교집합[i])
 
+                self.tableWidget_call.item(index, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_call.item(index, Option_column.기준가.value).setForeground(QBrush(검정색))
+
         콜기준가_콜고가_노드_교집합 = list(set(call_기준가리스트) & set(call_고가_node_list))
 
         if 콜기준가_콜고가_노드_교집합:
             for i in range(len(콜기준가_콜고가_노드_교집합)):
                 index = call_기준가리스트.index(콜기준가_콜고가_노드_교집합[i])
 
+                self.tableWidget_call.item(index, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                self.tableWidget_call.item(index, Option_column.기준가.value).setForeground(QBrush(검정색))
+
         콜월저_풋저가_노드_교집합 = list(set(call_월저리스트) & set(put_저가_node_list))
+
+        if 콜월저_풋저가_노드_교집합:
+            for i in range(len(콜월저_풋저가_노드_교집합)):
+                index = call_월저리스트.index(콜월저_풋저가_노드_교집합[i])
+                
+                self.tableWidget_call.item(index, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                self.tableWidget_call.item(index, Option_column.월저.value).setForeground(QBrush(흰색))
+
         콜월저_풋고가_노드_교집합 = list(set(call_월저리스트) & set(put_고가_node_list))
+
+        if 콜월저_풋고가_노드_교집합:
+            for i in range(len(콜월저_풋고가_노드_교집합)):
+                index = call_월저리스트.index(콜월저_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                self.tableWidget_call.item(index, Option_column.월저.value).setForeground(QBrush(흰색))
+
         콜월저_콜저가_노드_교집합 = list(set(call_월저리스트) & set(call_저가_node_list))
+
+        if 콜월저_콜저가_노드_교집합:
+            for i in range(len(콜월저_콜저가_노드_교집합)):
+                index = call_월저리스트.index(콜월저_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                self.tableWidget_call.item(index, Option_column.월저.value).setForeground(QBrush(흰색))
+
         콜월저_콜고가_노드_교집합 = list(set(call_월저리스트) & set(call_고가_node_list))
 
+        if 콜월저_콜고가_노드_교집합:
+            for i in range(len(콜월저_콜고가_노드_교집합)):
+                index = call_월저리스트.index(콜월저_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                self.tableWidget_call.item(index, Option_column.월저.value).setForeground(QBrush(흰색))
+
         콜월고_풋저가_노드_교집합 = list(set(call_월고리스트) & set(put_저가_node_list))
+
+        if 콜월고_풋저가_노드_교집합:
+            for i in range(len(콜월고_풋저가_노드_교집합)):
+                index = call_월고리스트.index(콜월고_풋저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                self.tableWidget_call.item(index, Option_column.월고.value).setForeground(QBrush(검정색))
+
         콜월고_풋고가_노드_교집합 = list(set(call_월고리스트) & set(put_고가_node_list))
+
+        if 콜월고_풋고가_노드_교집합:
+            for i in range(len(콜월고_풋고가_노드_교집합)):
+                index = call_월고리스트.index(콜월고_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                self.tableWidget_call.item(index, Option_column.월고.value).setForeground(QBrush(검정색))
+
         콜월고_콜저가_노드_교집합 = list(set(call_월고리스트) & set(call_저가_node_list))
+
+        if 콜월고_콜저가_노드_교집합:
+            for i in range(len(콜월고_콜저가_노드_교집합)):
+                index = call_월고리스트.index(콜월고_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                self.tableWidget_call.item(index, Option_column.월고.value).setForeground(QBrush(검정색))
+
         콜월고_콜고가_노드_교집합 = list(set(call_월고리스트) & set(call_고가_node_list))
 
-        콜전저_풋저가_노드_교집합 = []
-        콜전저_풋고가_노드_교집합 = []
-        콜전저_콜저가_노드_교집합 = []
-        콜전저_콜고가_노드_교집합 = []
+        if 콜월고_콜고가_노드_교집합:
+            for i in range(len(콜월고_콜고가_노드_교집합)):
+                index = call_월고리스트.index(콜월고_콜고가_노드_교집합[i])
 
-        콜전고_풋저가_노드_교집합 = []
-        콜전고_풋고가_노드_교집합 = []
-        콜전고_콜저가_노드_교집합 = []
-        콜전고_콜고가_노드_교집합 = []
+                self.tableWidget_call.item(index, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                self.tableWidget_call.item(index, Option_column.월고.value).setForeground(QBrush(검정색))
 
-        콜종가_풋저가_노드_교집합 = []
-        콜종가_풋고가_노드_교집합 = []
-        콜종가_콜저가_노드_교집합 = []
-        콜종가_콜고가_노드_교집합 = []
+        콜전저_풋저가_노드_교집합 = list(set(call_전저리스트) & set(put_저가_node_list))
 
-        콜피봇_풋저가_노드_교집합 = []
-        콜피봇_풋고가_노드_교집합 = []
-        콜피봇_콜저가_노드_교집합 = []
-        콜피봇_콜고가_노드_교집합 = []
+        if 콜전저_풋저가_노드_교집합:
+            for i in range(len(콜전저_풋저가_노드_교집합)):
+                index = call_전저리스트.index(콜전저_풋저가_노드_교집합[i])
 
-        콜시가_풋저가_노드_교집합 = []
-        콜시가_풋고가_노드_교집합 = []
-        콜시가_콜저가_노드_교집합 = []
-        콜시가_콜고가_노드_교집합 = []
+                self.tableWidget_call.item(index, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                self.tableWidget_call.item(index, Option_column.전저.value).setForeground(QBrush(검정색))
 
-        '''
-        
+        콜전저_풋고가_노드_교집합 = list(set(call_전저리스트) & set(put_고가_node_list))
+
+        if 콜전저_풋고가_노드_교집합:
+            for i in range(len(콜전저_풋고가_노드_교집합)):
+                index = call_전저리스트.index(콜전저_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                self.tableWidget_call.item(index, Option_column.전저.value).setForeground(QBrush(검정색))
+
+        콜전저_콜저가_노드_교집합 = list(set(call_전저리스트) & set(call_저가_node_list))
+
+        if 콜전저_콜저가_노드_교집합:
+            for i in range(len(콜전저_콜저가_노드_교집합)):
+                index = call_전저리스트.index(콜전저_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                self.tableWidget_call.item(index, Option_column.전저.value).setForeground(QBrush(검정색))
+
+        콜전저_콜고가_노드_교집합 = list(set(call_전저리스트) & set(call_고가_node_list))
+
+        if 콜전저_콜고가_노드_교집합:
+            for i in range(len(콜전저_콜고가_노드_교집합)):
+                index = call_전저리스트.index(콜전저_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                self.tableWidget_call.item(index, Option_column.전저.value).setForeground(QBrush(검정색))
+
+        콜전고_풋저가_노드_교집합 = list(set(call_전고리스트) & set(put_저가_node_list))
+
+        if 콜전고_풋저가_노드_교집합:
+            for i in range(len(콜전고_풋저가_노드_교집합)):
+                index = call_전고리스트.index(콜전고_풋저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                self.tableWidget_call.item(index, Option_column.전고.value).setForeground(QBrush(검정색))
+
+        콜전고_풋고가_노드_교집합 = list(set(call_전고리스트) & set(put_고가_node_list))
+
+        if 콜전고_풋고가_노드_교집합:
+            for i in range(len(콜전고_풋고가_노드_교집합)):
+                index = call_전고리스트.index(콜전고_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                self.tableWidget_call.item(index, Option_column.전고.value).setForeground(QBrush(검정색))
+
+        콜전고_콜저가_노드_교집합 = list(set(call_전고리스트) & set(call_저가_node_list))
+
+        if 콜전고_콜저가_노드_교집합:
+            for i in range(len(콜전고_콜저가_노드_교집합)):
+                index = call_전고리스트.index(콜전고_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                self.tableWidget_call.item(index, Option_column.전고.value).setForeground(QBrush(검정색))
+
+        콜전고_콜고가_노드_교집합 = list(set(call_전고리스트) & set(call_고가_node_list))
+
+        if 콜전고_콜고가_노드_교집합:
+            for i in range(len(콜전고_콜고가_노드_교집합)):
+                index = call_전고리스트.index(콜전고_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                self.tableWidget_call.item(index, Option_column.전고.value).setForeground(QBrush(검정색))
+
+        콜종가_풋저가_노드_교집합 = list(set(call_종가리스트) & set(put_저가_node_list))
+
+        if 콜종가_풋저가_노드_교집합:
+            for i in range(len(콜종가_풋저가_노드_교집합)):
+                index = call_종가리스트.index(콜종가_풋저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                self.tableWidget_call.item(index, Option_column.종가.value).setForeground(QBrush(검정색))
+
+        콜종가_풋고가_노드_교집합 = list(set(call_종가리스트) & set(put_고가_node_list))
+
+        if 콜종가_풋고가_노드_교집합:
+            for i in range(len(콜종가_풋고가_노드_교집합)):
+                index = call_종가리스트.index(콜종가_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                self.tableWidget_call.item(index, Option_column.종가.value).setForeground(QBrush(검정색))
+
+        콜종가_콜저가_노드_교집합 = list(set(call_종가리스트) & set(call_저가_node_list))
+
+        if 콜종가_콜저가_노드_교집합:
+            for i in range(len(콜종가_콜저가_노드_교집합)):
+                index = call_종가리스트.index(콜종가_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                self.tableWidget_call.item(index, Option_column.종가.value).setForeground(QBrush(검정색))
+
+        콜종가_콜고가_노드_교집합 = list(set(call_종가리스트) & set(call_고가_node_list))
+
+        if 콜종가_콜고가_노드_교집합:
+            for i in range(len(콜종가_콜고가_노드_교집합)):
+                index = call_종가리스트.index(콜종가_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                self.tableWidget_call.item(index, Option_column.종가.value).setForeground(QBrush(검정색))
+
+        콜피봇_풋저가_노드_교집합 = list(set(call_피봇리스트) & set(put_저가_node_list))
+
+        if 콜피봇_풋저가_노드_교집합:
+            for i in range(len(콜피봇_풋저가_노드_교집합)):
+                index = call_피봇리스트.index(콜피봇_풋저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_call.item(index, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+        콜피봇_풋고가_노드_교집합 = list(set(call_피봇리스트) & set(put_고가_node_list))
+
+        if 콜피봇_풋고가_노드_교집합:
+            for i in range(len(콜피봇_풋고가_노드_교집합)):
+                index = call_피봇리스트.index(콜피봇_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_call.item(index, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+        콜피봇_콜저가_노드_교집합 = list(set(call_피봇리스트) & set(call_저가_node_list))
+
+        if 콜피봇_콜저가_노드_교집합:
+            for i in range(len(콜피봇_콜저가_노드_교집합)):
+                index = call_피봇리스트.index(콜피봇_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_call.item(index, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+        콜피봇_콜고가_노드_교집합 = list(set(call_피봇리스트) & set(call_고가_node_list))
+
+        if 콜피봇_콜고가_노드_교집합:
+            for i in range(len(콜피봇_콜고가_노드_교집합)):
+                index = call_피봇리스트.index(콜피봇_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_call.item(index, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+        콜시가_풋저가_노드_교집합 = list(set(call_시가리스트) & set(put_저가_node_list))
+
+        if 콜시가_풋저가_노드_교집합:
+            for i in range(len(콜시가_풋저가_노드_교집합)):
+                index = call_시가리스트.index(콜시가_풋저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(콜시가색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        콜시가_풋고가_노드_교집합 = list(set(call_시가리스트) & set(put_고가_node_list))
+
+        if 콜시가_풋고가_노드_교집합:
+            for i in range(len(콜시가_풋고가_노드_교집합)):
+                index = call_시가리스트.index(콜시가_풋고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(콜시가색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        콜시가_콜저가_노드_교집합 = list(set(call_시가리스트) & set(call_저가_node_list))
+
+        if 콜시가_콜저가_노드_교집합:
+            for i in range(len(콜시가_콜저가_노드_교집합)):
+                index = call_시가리스트.index(콜시가_콜저가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(콜시가색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        콜시가_콜고가_노드_교집합 = list(set(call_시가리스트) & set(call_고가_node_list))
+
+        if 콜시가_콜고가_노드_교집합:
+            for i in range(len(콜시가_콜고가_노드_교집합)):
+                index = call_시가리스트.index(콜시가_콜고가_노드_교집합[i])
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(콜시가색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+
+        '''        
         if call_scroll_end_position > option_pairs_count:
             call_scroll_end_position = option_pairs_count
         else:
@@ -10185,7 +10413,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass         
                 else:
-                    pass            
+                    pass
         
     # 풋 컬러링 Apply 함수
     # 풋 저가, 고가가 콜시가에 있는지 검사
@@ -10482,26 +10710,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋저가_풋기준가_노드_교집합, 풋고가_풋기준가_노드_교집합, 풋저가_풋월저_노드_교집합, 풋고가_풋월저_노드_교집합, 풋저가_풋월고_노드_교집합, 풋고가_풋월고_노드_교집합
         global 풋저가_풋전저_노드_교집합, 풋고가_풋전저_노드_교집합, 풋저가_풋전고_노드_교집합, 풋고가_풋전고_노드_교집합, 풋저가_풋종가_노드_교집합, 풋고가_풋종가_노드_교집합
         global 풋저가_풋피봇_노드_교집합, 풋고가_풋피봇_노드_교집합
+        global 풋기준가_콜저가_노드_교집합, 풋기준가_콜고가_노드_교집합, 풋기준가_풋저가_노드_교집합, 풋기준가_풋고가_노드_교집합
+        global 풋월저_콜저가_노드_교집합, 풋월저_콜고가_노드_교집합, 풋월저_풋저가_노드_교집합, 풋월저_풋고가_노드_교집합
+        global 풋월고_콜저가_노드_교집합, 풋월고_콜고가_노드_교집합, 풋월고_풋저가_노드_교집합, 풋월고_풋고가_노드_교집합
+        global 풋전저_콜저가_노드_교집합, 풋전저_콜고가_노드_교집합, 풋전저_풋저가_노드_교집합, 풋전저_풋고가_노드_교집합
+        global 풋전고_콜저가_노드_교집합, 풋전고_콜고가_노드_교집합, 풋전고_풋저가_노드_교집합, 풋전고_풋고가_노드_교집합
+        global 풋종가_콜저가_노드_교집합, 풋종가_콜고가_노드_교집합, 풋종가_풋저가_노드_교집합, 풋종가_풋고가_노드_교집합
+        global 풋피봇_콜저가_노드_교집합, 풋피봇_콜고가_노드_교집합, 풋피봇_풋저가_노드_교집합, 풋피봇_풋고가_노드_교집합
+        global 풋시가_콜저가_노드_교집합, 풋시가_콜고가_노드_교집합, 풋시가_풋저가_노드_교집합, 풋시가_풋고가_노드_교집합    
 
-        print('\r')
-        print('*********************************************************************************************************************************')
-        print('put_기준가리스트 = {0}\r'.format(put_기준가리스트))
-        print('put_월저리스트 = {0}\r'.format(put_월저리스트))
-        print('put_월고리스트 = {0}\r'.format(put_월고리스트))
-        print('put_전저리스트 = {0}\r'.format(put_전저리스트))
-        print('put_전고리스트 = {0}\r'.format(put_전고리스트))
-        print('put_종가리스트 = {0}\r'.format(put_종가리스트))
-        print('put_피봇리스트 = {0}\r'.format(put_피봇리스트))
-        print('put_시가리스트 = {0}\r'.format(put_시가리스트))
-        print('put_저가리스트 = {0}\r'.format(put_저가리스트))
-        print('put_고가리스트 = {0}\r'.format(put_고가리스트))
-        print('*********************************************************************************************************************************')
-        print('\r')
-
-        if put_scroll_end_position > option_pairs_count:
-            put_scroll_end_position = option_pairs_count
-        else:
-            pass
 
         풋저가_콜시가_노드_교집합 = list(set(put_저가리스트) & set(call_시가_node_list))
         풋고가_콜시가_노드_교집합 = list(set(put_고가리스트) & set(call_시가_node_list))
@@ -10550,7 +10767,54 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋저가_풋피봇_노드_교집합 = list(set(put_저가리스트) & set(put_피봇_node_list))
         풋고가_풋피봇_노드_교집합 = list(set(put_고가리스트) & set(put_피봇_node_list))
+
+
+        풋기준가_콜저가_노드_교집합 = list(set(put_기준가리스트) & set(call_저가_node_list))
+        풋기준가_콜고가_노드_교집합 = list(set(put_기준가리스트) & set(call_고가_node_list))
+        풋기준가_풋저가_노드_교집합 = list(set(put_기준가리스트) & set(put_저가_node_list))
+        풋기준가_풋고가_노드_교집합 = list(set(put_기준가리스트) & set(put_고가_node_list))
+
+        풋월저_콜저가_노드_교집합 = list(set(put_월저리스트) & set(call_저가_node_list))
+        풋월저_콜고가_노드_교집합 = list(set(put_월저리스트) & set(call_고가_node_list))
+        풋월저_풋저가_노드_교집합 = list(set(put_월저리스트) & set(put_저가_node_list))
+        풋월저_풋고가_노드_교집합 = list(set(put_월저리스트) & set(put_고가_node_list))
+
+        풋월고_콜저가_노드_교집합 = []
+        풋월고_콜고가_노드_교집합 = []
+        풋월고_풋저가_노드_교집합 = []
+        풋월고_풋고가_노드_교집합 = []
+
+        풋전저_콜저가_노드_교집합 = []
+        풋전저_콜고가_노드_교집합 = []
+        풋전저_풋저가_노드_교집합 = []
+        풋전저_풋고가_노드_교집합 = []
+
+        풋전고_콜저가_노드_교집합 = []
+        풋전고_콜고가_노드_교집합 = []
+        풋전고_풋저가_노드_교집합 = []
+        풋전고_풋고가_노드_교집합 = []
+
+        풋종가_콜저가_노드_교집합 = []
+        풋종가_콜고가_노드_교집합 = []
+        풋종가_풋저가_노드_교집합 = []
+        풋종가_풋고가_노드_교집합 = []
+
+        풋피봇_콜저가_노드_교집합 = []
+        풋피봇_콜고가_노드_교집합 = []
+        풋피봇_풋저가_노드_교집합 = []
+        풋피봇_풋고가_노드_교집합 = []
+
+        풋시가_콜저가_노드_교집합 = []
+        풋시가_콜고가_노드_교집합 = []
+        풋시가_풋저가_노드_교집합 = []
+        풋시가_풋고가_노드_교집합 = []
         
+        
+        if put_scroll_end_position > option_pairs_count:
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
+
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
             저가 = df_put.at[i, '저가']
