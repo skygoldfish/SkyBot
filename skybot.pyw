@@ -14166,7 +14166,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         index = call_행사가.index(tickdata['단축코드'][5:8])
         
         콜시가 = float(tickdata['시가'])
-        콜현재가 = float(tickdata['현재가'])
         콜저가 = float(tickdata['저가'])
         콜고가 = float(tickdata['고가'])
 
@@ -15406,8 +15405,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(call_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-
-            #self.call_db_update()
         else:
             pass
 
@@ -15419,7 +15416,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         index = put_행사가.index(tickdata['단축코드'][5:8])
         
         풋시가 = float(tickdata['시가'])
-        풋현재가 = float(tickdata['현재가'])
         풋저가 = float(tickdata['저가'])
         풋고가 = float(tickdata['고가'])
 
@@ -16679,8 +16675,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(put_txt)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-
-            #self.put_db_update()
         else:
             pass
 
