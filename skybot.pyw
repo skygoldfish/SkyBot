@@ -50950,8 +50950,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif trdata[0] == 'tick':
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 체결 요청항목 = {3}, 총 {4}개\r'.format(dt.hour, dt.minute, dt.second, trdata, len(trdata) - 1)
-            self.textBrowser.append(txt)
+            if TARGET_MONTH == 'CM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 지수옵션 체결 요청항목 = {3}, 총 {4}개\r'.format(dt.hour, dt.minute, dt.second, trdata, len(trdata) - 1)
+                self.textBrowser.append(txt)
+
+            if TARGET_MONTH == 'NM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 지수옵션 체결 요청항목 = {3}, 총 {4}개\r'.format(dt.hour, dt.minute, dt.second, trdata, len(trdata) - 1)
+                self.textBrowser.append(txt)
 
         elif trdata[0] == 'login' and trdata[1] != '0000':
 
@@ -51209,8 +51214,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         elif trdata[0] == 'quote':
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 호가 요청항목 = {3}, 총 {4}개\r'.format(dt.hour, dt.minute, dt.second, trdata, len(trdata) - 1)
-            self.textBrowser.append(txt)
+            if TARGET_MONTH == 'CM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 지수옵션 호가 요청항목 = {3}, 총 {4}개\r'.format(dt.hour, dt.minute, dt.second, trdata, len(trdata) - 1)
+                self.textBrowser.append(txt)
+
+            if TARGET_MONTH == 'NM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 지수옵션 호가 요청항목 = {3}, 총 {4}개\r'.format(dt.hour, dt.minute, dt.second, trdata, len(trdata) - 1)
+                self.textBrowser.append(txt)
         else:
             pass
     
