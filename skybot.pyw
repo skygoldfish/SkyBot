@@ -54645,21 +54645,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_nm_oloh_direction_call_set = True
 
                         if flag_fut_nm_ol:
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] All ▲ ▲...\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM All ▲ ▲...\r'.format(dt.hour, dt.minute, dt.second)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
+
+                            if flag_telegram_service:
+                                ToYourTelegram(txt)
 
                             if flag_tts:
                                 txt = 'NM All Up'
-                                self.speaker.setText(txt)
+                                self.speaker.setText(txt)                            
                         else:
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜...\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜...\r'.format(dt.hour, dt.minute, dt.second)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
 
+                            if flag_telegram_service:
+                                ToYourTelegram(txt)
+
                             if flag_tts:
                                 txt = 'NM 콜'
-                                self.speaker.setText(txt)
+                                self.speaker.setText(txt)                            
                     else:
                         pass
 
@@ -54676,17 +54682,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         flag_nm_oloh_direction_put_set = True
 
                         if flag_fut_nm_oh:
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] All ▼ ▼...\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM All ▼ ▼...\r'.format(dt.hour, dt.minute, dt.second)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
+                            
+                            if flag_telegram_service:
+                                ToYourTelegram(txt)
 
                             if flag_tts:
                                 txt = 'NM All Down'
                                 self.speaker.setText(txt)
                         else:
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋...\r'.format(dt.hour, dt.minute, dt.second)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋...\r'.format(dt.hour, dt.minute, dt.second)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
                             self.textBrowser.append(txt)
+                            
+                            if flag_telegram_service:
+                                ToYourTelegram(txt)
 
                             if flag_tts:
                                 txt = 'NM 풋'
