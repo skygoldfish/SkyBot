@@ -75,72 +75,43 @@ def option_quote_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call
         # ############################################################################################################        
     
         # ################################# 지수옵션 ##################################################################
-        listed_code_df, cm_call_code_list, cm_put_code_list, nm_call_code_list, nm_put_code_list = XingAPI.get_index_option_listed_code_list()
-
-        cm_call_code_list.reverse()
-        cm_put_code_list.reverse()
-        nm_call_code_list.reverse()
-        nm_put_code_list.reverse()
-
-        cm_code_list = cm_call_code_list + cm_put_code_list
-        nm_code_list = nm_call_code_list + nm_put_code_list
-        
-        cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
-        cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
-
-        nm_call_atm_str = nm_call_code_list[0][0:5] + atm_txt
-        nm_put_atm_str =  nm_put_code_list[0][0:5] + atm_txt        
-
-        cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
-        cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
-
-        nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
-        nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)
-
-        cm_call_atm_list = []
-
-        for i in range(cm_call_atm_index - call_otm_number, cm_call_atm_index + call_itm_number + 1):
-            cm_call_atm_list.append(cm_call_code_list[i])
-
-        cm_put_atm_list = []
-
-        for i in range(cm_put_atm_index - put_itm_number, cm_put_atm_index + put_otm_number + 1):
-            cm_put_atm_list.append(cm_put_code_list[i])
-
-        cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
-
-        nm_call_atm_list = []
-
-        for i in range(nm_call_atm_index - call_otm_number, nm_call_atm_index + call_itm_number + 1):
-            nm_call_atm_list.append(nm_call_code_list[i])
-
-        nm_put_atm_list = []
-
-        for i in range(nm_put_atm_index - put_itm_number, nm_put_atm_index + put_otm_number + 1):
-            nm_put_atm_list.append(nm_put_code_list[i])
-
-        nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list
-    
-        cm_opt_quote_cmd = []
-        cm_opt_quote_cmd.append('quote')
-
-        if DayTime:
-            cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
-        else:
-            #cm_opt_quote = cm_opt_quote_cmd + cm_code_list
-            cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
-    
-        nm_opt_quote_cmd = []
-        nm_opt_quote_cmd.append('quote')
-
-        if DayTime:
-            nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
-        else:
-            #nm_opt_quote = nm_opt_quote_cmd + nm_code_list
-            nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
+        listed_code_df, cm_call_code_list, cm_put_code_list, nm_call_code_list, nm_put_code_list = XingAPI.get_index_option_listed_code_list()        
     
         # 호가
         if index_option_cm_quote:
+
+            cm_call_code_list.reverse()
+            cm_put_code_list.reverse()
+
+            cm_code_list = cm_call_code_list + cm_put_code_list
+
+            cm_call_atm_str = cm_call_code_list[0][0:5] + atm_txt
+            cm_put_atm_str =  cm_put_code_list[0][0:5] + atm_txt
+
+            cm_call_atm_index = cm_call_code_list.index(cm_call_atm_str)
+            cm_put_atm_index = cm_put_code_list.index(cm_put_atm_str)
+
+            cm_call_atm_list = []
+
+            for i in range(cm_call_atm_index - call_otm_number, cm_call_atm_index + call_itm_number + 1):
+                cm_call_atm_list.append(cm_call_code_list[i])
+
+            cm_put_atm_list = []
+
+            for i in range(cm_put_atm_index - put_itm_number, cm_put_atm_index + put_otm_number + 1):
+                cm_put_atm_list.append(cm_put_code_list[i])
+
+            cm_opt_quote_list = cm_call_atm_list + cm_put_atm_list
+
+            cm_opt_quote_cmd = []
+            cm_opt_quote_cmd.append('quote')
+
+            if DayTime:
+                cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+            else:
+                #cm_opt_quote = cm_opt_quote_cmd + cm_code_list
+                cm_opt_quote = cm_opt_quote_cmd + cm_opt_quote_list
+
             queue.put(cm_opt_quote)
             print('근월물 옵션 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)
@@ -148,6 +119,39 @@ def option_quote_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call
             real_time_index_option_quote.set_code_list(cm_opt_quote_list, field="optcode")
     
         if index_option_nm_quote:
+
+            nm_call_code_list.reverse()
+            nm_put_code_list.reverse()
+
+            nm_code_list = nm_call_code_list + nm_put_code_list        
+
+            nm_call_atm_str = nm_call_code_list[0][0:5] + atm_txt
+            nm_put_atm_str =  nm_put_code_list[0][0:5] + atm_txt        
+
+            nm_call_atm_index = nm_call_code_list.index(nm_call_atm_str)
+            nm_put_atm_index = nm_put_code_list.index(nm_put_atm_str)        
+
+            nm_call_atm_list = []
+
+            for i in range(nm_call_atm_index - call_otm_number, nm_call_atm_index + call_itm_number + 1):
+                nm_call_atm_list.append(nm_call_code_list[i])
+
+            nm_put_atm_list = []
+
+            for i in range(nm_put_atm_index - put_itm_number, nm_put_atm_index + put_otm_number + 1):
+                nm_put_atm_list.append(nm_put_code_list[i])
+
+            nm_opt_quote_list = nm_call_atm_list + nm_put_atm_list        
+
+            nm_opt_quote_cmd = []
+            nm_opt_quote_cmd.append('quote')
+
+            if DayTime:
+                nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
+            else:
+                #nm_opt_quote = nm_opt_quote_cmd + nm_code_list
+                nm_opt_quote = nm_opt_quote_cmd + nm_opt_quote_list
+
             queue.put(nm_opt_quote)
             print('차월물 옵션 실시간 호가요청...')
             real_time_index_option_quote = RealTimeIndexOptionQuote(queue=queue)

@@ -53136,7 +53136,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             elif tickdata['업종코드'] == KOSPI:
 
-                실수_지수 = float(tickdata['지수'])                                
+                실수_지수 = float(tickdata['지수'])
 
                 if 실수_지수 != kospi_price:
 
