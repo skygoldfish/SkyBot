@@ -1286,8 +1286,8 @@ node_coloring = False
 flag_first_arrive = False
 fut_first_arrive_time = 0
 
-flag_kp200_low_node = False
-flag_kp200_high_node = False
+flag_kp200_low_node_list = []
+flag_kp200_high_node_list = []
 kp200_low_node_time = 0
 kp200_high_node_time = 0
 
@@ -4371,7 +4371,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_node_state, put_node_state, COREVAL
         global flag_internet_connection_broken_lst
         global flag_call_low_in_fixed_coreval_list, flag_call_high_in_fixed_coreval_list, flag_put_low_in_fixed_coreval_list, flag_put_high_in_fixed_coreval_list
-        global flag_call_open_in_fixed_coreval_list, flag_put_open_in_fixed_coreval_list
+        global flag_call_open_in_fixed_coreval_list, flag_put_open_in_fixed_coreval_list, flag_kp200_low_node_list, flag_kp200_high_node_list
         
         # 이벤트루프 & 쓰레드 정의, 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_call_event_loop = QEventLoop()
@@ -4732,6 +4732,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         flag_call_high_in_fixed_coreval_list.append(False)
         flag_put_low_in_fixed_coreval_list.append(False)
         flag_put_high_in_fixed_coreval_list.append(False)
+
+        flag_kp200_low_node_list.append(False)
+        flag_kp200_high_node_list.append(False)
 
         txt = ' 선물옵션 전광판 초기화완료\r'
         self.parent.statusbar.showMessage(txt)
@@ -6474,12 +6477,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         put_high_coreval_txt = '' 
                         put_high_node_txt = ''                                                    
 
-                    if flag_kp200_low_node:
+                    if flag_kp200_low_node_list[-1]:
                         self.kp200_low_color_blink(self.alternate_flag)
                     else:
                         kp200_low_node_txt = ''
 
-                    if flag_kp200_high_node:
+                    if flag_kp200_high_node_list[-1]:
                         self.kp200_high_color_blink(self.alternate_flag)
                     else:
                         kp200_high_node_txt = ''                 
@@ -12851,59 +12854,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(옅은회색))
         self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색)) 
 
-    def kp200_low_node_coloring(self):
+    def check_kp200_low_node(self):
 
         dt = datetime.now()
 
-        global flag_kp200_low_node, kp200_low_node_time, kp200_low_node_txt  
-
-        flag_kp200_low_node = False    
+        global flag_kp200_low_node_list, kp200_low_node_time, kp200_low_node_txt 
                 
         for i in range(10):
 
             if self.is_within_n_tick(self.kp200_realdata['저가'], KP200_COREVAL[i], 10):
 
-                if not flag_kp200_low_node:
-                
-                    self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))                
 
-                    kp200_low_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!\r".format(dt.hour, dt.minute, dt.second, self.kp200_realdata['저가'])
-                    self.textBrowser.append(kp200_low_node_txt)
-                    self.parent.textBrowser.append(kp200_low_node_txt)
-
-                    flag_kp200_low_node = True
-                else:
-                    pass                
+                flag_kp200_low_node_list.append(True)              
             else:
                 pass
 
-    def kp200_high_node_coloring(self):  
+        if flag_kp200_low_node_list[-1]:
+            pass
+        else:
+            flag_kp200_low_node_list.append(False)
+
+    def check_kp200_high_node(self):  
 
         dt = datetime.now() 
 
-        global flag_kp200_high_node, kp200_high_node_time, kp200_high_node_txt 
-
-        flag_kp200_high_node = False    
+        global flag_kp200_high_node_list, kp200_high_node_time, kp200_high_node_txt 
                 
         for i in range(10):
 
             if self.is_within_n_tick(self.kp200_realdata['고가'], KP200_COREVAL[i], 10):
 
-                if not flag_kp200_high_node:
-                
-                    self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
-                    kp200_high_node_txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!\r".format(dt.hour, dt.minute, dt.second, self.kp200_realdata['고가'])
-                    self.textBrowser.append(kp200_high_node_txt)
-                    self.parent.textBrowser.append(kp200_high_node_txt)
-
-                    flag_kp200_high_node = True
-                else:
-                    pass                
+                flag_kp200_high_node_list.append(True)
             else:
                 pass
+
+        if flag_kp200_high_node_list[-1]:
+            pass
+        else:
+            flag_kp200_high_node_list.append(False)
 
     def fut_cm_oloh_check(self):
 
@@ -14619,10 +14612,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_call_low_in_fixed_coreval_list[-1] and flag_call_low_in_fixed_coreval_list[-2]:
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -14776,10 +14769,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         prev_콜고가_FIXED_COREVAL_교집합 = 콜고가_FIXED_COREVAL_교집합.copy()
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -14807,10 +14800,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_call_high_in_fixed_coreval_list[-1] and flag_call_high_in_fixed_coreval_list[-2]:
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -15842,10 +15835,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         prev_풋저가_FIXED_COREVAL_교집합 = 풋저가_FIXED_COREVAL_교집합.copy()
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -15873,10 +15866,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_put_low_in_fixed_coreval_list[-1] and flag_put_low_in_fixed_coreval_list[-2]:
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -16030,10 +16023,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         prev_풋고가_FIXED_COREVAL_교집합 = 풋고가_FIXED_COREVAL_교집합.copy()
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 발생!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -16061,10 +16054,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_put_high_in_fixed_coreval_list[-1] and flag_put_high_in_fixed_coreval_list[-2]:
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)
@@ -17826,8 +17819,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.kp200_node_color_clear()
                 self.kp200_node_coloring()
 
-                self.kp200_low_node_coloring()
-                self.kp200_high_node_coloring()
+                self.check_kp200_low_node()
+                self.check_kp200_high_node()
                 
                 if ResizeRowsToContents:  
                     self.tableWidget_fut.resizeRowsToContents()
@@ -19779,8 +19772,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.kp200_node_color_clear()
                 self.kp200_node_coloring()
 
-                self.kp200_low_node_coloring()
-                self.kp200_high_node_coloring()
+                self.check_kp200_low_node()
+                self.check_kp200_high_node()
             else:
                 pass
             
@@ -42996,7 +42989,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot3_processing_time)
             else:
-                if flag_kp200_low_node:
+                if flag_kp200_low_node_list[-1]:
                     self.label_time_3.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ★ KL {0:.2f} ms '.format(plot3_processing_time)
                 else:
@@ -49389,7 +49382,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot6_processing_time)
             else:
-                if flag_kp200_high_node:
+                if flag_kp200_high_node_list:
                     self.label_time_6.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ★ KH {0:.2f} ms '.format(plot6_processing_time)
                 else:
@@ -49966,36 +49959,36 @@ class Xing(object):
                     if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
 
                         if flag_call_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_call_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                        if flag_kp200_low_node:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 주요맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
+                        if flag_kp200_low_node_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
-                        if flag_kp200_high_node:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 주요맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
+                        if flag_kp200_high_node_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                         
-                        if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node or flag_kp200_high_node:
+                        if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node_list[-1] or flag_kp200_high_node_list[-1]:
                             if flag_tts:
                                 winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                     else:
@@ -50008,7 +50001,7 @@ class Xing(object):
                             self.caller.textBrowser.append(txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)                            
 
-                            if (flag_call_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node):
+                            if (flag_call_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node_list[-1]):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
 
@@ -50028,7 +50021,7 @@ class Xing(object):
                             self.caller.textBrowser.append(txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(txt)
 
-                            if (flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_kp200_high_node):
+                            if (flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_kp200_high_node_list[-1]):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
 
@@ -50048,22 +50041,22 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
                             
                         if flag_call_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_call_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
 
                         if flag_put_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 주요맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
                             self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
                             
@@ -53041,7 +53034,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.dialog['선물옵션전광판'].kp200_node_color_clear()
                     self.dialog['선물옵션전광판'].kp200_node_coloring()
-                    self.dialog['선물옵션전광판'].kp200_low_node_coloring()
+                    self.dialog['선물옵션전광판'].check_kp200_low_node()
+
+                    if flag_kp200_low_node_list[-1] and not flag_kp200_low_node_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 발생!\r".format(dt.hour, dt.minute, dt.second, kp200_저가)                            
+
+                            self.textBrowser.append(txt)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
+
+                            if flag_tts:
+                                txt = 'kp200 저가 맥점 {0} 생성'.format(kp200_저가)
+                                self.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 생성'.format(dt.hour, dt.minute, dt.second, kp200_저가)
+                                ToYourTelegram(txt)
+
+                    if not flag_kp200_low_node_list[-1] and flag_kp200_low_node_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 붕괴!\r".format(dt.hour, dt.minute, dt.second, kp200_저가)
+
+                            self.textBrowser.append(txt)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
+
+                            if flag_tts:
+                                txt = 'kp200 저가 맥점 붕괴'
+                                self.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 붕괴'.format(dt.hour, dt.minute, dt.second, kp200_저가)
+                                ToYourTelegram(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(dt.hour, dt.minute, dt.second, kp200_저가)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -53070,7 +53095,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.dialog['선물옵션전광판'].kp200_node_color_clear()
                     self.dialog['선물옵션전광판'].kp200_node_coloring()
-                    self.dialog['선물옵션전광판'].kp200_high_node_coloring()
+                    self.dialog['선물옵션전광판'].check_kp200_high_node()
+
+                    if flag_kp200_high_node_list[-1] and not flag_kp200_high_node_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 발생!\r".format(dt.hour, dt.minute, dt.second, kp200_고가)                            
+
+                            self.textBrowser.append(txt)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
+
+                            if flag_tts:
+                                txt = 'kp200 고가 맥점 {0} 생성'.format(kp200_고가)
+                                self.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 생성'.format(dt.hour, dt.minute, dt.second, kp200_고가)
+                                ToYourTelegram(txt)
+
+                    if not flag_kp200_high_node_list[-1] and flag_kp200_high_node_list[-2]:
+
+                        if TARGET_MONTH == 'CM':
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 돌파!\r".format(dt.hour, dt.minute, dt.second, kp200_고가)
+
+                            self.textBrowser.append(txt)
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
+
+                            if flag_tts:
+                                txt = 'kp200 고가 맥점 돌파'
+                                self.speaker.setText(txt)
+
+                            if flag_telegram_service:
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 돌파'.format(dt.hour, dt.minute, dt.second, kp200_고가)
+                                ToYourTelegram(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(dt.hour, dt.minute, dt.second, kp200_고가)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
