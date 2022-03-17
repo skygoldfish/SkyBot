@@ -14595,10 +14595,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜저가 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'CM 콜저가 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'CM 콜저가 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'CM 콜저가 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜저가 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'NM 콜저가 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'NM 콜저가 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'NM 콜저가 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -14793,10 +14803,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜고가 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'CM 콜고가 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'CM 콜고가 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'CM 콜고가 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜고가 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'NM 콜고가 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'NM 콜고가 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'NM 콜고가 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -15869,10 +15889,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋저가 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'CM 풋저가 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'CM 풋저가 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'CM 풋저가 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋저가 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'NM 풋저가 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'NM 풋저가 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'NM 풋저가 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -16067,10 +16097,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋고가 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'CM 풋고가 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'CM 풋고가 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'CM 풋고가 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋고가 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
+                                    txt = 'NM 풋고가 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
+                                    txt = 'NM 풋고가 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                else:
+                                    txt = 'NM 풋고가 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
