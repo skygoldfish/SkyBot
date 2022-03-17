@@ -49422,7 +49422,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             if 해외선물_수신시간 == '000000':
                 txt = ' [{0:02d}:{1:02d}:{2:02d}] {3:.2f} ms '.format(dt.hour, dt.minute, dt.second, plot6_processing_time)
             else:
-                if flag_kp200_high_node_list:
+                if flag_kp200_high_node_list[-1]:
                     self.label_time_6.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold')
                     txt = ' ★ KH {0:.2f} ms '.format(plot6_processing_time)
                 else:
