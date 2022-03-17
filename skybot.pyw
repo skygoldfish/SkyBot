@@ -14612,13 +14612,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             ToYourTelegram(txt)
 
-                    if not flag_call_low_in_fixed_coreval_list[-1] and flag_call_low_in_fixed_coreval_list[-2] or backward_complement:                                         
+                    if not flag_call_low_in_fixed_coreval_list[-1] and flag_call_low_in_fixed_coreval_list[-2] or backward_complement:
+
+                        if backward_complement:
+                            breakout_value = backward_complement
+                        else:
+                            breakout_value = prev_콜고가_FIXED_COREVAL_교집합                                        
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -14636,10 +14641,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             ToYourTelegram(txt)
 
@@ -14805,13 +14810,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             ToYourTelegram(txt)
 
-                    if not flag_call_high_in_fixed_coreval_list[-1] and flag_call_high_in_fixed_coreval_list[-2] or backward_complement:                        
+                    if not flag_call_high_in_fixed_coreval_list[-1] and flag_call_high_in_fixed_coreval_list[-2] or backward_complement:
+
+                        if backward_complement:
+                            breakout_value = backward_complement
+                        else:
+                            breakout_value = prev_콜고가_FIXED_COREVAL_교집합
 
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -14829,10 +14839,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_telegram_service:
                             
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             ToYourTelegram(txt)
 
@@ -15878,11 +15888,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if not flag_put_low_in_fixed_coreval_list[-1] and flag_put_low_in_fixed_coreval_list[-2] or backward_complement:
 
+                        if backward_complement:
+                            breakout_value = backward_complement
+                        else:
+                            breakout_value = prev_풋저가_FIXED_COREVAL_교집합
+
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 붕괴!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)                        
@@ -15900,10 +15915,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 붕괴'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             ToYourTelegram(txt)
                         
@@ -16071,11 +16086,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if not flag_put_high_in_fixed_coreval_list[-1] and flag_put_high_in_fixed_coreval_list[-2] or backward_complement:
 
+                        if backward_complement:
+                            breakout_value = backward_complement
+                        else:
+                            breakout_value = prev_풋고가_FIXED_COREVAL_교집합
+
                         if TARGET_MONTH == 'CM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         if TARGET_MONTH == 'NM':
-                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                            txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 돌파!\r".format(dt.hour, dt.minute, dt.second, breakout_value)
 
                         self.parent.textBrowser.append(txt)
                         self.textBrowser.append(txt)
@@ -16093,10 +16113,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 돌파'.format(dt.hour, dt.minute, dt.second, breakout_value)
 
                             ToYourTelegram(txt)
                         
