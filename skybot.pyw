@@ -14596,19 +14596,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜저가 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜저까 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜저가 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜저까 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜저가 맥점 3개 이상 생성'
+                                    txt = 'CM 콜저까 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜저가 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜저까 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜저가 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜저까 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜저가 맥점 3개 이상 생성'
+                                    txt = 'NM 콜저까 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -14641,10 +14641,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜저가 맥점 crash'
+                                txt = 'CM 콜저까 맥점 crash'
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜저가 맥점 crash'
+                                txt = 'NM 콜저까 맥점 crash'
 
                             self.parent.speaker.setText(txt)
 
@@ -14804,19 +14804,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜고가 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜고까 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜고가 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜고까 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜고가 맥점 3개 이상 생성'
+                                    txt = 'CM 콜고까 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜고가 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜고까 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜고가 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜고까 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜고가 맥점 3개 이상 생성'
+                                    txt = 'NM 콜고까 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -14849,10 +14849,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜고가 맥점 breakout'
+                                txt = 'CM 콜고까 맥점 breakout'
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜고가 맥점 breakout'
+                                txt = 'NM 콜고까 맥점 breakout'
 
                             self.parent.speaker.setText(txt)
 
@@ -52938,7 +52938,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 저가 맥점 {0} 생성'.format(kp200_저가)
+                                txt = 'kp200 저까 맥점 {0} 생성'.format(kp200_저가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -52954,7 +52954,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 저가 맥점 crash'
+                                txt = 'kp200 저까 맥점 crash'
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -52999,7 +52999,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 고가 맥점 {0} 생성'.format(kp200_고가)
+                                txt = 'kp200 고까 맥점 {0} 생성'.format(kp200_고가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -53015,7 +53015,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 고가 맥점 breakout'
+                                txt = 'kp200 고까 맥점 breakout'
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -58033,7 +58033,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if flag_tts:
-        #Speak('붕괴')
+        #Speak('고까')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
