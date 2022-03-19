@@ -4380,10 +4380,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         self.t2301_event_loop = QEventLoop()
         #self.t2835_event_loop = QEventLoop()
-                
-        #self.screen_update_worker = ScreenUpdateWorker()
-        #self.screen_update_worker.trigger.connect(self.update_screen)
-
+        
         '''
         self.telegram_send_worker = TelegramSendWorker()
         self.telegram_send_worker.trigger.connect(self.send_telegram_message)
@@ -6789,7 +6786,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             txt = '오프라인 : {0}'.format(drop_txt)
-                            self.parent.statusbar.showMessage(txt)                            
+                            self.parent.statusbar.showMessage(txt)
+                            self.parent.close()
                     else:
                         pass
             else:
@@ -17066,6 +17064,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
+
+        txt = 'SkyBot을 종료합니다.'
+        ToYourTelegram(txt)
         
         if not flag_logfile:
 
@@ -52035,9 +52036,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: black; color: lawngreen; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
                                                             QPushButton:hover {background-color: black; color: white} \
                                                             QPushButton:pressed {background-color: gold}')
-
-                    #self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
-                    #self.dialog['선물옵션전광판'].SaveResult()                                        
                 else:
                     pass                                               
 
@@ -52080,9 +52078,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_telegram_send_start = False
                     flag_telegram_listen_start = False
-
-                    #self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
-                    #self.dialog['선물옵션전광판'].SaveResult()
                 else:
                     pass                    
 
@@ -52113,9 +52108,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_telegram_send_start = False
                     flag_telegram_listen_start = False
-
-                    #self.dialog['선물옵션전광판'].pushButton_start.setText(' ScrShot ')
-                    #self.dialog['선물옵션전광판'].SaveResult()
                 else:
                     pass
 
