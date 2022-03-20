@@ -6665,10 +6665,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass                            
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(txt)
-                            print(txt)
-
                             if not flag_offline:
 
                                 flag_offline = True
@@ -6677,38 +6673,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if MULTIPROCESS:
                                     
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 멀티프로세스 쓰레드를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     if self.parent.realtime_futures_dataworker.isRunning():
                                         self.parent.realtime_futures_dataworker.terminate()
+                                        self.parent.futures_process.terminate()
                                     else:
                                         pass
 
                                     if self.parent.mp_number == 2:
                                         self.parent.realtime_option_tick_dataworker.terminate()
+                                        self.parent.option_tick_process.terminate()
                                     elif self.parent.mp_number == 3:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
+                                        self.parent.option_tick_process.terminate()
+                                        self.parent.option_quote_process.terminate()
                                     elif self.parent.mp_number == 4:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
-                                        self.parent.realtime_ovc_dataworker.terminate()
+                                        self.parent.realtime_ovc_dataworker.terminate()                                        
+                                        self.parent.option_tick_process.terminate()
+                                        self.parent.option_quote_process.terminate()
+                                        self.parent.ovc_process.terminate()
                                     else:
                                         pass
-
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 로그인을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                                    self.textBrowser.append(txt)
-                                    print(txt)
                                 else:
                                     pass
-
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(dt.hour, dt.minute, dt.second, drop_txt)
-                                self.textBrowser.append(txt)
-
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(txt)
 
                                 service_terminate = True
 
@@ -6728,15 +6721,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
                     if jugan_service_terminate or 시스템시간_분 == ((KSE_START_HOUR + 6) * 3600 + 46 * 60):
                         
-                        if online_state:
-
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(txt)
-                            print(txt)
+                        if online_state:                            
 
                             if not flag_offline:
                                 
-                                flag_offline = True
+                                flag_offline = True 
+
+                                self.SaveResult()
 
                                 self.KillScoreBoardAllThread()
 
@@ -6747,39 +6738,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass
                                     
-                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 멀티프로세스 쓰레드를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                                    txt = '[{0:02d}:{1:02d}:{2:02d}] 모든 멀티프로세스 쓰레드를 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
                                     self.textBrowser.append(txt)
                                     print(txt)
 
                                     if self.parent.realtime_futures_dataworker.isRunning():
                                         self.parent.realtime_futures_dataworker.terminate()
+                                        self.parent.futures_process.terminate()
                                     else:
                                         pass
 
                                     if self.parent.mp_number == 2:
                                         self.parent.realtime_option_tick_dataworker.terminate()
+                                        self.parent.option_tick_process.terminate()
                                     elif self.parent.mp_number == 3:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
+                                        self.parent.option_tick_process.terminate()
+                                        self.parent.option_quote_process.terminate()
                                     elif self.parent.mp_number == 4:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
-                                        self.parent.realtime_ovc_dataworker.terminate()
+                                        self.parent.realtime_ovc_dataworker.terminate()                                        
+                                        self.parent.option_tick_process.terminate()
+                                        self.parent.option_quote_process.terminate()
+                                        self.parent.ovc_process.terminate()
                                     else:
                                         pass                                    
                                 else:
                                     pass
-
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 수신된 옵션 틱 데이타 크기 : {3}\r'.format(dt.hour, dt.minute, dt.second, option_tick_total_size)
-                                self.textBrowser.append(txt)
-                                
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간데이타 통계 : {3}\r'.format(dt.hour, dt.minute, dt.second, drop_txt)
-                                self.textBrowser.append(txt)
-
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(txt)
-
-                                self.SaveResult()
 
                                 self.parent.xing.main_connection.disconnect()                                    
                             else:
@@ -17076,6 +17063,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
 
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
             if NightTime:
                 file = open('lastnight.log', 'w', encoding='UTF-8')
             else:
@@ -17324,7 +17314,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
-           
+
         elif ClassName == 't8416':
             
             global flag_t8416_eventloop
@@ -57785,6 +57775,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             event.accept()
 
+            if MULTIPROCESS and flag_internet:
+
+                if FUTURES_REQUEST and self.realtime_futures_dataworker.isRunning():
+                    self.realtime_futures_dataworker.terminate()
+
+                if OPTION_TICK_REQUEST and self.realtime_option_tick_dataworker.isRunning():
+                    self.realtime_option_tick_dataworker.terminate()
+
+                if OPTION_QUOTE_REQUEST and self.realtime_option_quote_dataworker.isRunning():
+                    self.realtime_option_quote_dataworker.terminate()
+
+                if OVC_REQUEST and self.realtime_ovc_dataworker.isRunning():
+                    self.realtime_ovc_dataworker.terminate()
+
+                QTest.qWait(10)                  
+
+                if FUTURES_REQUEST and futures_process.is_alive():
+                    futures_process.terminate()
+
+                if OPTION_TICK_REQUEST and option_tick_process.is_alive():
+                    option_tick_process.terminate()
+
+                if OPTION_QUOTE_REQUEST and option_quote_process.is_alive():
+                    option_quote_process.terminate()
+
+                if OVC_REQUEST and ovc_process.is_alive():
+                    ovc_process.terminate()                
+
+                print('모든 멀티프로세스 쓰레드 종료...')
+            else:
+                pass
+
             if self.dialog['선물옵션전광판'] is not None:
 
                 if self.dialog['선물옵션전광판'].flag_score_board_open:
@@ -57843,39 +57865,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             logger.info("*************************************************************************************************************************")
-            logger.info("LOG STOP")
-
-            if MULTIPROCESS and flag_internet:
-
-                if FUTURES_REQUEST:
-                    self.realtime_futures_dataworker.terminate()
-
-                if OPTION_TICK_REQUEST:
-                    self.realtime_option_tick_dataworker.terminate()
-
-                if OPTION_QUOTE_REQUEST:
-                    self.realtime_option_quote_dataworker.terminate()
-
-                if OVC_REQUEST:
-                    self.realtime_ovc_dataworker.terminate()
-
-                QTest.qWait(10)                  
-
-                if FUTURES_REQUEST:
-                    futures_process.terminate()
-
-                if OPTION_TICK_REQUEST:
-                    option_tick_process.terminate()
-
-                if OPTION_QUOTE_REQUEST:
-                    option_quote_process.terminate()
-
-                if OVC_REQUEST:
-                    ovc_process.terminate()                
-
-                print('모든 멀티프로세스 쓰레드 종료...')                             
-            else:
-                pass
+            logger.info("LOG STOP")            
 
             if TARGET_MONTH == 'CM':
                 
@@ -57895,7 +57885,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
             self.xing.clock.stop()
-            self.xing.main_connection.disconnect()
+
+            if self.xing.main_connection.IsConnected():
+                self.xing.main_connection.disconnect()
 
             QTest.qWait(10) 
 
