@@ -6167,7 +6167,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 온라인 여부확인
             online_state = self.parent.xing.main_connection.IsConnected()
 
-            if not online_state:
+            if not online_state and main_close_event is None:
                 
                 # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -7248,8 +7248,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜저가_동적맥점_교집합, 콜저가_FIXED_COREVAL_교집합, 콜고가_동적맥점_교집합, 콜고가_FIXED_COREVAL_교집합, 풋저가_동적맥점_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_동적맥점_교집합, 풋고가_FIXED_COREVAL_교집합
 
         dt = datetime.now()
-        start_time = timeit.default_timer()
-
+        
         node_coloring = True
         refresh_coloring = True
 
@@ -7258,6 +7257,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass      
         
+        call_start_time = timeit.default_timer()
+
         self.call_node_color_clear()
         self.call_open_check()
         self.call_cross_color_update()
@@ -7266,13 +7267,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_low_coreval_color_update()
         self.call_high_coreval_color_update()
 
+        call_process_time = (timeit.default_timer() - call_start_time) * 1000
+
+        put_start_time = timeit.default_timer()
+
         self.put_node_color_clear()
         self.put_open_check()        
         self.put_cross_color_update()        
         self.put_node_color_update()
         #self.put_coreval_color_update()
         self.put_low_coreval_color_update()
-        self.put_high_coreval_color_update()       
+        self.put_high_coreval_color_update()
+
+        put_process_time = (timeit.default_timer() - put_start_time) * 1000
         
         node_coloring = False
         refresh_coloring = False
@@ -7289,6 +7296,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋고가_동적맥점_교집합 = list(set(put_고가리스트) & set(동적맥점))
         풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
 
+        '''
         print('\r')
         print('###########################################################################')
         print('콜저가_동적맥점_교집합 = {0}\r'.format(콜저가_동적맥점_교집합))
@@ -7297,10 +7305,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         print('풋고가_동적맥점_교집합 = {0}\r'.format(풋고가_동적맥점_교집합))
         print('###########################################################################')
         print('\r')
+        '''
 
-        process_time = (timeit.default_timer() - start_time) * 1000
-
-        txt = '[{0:02d}:{1:02d}:{2:02d}] All 옵션 Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        txt = '[{0:02d}:{1:02d}:{2:02d}] Call/Put Node Color Check Time = {3:.2f}/{4:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, call_process_time, put_process_time)
         self.textBrowser.append(txt)
         print(txt)        
 
@@ -9392,6 +9399,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜종가_풋저가_노드_교집합, 콜종가_풋고가_노드_교집합, 콜종가_콜저가_노드_교집합, 콜종가_콜고가_노드_교집합
         global 콜피봇_풋저가_노드_교집합, 콜피봇_풋고가_노드_교집합, 콜피봇_콜저가_노드_교집합, 콜피봇_콜고가_노드_교집합
         global 콜시가_풋저가_노드_교집합, 콜시가_풋고가_노드_교집합, 콜시가_콜저가_노드_교집합, 콜시가_콜고가_노드_교집합
+
+        #dt = datetime.now()
+        #start_time = timeit.default_timer()
         
         콜저가_풋시가_노드_교집합 = list(set(call_저가리스트) & set(put_시가_node_list))
 
@@ -10524,6 +10534,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
         '''
+        #process_time = (timeit.default_timer() - start_time) * 1000
+
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        #self.textBrowser.append(txt)
+        #print(txt)
+
     # 풋 컬러링 Apply 함수
     # 풋 저가, 고가가 콜시가에 있는지 검사
     def check_put_low_isin_call_open_list(self, x):
@@ -10828,6 +10844,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋피봇_콜저가_노드_교집합, 풋피봇_콜고가_노드_교집합, 풋피봇_풋저가_노드_교집합, 풋피봇_풋고가_노드_교집합
         global 풋시가_콜저가_노드_교집합, 풋시가_콜고가_노드_교집합, 풋시가_풋저가_노드_교집합, 풋시가_풋고가_노드_교집합
 
+        #dt = datetime.now()
+        #start_time = timeit.default_timer()
 
         풋저가_콜시가_노드_교집합 = list(set(put_저가리스트) & set(call_시가_node_list))
 
@@ -11960,6 +11978,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass            
         '''
+        #process_time = (timeit.default_timer() - start_time) * 1000
+
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time = {3:.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        #self.textBrowser.append(txt)
+        #print(txt)
 
     def put_node_color_clear(self):
 
@@ -57886,10 +57909,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.xing.clock.stop()
 
+            QTest.qWait(100)
+
             if self.xing.main_connection.IsConnected():
                 self.xing.main_connection.disconnect()
-
-            QTest.qWait(10) 
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] Main Window를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(txt)
@@ -57897,7 +57920,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.close()
         else:
-            event.ignore()   
+            event.ignore()
         
     def __del__(self):
                 
@@ -57934,8 +57957,8 @@ if __name__ == "__main__":
         # pyinstaller로 실행파일 만들때 필요함
         mp.freeze_support()
 
-        main_proc = mp.current_process()
-        print(f'\r메인 Process Name = {main_proc.name}, Process ID = {main_proc.pid}')
+        main_process = mp.current_process()
+        print(f'\r메인 Process Name = {main_process.name}, Process ID = {main_process.pid}')
         
         mp.set_start_method('spawn')
         #ctx = mp.get_context('spawn')
@@ -57952,12 +57975,12 @@ if __name__ == "__main__":
             INDEX_FUTURES_QUOTE = True        # 지수선물 전종목 호가
             INDEX_FUTURES_TICK = True         # 지수선물 전종목 체결
 
-            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, main_proc.pid, MP_FUT_HIGH_SPEED_MODE, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
+            futures_process = mp.Process(target=futures_crawler, args=(futuresQ, main_process.pid, MP_FUT_HIGH_SPEED_MODE, INDEX_FUTURES_QUOTE, INDEX_FUTURES_TICK), daemon=True)
             futures_process.start()            
         
         if OPTION_TICK_REQUEST:
 
-            option_tickQ = mp.Queue()            
+            option_tickQ = mp.Queue()
 
             if TARGET_MONTH == 'CM':
 
@@ -57976,7 +57999,7 @@ if __name__ == "__main__":
                 INDEX_OPTION_CM_TICK = False
                 INDEX_OPTION_NM_TICK = False
 
-            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, main_proc.pid, MP_OPTION_HIGH_SPEED_MODE, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
+            option_tick_process = mp.Process(target=option_tick_crawler, args=(option_tickQ, main_process.pid, MP_OPTION_HIGH_SPEED_MODE, CALL_ITM_REQUEST_NUMBER, CALL_OTM_REQUEST_NUMBER, PUT_ITM_REQUEST_NUMBER, PUT_OTM_REQUEST_NUMBER, INDEX_OPTION_CM_TICK, INDEX_OPTION_NM_TICK), daemon=True)
             option_tick_process.start()
 
         if OPTION_QUOTE_REQUEST:
@@ -58002,13 +58025,13 @@ if __name__ == "__main__":
                 INDEX_OPTION_CM_QUOTE = False      
                 INDEX_OPTION_NM_QUOTE = False
 
-            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, main_proc.pid, MP_OPTION_HIGH_SPEED_MODE, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
+            option_quote_process = mp.Process(target=option_quote_crawler, args=(option_quoteQ, main_process.pid, MP_OPTION_HIGH_SPEED_MODE, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, QUOTE_REQUEST_NUMBER, INDEX_OPTION_CM_QUOTE, INDEX_OPTION_NM_QUOTE), daemon=True)
             option_quote_process.start()
 
         if OVC_REQUEST:
             
             ovcQ = mp.Queue()
-            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, main_proc.pid, MP_CME_HIGH_SPEED_MODE), daemon=True)
+            ovc_process = mp.Process(target=ovc_crawler, args=(ovcQ, main_process.pid, MP_CME_HIGH_SPEED_MODE), daemon=True)
             ovc_process.start()
     else:
         # 멀티프로세스가 아닌 경우
