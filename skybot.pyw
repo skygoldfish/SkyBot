@@ -6131,6 +6131,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH == 'CM' and not flag_internet_connection_broken_lst[-1]:
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] 인터넷 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.statusbar.showMessage(txt)
+                    self.parent.textBrowser.append(txt)
+                    self.textBrowser.append(txt)
+                    print(txt)
                     
                     self.capture_screenshot()
 
@@ -6139,15 +6143,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     file.write(text)
                     file.close()
 
-                    self.parent.statusbar.showMessage(txt)
-                    self.parent.textBrowser.append(txt)
-                    self.textBrowser.append(txt)
-                    print(txt)
-
                     flag_broken_capture = True
                     flag_internet_connection_broken_lst.append(True)
-
-                    #QMessageBox.critical(self, 'Error!', '인터넷 연결이 끊겼습니다.', QMessageBox.Ok)
                 else:
                     pass
 
@@ -6172,6 +6169,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 증권사 연결확인(인터넷이 연결된 상태에서만 확인가능)
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 증권사 연결이 끊겼습니다...\r'.format(dt.hour, dt.minute, dt.second)
                 self.parent.statusbar.showMessage(txt)
+                self.parent.textBrowser.append(txt)
                 self.textBrowser.append(txt)
                 print(txt)
 
@@ -6179,8 +6177,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.textBrowser.append(txt)
                     print(txt)
-
-                    self.parent.statusbar.showMessage(txt)
 
                     self.capture_screenshot()              
 
@@ -6193,12 +6189,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_service_provider_broken = True 
 
                     ToYourTelegram('증권사 연결이 끊겼습니다...')
-
-                    # 모든 쓰레드를 중지시킨다.
-                    #self.KillScoreBoardAllThread()                        
-
-                    #QMessageBox.critical(self, 'Error!', '증권사 연결이 끊겼습니다.', QMessageBox.Ok)
-                    #self.parent.close()
                 else:
                     pass                               
 
@@ -6215,6 +6205,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(txt)
 
                 if (t8416_loop_finish_time + 10 * 60) - system_time < 1:
+
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] 나머지 데이타를 수신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.parent.textBrowser.append(txt)
+                    self.textBrowser.append(txt)
 
                     if flag_tts:
                         self.parent.speaker.setText('나머지 데이타를 수신합니다.')
