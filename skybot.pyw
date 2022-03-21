@@ -4497,17 +4497,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_4th_index.setText("Reserved")
+        self.label_4th_index.setText("Call Low Alarm")
         
         self.label_5th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_5th_index.setText("Reserved")
+        self.label_5th_index.setText("Call High Alarm")
         
         self.label_6th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_6th_index.setText("Reserved")        
+        self.label_6th_index.setText("Put Low Alarm")
+
+        self.label_7th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_7th_index.setText("Put High Alarm")
+
+        self.label_8th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_8th_index.setText("KP200 Low Alarm")
+
+        self.label_9th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
+            rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
+            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+        self.label_9th_index.setText("KP200 High Alarm")
 
         header_stylesheet = '::section{Background-color: black; color: white; border-style: solid; border-width: 1px; border-color: gray}'
         call_header_stylesheet = '::section{Background-color: black; color: lightgreen; font-family: Consolas; font-size: 9pt; font: Normal; border-style: solid; border-width: 1px; border-color: gray}'
@@ -8369,18 +8384,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if blink:
             self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
             self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
+
+            txt = "KP200 Low {0}".format(kp200_저가)
+
+            self.label_8th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            self.label_8th_index.setText(txt)
         else:
             self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(검정색))
             self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(대맥점색))
+
+            txt = "KP200 Low {0}".format(kp200_저가)
+
+            self.label_8th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            self.label_8th_index.setText(txt)
 
     def kp200_high_color_blink(self, blink):
 
         if blink:
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
             self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
+
+            txt = "KP200 High {0}".format(kp200_고가)
+
+            self.label_9th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            self.label_9th_index.setText(txt)
         else:
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(검정색))
             self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(대맥점색))
+
+            txt = "KP200 High {0}".format(kp200_고가)
+
+            self.label_9th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            self.label_9th_index.setText(txt)
 
     def call_open_coreval_color_blink(self, blink):
 
@@ -8430,12 +8465,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        #flag_call_low_in_fixed_coreval_list = False
-        #call_low_val_in_fixed_coreval.clear()
-
-        #콜저가_동적맥점_교집합 = list(set(call_저가리스트) & set(동적맥점))
-        #콜저가_FIXED_COREVAL_교집합 = list(set(call_저가리스트) & set(FIXED_COREVAL))
-
         call_low_node_list.clear()
         call_low_node_old_count = call_low_node_count
 
@@ -8446,15 +8475,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(len(콜저가_동적맥점_교집합)):
                 #index = call_저가리스트.index(콜저가_동적맥점_교집합[i])
                 call_low_node_list.append(콜저가_동적맥점_교집합[i])
-        '''
-                if blink:
-                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(대맥점색))
-        '''
+        
         if 콜저가_FIXED_COREVAL_교집합:
+
+            if blink:
+                txt = "Call Low {0}".format(콜저가_FIXED_COREVAL_교집합)
+
+                self.label_4th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_4th_index.setText(txt)
+            else:
+                txt = "Call Low {0}".format(콜저가_FIXED_COREVAL_교집합)
+
+                self.label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_4th_index.setText(txt)
+
             for i in range(len(콜저가_FIXED_COREVAL_교집합)):
                 index = call_저가리스트.index(콜저가_FIXED_COREVAL_교집합[i])
 
@@ -8615,12 +8649,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        #flag_call_high_in_fixed_coreval_list = False
-        #call_high_val_in_fixed_coreval.clear()
-
-        #콜고가_동적맥점_교집합 = list(set(call_고가리스트) & set(동적맥점))
-        #콜고가_FIXED_COREVAL_교집합 = list(set(call_고가리스트) & set(FIXED_COREVAL))
-
         call_high_node_list.clear()
         call_high_node_old_count = call_high_node_count
 
@@ -8631,15 +8659,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(len(콜고가_동적맥점_교집합)):
                 #index = call_고가리스트.index(콜고가_동적맥점_교집합[i])
                 call_high_node_list.append(콜고가_동적맥점_교집합[i])
-        '''
-                if blink:
-                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(대맥점색))
-        '''
+        
         if 콜고가_FIXED_COREVAL_교집합:
+
+            if blink:
+                txt = "Call High {0}".format(콜고가_FIXED_COREVAL_교집합)
+
+                self.label_5th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_5th_index.setText(txt)
+            else:
+                txt = "Call High {0}".format(콜고가_FIXED_COREVAL_교집합)
+
+                self.label_5th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_5th_index.setText(txt)
+
             for i in range(len(콜고가_FIXED_COREVAL_교집합)):
                 index = call_고가리스트.index(콜고가_FIXED_COREVAL_교집합[i])
 
@@ -12113,14 +12146,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        #flag_put_low_in_fixed_coreval_list = False
-        #put_low_val_in_fixed_coreval.clear()
-        
-        #풋저가_동적맥점_교집합 = list(set(put_저가리스트) & set(동적맥점))
-        #풋저가_FIXED_COREVAL_교집합 = list(set(put_저가리스트) & set(FIXED_COREVAL))
-
-        #print('풋저가_FIXED_COREVAL_교집합 = {0}\r'.format(풋저가_FIXED_COREVAL_교집합))
-
         put_low_node_list.clear()
         put_low_node_old_count = put_low_node_count
 
@@ -12131,15 +12156,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(len(풋저가_동적맥점_교집합)):
                 #index = put_저가리스트.index(풋저가_동적맥점_교집합[i])
                 put_low_node_list.append(풋저가_동적맥점_교집합[i])
-        '''
-                if blink:
-                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(대맥점색))
-        '''
+        
         if 풋저가_FIXED_COREVAL_교집합:
+
+            if blink:
+                txt = "Put Low {0}".format(풋저가_FIXED_COREVAL_교집합)
+
+                self.label_6th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_6th_index.setText(txt)
+            else:
+                txt = "Put Low {0}".format(풋저가_FIXED_COREVAL_교집합)
+
+                self.label_6th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_6th_index.setText(txt)
+
             for i in range(len(풋저가_FIXED_COREVAL_교집합)):
                 index = put_저가리스트.index(풋저가_FIXED_COREVAL_교집합[i])
                 #print('풋저가_FIXED_COREVAL_교집합 index = {0}\r'.format(index))
@@ -12302,12 +12332,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        #flag_put_high_in_fixed_coreval_list = False
-        #put_high_val_in_fixed_coreval.clear()
-
-        #풋고가_동적맥점_교집합 = list(set(put_고가리스트) & set(동적맥점))
-        #풋고가_FIXED_COREVAL_교집합 = list(set(put_고가리스트) & set(FIXED_COREVAL))
-
         put_high_node_list.clear()
         put_high_node_old_count = put_high_node_count
 
@@ -12318,15 +12342,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(len(풋고가_동적맥점_교집합)):
                 #index = put_고가리스트.index(풋고가_동적맥점_교집합[i])
                 put_high_node_list.append(풋고가_동적맥점_교집합[i])
-        '''        
-                if blink:
-                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(대맥점색))
-        '''
+        
         if 풋고가_FIXED_COREVAL_교집합:
+
+            if blink:
+                txt = "Put High {0}".format(풋고가_FIXED_COREVAL_교집합)
+
+                self.label_7th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_7th_index.setText(txt)
+            else:
+                txt = "Put High {0}".format(풋고가_FIXED_COREVAL_교집합)
+
+                self.label_7th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_7th_index.setText(txt)
+
             for i in range(len(풋고가_FIXED_COREVAL_교집합)):
                 index = put_고가리스트.index(풋고가_FIXED_COREVAL_교집합[i])
 
@@ -12860,21 +12889,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now()
 
-        global flag_kp200_low_node_list, kp200_low_node_time, kp200_low_node_txt 
+        global flag_kp200_low_node_list, kp200_low_node_time, kp200_low_node_txt
+
+        flag_kp200_low_in_coreval = False
                 
         for i in range(10):
 
-            if self.is_within_n_tick(self.kp200_realdata['저가'], KP200_COREVAL[i], 10):
+            #print('KP200_COREVAL = {0}\r'.format(KP200_COREVAL[i]))
+
+            if self.is_within_n_tick(kp200_저가, KP200_COREVAL[i], 10):
 
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))                
 
-                flag_kp200_low_node_list.append(True)              
+                flag_kp200_low_in_coreval = True
             else:
                 pass
 
-        if flag_kp200_low_node_list[-1]:
-            pass
+        if flag_kp200_low_in_coreval:
+            flag_kp200_low_node_list.append(True)
         else:
             flag_kp200_low_node_list.append(False)
 
@@ -12882,21 +12915,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.now() 
 
-        global flag_kp200_high_node_list, kp200_high_node_time, kp200_high_node_txt 
+        global flag_kp200_high_node_list, kp200_high_node_time, kp200_high_node_txt
+
+        flag_kp200_high_in_coreval = False
                 
         for i in range(10):
+            
+            #print('KP200_COREVAL = {0}\r'.format(KP200_COREVAL[i]))
 
-            if self.is_within_n_tick(self.kp200_realdata['고가'], KP200_COREVAL[i], 10):
+            if self.is_within_n_tick(kp200_고가, KP200_COREVAL[i], 10):
 
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
-                flag_kp200_high_node_list.append(True)
+                flag_kp200_high_in_coreval = True
             else:
                 pass
 
-        if flag_kp200_high_node_list[-1]:
-            pass
+        if flag_kp200_high_in_coreval:
+            flag_kp200_high_node_list.append(True)
         else:
             flag_kp200_high_node_list.append(False)
 
@@ -13194,7 +13231,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
                 
         # 전저, 전고, 종가, 피봇 컬러링
-        if self.is_within_n_tick(KP200_전저, self.kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(KP200_전저, kp200_저가, 10):
 
             self.tableWidget_fut.item(2, Futures_column.전저.value).setBackground(QBrush(콜전저색))
             self.tableWidget_fut.item(2, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -13203,7 +13240,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.is_within_n_tick(KP200_전고, self.kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(KP200_전고, kp200_저가, 10):
 
             self.tableWidget_fut.item(2, Futures_column.전고.value).setBackground(QBrush(콜전고색))
             self.tableWidget_fut.item(2, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -13212,7 +13249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.is_within_n_tick(KP200_전일종가, self.kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(KP200_전일종가, kp200_저가, 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -13223,7 +13260,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if kp200_피봇 > 0:
 
-            if self.is_within_n_tick(kp200_피봇, self.kp200_realdata['저가'], 10):
+            if self.is_within_n_tick(kp200_피봇, kp200_저가, 10):
 
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -13234,7 +13271,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.is_within_n_tick(KP200_전저, self.kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(KP200_전저, kp200_고가, 10):
 
             self.tableWidget_fut.item(2, Futures_column.전저.value).setBackground(QBrush(콜전저색))
             self.tableWidget_fut.item(2, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -13243,7 +13280,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.is_within_n_tick(KP200_전고, self.kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(KP200_전고, kp200_고가, 10):
 
             self.tableWidget_fut.item(2, Futures_column.전고.value).setBackground(QBrush(콜전고색))
             self.tableWidget_fut.item(2, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -13252,7 +13289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.is_within_n_tick(KP200_전일종가, self.kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(KP200_전일종가, kp200_고가, 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -13263,7 +13300,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if kp200_피봇 > 0:
 
-            if self.is_within_n_tick(kp200_피봇, self.kp200_realdata['고가'], 10):                
+            if self.is_within_n_tick(kp200_피봇, kp200_고가, 10):                
 
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -19843,8 +19880,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             self.tableWidget_fut.resizeColumnsToContents()
 
-            columns = ['KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-                       '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
+            columns = ['KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
 
             df_fut = DataFrame(data=[self.cme_realdata, self.fut_realdata, self.kp200_realdata], columns=columns)
 
@@ -52909,7 +52945,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_kp200_low = True
 
                     kp200_저가 = float(tickdata['저가지수'])
-                    self.dialog['선물옵션전광판'].kp200_realdata['저가'] = kp200_저가               
+                    #self.dialog['선물옵션전광판'].kp200_realdata['저가'] = kp200_저가               
 
                     item = QTableWidgetItem(저가지수)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -52970,7 +53006,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_kp200_high = True
 
                     kp200_고가 = float(tickdata['고가지수'])
-                    self.dialog['선물옵션전광판'].kp200_realdata['고가'] = kp200_고가            
+                    #self.dialog['선물옵션전광판'].kp200_realdata['고가'] = kp200_고가            
 
                     item = QTableWidgetItem(고가지수)
                     item.setTextAlignment(Qt.AlignCenter)
