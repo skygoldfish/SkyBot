@@ -49906,12 +49906,12 @@ class Xing(object):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
 
+                                if flag_telegram_service:
+                                    ToYourTelegram(txt)
+
                                 if flag_tts:
                                     txt = 'NM Strong Call'
                                     self.caller.speaker.setText(txt)
-
-                                if flag_telegram_service:
-                                    ToYourTelegram(txt)
                             else:
                                 pass
                         else:
@@ -49925,13 +49925,13 @@ class Xing(object):
                             if (flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_kp200_high_node_list[-1]):
                                 txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put\r".format(dt.hour, dt.minute, dt.second)
                                 self.caller.textBrowser.append(txt)
+                                
+                                if flag_telegram_service:
+                                    ToYourTelegram(txt)
 
                                 if flag_tts:
                                     txt = 'NM Strong Put'
                                     self.caller.speaker.setText(txt)
-
-                                if flag_telegram_service:
-                                    ToYourTelegram(txt)
                             else:
                                 pass
                         else:
