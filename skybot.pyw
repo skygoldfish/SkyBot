@@ -15929,19 +15929,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 풋저가 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 풋 Low 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 풋저가 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 풋 Low 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 풋저가 맥점 3개 이상 생성'
+                                    txt = 'CM 풋 Low 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 풋저가 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 풋 Low 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 풋저가 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 풋 Low 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 풋저가 맥점 3개 이상 생성'
+                                    txt = 'NM 풋 Low 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -16137,19 +16137,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 풋고가 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 풋 High 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 풋고가 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 풋 High 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 풋고가 맥점 3개 이상 생성'
+                                    txt = 'CM 풋 High 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 풋고가 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 풋 High 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 풋고가 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 풋 High 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 풋고가 맥점 3개 이상 생성'
+                                    txt = 'NM 풋 High 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -49909,23 +49909,7 @@ class Xing(object):
 
                             if flag_tts:
                                 txt = 'CM 콜 High 맥점{0} 알람'.format(콜고가_FIXED_COREVAL_교집합)
-                                self.caller.speaker.setText(txt)
-
-                        if flag_put_low_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
-                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-
-                            if flag_tts:
-                                txt = 'CM 풋 Low 맥점{0} 알람'.format(풋저가_FIXED_COREVAL_교집합)
-                                self.caller.speaker.setText(txt)
-
-                        if flag_put_high_in_fixed_coreval_list[-1]:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
-                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-
-                            if flag_tts:
-                                txt = 'CM 풋 High 맥점{0} 알람'.format(풋고가_FIXED_COREVAL_교집합)
-                                self.caller.speaker.setText(txt)
+                                self.caller.speaker.setText(txt)                        
 
                         if flag_kp200_low_node_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
@@ -49947,6 +49931,26 @@ class Xing(object):
                             if flag_tts:
                                 winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
                         '''
+                    else:
+                        pass
+
+                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
+
+                        if flag_put_low_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'CM 풋 Low 맥점{0} 알람'.format(풋저가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
+
+                        if flag_put_high_in_fixed_coreval_list[-1]:
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
+                            self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'CM 풋 High 맥점{0} 알람'.format(풋고가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
                     else:
                         pass
 
@@ -49994,7 +49998,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
+                    if self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
                             
                         if flag_call_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
@@ -50011,7 +50015,11 @@ class Xing(object):
                             if flag_tts:
                                 txt = 'NM 콜 High 맥점{0} 알람'.format(콜고가_FIXED_COREVAL_교집합)
                                 self.caller.speaker.setText(txt)
+                    else:
+                        pass
 
+                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
+                        
                         if flag_put_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
@@ -50027,11 +50035,6 @@ class Xing(object):
                             if flag_tts:
                                 txt = 'NM 풋 High 맥점{0} 알람'.format(풋고가_FIXED_COREVAL_교집합)
                                 self.caller.speaker.setText(txt)
-                        '''    
-                        if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1]:
-                            if flag_tts:
-                                winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
-                        '''
                     else:
                         pass
 
