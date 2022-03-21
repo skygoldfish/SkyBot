@@ -4503,22 +4503,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_4th_index.setText("Call Low Alarm")
         
         self.label_5th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_5th_index.setText("Call High Alarm")
         
         self.label_6th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_6th_index.setText("Put Low Alarm")
 
         self.label_7th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
-            color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+            color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
         self.label_7th_index.setText("Put High Alarm")
 
         self.label_8th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
@@ -8480,7 +8480,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if 콜저가_동적맥점_교집합:
             for i in range(len(콜저가_동적맥점_교집합)):
-                #index = call_저가리스트.index(콜저가_동적맥점_교집합[i])
                 call_low_node_list.append(콜저가_동적맥점_교집합[i])
         
         if 콜저가_FIXED_COREVAL_교집합:
@@ -8488,12 +8487,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if blink:
                 txt = "Call Low {0}".format(콜저가_FIXED_COREVAL_교집합)
 
-                self.label_4th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_4th_index.setStyleSheet('background-color: black; color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_4th_index.setText(txt)
             else:
                 txt = "Call Low {0}".format(콜저가_FIXED_COREVAL_교집합)
 
-                self.label_4th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_4th_index.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_4th_index.setText(txt)
 
             for i in range(len(콜저가_FIXED_COREVAL_교집합)):
@@ -8664,7 +8663,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if 콜고가_동적맥점_교집합:
             for i in range(len(콜고가_동적맥점_교집합)):
-                #index = call_고가리스트.index(콜고가_동적맥점_교집합[i])
                 call_high_node_list.append(콜고가_동적맥점_교집합[i])
         
         if 콜고가_FIXED_COREVAL_교집합:
@@ -8672,12 +8670,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if blink:
                 txt = "Call High {0}".format(콜고가_FIXED_COREVAL_교집합)
 
-                self.label_5th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_5th_index.setStyleSheet('background-color: black; color: magenta; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_5th_index.setText(txt)
             else:
                 txt = "Call High {0}".format(콜고가_FIXED_COREVAL_교집합)
 
-                self.label_5th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_5th_index.setStyleSheet('background-color: magenta; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_5th_index.setText(txt)
 
             for i in range(len(콜고가_FIXED_COREVAL_교집합)):
@@ -12161,7 +12159,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if 풋저가_동적맥점_교집합:
             for i in range(len(풋저가_동적맥점_교집합)):
-                #index = put_저가리스트.index(풋저가_동적맥점_교집합[i])
                 put_low_node_list.append(풋저가_동적맥점_교집합[i])
         
         if 풋저가_FIXED_COREVAL_교집합:
@@ -12169,12 +12166,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if blink:
                 txt = "Put Low {0}".format(풋저가_FIXED_COREVAL_교집합)
 
-                self.label_6th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_6th_index.setStyleSheet('background-color: black; color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_6th_index.setText(txt)
             else:
                 txt = "Put Low {0}".format(풋저가_FIXED_COREVAL_교집합)
 
-                self.label_6th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_6th_index.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_6th_index.setText(txt)
 
             for i in range(len(풋저가_FIXED_COREVAL_교집합)):
@@ -12347,7 +12344,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 풋고가_동적맥점_교집합:
             for i in range(len(풋고가_동적맥점_교집합)):
-                #index = put_고가리스트.index(풋고가_동적맥점_교집합[i])
                 put_high_node_list.append(풋고가_동적맥점_교집합[i])
         
         if 풋고가_FIXED_COREVAL_교집합:
@@ -12355,12 +12351,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if blink:
                 txt = "Put High {0}".format(풋고가_FIXED_COREVAL_교집합)
 
-                self.label_7th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_7th_index.setStyleSheet('background-color: black; color: cyan; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_7th_index.setText(txt)
             else:
                 txt = "Put High {0}".format(풋고가_FIXED_COREVAL_교집합)
 
-                self.label_7th_index.setStyleSheet('background-color: yellow; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.label_7th_index.setStyleSheet('background-color: cyan; color: black; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
                 self.label_7th_index.setText(txt)
 
             for i in range(len(풋고가_FIXED_COREVAL_교집합)):
