@@ -994,11 +994,15 @@ if os.path.isfile('daytime.txt'):
         
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_전고 = float(temp[3])        
+        KP200_전고 = float(temp[3])
+
+        #kp200_고가 = KP200_전고
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
         KP200_전저 = float(temp[3])
+
+        #kp200_저가 = KP200_전저
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
@@ -52211,6 +52215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global df_futures_cm_graph, df_kp200_graph, KP200_당일예상시가
         global plot_time_index
+        global kp200_저가, kp200_고가
 
         try:
             dt = datetime.now()
@@ -52223,11 +52228,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if tickdata['업종코드'] == KOSPI200 and float(tickdata['예상지수']) > 0:
 
                 KP200_당일예상시가 = float(tickdata['예상지수'])
+                kp200_저가 = KP200_당일예상시가
+                kp200_고가 = KP200_당일예상시가
 
                 self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일예상시가
                 self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일예상시가
-
-                #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일예상시가
 
                 if KP200_당일예상시가 < KP200_COREVAL[3]:
                     df_kp200_graph.at[plot_time_index, 'Price'] = KP200_COREVAL[3]
@@ -52235,7 +52240,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_kp200_graph.at[plot_time_index, 'Price'] = KP200_COREVAL[6]
                 else:
                     df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일예상시가
-
+                
+                if kp200_저가 < KP200_COREVAL[3]:
+                    kp200_저가 = KP200_COREVAL[3]
+                    
+                if kp200_고가 > KP200_COREVAL[6]:
+                    kp200_고가 = KP200_COREVAL[6]
+                
                 item = QTableWidgetItem(tickdata['예상지수'])
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))  
