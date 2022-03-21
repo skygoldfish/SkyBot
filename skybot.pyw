@@ -1377,6 +1377,8 @@ call_itm_count = 0
 put_itm_count = 0
 
 every_5sec = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+every_10sec_1 = [0, 10, 20, 30, 40, 50]
+every_10sec_2 = [5, 25, 25, 35, 45, 55]
 
 pre_start = False
 
@@ -49893,7 +49895,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
+                    if self.clocktick and TARGET_MONTH == 'CM' and dt.second in every_10sec_1:
 
                         if flag_call_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
@@ -49934,7 +49936,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.second % 10 == 0:
+                    if not self.clocktick and TARGET_MONTH == 'CM' and dt.second in every_10sec_2:
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
@@ -49998,7 +50000,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
+                    if self.clocktick and TARGET_MONTH == 'NM' and dt.second in every_10sec_1:                     
                             
                         if flag_call_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
@@ -50018,7 +50020,7 @@ class Xing(object):
                     else:
                         pass
 
-                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second % 10 == 0:                        
+                    if not self.clocktick and TARGET_MONTH == 'NM' and dt.second in every_10sec_2:
                         
                         if flag_put_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
@@ -58105,7 +58107,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if flag_tts:
-        #Speak('고까')
+        #Speak('크래씨')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
