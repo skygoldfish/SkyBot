@@ -14635,19 +14635,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜저까 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜 Low 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜저까 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜 Low 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜저까 맥점 3개 이상 생성'
+                                    txt = 'CM 콜 Low 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜저까 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜 Low 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜저까 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜 Low 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜저까 맥점 3개 이상 생성'
+                                    txt = 'NM 콜 Low 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -14680,10 +14680,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜저까 맥점 crash'
+                                txt = 'CM 콜 Low 맥점{0} crash'.format(breakdown_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜저까 맥점 crash'
+                                txt = 'NM 콜 Low 맥점{0} crash'.format(breakdown_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -14843,19 +14843,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜고까 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜 High 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜고까 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜 High 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜고까 맥점 3개 이상 생성'
+                                    txt = 'CM 콜 High 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜고까 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜 High 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜고까 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜 High 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜고까 맥점 3개 이상 생성'
+                                    txt = 'NM 콜 High 맥점 3개 이상 생성'
 
                             self.parent.speaker.setText(txt)
 
@@ -14888,10 +14888,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜고까 맥점 breakout'
+                                txt = 'CM 콜 High 맥점{0} breakout'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜고까 맥점 breakout'
+                                txt = 'NM 콜 High 맥점{0} breakout'.format(breakout_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -15974,10 +15974,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋저가 맥점 crash'
+                                txt = 'CM 풋저가 맥점{0} crash'.format(breakdown_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋저가 맥점 crash'
+                                txt = 'NM 풋저가 맥점{0} crash'.format(breakdown_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -16182,10 +16182,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋고가 맥점 breakout'
+                                txt = 'CM 풋고가 맥점{0} breakout'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋고가 맥점 breakout'
+                                txt = 'NM 풋고가 맥점{0} breakout'.format(breakout_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -49897,37 +49897,56 @@ class Xing(object):
 
                         if flag_call_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'CM 콜 Low 맥점{0} 알람'.format(콜저가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_call_high_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'CM 콜 High 맥점{0} 알람'.format(콜고가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'CM 풋 Low 맥점{0} 알람'.format(풋저가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_put_high_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'CM 풋 High 맥점{0} 알람'.format(풋고가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_kp200_low_node_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 저가 맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'kp200 Low 맥점{0} 알람'.format(kp200_저가)
+                                self.caller.speaker.setText(txt)
 
                         if flag_kp200_high_node_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ kp200 고가 맥점 알람!\r".format(dt.hour, dt.minute, dt.second)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                        
+
+                            if flag_tts:
+                                txt = 'kp200 High 맥점{0} 알람'.format(kp200_고가)
+                                self.caller.speaker.setText(txt)
+                        '''
                         if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1] or flag_kp200_low_node_list[-1] or flag_kp200_high_node_list[-1]:
                             if flag_tts:
                                 winsound.PlaySound('Resources/notify.wav', winsound.SND_FILENAME)
+                        '''
                     else:
                         pass
 
@@ -49979,27 +49998,40 @@ class Xing(object):
                             
                         if flag_call_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜저가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'NM 콜 Low 맥점{0} 알람'.format(콜저가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_call_high_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 콜고가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'NM 콜 High 맥점{0} 알람'.format(콜고가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_put_low_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋저가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
+
+                            if flag_tts:
+                                txt = 'NM 풋 Low 맥점{0} 알람'.format(풋저가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
 
                         if flag_put_high_in_fixed_coreval_list[-1]:
                             send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 알람!\r".format(dt.hour, dt.minute, dt.second, 풋고가_FIXED_COREVAL_교집합)
-                            #self.caller.textBrowser.append(send_txt)
                             self.caller.dialog['선물옵션전광판'].textBrowser.append(send_txt)
-                            
+
+                            if flag_tts:
+                                txt = 'NM 풋 High 맥점{0} 알람'.format(풋고가_FIXED_COREVAL_교집합)
+                                self.caller.speaker.setText(txt)
+                        '''    
                         if flag_call_low_in_fixed_coreval_list[-1] or flag_call_high_in_fixed_coreval_list[-1] or flag_put_low_in_fixed_coreval_list[-1] or flag_put_high_in_fixed_coreval_list[-1]:
                             if flag_tts:
                                 winsound.PlaySound('Resources/ring.wav', winsound.SND_FILENAME)
+                        '''
                     else:
                         pass
 
@@ -52973,7 +53005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 저까 맥점 {0} 생성'.format(kp200_저가)
+                                txt = 'kp200 Low 맥점 {0} 생성'.format(kp200_저가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -52989,7 +53021,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 저까 맥점 crash'
+                                txt = 'kp200 Low 맥점{0} crash'.format(kp200_저가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -53034,7 +53066,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 고까 맥점 {0} 생성'.format(kp200_고가)
+                                txt = 'kp200 High 맥점 {0} 생성'.format(kp200_고가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -53050,7 +53082,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 고까 맥점 breakout'
+                                txt = 'kp200 High 맥점{0} breakout'.format(kp200_고가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
