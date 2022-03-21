@@ -6691,25 +6691,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     if self.parent.realtime_futures_dataworker.isRunning():
                                         self.parent.realtime_futures_dataworker.terminate()
-                                        self.parent.futures_process.terminate()
+                                        futures_process.terminate()
                                     else:
                                         pass
 
                                     if self.parent.mp_number == 2:
                                         self.parent.realtime_option_tick_dataworker.terminate()
-                                        self.parent.option_tick_process.terminate()
+                                        option_tick_process.terminate()
                                     elif self.parent.mp_number == 3:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
-                                        self.parent.option_tick_process.terminate()
-                                        self.parent.option_quote_process.terminate()
+                                        option_tick_process.terminate()
+                                        option_quote_process.terminate()
                                     elif self.parent.mp_number == 4:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
                                         self.parent.realtime_ovc_dataworker.terminate()                                        
-                                        self.parent.option_tick_process.terminate()
-                                        self.parent.option_quote_process.terminate()
-                                        self.parent.ovc_process.terminate()
+                                        option_tick_process.terminate()
+                                        option_quote_process.terminate()
+                                        ovc_process.terminate()
                                     else:
                                         pass
                                 else:
@@ -6756,25 +6756,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     if self.parent.realtime_futures_dataworker.isRunning():
                                         self.parent.realtime_futures_dataworker.terminate()
-                                        self.parent.futures_process.terminate()
+                                        futures_process.terminate()
                                     else:
                                         pass
 
                                     if self.parent.mp_number == 2:
                                         self.parent.realtime_option_tick_dataworker.terminate()
-                                        self.parent.option_tick_process.terminate()
+                                        option_tick_process.terminate()
                                     elif self.parent.mp_number == 3:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
-                                        self.parent.option_tick_process.terminate()
-                                        self.parent.option_quote_process.terminate()
+                                        option_tick_process.terminate()
+                                        option_quote_process.terminate()
                                     elif self.parent.mp_number == 4:
                                         self.parent.realtime_option_tick_dataworker.terminate()
                                         self.parent.realtime_option_quote_dataworker.terminate()
                                         self.parent.realtime_ovc_dataworker.terminate()                                        
-                                        self.parent.option_tick_process.terminate()
-                                        self.parent.option_quote_process.terminate()
-                                        self.parent.ovc_process.terminate()
+                                        option_tick_process.terminate()
+                                        option_quote_process.terminate()
+                                        ovc_process.terminate()
                                     else:
                                         pass                                    
                                 else:
