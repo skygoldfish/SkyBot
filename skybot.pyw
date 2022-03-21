@@ -1130,10 +1130,6 @@ Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수�
 Supply_column = Enum('Supply_column', '외인선물 외인현물 기관선물 기관현물 개인선물 개인현물 프로그램 종합')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 
-BB_PERIOD = 34
-BB_1ST_STD = 0.5
-BB_2ND_STD = 2
-
 total_packet_size = 0
 
 server_date = ''
@@ -2544,17 +2540,21 @@ euro_fibonacci_levels = []
 yen_fibonacci_levels = []
 adi_fibonacci_levels = []
 
+BB_PERIOD = 26
+BB_1ST_STD = 0.5
+BB_2ND_STD = 2
+
 RSI_PERIOD = 5
 RSI_OFFSET = 50
 RSI_SCALE_FACTOR = 2
 
-CCI1_PERIOD = 25
-CCI2_PERIOD = 50
+CCI1_PERIOD = 26
+CCI2_PERIOD = 52
 CCI_CLIP = 400
 
 CONVERSION_LINE_PERIOD = 9
-BASE_LINE_PERIOD = 25
-SPAN_B_PERIOD = 50
+BASE_LINE_PERIOD = 26
+SPAN_B_PERIOD = 52
 
 SSL_PERIOD = 10
 
