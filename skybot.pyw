@@ -51957,8 +51957,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 jisu_txt = "NASDAQ 야간시작가: {0}".format(NASDAQ_야간_시작가)
 
-                self.dialog['선물옵션전광판'].label_4th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                self.dialog['선물옵션전광판'].label_4th_index.setText(jisu_txt)
+                self.dialog['선물옵션전광판'].label_8th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_8th_index.setText(jisu_txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, NASDAQ_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
@@ -51966,8 +51966,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 jisu_txt = "ADI 야간시작가: {0}".format(ADI_야간_시작가)
 
-                self.dialog['선물옵션전광판'].label_5th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-                self.dialog['선물옵션전광판'].label_5th_index.setText(jisu_txt)
+                self.dialog['선물옵션전광판'].label_9th_index.setStyleSheet('background-color: black; color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
+                self.dialog['선물옵션전광판'].label_9th_index.setText(jisu_txt)
 
                 txt = '[{0:02d}:{1:02d}:{2:02d}] ADI 야간시작가 = {3}\r'.format(dt.hour, dt.minute, dt.second, ADI_야간_시작가)
                 self.dialog['선물옵션전광판'].textBrowser.append(txt)
