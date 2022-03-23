@@ -45,7 +45,7 @@ from collections import Counter
 from PIL import Image
 from configparser import ConfigParser
 import pyautogui
-#from playsound import playsound
+from playsound import playsound
 import winsound
 import socket
 import talib
@@ -57,7 +57,7 @@ import shutil
 import requests
 
 #import pyttsx3
-#from gtts import gTTS
+from gtts import gTTS
 #import sqlite3
 #import pythoncom
 #import inspect
@@ -2676,6 +2676,13 @@ if __name__ == '__main__':
     for i in range(len(vlist)-1):
         test_subject.test()
 '''
+
+def gtts_speak(txt):
+
+    tts = gTTS(text=txt, lang='ko')
+    filename = 'voice.mp3'
+    tts.save(filename)
+    playsound(filename)
 
 def calc_pivot(jl, jh, jc, do, float_index):
     if jl > 0 and jh > 0 and jc > 0 and do > 0:
@@ -14747,7 +14754,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if TARGET_MONTH == 'NM':
                                 txt = 'NM 콜 Low {0} 붕괴'.format(breakdown_value)
 
-                            self.parent.speaker.setText(txt)
+                            #self.parent.speaker.setText(txt)
+                            gtts_speak(txt)
 
                         if flag_telegram_service:
 
@@ -14950,12 +14958,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜 High {0} 파괴'.format(breakout_value)
+                                txt = 'CM 콜 High {0} 돌파'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜 High {0} 파괴'.format(breakout_value)
+                                txt = 'NM 콜 High {0} 돌파'.format(breakout_value)
 
-                            self.parent.speaker.setText(txt)
+                            #self.parent.speaker.setText(txt)
+                            gtts_speak(txt)
 
                         if flag_telegram_service:
                             
@@ -16045,7 +16054,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if TARGET_MONTH == 'NM':
                                 txt = 'NM 풋 Low {0} 붕괴'.format(breakdown_value)
 
-                            self.parent.speaker.setText(txt)
+                            #self.parent.speaker.setText(txt)
+                            gtts_speak(txt)
 
                         if flag_telegram_service:
 
@@ -16248,12 +16258,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋 High {0} 파괴'.format(breakout_value)
+                                txt = 'CM 풋 High {0} 돌파'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋 High {0} 파괴'.format(breakout_value)
+                                txt = 'NM 풋 High {0} 돌파'.format(breakout_value)
 
-                            self.parent.speaker.setText(txt)
+                            #self.parent.speaker.setText(txt)
+                            gtts_speak(txt)
 
                         if flag_telegram_service:
 
@@ -53144,7 +53155,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             if flag_tts:
                                 txt = 'kp200 Low {0} 붕괴'.format(kp200_저가)
-                                self.speaker.setText(txt)
+                                #self.speaker.setText(txt)
+                                gtts_speak(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 붕괴'.format(dt.hour, dt.minute, dt.second, kp200_저가)
@@ -53204,8 +53216,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 High {0} 파괴'.format(kp200_고가)
-                                self.speaker.setText(txt)
+                                txt = 'kp200 High {0} 돌파'.format(kp200_고가)
+                                #self.speaker.setText(txt)
+                                gtts_speak(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 돌파'.format(dt.hour, dt.minute, dt.second, kp200_고가)
@@ -57776,7 +57789,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableWidget_cme.item(index, 8).setBackground(QBrush(대맥점색))
             self.tableWidget_cme.item(index, 8).setForeground(QBrush(적색))
         else:
-            pass
+            pass    
 
     #####################################################################################################################################################################
     # 메뉴
@@ -58230,10 +58243,11 @@ if __name__ == "__main__":
     if flag_tts:
         #Speak('파괴')
         '''
-        text ="Welcome to SkyBot"
-        tts = gTTS(text=text, lang='en')
-        tts.save("tts.mp3")
-        playsound("tts.mp3")
+        txt ="2.5 돌파"
+        tts = gTTS(text=txt, lang='ko')
+        filename = 'voice.mp3'
+        tts.save(filename)
+        playsound(filename)
         '''
         pass
     else:
