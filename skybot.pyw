@@ -53257,7 +53257,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             self.textBrowser.append(txt)
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
-                            
+
                             if flag_tts:
                                 txt = 'kp200 High {0} 돌파'.format(kp200_고가)
                                 #self.speaker.setText(txt)
@@ -58147,6 +58147,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.speaker.isRunning():
                 self.speaker.terminate()
                 print('TTS Speaker is terminated at Main Window...')
+            else:
+                pass
+
+            if self.g_speaker.isRunning():
+                self.g_speaker.terminate()
+                print('Google TTS Speaker is terminated at Main Window...')
             else:
                 pass
 
