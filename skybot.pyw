@@ -14692,10 +14692,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜 Low 맥점{0} crash'.format(breakdown_value)
+                                txt = 'CM 콜 Low {0} 붕괴'.format(breakdown_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜 Low 맥점{0} crash'.format(breakdown_value)
+                                txt = 'NM 콜 Low {0} 붕괴'.format(breakdown_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -14900,10 +14900,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜 High 맥점{0} breakout'.format(breakout_value)
+                                txt = 'CM 콜 High {0} 파괴'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜 High 맥점{0} breakout'.format(breakout_value)
+                                txt = 'NM 콜 High {0} 파괴'.format(breakout_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -15990,10 +15990,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋저가 맥점{0} crash'.format(breakdown_value)
+                                txt = 'CM 풋 Low {0} 붕괴'.format(breakdown_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋저가 맥점{0} crash'.format(breakdown_value)
+                                txt = 'NM 풋 Low {0} 붕괴'.format(breakdown_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -16198,10 +16198,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋고가 맥점{0} breakout'.format(breakout_value)
+                                txt = 'CM 풋 High {0} 파괴'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋고가 맥점{0} breakout'.format(breakout_value)
+                                txt = 'NM 풋 High {0} 파괴'.format(breakout_value)
 
                             self.parent.speaker.setText(txt)
 
@@ -53083,7 +53083,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 Low 맥점{0} crash'.format(kp200_저가)
+                                txt = 'kp200 Low {0} 붕괴'.format(kp200_저가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -53144,7 +53144,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 High 맥점{0} breakout'.format(kp200_고가)
+                                txt = 'kp200 High {0} 파괴'.format(kp200_고가)
                                 self.speaker.setText(txt)
 
                             if flag_telegram_service:
@@ -58164,7 +58164,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if flag_tts:
-        #Speak('크래씨')
+        #Speak('파괴')
         '''
         text ="Welcome to SkyBot"
         tts = gTTS(text=text, lang='en')
