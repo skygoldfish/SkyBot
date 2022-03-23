@@ -4036,6 +4036,51 @@ class RealTime_OVC_MP_DataWorker(QThread):
 #####################################################################################################################################################################
 # Speaker Thread Class
 #####################################################################################################################################################################
+class Google_SpeakerWorker(QThread):
+
+    def __init__(self):
+        super().__init__()
+
+        self.daemon = True
+
+        self.txt = ''
+        self.flag_speak = False
+
+    def setText(self, txt):
+
+        self.txt = txt
+        self.flag_speak = True
+    
+    def run(self):
+
+        # 서브 스레드에서 COM 객체를 사용하려면 COM 라이브러리를 초기화 해야함
+        pythoncom.CoInitialize()
+
+        while True:            
+
+            try:
+                if self.flag_speak:
+                    tts = gTTS(text=txt, lang='ko')
+                    filename = 'voice.mp3'
+                    tts.save(filename)
+                    playsound(filename)
+                    self.flag_speak = False
+                else:
+                    pass
+
+                QTest.qWait(1)
+
+            except Exception as e:
+                
+                txt = 'Google SpeakerWorker 쓰레드에서 {1}타입의 {2}예외가 발생했습니다.\r'.format(type(e).__name__, str(e))
+                print(txt)
+
+        # 사용 후 uninitialize
+        pythoncom.CoUninitialize()
+
+#####################################################################################################################################################################
+# Google Speaker Thread Class
+#####################################################################################################################################################################
 class SpeakerWorker(QThread):
 
     def __init__(self):
@@ -14754,8 +14799,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if TARGET_MONTH == 'NM':
                                 txt = 'NM 콜 Low {0} 붕괴'.format(breakdown_value)
 
-                            #self.parent.speaker.setText(txt)
-                            gtts_speak(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -14964,7 +15008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = 'NM 콜 High {0} 돌파'.format(breakout_value)
 
                             #self.parent.speaker.setText(txt)
-                            gtts_speak(txt)
+                            self.parent.g_speaker.setText(txt)
 
                         if flag_telegram_service:
                             
@@ -16054,8 +16098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if TARGET_MONTH == 'NM':
                                 txt = 'NM 풋 Low {0} 붕괴'.format(breakdown_value)
 
-                            #self.parent.speaker.setText(txt)
-                            gtts_speak(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -16264,7 +16307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 txt = 'NM 풋 High {0} 돌파'.format(breakout_value)
 
                             #self.parent.speaker.setText(txt)
-                            gtts_speak(txt)
+                            self.parent.g_speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -50608,6 +50651,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.speaker = SpeakerWorker()
         self.speaker.start()
 
+        self.g_speaker = Google_SpeakerWorker()        
+        self.g_speaker.start()
+
         global system_server_time_gap
 
         attempts = 0
@@ -53110,7 +53156,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     flag_kp200_low = True
 
                     kp200_저가 = float(tickdata['저가지수'])
-                    #self.dialog['선물옵션전광판'].kp200_realdata['저가'] = kp200_저가               
 
                     item = QTableWidgetItem(저가지수)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -53155,8 +53200,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                             if flag_tts:
                                 txt = 'kp200 Low {0} 붕괴'.format(kp200_저가)
-                                #self.speaker.setText(txt)
-                                gtts_speak(txt)
+                                self.speaker.setText(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 붕괴'.format(dt.hour, dt.minute, dt.second, kp200_저가)
@@ -53171,8 +53215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_kp200_high = True
 
-                    kp200_고가 = float(tickdata['고가지수'])
-                    #self.dialog['선물옵션전광판'].kp200_realdata['고가'] = kp200_고가            
+                    kp200_고가 = float(tickdata['고가지수'])       
 
                     item = QTableWidgetItem(고가지수)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -53213,12 +53256,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             txt = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 돌파!\r".format(dt.hour, dt.minute, dt.second, kp200_고가)
 
                             self.textBrowser.append(txt)
-                            self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
-
+                            self.dialog['선물옵션전광판'].textBrowser.append(txt)
+                            
                             if flag_tts:
                                 txt = 'kp200 High {0} 돌파'.format(kp200_고가)
                                 #self.speaker.setText(txt)
-                                gtts_speak(txt)
+                                self.g_speaker.setText(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 돌파'.format(dt.hour, dt.minute, dt.second, kp200_고가)
