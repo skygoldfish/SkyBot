@@ -120,6 +120,12 @@ os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
 
+#main_process = None
+#futures_process = None
+#option_tick_process = None
+#option_quote_process = None
+#ovc_process = None
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -6771,9 +6777,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 self.parent.xing.main_connection.disconnect()
                             else:
-                                pass                            
-
-                            #self.pushButton_start.setText(' ScrShot ')                            
+                                pass                         
                         else:
                             txt = '오프라인 : {0}'.format(drop_txt)
                             self.parent.statusbar.showMessage(txt)                           
@@ -6787,9 +6791,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_offline:
                                 
-                                flag_offline = True 
-
-                                self.SaveResult()
+                                flag_offline = True                                
 
                                 self.KillScoreBoardAllThread()
 
@@ -6829,6 +6831,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         pass                                    
                                 else:
                                     pass
+
+                                self.SaveResult()
 
                                 self.parent.xing.main_connection.disconnect()                                    
                             else:
@@ -17172,7 +17176,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
 
-        txt = 'SkyBot을 종료합니다.'
+        if TARGET_MONTH == 'CM':
+            txt = 'CM SkyBot을 종료합니다.'
+
+        if TARGET_MONTH == 'NM':
+            txt = 'NM SkyBot을 종료합니다.'
+
         ToYourTelegram(txt)
         
         if not flag_logfile:
@@ -50222,11 +50231,8 @@ class Xing(object):
             else:
                 pass            
             
-            #txt = '메인 프로세스 로그인 성공 !!!\r'
-            txt = '메인 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(mp.current_process().pid)
-            self.caller.textBrowser.append(txt)
-            #self.caller.statusbar.showMessage(txt)
-            #playsound( "Resources/ring.wav" )            
+            txt = '메인 프로세스(Process ID = {0}) 생성 성공 !!!\r'.format(self.caller.main_process.pid)
+            self.caller.textBrowser.append(txt)       
             
             if not self.caller.mp_mode and AUTO_START:
 
@@ -50428,11 +50434,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dialog['RealTimeItem'] = None
         self.dialog['Version'] = None        
 
+        self.main_process = mp.current_process()
+
+        print('\r')
+        print('***********************************************************************************************************************')
+        print('Main Process ID = {0}\r'.format(self.main_process.pid))
+        print('***********************************************************************************************************************')
+        print('\r')
+
         self.id = None
         self.xing = Xing(self)          # Xing객체와 윈도우간 정보교환
 
         if TARGET_MONTH == 'NM':
-            self.setWindowTitle("SkyBot NM ver1.0")            
+            self.setWindowTitle("SkyBot NM ver1.0")
         else:
             self.setWindowTitle("SkyBot CM ver1.0")
 
@@ -57962,7 +57976,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()
 
-        main_close_event = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
+        if jugan_service_terminate:
+            main_close_event = QMessageBox.Yes
+        else:
+            main_close_event = QMessageBox.question(self,"프로그램 종료"," SkyBot을 종료하시겠습니까 ? ", QMessageBox.Yes | QMessageBox.No)
 
         if main_close_event == QMessageBox.Yes:
 
@@ -58102,6 +58119,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
 
     global flag_internet
+    global main_process, futures_process, option_tick_process, option_quote_process, ovc_process
 
     # 인터넷 연결확인
     ipaddress = socket.gethostbyname(socket.gethostname())
