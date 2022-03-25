@@ -45,7 +45,7 @@ from collections import Counter
 from PIL import Image
 from configparser import ConfigParser
 import pyautogui
-from playsound import playsound
+import playsound
 import winsound
 import socket
 import talib
@@ -2680,9 +2680,9 @@ if __name__ == '__main__':
 def gtts_speak(txt):
 
     tts = gTTS(text=txt, lang='ko')
-    filename = 'voice.mp3'
-    tts.save(filename)
-    playsound(filename)
+    audio_file = os.path.dirname(__file__) + 'audio.mp3'
+    tts.save(audio_file)
+    playsound.playsound(audio_file)
 
 def calc_pivot(jl, jh, jc, do, float_index):
     if jl > 0 and jh > 0 and jc > 0 and do > 0:
@@ -4061,9 +4061,9 @@ class Google_SpeakerWorker(QThread):
             try:
                 if self.flag_speak:
                     tts = gTTS(text=txt, lang='ko')
-                    filename = 'voice.mp3'
-                    tts.save(filename)
-                    playsound(filename)
+                    audio_file = os.path.dirname(__file__) + 'audio.mp3'
+                    tts.save(audio_file)
+                    playsound.playsound(audio_file)
                     self.flag_speak = False
                 else:
                     pass
@@ -14749,29 +14749,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜 Low 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜 Low 맥점 {0} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜 Low 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜 Low 맥점 {0}, {1} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜 Low 맥점 3개 이상 생성'
+                                    txt = 'CM 콜 Low 맥점 3개 이상 발생'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜 Low 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜 Low 맥점 {0} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜 Low 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜 Low 맥점 {0}, {1} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜 Low 맥점 3개 이상 생성'
+                                    txt = 'NM 콜 Low 맥점 3개 이상 발생'
 
-                            self.parent.speaker.setText(txt)
+                            self.parent.g_speaker.setText(txt)
 
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_콜저가_FIXED_COREVAL_교집합)
 
                             ToYourTelegram(txt)
 
@@ -14957,29 +14957,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜 High 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜 High 맥점 {0} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜 High 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜 High 맥점 {0}, {1} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜 High 맥점 3개 이상 생성'
+                                    txt = 'CM 콜 High 맥점 3개 이상 발생'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜 High 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜 High 맥점 {0} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜 High 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜 High 맥점 {0}, {1} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜 High 맥점 3개 이상 생성'
+                                    txt = 'NM 콜 High 맥점 3개 이상 발생'
 
-                            self.parent.speaker.setText(txt)
+                            self.parent.g_speaker.setText(txt)
 
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_콜고가_FIXED_COREVAL_교집합)
 
                             ToYourTelegram(txt)
 
@@ -16048,29 +16048,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 풋 Low 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 풋 Low 맥점 {0} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 풋 Low 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 풋 Low 맥점 {0}, {1} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 풋 Low 맥점 3개 이상 생성'
+                                    txt = 'CM 풋 Low 맥점 3개 이상 발생'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 풋 Low 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 풋 Low 맥점 {0} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 풋 Low 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 풋 Low 맥점 {0}, {1} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 풋 Low 맥점 3개 이상 생성'
+                                    txt = 'NM 풋 Low 맥점 3개 이상 발생'
 
-                            self.parent.speaker.setText(txt)
+                            self.parent.g_speaker.setText(txt)
 
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_풋저가_FIXED_COREVAL_교집합)
 
                             ToYourTelegram(txt)
 
@@ -16256,29 +16256,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 풋 High 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 풋 High 맥점 {0} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 풋 High 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 풋 High 맥점 {0}, {1} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 풋 High 맥점 3개 이상 생성'
+                                    txt = 'CM 풋 High 맥점 3개 이상 발생'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 풋 High 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 풋 High 맥점 {0} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 풋 High 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 풋 High 맥점 {0}, {1} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 풋 High 맥점 3개 이상 생성'
+                                    txt = 'NM 풋 High 맥점 3개 이상 발생'
 
-                            self.parent.speaker.setText(txt)
+                            self.parent.g_speaker.setText(txt)
 
                         if flag_telegram_service:
 
                             if TARGET_MONTH == 'CM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
 
                             if TARGET_MONTH == 'NM':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 생성'.format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점{3} 발생'.format(dt.hour, dt.minute, dt.second, prev_풋고가_FIXED_COREVAL_교집합)
 
                             ToYourTelegram(txt)
 
@@ -53183,11 +53183,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 Low 맥점 {0} 생성'.format(kp200_저가)
-                                self.speaker.setText(txt)
+                                txt = 'kp200 Low 맥점 {0} 발생'.format(kp200_저가)
+                                self.g_speaker.setText(txt)
 
                             if flag_telegram_service:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 생성'.format(dt.hour, dt.minute, dt.second, kp200_저가)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 발생'.format(dt.hour, dt.minute, dt.second, kp200_저가)
                                 ToYourTelegram(txt)
 
                     if not flag_kp200_low_node_list[-1] and flag_kp200_low_node_list[-2]:
@@ -53243,11 +53243,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 High 맥점 {0} 생성'.format(kp200_고가)
-                                self.speaker.setText(txt)
+                                txt = 'kp200 High 맥점 {0} 발생'.format(kp200_고가)
+                                self.g_speaker.setText(txt)
 
                             if flag_telegram_service:
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 생성'.format(dt.hour, dt.minute, dt.second, kp200_고가)
+                                txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 발생'.format(dt.hour, dt.minute, dt.second, kp200_고가)
                                 ToYourTelegram(txt)
 
                     if not flag_kp200_high_node_list[-1] and flag_kp200_high_node_list[-2]:
@@ -58292,11 +58292,11 @@ if __name__ == "__main__":
     if flag_tts:
         #Speak('파괴')
         '''
-        txt ="2.5 돌파 "
+        txt ="발생"
         tts = gTTS(text=txt, lang='ko')
-        filename = 'voice.mp3'
-        tts.save(filename)
-        playsound(filename)
+        audio_file = os.path.dirname(__file__) + 'audio.mp3'
+        tts.save(audio_file)
+        playsound.playsound(audio_file)
         '''
         pass
     else:
