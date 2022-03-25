@@ -58292,7 +58292,7 @@ if __name__ == "__main__":
     if flag_tts:
         #Speak('파괴')
         '''
-        txt ="2.5 돌파"
+        txt ="2.5 돌파 "
         tts = gTTS(text=txt, lang='ko')
         filename = 'voice.mp3'
         tts.save(filename)
