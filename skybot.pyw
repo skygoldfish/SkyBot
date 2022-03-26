@@ -2224,82 +2224,53 @@ df_adi_tick_ohlc = pd.DataFrame()
 # 선물 OHLC 연산
 fut_tick_list = []
 fut_value_list = []
-df_fut_ohlc = pd.DataFrame()
-df_fut_ohlc_1min = pd.DataFrame()
-df_fut_ohlc_5min = pd.DataFrame()
-df_fut_ohlc_15min = pd.DataFrame()
+df_cm_futures_ohlc = pd.DataFrame()
+df_nm_futures_ohlc = pd.DataFrame()
 
 # SP500 OHLC 연산
 sp500_tick_list = []
 sp500_value_list = []
 df_sp500_ohlc = pd.DataFrame()
-df_sp500_ohlc_1min = pd.DataFrame()
-df_sp500_ohlc_5min = pd.DataFrame()
-df_sp500_ohlc_15min = pd.DataFrame()
 
 # DOW OHLC 연산
 dow_tick_list = []
 dow_value_list = []
 df_dow_ohlc = pd.DataFrame()
-df_dow_ohlc_1min = pd.DataFrame()
-df_dow_ohlc_5min = pd.DataFrame()
-df_dow_ohlc_15min = pd.DataFrame()
 
 # NASDAQ OHLC 연산
 nasdaq_tick_list = []
 nasdaq_value_list = []
 df_nasdaq_ohlc = pd.DataFrame()
-df_nasdaq_ohlc_1min = pd.DataFrame()
-df_nasdaq_ohlc_5min = pd.DataFrame()
-df_nasdaq_ohlc_15min = pd.DataFrame()
 
 # HANGSENG OHLC 연산
 hsi_tick_list = []
 hsi_value_list = []
 df_hsi_ohlc = pd.DataFrame()
-df_hsi_ohlc_1min = pd.DataFrame()
-df_hsi_ohlc_5min = pd.DataFrame()
-df_hsi_ohlc_15min = pd.DataFrame()
 
 # WTI OHLC 연산
 wti_tick_list = []
 wti_value_list = []
 df_wti_ohlc = pd.DataFrame()
-df_wti_ohlc_1min = pd.DataFrame()
-df_wti_ohlc_5min = pd.DataFrame()
-df_wti_ohlc_15min = pd.DataFrame()
 
 # GOLD OHLC 연산
 gold_tick_list = []
 gold_value_list = []
 df_gold_ohlc = pd.DataFrame()
-df_gold_ohlc_1min = pd.DataFrame()
-df_gold_ohlc_5min = pd.DataFrame()
-df_gold_ohlc_15min = pd.DataFrame()
 
 # EURO OHLC 연산
 euro_tick_list = []
 euro_value_list = []
 df_euro_ohlc = pd.DataFrame()
-df_euro_ohlc_1min = pd.DataFrame()
-df_euro_ohlc_5min = pd.DataFrame()
-df_euro_ohlc_15min = pd.DataFrame()
 
 # YEN OHLC 연산
 yen_tick_list = []
 yen_value_list = []
 df_yen_ohlc = pd.DataFrame()
-df_yen_ohlc_1min = pd.DataFrame()
-df_yen_ohlc_5min = pd.DataFrame()
-df_yen_ohlc_15min = pd.DataFrame()
 
 # ADI OHLC 연산
 adi_tick_list = []
 adi_value_list = []
 df_adi_ohlc = pd.DataFrame()
-df_adi_ohlc_1min = pd.DataFrame()
-df_adi_ohlc_5min = pd.DataFrame()
-df_adi_ohlc_15min = pd.DataFrame()
 
 선물_체결시간 = ''
 
@@ -4391,11 +4362,16 @@ class CandlestickItem(pg.GraphicsObject):
         for i in range(len(self.df)):
             index = self.df.index[i]
             unix_ts = index.timestamp()
-
+            '''
             open = self.df.loc[index]['Open']
             high = self.df.loc[index]['High']
             low = self.df.loc[index]['Low']
             close = self.df.loc[index]['Close']
+            '''
+            open = self.df.at[index, 'Open']
+            high = self.df.at[index, 'High']
+            low = self.df.at[index, 'Low']
+            close = self.df.at[index, 'Close']
 
             if close >= open:
                 p.setPen(pg.mkPen(color='r'))
@@ -17633,6 +17609,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜저가_동적맥점_교집합, 콜저가_FIXED_COREVAL_교집합, 콜고가_동적맥점_교집합, 콜고가_FIXED_COREVAL_교집합, 풋저가_동적맥점_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_동적맥점_교집합, 풋고가_FIXED_COREVAL_교집합
         global 콜시가_COREVAL_교집합, 콜시가_FIXED_COREVAL_교집합, 풋시가_COREVAL_교집합, 풋시가_FIXED_COREVAL_교집합
 
+        global df_cm_futures_ohlc, df_nm_futures_ohlc
+        global df_sp500_ohlc, df_dow_ohlc, df_nasdaq_ohlc, df_hsi_ohlc, df_wti_ohlc, df_gold_ohlc, df_euro_ohlc, df_yen_ohlc, df_adi_ohlc
+
         dt = datetime.now()
 
         szTrCode = tickdata[0]
@@ -22917,6 +22896,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
             df_adi_ta_graph = DataFrame(index=range(0, timespan), columns=['Time', 'Price', 'Open', 'High', 'Low', 'Close', 'Volume', 'RSI', 'PSAR', 'BBUpper_1st', 'BBMiddle_1st', 'BBLower_1st', \
                 'BBUpper_2nd', 'BBMiddle_2nd', 'BBLower_2nd', 'MAMA', 'FAMA', 'CCI1', 'CCI2', 'SPAN_A', 'SPAN_B', 'OE_BASE', 'OE_CONV', 'LAGGING_SPAN', 'SSLDown', 'SSLUp'])
+
+            df_cm_futures_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_nm_futures_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+
+            df_sp500_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])            
+            df_dow_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_nasdaq_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_hsi_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_wti_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_gold_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_euro_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_yen_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
+            df_adi_ohlc = DataFrame(index=range(0, timespan), columns=['Time', 'Open', 'High', 'Low', 'Close'])
 
             flag_t8433_response_ok = True
         else:
@@ -55421,6 +55413,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global 해외선물_장마감_시
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global df_sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
+        global df_sp500_ohlc, df_dow_ohlc, df_nasdaq_ohlc, df_hsi_ohlc, df_wti_ohlc, df_gold_ohlc, df_euro_ohlc, df_yen_ohlc, df_adi_ohlc
         global flag_ovc_zero_sec, flag_fut_zero_sec
         global sp500_tick_list, dow_tick_list, nasdaq_tick_list, hsi_tick_list, wti_tick_list, gold_tick_list, euro_tick_list, yen_tick_list, adi_tick_list
 

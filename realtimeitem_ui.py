@@ -654,7 +654,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "실시간 설정"))
-        self.groupBox.setTitle(_translate("Dialog", "Real Time Request Item"))
+        self.groupBox.setTitle(_translate("Dialog", "RealTime Request Items"))
         self.checkBox_cm_fut_price.setText(_translate("Dialog", "본월물 선물가격"))
         self.checkBox_cm_fut_quote.setText(_translate("Dialog", "본월물 선물호가"))
         self.checkBox_cm_opt_price.setText(_translate("Dialog", "본월물 옵션가격(전체)"))
@@ -690,7 +690,7 @@ class Ui_Dialog(object):
         self.label_put_itm.setText(_translate("Dialog", "풋내가"))
         self.label_put_otm.setText(_translate("Dialog", "풋외가"))
         self.groupBox_4.setTitle(_translate("Dialog", "User Switch"))
-        self.checkBox_periodic_plot.setText(_translate("Dialog", "Option Table Periodic Update"))
+        self.checkBox_periodic_plot.setText(_translate("Dialog", "Option VA Items Periodic Update"))
         self.checkBox_search_moving_node.setText(_translate("Dialog", "Search Moving Node"))
         self.checkBox_plot_sync.setText(_translate("Dialog", "Plot Sync"))
         self.checkBox_telegram.setText(_translate("Dialog", "Telegram"))
@@ -699,7 +699,7 @@ class Ui_Dialog(object):
         self.checkBox_candle_chart.setText(_translate("Dialog", "Candle Chart"))
         self.label_18.setText(_translate("Dialog", "선물 vs SP500 등락율비"))
         self.label_22.setText(_translate("Dialog", "Drate Offset"))
-        self.label_19.setText(_translate("Dialog", "실시간수신 허용오차(초)"))
+        self.label_19.setText(_translate("Dialog", "실시간 수신지연 허용오차(sec)"))
         self.label_20.setText(_translate("Dialog", "Plot 갱신주기(msec)"))
         self.groupBox_5.setTitle(_translate("Dialog", "RSI 주기, OFFET, SCALE && CCI 1/2 주기 && Resv 주기"))
         self.label_10.setText(_translate("Dialog", "RSI 주기"))

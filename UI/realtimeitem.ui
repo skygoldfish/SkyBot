@@ -30,7 +30,7 @@
     </font>
    </property>
    <property name="title">
-    <string>Real Time Request Item</string>
+    <string>RealTime Request Items</string>
    </property>
    <property name="flat">
     <bool>false</bool>
@@ -738,7 +738,7 @@
        <item>
         <widget class="QCheckBox" name="checkBox_periodic_plot">
          <property name="text">
-          <string>Option Table Periodic Update</string>
+          <string>Option VA Items Periodic Update</string>
          </property>
         </widget>
        </item>
@@ -852,7 +852,7 @@
           </font>
          </property>
          <property name="text">
-          <string>실시간수신 허용오차(초)</string>
+          <string>실시간 수신지연 허용오차(sec)</string>
          </property>
         </widget>
        </item>
