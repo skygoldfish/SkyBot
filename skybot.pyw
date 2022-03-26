@@ -446,7 +446,10 @@ TARGET_MONTH = parser.get('Target Month Select', 'Target Month Select')
 # [4]. << Window Style >>
 DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
-# [5]. << User Switch = 'ON or OFF' >>
+# [5]. << Chart Style >>
+CANDLE_CHART = parser.getboolean('Chart Style', 'Candle Chart')
+
+# [6]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
 CALL_ATM_DRATE_REFERENCE = parser.getboolean('User Switch', 'Call ATM Reference of Plot Drate')
 OPTION_PERIODIC_UPDATE = parser.getboolean('User Switch', 'Option Table Periodic Update')
@@ -465,7 +468,7 @@ MP_FUT_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP Fut High Speed Mod
 MP_OPTION_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP Option High Speed Mode')
 MP_CME_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP CME High Speed Mode')
 
-# [6]. << Real Time Request Item Switch = 'ON or OFF' >>
+# [7]. << Real Time Request Item Switch = 'ON or OFF' >>
 FUTURES_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Domestic Futures Request')
 OPTION_TICK_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Option Tick Request')
 OPTION_QUOTE_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Option Quote Request')
@@ -496,10 +499,10 @@ YEN_CHK = parser.getboolean('RealTime Request Item Switch', 'YEN')
 ADI_CHK = parser.getboolean('RealTime Request Item Switch', 'ADI')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
-# [7]. << Moving Average Type >>
+# [8]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
-# [8]. << Initial Value >>
+# [9]. << Initial Value >>
 TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
@@ -526,7 +529,7 @@ SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Se
 OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
 
-# [9]. << Code of the Foreign Futures (H/M/U/Z) >>
+# [10]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500_CODE = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW_CODE = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ_CODE = parser.get('Code of the Foreign Futures', 'NASDAQ')
@@ -537,12 +540,12 @@ EURO_CODE = parser.get('Code of the Foreign Futures', 'EUROFX')
 YEN_CODE = parser.get('Code of the Foreign Futures', 'YEN')
 ADI_CODE = parser.get('Code of the Foreign Futures', 'ADI')
 
-# [10]. << Telegram >>
+# [11]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
 TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
-# [11]. << Rules >>
+# [12]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 #####################################################################################################################################################################
 
@@ -2585,6 +2588,7 @@ flag_fut_zero_sec = False
 flag_ovc_zero_sec = False
 
 flag_df_ohlc = False
+flag_candle_chart = CANDLE_CHART
 
 fut_cm_tick_list = []
 fut_nm_tick_list = []
@@ -4283,6 +4287,10 @@ class PlotUpdateWorker6(QThread):
 ## (see QGraphicsItem documentation)
 #####################################################################################################################################################################
 '''
+import pyqtgraph as pg
+from pyqtgraph import QtCore, QtGui
+import random
+
 ## Create a subclass of GraphicsObject.
 ## The only required methods are paint() and boundingRect() 
 ## (see QGraphicsItem documentation)
@@ -4291,7 +4299,7 @@ class CandlestickItem(pg.GraphicsObject):
         pg.GraphicsObject.__init__(self)
         self.flagHasData = False
 
-    def set_data(self, data):
+    def setData(self, data):
         self.data = data  ## data must have fields: time, open, close, min, max
         self.flagHasData = True
         self.generatePicture()
@@ -4334,7 +4342,7 @@ data = [  ## fields are (time, open, close, min, max).
     [6., 9, 15, 8, 16],
 ]
 item = CandlestickItem()
-item.set_data(data)
+item.setData(data)
 
 plt = pg.plot()
 plt.addItem(item)
@@ -4347,7 +4355,7 @@ def update():
     new_bar = data[rand][:]
     new_bar[0] = data_len
     data.append(new_bar)
-    item.set_data(data)
+    item.setData(data)
     app.processEvents()  ## force complete redraw for every plot
 
 timer = QtCore.QTimer()
@@ -4361,22 +4369,33 @@ if __name__ == '__main__':
         QtGui.QApplication.instance().exec_()
 '''
 class CandlestickItem(pg.GraphicsObject):
-    def __init__(self, data):
+    def __init__(self):
         pg.GraphicsObject.__init__(self)
-        self.df = data 
+        self.flagHasData = False
+
+    def setData(self, data):
+        self.df = data  ## data must have fields: time, open, close, min, max
+        self.flagHasData = True
         self.generatePicture()
+        self.informViewBoundsChanged()
 
     def generatePicture(self):
-        self.picture = QPicture()
-        p = QPainter(self.picture)
+        ## pre-computing a QPicture object allows paint() to run much more quickly, 
+        ## rather than re-drawing the shapes every time.
+        self.picture = QtGui.QPicture()
+        p = QtGui.QPainter(self.picture)
+        #p.setPen(pg.mkPen('w'))
+
+        w = (self.df.index[1] - self.df.index[0]) / 3.
 
         for i in range(len(self.df)):
             index = self.df.index[i]
             unix_ts = index.timestamp()
-            open = self.df.loc[index]['체결가격', 'open']
-            high = self.df.loc[index]['체결가격', 'high']
-            low = self.df.loc[index]['체결가격', 'low']
-            close = self.df.loc[index]['체결가격', 'close']
+
+            open = self.df.loc[index]['Open']
+            high = self.df.loc[index]['High']
+            low = self.df.loc[index]['Low']
+            close = self.df.loc[index]['Close']
 
             if close >= open:
                 p.setPen(pg.mkPen(color='r'))
@@ -4385,15 +4404,20 @@ class CandlestickItem(pg.GraphicsObject):
                 p.setPen(pg.mkPen(color='b'))
                 p.setBrush(pg.mkBrush(color='b'))
 
-            p.drawLine(QPointF(i, high), QPointF(i, low))
-            p.drawRect(QRectF(i-0.25, open, 0.5, close-open))
+            p.drawLine(QtCore.QPointF(i, low), QtCore.QPointF(i, high))
+            p.drawRect(QtCore.QRectF(i-w, open, w*2, close-open))
+
         p.end()
 
     def paint(self, p, *args):
-        p.drawPicture(0, 0, self.picture)
+        if self.flagHasData:
+            p.drawPicture(0, 0, self.picture)
 
     def boundingRect(self):
-        return QRectF(self.picture.boundingRect())
+        ## boundingRect _must_ indicate the entire area that will be drawn on
+        ## or else we will get artifacts and possibly crashing.
+        ## (in this case, QPicture does all the work of computing the bouning rect for us)
+        return QtCore.QRectF(self.picture.boundingRect())
 
 #####################################################################################################################################################################
 # 버전 UI Class
@@ -23658,6 +23682,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_telegram.setChecked(flag_telegram_service)
         self.checkBox_search_moving_node.setChecked(flag_search_moving_node)
         self.checkBox_df_ohlc.setChecked(flag_df_ohlc)
+        self.checkBox_candle_chart.setChecked(flag_candle_chart)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -23791,6 +23816,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_telegram.stateChanged.connect(self.checkBox_telegram_state_change)
         self.checkBox_search_moving_node.stateChanged.connect(self.checkBox_search_moving_node_change)
         self.checkBox_df_ohlc.stateChanged.connect(self.checkBox_df_ohlc_state_change)
+        self.checkBox_candle_chart.stateChanged.connect(self.checkBox_candle_chart_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -25089,6 +25115,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             self.parent.textBrowser.append(txt)
             print(txt)
 
+    def checkBox_candle_chart_state_change(self):
+
+        dt = datetime.now()
+
+        global flag_candle_chart
+
+        if self.checkBox_candle_chart.isChecked() == True:
+
+            flag_candle_chart = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] CANDLE CHART를 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_candle_chart = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] CANDLE CHART 설정을 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
     def checkBox_lagging_span_state_change(self):
 
         dt = datetime.now()
@@ -25243,11 +25289,21 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         start_time = timeit.default_timer()
         
         self.flag_big_chart_open = True
-
-        self.bc_ui_update_time = 0
+        
+        # CandlestickItem
+        self.futures_candle_item = CandlestickItem()
+        self.sp500_candle_item = CandlestickItem()
+        self.dow_candle_item = CandlestickItem()
+        self.nasdaq_candle_item = CandlestickItem()
+        self.hsi_candle_item = CandlestickItem()
+        self.wti_candle_item = CandlestickItem()
+        self.gold_candle_item = CandlestickItem()
+        self.euro_candle_item = CandlestickItem()
+        self.yen_candle_item = CandlestickItem()
+        self.adi_candle_item = CandlestickItem()
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
-        atexit.register(self.__del__) 
+        atexit.register(self.__del__)
         
         # 현재화면의 중앙에 표시
         qr = self.frameGeometry()
@@ -25838,6 +25894,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot1_cci_plus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
+
+        # plot1 CandlestickItem        
+        self.plot1.addItem(self.futures_candle_item)
+        self.plot1.addItem(self.sp500_candle_item)
+        self.plot1.addItem(self.dow_candle_item)
+        self.plot1.addItem(self.nasdaq_candle_item)
+        self.plot1.addItem(self.hsi_candle_item)
+        self.plot1.addItem(self.wti_candle_item)
+        self.plot1.addItem(self.gold_candle_item)
+        self.plot1.addItem(self.euro_candle_item)
+        self.plot1.addItem(self.yen_candle_item)
+        self.plot1.addItem(self.adi_candle_item)
         
         #cross hair
         if CROSS_HAIR_LINE:
