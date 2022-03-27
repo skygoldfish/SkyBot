@@ -952,15 +952,11 @@ if os.path.isfile('daytime.txt'):
         temp = tmp.split()
         KOSPI_PRICE = float(temp[3])
 
-        print('KOSPI_PRICE =', KOSPI_PRICE)
-
         tmp = daytime_file.readline().strip()
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
         KOSDAQ_PRICE = float(temp[3])
-
-        print('KOSDAQ_PRICE =', KOSDAQ_PRICE)
 
         tmp = daytime_file.readline().strip()
 
@@ -994,6 +990,12 @@ if os.path.isfile('daytime.txt'):
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
         SP500_Day_종가 = float(temp[4])
+
+        print('\r')
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        print('KOSPI_PRICE = {0}, KOSDAQ_PRICE = {1}, SP500_Day_종가 = {2}\r'.format(KOSPI_PRICE, KOSDAQ_PRICE, SP500_Day_종가))
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        print('\r')
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
