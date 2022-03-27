@@ -450,7 +450,10 @@ DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 # [5]. << Chart Style >>
 CANDLE_CHART = parser.getboolean('Chart Style', 'Candle Chart')
 
-# [6]. << User Switch = 'ON or OFF' >>
+# [6]. << Web Scrap URL >>
+WEB_URL = parser.get('Web Scrap URL', 'Web URL')
+
+# [7]. << User Switch = 'ON or OFF' >>
 MULTIPROCESS = parser.getboolean('User Switch', 'Multiprocess')
 CALL_ATM_DRATE_REFERENCE = parser.getboolean('User Switch', 'Call ATM Reference of Plot Drate')
 OPTION_PERIODIC_UPDATE = parser.getboolean('User Switch', 'Option Table Periodic Update')
@@ -468,9 +471,9 @@ OPTION_SIZE = parser.getboolean('User Switch', 'Option Total Size')
 MP_FUT_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP Fut High Speed Mode')
 MP_OPTION_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP Option High Speed Mode')
 MP_CME_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP CME High Speed Mode')
-YAHOO_FINANCE = parser.getboolean('User Switch', 'Yahoo Finance')
+WEB_SCRAP = parser.getboolean('User Switch', 'Web Scrap')
 
-# [7]. << Real Time Request Item Switch = 'ON or OFF' >>
+# [8]. << Real Time Request Item Switch = 'ON or OFF' >>
 FUTURES_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Domestic Futures Request')
 OPTION_TICK_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Option Tick Request')
 OPTION_QUOTE_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Option Quote Request')
@@ -501,10 +504,10 @@ YEN_CHK = parser.getboolean('RealTime Request Item Switch', 'YEN')
 ADI_CHK = parser.getboolean('RealTime Request Item Switch', 'ADI')
 NEWS_CHK = parser.getboolean('RealTime Request Item Switch', 'NEWS')
 
-# [8]. << Moving Average Type >>
+# [9]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
-# [9]. << Initial Value >>
+# [10]. << Initial Value >>
 TIME_TOLERANCE = parser.getint('Initial Value', 'RealTime Tolerance(sec)')
 MP_SEND_INTERVAL = parser.getint('Initial Value', 'MP Send Interval')
 CALL_ITM_REQUEST_NUMBER = parser.getint('Initial Value', 'Number of Call ITM Request')
@@ -531,7 +534,7 @@ SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Se
 OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
 
-# [10]. << Code of the Foreign Futures (H/M/U/Z) >>
+# [11]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500_CODE = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW_CODE = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ_CODE = parser.get('Code of the Foreign Futures', 'NASDAQ')
@@ -542,12 +545,12 @@ EURO_CODE = parser.get('Code of the Foreign Futures', 'EUROFX')
 YEN_CODE = parser.get('Code of the Foreign Futures', 'YEN')
 ADI_CODE = parser.get('Code of the Foreign Futures', 'ADI')
 
-# [11]. << Telegram >>
+# [12]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
 TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
-# [12]. << Rules >>
+# [13]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 #####################################################################################################################################################################
 
@@ -1040,7 +1043,7 @@ else:
     YEN_Day_종가 = 0
     ADI_Day_종가 = 0    
 
-if YAHOO_FINANCE:
+if WEB_SCRAP:
 
     dt = datetime.datetime.now()        
     today = dt.strftime('%Y-%m-%d')
@@ -1126,7 +1129,8 @@ if YAHOO_FINANCE:
     #print(df.tail(1))
     #print('\r')
 
-    table = pd.read_html('https://www.marketwatch.com/investing/future/jym22')
+    url = WEB_URL + YEN_CODE
+    table = pd.read_html(url)
     print(table[5])
     high = float(table[5].at[table[5].index[3], 'High'].replace('$', ''))
     low = float(table[5].at[table[5].index[3], 'Low'].replace('$', ''))
@@ -50879,7 +50883,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_dataworker.trigger_exception.connect(self.transfer_thread_exception)
             self.realtime_thread_dataworker.start()
 
-        if YAHOO_FINANCE:
+        if WEB_SCRAP:
 
             txt = 'Web Scraping 해외선물 Data를 표시합니다.\r'
             self.textBrowser.append(txt)
