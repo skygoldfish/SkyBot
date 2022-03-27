@@ -53016,7 +53016,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
-                if SP500_전일종가 > 0:
+                if SP500_Day_종가 > 0:
                     SP500_기준_예상시가 = (근월물_선물_종가 * SP500_현재가) / SP500_Day_종가
                 else:
                     pass            
