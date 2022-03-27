@@ -1109,13 +1109,24 @@ if WEB_SCRAP:
     WTI_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
     print('GOLD\r')
-    df = yf.download('GC=F', end = today)
-    print(df.tail(1))
-    print('\r')
+    #df = yf.download('GC=F', end = today)
+    #print(df.tail(1))
+    #print('\r')
 
-    GOLD_전고 = df.at[df.tail(1).index[0], 'High']
-    GOLD_전저 = df.at[df.tail(1).index[0], 'Low']
-    GOLD_전일종가 = df.at[df.tail(1).index[0], 'Close']
+    url = WEB_URL + 'gold'
+    table = pd.read_html(url)
+    print(table[5])
+
+    high = float(table[5].at[table[5].index[2], 'High'].replace('$', '').replace(',', ''))
+    low = float(table[5].at[table[5].index[2], 'Low'].replace('$', '').replace(',', ''))
+    close = float(table[5].at[table[5].index[2], 'Last'].replace('$', '').replace(',', ''))
+
+    GOLD_전고 = high
+    GOLD_전저 = low
+    GOLD_전일종가 = close
+
+    #print('GOLD_전고 = {0}, GOLD_전저 = {1}, GOLD_전일종가 = {2}\r'.format(GOLD_전고, GOLD_전저, GOLD_전일종가))
+    #print('\r')
 
     print('EURO\r')
     df = yf.download('6E=F', end = today)
