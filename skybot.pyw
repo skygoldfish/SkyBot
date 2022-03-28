@@ -1052,16 +1052,19 @@ if WEB_SCRAP:
 
     print('KP200\r')
     df = yf.download('^KS200', end = today)
-    print(df.tail(1))
-    print('\r')
+    
+    if not df.empty:
 
-    #KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
-    #KP200_전고 = df.at[df.tail(1).index[0], 'High']
-    #KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-    #KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+        print(df.tail(1))
+        print('\r')
 
-    print('KP200 전일시가 = {0}, KP200_전고 = {1}, KP200_전저 = {2}, KP200_전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가))
-    print('\r')
+        KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
+        KP200_전고 = df.at[df.tail(1).index[0], 'High']
+        KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+        KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+        print('KP200 전일시가 = {0}, KP200_전고 = {1}, KP200_전저 = {2}, KP200_전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가))
+        print('\r')
 
     print('S&P 500\r')
     df = yf.download('ES=F', end = today)
@@ -4129,7 +4132,7 @@ class Google_SpeakerWorker(QThread):
 
             try:
                 if self.flag_speak:
-                    tts = gTTS(text=txt, lang='ko')
+                    tts = gTTS(text=self.txt, lang='ko')
                     audio_file = os.path.dirname(__file__) + 'audio.mp3'
                     tts.save(audio_file)
                     playsound.playsound(audio_file)
@@ -25376,9 +25379,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         self.flag_big_chart_open = True
         
-        # CandlestickItem
-        '''
-        self.futures_candle_item = CandlestickItem()
+        # CandlestickItem        
+        self.futures_candle_item = CandlestickItem()        
         self.sp500_candle_item = CandlestickItem()
         self.dow_candle_item = CandlestickItem()
         self.nasdaq_candle_item = CandlestickItem()
@@ -25387,8 +25389,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.gold_candle_item = CandlestickItem()
         self.euro_candle_item = CandlestickItem()
         self.yen_candle_item = CandlestickItem()
-        self.adi_candle_item = CandlestickItem()
-        '''
+        self.adi_candle_item = CandlestickItem()        
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
@@ -25994,9 +25995,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1.addItem(self.gold_candle_item)
         self.plot1.addItem(self.euro_candle_item)
         self.plot1.addItem(self.yen_candle_item)
-        self.plot1.addItem(self.adi_candle_item)
+        self.plot1.addItem(self.adi_candle_item)        
         '''
-        
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
