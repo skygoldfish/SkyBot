@@ -14878,21 +14878,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜 Low 맥점 {0} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜 Low 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜 Low 맥점 {0}, {1} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜 Low 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜 Low 맥점 3개 이상 발생'
+                                    txt = 'CM 콜 Low 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜 Low 맥점 {0} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜 Low 맥점 {0} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜 Low 맥점 {0}, {1} 발생'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜 Low 맥점 {0}, {1} 생성'.format(prev_콜저가_FIXED_COREVAL_교집합[0], prev_콜저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜 Low 맥점 3개 이상 발생'
+                                    txt = 'NM 콜 Low 맥점 3개 이상 생성'
 
-                            self.parent.g_speaker.setText(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -15086,21 +15086,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 콜 High 맥점 {0} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 콜 High 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 콜 High 맥점 {0}, {1} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 콜 High 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 콜 High 맥점 3개 이상 발생'
+                                    txt = 'CM 콜 High 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_콜고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 콜 High 맥점 {0} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 콜 High 맥점 {0} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_콜고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 콜 High 맥점 {0}, {1} 발생'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 콜 High 맥점 {0}, {1} 생성'.format(prev_콜고가_FIXED_COREVAL_교집합[0], prev_콜고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 콜 High 맥점 3개 이상 발생'
+                                    txt = 'NM 콜 High 맥점 3개 이상 생성'
 
-                            self.parent.g_speaker.setText(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -15131,13 +15131,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 콜 High {0} 돌파'.format(breakout_value)
+                                txt = 'CM 콜 High {0} 파괴'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 콜 High {0} 돌파'.format(breakout_value)
+                                txt = 'NM 콜 High {0} 파괴'.format(breakout_value)
 
                             #self.parent.speaker.setText(txt)
-                            self.parent.g_speaker.setText(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
                             
@@ -16177,21 +16177,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 풋 Low 맥점 {0} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 풋 Low 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 풋 Low 맥점 {0}, {1} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 풋 Low 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 풋 Low 맥점 3개 이상 발생'
+                                    txt = 'CM 풋 Low 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_풋저가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 풋 Low 맥점 {0} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 풋 Low 맥점 {0} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋저가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 풋 Low 맥점 {0}, {1} 발생'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 풋 Low 맥점 {0}, {1} 생성'.format(prev_풋저가_FIXED_COREVAL_교집합[0], prev_풋저가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 풋 Low 맥점 3개 이상 발생'
+                                    txt = 'NM 풋 Low 맥점 3개 이상 생성'
 
-                            self.parent.g_speaker.setText(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -16385,21 +16385,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if TARGET_MONTH == 'CM':
                                 if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'CM 풋 High 맥점 {0} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'CM 풋 High 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'CM 풋 High 맥점 {0}, {1} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'CM 풋 High 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'CM 풋 High 맥점 3개 이상 발생'
+                                    txt = 'CM 풋 High 맥점 3개 이상 생성'
 
                             if TARGET_MONTH == 'NM':
                                 if len(prev_풋고가_FIXED_COREVAL_교집합) == 1:
-                                    txt = 'NM 풋 High 맥점 {0} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
+                                    txt = 'NM 풋 High 맥점 {0} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0])
                                 elif len(prev_풋고가_FIXED_COREVAL_교집합) == 2:
-                                    txt = 'NM 풋 High 맥점 {0}, {1} 발생'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
+                                    txt = 'NM 풋 High 맥점 {0}, {1} 생성'.format(prev_풋고가_FIXED_COREVAL_교집합[0], prev_풋고가_FIXED_COREVAL_교집합[1])
                                 else:
-                                    txt = 'NM 풋 High 맥점 3개 이상 발생'
+                                    txt = 'NM 풋 High 맥점 3개 이상 생성'
 
-                            self.parent.g_speaker.setText(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -16430,13 +16430,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if flag_tts:
 
                             if TARGET_MONTH == 'CM':
-                                txt = 'CM 풋 High {0} 돌파'.format(breakout_value)
+                                txt = 'CM 풋 High {0} 파괴'.format(breakout_value)
 
                             if TARGET_MONTH == 'NM':
-                                txt = 'NM 풋 High {0} 돌파'.format(breakout_value)
+                                txt = 'NM 풋 High {0} 파괴'.format(breakout_value)
 
                             #self.parent.speaker.setText(txt)
-                            self.parent.g_speaker.setText(txt)
+                            self.parent.speaker.setText(txt)
 
                         if flag_telegram_service:
 
@@ -25411,17 +25411,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         
         self.flag_big_chart_open = True
         
-        # CandlestickItem        
-        self.futures_candle_item = CandlestickItem()        
-        self.sp500_candle_item = CandlestickItem()
-        self.dow_candle_item = CandlestickItem()
-        self.nasdaq_candle_item = CandlestickItem()
-        self.hsi_candle_item = CandlestickItem()
-        self.wti_candle_item = CandlestickItem()
-        self.gold_candle_item = CandlestickItem()
-        self.euro_candle_item = CandlestickItem()
-        self.yen_candle_item = CandlestickItem()
-        self.adi_candle_item = CandlestickItem()
+        # CandlestickItem
+        if flag_candle_chart:
+            self.futures_candle_item = CandlestickItem()        
+            self.sp500_candle_item = CandlestickItem()
+            self.dow_candle_item = CandlestickItem()
+            self.nasdaq_candle_item = CandlestickItem()
+            self.hsi_candle_item = CandlestickItem()
+            self.wti_candle_item = CandlestickItem()
+            self.gold_candle_item = CandlestickItem()
+            self.euro_candle_item = CandlestickItem()
+            self.yen_candle_item = CandlestickItem()
+            self.adi_candle_item = CandlestickItem()
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
@@ -26016,17 +26017,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_cci_plus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
 
-        # plot1 CandlestickItem        
-        self.plot1.addItem(self.futures_candle_item)        
-        self.plot1.addItem(self.sp500_candle_item)
-        self.plot1.addItem(self.dow_candle_item)
-        self.plot1.addItem(self.nasdaq_candle_item)
-        self.plot1.addItem(self.hsi_candle_item)
-        self.plot1.addItem(self.wti_candle_item)
-        self.plot1.addItem(self.gold_candle_item)
-        self.plot1.addItem(self.euro_candle_item)
-        self.plot1.addItem(self.yen_candle_item)
-        self.plot1.addItem(self.adi_candle_item)
+        # plot1 CandlestickItem
+        if flag_candle_chart:
+            self.plot1.addItem(self.futures_candle_item)        
+            self.plot1.addItem(self.sp500_candle_item)
+            self.plot1.addItem(self.dow_candle_item)
+            self.plot1.addItem(self.nasdaq_candle_item)
+            self.plot1.addItem(self.hsi_candle_item)
+            self.plot1.addItem(self.wti_candle_item)
+            self.plot1.addItem(self.gold_candle_item)
+            self.plot1.addItem(self.euro_candle_item)
+            self.plot1.addItem(self.yen_candle_item)
+            self.plot1.addItem(self.adi_candle_item)        
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -26230,17 +26232,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_cci_plus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         self.plot2_cci_minus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
 
-        # plot2 CandlestickItem        
-        self.plot2.addItem(self.futures_candle_item)        
-        self.plot2.addItem(self.sp500_candle_item)
-        self.plot2.addItem(self.dow_candle_item)
-        self.plot2.addItem(self.nasdaq_candle_item)
-        self.plot2.addItem(self.hsi_candle_item)
-        self.plot2.addItem(self.wti_candle_item)
-        self.plot2.addItem(self.gold_candle_item)
-        self.plot2.addItem(self.euro_candle_item)
-        self.plot2.addItem(self.yen_candle_item)
-        self.plot2.addItem(self.adi_candle_item)
+        # plot2 CandlestickItem
+        if flag_candle_chart:
+            self.plot2.addItem(self.futures_candle_item)        
+            self.plot2.addItem(self.sp500_candle_item)
+            self.plot2.addItem(self.dow_candle_item)
+            self.plot2.addItem(self.nasdaq_candle_item)
+            self.plot2.addItem(self.hsi_candle_item)
+            self.plot2.addItem(self.wti_candle_item)
+            self.plot2.addItem(self.gold_candle_item)
+            self.plot2.addItem(self.euro_candle_item)
+            self.plot2.addItem(self.yen_candle_item)
+            self.plot2.addItem(self.adi_candle_item)        
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -26442,18 +26445,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_cci_plus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         self.plot3_cci_minus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
 
-        # plot3 CandlestickItem        
-        self.plot3.addItem(self.futures_candle_item)        
-        self.plot3.addItem(self.sp500_candle_item)
-        self.plot3.addItem(self.dow_candle_item)
-        self.plot3.addItem(self.nasdaq_candle_item)
-        self.plot3.addItem(self.hsi_candle_item)
-        self.plot3.addItem(self.wti_candle_item)
-        self.plot3.addItem(self.gold_candle_item)
-        self.plot3.addItem(self.euro_candle_item)
-        self.plot3.addItem(self.yen_candle_item)
-        self.plot3.addItem(self.adi_candle_item)
-
+        # plot3 CandlestickItem
+        if flag_candle_chart:
+            self.plot3.addItem(self.futures_candle_item)        
+            self.plot3.addItem(self.sp500_candle_item)
+            self.plot3.addItem(self.dow_candle_item)
+            self.plot3.addItem(self.nasdaq_candle_item)
+            self.plot3.addItem(self.hsi_candle_item)
+            self.plot3.addItem(self.wti_candle_item)
+            self.plot3.addItem(self.gold_candle_item)
+            self.plot3.addItem(self.euro_candle_item)
+            self.plot3.addItem(self.yen_candle_item)
+            self.plot3.addItem(self.adi_candle_item)
+        
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -26654,17 +26658,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot4_cci_plus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         self.plot4_cci_minus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
 
-        # plot4 CandlestickItem        
-        self.plot4.addItem(self.futures_candle_item)        
-        self.plot4.addItem(self.sp500_candle_item)
-        self.plot4.addItem(self.dow_candle_item)
-        self.plot4.addItem(self.nasdaq_candle_item)
-        self.plot4.addItem(self.hsi_candle_item)
-        self.plot4.addItem(self.wti_candle_item)
-        self.plot4.addItem(self.gold_candle_item)
-        self.plot4.addItem(self.euro_candle_item)
-        self.plot4.addItem(self.yen_candle_item)
-        self.plot4.addItem(self.adi_candle_item)
+        # plot4 CandlestickItem
+        if flag_candle_chart:        
+            self.plot4.addItem(self.futures_candle_item)        
+            self.plot4.addItem(self.sp500_candle_item)
+            self.plot4.addItem(self.dow_candle_item)
+            self.plot4.addItem(self.nasdaq_candle_item)
+            self.plot4.addItem(self.hsi_candle_item)
+            self.plot4.addItem(self.wti_candle_item)
+            self.plot4.addItem(self.gold_candle_item)
+            self.plot4.addItem(self.euro_candle_item)
+            self.plot4.addItem(self.yen_candle_item)
+            self.plot4.addItem(self.adi_candle_item)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -26866,18 +26871,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_cci_plus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         self.plot5_cci_minus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
 
-        # plot5 CandlestickItem        
-        self.plot5.addItem(self.futures_candle_item)        
-        self.plot5.addItem(self.sp500_candle_item)
-        self.plot5.addItem(self.dow_candle_item)
-        self.plot5.addItem(self.nasdaq_candle_item)
-        self.plot5.addItem(self.hsi_candle_item)
-        self.plot5.addItem(self.wti_candle_item)
-        self.plot5.addItem(self.gold_candle_item)
-        self.plot5.addItem(self.euro_candle_item)
-        self.plot5.addItem(self.yen_candle_item)
-        self.plot5.addItem(self.adi_candle_item)
-
+        # plot5 CandlestickItem
+        if flag_candle_chart:        
+            self.plot5.addItem(self.futures_candle_item)        
+            self.plot5.addItem(self.sp500_candle_item)
+            self.plot5.addItem(self.dow_candle_item)
+            self.plot5.addItem(self.nasdaq_candle_item)
+            self.plot5.addItem(self.hsi_candle_item)
+            self.plot5.addItem(self.wti_candle_item)
+            self.plot5.addItem(self.gold_candle_item)
+            self.plot5.addItem(self.euro_candle_item)
+            self.plot5.addItem(self.yen_candle_item)
+            self.plot5.addItem(self.adi_candle_item)
+        
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -27078,18 +27084,19 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot6_cci_plus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         self.plot6_cci_minus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
 
-        # plot6 CandlestickItem        
-        self.plot6.addItem(self.futures_candle_item)        
-        self.plot6.addItem(self.sp500_candle_item)
-        self.plot6.addItem(self.dow_candle_item)
-        self.plot6.addItem(self.nasdaq_candle_item)
-        self.plot6.addItem(self.hsi_candle_item)
-        self.plot6.addItem(self.wti_candle_item)
-        self.plot6.addItem(self.gold_candle_item)
-        self.plot6.addItem(self.euro_candle_item)
-        self.plot6.addItem(self.yen_candle_item)
-        self.plot6.addItem(self.adi_candle_item)
-
+        # plot6 CandlestickItem
+        if flag_candle_chart:
+            self.plot6.addItem(self.futures_candle_item)        
+            self.plot6.addItem(self.sp500_candle_item)
+            self.plot6.addItem(self.dow_candle_item)
+            self.plot6.addItem(self.nasdaq_candle_item)
+            self.plot6.addItem(self.hsi_candle_item)
+            self.plot6.addItem(self.wti_candle_item)
+            self.plot6.addItem(self.gold_candle_item)
+            self.plot6.addItem(self.euro_candle_item)
+            self.plot6.addItem(self.yen_candle_item)
+            self.plot6.addItem(self.adi_candle_item)
+        
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot6_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -53686,8 +53693,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 Low 맥점 {0} 발생'.format(kp200_저가)
-                                self.g_speaker.setText(txt)
+                                txt = 'kp200 Low 맥점 {0} 생성'.format(kp200_저가)
+                                self.speaker.setText(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점[{3}] 발생'.format(dt.hour, dt.minute, dt.second, kp200_저가)
@@ -53746,8 +53753,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)                        
 
                             if flag_tts:
-                                txt = 'kp200 High 맥점 {0} 발생'.format(kp200_고가)
-                                self.g_speaker.setText(txt)
+                                txt = 'kp200 High 맥점 {0} 생성'.format(kp200_고가)
+                                self.speaker.setText(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 발생'.format(dt.hour, dt.minute, dt.second, kp200_고가)
@@ -53762,9 +53769,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
                             if flag_tts:
-                                txt = 'kp200 High {0} 돌파'.format(kp200_고가)
+                                txt = 'kp200 High {0} 파괴'.format(kp200_고가)
                                 #self.speaker.setText(txt)
-                                self.g_speaker.setText(txt)
+                                self.speaker.setText(txt)
 
                             if flag_telegram_service:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점[{3}] 돌파'.format(dt.hour, dt.minute, dt.second, kp200_고가)
