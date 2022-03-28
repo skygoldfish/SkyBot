@@ -1044,155 +1044,7 @@ else:
     GOLD_Day_종가 = 0
     EURO_Day_종가 = 0
     YEN_Day_종가 = 0
-    ADI_Day_종가 = 0    
-
-if WEB_SCRAP:
-
-    dt = datetime.datetime.now()        
-    today = dt.strftime('%Y-%m-%d')
-
-    print('KP200\r')
-    df = yf.download('^KS200', end = today)
-    
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
-        KP200_전고 = df.at[df.tail(1).index[0], 'High']
-        KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-        KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-        print('KP200 전일시가 = {0}, KP200_전고 = {1}, KP200_전저 = {2}, KP200_전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가))
-        print('\r')
-
-    print('S&P 500\r')
-    df = yf.download('ES=F', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1)['High'], type(df.tail(1)['High']))
-        print('\r')
-
-        SP500_전고 = df.at[df.tail(1).index[0], 'High']
-        SP500_전저 = df.at[df.tail(1).index[0], 'Low']
-        SP500_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-    print('DOW\r')
-    df = yf.download('YM=F', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        DOW_전고 = df.at[df.tail(1).index[0], 'High']
-        DOW_전저 = df.at[df.tail(1).index[0], 'Low']
-        DOW_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-    print('NASDAQ\r')
-    df = yf.download('NQ=F', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        NASDAQ_전고 = df.at[df.tail(1).index[0], 'High']
-        NASDAQ_전저 = df.at[df.tail(1).index[0], 'Low']
-        NASDAQ_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-    print('HSI\r')
-    df = yf.download('^HSI', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        HANGSENG_전고 = df.at[df.tail(1).index[0], 'High']
-        HANGSENG_전저 = df.at[df.tail(1).index[0], 'Low']
-        HANGSENG_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-    print('WTI\r')
-    df = yf.download('CL=F', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        WTI_전고 = df.at[df.tail(1).index[0], 'High']
-        WTI_전저 = df.at[df.tail(1).index[0], 'Low']
-        WTI_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-    print('GOLD\r')
-    #df = yf.download('GC=F', end = today)
-    #print(df.tail(1))
-    #print('\r')
-
-    url = WEB_URL + 'gold'
-    table = pd.read_html(url)
-
-    if table:
-
-        print(table[5])
-
-        high = float(table[5].at[table[5].index[2], 'High'].replace('$', '').replace(',', ''))
-        low = float(table[5].at[table[5].index[2], 'Low'].replace('$', '').replace(',', ''))
-        close = float(table[5].at[table[5].index[2], 'Last'].replace('$', '').replace(',', ''))
-
-        GOLD_전고 = high
-        GOLD_전저 = low
-        GOLD_전일종가 = close
-
-    #print('GOLD_전고 = {0}, GOLD_전저 = {1}, GOLD_전일종가 = {2}\r'.format(GOLD_전고, GOLD_전저, GOLD_전일종가))
-    #print('\r')
-
-    print('EURO\r')
-    df = yf.download('6E=F', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        EURO_전고 = df.at[df.tail(1).index[0], 'High']
-        EURO_전저 = df.at[df.tail(1).index[0], 'Low']
-        EURO_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-    print('YEN\r')
-    #df = yf.download('6J=F', end = today)
-    #print(df.tail(1))
-    #print('\r')
-
-    url = WEB_URL + YEN_CODE
-    table = pd.read_html(url)
-
-    if table:
-
-        print(table[5])
-        high = float(table[5].at[table[5].index[3], 'High'].replace('$', ''))
-        low = float(table[5].at[table[5].index[3], 'Low'].replace('$', ''))
-        close = float(table[5].at[table[5].index[3], 'Last'].replace('$', ''))
-        print('\r')
-
-        YEN_전고 = high * 10000
-        YEN_전저 = low * 10000
-        YEN_전일종가 = close * 10000
-
-    print('ADI\r')
-    df = yf.download('6A=F', end = today)
-
-    if not df.empty:
-
-        print(df.tail(1))
-        print('\r')
-
-        ADI_전고 = df.at[df.tail(1).index[0], 'High']
-        ADI_전저 = df.at[df.tail(1).index[0], 'Low']
-        ADI_전일종가 = df.at[df.tail(1).index[0], 'Close']
+    ADI_Day_종가 = 0
 
 if FUT_전일종가 > 0:
     plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
@@ -26028,7 +25880,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot1.addItem(self.gold_candle_item)
             self.plot1.addItem(self.euro_candle_item)
             self.plot1.addItem(self.yen_candle_item)
-            self.plot1.addItem(self.adi_candle_item)        
+            self.plot1.addItem(self.adi_candle_item)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -51004,8 +50856,222 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if WEB_SCRAP:
 
-            txt = 'Web Scraping 해외선물 Data를 표시합니다.\r'
+            global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+            global SP500_전고, SP500_전저, SP500_전일종가
+            global DOW_전고, DOW_전저, DOW_전일종가
+            global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가
+            global HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가
+            global WTI_전고, WTI_전저, WTI_전일종가
+            global GOLD_전고, GOLD_전저, GOLD_전일종가
+            global EURO_전고, EURO_전저, EURO_전일종가
+            global YEN_전고, YEN_전저, YEN_전일종가
+            global ADI_전고, ADI_전저, ADI_전일종가
+
+            txt = '해외선물 Web Scraping Data를 표시합니다.\r'
             self.textBrowser.append(txt)
+
+            dt = datetime.now()        
+            today = dt.strftime('%Y-%m-%d')
+
+            #print('KP200\r')
+            df = yf.download('^KS200', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
+                KP200_전고 = df.at[df.tail(1).index[0], 'High']
+                KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+                KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'KP200 None...\r'
+                self.textBrowser.append(txt)            
+
+            #print('S&P 500\r')
+            df = yf.download('ES=F', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1)['High'], type(df.tail(1)['High']))
+                print('\r')
+
+                SP500_전고 = df.at[df.tail(1).index[0], 'High']
+                SP500_전저 = df.at[df.tail(1).index[0], 'Low']
+                SP500_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'SP500_전고 = {0:.2f}, SP500_전저 = {1:.2f}, SP500_전일종가 = {2:.2f}\r'.format(SP500_전고, SP500_전저, SP500_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'S&P 500 None...\r'
+                self.textBrowser.append(txt)
+
+            #print('DOW\r')
+            df = yf.download('YM=F', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                DOW_전고 = df.at[df.tail(1).index[0], 'High']
+                DOW_전저 = df.at[df.tail(1).index[0], 'Low']
+                DOW_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'DOW_전고 = {0}, DOW_전저 = {1}, DOW_전일종가 = {2}\r'.format(DOW_전고, DOW_전저, DOW_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'DOW None...\r'
+                self.textBrowser.append(txt)
+
+            #print('NASDAQ\r')
+            df = yf.download('NQ=F', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                NASDAQ_전고 = df.at[df.tail(1).index[0], 'High']
+                NASDAQ_전저 = df.at[df.tail(1).index[0], 'Low']
+                NASDAQ_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'NASDAQ_전고 = {0:.2f}, NASDAQ_전저 = {1:.2f}, NASDAQ_전일종가 = {2:.2f}\r'.format(NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'NASDAQ None...\r'
+                self.textBrowser.append(txt)
+
+            #print('HSI\r')
+            df = yf.download('^HSI', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                HANGSENG_전고 = df.at[df.tail(1).index[0], 'High']
+                HANGSENG_전저 = df.at[df.tail(1).index[0], 'Low']
+                HANGSENG_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'HANGSENG_전고 = {0:.0f}, HANGSENG_전저 = {1:.0f}, HANGSENG_전일종가 = {2:.0f}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'HANGSENG None...\r'
+                self.textBrowser.append(txt)
+
+            #print('WTI\r')
+            df = yf.download('CL=F', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                WTI_전고 = df.at[df.tail(1).index[0], 'High']
+                WTI_전저 = df.at[df.tail(1).index[0], 'Low']
+                WTI_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'WTI_전고 = {0:.2f}, WTI_전저 = {1:.2f}, WTI_전일종가 = {2:.2f}\r'.format(WTI_전고, WTI_전저, WTI_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'WTI None...\r'
+                self.textBrowser.append(txt)
+
+            #print('GOLD\r')
+            #df = yf.download('GC=F', end = today)
+            #print(df.tail(1))
+            #print('\r')
+
+            url = WEB_URL + 'gold'
+            table = pd.read_html(url)
+
+            if table:
+
+                print(table[5])
+                print('\r')
+
+                high = float(table[5].at[table[5].index[2], 'High'].replace('$', '').replace(',', ''))
+                low = float(table[5].at[table[5].index[2], 'Low'].replace('$', '').replace(',', ''))
+                close = float(table[5].at[table[5].index[2], 'Last'].replace('$', '').replace(',', ''))
+
+                GOLD_전고 = high
+                GOLD_전저 = low
+                GOLD_전일종가 = close
+
+                txt = 'GOLD_전고 = {0:.1f}, GOLD_전저 = {1:.1f}, GOLD_전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, GOLD_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'GOLD None...\r'
+                self.textBrowser.append(txt)
+
+            #print('EURO\r')
+            df = yf.download('6E=F', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                EURO_전고 = df.at[df.tail(1).index[0], 'High']
+                EURO_전저 = df.at[df.tail(1).index[0], 'Low']
+                EURO_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'EURO_전고 = {0:.5f}, EURO_전저 = {1:.5f}, EURO_전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'EURO None...\r'
+                self.textBrowser.append(txt)
+
+            #print('YEN\r')
+            #df = yf.download('6J=F', end = today)
+            #print(df.tail(1))
+            #print('\r')
+
+            url = WEB_URL + YEN_CODE
+            table = pd.read_html(url)
+
+            if table:
+
+                print(table[5])
+                print('\r')
+
+                high = float(table[5].at[table[5].index[3], 'High'].replace('$', ''))
+                low = float(table[5].at[table[5].index[3], 'Low'].replace('$', ''))
+                close = float(table[5].at[table[5].index[3], 'Last'].replace('$', ''))                
+
+                YEN_전고 = high * 10000
+                YEN_전저 = low * 10000
+                YEN_전일종가 = close * 10000
+
+                txt = 'YEN_전고 = {0:.1f}, YEN_전저 = {1:.1f}, YEN_전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'YEN None...\r'
+                self.textBrowser.append(txt)
+
+            #print('ADI\r')
+            df = yf.download('6A=F', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                ADI_전고 = df.at[df.tail(1).index[0], 'High']
+                ADI_전저 = df.at[df.tail(1).index[0], 'Low']
+                ADI_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'ADI_전고 = {0:.5f}, ADI_전저 = {1:.5f}, ADI_전일종가 = {2:.5f}\r'.format(ADI_전고, ADI_전저, ADI_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'ADI None...\r'
+                self.textBrowser.append(txt)
+
 
             if "{0:.2f}".format(SP500_전저) != self.tableWidget_cme.item(0, 1).text():
                 item = QTableWidgetItem("{0:.2f}".format(SP500_전저))
