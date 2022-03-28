@@ -4471,7 +4471,7 @@ class CandlestickItem(pg.GraphicsObject):
         self.flagHasData = False
 
     def setData(self, data):
-        self.df = data  ## data must have fields: time, open, close, min, max
+        self.df = data  ## data must have fields: time, open, close, min, max        
         self.flagHasData = True
         self.generatePicture()
         self.informViewBoundsChanged()
@@ -4481,29 +4481,32 @@ class CandlestickItem(pg.GraphicsObject):
         ## rather than re-drawing the shapes every time.
         self.picture = QtGui.QPicture()
         p = QtGui.QPainter(self.picture)
-        #p.setPen(pg.mkPen('w'))
+        p.setPen(pg.mkPen('w'))
 
         w = (self.df.index[1] - self.df.index[0]) / 3.
 
         for i in range(len(self.df)):
             index = self.df.index[i]
-            unix_ts = index.timestamp()
+            #unix_ts = index.timestamp()
             '''
             open = self.df.loc[index]['Open']
             high = self.df.loc[index]['High']
             low = self.df.loc[index]['Low']
             close = self.df.loc[index]['Close']
             '''
+            #print('candle df = {0}'.format(self.df.head(10)))
             open = self.df.at[index, 'Open']
             high = self.df.at[index, 'High']
             low = self.df.at[index, 'Low']
             close = self.df.at[index, 'Close']
 
+            #print('index = {0}, O = {1}, H = {2}, L = {3}, C = {4}\r'.format(index, open, high, low, close))
+
             if close >= open:
-                p.setPen(pg.mkPen(color='r'))
+                p.setPen(pg.mkPen(color='w'))
                 p.setBrush(pg.mkBrush(color='r'))
             else:
-                p.setPen(pg.mkPen(color='b'))
+                p.setPen(pg.mkPen(color='w'))
                 p.setBrush(pg.mkBrush(color='b'))
 
             p.drawLine(QtCore.QPointF(i, low), QtCore.QPointF(i, high))
@@ -25418,7 +25421,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.gold_candle_item = CandlestickItem()
         self.euro_candle_item = CandlestickItem()
         self.yen_candle_item = CandlestickItem()
-        self.adi_candle_item = CandlestickItem()        
+        self.adi_candle_item = CandlestickItem()
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
@@ -26013,8 +26016,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_cci_plus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
 
-        # plot1 CandlestickItem
-        
+        # plot1 CandlestickItem        
         self.plot1.addItem(self.futures_candle_item)        
         self.plot1.addItem(self.sp500_candle_item)
         self.plot1.addItem(self.dow_candle_item)
@@ -26024,7 +26026,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1.addItem(self.gold_candle_item)
         self.plot1.addItem(self.euro_candle_item)
         self.plot1.addItem(self.yen_candle_item)
-        self.plot1.addItem(self.adi_candle_item)        
+        self.plot1.addItem(self.adi_candle_item)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -26228,6 +26230,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot2_cci_plus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
         self.plot2_cci_minus_100_line = self.plot2.addLine(x=None, pen=red_dot_pen)
 
+        # plot2 CandlestickItem        
+        self.plot2.addItem(self.futures_candle_item)        
+        self.plot2.addItem(self.sp500_candle_item)
+        self.plot2.addItem(self.dow_candle_item)
+        self.plot2.addItem(self.nasdaq_candle_item)
+        self.plot2.addItem(self.hsi_candle_item)
+        self.plot2.addItem(self.wti_candle_item)
+        self.plot2.addItem(self.gold_candle_item)
+        self.plot2.addItem(self.euro_candle_item)
+        self.plot2.addItem(self.yen_candle_item)
+        self.plot2.addItem(self.adi_candle_item)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -26428,6 +26442,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot3_cci_plus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
         self.plot3_cci_minus_100_line = self.plot3.addLine(x=None, pen=red_dot_pen)
 
+        # plot3 CandlestickItem        
+        self.plot3.addItem(self.futures_candle_item)        
+        self.plot3.addItem(self.sp500_candle_item)
+        self.plot3.addItem(self.dow_candle_item)
+        self.plot3.addItem(self.nasdaq_candle_item)
+        self.plot3.addItem(self.hsi_candle_item)
+        self.plot3.addItem(self.wti_candle_item)
+        self.plot3.addItem(self.gold_candle_item)
+        self.plot3.addItem(self.euro_candle_item)
+        self.plot3.addItem(self.yen_candle_item)
+        self.plot3.addItem(self.adi_candle_item)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -26627,6 +26653,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot4_cci_plus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
         self.plot4_cci_minus_100_line = self.plot4.addLine(x=None, pen=red_dot_pen)
+
+        # plot4 CandlestickItem        
+        self.plot4.addItem(self.futures_candle_item)        
+        self.plot4.addItem(self.sp500_candle_item)
+        self.plot4.addItem(self.dow_candle_item)
+        self.plot4.addItem(self.nasdaq_candle_item)
+        self.plot4.addItem(self.hsi_candle_item)
+        self.plot4.addItem(self.wti_candle_item)
+        self.plot4.addItem(self.gold_candle_item)
+        self.plot4.addItem(self.euro_candle_item)
+        self.plot4.addItem(self.yen_candle_item)
+        self.plot4.addItem(self.adi_candle_item)
         
         #cross hair
         if CROSS_HAIR_LINE:
@@ -26828,6 +26866,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot5_cci_plus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
         self.plot5_cci_minus_100_line = self.plot5.addLine(x=None, pen=red_dot_pen)
 
+        # plot5 CandlestickItem        
+        self.plot5.addItem(self.futures_candle_item)        
+        self.plot5.addItem(self.sp500_candle_item)
+        self.plot5.addItem(self.dow_candle_item)
+        self.plot5.addItem(self.nasdaq_candle_item)
+        self.plot5.addItem(self.hsi_candle_item)
+        self.plot5.addItem(self.wti_candle_item)
+        self.plot5.addItem(self.gold_candle_item)
+        self.plot5.addItem(self.euro_candle_item)
+        self.plot5.addItem(self.yen_candle_item)
+        self.plot5.addItem(self.adi_candle_item)
+
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -27027,6 +27077,18 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
         self.plot6_cci_plus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
         self.plot6_cci_minus_100_line = self.plot6.addLine(x=None, pen=red_dot_pen)
+
+        # plot6 CandlestickItem        
+        self.plot6.addItem(self.futures_candle_item)        
+        self.plot6.addItem(self.sp500_candle_item)
+        self.plot6.addItem(self.dow_candle_item)
+        self.plot6.addItem(self.nasdaq_candle_item)
+        self.plot6.addItem(self.hsi_candle_item)
+        self.plot6.addItem(self.wti_candle_item)
+        self.plot6.addItem(self.gold_candle_item)
+        self.plot6.addItem(self.euro_candle_item)
+        self.plot6.addItem(self.yen_candle_item)
+        self.plot6.addItem(self.adi_candle_item)
 
         #cross hair
         if CROSS_HAIR_LINE:
@@ -37710,8 +37772,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot1_ovc_high_line.setValue(SP500_고가)                                
 
                 self.plot1_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
-                #item = CandlestickItem(df_sp500_tick_ohlc)
-                #self.plot1.addItem(item)
+                #self.sp500_candle_item.setData(df_sp500_ta_graph)
 
                 if flag_checkBox_plot1_bband:
 
@@ -39845,6 +39906,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot2_ovc_high_line.setValue(SP500_고가)                             
 
                 self.plot2_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
+                #self.sp500_candle_item.setData(df_sp500_ta_graph)
 
                 if flag_checkBox_plot2_bband:
 
@@ -41977,6 +42039,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot3_ovc_high_line.setValue(SP500_고가)
 
                 self.plot3_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
+                #self.sp500_candle_item.setData(df_sp500_ta_graph)
 
                 if flag_checkBox_plot3_bband:
 
@@ -44107,6 +44170,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot4_ovc_high_line.setValue(SP500_고가)
 
                 self.plot4_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
+                #self.sp500_candle_item.setData(df_sp500_ta_graph)
 
                 if flag_checkBox_plot4_bband:
 
@@ -46238,6 +46302,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot5_ovc_high_line.setValue(SP500_고가)
 
                 self.plot5_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
+                #self.sp500_candle_item.setData(df_sp500_ta_graph)
 
                 if flag_checkBox_plot5_bband:
 
@@ -48370,6 +48435,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
                 self.plot6_ovc_high_line.setValue(SP500_고가)
 
                 self.plot6_sp500_curve.setData(df_sp500_graph['Price'].astype(float))
+                #self.sp500_candle_item.setData(df_sp500_ta_graph)
 
                 if flag_checkBox_plot6_bband:
 
