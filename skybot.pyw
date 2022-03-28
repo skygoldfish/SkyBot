@@ -1055,10 +1055,10 @@ if WEB_SCRAP:
     print(df.tail(1))
     print('\r')
 
-    KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
-    KP200_전고 = df.at[df.tail(1).index[0], 'High']
-    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+    #KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
+    #KP200_전고 = df.at[df.tail(1).index[0], 'High']
+    #KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+    #KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
     print('KP200 전일시가 = {0}, KP200_전고 = {1}, KP200_전저 = {2}, KP200_전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가))
     print('\r')
@@ -25377,6 +25377,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.flag_big_chart_open = True
         
         # CandlestickItem
+        '''
         self.futures_candle_item = CandlestickItem()
         self.sp500_candle_item = CandlestickItem()
         self.dow_candle_item = CandlestickItem()
@@ -25387,6 +25388,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.euro_candle_item = CandlestickItem()
         self.yen_candle_item = CandlestickItem()
         self.adi_candle_item = CandlestickItem()
+        '''
 
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
@@ -25981,7 +25983,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_cci_plus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
         self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
 
-        # plot1 CandlestickItem        
+        # plot1 CandlestickItem
+        '''
         self.plot1.addItem(self.futures_candle_item)
         self.plot1.addItem(self.sp500_candle_item)
         self.plot1.addItem(self.dow_candle_item)
@@ -25992,6 +25995,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1.addItem(self.euro_candle_item)
         self.plot1.addItem(self.yen_candle_item)
         self.plot1.addItem(self.adi_candle_item)
+        '''
         
         #cross hair
         if CROSS_HAIR_LINE:
