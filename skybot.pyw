@@ -80,6 +80,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtTest import *
 import pyqtgraph as pg
 import qdarkstyle
+#from pyqtgraph import QtCore, QtGui
 #from darktheme.widget_template import DarkPalette
 
 #import qtmodern.styles
@@ -4438,7 +4439,8 @@ if __name__ == '__main__':
 '''
 class CandlestickItem(pg.GraphicsObject):
     def __init__(self):
-        pg.GraphicsObject.__init__(self)
+        pg.GraphicsObject.__init__(self)        
+        self.picture = QtGui.QPicture()
         self.flagHasData = False
 
     def setData(self, data):
@@ -25985,8 +25987,8 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1_cci_minus_100_line = self.plot1.addLine(x=None, pen=red_dot_pen)
 
         # plot1 CandlestickItem
-        '''
-        self.plot1.addItem(self.futures_candle_item)
+        
+        self.plot1.addItem(self.futures_candle_item)        
         self.plot1.addItem(self.sp500_candle_item)
         self.plot1.addItem(self.dow_candle_item)
         self.plot1.addItem(self.nasdaq_candle_item)
@@ -25996,7 +25998,7 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
         self.plot1.addItem(self.euro_candle_item)
         self.plot1.addItem(self.yen_candle_item)
         self.plot1.addItem(self.adi_candle_item)        
-        '''
+        
         #cross hair
         if CROSS_HAIR_LINE:
             self.plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
