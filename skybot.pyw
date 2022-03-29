@@ -56,6 +56,7 @@ import functools
 import shutil
 import requests
 import yfinance as yf
+import investpy
 
 #import pyttsx3
 from gtts import gTTS
@@ -50891,6 +50892,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def check_web_scrap(self):
 
+        '''
+        df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
+        
+        open = df.at[df.tail(1).index[0], 'Open']
+        high = df.at[df.tail(1).index[0], 'High']
+        low = df.at[df.tail(1).index[0], 'Low']
+        close = df.at[df.tail(1).index[0], 'Close']
+
+        df = investpy.get_index_recent_data(index='S&P 500', country='United States')
+        print(df.tail(1))
+
+        df = investpy.get_index_recent_data(index='DJ US', country='United States')
+        print(df.tail(1))
+
+        df = investpy.get_index_recent_data(index='NASDAQ', country='United States')
+        print(df.tail(1))
+
+        df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
+        print(df.tail(1))
+
+        df = investpy.get_commodity_recent_data(commodity='Crude Oil WTI')
+        print(df.tail(1))
+
+        df = investpy.get_commodity_recent_data(commodity='Gold')
+        print(df.tail(1))
+
+        df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
+        print(df.tail(1))
+
+        df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
+        print(df.tail(1))
+
+        df = investpy.get_currency_cross_recent_data(currency_cross='AUD/USD')
+        print(df.tail(1))
+        '''
+
         dt = datetime.now()        
         today = dt.strftime('%Y-%m-%d')
 
@@ -50907,12 +50944,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             date_diff = datetime.now() - date_to_compare
             print('day diff = {0}\r'.format(date_diff.days))
 
-        if pre_start and not os.path.isfile('daytime.txt'):
+        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
 
-            global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+        if pre_start and not os.path.isfile('daytime.txt'):            
 
             try:
-                df = yf.download('^KS200', end = today)
+                print('KP 200\r')
+                #df = yf.download('^KS200', end = today)
+                df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
 
                 if not df.empty:
 
@@ -50936,9 +50975,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print(txt)
                 self.textBrowser.append(txt)
 
-        if date_diff.days > 2:        
+        if date_diff.days > 2:            
             
-            #global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
             global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
             global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가
@@ -50954,12 +50992,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(txt)
 
             try:
-                print('S&P 500\r')
-                df = yf.download('ES=F', end = today)
+                print('KP 200\r')
+                #df = yf.download('^KS200', end = today)
+                df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
 
                 if not df.empty:
 
-                    print(df.tail(1)['High'], type(df.tail(1)['High']))
+                    print(df.tail(1))
+                    print('\r')
+
+                    KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
+                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
+                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                    txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                    self.textBrowser.append(txt)
+                else:
+                    txt = 'KP200 None...\r'
+                    self.textBrowser.append(txt)
+
+                print('S&P 500\r')
+                #df = yf.download('ES=F', end = today)
+                df = investpy.get_index_recent_data(index='S&P 500', country='United States')
+
+                if not df.empty:
+
+                    print(df.tail(1))
                     print('\r')
 
                     SP500_전고 = df.at[df.tail(1).index[0], 'High']
@@ -50973,7 +51032,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('DOW\r')
-                df = yf.download('YM=F', end = today)
+                #df = yf.download('YM=F', end = today)
+                df = investpy.get_index_recent_data(index='Dow 30', country='United States')
 
                 if not df.empty:
 
@@ -50990,8 +51050,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = 'DOW None...\r'
                     self.textBrowser.append(txt)
 
-                #print('NASDAQ\r')
-                df = yf.download('NQ=F', end = today)
+                print('NASDAQ\r')
+                #df = yf.download('NQ=F', end = today)
+                df = investpy.get_index_recent_data(index='NASDAQ', country='United States')
 
                 if not df.empty:
 
@@ -51008,8 +51069,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = 'NASDAQ None...\r'
                     self.textBrowser.append(txt)
 
-                #print('HSI\r')
-                df = yf.download('^HSI', end = today)
+                print('HSI\r')
+                #df = yf.download('^HSI', end = today)
+                df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
 
                 if not df.empty:
 
@@ -51026,8 +51088,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = 'HANGSENG None...\r'
                     self.textBrowser.append(txt)
 
-                #print('WTI\r')
-                df = yf.download('CL=F', end = today)
+                print('WTI\r')
+                #df = yf.download('CL=F', end = today)
+                df = investpy.get_commodity_recent_data(commodity='Crude Oil WTI')
 
                 if not df.empty:
 
@@ -51044,11 +51107,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = 'WTI None...\r'
                     self.textBrowser.append(txt)
 
-                #print('GOLD\r')
+                print('GOLD\r')
                 #df = yf.download('GC=F', end = today)
-                #print(df.tail(1))
-                #print('\r')
+                df = investpy.get_commodity_recent_data(commodity='Gold')
+                
+                if not df.empty:
 
+                    print(df.tail(1))
+                    print('\r')
+
+                    GOLD_전고 = df.at[df.tail(1).index[0], 'High']
+                    GOLD_전저 = df.at[df.tail(1).index[0], 'Low']
+                    GOLD_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                    txt = 'GOLD_전고 = {0:.1f}, GOLD_전저 = {1:.1f}, GOLD_전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, WTI_전일종가)
+                    self.textBrowser.append(txt)
+                else:
+                    txt = 'GOLD None...\r'
+                    self.textBrowser.append(txt)
+
+                '''
                 url = WEB_URL + 'gold'
                 table = pd.read_html(url)
 
@@ -51070,9 +51148,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     txt = 'GOLD None...\r'
                     self.textBrowser.append(txt)
+                '''
 
-                #print('EURO\r')
-                df = yf.download('6E=F', end = today)
+                print('EURO\r')
+                #df = yf.download('6E=F', end = today)
+                df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
 
                 if not df.empty:
 
@@ -51089,11 +51169,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = 'EURO None...\r'
                     self.textBrowser.append(txt)
 
-                #print('YEN\r')
+                print('YEN\r')
                 #df = yf.download('6J=F', end = today)
-                #print(df.tail(1))
-                #print('\r')
+                df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
 
+                if not df.empty:
+
+                    print(df.tail(1))
+                    print('\r')
+
+                    YEN_전고 = df.at[df.tail(1).index[0], 'High'] * 10000
+                    YEN_전저 = df.at[df.tail(1).index[0], 'Low'] * 10000
+                    YEN_전일종가 = df.at[df.tail(1).index[0], 'Close'] * 10000
+
+                    txt = 'YEN_전고 = {0:.1f}, YEN_전저 = {1:.1f}, YEN_전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
+                    self.textBrowser.append(txt)
+                else:
+                    txt = 'YEN None...\r'
+                    self.textBrowser.append(txt)
+                
+                '''
                 url = WEB_URL + YEN_CODE
                 table = pd.read_html(url)
 
@@ -51115,9 +51210,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     txt = 'YEN None...\r'
                     self.textBrowser.append(txt)
+                '''
 
-                #print('ADI\r')
-                df = yf.download('6A=F', end = today)
+                print('ADI\r')
+                #df = yf.download('6A=F', end = today)
+                df = investpy.get_currency_cross_recent_data(currency_cross='AUD/USD')
 
                 if not df.empty:
 
