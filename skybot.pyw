@@ -50852,11 +50852,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_dataworker = RealTime_Thread_DataWorker(self.dataQ)
             self.realtime_thread_dataworker.trigger.connect(self.transfer_thread_realdata)
             self.realtime_thread_dataworker.trigger_exception.connect(self.transfer_thread_exception)
-            self.realtime_thread_dataworker.start()
+            self.realtime_thread_dataworker.start()        
 
-        if WEB_SCRAP:
+        dt = datetime.now()        
+        today = dt.strftime('%Y-%m-%d')
+
+        modified_timestamp = datetime.fromtimestamp(os.path.getmtime('nighttime.txt'))
+        date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
+        date_to_compare = datetime.strptime(date_str, "%Y%m%d")
+        date_diff = datetime.now() - date_to_compare
+
+        txt = 'Modified Time Difference of the Futures History File = {0} days\r'.format(date_diff.days)
+        self.textBrowser.append(txt)
+
+        if pre_start:
 
             global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+
+            df = yf.download('^KS200', end = today)
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
+                KP200_전고 = df.at[df.tail(1).index[0], 'High']
+                KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+                KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                self.textBrowser.append(txt)
+            else:
+                txt = 'KP200 None...\r'
+                self.textBrowser.append(txt)
+
+        if WEB_SCRAP and date_diff.days > 2:
+            
             global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
             global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가
@@ -50868,10 +50900,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global ADI_전고, ADI_전저, ADI_전일종가
 
             txt = '해외선물 Web Scraping Data를 표시합니다.\r'
-            self.textBrowser.append(txt)
-
-            dt = datetime.now()        
-            today = dt.strftime('%Y-%m-%d')
+            self.textBrowser.append(txt)            
 
             #print('KP200\r')
             df = yf.download('^KS200', end = today)
