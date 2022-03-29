@@ -50892,42 +50892,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def check_web_scrap(self):
 
-        '''
-        df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
-        
-        open = df.at[df.tail(1).index[0], 'Open']
-        high = df.at[df.tail(1).index[0], 'High']
-        low = df.at[df.tail(1).index[0], 'Low']
-        close = df.at[df.tail(1).index[0], 'Close']
-
-        df = investpy.get_index_recent_data(index='S&P 500', country='United States')
-        print(df.tail(1))
-
-        df = investpy.get_index_recent_data(index='DJ US', country='United States')
-        print(df.tail(1))
-
-        df = investpy.get_index_recent_data(index='NASDAQ', country='United States')
-        print(df.tail(1))
-
-        df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
-        print(df.tail(1))
-
-        df = investpy.get_commodity_recent_data(commodity='Crude Oil WTI')
-        print(df.tail(1))
-
-        df = investpy.get_commodity_recent_data(commodity='Gold')
-        print(df.tail(1))
-
-        df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
-        print(df.tail(1))
-
-        df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
-        print(df.tail(1))
-
-        df = investpy.get_currency_cross_recent_data(currency_cross='AUD/USD')
-        print(df.tail(1))
-        '''
-
         dt = datetime.now()        
         today = dt.strftime('%Y-%m-%d')
 
