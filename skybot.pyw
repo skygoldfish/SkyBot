@@ -2402,6 +2402,9 @@ flag_call_weak = False
 flag_put_strong = False
 flag_put_weak = False
 
+flag_call_state = []
+flag_put_state = []
+
 flag_calltable_checkstate_changed = False
 flag_puttable_checkstate_changed = False
 
@@ -51975,7 +51978,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.label_2nd.setText(txt)
 
-        global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak 
+        global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak
+        global flag_call_state, flag_put_state
 
         if call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) > abs(put_otm_cdb_percent_mean):
 
@@ -51985,6 +51989,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_call_weak = False
             flag_put_strong = False
             flag_put_weak = False
+            flag_call_state.append(True)
+            flag_put_state.append(False)
 
         elif call_otm_cdb_percent_mean > put_otm_cdb_percent_mean and abs(call_otm_cdb_percent_mean) < abs(put_otm_cdb_percent_mean):
 
@@ -51994,6 +52000,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_call_weak = False
             flag_put_strong = False
             flag_put_weak = True
+            flag_call_state.append(False)
+            flag_put_state.append(False)
 
         elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) > abs(call_otm_cdb_percent_mean):
 
@@ -52003,6 +52011,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_call_weak = False
             flag_put_strong = True
             flag_put_weak = False
+            flag_call_state.append(False)
+            flag_put_state.append(True)
 
         elif put_otm_cdb_percent_mean > call_otm_cdb_percent_mean and abs(put_otm_cdb_percent_mean) < abs(call_otm_cdb_percent_mean):
 
@@ -52012,12 +52022,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             flag_call_weak = True
             flag_put_strong = False
             flag_put_weak = False
+            flag_call_state.append(False)
+            flag_put_state.append(False)
 
         else:
             self.label_5th.setStyleSheet("background-color: white; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
         
         txt = '{0} %\n{1} %'.format(call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
-        self.label_5th.setText(txt)            
+        self.label_5th.setText(txt)
+
+        if flag_call_state[-1] and not flag_call_state[-2]:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Strong Call State 진입...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if flag_telegram_service:
+                ToYourTelegram(txt)
+
+            if flag_tts:
+                txt = 'Strong Call State 진입'
+                self.speaker.setText(txt)
+
+        if not flag_call_state[-1] and flag_call_state[-2]:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Non Strong Call State 진입...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if flag_telegram_service:
+                ToYourTelegram(txt)
+
+            if flag_tts:
+                txt = 'Non Strong Call State 진입'
+                self.speaker.setText(txt)
+
+        if flag_put_state[-1] and not flag_put_state[-2]:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Strong Put State 진입...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if flag_telegram_service:
+                ToYourTelegram(txt)
+
+            if flag_tts:
+                txt = 'Strong Put State 진입'
+                self.speaker.setText(txt)
+
+        if not flag_put_state[-1] and flag_put_state[-2]:
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] Non Strong Put State 진입...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            if flag_telegram_service:
+                ToYourTelegram(txt)
+
+            if flag_tts:
+                txt = 'Non Strong Put State 진입'
+                self.speaker.setText(txt)
 
         # 2nd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
