@@ -50883,7 +50883,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.realtime_thread_dataworker = RealTime_Thread_DataWorker(self.dataQ)
             self.realtime_thread_dataworker.trigger.connect(self.transfer_thread_realdata)
             self.realtime_thread_dataworker.trigger_exception.connect(self.transfer_thread_exception)
-            self.realtime_thread_dataworker.start()        
+            self.realtime_thread_dataworker.start()  
+
+        global flag_call_state, flag_put_state
+        
+        flag_call_state.append(False)
+        flag_call_state.append(False)
+
+        flag_put_state.append(False)
+        flag_put_state.append(False)
 
         if WEB_SCRAP:
             self.check_web_scrap()
