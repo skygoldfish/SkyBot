@@ -52041,50 +52041,94 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if flag_call_state[-1] and not flag_call_state[-2]:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Strong Call State 진입...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
+            if TARGET_MONTH == 'CM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+            if TARGET_MONTH == 'NM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
             if flag_telegram_service:
                 ToYourTelegram(txt)
 
             if flag_tts:
-                txt = 'Strong Call State 진입'
+
+                if TARGET_MONTH == 'CM':
+                    txt = 'CM Strong Call State Enter'
+
+                if TARGET_MONTH == 'NM':
+                    txt = 'NM Strong Call State Enter'
+
                 self.speaker.setText(txt)
 
         if not flag_call_state[-1] and flag_call_state[-2]:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Non Strong Call State 진입...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
+            if TARGET_MONTH == 'CM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+            if TARGET_MONTH == 'NM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
             if flag_telegram_service:
                 ToYourTelegram(txt)
 
             if flag_tts:
-                txt = 'Non Strong Call State 진입'
+
+                if TARGET_MONTH == 'CM':
+                    txt = 'CM Strong Call State Exit'
+
+                if TARGET_MONTH == 'NM':
+                    txt = 'NM Strong Call State Exit'
+
                 self.speaker.setText(txt)
 
         if flag_put_state[-1] and not flag_put_state[-2]:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Strong Put State 진입...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
+            if TARGET_MONTH == 'CM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+            if TARGET_MONTH == 'NM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
             if flag_telegram_service:
                 ToYourTelegram(txt)
 
             if flag_tts:
-                txt = 'Strong Put State 진입'
+
+                if TARGET_MONTH == 'CM':
+                    txt = 'CM Strong Put State Enter'
+
+                if TARGET_MONTH == 'NM':
+                    txt = 'NM Strong Put State Enter'
+
                 self.speaker.setText(txt)
 
         if not flag_put_state[-1] and flag_put_state[-2]:
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] Non Strong Put State 진입...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
+            if TARGET_MONTH == 'CM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
+
+            if TARGET_MONTH == 'NM':
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(txt)
 
             if flag_telegram_service:
                 ToYourTelegram(txt)
 
             if flag_tts:
-                txt = 'Non Strong Put State 진입'
+
+                if TARGET_MONTH == 'CM':
+                    txt = 'CM Strong Put State Exit'
+
+                if TARGET_MONTH == 'NM':
+                    txt = 'NM Strong Put State Exit'
+
                 self.speaker.setText(txt)
 
         # 2nd 프로세스 실시간데이타 갱신
