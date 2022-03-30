@@ -409,17 +409,17 @@ ADI_고가 = 0
 ADI_진폭 = 0
 ADI_진폭_틱 = 0
 
-FUT_당일종가 = 0
+FUT_주간종가 = 0
 
-SP500_당일종가 = 0
-DOW_당일종가 = 0
-NASDAQ_당일종가 = 0
-HANGSENG_당일종가 = 0
-WTI_당일종가 = 0
-GOLD_당일종가 = 0
-EURO_당일종가 = 0
-YEN_당일종가 = 0
-ADI_당일종가 = 0
+SP500_야간종가 = 0
+DOW_야간종가 = 0
+NASDAQ_야간종가 = 0
+HANGSENG_야간종가 = 0
+WTI_야간종가 = 0
+GOLD_야간종가 = 0
+EURO_야간종가 = 0
+YEN_야간종가 = 0
+ADI_야간종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
@@ -1019,67 +1019,67 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_당일종가 = float(temp[3])
+        KP200_주간종가 = float(temp[3])
 
         tmp = daytime_file.readline().strip()
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        SP500_Day_종가 = float(temp[4])
+        SP500_주간종가 = float(temp[4])
 
         print('\r')
         print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-        print('KOSPI_PRICE = {0}, KOSDAQ_PRICE = {1}, SP500_Day_종가 = {2}\r'.format(KOSPI_PRICE, KOSDAQ_PRICE, SP500_Day_종가))
+        print('KOSPI_PRICE = {0}, KOSDAQ_PRICE = {1}, SP500_주간종가 = {2}\r'.format(KOSPI_PRICE, KOSDAQ_PRICE, SP500_주간종가))
         print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
         print('\r')
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        DOW_Day_종가 = float(temp[4])
+        DOW_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        NASDAQ_Day_종가 = float(temp[4])
+        NASDAQ_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        HANGSENG_Day_종가 = float(temp[4])
+        HANGSENG_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        WTI_Day_종가 = float(temp[4])
+        WTI_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        GOLD_Day_종가 = float(temp[4])
+        GOLD_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        EURO_Day_종가 = float(temp[4])
+        EURO_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        YEN_Day_종가 = float(temp[4])
+        YEN_주간종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        ADI_Day_종가 = float(temp[4])                
+        ADI_주간종가 = float(temp[4])                
 else:
     장시작_중심가 = 0
     KP200_전일종가 = 0
     KP200_전일시가 = 0    
     KP200_전고 = 0
     KP200_전저 = 0    
-    KP200_당일종가 = 0
-    SP500_Day_종가 = 0
-    DOW_Day_종가 = 0
-    NASDAQ_Day_종가 = 0
-    HANGSENG_Day_종가 = 0
-    WTI_Day_종가 = 0
-    GOLD_Day_종가 = 0
-    EURO_Day_종가 = 0
-    YEN_Day_종가 = 0
-    ADI_Day_종가 = 0
+    KP200_주간종가 = 0
+    SP500_주간종가 = 0
+    DOW_주간종가 = 0
+    NASDAQ_주간종가 = 0
+    HANGSENG_주간종가 = 0
+    WTI_주간종가 = 0
+    GOLD_주간종가 = 0
+    EURO_주간종가 = 0
+    YEN_주간종가 = 0
+    ADI_주간종가 = 0
 
 SP500_FUT_시가_등락율비 = plot_drate_scale_factor
 
@@ -1129,9 +1129,9 @@ else:
 
 '''
 if DayTime:
-    KP200_전일종가 = KP200_당일종가
+    KP200_전일종가 = KP200_주간종가
 else:
-    KP200_당일시가 = KP200_전일시가
+    KP200_주간시가 = KP200_전일시가
 
 print('\r')
 print('* KP200 전일시가 =', KP200_전일시가)
@@ -1183,8 +1183,8 @@ t2301_month_info = ''
 t2835_month_info = ''
 
 kp200_피봇 = 0
-KP200_당일예상시가 = 0
-KP200_당일시가 = 0
+KP200_주간예상시가 = 0
+KP200_주간시가 = 0
 kp200_저가 = 0
 kp200_현재가 = 0
 kp200_고가 = 0
@@ -6240,7 +6240,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_offline            
 
         global call_plot_data, put_plot_data, centerval_plot_data
-        global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EURO_당일종가, HANGSENG_당일종가, GOLD_당일종가 
+        global SP500_야간종가, DOW_야간종가, NASDAQ_야간종가, WTI_야간종가, EURO_야간종가, HANGSENG_야간종가, GOLD_야간종가 
         global flag_logfile, flag_broken_capture
         
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
@@ -6645,63 +6645,63 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if online_state:
 
-                            SP500_당일종가 = SP500_현재가
-                            DOW_당일종가 = DOW_현재가
-                            NASDAQ_당일종가 = NASDAQ_현재가
-                            HANGSENG_당일종가 = HANGSENG_현재가
-                            WTI_당일종가 = WTI_현재가
-                            GOLD_당일종가 = GOLD_현재가
-                            EURO_당일종가 = EURO_현재가
-                            YEN_당일종가 = YEN_현재가
-                            ADI_당일종가 = ADI_현재가
+                            SP500_야간종가 = SP500_현재가
+                            DOW_야간종가 = DOW_현재가
+                            NASDAQ_야간종가 = NASDAQ_현재가
+                            HANGSENG_야간종가 = HANGSENG_현재가
+                            WTI_야간종가 = WTI_현재가
+                            GOLD_야간종가 = GOLD_현재가
+                            EURO_야간종가 = EURO_현재가
+                            YEN_야간종가 = YEN_현재가
+                            ADI_야간종가 = ADI_현재가
 
                             # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시 or 7시) 마지막 값 저장
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] FUT 종가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, FUT_당일종가)
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] FUT 종가 = {3:.2f}\r'.format(dt.hour, dt.minute, dt.second, FUT_주간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:.2f}, SP500 High = {4:.2f}, SP500 Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, SP500_저가, SP500_고가, SP500_당일종가)
+                                (dt.hour, dt.minute, dt.second, SP500_저가, SP500_고가, SP500_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, DOW_저가, DOW_고가, DOW_당일종가)
+                                (dt.hour, dt.minute, dt.second, DOW_저가, DOW_고가, DOW_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:.2f}, NASDAQ High = {4:.2f}, NASDAQ Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
+                                (dt.hour, dt.minute, dt.second, NASDAQ_저가, NASDAQ_고가, NASDAQ_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
                             
                             txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG Low = {3:.2f}, HANGSENG High = {4:.2f}, HANGSENG Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, HANGSENG_저가, HANGSENG_고가, HANGSENG_당일종가)
+                                (dt.hour, dt.minute, dt.second, HANGSENG_저가, HANGSENG_고가, HANGSENG_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:.2f}, WTI High = {4:.2f}, WTI Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, WTI_저가, WTI_고가, WTI_당일종가)
+                                (dt.hour, dt.minute, dt.second, WTI_저가, WTI_고가, WTI_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD Low = {3:.2f}, GOLD High = {4:.2f}, GOLD Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, GOLD_저가, GOLD_고가, GOLD_당일종가)
+                                (dt.hour, dt.minute, dt.second, GOLD_저가, GOLD_고가, GOLD_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] EURO Low = {3:.2f}, EURO High = {4:.2f}, EURO Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, EURO_저가, EURO_고가, EURO_당일종가)
+                                (dt.hour, dt.minute, dt.second, EURO_저가, EURO_고가, EURO_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] YEN Low = {3:.2f}, YEN High = {4:.2f}, YEN Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, YEN_저가, YEN_고가, YEN_당일종가)
+                                (dt.hour, dt.minute, dt.second, YEN_저가, YEN_고가, YEN_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] ADI Low = {3:.2f}, ADI High = {4:.2f}, ADI Close = {5:.2f}\r'.format \
-                                (dt.hour, dt.minute, dt.second, ADI_저가, ADI_고가, ADI_당일종가)
+                                (dt.hour, dt.minute, dt.second, ADI_저가, ADI_고가, ADI_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
@@ -6723,7 +6723,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 file_txt = '################# < Futures Index of the Last Night > ###################\n'
                                 nighttime_file.write(file_txt)                            
-                                file_txt = 'CME FUT Last Close = {0}\n'.format(FUT_당일종가)
+                                file_txt = 'CME FUT Last Close = {0}\n'.format(FUT_주간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = '##################### < Foreign Futures Index of the Last Night > ####################\n'
                                 nighttime_file.write(file_txt)
@@ -6731,55 +6731,55 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 nighttime_file.write(file_txt)
                                 file_txt = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'S&P 500 Last Close = {0}\n'.format(SP500_당일종가)
+                                file_txt = 'S&P 500 Last Close = {0}\n'.format(SP500_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'DOW Last Low = {0}\n'.format(DOW_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'DOW Last High = {0}\n'.format(DOW_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'DOW Last Close = {0}\n'.format(DOW_당일종가)
+                                file_txt = 'DOW Last Close = {0}\n'.format(DOW_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
+                                file_txt = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
+                                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'WTI Last Low = {0}\n'.format(WTI_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'WTI Last High = {0}\n'.format(WTI_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
+                                file_txt = 'WTI Last Close = {0}\n'.format(WTI_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'GOLD Last High = {0}\n'.format(GOLD_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
+                                file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'EURO Last Low = {0}\n'.format(EURO_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'EURO Last High = {0}\n'.format(EURO_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'EURO Last Close = {0}\n'.format(EURO_당일종가)
+                                file_txt = 'EURO Last Close = {0}\n'.format(EURO_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'YEN Last High = {0}\n'.format(YEN_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'YEN Last Close = {0}\n'.format(YEN_당일종가)
+                                file_txt = 'YEN Last Close = {0}\n'.format(YEN_야간종가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'ADI Last Low = {0}\n'.format(ADI_저가)
                                 nighttime_file.write(file_txt)
                                 file_txt = 'ADI Last High = {0}\n'.format(ADI_고가)
                                 nighttime_file.write(file_txt)
-                                file_txt = 'ADI Last Close = {0}\n'.format(ADI_당일종가)
+                                file_txt = 'ADI Last Close = {0}\n'.format(ADI_야간종가)
                                 nighttime_file.write(file_txt)                              
                                 
                                 nighttime_file.close()
@@ -12951,10 +12951,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.item(2, Futures_column.시가.value).setBackground(QBrush(흰색))
 
-        if KP200_당일시가 > 0 and KP200_전일종가 > 0:
-            if KP200_당일시가 > KP200_전일종가:
+        if KP200_주간시가 > 0 and KP200_전일종가 > 0:
+            if KP200_주간시가 > KP200_전일종가:
                 self.tableWidget_fut.item(2, Futures_column.시가.value).setForeground(QBrush(적색))
-            elif KP200_당일시가 < KP200_전일종가:
+            elif KP200_주간시가 < KP200_전일종가:
                 self.tableWidget_fut.item(2, Futures_column.시가.value).setForeground(QBrush(청색))
             else:
                 self.tableWidget_fut.item(2, Futures_column.시가.value).setForeground(QBrush(검정색))
@@ -17596,7 +17596,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
-        global KP200_전일종가, KP200_당일시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
+        global KP200_전일종가, KP200_주간시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global t2835_month_info
         global server_date, server_time, system_server_timegap, server_x_idx
         global CM_OPTCODE, NM_OPTCODE
@@ -17616,7 +17616,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 근월물_선물_전저, 근월물_선물_전고, 근월물_선물_종가, 근월물_선물_피봇, 근월물_선물_시가, 근월물_선물_저가, 근월물_선물_현재가, 근월물_선물_고가
         global 차월물_선물_전저, 차월물_선물_전고, 차월물_선물_종가, 차월물_선물_피봇, 차월물_선물_시가, 차월물_선물_저가, 차월물_선물_현재가, 차월물_선물_고가
         global 근월물_선물_시가등락율, 차월물_선물_시가등락율
-        global FUT_당일종가
+        global FUT_주간종가
         global flag_call_open_in_fixed_coreval, flag_put_open_in_fixed_coreval
         global 콜저가_동적맥점_교집합, 콜저가_FIXED_COREVAL_교집합, 콜고가_동적맥점_교집합, 콜고가_FIXED_COREVAL_교집합, 풋저가_동적맥점_교집합, 풋저가_FIXED_COREVAL_교집합, 풋고가_동적맥점_교집합, 풋고가_FIXED_COREVAL_교집합
         global 콜시가_COREVAL_교집합, 콜시가_FIXED_COREVAL_교집합, 풋시가_COREVAL_교집합, 풋시가_FIXED_COREVAL_교집합
@@ -17732,7 +17732,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.fut_realdata['현재가'] = df['현재가']
 
                 if NightTime:
-                    FUT_당일종가 = df['현재가']
+                    FUT_주간종가 = df['현재가']
                 else:
                     pass
 
@@ -17955,7 +17955,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                    
                 else:
-                    FUT_당일종가 = df['현재가']
+                    FUT_주간종가 = df['현재가']
 
                 if self.fut_realdata['전저'] > 0 and self.fut_realdata['전고'] > 0:
                     self.fut_realdata['피봇'] = calc_pivot(self.fut_realdata['전저'], self.fut_realdata['전고'], self.fut_realdata['종가'], df['시가'], 2)
@@ -22724,7 +22724,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_당일종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -50910,17 +50910,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             date_to_compare = datetime.strptime(date_str, "%Y%m%d")
             date_diff = datetime.now() - date_to_compare
 
-            txt = 'Modified Time Difference of the Futures History File = {0} days\r'.format(date_diff.days)
+            txt = 'Time Difference of the Futures History File = {0} days\r'.format(date_diff.days)
             self.textBrowser.append(txt)
         else:
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
             date_diff = datetime.now() - date_to_compare
-            print('day diff = {0}\r'.format(date_diff.days))
+            print('day diff = {0}\r'.format(date_diff.days))        
 
-        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+        if pre_start and not os.path.isfile('daytime.txt'):
 
-        if pre_start and not os.path.isfile('daytime.txt'):            
-
+            global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+            
             try:
                 print('KP 200\r')
                 #df = yf.download('^KS200', end = today)
@@ -50960,31 +50960,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global YEN_전고, YEN_전저, YEN_전일종가
             global ADI_전고, ADI_전저, ADI_전일종가
 
-            txt = '해외선물 Web Scraping Data를 요청합니다.\r'
+            txt = '해외선물 Web Scraping Data를 수집합니다.\r'
             self.textBrowser.append(txt)
             print(txt)
 
             try:
-                print('KP 200\r')
-                #df = yf.download('^KS200', end = today)
-                df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
-
-                if not df.empty:
-
-                    print(df.tail(1))
-                    print('\r')
-
-                    KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
-                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
-                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
-
-                    txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
-                    self.textBrowser.append(txt)
-                else:
-                    txt = 'KP200 None...\r'
-                    self.textBrowser.append(txt)
-
                 print('S&P 500\r')
                 #df = yf.download('ES=F', end = today)
                 df = investpy.get_index_recent_data(index='S&P 500', country='United States')
@@ -53054,7 +53034,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         daytime_file.write(file_txt)
                         file_txt = 'KP200 Last Close = {0:.2f}\n'.format(KP200_전일종가)
                         daytime_file.write(file_txt)
-                        file_txt = 'KP200 Open = {0:.2f}\n'.format(KP200_당일시가)
+                        file_txt = 'KP200 Open = {0:.2f}\n'.format(KP200_주간시가)
                         daytime_file.write(file_txt)                            
                         file_txt = 'KP200 High = {0:.2f}\n'.format(kp200_고가)
                         daytime_file.write(file_txt)
@@ -53189,7 +53169,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def yj_update(self, tickdata):
 
-        global df_futures_cm_graph, df_kp200_graph, KP200_당일예상시가
+        global df_futures_cm_graph, df_kp200_graph, KP200_주간예상시가
         global plot_time_index
         global kp200_저가, kp200_고가
 
@@ -53203,19 +53183,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if tickdata['업종코드'] == KOSPI200 and float(tickdata['예상지수']) > 0:
 
-                KP200_당일예상시가 = float(tickdata['예상지수'])
-                kp200_저가 = KP200_당일예상시가
-                kp200_고가 = KP200_당일예상시가
+                KP200_주간예상시가 = float(tickdata['예상지수'])
+                kp200_저가 = KP200_주간예상시가
+                kp200_고가 = KP200_주간예상시가
 
-                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일예상시가
-                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_당일예상시가
+                self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_주간예상시가
+                self.dialog['선물옵션전광판'].fut_realdata['KP200'] = KP200_주간예상시가
 
-                if KP200_당일예상시가 < KP200_COREVAL[3]:
+                if KP200_주간예상시가 < KP200_COREVAL[3]:
                     df_kp200_graph.at[plot_time_index, 'Price'] = KP200_COREVAL[3]
-                elif KP200_당일예상시가 > KP200_COREVAL[6]:
+                elif KP200_주간예상시가 > KP200_COREVAL[6]:
                     df_kp200_graph.at[plot_time_index, 'Price'] = KP200_COREVAL[6]
                 else:
-                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일예상시가
+                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_주간예상시가
                 
                 if kp200_저가 < KP200_COREVAL[3]:
                     kp200_저가 = KP200_COREVAL[3]
@@ -53227,24 +53207,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(흰색))  
 
-                if KP200_당일예상시가 > KP200_전일종가:
+                if KP200_주간예상시가 > KP200_전일종가:
                     item.setForeground(QBrush(적색))                
-                elif KP200_당일예상시가 < KP200_전일종가:
+                elif KP200_주간예상시가 < KP200_전일종가:
                     item.setForeground(QBrush(청색))
                 else:
                     item.setForeground(QBrush(검정색))
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                시가갭 = KP200_당일예상시가 - KP200_전일종가
+                시가갭 = KP200_주간예상시가 - KP200_전일종가
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if KP200_당일예상시가 > KP200_전일종가:
+                if KP200_주간예상시가 > KP200_전일종가:
                     item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
-                elif KP200_당일예상시가 < KP200_전일종가:
+                elif KP200_주간예상시가 < KP200_전일종가:
                     item.setBackground(QBrush(풋기준가색))
                     item.setForeground(QBrush(흰색))
                 else:
@@ -53254,7 +53234,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
                 if 근월물_선물_시가 > 0:
-                    예상_Basis = 근월물_선물_시가 - KP200_당일예상시가                            
+                    예상_Basis = 근월물_선물_시가 - KP200_주간예상시가                            
                 else:
                     pass
 
@@ -53436,8 +53416,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dialog['선물옵션전광판'].tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
-                if SP500_Day_종가 > 0:
-                    SP500_기준_예상시가 = (근월물_선물_종가 * SP500_현재가) / SP500_Day_종가
+                if SP500_주간종가 > 0:
+                    SP500_기준_예상시가 = (근월물_선물_종가 * SP500_현재가) / SP500_주간종가
                 else:
                     pass            
 
@@ -53806,7 +53786,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global df_fut, df_futures_cm_graph, df_kp200_graph
         global ATM_INDEX, call_atm_value, put_atm_value, KP200_COREVAL, 장시작_양합, 장시작_중심가
         global flag_kp200_low, flag_kp200_high
-        global kospi_price, kosdaq_price, KP200_당일시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
+        global kospi_price, kosdaq_price, KP200_주간시가, kp200_저가, kp200_현재가, kp200_고가, kp200_진폭
         global plot_time_index
 
         try:
@@ -53848,9 +53828,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         item = QTableWidgetItem(지수)
                         item.setBackground(QBrush(옅은회색))
 
-                    if kp200_현재가 > KP200_당일시가:
+                    if kp200_현재가 > KP200_주간시가:
                         item.setForeground(QBrush(적색))
-                    elif kp200_현재가 < KP200_당일시가:
+                    elif kp200_현재가 < KP200_주간시가:
                         item.setForeground(QBrush(청색))
                     else:
                         item.setForeground(QBrush(검정색))
@@ -53870,32 +53850,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if 시가지수 != self.dialog['선물옵션전광판'].tableWidget_fut.item(2, Futures_column.시가.value).text():
 
-                    KP200_당일시가 = float(tickdata['시가지수'])
+                    KP200_주간시가 = float(tickdata['시가지수'])
 
-                    self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_당일시가
-                    #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_당일시가
-                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_당일시가
+                    self.dialog['선물옵션전광판'].kp200_realdata['시가'] = KP200_주간시가
+                    #df_futures_cm_graph.at[plot_time_index, 'kp200'] = KP200_주간시가
+                    df_kp200_graph.at[plot_time_index, 'Price'] = KP200_주간시가
 
                     item = QTableWidgetItem(시가지수)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
 
-                    if KP200_당일시가 > KP200_전일종가:
+                    if KP200_주간시가 > KP200_전일종가:
                         item.setForeground(QBrush(적색))
-                    elif KP200_당일시가 < KP200_전일종가:
+                    elif KP200_주간시가 < KP200_전일종가:
                         item.setForeground(QBrush(청색))
                     else:
                         item.setForeground(QBrush(검정색))
 
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_당일시가 - KP200_전일종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간시가 - KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if KP200_당일시가 > KP200_전일종가:
+                    if KP200_주간시가 > KP200_전일종가:
                         item.setBackground(QBrush(콜기준가색))
                         item.setForeground(QBrush(검정색))
-                    elif KP200_당일시가 < KP200_전일종가:
+                    elif KP200_주간시가 < KP200_전일종가:
                         item.setBackground(QBrush(풋기준가색))
                         item.setForeground(QBrush(흰색))
                     else:
@@ -53903,12 +53883,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, KP200_당일시가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:.2f}를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, KP200_주간시가)
                     self.dialog['선물옵션전광판'].textBrowser.append(txt)
 
                     if KP200_전저 > 0 and KP200_전고 > 0:
 
-                        kp200_피봇 = calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, KP200_당일시가, 2)         
+                        kp200_피봇 = calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, KP200_주간시가, 2)         
 
                         item = QTableWidgetItem("{0:.2f}".format(kp200_피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -53916,7 +53896,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                     
-                    atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(KP200_당일시가)
+                    atm_txt = self.dialog['선물옵션전광판'].get_atm_txt(KP200_주간시가)
                     ATM_INDEX = opt_actval.index(atm_txt)
 
                     if atm_txt[-1] == '2' or atm_txt[-1] == '7':
@@ -56150,7 +56130,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EURO_과거가, YEN_과거가, ADI_과거가, HANGSENG_과거가, GOLD_과거가
         global SP500_진폭비, DOW_진폭비, NASDAQ_진폭비, HANGSENG_진폭비, WTI_진폭비, GOLD_진폭비, EURO_진폭비, YEN_진폭비, ADI_진폭비
 
-        global DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EURO_당일종가, YEN_당일종가, ADI_당일종가, HANGSENG_당일종가, GOLD_당일종가
+        global DOW_야간종가, SP500_야간종가, NASDAQ_야간종가, WTI_야간종가, EURO_야간종가, YEN_야간종가, ADI_야간종가, HANGSENG_야간종가, GOLD_야간종가
         global DOW_주간_시작가, WTI_주간_시작가, DOW_야간_시작가, WTI_야간_시작가
         
         global flag_sp500_ohlc_open, flag_dow_ohlc_open, flag_nasdaq_ohlc_open, flag_hsi_ohlc_open
