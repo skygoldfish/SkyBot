@@ -50943,15 +50943,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #df = yf.download('^KS200', end = today)
                 df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
 
+                number_of_row = df.shape[0]
+
                 if not df.empty:
 
-                    print(df.tail(1))
+                    print(df.iloc[number_of_row-2])
                     print('\r')
 
-                    KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
-                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
-                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    KP200_전일시가 = df.iloc[number_of_row-2]['Open']
+                    KP200_전고 = df.iloc[number_of_row-2]['High']
+                    KP200_전저 = df.iloc[number_of_row-2]['Low']
+                    KP200_전일종가 = df.iloc[number_of_row-2]['Close']
 
                     txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
@@ -50986,15 +50988,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 #df = yf.download('^KS200', end = today)
                 df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
 
+                number_of_row = df.shape[0]
+
                 if not df.empty:
 
-                    print(df.tail(1))
+                    print(df.iloc[number_of_row-2])
                     print('\r')
 
-                    KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
-                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
-                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    KP200_전일시가 = df.iloc[number_of_row-2]['Open']
+                    KP200_전고 = df.iloc[number_of_row-2]['High']
+                    KP200_전저 = df.iloc[number_of_row-2]['Low']
+                    KP200_전일종가 = df.iloc[number_of_row-2]['Close']
 
                     txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
