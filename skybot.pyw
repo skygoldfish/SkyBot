@@ -1019,8 +1019,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_주간종가 = float(temp[3])
-        KP200_전일종가 = KP200_주간종가
+        KP200_전일종가 = float(temp[3])
 
         tmp = daytime_file.readline().strip()
 
@@ -1071,7 +1070,7 @@ else:
     KP200_전일시가 = 0    
     KP200_전고 = 0
     KP200_전저 = 0    
-    KP200_주간종가 = 0
+    KP200_전일종가 = 0
     SP500_주간종가 = 0
     DOW_주간종가 = 0
     NASDAQ_주간종가 = 0
@@ -1130,7 +1129,7 @@ else:
 
 '''
 if DayTime:
-    KP200_전일종가 = KP200_주간종가
+    KP200_전일종가 = KP200_전일종가
 else:
     KP200_주간시가 = KP200_전일시가
 
@@ -22701,7 +22700,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
                     
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -22725,7 +22724,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
