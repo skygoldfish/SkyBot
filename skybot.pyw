@@ -129,6 +129,8 @@ print('OS 유형 :', os_type)
 #option_quote_process = None
 #ovc_process = None
 
+days = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -50919,9 +50921,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()        
         today = dt.strftime('%Y-%m-%d')
-        days = datetime.today().weekday()
+        day = datetime.today().weekday()
 
-        if days == 0:       # 월요일
+        print('\r')
+        print('{0} 은 {1} 입니다.\r'.format(today, days[day]))
+        print('\r')
+
+        if day == 0:       # 월요일
             day_cutoff = 2
         else:
             day_cutoff = 1
