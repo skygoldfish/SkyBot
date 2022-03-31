@@ -22689,12 +22689,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if os.path.isfile('daytime.txt'):
 
                 if DayTime:
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간종가))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
-                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
-
                     item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
@@ -22706,6 +22700,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
+                    
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간종가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
                 else:
                     item = QTableWidgetItem("{0:.2f}".format(KP200_전일시가))
                     item.setTextAlignment(Qt.AlignCenter)
