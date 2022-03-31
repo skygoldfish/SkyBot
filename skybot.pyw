@@ -1003,7 +1003,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        #KP200_전일종가 = float(temp[4])
+        KP200_전전일종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
