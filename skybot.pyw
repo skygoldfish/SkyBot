@@ -50919,6 +50919,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()        
         today = dt.strftime('%Y-%m-%d')
+        days = datetime.today().weekday()
+
+        if days == 0:       # 월요일
+            day_cutoff = 2
+        else:
+            day_cutoff = 1
 
         if os.path.isfile('nighttime.txt'):
             modified_timestamp = datetime.fromtimestamp(os.path.getmtime('nighttime.txt'))
@@ -50935,7 +50941,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가    
 
-        if pre_start and not os.path.isfile('daytime.txt'):            
+        if pre_start and not os.path.isfile('daytime.txt'):
             
             try:
                 print('KP 200\r')
@@ -50966,7 +50972,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print(txt)
                 self.textBrowser.append(txt)
 
-        if date_diff.days > 2:            
+        if date_diff.days > day_cutoff:            
             
             global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
