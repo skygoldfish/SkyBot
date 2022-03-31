@@ -1003,7 +1003,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_전일종가 = float(temp[4])
+        #KP200_전일종가 = float(temp[4])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
@@ -1020,6 +1020,7 @@ if os.path.isfile('daytime.txt'):
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
         KP200_주간종가 = float(temp[3])
+        KP200_전일종가 = KP200_주간종가
 
         tmp = daytime_file.readline().strip()
 
@@ -22685,10 +22686,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
-            if os.path.isfile('daytime.txt'):                
+            if os.path.isfile('daytime.txt'):
 
                 if DayTime:
-                    item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                    item = QTableWidgetItem("{0:.2f}".format(KP200_주간종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
@@ -53868,6 +53869,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         item.setForeground(QBrush(검정색))
 
                     self.dialog['선물옵션전광판'].tableWidget_fut.setItem(2, Futures_column.시가.value, item)
+
+                    print('\r')
+                    print('****************************************************************************************')
+                    print('****************************************************************************************')
+                    print('KP200_주간시가 = {0}, KP200_전일종가 = {1}\r'.format(KP200_주간시가, KP200_전일종가))
+                    print('****************************************************************************************')
+                    print('****************************************************************************************')
+                    print('\r')
 
                     item = QTableWidgetItem("{0:.2f}".format(KP200_주간시가 - KP200_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
