@@ -802,8 +802,8 @@ if os.path.isfile('nighttime.txt'):
         
         tmp = nighttime_file.readline().strip()
         temp = tmp.split()
-        FUT_전일종가 = float(temp[5])
-        print('FUT 종가 =', FUT_전일종가)
+        근월물_선물_종가 = float(temp[5])
+        print('FUT 종가 =', 근월물_선물_종가)
 
         tmp = nighttime_file.readline().strip()
 
@@ -942,12 +942,12 @@ if os.path.isfile('nighttime.txt'):
         ADI_전일종가 = float(temp[4])
         print('ADI 종가 =', ADI_전일종가)
 
-        if FUT_전일종가 > 0:
-            plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
+        if 근월물_선물_종가 > 0:
+            plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
         else:
             plot_drate_scale_factor = 12
 else:
-    FUT_전일종가 = 0
+    근월물_선물_종가 = 0
     SP500_전저 = 0
     SP500_전고 = 0
     SP500_전일종가 = 0
@@ -5746,9 +5746,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if 근월물_선물_시가등락율 != 0:
                         plot_drate_scale_factor = int(float(fut_txt) / 근월물_선물_시가등락율)
                     else:
-                        plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
+                        plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
 
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3} {4} {5}\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_시가등락율, SP500_전일종가, FUT_전일종가)
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] {3} {4} {5}\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_시가등락율, SP500_전일종가, 근월물_선물_종가)
                     self.parent.textBrowser.append(txt)
 
                     txt = '[{0:02d}:{1:02d}:{2:02d}] Drate Scale Factor를 {3} (으)로 수정합니다.\r'.format(dt.hour, dt.minute, dt.second, plot_drate_scale_factor)
@@ -13204,7 +13204,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_cm_drate_scale_factor_set = True
             else:
-                plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)            
+                plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)            
         else:
             pass            
     
@@ -13351,7 +13351,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 flag_nm_drate_scale_factor_set = True
             else:
-                plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)            
+                plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)            
         else:
             pass
         
@@ -22731,7 +22731,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
             else:
-                pass            
+                item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(2, Futures_column.전저.value, item)
+
+                item = QTableWidgetItem("{0:.2f}".format(KP200_전고))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
+                
+                item = QTableWidgetItem("{0:.2f}".format(KP200_전일종가))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
 
             if ResizeRowsToContents:
                 self.tableWidget_fut.resizeRowsToContents()
@@ -50916,11 +50932,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
             date_diff = datetime.now() - date_to_compare
-            print('day diff = {0}\r'.format(date_diff.days))        
+            print('day diff = {0}\r'.format(date_diff.days))    
 
-        if pre_start and not os.path.isfile('daytime.txt'):
+        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가    
 
-            global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+        if pre_start and not os.path.isfile('daytime.txt'):            
             
             try:
                 print('KP 200\r')
@@ -50966,6 +50982,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(txt)
 
             try:
+                print('KP 200\r')
+                #df = yf.download('^KS200', end = today)
+                df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
+
+                if not df.empty:
+
+                    print(df.tail(1))
+                    print('\r')
+
+                    KP200_전일시가 = df.tail(1).at[df.tail(1).index[0], 'Open']
+                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
+                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+
+                    txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                    self.textBrowser.append(txt)
+                else:
+                    txt = 'KP200 None...\r'
+                    self.textBrowser.append(txt)
+
                 print('S&P 500\r')
                 #df = yf.download('ES=F', end = today)
                 df = investpy.get_index_recent_data(index='S&P 500', country='United States')
@@ -54871,7 +54907,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_cm_drate_scale_factor_set = True
                 else:
-                    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)                
+                    plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)                
 
                 if abs(근월물_선물_종가대비_등락율) > abs(SP500_등락율):
                     flag_fut_vs_sp500_drate_direction = True
@@ -54954,7 +54990,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_nm_drate_scale_factor_set = True
                 else:
-                    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
+                    plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
 
                 #df_futures_nm_graph.at[plot_time_index, 'Drate'] = plot_drate_scale_factor * 차월물_선물_시가대비_등락율
                 df_futures_nm_graph.at[plot_time_index, 'Drate'] = 차월물_선물_시가대비_등락율
@@ -55458,7 +55494,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_cm_drate_scale_factor_set = True
                 else:
-                    plot_drate_scale_factor = int(SP500_전일종가 / FUT_전일종가)
+                    plot_drate_scale_factor = int(SP500_전일종가 / 근월물_선물_종가)
             else:
                 pass
 
