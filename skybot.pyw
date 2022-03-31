@@ -51003,13 +51003,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not df.empty:
 
-                    print(df.iloc[number_of_row-2])
-                    print('\r')
+                    if DayTime:
+                        print(df.iloc[number_of_row-2])
+                        print('\r')
 
-                    KP200_전일시가 = df.iloc[number_of_row-2]['Open']
-                    KP200_전고 = df.iloc[number_of_row-2]['High']
-                    KP200_전저 = df.iloc[number_of_row-2]['Low']
-                    KP200_전일종가 = df.iloc[number_of_row-2]['Close']
+                        KP200_전일시가 = df.iloc[number_of_row-2]['Open']
+                        KP200_전고 = df.iloc[number_of_row-2]['High']
+                        KP200_전저 = df.iloc[number_of_row-2]['Low']
+                        KP200_전일종가 = df.iloc[number_of_row-2]['Close']
+                    else:
+                        print(df.iloc[number_of_row-1])
+                        print('\r')
+
+                        KP200_전일시가 = df.iloc[number_of_row-1]['Open']
+                        KP200_전고 = df.iloc[number_of_row-1]['High']
+                        KP200_전저 = df.iloc[number_of_row-1]['Low']
+                        KP200_전일종가 = df.iloc[number_of_row-1]['Close']
 
                     txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
