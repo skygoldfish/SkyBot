@@ -52066,19 +52066,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if flag_call_state[-1] and not flag_call_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                if DayTime:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_진폭)
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
-
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                if DayTime:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 차월물_선물_진폭)
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
-
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
@@ -52120,19 +52112,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if flag_put_state[-1] and not flag_put_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                if DayTime:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_진폭)
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
-
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                if DayTime:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 차월물_선물_진폭)
-                else:
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
-
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
