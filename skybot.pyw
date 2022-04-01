@@ -50958,43 +50958,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
             night_date_diff = datetime.now() - date_to_compare
-            print('nighttime diff = {0}\r'.format(night_date_diff.days))
-
-        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
-
-        if pre_start and not os.path.isfile('daytime.txt'):
-            
-            try:
-                print('KP 200\r')
-                #df = yf.download('^KS200', end = today)
-                df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
-
-                number_of_row = df.shape[0]
-
-                if not df.empty:
-
-                    print(df.iloc[number_of_row-2])
-                    print('\r')
-
-                    KP200_전일시가 = df.iloc[number_of_row-2]['Open']
-                    KP200_전고 = df.iloc[number_of_row-2]['High']
-                    KP200_전저 = df.iloc[number_of_row-2]['Low']
-                    KP200_전일종가 = df.iloc[number_of_row-2]['Close']
-
-                    txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
-                    self.textBrowser.append(txt)
-                else:
-                    txt = 'KP200 None...\r'
-                    self.textBrowser.append(txt)
-
-            except Exception as e:
-
-                txt = 'Exception : YF Finance KP200 Download 에서 {0} 오류가 발생했습니다.\r'.format(e)
-                print(txt)
-                self.textBrowser.append(txt)
+            print('nighttime diff = {0}\r'.format(night_date_diff.days))        
 
         if night_date_diff.days > night_day_cutoff or day_date_diff.days > day_day_cutoff:
             
+            global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
             global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
             global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가
