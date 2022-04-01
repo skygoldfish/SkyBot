@@ -6084,16 +6084,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         '''
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Strong Call({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Call Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Weak Call({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Put Strong({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Strong Put({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put Weak({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Weak Put({3:.1f}/{4:.1f}) !!!".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -6107,10 +6107,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # Strong 에너지 알람
                         if flag_call_dominant:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Call Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Strong Call({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         elif flag_put_dominant:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Put Strong({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] ★ Strong Put({3:.2f}/{4:.2f}) !!!".format(dt.hour, dt.minute, dt.second, 근월물_선물_종가대비_등락율, DOW_등락율)
                             ToYourTelegram(send_txt)
                         else:
                             pass
@@ -50066,24 +50066,24 @@ class Xing(object):
 
                         if flag_call_strong:
                             if DayTime:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Strong Call({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                             else:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                       
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Strong Call({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)                       
                         elif flag_call_weak:
                             if DayTime:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                                
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Weak Call({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)                                
                             else:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Call Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Weak Call({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_strong:
                             if DayTime:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Strong Put({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                             else:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Strong Put({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_weak:
                             if DayTime:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Weak Put({3:.1f} : {4:.1f}), 수급 : {5}\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean, 수급방향)
                             else:
-                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Put Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                                send_txt = "[{0:02d}:{1:02d}:{2:02d}] Weak Put({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         else:
                             send_txt = ''
 
@@ -50175,13 +50175,13 @@ class Xing(object):
                     if not self.clocktick and TARGET_MONTH == 'NM' and dt.minute % report_interval == 0 and dt.second == 0:
 
                         if flag_call_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Call({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_call_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Call Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Weak Call({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_strong:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put Strong({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Strong Put({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         elif flag_put_weak:
-                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Put Weak({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                            send_txt = "[{0:02d}:{1:02d}:{2:02d}] NM Weak Put({3:.1f} : {4:.1f})\r".format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                         else:
                             send_txt = ''
 
@@ -50928,24 +50928,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('\r')
 
         if day == 0:       # 월요일
-            day_cutoff = 2
+            night_day_cutoff = 2
+            day_day_cutoff = 3
         else:
-            day_cutoff = 1
+            night_day_cutoff = 0
+            day_day_cutoff = 1
+
+        if os.path.isfile('daytime.txt'):
+            modified_timestamp = datetime.fromtimestamp(os.path.getmtime('daytime.txt'))
+            date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
+            date_to_compare = datetime.strptime(date_str, "%Y%m%d")
+            day_date_diff = datetime.now() - date_to_compare
+
+            txt = 'Time Difference of the Day Futures History File = {0} days\r'.format(day_date_diff.days)
+            self.textBrowser.append(txt)
+        else:
+            date_to_compare = datetime.strptime('20220301', "%Y%m%d")
+            day_date_diff = datetime.now() - date_to_compare
+            print('daytime diff = {0}\r'.format(day_date_diff.days))
 
         if os.path.isfile('nighttime.txt'):
             modified_timestamp = datetime.fromtimestamp(os.path.getmtime('nighttime.txt'))
             date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
             date_to_compare = datetime.strptime(date_str, "%Y%m%d")
-            date_diff = datetime.now() - date_to_compare
+            night_date_diff = datetime.now() - date_to_compare
 
-            txt = 'Time Difference of the Futures History File = {0} days\r'.format(date_diff.days)
+            txt = 'Time Difference of the Nught Futures History File = {0} days\r'.format(night_date_diff.days)
             self.textBrowser.append(txt)
         else:
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
-            date_diff = datetime.now() - date_to_compare
-            print('day diff = {0}\r'.format(date_diff.days))    
+            night_date_diff = datetime.now() - date_to_compare
+            print('nighttime diff = {0}\r'.format(night_date_diff.days))
 
-        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가    
+        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
 
         if pre_start and not os.path.isfile('daytime.txt'):
             
@@ -50978,7 +50993,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print(txt)
                 self.textBrowser.append(txt)
 
-        if date_diff.days > day_cutoff:            
+        if night_date_diff.days > night_day_cutoff or day_date_diff.days > day_day_cutoff:
             
             global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
@@ -52083,11 +52098,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if flag_call_state[-1] and not flag_call_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                if DayTime:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_진폭)
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                if DayTime:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 차월물_선물_진폭)
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
@@ -52129,11 +52152,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if flag_put_state[-1] and not flag_put_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                if DayTime:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 근월물_선물_진폭)
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+                if DayTime:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State({3}) Enter...\r'.format(dt.hour, dt.minute, dt.second, 차월물_선물_진폭)
+                else:
+                    txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State Enter...\r'.format(dt.hour, dt.minute, dt.second)
+
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
