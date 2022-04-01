@@ -52066,11 +52066,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if flag_call_state[-1] and not flag_call_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
@@ -52079,21 +52079,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Call State Enter'
+                    txt = 'CM Strong Call Enter'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Call State Enter'
+                    txt = 'NM Strong Call Enter'
 
                 self.speaker.setText(txt)
 
         if not flag_call_state[-1] and flag_call_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Call Exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Call Exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
@@ -52102,21 +52102,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Call State Exit'
+                    txt = 'CM Strong Call Exit'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Call State Exit'
+                    txt = 'NM Strong Call Exit'
 
                 self.speaker.setText(txt)
 
         if flag_put_state[-1] and not flag_put_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put({3:.1f} : {4:.1f}) Enter...\r'.format(dt.hour, dt.minute, dt.second, call_otm_cdb_percent_mean, put_otm_cdb_percent_mean)
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
@@ -52125,21 +52125,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Put State Enter'
+                    txt = 'CM Strong Put Enter'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Put State Enter'
+                    txt = 'NM Strong Put Enter'
 
                 self.speaker.setText(txt)
 
         if not flag_put_state[-1] and flag_put_state[-2]:
 
             if TARGET_MONTH == 'CM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] CM Strong Put Exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
             if TARGET_MONTH == 'NM':
-                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put State Exit...\r'.format(dt.hour, dt.minute, dt.second)
+                txt = '[{0:02d}:{1:02d}:{2:02d}] NM Strong Put Exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
 
             if flag_telegram_service:
@@ -52148,10 +52148,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Put State Exit'
+                    txt = 'CM Strong Put Exit'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Put State Exit'
+                    txt = 'NM Strong Put Exit'
 
                 self.speaker.setText(txt)
 
