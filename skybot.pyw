@@ -4621,7 +4621,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
 
         if samsung_price > 0:
-            self.label_3rd_index.setText("SAMSUNG: {0}".format(format(int(samsung_price), ',')))
+            self.label_3rd_index.setText("SAMSUNG: {0}".format(format(samsung_price, ',')))
         else:
             self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         
@@ -50969,8 +50969,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 삼성전자
         global samsung_price
 
+        print('\r')
+        print('삼성전자\r')
         df = yf.download('005930.KS', end = today)
-        samsung_price = df.at[df.tail(1).index[0], 'Close']
+        samsung_price = int(df.at[df.tail(1).index[0], 'Close'])
+
+        txt = '삼성전자 = {0}\r'.format(samsung_price)
+        self.textBrowser.append(txt)
+        print(txt)
+        print('\r')
 
         if night_date_diff.days > night_cutoff or day_date_diff.days > day_cutoff:
             
