@@ -569,15 +569,21 @@ else:
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
 dt = datetime.datetime.now()        
-today = dt.strftime('%Y-%m-%d')
+TODAY = dt.strftime('%Y-%m-%d')
+day_of_the_week = datetime.datetime.today().weekday()
+
+print('\r')
+print('{0}은 {1} 입니다.\r'.format(TODAY, days[day_of_the_week]))
+print('\r')
+
 current_time = dt.strftime('%H:%M:%S')
 
-print('<<today>> =', today)
+print('<<today>> =', TODAY)
 today_txt = dt.strftime('%Y%m%d')
 today_title = dt.strftime('%Y-%m-%d')
 
-yesterday = date.today() - timedelta(1)
-yesterday_txt = yesterday.strftime('%Y%m%d')
+YESTERDAY = date.today() - timedelta(1)
+yesterday_txt = YESTERDAY.strftime('%Y%m%d')
 
 current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
@@ -50930,15 +50936,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 종료 버튼으로 종료할 때 실행시킨다. __del__ 실행을 보장하기 위해서 사용
         atexit.register(self.__del__)
 
-    def check_web_scrap(self):
-
-        dt = datetime.now()        
-        today = dt.strftime('%Y-%m-%d')
-        day_of_the_week = datetime.today().weekday()
-
-        print('\r')
-        print('{0} 은 {1} 입니다.\r'.format(today, days[day_of_the_week]))
-        print('\r')
+    def check_web_scrap(self):        
 
         if day_of_the_week == 0:       # 월요일
             night_cutoff = 2
@@ -50987,7 +50985,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         print('\r')
         print('KOSPI\r')
-        df = yf.download('^KS11', end = today)
+        df = yf.download('^KS11', end = TODAY)
         kospi_price = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
         txt = 'KOSPI = {0}\r'.format(kospi_price)
@@ -50997,7 +50995,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         print('\r')
         print('KOSDAQ\r')
-        df = yf.download('^KQ11', end = today)
+        df = yf.download('^KQ11', end = TODAY)
         kosdaq_price = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
         txt = 'KOSDAQ = {0}\r'.format(kosdaq_price)
@@ -51007,7 +51005,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         print('\r')
         print('삼성전자\r')
-        df = yf.download('005930.KS', end = today)
+        df = yf.download('005930.KS', end = TODAY)
         samsung_price = int(df.at[df.tail(1).index[0], 'Close'])
 
         txt = '삼성전자 = {0}\r'.format(samsung_price)
@@ -51031,7 +51029,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             try:
                 print('KP 200\r')
                 # KP200은 investing.com이 부정확
-                df = yf.download('^KS200', end = today)
+                df = yf.download('^KS200', end = TODAY)
                 
                 #df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
                 #number_of_row = df.shape[0]
@@ -51080,7 +51078,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('S&P 500\r')
-                df = yf.download('ES=F', end = today)
+                df = yf.download('ES=F', end = TODAY)
                 #df = investpy.get_index_recent_data(index='S&P 500', country='United States')
 
                 if not df.empty:
@@ -51099,7 +51097,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('DOW\r')
-                df = yf.download('YM=F', end = today)
+                df = yf.download('YM=F', end = TODAY)
                 #df = investpy.get_index_recent_data(index='Dow 30', country='United States')
 
                 if not df.empty:
@@ -51118,7 +51116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('NASDAQ\r')
-                df = yf.download('NQ=F', end = today)
+                df = yf.download('NQ=F', end = TODAY)
                 #df = investpy.get_index_recent_data(index='NASDAQ', country='United States')
 
                 if not df.empty:
@@ -51137,7 +51135,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('HSI\r')
-                df = yf.download('^HSI', end = today)
+                df = yf.download('^HSI', end = TODAY)
                 #df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
 
                 if not df.empty:
@@ -51156,7 +51154,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('WTI\r')
-                df = yf.download('CL=F', end = today)
+                df = yf.download('CL=F', end = TODAY)
                 #df = investpy.get_commodity_recent_data(commodity='Crude Oil WTI')
 
                 if not df.empty:
@@ -51175,7 +51173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('GOLD\r')
-                #df = yf.download('GC=F', end = today)
+                #df = yf.download('GC=F', end = TODAY)
                 #df = investpy.get_commodity_recent_data(commodity='Gold')
                 '''
                 if not df.empty:
@@ -51218,7 +51216,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
 
                 print('EURO\r')
-                #df = yf.download('6E=F', end = today)
+                #df = yf.download('6E=F', end = TODAY)
                 df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
 
                 if not df.empty:
@@ -51237,7 +51235,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('YEN\r')
-                #df = yf.download('6J=F', end = today)
+                #df = yf.download('6J=F', end = TODAY)
                 #df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
                 '''
                 if not df.empty:
@@ -51280,7 +51278,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
 
                 print('ADI\r')
-                #df = yf.download('6A=F', end = today)
+                #df = yf.download('6A=F', end = TODAY)
                 df = investpy.get_currency_cross_recent_data(currency_cross='AUD/USD')
 
                 if not df.empty:
