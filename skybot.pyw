@@ -4609,12 +4609,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_1st_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_1st_index.setText("KOSPI: 가격 (전일대비, 등락율)")
+        
+        if kospi_price > 0:
+            self.label_1st_index.setText("KOSPI: {0}".format(format(kospi_price, ',')))
+        else:
+            self.label_1st_index.setText("KOSPI: 가격 (전일대비, 등락율)")
         
         self.label_2nd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_2nd_index.setText("KOSDAQ: 가격 (전일대비, 등락율)")
+        
+        if kosdaq_price > 0:
+            self.label_2nd_index.setText("KOSDAQ: {0}".format(format(kosdaq_price, ',')))
+        else:
+            self.label_2nd_index.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         
         self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -17108,6 +17116,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''
         # 백그라운드로 로그인해도 포어그라운드에서 TR조회 가능함(이유?)
+        
         txt = '[{0:02d}:{1:02d}:{2:02d}] 코스피지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
         self.XQ_t1514.Query(KOSPI) # 코스피지수 조회        
@@ -17116,7 +17125,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         txt = '[{0:02d}:{1:02d}:{2:02d}] 코스닥지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
-        self.XQ_t1514.Query(KOSDAQ) # 코스닥지수 조회
+        self.XQ_t1514.Query(KOSDAQ) # 코스닥지수 조회        
         
         if service_terminate:
 
@@ -50967,7 +50976,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print('nighttime diff = {0}\r'.format(night_date_diff.days))
 
         # 삼성전자
-        global samsung_price
+        global kospi_price, kosdaq_price, samsung_price
+
+        print('\r')
+        print('KOSPI\r')
+        df = yf.download('^KS11', end = today)
+        kospi_price = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+        txt = 'KOSPI = {0}\r'.format(kospi_price)
+        self.textBrowser.append(txt)
+        print(txt)
+        print('\r')
+
+        print('\r')
+        print('KOSDAQ\r')
+        df = yf.download('^KQ11', end = today)
+        kosdaq_price = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+        txt = 'KOSDAQ = {0}\r'.format(kosdaq_price)
+        self.textBrowser.append(txt)
+        print(txt)
+        print('\r')
 
         print('\r')
         print('삼성전자\r')
@@ -50998,13 +51027,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             try:
                 print('KP 200\r')
-                #df = yf.download('^KS200', end = today)
-                df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
-
-                number_of_row = df.shape[0]
+                # KP200은 investing.com이 부정확
+                df = yf.download('^KS200', end = today)
+                
+                #df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
+                #number_of_row = df.shape[0]
 
                 if not df.empty:
-
+                    '''
                     if day_of_the_week == 0 or day_of_the_week == 5 or day_of_the_week == 6:
 
                         print(df.iloc[number_of_row-1])
@@ -51031,6 +51061,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             KP200_전고 = df.iloc[number_of_row-1]['High']
                             KP200_전저 = df.iloc[number_of_row-1]['Low']
                             KP200_전일종가 = df.iloc[number_of_row-1]['Close']
+                    '''
+                    print(df.tail(1))
+                    print('\r')
+
+                    KP200_전일시가 = df.at[df.tail(1).index[0], 'Open']
+                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
+                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
+                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
                     txt = 'KP200 전일시가 = {0:.2f}, KP200 전고 = {1:.2f}, KP200 전저 = {2:.2f}, KP200 전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
