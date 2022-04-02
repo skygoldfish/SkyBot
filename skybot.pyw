@@ -6667,7 +6667,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:.0f}, DOW High = {4:.0f}, DOW Close = {5:.0ff}\r'.format \
                                 (dt.hour, dt.minute, dt.second, DOW_저가, DOW_고가, DOW_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
@@ -6677,7 +6677,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(txt)
                             print(txt)
                             
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG Low = {3:.2f}, HANGSENG High = {4:.2f}, HANGSENG Close = {5:.2f}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG Low = {3:.0f}, HANGSENG High = {4:.0f}, HANGSENG Close = {5:.0f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, HANGSENG_저가, HANGSENG_고가, HANGSENG_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
@@ -6687,22 +6687,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD Low = {3:.2f}, GOLD High = {4:.2f}, GOLD Close = {5:.2f}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] GOLD Low = {3:.1f}, GOLD High = {4:.1f}, GOLD Close = {5:.1f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, GOLD_저가, GOLD_고가, GOLD_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] EURO Low = {3:.2f}, EURO High = {4:.2f}, EURO Close = {5:.2f}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] EURO Low = {3:.5f}, EURO High = {4:.5f}, EURO Close = {5:.5f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, EURO_저가, EURO_고가, EURO_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] YEN Low = {3:.2f}, YEN High = {4:.2f}, YEN Close = {5:.2f}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] YEN Low = {3:.1f}, YEN High = {4:.1f}, YEN Close = {5:.1f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, YEN_저가, YEN_고가, YEN_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] ADI Low = {3:.2f}, ADI High = {4:.2f}, ADI Close = {5:.2f}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] ADI Low = {3:.5f}, ADI High = {4:.5f}, ADI Close = {5:.5f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, ADI_저가, ADI_고가, ADI_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
@@ -50921,18 +50921,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.now()        
         today = dt.strftime('%Y-%m-%d')
-        day = datetime.today().weekday()
+        day_of_the_week = datetime.today().weekday()
 
         print('\r')
-        print('{0} 은 {1} 입니다.\r'.format(today, days[day]))
+        print('{0} 은 {1} 입니다.\r'.format(today, days[day_of_the_week]))
         print('\r')
 
-        if day == 0:       # 월요일
-            night_day_cutoff = 2
-            day_day_cutoff = 3
+        if day_of_the_week == 0:       # 월요일
+            night_cutoff = 2
+            day_cutoff = 3
         else:
-            night_day_cutoff = 0
-            day_day_cutoff = 1
+            night_cutoff = 0
+            day_cutoff = 1
 
         if os.path.isfile('daytime.txt'):
             modified_timestamp = datetime.fromtimestamp(os.path.getmtime('daytime.txt'))
@@ -50943,6 +50943,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = 'Time Difference of the Day Futures History File = {0} days\r'.format(day_date_diff.days)
             self.textBrowser.append(txt)
         else:
+            # 파일이 없거나 유효기간이 지난 경우
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
             day_date_diff = datetime.now() - date_to_compare
             print('daytime diff = {0}\r'.format(day_date_diff.days))
@@ -50956,11 +50957,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             txt = 'Time Difference of the Nught Futures History File = {0} days\r'.format(night_date_diff.days)
             self.textBrowser.append(txt)
         else:
+            # 파일이 없거나 유효기간이 지난 경우
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
             night_date_diff = datetime.now() - date_to_compare
             print('nighttime diff = {0}\r'.format(night_date_diff.days))        
 
-        if night_date_diff.days > night_day_cutoff or day_date_diff.days > day_day_cutoff:
+        if night_date_diff.days > night_cutoff or day_date_diff.days > day_cutoff:
             
             global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
             global SP500_전고, SP500_전저, SP500_전일종가
@@ -50986,15 +50988,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if not df.empty:
 
-                    if DayTime:
-                        print(df.iloc[number_of_row-2])
-                        print('\r')
+                    if day_of_the_week == 0 or day_of_the_week == 5 or day_of_the_week == 6:
 
-                        KP200_전일시가 = df.iloc[number_of_row-2]['Open']
-                        KP200_전고 = df.iloc[number_of_row-2]['High']
-                        KP200_전저 = df.iloc[number_of_row-2]['Low']
-                        KP200_전일종가 = df.iloc[number_of_row-2]['Close']
-                    else:
                         print(df.iloc[number_of_row-1])
                         print('\r')
 
@@ -51002,8 +50997,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         KP200_전고 = df.iloc[number_of_row-1]['High']
                         KP200_전저 = df.iloc[number_of_row-1]['Low']
                         KP200_전일종가 = df.iloc[number_of_row-1]['Close']
+                    else:
+                        if DayTime:
+                            print(df.iloc[number_of_row-2])
+                            print('\r')
 
-                    txt = 'KP200 전일시가 = {0:.2f}, KP200_전고 = {1:.2f}, KP200_전저 = {2:.2f}, KP200_전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                            KP200_전일시가 = df.iloc[number_of_row-2]['Open']
+                            KP200_전고 = df.iloc[number_of_row-2]['High']
+                            KP200_전저 = df.iloc[number_of_row-2]['Low']
+                            KP200_전일종가 = df.iloc[number_of_row-2]['Close']
+                        else:
+                            print(df.iloc[number_of_row-1])
+                            print('\r')
+
+                            KP200_전일시가 = df.iloc[number_of_row-1]['Open']
+                            KP200_전고 = df.iloc[number_of_row-1]['High']
+                            KP200_전저 = df.iloc[number_of_row-1]['Low']
+                            KP200_전일종가 = df.iloc[number_of_row-1]['Close']
+
+                    txt = 'KP200 전일시가 = {0:.2f}, KP200 전고 = {1:.2f}, KP200 전저 = {2:.2f}, KP200 전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'KP200 None...\r'
@@ -51022,7 +51034,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     SP500_전저 = df.at[df.tail(1).index[0], 'Low']
                     SP500_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'SP500_전고 = {0:.2f}, SP500_전저 = {1:.2f}, SP500_전일종가 = {2:.2f}\r'.format(SP500_전고, SP500_전저, SP500_전일종가)
+                    txt = 'SP500 전고 = {0:.2f}, SP500 전저 = {1:.2f}, SP500 전일종가 = {2:.2f}\r'.format(SP500_전고, SP500_전저, SP500_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'S&P 500 None...\r'
@@ -51041,7 +51053,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     DOW_전저 = df.at[df.tail(1).index[0], 'Low']
                     DOW_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'DOW_전고 = {0}, DOW_전저 = {1}, DOW_전일종가 = {2}\r'.format(DOW_전고, DOW_전저, DOW_전일종가)
+                    txt = 'DOW 전고 = {0}, DOW 전저 = {1}, DOW 전일종가 = {2}\r'.format(DOW_전고, DOW_전저, DOW_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'DOW None...\r'
@@ -51060,7 +51072,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     NASDAQ_전저 = df.at[df.tail(1).index[0], 'Low']
                     NASDAQ_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'NASDAQ_전고 = {0:.2f}, NASDAQ_전저 = {1:.2f}, NASDAQ_전일종가 = {2:.2f}\r'.format(NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가)
+                    txt = 'NASDAQ 전고 = {0:.2f}, NASDAQ 전저 = {1:.2f}, NASDAQ 전일종가 = {2:.2f}\r'.format(NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'NASDAQ None...\r'
@@ -51079,7 +51091,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     HANGSENG_전저 = df.at[df.tail(1).index[0], 'Low']
                     HANGSENG_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'HANGSENG_전고 = {0:.0f}, HANGSENG_전저 = {1:.0f}, HANGSENG_전일종가 = {2:.0f}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
+                    txt = 'HANGSENG 전고 = {0:.0f}, HANGSENG 전저 = {1:.0f}, HANGSENG 전일종가 = {2:.0f}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'HANGSENG None...\r'
@@ -51098,7 +51110,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     WTI_전저 = df.at[df.tail(1).index[0], 'Low']
                     WTI_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'WTI_전고 = {0:.2f}, WTI_전저 = {1:.2f}, WTI_전일종가 = {2:.2f}\r'.format(WTI_전고, WTI_전저, WTI_전일종가)
+                    txt = 'WTI 전고 = {0:.2f}, WTI 전저 = {1:.2f}, WTI 전일종가 = {2:.2f}\r'.format(WTI_전고, WTI_전저, WTI_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'WTI None...\r'
@@ -51117,7 +51129,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     GOLD_전저 = df.at[df.tail(1).index[0], 'Low']
                     GOLD_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'GOLD_전고 = {0:.1f}, GOLD_전저 = {1:.1f}, GOLD_전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, WTI_전일종가)
+                    txt = 'GOLD 전고 = {0:.1f}, GOLD 전저 = {1:.1f}, GOLD 전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, WTI_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'GOLD None...\r'
@@ -51160,7 +51172,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     EURO_전저 = df.at[df.tail(1).index[0], 'Low']
                     EURO_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'EURO_전고 = {0:.5f}, EURO_전저 = {1:.5f}, EURO_전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
+                    txt = 'EURO 전고 = {0:.5f}, EURO 전저 = {1:.5f}, EURO 전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'EURO None...\r'
@@ -51179,7 +51191,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     YEN_전저 = df.at[df.tail(1).index[0], 'Low'] * 10000
                     YEN_전일종가 = df.at[df.tail(1).index[0], 'Close'] * 10000
 
-                    txt = 'YEN_전고 = {0:.1f}, YEN_전저 = {1:.1f}, YEN_전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
+                    txt = 'YEN 전고 = {0:.1f}, YEN 전저 = {1:.1f}, YEN 전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'YEN None...\r'
@@ -51222,7 +51234,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     ADI_전저 = df.at[df.tail(1).index[0], 'Low']
                     ADI_전일종가 = df.at[df.tail(1).index[0], 'Close']
 
-                    txt = 'ADI_전고 = {0:.5f}, ADI_전저 = {1:.5f}, ADI_전일종가 = {2:.5f}\r'.format(ADI_전고, ADI_전저, ADI_전일종가)
+                    txt = 'ADI 전고 = {0:.5f}, ADI 전저 = {1:.5f}, ADI 전일종가 = {2:.5f}\r'.format(ADI_전고, ADI_전저, ADI_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'ADI None...\r'
