@@ -17127,7 +17127,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.append(txt)
         self.XQ_t1514.Query(KOSPI) # 코스피지수 조회        
         
-        QTest.qWait(1500)
+        QTest.qWait(1100)
+
+        # 첫번째 요청 실패하는 경우
+        #txt = '[{0:02d}:{1:02d}:{2:02d}] 코스피지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        #self.parent.textBrowser.append(txt)
+        self.XQ_t1514.Query(KOSPI) # 코스피지수 조회
+        
+        QTest.qWait(1100)
         
         txt = '[{0:02d}:{1:02d}:{2:02d}] 코스닥지수를 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.parent.textBrowser.append(txt)
