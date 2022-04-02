@@ -51080,8 +51080,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('S&P 500\r')
-                #df = yf.download('ES=F', end = today)
-                df = investpy.get_index_recent_data(index='S&P 500', country='United States')
+                df = yf.download('ES=F', end = today)
+                #df = investpy.get_index_recent_data(index='S&P 500', country='United States')
 
                 if not df.empty:
 
@@ -51099,8 +51099,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('DOW\r')
-                #df = yf.download('YM=F', end = today)
-                df = investpy.get_index_recent_data(index='Dow 30', country='United States')
+                df = yf.download('YM=F', end = today)
+                #df = investpy.get_index_recent_data(index='Dow 30', country='United States')
 
                 if not df.empty:
 
@@ -51118,8 +51118,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('NASDAQ\r')
-                #df = yf.download('NQ=F', end = today)
-                df = investpy.get_index_recent_data(index='NASDAQ', country='United States')
+                df = yf.download('NQ=F', end = today)
+                #df = investpy.get_index_recent_data(index='NASDAQ', country='United States')
 
                 if not df.empty:
 
@@ -51137,8 +51137,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('HSI\r')
-                #df = yf.download('^HSI', end = today)
-                df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
+                df = yf.download('^HSI', end = today)
+                #df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
 
                 if not df.empty:
 
@@ -51156,8 +51156,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
 
                 print('WTI\r')
-                #df = yf.download('CL=F', end = today)
-                df = investpy.get_commodity_recent_data(commodity='Crude Oil WTI')
+                df = yf.download('CL=F', end = today)
+                #df = investpy.get_commodity_recent_data(commodity='Crude Oil WTI')
 
                 if not df.empty:
 
@@ -51176,8 +51176,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 print('GOLD\r')
                 #df = yf.download('GC=F', end = today)
-                df = investpy.get_commodity_recent_data(commodity='Gold')
-                
+                #df = investpy.get_commodity_recent_data(commodity='Gold')
+                '''
                 if not df.empty:
 
                     print(df.tail(1))
@@ -51215,7 +51215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     txt = 'GOLD None...\r'
                     self.textBrowser.append(txt)
-                '''
+                
 
                 print('EURO\r')
                 #df = yf.download('6E=F', end = today)
@@ -51238,8 +51238,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 print('YEN\r')
                 #df = yf.download('6J=F', end = today)
-                df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
-
+                #df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
+                '''
                 if not df.empty:
 
                     print(df.tail(1))
@@ -51277,7 +51277,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     txt = 'YEN None...\r'
                     self.textBrowser.append(txt)
-                '''
+                
 
                 print('ADI\r')
                 #df = yf.download('6A=F', end = today)
