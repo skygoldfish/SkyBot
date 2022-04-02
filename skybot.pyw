@@ -50978,6 +50978,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # KOSPI, KOSDAQ, 삼성전자
         global kospi_price, kosdaq_price, samsung_price
 
+        txt = '***********************************************************************\r'
+        self.textBrowser.append(txt)
+
+        txt = 'Web Scraping Data를 수집합니다.\r'
+        self.textBrowser.append(txt)
+        print(txt)
+
         print('\r')
         print('KOSPI\r')
         df = yf.download('^KS11', end = today)
@@ -51019,11 +51026,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global GOLD_전고, GOLD_전저, GOLD_전일종가
             global EURO_전고, EURO_전저, EURO_전일종가
             global YEN_전고, YEN_전저, YEN_전일종가
-            global ADI_전고, ADI_전저, ADI_전일종가
-
-            txt = '해외선물 Web Scraping Data를 수집합니다.\r'
-            self.textBrowser.append(txt)
-            print(txt)
+            global ADI_전고, ADI_전저, ADI_전일종가            
 
             try:
                 print('KP 200\r')
@@ -51065,12 +51068,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    KP200_전일시가 = df.at[df.tail(1).index[0], 'Open']
-                    KP200_전고 = df.at[df.tail(1).index[0], 'High']
-                    KP200_전저 = df.at[df.tail(1).index[0], 'Low']
-                    KP200_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    KP200_전일시가 = round(df.at[df.tail(1).index[0], 'Open'], 2)
+                    KP200_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+                    KP200_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+                    KP200_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-                    txt = 'KP200 전일시가 = {0:.2f}, KP200 전고 = {1:.2f}, KP200 전저 = {2:.2f}, KP200 전일종가 = {3:.2f}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                    txt = 'KP200 전일시가 = {0}, KP200 전고 = {1}, KP200 전저 = {2}, KP200 전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'KP200 None...\r'
@@ -51085,9 +51088,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    SP500_전고 = df.at[df.tail(1).index[0], 'High']
-                    SP500_전저 = df.at[df.tail(1).index[0], 'Low']
-                    SP500_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    SP500_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+                    SP500_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+                    SP500_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
                     txt = 'SP500 전고 = {0:.2f}, SP500 전저 = {1:.2f}, SP500 전일종가 = {2:.2f}\r'.format(SP500_전고, SP500_전저, SP500_전일종가)
                     self.textBrowser.append(txt)
@@ -51104,9 +51107,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    DOW_전고 = df.at[df.tail(1).index[0], 'High']
-                    DOW_전저 = df.at[df.tail(1).index[0], 'Low']
-                    DOW_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    DOW_전고 = int(df.at[df.tail(1).index[0], 'High'])
+                    DOW_전저 = int(df.at[df.tail(1).index[0], 'Low'])
+                    DOW_전일종가 = int(df.at[df.tail(1).index[0], 'Close'])
 
                     txt = 'DOW 전고 = {0}, DOW 전저 = {1}, DOW 전일종가 = {2}\r'.format(DOW_전고, DOW_전저, DOW_전일종가)
                     self.textBrowser.append(txt)
@@ -51123,9 +51126,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    NASDAQ_전고 = df.at[df.tail(1).index[0], 'High']
-                    NASDAQ_전저 = df.at[df.tail(1).index[0], 'Low']
-                    NASDAQ_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    NASDAQ_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+                    NASDAQ_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+                    NASDAQ_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
                     txt = 'NASDAQ 전고 = {0:.2f}, NASDAQ 전저 = {1:.2f}, NASDAQ 전일종가 = {2:.2f}\r'.format(NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가)
                     self.textBrowser.append(txt)
@@ -51142,11 +51145,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    HANGSENG_전고 = df.at[df.tail(1).index[0], 'High']
-                    HANGSENG_전저 = df.at[df.tail(1).index[0], 'Low']
-                    HANGSENG_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    HANGSENG_전고 = int(df.at[df.tail(1).index[0], 'High'])
+                    HANGSENG_전저 = int(df.at[df.tail(1).index[0], 'Low'])
+                    HANGSENG_전일종가 = int(df.at[df.tail(1).index[0], 'Close'])
 
-                    txt = 'HANGSENG 전고 = {0:.0f}, HANGSENG 전저 = {1:.0f}, HANGSENG 전일종가 = {2:.0f}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
+                    txt = 'HANGSENG 전고 = {0}, HANGSENG 전저 = {1}, HANGSENG 전일종가 = {2}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'HANGSENG None...\r'
@@ -51161,9 +51164,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    WTI_전고 = df.at[df.tail(1).index[0], 'High']
-                    WTI_전저 = df.at[df.tail(1).index[0], 'Low']
-                    WTI_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    WTI_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+                    WTI_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+                    WTI_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
                     txt = 'WTI 전고 = {0:.2f}, WTI 전저 = {1:.2f}, WTI 전일종가 = {2:.2f}\r'.format(WTI_전고, WTI_전저, WTI_전일종가)
                     self.textBrowser.append(txt)
@@ -51180,9 +51183,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    GOLD_전고 = df.at[df.tail(1).index[0], 'High']
-                    GOLD_전저 = df.at[df.tail(1).index[0], 'Low']
-                    GOLD_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    GOLD_전고 = round(df.at[df.tail(1).index[0], 'High'], 1)
+                    GOLD_전저 = round(df.at[df.tail(1).index[0], 'Low'], 1)
+                    GOLD_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 1)
 
                     txt = 'GOLD 전고 = {0:.1f}, GOLD 전저 = {1:.1f}, GOLD 전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, WTI_전일종가)
                     self.textBrowser.append(txt)
@@ -51223,9 +51226,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    EURO_전고 = df.at[df.tail(1).index[0], 'High']
-                    EURO_전저 = df.at[df.tail(1).index[0], 'Low']
-                    EURO_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    EURO_전고 = round(df.at[df.tail(1).index[0], 'High'], 5)
+                    EURO_전저 = round(df.at[df.tail(1).index[0], 'Low'], 5)
+                    EURO_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 5)
 
                     txt = 'EURO 전고 = {0:.5f}, EURO 전저 = {1:.5f}, EURO 전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
                     self.textBrowser.append(txt)
@@ -51242,9 +51245,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    YEN_전고 = df.at[df.tail(1).index[0], 'High'] * 10000
-                    YEN_전저 = df.at[df.tail(1).index[0], 'Low'] * 10000
-                    YEN_전일종가 = df.at[df.tail(1).index[0], 'Close'] * 10000
+                    YEN_전고 = round(df.at[df.tail(1).index[0], 'High'] * 10000, 1)
+                    YEN_전저 = round(df.at[df.tail(1).index[0], 'Low'] * 10000, 1)
+                    YEN_전일종가 = round(df.at[df.tail(1).index[0], 'Close'] * 10000, 1)
 
                     txt = 'YEN 전고 = {0:.1f}, YEN 전저 = {1:.1f}, YEN 전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
                     self.textBrowser.append(txt)
@@ -51285,15 +51288,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(df.tail(1))
                     print('\r')
 
-                    ADI_전고 = df.at[df.tail(1).index[0], 'High']
-                    ADI_전저 = df.at[df.tail(1).index[0], 'Low']
-                    ADI_전일종가 = df.at[df.tail(1).index[0], 'Close']
+                    ADI_전고 = round(df.at[df.tail(1).index[0], 'High'], 5)
+                    ADI_전저 = round(df.at[df.tail(1).index[0], 'Low'], 5)
+                    ADI_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 5)
 
                     txt = 'ADI 전고 = {0:.5f}, ADI 전저 = {1:.5f}, ADI 전일종가 = {2:.5f}\r'.format(ADI_전고, ADI_전저, ADI_전일종가)
                     self.textBrowser.append(txt)
                 else:
                     txt = 'ADI None...\r'
                     self.textBrowser.append(txt)
+
+                txt = '***********************************************************************\r'
+                self.textBrowser.append(txt)
 
             except Exception as e:
 
