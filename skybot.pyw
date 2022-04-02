@@ -50975,7 +50975,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             night_date_diff = datetime.now() - date_to_compare
             print('nighttime diff = {0}\r'.format(night_date_diff.days))
 
-        # 삼성전자
+        # KOSPI, KOSDAQ, 삼성전자
         global kospi_price, kosdaq_price, samsung_price
 
         print('\r')
