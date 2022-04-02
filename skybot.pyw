@@ -4619,7 +4619,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_3rd_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
-        self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
+
+        if samsung_price > 0:
+            self.label_3rd_index.setText("SAMSUNG: {0}".format(format(int(samsung_price), ',')))
+        else:
+            self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -50960,7 +50964,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 파일이 없거나 유효기간이 지난 경우
             date_to_compare = datetime.strptime('20220301', "%Y%m%d")
             night_date_diff = datetime.now() - date_to_compare
-            print('nighttime diff = {0}\r'.format(night_date_diff.days))        
+            print('nighttime diff = {0}\r'.format(night_date_diff.days))
+
+        # 삼성전자
+        global samsung_price
+
+        df = yf.download('005930.KS', end = today)
+        samsung_price = df.at[df.tail(1).index[0], 'Close']
 
         if night_date_diff.days > night_cutoff or day_date_diff.days > day_cutoff:
             
