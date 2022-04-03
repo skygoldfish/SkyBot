@@ -50968,6 +50968,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 파일이 없거나 유효기간이 지난 경우
             day_date_diff_days = 7
 
+            txt = '주간 History 파일이 유효하지않습니다.\r'
+            self.textBrowser.append(txt)
+            print(txt)
+
         if os.path.isfile('night_time_history.dat'):
             modified_timestamp = datetime.fromtimestamp(os.path.getmtime('night_time_history.dat'))
             date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
@@ -50980,6 +50984,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             # 파일이 없거나 유효기간이 지난 경우
             night_date_diff_days = 7
+
+            txt = '야간 History 파일이 유효하지않습니다.\r'
+            self.textBrowser.append(txt)
+            print(txt)
 
         # KOSPI, KOSDAQ, 삼성전자
         global kospi_price, kosdaq_price, samsung_price
