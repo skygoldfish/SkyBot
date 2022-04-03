@@ -799,10 +799,10 @@ if os.path.exists('HL-List.txt'):
 else:
     pass
 
-if os.path.isfile('nighttime.txt'):
+if os.path.isfile('night_time_history.dat'):
 
     # 야간장의 데이타를 가져옴
-    with open('nighttime.txt', mode='r') as nighttime_file:
+    with open('night_time_history.dat', mode='r') as nighttime_file:
 
         tmp = nighttime_file.readline().strip()
         tmp = nighttime_file.readline().strip()
@@ -986,9 +986,9 @@ else:
 
     plot_drate_scale_factor = 12
 
-if os.path.isfile('daytime.txt'):
+if os.path.isfile('day_time_history.dat'):
 
-    with open('daytime.txt', mode='r') as daytime_file:
+    with open('day_time_history.dat', mode='r') as daytime_file:
 
         tmp = daytime_file.readline().strip()
 
@@ -6730,7 +6730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(txt)
 
                             # 야간장의 주요정보를 저장
-                            with open('nighttime.txt', mode='w', encoding='UTF-8') as nighttime_file:
+                            with open('night_time_history.dat', mode='w', encoding='UTF-8') as nighttime_file:
 
                                 now = time.localtime()
 
@@ -6806,7 +6806,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if TARGET_MONTH == 'CM':
                                     if os.path.isdir("d:/SkyBot_NM"):
-                                        shutil.copyfile("./nighttime.txt", "d:/SkyBot_NM/nighttime.txt")
+                                        shutil.copyfile("./night_time_history.dat", "d:/SkyBot_NM/night_time_history.dat")
                                 else:
                                     pass
                             
@@ -22713,7 +22713,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
-            if os.path.isfile('daytime.txt'):
+            if os.path.isfile('day_time_history.dat'):
 
                 if DayTime:
                     item = QTableWidgetItem("{0:.2f}".format(KP200_전저))
@@ -50955,8 +50955,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             night_cutoff = 0
             day_cutoff = 1
 
-        if os.path.isfile('daytime.txt'):
-            modified_timestamp = datetime.fromtimestamp(os.path.getmtime('daytime.txt'))
+        if os.path.isfile('day_time_history.dat'):
+            modified_timestamp = datetime.fromtimestamp(os.path.getmtime('day_time_history.dat'))
             date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
             date_to_compare = datetime.strptime(date_str, "%Y%m%d")
             day_date_diff = datetime.now() - date_to_compare
@@ -50968,8 +50968,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 파일이 없거나 유효기간이 지난 경우
             day_date_diff_days = 7
 
-        if os.path.isfile('nighttime.txt'):
-            modified_timestamp = datetime.fromtimestamp(os.path.getmtime('nighttime.txt'))
+        if os.path.isfile('night_time_history.dat'):
+            modified_timestamp = datetime.fromtimestamp(os.path.getmtime('night_time_history.dat'))
             date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
             date_to_compare = datetime.strptime(date_str, "%Y%m%d")
             night_date_diff = datetime.now() - date_to_compare
@@ -51035,6 +51035,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             global ADI_전고, ADI_전저, ADI_전일종가            
 
             try:
+                txt = 'History 파일이 유효하지않아 Web Scraping Data로 대체합니다.\r'
+                self.textBrowser.append(txt)
+                print(txt)
+
                 print('KP 200\r')
                 # KP200은 investing.com이 부정확
                 df = yf.download('^KS200', end = TODAY)
@@ -53085,7 +53089,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         옵션_중심가 = call_atm_value
 
                     # KP200의 주요정보를 저장
-                    with open('daytime.txt', mode='w') as daytime_file:
+                    with open('day_time_history.dat', mode='w', encoding='UTF-8') as daytime_file:
 
                         file_txt = '################# < KOSPI Price of the Last Day > ###################\n'                        
                         daytime_file.write(file_txt)
