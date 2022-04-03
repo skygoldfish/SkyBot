@@ -50945,9 +50945,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def check_web_scrap(self):        
 
-        if day_of_the_week == 0:       # 월요일
+        if day_of_the_week == 0:         # 월요일
             night_cutoff = 2
             day_cutoff = 3
+        elif day_of_the_week == 6:       # 일요일
+            night_cutoff = 1
+            day_cutoff = 2
         else:
             night_cutoff = 0
             day_cutoff = 1
@@ -50957,28 +50960,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
             date_to_compare = datetime.strptime(date_str, "%Y%m%d")
             day_date_diff = datetime.now() - date_to_compare
+            day_date_diff_days = day_date_diff.days
 
             txt = 'Time Difference of the Day Futures History File = {0} days\r'.format(day_date_diff.days)
             self.textBrowser.append(txt)
         else:
             # 파일이 없거나 유효기간이 지난 경우
-            date_to_compare = datetime.strptime('20220301', "%Y%m%d")
-            day_date_diff = datetime.now() - date_to_compare
-            print('daytime diff = {0}\r'.format(day_date_diff.days))
+            day_date_diff_days = 7
 
         if os.path.isfile('nighttime.txt'):
             modified_timestamp = datetime.fromtimestamp(os.path.getmtime('nighttime.txt'))
             date_str = datetime.strftime(modified_timestamp, '%Y%m%d')
             date_to_compare = datetime.strptime(date_str, "%Y%m%d")
             night_date_diff = datetime.now() - date_to_compare
+            night_date_diff_days = night_date_diff.days
 
             txt = 'Time Difference of the Nught Futures History File = {0} days\r'.format(night_date_diff.days)
             self.textBrowser.append(txt)
         else:
             # 파일이 없거나 유효기간이 지난 경우
-            date_to_compare = datetime.strptime('20220301', "%Y%m%d")
-            night_date_diff = datetime.now() - date_to_compare
-            print('nighttime diff = {0}\r'.format(night_date_diff.days))
+            night_date_diff_days = 7
 
         # KOSPI, KOSDAQ, 삼성전자
         global kospi_price, kosdaq_price, samsung_price
@@ -51020,7 +51021,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(txt)
         print('\r')
 
-        if night_date_diff.days > night_cutoff or day_date_diff.days > day_cutoff:
+        if night_date_diff_days > night_cutoff or day_date_diff_days > day_cutoff:
             
             global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
             global SP500_전고, SP500_전저, SP500_전일종가
