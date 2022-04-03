@@ -51212,9 +51212,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     low = float(table[5].at[table[5].index[2], 'Low'].replace('$', '').replace(',', ''))
                     close = float(table[5].at[table[5].index[2], 'Last'].replace('$', '').replace(',', ''))
 
-                    GOLD_전고 = high
-                    GOLD_전저 = low
-                    GOLD_전일종가 = close
+                    GOLD_전고 = round(high, 1)
+                    GOLD_전저 = round(low, 1)
+                    GOLD_전일종가 = round(close, 1)
 
                     txt = 'GOLD_전고 = {0:.1f}, GOLD_전저 = {1:.1f}, GOLD_전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, GOLD_전일종가)
                     self.textBrowser.append(txt)
@@ -51274,9 +51274,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     low = float(table[5].at[table[5].index[3], 'Low'].replace('$', ''))
                     close = float(table[5].at[table[5].index[3], 'Last'].replace('$', ''))                
 
-                    YEN_전고 = high * 10000
-                    YEN_전저 = low * 10000
-                    YEN_전일종가 = close * 10000
+                    YEN_전고 = round(high * 10000, 1)
+                    YEN_전저 = round(low * 10000, 1)
+                    YEN_전일종가 = round(close * 10000, 1)
 
                     txt = 'YEN_전고 = {0:.1f}, YEN_전저 = {1:.1f}, YEN_전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
                     self.textBrowser.append(txt)
