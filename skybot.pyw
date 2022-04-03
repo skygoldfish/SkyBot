@@ -50984,10 +50984,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # KOSPI, KOSDAQ, 삼성전자
         global kospi_price, kosdaq_price, samsung_price
 
-        txt = '***********************************************************************\r'
+        txt = '***********************************************************************'
         self.textBrowser.append(txt)
 
-        txt = 'Web Scraping Data를 수집합니다.\r'
+        txt = '<<Web Scraping Data>>를 수집합니다.\r'
         self.textBrowser.append(txt)
         print(txt)
 
@@ -51019,7 +51019,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '삼성전자 = {0}\r'.format(samsung_price)
         self.textBrowser.append(txt)
         print(txt)
-        print('\r')
+        print('\r')        
 
         if night_date_diff_days > night_cutoff or day_date_diff_days > day_cutoff:
             
@@ -51304,9 +51304,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     txt = 'ADI None...\r'
                     self.textBrowser.append(txt)
 
-                txt = '***********************************************************************\r'
-                self.textBrowser.append(txt)
-
             except Exception as e:
 
                 txt = 'Exception : YF Finance Download 에서 {0} 오류가 발생했습니다.\r'.format(e)
@@ -51314,6 +51311,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
         else:
             pass
+
+        txt = '***********************************************************************\r'
+        self.textBrowser.append(txt)
 
         if "{0:.2f}".format(SP500_전저) != self.tableWidget_cme.item(0, 1).text():
             item = QTableWidgetItem("{0:.2f}".format(SP500_전저))
