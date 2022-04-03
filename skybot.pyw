@@ -637,10 +637,10 @@ flag_put_high_in_fixed_coreval_list = []
 #put_low_val_in_fixed_coreval = []
 #put_high_val_in_fixed_coreval = []
 
-if os.path.exists('HL-List.txt'):
+if os.path.exists('HL-List.dat'):
 
     # 저가, 고가 리스트에서 맥점 추출
-    with open('HL-List.txt', mode='r') as hlfile:
+    with open('HL-List.dat', mode='r') as hlfile:
         
         # 한줄씩 읽어서 리스트에 저장
         file_list = []
@@ -17448,11 +17448,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         print('list_final =', list_final_to_file)
 
-        self.list_to_file_write(list_final_to_file, "HL-List.txt", sep = ' ')
+        self.list_to_file_write(list_final_to_file, "HL-List.dat", sep = ' ')
 
     def list_to_file_write(self, list, fname, sep):               
         
-        if os.path.isfile('HL-List.txt'):
+        if os.path.isfile('HL-List.dat'):
 
             #기존 파일에서 첫번째 라인 삭제후 임시파일에 저장
             ff = open("tmp.txt",'w')
@@ -17481,8 +17481,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             file.close()
 
             #기존 파일삭제후 임시파일명 변경
-            os.remove('HL-List.txt')
-            os.rename('tmp.txt', 'HL-List.txt')
+            os.remove('HL-List.dat')
+            os.rename('tmp.txt', 'HL-List.dat')
         else:
             pass
 
