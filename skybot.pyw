@@ -51318,8 +51318,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(SP500_전저) != self.tableWidget_cme.item(0, 1).text():
             item = QTableWidgetItem("{0:.2f}".format(SP500_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(0, 1, item)
         else:
             pass
@@ -51327,8 +51325,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(SP500_전고) != self.tableWidget_cme.item(0, 2).text():
             item = QTableWidgetItem("{0:.2f}".format(SP500_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(0, 2, item)
         else:
             pass
@@ -51336,8 +51332,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(SP500_전일종가) != self.tableWidget_cme.item(0, 3).text():
             item = QTableWidgetItem("{0:.2f}".format(SP500_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(0, 3, item)
         else:
             pass
@@ -51345,8 +51339,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0}".format(DOW_전저) != self.tableWidget_cme.item(1, 1).text():
             item = QTableWidgetItem("{0:.0f}".format(DOW_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(1, 1, item)
         else:
             pass
@@ -51354,8 +51346,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0}".format(DOW_전고) != self.tableWidget_cme.item(1, 2).text():
             item = QTableWidgetItem("{0:.0f}".format(DOW_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(1, 2, item)
         else:
             pass
@@ -51363,8 +51353,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0}".format(DOW_전일종가) != self.tableWidget_cme.item(1, 3).text():
             item = QTableWidgetItem("{0:.0f}".format(DOW_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(1, 3, item)
         else:
             pass
@@ -51372,8 +51360,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(NASDAQ_전저) != self.tableWidget_cme.item(2, 1).text():
             item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(2, 1, item)
         else:
             pass
@@ -51381,8 +51367,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(NASDAQ_전고) != self.tableWidget_cme.item(2, 2).text():
             item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(2, 2, item)
         else:
             pass
@@ -51390,8 +51374,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(NASDAQ_전일종가) != self.tableWidget_cme.item(2, 3).text():
             item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(2, 3, item)
         else:
             pass
@@ -51399,8 +51381,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0}".format(HANGSENG_전저) != self.tableWidget_cme.item(3, 1).text():
             item = QTableWidgetItem("{0:.0f}".format(HANGSENG_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(3, 1, item)
         else:
             pass
@@ -51408,8 +51388,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0}".format(HANGSENG_전고) != self.tableWidget_cme.item(3, 2).text():
             item = QTableWidgetItem("{0:.0f}".format(HANGSENG_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(3, 2, item)
         else:
             pass
@@ -51417,8 +51395,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0}".format(HANGSENG_전일종가) != self.tableWidget_cme.item(3, 3).text():
             item = QTableWidgetItem("{0:.0f}".format(HANGSENG_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(3, 3, item)
         else:
             pass
@@ -51426,8 +51402,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(WTI_전저) != self.tableWidget_cme.item(4, 1).text():
             item = QTableWidgetItem("{0:.2f}".format(WTI_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(4, 1, item)
         else:
             pass
@@ -51435,8 +51409,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(WTI_전고) != self.tableWidget_cme.item(4, 2).text():
             item = QTableWidgetItem("{0:.2f}".format(WTI_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(4, 2, item)
         else:
             pass
@@ -51444,8 +51416,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.2f}".format(WTI_전일종가) != self.tableWidget_cme.item(4, 3).text():
             item = QTableWidgetItem("{0:.2f}".format(WTI_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(4, 3, item)
         else:
             pass
@@ -51453,8 +51423,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.1f}".format(GOLD_전저) != self.tableWidget_cme.item(5, 1).text():
             item = QTableWidgetItem("{0:.1f}".format(GOLD_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(5, 1, item)
         else:
             pass
@@ -51462,8 +51430,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.1f}".format(GOLD_전고) != self.tableWidget_cme.item(5, 2).text():
             item = QTableWidgetItem("{0:.1f}".format(GOLD_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(5, 2, item)
         else:
             pass
@@ -51471,8 +51437,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.1f}".format(GOLD_전일종가) != self.tableWidget_cme.item(5, 3).text():
             item = QTableWidgetItem("{0:.1f}".format(GOLD_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(5, 3, item)
         else:
             pass
@@ -51480,8 +51444,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.5f}".format(EURO_전저) != self.tableWidget_cme.item(6, 1).text():
             item = QTableWidgetItem("{0:.5f}".format(EURO_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(6, 1, item)
         else:
             pass
@@ -51489,8 +51451,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.5f}".format(EURO_전고) != self.tableWidget_cme.item(6, 2).text():
             item = QTableWidgetItem("{0:.5f}".format(EURO_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(6, 2, item)
         else:
             pass
@@ -51498,8 +51458,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.5f}".format(EURO_전일종가) != self.tableWidget_cme.item(6, 3).text():
             item = QTableWidgetItem("{0:.5f}".format(EURO_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(6, 3, item)
         else:
             pass
@@ -51507,8 +51465,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.1f}".format(YEN_전저) != self.tableWidget_cme.item(7, 1).text():
             item = QTableWidgetItem("{0:.1f}".format(YEN_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(7, 1, item)
         else:
             pass
@@ -51516,8 +51472,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.1f}".format(YEN_전고) != self.tableWidget_cme.item(7, 2).text():
             item = QTableWidgetItem("{0:.1f}".format(YEN_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(7, 2, item)
         else:
             pass
@@ -51525,8 +51479,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.1f}".format(YEN_전일종가) != self.tableWidget_cme.item(7, 3).text():
             item = QTableWidgetItem("{0:.1f}".format(YEN_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(7, 3, item)
         else:
             pass
@@ -51534,8 +51486,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.5f}".format(ADI_전저) != self.tableWidget_cme.item(8, 1).text():
             item = QTableWidgetItem("{0:.5f}".format(ADI_전저))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(8, 1, item)
         else:
             pass
@@ -51543,8 +51493,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.5f}".format(ADI_전고) != self.tableWidget_cme.item(8, 2).text():
             item = QTableWidgetItem("{0:.5f}".format(ADI_전고))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(8, 2, item)
         else:
             pass
@@ -51552,8 +51500,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if "{0:.5f}".format(ADI_전일종가) != self.tableWidget_cme.item(8, 3).text():
             item = QTableWidgetItem("{0:.5f}".format(ADI_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
             self.tableWidget_cme.setItem(8, 3, item)
         else:
             pass
