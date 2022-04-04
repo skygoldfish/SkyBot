@@ -27412,7 +27412,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
 
             #self.cursorlabel1.setHtml("<p style='color:white'>X: {0} <br> Y: {1}</p>".format(plot1_x, plot1_y))
 
-            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot1_x, plot1_y)            
+            if comboindex1 == 2:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 13:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 14:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 15:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 16:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 17:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 18:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 19:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 20:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot1_x, plot1_y)
+            elif comboindex1 == 21:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot1_x, plot1_y)
+            else:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot1_x, plot1_y)
+            
             self.label_p1_1.setText(txt)
     '''
     def plot2_mouseMoved(self, evt):
@@ -27592,7 +27614,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot2_vLine.setPos(mousePoint.x())
             self.plot2_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot2_x, plot2_y)            
+            if comboindex2 == 2:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 13:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 14:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 15:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 16:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 17:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 18:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 19:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 20:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot2_x, plot2_y)
+            elif comboindex2 == 21:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot2_x, plot2_y)
+            else:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot2_x, plot2_y)
+
             self.label_p2_1.setText(txt)
     '''
     def plot3_mouseMoved(self, evt):
@@ -27772,7 +27816,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot3_vLine.setPos(mousePoint.x())
             self.plot3_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot3_x, plot3_y)            
+            if comboindex3 == 2:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 13:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 14:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 15:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 16:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 17:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 18:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 19:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 20:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot3_x, plot3_y)
+            elif comboindex3 == 21:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot3_x, plot3_y)
+            else:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot3_x, plot3_y)
+
             self.label_p3_1.setText(txt)
     '''
     def plot4_mouseMoved(self, evt):
@@ -27950,7 +28016,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot4_vLine.setPos(mousePoint.x())
             self.plot4_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot4_x, plot4_y)            
+            if comboindex4 == 2:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 13:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 14:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 15:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 16:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 17:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 18:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 19:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 20:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot4_x, plot4_y)
+            elif comboindex4 == 21:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot4_x, plot4_y)
+            else:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot4_x, plot4_y)
+
             self.label_p4_1.setText(txt)                    
     '''
     def plot5_mouseMoved(self, evt):
@@ -28130,7 +28218,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot5_vLine.setPos(mousePoint.x())
             self.plot5_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot5_x, plot5_y)            
+            if comboindex5 == 2:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 13:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 14:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 15:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 16:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 17:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 18:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 19:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 20:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot5_x, plot5_y)
+            elif comboindex5 == 21:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot5_x, plot5_y)
+            else:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot5_x, plot5_y)
+
             self.label_p5_1.setText(txt)
     '''
     def plot6_mouseMoved(self, evt):
@@ -28310,7 +28420,29 @@ class 화면_SkyChart(QDialog, Ui_SkyChart):
             self.plot6_vLine.setPos(mousePoint.x())
             self.plot6_hLine.setPos(mousePoint.y())
 
-            txt = " X: {0:d}\n Y: {1:.5f} ".format(plot6_x, plot6_y)            
+            if comboindex6 == 2:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 13:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 14:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 15:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 16:
+                txt = " X: {0:d}\n Y: {1:.0f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 17:
+                txt = " X: {0:d}\n Y: {1:.2f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 18:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 19:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 20:
+                txt = " X: {0:d}\n Y: {1:.1f} ".format(plot6_x, plot6_y)
+            elif comboindex6 == 21:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot6_x, plot6_y)
+            else:
+                txt = " X: {0:d}\n Y: {1:.5f} ".format(plot6_x, plot6_y)
+
             self.label_p6_1.setText(txt)    
 
     def checkBox_plot1_bband_checkState(self):
