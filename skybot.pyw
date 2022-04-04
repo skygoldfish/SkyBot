@@ -6689,7 +6689,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(txt)
                             print(txt)
 
-                            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:.0f}, DOW High = {4:.0f}, DOW Close = {5:.0ff}\r'.format \
+                            txt = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:.0f}, DOW High = {4:.0f}, DOW Close = {5:.0f}\r'.format \
                                 (dt.hour, dt.minute, dt.second, DOW_저가, DOW_고가, DOW_야간종가)
                             self.textBrowser.append(txt)
                             print(txt)
