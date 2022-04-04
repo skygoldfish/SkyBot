@@ -50762,7 +50762,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         item.setForeground(QBrush(녹색))
         self.tableWidget_cme.setItem(0, 0, item)
 
-        item = QTableWidgetItem("{0}".format('DOW'))        
+        item = QTableWidgetItem("{0}\n({1})".format('DOW', 'DJT'))        
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
@@ -50810,6 +50810,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         item.setForeground(QBrush(녹색))
         self.tableWidget_cme.setItem(8, 0, item)
         
+        self.tableWidget_cme.resizeRowToContents(1)
         self.tableWidget_cme.resizeColumnsToContents()
         
         self.pushButton_reset.clicked.connect(self.reset_button_clicked)
