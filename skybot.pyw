@@ -56605,7 +56605,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.2f}".format(SP500_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(0, 3, item)
                 else:
                     pass
@@ -56830,7 +56830,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.0f}\n({1:.1f})".format(DOW_전일종가, djt_close))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(1, 3, item)
                 else:
                     pass
@@ -57054,7 +57054,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.2f}".format(NASDAQ_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(2, 3, item)
                 else:
                     pass
@@ -57276,7 +57276,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.0f}".format(HANGSENG_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(3, 3, item)
                 else:
                     pass
@@ -57500,7 +57500,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.2f}".format(WTI_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(4, 3, item)
                 else:
                     pass
@@ -57722,7 +57722,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.1f}".format(GOLD_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(5, 3, item)
                 else:
                     pass
@@ -57944,7 +57944,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.5f}".format(EURO_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(6, 3, item)
                 else:
                     pass
@@ -58166,7 +58166,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.1f}".format(YEN_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(7, 3, item)
                 else:
                     pass
@@ -58388,7 +58388,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("{0:.5f}".format(ADI_전일종가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
-                    item.setForeground(QBrush(검정색))
+                    item.setForeground(QBrush(적색))
                     self.tableWidget_cme.setItem(8, 3, item)
                 else:
                     pass
