@@ -51037,7 +51037,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         print('\r')
         print('DJ Transportation\r')
-        df = investpy.get_index_recent_data(index='DJ Transportation', country='United States')
+        #df = investpy.get_index_recent_data(index='DJ Transportation', country='United States')
+        df = yf.download('^DJT', end = TODAY)
 
         djt_high = round(df.at[df.tail(1).index[0], 'High'], 1)
         djt_low = round(df.at[df.tail(1).index[0], 'Low'], 1)
