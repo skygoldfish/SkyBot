@@ -2592,6 +2592,10 @@ euro_tick_list = []
 yen_tick_list = []
 adi_tick_list = []
 
+djt_high = 0
+djt_low = 0
+djt_close = 0
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -50991,6 +50995,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # KOSPI, KOSDAQ, 삼성전자
         global kospi_price, kosdaq_price, samsung_price
+        global djt_high, djt_low, djt_close
 
         txt = '***********************************************************************'
         self.textBrowser.append(txt)
@@ -51027,7 +51032,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '삼성전자 = {0}\r'.format(samsung_price)
         self.textBrowser.append(txt)
         print(txt)
-        print('\r')        
+        print('\r')
+
+        print('\r')
+        print('DJ Transportation\r')
+        df = investpy.get_index_recent_data(index='DJ Transportation', country='United States')
+
+        djt_high = round(df.at[df.tail(1).index[0], 'High'], 1)
+        djt_low = round(df.at[df.tail(1).index[0], 'Low'], 1)
+        djt_close = round(df.at[df.tail(1).index[0], 'Close'], 1)
+
+        txt = 'DJT High = {0}, DJT Low = {1}, DJT Close = {2}\r'.format(djt_high, djt_low, djt_close)
+        self.textBrowser.append(txt)
+        print(txt)
+        print('\r')
 
         if night_date_diff_days > night_cutoff or day_date_diff_days > day_cutoff:
             
@@ -51349,21 +51367,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
         if "{0}".format(DOW_전저) != self.tableWidget_cme.item(1, 1).text():
-            item = QTableWidgetItem("{0:.0f}".format(DOW_전저))
+            item = QTableWidgetItem("{0:.0f}\n({1:.1f})".format(DOW_전저, djt_low))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_cme.setItem(1, 1, item)
         else:
             pass
 
         if "{0}".format(DOW_전고) != self.tableWidget_cme.item(1, 2).text():
-            item = QTableWidgetItem("{0:.0f}".format(DOW_전고))
+            item = QTableWidgetItem("{0:.0f}\n({1:.1f})".format(DOW_전고, djt_high))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_cme.setItem(1, 2, item)
         else:
             pass
 
         if "{0}".format(DOW_전일종가) != self.tableWidget_cme.item(1, 3).text():
-            item = QTableWidgetItem("{0:.0f}".format(DOW_전일종가))
+            item = QTableWidgetItem("{0:.0f}\n({1:.1f})".format(DOW_전일종가, djt_close))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_cme.setItem(1, 3, item)
         else:
@@ -51516,6 +51534,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
+        self.tableWidget_cme.resizeRowToContents(1)
         self.tableWidget_cme.resizeColumnsToContents()
 
     def showSDBMsgBox(self, event, source_object):
@@ -56674,7 +56693,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
                 '''
                 if "{0}".format(DOW_전일종가) != self.tableWidget_cme.item(1, 3).text():
-                    item = QTableWidgetItem("{0:.0f}".format(DOW_전일종가))
+                    item = QTableWidgetItem("{0:.0f}\n({1:.1f})".format(DOW_전일종가, djt_close))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
                     item.setForeground(QBrush(검정색))
