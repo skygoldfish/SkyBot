@@ -50993,7 +50993,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(txt)
             print(txt)
 
-        # KOSPI, KOSDAQ, 삼성전자
+        # KOSPI, KOSDAQ, 삼성전자, 다우 운송지수
         global kospi_price, kosdaq_price, samsung_price
         global djt_high, djt_low, djt_close
 
