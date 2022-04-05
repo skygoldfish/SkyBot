@@ -178,7 +178,7 @@ def option_quote_crawler(queue: Queue, main_proc_id, flag_high_speed=False, call
                     print("My parent is gone...\r")
                     sys.exit(1)
 
-                if dt.hour == 9 and 0 <= dt.minute <= FEVER_TIME_DURATION:
+                if (dt.hour == 9 or dt.hour == 10):
                     pass
                 else:
                     if not flag_high_speed:
