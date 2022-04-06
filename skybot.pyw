@@ -51968,37 +51968,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         self.statusbar.setStyleSheet("color : darkgreen")
 
-            self.statusbar.showMessage(txt)
-            #self.dialog['선물옵션전광판'].statusbar.showMessage(txt)
+            self.statusbar.showMessage(txt)            
+            
+            # 1st 프로세스 실시간데이타 갱신
+            if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            if szTrCode == 'NWS' or szTrCode == 'BM_':
-                if flag_1st_process_queue_empty:
-                    self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-                else:
-                    self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                self.update_1st_process(tickdata)
 
-                txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
-            else:
-                if time_gap_abs >= view_time_tolerance:
-                    self.label_1st.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-                    txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
-                else:
+                if szTrCode == 'NWS' or szTrCode == 'BM_':
                     if flag_1st_process_queue_empty:
                         self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                     else:
                         self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
                     txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+                else:
+                    if time_gap_abs >= view_time_tolerance:
+                        self.label_1st.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                        txt = "{0}\n({1})".format(szTrCode, time_gap_abs)
+                    else:
+                        if flag_1st_process_queue_empty:
+                            self.label_1st.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                        else:
+                            self.label_1st.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-            self.label_1st.setText(txt)                
+                        txt = "{0}\n({1:.2f})".format(szTrCode, args_processing_time)
+
+                self.label_1st.setText(txt) 
+            else:
+                pass                           
         else:
             pass        
-
-        # 1st 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-            self.update_1st_process(tickdata)
-        else:
-            pass
         
     @pyqtSlot(list)
     def transfer_mp_option_tick_trdata(self, trdata):
@@ -52167,43 +52167,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.statusbar.setStyleSheet("color : darkgreen")
 
-        self.statusbar.showMessage(txt)                
+        self.statusbar.showMessage(txt)
 
-        if time_gap_abs >= view_time_tolerance:
-            self.label_2nd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+        # 2nd 프로세스 실시간데이타 갱신
+        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
-            if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1})".format('COC0', time_gap_abs)
-            elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
-                txt = "{0}\n({1})".format('CEC0', time_gap_abs)
-            elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1})".format('POC0', time_gap_abs)
-            elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1})".format('PEC0', time_gap_abs)
-            elif szTrCode == 'YOC':
-                txt = "{0}\n({1})".format('YOC', time_gap_abs)
+            if time_gap_abs < view_time_tolerance:
+                
+                self.update_2nd_process(tickdata)
+                tick_args_processing_time = args_processing_time
+
+                # 옵션호가 데이타가 많아서 옵션가격이 갱신될 경우만 처리
+                self.update_3rd_process(option_quote_tickdata)
+                quote_args_processing_time = args_processing_time
+
+                option_processing_time = tick_args_processing_time + quote_args_processing_time
+
+                if flag_2nd_process_queue_empty:
+                    self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.label_2nd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1:.2f})".format('COC0', option_processing_time)
+                elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
+                    txt = "{0}\n({1:.2f})".format('CEC0', option_processing_time)
+                elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('POC0', option_processing_time)
+                elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('PEC0', option_processing_time)            
+                elif szTrCode == 'YOC':
+                    txt = "{0}\n({1:.2f})".format('YOC', option_processing_time)
+                else:
+                    pass
             else:
-                pass            
+                self.label_2nd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1})".format('COC0', time_gap_abs)
+                elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
+                    txt = "{0}\n({1})".format('CEC0', time_gap_abs)
+                elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1})".format('POC0', time_gap_abs)
+                elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1})".format('PEC0', time_gap_abs)
+                elif szTrCode == 'YOC':
+                    txt = "{0}\n({1})".format('YOC', time_gap_abs)
+                else:
+                    pass
+
+            self.label_2nd.setText(txt)
         else:
-            if flag_2nd_process_queue_empty:
-                self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-            else:
-                self.label_2nd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
-            if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
-            elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
-                txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
-            elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
-            elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
-            elif szTrCode == 'YOC':
-                txt = "{0}\n({1:.2f})".format('YOC', args_processing_time)
-            else:
-                pass            
-        
-        self.label_2nd.setText(txt)
+            pass        
 
         global flag_call_strong, flag_call_weak, flag_put_strong, flag_put_weak
         global flag_call_state, flag_put_state
@@ -52348,19 +52363,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if TARGET_MONTH == 'NM':
                     txt = 'NM Strong Put Exit'
 
-                self.speaker.setText(txt)
-
-        # 2nd 프로세스 실시간데이타 갱신
-        if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
-
-            if time_gap_abs < view_time_tolerance:
-                self.update_2nd_process(tickdata)
-                # 옵션호가 데이타가 많아서 옵션가격이 갱신될 경우만 처리
-                self.update_3rd_process(option_quote_tickdata)
-            else:
-                pass            
-        else:
-            pass
+                self.speaker.setText(txt)        
 
     @pyqtSlot(list)
     def transfer_mp_option_quote_trdata(self, trdata):
@@ -52499,39 +52502,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.statusbar.setStyleSheet("color : darkgreen")
 
-        self.statusbar.showMessage(txt)        
-        
-        if time_gap_abs >= view_time_tolerance:
-            self.label_3rd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
-            if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1})".format('COH0', time_gap_abs)
-            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1})".format('CEH0', time_gap_abs)
-            elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1})".format('POH0', time_gap_abs)
-            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1})".format('PEH0', time_gap_abs)
-            else:
-                pass
-        else:
-            if flag_3rd_process_queue_empty:
-                self.label_3rd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-            else:
-                self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
-            if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
-                txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-            elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-            elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
-                txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
-            else:
-                pass
-        
-        self.label_3rd.setText(txt)
+        self.statusbar.showMessage(txt)
 
         # 3rd 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
@@ -52543,8 +52514,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     #self.update_3rd_process(tickdata)
                 else:
                     self.label_3rd.setStyleSheet("background-color: lime; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                if flag_3rd_process_queue_empty:
+                    self.label_3rd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+                elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+                elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+                elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
+                else:
+                    pass
             else:
-                pass
+                self.label_3rd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+
+                if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1})".format('COH0', time_gap_abs)
+                elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
+                    txt = "{0}\n({1})".format('CEH0', time_gap_abs)
+                elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1})".format('POH0', time_gap_abs)
+                elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
+                    txt = "{0}\n({1})".format('PEH0', time_gap_abs)
+                else:
+                    pass
+
+            self.label_3rd.setText(txt)
         else:
             pass
 
@@ -52671,28 +52671,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.statusbar.setStyleSheet("color : darkgreen")
 
         self.statusbar.showMessage(txt)
-        
-        if time_gap_abs >= view_time_tolerance:
-            self.label_4th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
-            txt = "{0}\n({1})".format(tickdata['종목코드'], time_gap_abs)
-        else:
-            if flag_4th_process_queue_empty:
-                self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-            else:
-                self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-        
-            txt = "{0}\n({1:.2f})".format(tickdata['종목코드'], args_processing_time)
-
-        self.label_4th.setText(txt)                
 
         # 4th 프로세스 실시간데이타 갱신
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
+
                 self.update_4th_process(tickdata)
+
+                if flag_4th_process_queue_empty:
+                    self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                else:
+                    self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")                
+
+                txt = "{0}\n({1:.2f})".format(tickdata['종목코드'], args_processing_time)
             else:
-                pass
+                self.label_4th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
+                txt = "{0}\n({1})".format(tickdata['종목코드'], time_gap_abs)
+
+            self.label_4th.setText(txt)
         else:
             pass
 
