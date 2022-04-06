@@ -2596,6 +2596,8 @@ djt_high = 0
 djt_low = 0
 djt_close = 0
 
+option_quote_tickdata = {}
+
 #####################################################################################################################################################################
 # UI 파일정의
 #####################################################################################################################################################################
@@ -52350,6 +52352,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if time_gap_abs < view_time_tolerance:
                 self.update_2nd_process(tickdata)
+                # 옵션호가 데이타가 많아서 옵션가격이 갱신될 경우만 처리
+                self.update_3rd_process(option_quote_tickdata)
             else:
                 pass            
         else:
@@ -52405,6 +52409,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global option_tick_total_size, ovc_tick_total_size
         global total_packet_size
+        global option_quote_tickdata
 
         dt = datetime.now()
 
@@ -52531,7 +52536,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if time_gap_abs < view_time_tolerance:
 
                 if not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_ovc_update_is_running:
-                    self.update_3rd_process(tickdata)
+                    option_quote_tickdata = tickdata
+                    #self.update_3rd_process(tickdata)
                 else:
                     self.label_3rd.setStyleSheet("background-color: lime; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
