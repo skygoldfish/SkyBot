@@ -52529,7 +52529,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
-                self.update_3rd_process(tickdata)
+
+                if not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_ovc_update_is_running:
+                    self.update_3rd_process(tickdata)
+                else:
+                    self.label_3rd.setStyleSheet("background-color: lime; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
             else:
                 pass
         else:
