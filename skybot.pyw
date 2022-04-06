@@ -50527,7 +50527,7 @@ class Xing(object):
                     self.caller.dialog['선물옵션전광판'].market_type_display(self.clocktick)
                     
                     if not flag_screen_update_is_running:
-                        QApplication.processEvents()
+                        #QApplication.processEvents()
                         self.caller.dialog['선물옵션전광판'].update_screen()
                         QApplication.processEvents()
                     else:
@@ -52676,8 +52676,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.dialog['선물옵션전광판'] is not None and self.dialog['선물옵션전광판'].flag_score_board_open:
 
             if time_gap_abs < view_time_tolerance:
-
-                self.update_4th_process(tickdata)
+                
+                self.update_4th_process(tickdata)                
 
                 if flag_4th_process_queue_empty:
                     self.label_4th.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -52685,6 +52685,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")                
 
                 txt = "{0}\n({1:.2f})".format(tickdata['종목코드'], args_processing_time)
+
+                #if NightTime:
+                #    QApplication.processEvents()
             else:
                 self.label_4th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 txt = "{0}\n({1})".format(tickdata['종목코드'], time_gap_abs)
