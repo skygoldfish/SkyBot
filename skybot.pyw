@@ -51204,6 +51204,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print('KP 200\r')
                 # KP200은 investing.com이 부정확
                 df = yf.download('^KS200', end = TODAY)
+
+                if df.empty:
+                    df = yf.download('^KS200', start = TODAY)
                 
                 #df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
                 #number_of_row = df.shape[0]
@@ -51247,7 +51250,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     txt = 'KP200 전일시가 = {0}, KP200 전고 = {1}, KP200 전저 = {2}, KP200 전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
                     self.textBrowser.append(txt)
-                else:
+                else:                    
                     txt = 'KP200 None...\r'
                     self.textBrowser.append(txt)
 
