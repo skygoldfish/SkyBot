@@ -52178,8 +52178,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 tick_args_processing_time = args_processing_time
 
                 # 옵션호가 데이타가 많아서 옵션가격이 갱신될 경우만 처리
-                self.update_3rd_process(option_quote_tickdata)
-                quote_args_processing_time = args_processing_time
+                if DayTime:
+                    self.update_3rd_process(option_quote_tickdata)
+                    quote_args_processing_time = args_processing_time
+                else:
+                    quote_args_processing_time = 0
 
                 option_processing_time = tick_args_processing_time + quote_args_processing_time
 
@@ -52509,27 +52512,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if time_gap_abs < view_time_tolerance:
 
-                if not flag_futures_update_is_running and not flag_option_tick_update_is_running and not flag_ovc_update_is_running:
-                    option_quote_tickdata = tickdata
-                    #self.update_3rd_process(tickdata)
-                else:
-                    self.label_3rd.setStyleSheet("background-color: lime; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
-
                 if flag_3rd_process_queue_empty:
                     self.label_3rd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 else:
                     self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-                if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
-                    txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
-                elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
-                    txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
-                elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
-                elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
+                if DayTime:
+                    option_quote_tickdata = tickdata
+
+                    if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
+                        txt = "{0}\n({1})".format('COH0', time_gap_abs)
+                    elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
+                        txt = "{0}\n({1})".format('CEH0', time_gap_abs)
+                    elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
+                        txt = "{0}\n({1})".format('POH0', time_gap_abs)
+                    elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
+                        txt = "{0}\n({1})".format('PEH0', time_gap_abs)
+                    else:
+                        pass
                 else:
-                    pass
+                    self.update_3rd_process(tickdata)                    
+
+                    if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
+                        txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
+                    elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '201':
+                        txt = "{0}\n({1:.2f})".format('CEH0', args_processing_time)
+                    elif szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '301':
+                        txt = "{0}\n({1:.2f})".format('POH0', args_processing_time)
+                    elif szTrCode == 'EH0' and tickdata['단축코드'][0:3] == '301':
+                        txt = "{0}\n({1:.2f})".format('PEH0', args_processing_time)
+                    else:
+                        pass
             else:
                 self.label_3rd.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
