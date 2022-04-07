@@ -2366,8 +2366,6 @@ flag_t2301_eventloop = False
 flag_t2835_eventloop = False
 flag_t8416_eventloop = False
 
-flag_logfile = False
-
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
@@ -5230,6 +5228,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.append(txt)
 
         self.capture_screenshot()
+        def SaveResult(self):
     
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -6267,7 +6266,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_plot_data, put_plot_data, centerval_plot_data
         global SP500_야간종가, DOW_야간종가, NASDAQ_야간종가, WTI_야간종가, EURO_야간종가, HANGSENG_야간종가, GOLD_야간종가 
-        global flag_logfile, flag_broken_capture
+        global flag_broken_capture
         
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
@@ -17259,9 +17258,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def SaveResult(self):
 
-        #global flag_offline
-        global flag_logfile
-
         dt = datetime.now()
         now = time.localtime()
 
@@ -17276,15 +17272,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
 
-        if TARGET_MONTH == 'CM':
-            txt = 'CM SkyBot을 종료합니다.'
+        if jugan_service_terminate
+            if TARGET_MONTH == 'CM':
+                txt = 'CM SkyBot을 종료합니다.'
 
-        if TARGET_MONTH == 'NM':
-            txt = 'NM SkyBot을 종료합니다.'
+            if TARGET_MONTH == 'NM':
+                txt = 'NM SkyBot을 종료합니다.'
 
-        ToYourTelegram(txt)
+            ToYourTelegram(txt)
+        else:
+            pass
         
-        if not flag_logfile:
+        if True:
 
             realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
             self.textBrowser.append(realdata_info_txt)
@@ -17303,8 +17302,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             text = self.textBrowser.toPlainText()
             file.write(text)
             file.close()
-
-            flag_logfile = True
         else:
             pass              
 
