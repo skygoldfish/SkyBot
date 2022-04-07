@@ -6732,88 +6732,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             txt = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(txt)
-                            print(txt)
-
-                            # 야간장의 주요정보를 저장
-                            with open('night_time_history.dat', mode='w', encoding='UTF-8') as nighttime_file:
-
-                                now = time.localtime()
-
-                                times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
-                                        (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-
-                                file_txt = '{}\n'.format(times)
-                                nighttime_file.write(file_txt)
-                                file_txt = '\n'
-                                nighttime_file.write(file_txt)
-                                file_txt = '################# < Futures Index of the Last Night > ###################\n'
-                                nighttime_file.write(file_txt)                            
-                                file_txt = 'CME FUT Last Close = {0}\n'.format(FUT_주간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = '##################### < Foreign Futures Index of the Last Night > ####################\n'
-                                nighttime_file.write(file_txt)
-                                file_txt = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'S&P 500 Last Close = {0}\n'.format(SP500_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'DOW Last Low = {0}\n'.format(DOW_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'DOW Last High = {0}\n'.format(DOW_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'DOW Last Close = {0}\n'.format(DOW_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'WTI Last Low = {0}\n'.format(WTI_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'WTI Last High = {0}\n'.format(WTI_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'WTI Last Close = {0}\n'.format(WTI_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'GOLD Last High = {0}\n'.format(GOLD_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'EURO Last Low = {0}\n'.format(EURO_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'EURO Last High = {0}\n'.format(EURO_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'EURO Last Close = {0}\n'.format(EURO_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'YEN Last High = {0}\n'.format(YEN_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'YEN Last Close = {0}\n'.format(YEN_야간종가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'ADI Last Low = {0}\n'.format(ADI_저가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'ADI Last High = {0}\n'.format(ADI_고가)
-                                nighttime_file.write(file_txt)
-                                file_txt = 'ADI Last Close = {0}\n'.format(ADI_야간종가)
-                                nighttime_file.write(file_txt)                              
-                                
-                                nighttime_file.close()
-
-                                if TARGET_MONTH == 'CM':
-                                    if os.path.isdir("d:/SkyBot_NM"):
-                                        shutil.copyfile("./night_time_history.dat", "d:/SkyBot_NM/night_time_history.dat")
-                                else:
-                                    pass
+                            print(txt)                            
                             
                             if CSV_FILE:
                                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 데이타를 CSV파일로 저장합니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -6919,7 +6838,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         option_quote_process.terminate()
                                         ovc_process.terminate()
                                     else:
-                                        pass                                    
+                                        pass
                                 else:
                                     pass
 
@@ -17265,12 +17184,151 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
         # 저장전 전체 데이타를 다시 내려받음
-        self.RunCode()
+        self.RunCode()        
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
 
         self.high_low_list_save_to_file()
 
-        txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(txt)
+        if DayTime:
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 주간 히스토리 파일을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            # 주간장의 주요정보를 저장
+            with open('day_time_history.dat', mode='w', encoding='UTF-8') as daytime_file:
+
+                file_txt = '################# < KOSPI Price > ###################\n'                        
+                daytime_file.write(file_txt)
+                file_txt = 'KOSPI Price = {0}\n'.format(kospi_price)
+                daytime_file.write(file_txt)
+
+                file_txt = '################# < KOSDAQ Price > ###################\n'                        
+                daytime_file.write(file_txt)
+                file_txt = 'KOSDAQ Price = {0}\n'.format(kosdaq_price)
+                daytime_file.write(file_txt)
+
+                file_txt = '################# < KP200 Index > ###################\n'                        
+                daytime_file.write(file_txt)
+                file_txt = 'Center Value = {0}\n'.format(옵션_중심가)
+                daytime_file.write(file_txt)
+                file_txt = 'KP200 Last Close = {0:.2f}\n'.format(KP200_전일종가)
+                daytime_file.write(file_txt)
+                file_txt = 'KP200 Open = {0:.2f}\n'.format(KP200_주간시가)
+                daytime_file.write(file_txt)                            
+                file_txt = 'KP200 High = {0:.2f}\n'.format(kp200_고가)
+                daytime_file.write(file_txt)
+                file_txt = 'KP200 Low = {0:.2f}\n'.format(kp200_저가)
+                daytime_file.write(file_txt)
+                file_txt = 'KP200 Close = {0:.2f}\n'.format(kp200_현재가)
+                daytime_file.write(file_txt)
+
+                file_txt = '################### < Foreign Futures Index > #####################\n'
+                daytime_file.write(file_txt)
+                file_txt = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'DOW Day Close = {0}\n'.format(DOW_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'WTI Day Close = {0}\n'.format(WTI_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'EURO Day Close = {0}\n'.format(EURO_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'YEN Day Close = {0}\n'.format(YEN_현재가)
+                daytime_file.write(file_txt)
+                file_txt = 'ADI Day Close = {0}\n'.format(ADI_현재가)
+                daytime_file.write(file_txt)                       
+
+                daytime_file.close()
+        else:
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 야간 히스토리 파일을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(txt)
+
+            # 야간장의 주요정보를 저장
+            with open('night_time_history.dat', mode='w', encoding='UTF-8') as nighttime_file:
+
+                now = time.localtime()
+
+                times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
+                        (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+
+                file_txt = '{}\n'.format(times)
+                nighttime_file.write(file_txt)
+                file_txt = '\n'
+                nighttime_file.write(file_txt)
+                file_txt = '################# < Futures Index of the Last Night > ###################\n'
+                nighttime_file.write(file_txt)                            
+                file_txt = 'CME FUT Last Close = {0}\n'.format(FUT_주간종가)
+                nighttime_file.write(file_txt)
+                file_txt = '##################### < Foreign Futures Index of the Last Night > ####################\n'
+                nighttime_file.write(file_txt)
+                file_txt = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'S&P 500 Last Close = {0}\n'.format(SP500_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'DOW Last Low = {0}\n'.format(DOW_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'DOW Last High = {0}\n'.format(DOW_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'DOW Last Close = {0}\n'.format(DOW_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'WTI Last Low = {0}\n'.format(WTI_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'WTI Last High = {0}\n'.format(WTI_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'WTI Last Close = {0}\n'.format(WTI_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'GOLD Last High = {0}\n'.format(GOLD_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'GOLD Last Close = {0}\n'.format(GOLD_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'EURO Last Low = {0}\n'.format(EURO_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'EURO Last High = {0}\n'.format(EURO_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'EURO Last Close = {0}\n'.format(EURO_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'YEN Last Low = {0}\n'.format(YEN_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'YEN Last High = {0}\n'.format(YEN_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'YEN Last Close = {0}\n'.format(YEN_야간종가)
+                nighttime_file.write(file_txt)
+                file_txt = 'ADI Last Low = {0}\n'.format(ADI_저가)
+                nighttime_file.write(file_txt)
+                file_txt = 'ADI Last High = {0}\n'.format(ADI_고가)
+                nighttime_file.write(file_txt)
+                file_txt = 'ADI Last Close = {0}\n'.format(ADI_야간종가)
+                nighttime_file.write(file_txt)                              
+                
+                nighttime_file.close()
+
+                if TARGET_MONTH == 'CM':
+                    if os.path.isdir("d:/SkyBot_NM"):
+                        shutil.copyfile("./night_time_history.dat", "d:/SkyBot_NM/night_time_history.dat")
+                else:
+                    pass
 
         if jugan_service_terminate:
             if TARGET_MONTH == 'CM':
@@ -53291,58 +53349,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         옵션_중심가 = round((call_atm_value + atm_zero_cha / 2), 2)
                     else:
-                        옵션_중심가 = call_atm_value
-
-                    # KP200의 주요정보를 저장
-                    with open('day_time_history.dat', mode='w', encoding='UTF-8') as daytime_file:
-
-                        file_txt = '################# < KOSPI Price > ###################\n'                        
-                        daytime_file.write(file_txt)
-                        file_txt = 'KOSPI Price = {0}\n'.format(kospi_price)
-                        daytime_file.write(file_txt)
-
-                        file_txt = '################# < KOSDAQ Price > ###################\n'                        
-                        daytime_file.write(file_txt)
-                        file_txt = 'KOSDAQ Price = {0}\n'.format(kosdaq_price)
-                        daytime_file.write(file_txt)
-
-                        file_txt = '################# < KP200 Index > ###################\n'                        
-                        daytime_file.write(file_txt)
-                        file_txt = 'Center Value = {0}\n'.format(옵션_중심가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'KP200 Last Close = {0:.2f}\n'.format(KP200_전일종가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'KP200 Open = {0:.2f}\n'.format(KP200_주간시가)
-                        daytime_file.write(file_txt)                            
-                        file_txt = 'KP200 High = {0:.2f}\n'.format(kp200_고가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'KP200 Low = {0:.2f}\n'.format(kp200_저가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'KP200 Close = {0:.2f}\n'.format(kp200_현재가)
-                        daytime_file.write(file_txt)
-
-                        file_txt = '################### < Foreign Futures Index > #####################\n'
-                        daytime_file.write(file_txt)
-                        file_txt = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'DOW Day Close = {0}\n'.format(DOW_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'WTI Day Close = {0}\n'.format(WTI_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'EURO Day Close = {0}\n'.format(EURO_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'YEN Day Close = {0}\n'.format(YEN_현재가)
-                        daytime_file.write(file_txt)
-                        file_txt = 'ADI Day Close = {0}\n'.format(ADI_현재가)
-                        daytime_file.write(file_txt)                       
-
-                        daytime_file.close()
+                        옵션_중심가 = call_atm_value                    
 
                     receive_quote = False
 
