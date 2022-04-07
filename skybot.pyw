@@ -51128,6 +51128,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # KOSPI, KOSDAQ, 삼성전자, 다우 운송지수
         global kospi_price, kosdaq_price, samsung_price
         global djt_high, djt_low, djt_close
+        global HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가
 
         txt = '***********************************************************************'
         self.textBrowser.append(txt)
@@ -51178,15 +51179,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = 'DJT High = {0}, DJT Low = {1}, DJT Close = {2}\r'.format(djt_high, djt_low, djt_close)
         self.textBrowser.append(txt)
         print(txt)
-        print('\r')
+        print('\r')        
+
+        if HANGSENG_전고 == 0 or HANGSENG_전저 == 0:            
+
+            print('\r')
+            print('HSI\r')
+            df = yf.download('^HSI', end = TODAY)
+            #df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                HANGSENG_전고 = int(df.at[df.tail(1).index[0], 'High'])
+                HANGSENG_전저 = int(df.at[df.tail(1).index[0], 'Low'])
+                HANGSENG_전일종가 = int(df.at[df.tail(1).index[0], 'Close'])
+
+                txt = 'HANGSENG 전고 = {0}, HANGSENG 전저 = {1}, HANGSENG 전일종가 = {2}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
+                self.textBrowser.append(txt)
+                print(txt)
+            else:
+                txt = 'HANGSENG None...\r'
+                self.textBrowser.append(txt)
+                print(txt)
+        else:
+            pass
 
         if night_date_diff_days > night_cutoff or day_date_diff_days > day_cutoff:
             
             global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
             global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
-            global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가
-            global HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가
+            global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가            
             global WTI_전고, WTI_전저, WTI_전일종가
             global GOLD_전고, GOLD_전저, GOLD_전일종가
             global EURO_전고, EURO_전저, EURO_전일종가
@@ -51306,26 +51332,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.textBrowser.append(txt)
                 else:
                     txt = 'NASDAQ None...\r'
-                    self.textBrowser.append(txt)
-
-                print('HSI\r')
-                df = yf.download('^HSI', end = TODAY)
-                #df = investpy.get_index_recent_data(index='Hang Seng', country='hong kong')
-
-                if not df.empty:
-
-                    print(df.tail(1))
-                    print('\r')
-
-                    HANGSENG_전고 = int(df.at[df.tail(1).index[0], 'High'])
-                    HANGSENG_전저 = int(df.at[df.tail(1).index[0], 'Low'])
-                    HANGSENG_전일종가 = int(df.at[df.tail(1).index[0], 'Close'])
-
-                    txt = 'HANGSENG 전고 = {0}, HANGSENG 전저 = {1}, HANGSENG 전일종가 = {2}\r'.format(HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가)
-                    self.textBrowser.append(txt)
-                else:
-                    txt = 'HANGSENG None...\r'
-                    self.textBrowser.append(txt)
+                    self.textBrowser.append(txt)                
 
                 print('WTI\r')
                 df = yf.download('CL=F', end = TODAY)
