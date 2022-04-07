@@ -5228,7 +5228,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent.textBrowser.append(txt)
 
         self.capture_screenshot()
-        def SaveResult(self):
+        self.SaveResult()
     
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -17272,7 +17272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         txt = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(txt)
 
-        if jugan_service_terminate
+        if jugan_service_terminate:
             if TARGET_MONTH == 'CM':
                 txt = 'CM SkyBot을 종료합니다.'
 
