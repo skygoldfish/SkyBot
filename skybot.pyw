@@ -51128,6 +51128,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # KOSPI, KOSDAQ, 삼성전자, 다우 운송지수
         global kospi_price, kosdaq_price, samsung_price
         global djt_high, djt_low, djt_close
+        global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
+        global SP500_전고, SP500_전저, SP500_전일종가
         global HANGSENG_전고, HANGSENG_전저, HANGSENG_전일종가
 
         txt = '***********************************************************************'
@@ -51181,6 +51183,92 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(txt)
         print('\r')        
 
+        if KP200_전고 == 0 or KP200_전저 == 0:
+
+            print('\r')
+            print('KP 200\r')
+            # KP200은 investing.com이 부정확
+            df = yf.download('^KS200', end = TODAY)
+
+            if df.empty:
+                df = yf.download('^KS200', start = TODAY)
+            
+            #df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
+            #number_of_row = df.shape[0]
+
+            if not df.empty:
+                '''
+                if day_of_the_week == 0 or day_of_the_week == 5 or day_of_the_week == 6:
+
+                    print(df.iloc[number_of_row-1])
+                    print('\r')
+
+                    KP200_전일시가 = df.iloc[number_of_row-1]['Open']
+                    KP200_전고 = df.iloc[number_of_row-1]['High']
+                    KP200_전저 = df.iloc[number_of_row-1]['Low']
+                    KP200_전일종가 = df.iloc[number_of_row-1]['Close']
+                else:
+                    if DayTime:
+                        print(df.iloc[number_of_row-2])
+                        print('\r')
+
+                        KP200_전일시가 = df.iloc[number_of_row-2]['Open']
+                        KP200_전고 = df.iloc[number_of_row-2]['High']
+                        KP200_전저 = df.iloc[number_of_row-2]['Low']
+                        KP200_전일종가 = df.iloc[number_of_row-2]['Close']
+                    else:
+                        print(df.iloc[number_of_row-1])
+                        print('\r')
+
+                        KP200_전일시가 = df.iloc[number_of_row-1]['Open']
+                        KP200_전고 = df.iloc[number_of_row-1]['High']
+                        KP200_전저 = df.iloc[number_of_row-1]['Low']
+                        KP200_전일종가 = df.iloc[number_of_row-1]['Close']
+                '''
+                print(df.tail(1))
+                print('\r')
+
+                KP200_전일시가 = round(df.at[df.tail(1).index[0], 'Open'], 2)
+                KP200_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+                KP200_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+                KP200_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+                txt = 'KP200 전일시가 = {0}, KP200 전고 = {1}, KP200 전저 = {2}, KP200 전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
+                self.textBrowser.append(txt)
+                print(txt)
+            else:                    
+                txt = 'KP200 None...\r'
+                self.textBrowser.append(txt)
+                print(txt)
+        else:
+            pass
+
+        if SP500_전고 == 0 or SP500_전저 == 0:
+
+            print('\r')
+            print('S&P 500\r')
+            df = yf.download('ES=F', end = TODAY)
+            #df = investpy.get_index_recent_data(index='S&P 500', country='United States')
+
+            if not df.empty:
+
+                print(df.tail(1))
+                print('\r')
+
+                SP500_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+                SP500_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+                SP500_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+                txt = 'SP500 전고 = {0:.2f}, SP500 전저 = {1:.2f}, SP500 전일종가 = {2:.2f}\r'.format(SP500_전고, SP500_전저, SP500_전일종가)
+                self.textBrowser.append(txt)
+                print(txt)
+            else:
+                txt = 'S&P 500 None...\r'
+                self.textBrowser.append(txt)
+                print(txt)
+        else:
+            pass        
+
         if HANGSENG_전고 == 0 or HANGSENG_전저 == 0:            
 
             print('\r')
@@ -51207,10 +51295,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-        if night_date_diff_days > night_cutoff or day_date_diff_days > day_cutoff:
+        if night_date_diff_days > night_cutoff or day_date_diff_days > day_cutoff:            
             
-            global KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가
-            global SP500_전고, SP500_전저, SP500_전일종가
             global DOW_전고, DOW_전저, DOW_전일종가
             global NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가            
             global WTI_전고, WTI_전저, WTI_전일종가
@@ -51223,78 +51309,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'History 파일이 유효하지않아 Web Scraping Data로 대체합니다.\r'
                 self.textBrowser.append(txt)
                 print(txt)
-
-                print('KP 200\r')
-                # KP200은 investing.com이 부정확
-                df = yf.download('^KS200', end = TODAY)
-
-                if df.empty:
-                    df = yf.download('^KS200', start = TODAY)
-                
-                #df = investpy.get_index_recent_data(index='KOSPI 200', country='south korea')
-                #number_of_row = df.shape[0]
-
-                if not df.empty:
-                    '''
-                    if day_of_the_week == 0 or day_of_the_week == 5 or day_of_the_week == 6:
-
-                        print(df.iloc[number_of_row-1])
-                        print('\r')
-
-                        KP200_전일시가 = df.iloc[number_of_row-1]['Open']
-                        KP200_전고 = df.iloc[number_of_row-1]['High']
-                        KP200_전저 = df.iloc[number_of_row-1]['Low']
-                        KP200_전일종가 = df.iloc[number_of_row-1]['Close']
-                    else:
-                        if DayTime:
-                            print(df.iloc[number_of_row-2])
-                            print('\r')
-
-                            KP200_전일시가 = df.iloc[number_of_row-2]['Open']
-                            KP200_전고 = df.iloc[number_of_row-2]['High']
-                            KP200_전저 = df.iloc[number_of_row-2]['Low']
-                            KP200_전일종가 = df.iloc[number_of_row-2]['Close']
-                        else:
-                            print(df.iloc[number_of_row-1])
-                            print('\r')
-
-                            KP200_전일시가 = df.iloc[number_of_row-1]['Open']
-                            KP200_전고 = df.iloc[number_of_row-1]['High']
-                            KP200_전저 = df.iloc[number_of_row-1]['Low']
-                            KP200_전일종가 = df.iloc[number_of_row-1]['Close']
-                    '''
-                    print(df.tail(1))
-                    print('\r')
-
-                    KP200_전일시가 = round(df.at[df.tail(1).index[0], 'Open'], 2)
-                    KP200_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
-                    KP200_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
-                    KP200_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
-
-                    txt = 'KP200 전일시가 = {0}, KP200 전고 = {1}, KP200 전저 = {2}, KP200 전일종가 = {3}\r'.format(KP200_전일시가, KP200_전고, KP200_전저, KP200_전일종가)
-                    self.textBrowser.append(txt)
-                else:                    
-                    txt = 'KP200 None...\r'
-                    self.textBrowser.append(txt)
-
-                print('S&P 500\r')
-                df = yf.download('ES=F', end = TODAY)
-                #df = investpy.get_index_recent_data(index='S&P 500', country='United States')
-
-                if not df.empty:
-
-                    print(df.tail(1))
-                    print('\r')
-
-                    SP500_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
-                    SP500_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
-                    SP500_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
-
-                    txt = 'SP500 전고 = {0:.2f}, SP500 전저 = {1:.2f}, SP500 전일종가 = {2:.2f}\r'.format(SP500_전고, SP500_전저, SP500_전일종가)
-                    self.textBrowser.append(txt)
-                else:
-                    txt = 'S&P 500 None...\r'
-                    self.textBrowser.append(txt)
 
                 print('DOW\r')
                 df = yf.download('YM=F', end = TODAY)
