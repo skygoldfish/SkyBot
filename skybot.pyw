@@ -2080,7 +2080,7 @@ conv_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DashLine)
 base_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DashLine)
 span_a_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 span_b_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
-lagging_span_pen = pg.mkPen(purple, width=2, style=QtCore.Qt.DotLine)
+lagging_span_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
 # Sky Chart Plot1
 plot1_x = 0
