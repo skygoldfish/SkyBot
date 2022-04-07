@@ -6265,7 +6265,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_offline            
 
         global call_plot_data, put_plot_data, centerval_plot_data
-        global SP500_야간종가, DOW_야간종가, NASDAQ_야간종가, WTI_야간종가, EURO_야간종가, HANGSENG_야간종가, GOLD_야간종가 
+        global SP500_야간종가, DOW_야간종가, NASDAQ_야간종가, HANGSENG_야간종가, WTI_야간종가, GOLD_야간종가, YEN_야간종가, ADI_야간종가
         global flag_broken_capture
         
         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
