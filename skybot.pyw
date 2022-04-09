@@ -57,6 +57,7 @@ import shutil
 import requests
 import yfinance as yf
 import investpy
+import FinanceDataReader as fdr
 
 #import pyttsx3
 from gtts import gTTS
@@ -50227,7 +50228,9 @@ class Xing(object):
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
             # 환율 스크랩
-            df = investpy.get_currency_cross_recent_data('USD/KRW')
+            #df = investpy.get_currency_cross_recent_data('USD/KRW')
+            #df = fdr.DataReader('USD/KRW', YESTERDAY)
+            df = yf.download('KRW=X', end = TODAY)
             환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
             txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
 
@@ -51259,7 +51262,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 환율 스크랩
         print('\r')
         print('환율\r')
-        df = investpy.get_currency_cross_recent_data('USD/KRW')
+        #df = investpy.get_currency_cross_recent_data('USD/KRW')
+        #df = fdr.DataReader('USD/KRW', YESTERDAY)
+        df = yf.download('KRW=X', end = TODAY)
         환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
         txt = '환율 = {0}\r'.format(환율)
@@ -51518,8 +51523,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print('EURO\r')
 
             try:
-                #df = yf.download('6E=F', end = TODAY)
-                df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
+                df = yf.download('6E=F', end = TODAY)
+                #df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
 
                 if not df.empty:
 
@@ -51594,8 +51599,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             print('\r')
             print('ADI\r')
-            #df = yf.download('6A=F', end = TODAY)
-            df = investpy.get_currency_cross_recent_data(currency_cross='AUD/USD')
+            df = yf.download('6A=F', end = TODAY)
+            #df = investpy.get_currency_cross_recent_data(currency_cross='AUD/USD')
 
             if not df.empty:
 
