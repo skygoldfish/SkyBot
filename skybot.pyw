@@ -51041,8 +51041,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.speaker = SpeakerWorker()
         self.speaker.start()
 
-        self.g_speaker = Google_SpeakerWorker()        
-        self.g_speaker.start()
+        #self.g_speaker = Google_SpeakerWorker()        
+        #self.g_speaker.start()
 
         global system_server_time_gap
 
@@ -59225,11 +59225,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
+            '''
             if self.g_speaker.isRunning():
                 self.g_speaker.terminate()
                 print('Google TTS Speaker is terminated at Main Window...')
             else:
                 pass
+            '''
 
             self.xing.clock.stop()
 
