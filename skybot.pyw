@@ -540,13 +540,13 @@ OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
 
 # [11]. << Code of the Foreign Futures (H/M/U/Z) >>
-SP500_CODE = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW_CODE = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ_CODE = parser.get('Code of the Foreign Futures', 'NASDAQ')
+SP500_CODE = parser.get('Code of the Foreign Futures', 'E-MINI S&P 500')
+DOW_CODE = parser.get('Code of the Foreign Futures', 'E-MINI DOW')
+NASDAQ_CODE = parser.get('Code of the Foreign Futures', 'E-MINI NASDAQ')
 HANGSENG_CODE = parser.get('Code of the Foreign Futures', 'HANGSENG')
 WTI_CODE = parser.get('Code of the Foreign Futures', 'WTI')
 GOLD_CODE = parser.get('Code of the Foreign Futures', 'GOLD')
-EURO_CODE = parser.get('Code of the Foreign Futures', 'EUROFX')
+EURO_CODE = parser.get('Code of the Foreign Futures', 'EURO FX')
 YEN_CODE = parser.get('Code of the Foreign Futures', 'YEN')
 ADI_CODE = parser.get('Code of the Foreign Futures', 'ADI')
 
@@ -2595,6 +2595,7 @@ djt_low = 0
 djt_close = 0
 
 option_quote_tickdata = {}
+환율 = 0
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -4639,9 +4640,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
 
         if samsung_price > 0:
-            self.label_3rd_index.setText("SAMSUNG: {0}".format(format(samsung_price, ',')))
+            self.label_3rd_index.setText("SAMSUNG: {0}, 환율: {1}".format(format(samsung_price, ','), format(환율, ',')))
         else:
-            self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
+            self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율), 환율")
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -50208,6 +50209,8 @@ class Xing(object):
 
     def OnClockTick(self):
 
+        global 환율
+
         dt = datetime.now()
 
         self.clocktick = not self.clocktick
@@ -50222,6 +50225,13 @@ class Xing(object):
         self.caller.pushButton_reset.setText(' Clear ')
 
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
+
+            # 환율 스크랩
+            df = investpy.get_currency_cross_recent_data('USD/KRW')
+            환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
+
+            self.caller.textBrowser.append(txt)
 
             if self.main_connection is not None:
 
@@ -50525,7 +50535,7 @@ class Xing(object):
                                     ToYourTelegram(txt)
 
                                 if flag_tts:
-                                    txt = 'NM Strong Call'
+                                    txt = 'NM Strong 콜'
                                     self.caller.speaker.setText(txt)
                             else:
                                 pass
@@ -50545,7 +50555,7 @@ class Xing(object):
                                     ToYourTelegram(txt)
 
                                 if flag_tts:
-                                    txt = 'NM Strong Put'
+                                    txt = 'NM Strong 풋'
                                     self.caller.speaker.setText(txt)
                             else:
                                 pass
@@ -51206,7 +51216,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global GOLD_전고, GOLD_전저, GOLD_전일종가
         global EURO_전고, EURO_전저, EURO_전일종가
         global YEN_전고, YEN_전저, YEN_전일종가
-        global ADI_전고, ADI_전저, ADI_전일종가 
+        global ADI_전고, ADI_전저, ADI_전일종가
+        global 환율 
 
         txt = '***********************************************************************'
         self.textBrowser.append(txt)
@@ -51241,6 +51252,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         samsung_price = int(df.at[df.tail(1).index[0], 'Close'])
 
         txt = '삼성전자 = {0}\r'.format(samsung_price)
+        self.textBrowser.append(txt)
+        print(txt)
+        print('\r')
+
+        # 환율 스크랩
+        print('\r')
+        print('환율\r')
+        df = investpy.get_currency_cross_recent_data('USD/KRW')
+        환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+        txt = '환율 = {0}\r'.format(환율)
         self.textBrowser.append(txt)
         print(txt)
         print('\r')
@@ -51494,23 +51516,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             print('\r')
             print('EURO\r')
-            #df = yf.download('6E=F', end = TODAY)
-            df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
 
-            if not df.empty:
+            try:
+                #df = yf.download('6E=F', end = TODAY)
+                df = investpy.get_currency_cross_recent_data(currency_cross='EUR/USD')
 
-                print(df.tail(1))
-                print('\r')
+                if not df.empty:
 
-                EURO_전고 = round(df.at[df.tail(1).index[0], 'High'], 5)
-                EURO_전저 = round(df.at[df.tail(1).index[0], 'Low'], 5)
-                EURO_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 5)
+                    print(df.tail(1))
+                    print('\r')
 
-                txt = 'EURO 전고 = {0:.5f}, EURO 전저 = {1:.5f}, EURO 전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
-                self.textBrowser.append(txt)
-            else:
-                txt = 'EURO is None...\r'
-                self.textBrowser.append(txt)
+                    EURO_전고 = round(df.at[df.tail(1).index[0], 'High'], 5)
+                    EURO_전저 = round(df.at[df.tail(1).index[0], 'Low'], 5)
+                    EURO_전일종가 = round(df.at[df.tail(1).index[0], 'Close'], 5)
+
+                    txt = 'EURO 전고 = {0:.5f}, EURO 전저 = {1:.5f}, EURO 전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
+                    self.textBrowser.append(txt)
+                else:
+                    txt = 'EURO is None...\r'
+                    self.textBrowser.append(txt)
+
+            except Exception as e:
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] Exception : EUR/USD 에서 {3} 오류가 발생했습니다.\r'.format(dt.hour, dt.minute, dt.second, traceback.format_exc())
+                self.textBrowser.append(txt)                
         else:
             pass
 
@@ -52381,10 +52410,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Call Enter'
+                    txt = 'CM Strong 콜 Enter'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Call Enter'
+                    txt = 'NM Strong 콜 Enter'
 
                 self.speaker.setText(txt)
 
@@ -52404,10 +52433,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Call Exit'
+                    txt = 'CM Strong 콜 Exit'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Call Exit'
+                    txt = 'NM Strong 콜 Exit'
 
                 self.speaker.setText(txt)
 
@@ -52427,10 +52456,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Put Enter'
+                    txt = 'CM Strong 풋 Enter'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Put Enter'
+                    txt = 'NM Strong 풋 Enter'
 
                 self.speaker.setText(txt)
 
@@ -52450,10 +52479,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if flag_tts:
 
                 if TARGET_MONTH == 'CM':
-                    txt = 'CM Strong Put Exit'
+                    txt = 'CM Strong 풋 Exit'
 
                 if TARGET_MONTH == 'NM':
-                    txt = 'NM Strong Put Exit'
+                    txt = 'NM Strong 풋 Exit'
 
                 self.speaker.setText(txt)        
 
@@ -54030,14 +54059,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if tickdata['전일대비구분'] == '5':
 
-                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
+                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                         elif tickdata['전일대비구분'] == '2':
 
-                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
+                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -54050,14 +54079,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if tickdata['전일대비구분'] == '5':
 
-                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
+                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                         elif tickdata['전일대비구분'] == '2':
 
-                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
+                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -59367,7 +59396,7 @@ if __name__ == "__main__":
     
     # TTS test...
     if flag_tts:
-        #Speak('TOLPHA')
+        #Speak('strong 풋')
         '''
         txt ="발생"
         tts = gTTS(text=txt, lang='ko')

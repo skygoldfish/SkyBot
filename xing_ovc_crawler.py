@@ -24,13 +24,13 @@ parser.read('.\skybot.ini', encoding='UTF-8')
 
 REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
 
-SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
-DOW = parser.get('Code of the Foreign Futures', 'DOW')
-NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
+SP500 = parser.get('Code of the Foreign Futures', 'E-MINI S&P 500')
+DOW = parser.get('Code of the Foreign Futures', 'E-MINI DOW')
+NASDAQ = parser.get('Code of the Foreign Futures', 'E-MINI NASDAQ')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 WTI = parser.get('Code of the Foreign Futures', 'WTI')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
-EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
+EUROFX = parser.get('Code of the Foreign Futures', 'EURO FX')
 YEN = parser.get('Code of the Foreign Futures', 'YEN')
 ADI = parser.get('Code of the Foreign Futures', 'ADI')
 
