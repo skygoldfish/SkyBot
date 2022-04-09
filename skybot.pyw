@@ -535,6 +535,7 @@ CHART_UPDATE_INTERVAL = parser.getint('Initial Value', 'Chart Update Interval(ms
 SCORE_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Score Board Update Interval(sec)')
 SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
 SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
+FEVER_TIME_DURATION = parser.getint('Initial Value', 'Fever Time Duration')
 OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
 
@@ -1405,9 +1406,9 @@ every_10sec_1 = [0, 10, 20, 30, 40, 50]
 every_10sec_2 = [3, 13, 23, 33, 43, 53]
 every_10sec_3 = [6, 16, 26, 36, 46, 56]
 
-pre_start = False
+flag_pre_start = False
 
-receive_quote = False
+flag_receive_quote = False
 flag_market_service = False
 
 widget_title = ''
@@ -15325,7 +15326,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.now()
 
-        if not flag_market_service or call_scroll or refresh_coloring:
+        #if not flag_market_service or call_scroll or refresh_coloring:
+        if True:
             
             call_ol = [False] * option_pairs_count
             call_oh = [False] * option_pairs_count
@@ -16622,7 +16624,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.now()
 
-        if not flag_market_service or put_scroll or refresh_coloring:
+        #if not flag_market_service or put_scroll or refresh_coloring:
+        if True:
             
             put_ol = [False] * option_pairs_count
             put_oh = [False] * option_pairs_count            
@@ -17021,14 +17024,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
     def RunCode(self):
 
-        global pre_start
+        global flag_pre_start
         global t2301_month_info
         global 동적맥점
         global df_futures_cm_graph, df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_hsi_graph, df_wti_graph, df_gold_graph, df_euro_graph, df_yen_graph, df_adi_graph
 
         dt = datetime.now()
         '''
-        if pre_start:
+        if flag_pre_start:
             jisu_txt = "KOSPI: {0}".format(KOSPI_PRICE)
                     
             self.label_5th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
@@ -17140,10 +17143,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if 9 <= dt.hour < 16:
                     pass
                 else:
-                    pre_start = True
+                    flag_pre_start = True
             else:
                 if 16 <= dt.hour < 18:
-                    pre_start = True
+                    flag_pre_start = True
                 else:
                     pass
             
@@ -18379,7 +18382,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
 
-                    if DayTime and pre_start:
+                    if DayTime and flag_pre_start:
                         item.setForeground(QBrush(검정색))
                     else:
                         if 시가 > 0:
@@ -18613,7 +18616,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
-                    if DayTime and pre_start:
+                    if DayTime and flag_pre_start:
 
                         temp = format(순미결, ',')
                     else:
@@ -18677,7 +18680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(temp)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
 
-                if DayTime and pre_start:
+                if DayTime and flag_pre_start:
 
                     순미결합 = format(df_call['순미결'].sum(), ',')
 
@@ -18722,7 +18725,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(흰색))
 
-                    if DayTime and pre_start:
+                    if DayTime and flag_pre_start:
                         item.setForeground(QBrush(검정색))
                     else:
                         if 시가 > 0:
@@ -18956,7 +18959,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.VP.value, item)                   
 
-                    if DayTime and pre_start:
+                    if DayTime and flag_pre_start:
 
                         temp = format(순미결, ',')
                     else:
@@ -19020,7 +19023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(temp)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
 
-                if DayTime and pre_start:
+                if DayTime and flag_pre_start:
 
                     순미결합 = format(df_put['순미결'].sum(), ',')
 
@@ -19059,7 +19062,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = '[{0:02d}:{1:02d}:{2:02d}] put_고가리스트 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가리스트)
                 print(txt)
                 
-                if not pre_start:
+                if not flag_pre_start:
 
                     # 콜 컬러링 리스트 작성
                     call_시가리스트 = df_call['시가'].values.tolist()
@@ -19718,7 +19721,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             szTrCode, df = tickdata
 
-            if DayTime and pre_start:
+            if DayTime and flag_pre_start:
 
                 if df['종합지수전일대비구분'] == '5':
 
@@ -21897,7 +21900,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-                if not pre_start:
+                if not flag_pre_start:
 
                     전저 = df_call.at[t8416_call_count, '전저']
                     전고 = df_call.at[t8416_call_count, '전고']
@@ -22144,7 +22147,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-                if not pre_start:
+                if not flag_pre_start:
 
                     전저 = df_put.at[t8416_put_count, '전저']
                     전고 = df_put.at[t8416_put_count, '전고']
@@ -23119,7 +23122,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if DayTime and pre_start:
+        if DayTime and flag_pre_start:
 
             # KOSPI200/FUTURES 예상지수 요청
             txt = '[{0:02d}:{1:02d}:{2:02d}] KOSPI200, KOSDAQ 예상체결을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -23187,7 +23190,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if DayTime and pre_start:
+            if DayTime and flag_pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 예상가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -23199,7 +23202,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, CM_PUT_CODE[i])
 
                 # 지수옵션 예상체결 요청
-                if DayTime and pre_start:
+                if DayTime and flag_pre_start:
                     self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_PUT_CODE[i])
                 else:
@@ -23215,7 +23218,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if DayTime and pre_start:
+            if DayTime and flag_pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 근월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -23231,7 +23234,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.textBrowser.append(txt)
                     print(txt)
 
-                    if DayTime and pre_start:                            
+                    if DayTime and flag_pre_start:                            
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_CALL_CODE[i])
                     else:
                         pass
@@ -23247,7 +23250,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.textBrowser.append(txt)
                     print(txt)
 
-                    if DayTime and pre_start:
+                    if DayTime and flag_pre_start:
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', CM_PUT_CODE[i])
                     else:
                         pass
@@ -23348,7 +23351,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if DayTime and pre_start:
+            if DayTime and flag_pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -23360,7 +23363,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.parent.realtime_thread_dataworker.RequestRealData(OPT_REAL, NM_PUT_CODE[i])
 
                 # 지수옵션 예상체결 요청
-                if DayTime and pre_start:
+                if DayTime and flag_pre_start:
                     self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_CALL_CODE[i])
                     self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_PUT_CODE[i])
                 else:
@@ -23376,7 +23379,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(txt)
             print(txt)
 
-            if DayTime and pre_start:
+            if DayTime and flag_pre_start:
                 txt = '[{0:02d}:{1:02d}:{2:02d}] 실시간 차월물 옵션 예상가격(내가 {3}개, 외가 {4}개)을 조회합니다.\r'.format(dt.hour, dt.minute, dt.second, put_itm_number, put_otm_number)
                 self.textBrowser.append(txt)
                 print(txt)
@@ -23392,7 +23395,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.textBrowser.append(txt)
                     print(txt)
 
-                    if DayTime and pre_start:                            
+                    if DayTime and flag_pre_start:                            
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_CALL_CODE[i])
                     else:
                         pass
@@ -23408,7 +23411,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.parent.textBrowser.append(txt)
                     print(txt)
 
-                    if DayTime and pre_start:
+                    if DayTime and flag_pre_start:
                         self.parent.realtime_thread_dataworker.RequestRealData('YOC', NM_PUT_CODE[i])
                     else:
                         pass
@@ -50252,6 +50255,10 @@ class Xing(object):
         else:
             pass
 
+        # 옵션호가 데이타가 많아서(체결대비 약 5 ~ 7배) 주기적 갱신처리
+        if flag_receive_quote and DayTime and TARGET_MONTH == 'CM':
+                self.caller.update_3rd_process(option_quote_tickdata)
+
         if flag_t8433_response_ok:
 
             global df_futures_cm_ta_graph, df_sp500_ta_graph, df_dow_ta_graph, df_nasdaq_ta_graph, df_hsi_ta_graph, df_wti_ta_graph, df_gold_ta_graph, df_euro_ta_graph, df_yen_ta_graph, df_adi_ta_graph
@@ -50339,7 +50346,7 @@ class Xing(object):
                         else:
                             pass                        
 
-                        if not pre_start and 옵션_잔량비차 > 5.0:
+                        if not flag_pre_start and 옵션_잔량비차 > 5.0:
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ CM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
@@ -50437,7 +50444,7 @@ class Xing(object):
                         else:
                             pass
 
-                        if not pre_start and 옵션_잔량비차 > 5.0:
+                        if not flag_pre_start and 옵션_잔량비차 > 5.0:
 
                             if 콜잔량비 > 풋잔량비:
                                 send_txt = "[{0:02d}:{1:02d}:{2:02d}] ♣ NM 잔량비 콜우세 {3}:{4} ♣\r".format(dt.hour, dt.minute, dt.second, 콜잔량비, 풋잔량비)
@@ -50607,7 +50614,6 @@ class Xing(object):
                     self.caller.dialog['선물옵션전광판'].market_type_display(self.clocktick)
                     
                     if not flag_screen_update_is_running:
-                        #QApplication.processEvents()
                         self.caller.dialog['선물옵션전광판'].update_screen()
                         QApplication.processEvents()
                     else:
@@ -51329,7 +51335,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
                 print(txt)
             else:                    
-                txt = 'KP200 None...\r'
+                txt = 'KP200 is None...\r'
                 self.textBrowser.append(txt)
                 print(txt)
         else:
@@ -51355,7 +51361,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
                 print(txt)
             else:
-                txt = 'S&P 500 None...\r'
+                txt = 'S&P 500 is None...\r'
                 self.textBrowser.append(txt)
                 print(txt)
         else:
@@ -51380,7 +51386,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'DOW 전고 = {0}, DOW 전저 = {1}, DOW 전일종가 = {2}\r'.format(DOW_전고, DOW_전저, DOW_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'DOW None...\r'
+                txt = 'DOW is None...\r'
                 self.textBrowser.append(txt)
         else:
             pass
@@ -51404,7 +51410,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'NASDAQ 전고 = {0:.2f}, NASDAQ 전저 = {1:.2f}, NASDAQ 전일종가 = {2:.2f}\r'.format(NASDAQ_전고, NASDAQ_전저, NASDAQ_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'NASDAQ None...\r'
+                txt = 'NASDAQ is None...\r'
                 self.textBrowser.append(txt)  
         else:
             pass
@@ -51429,7 +51435,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
                 print(txt)
             else:
-                txt = 'HANGSENG None...\r'
+                txt = 'HANGSENG is None...\r'
                 self.textBrowser.append(txt)
                 print(txt)
         else:
@@ -51454,7 +51460,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'WTI 전고 = {0:.2f}, WTI 전저 = {1:.2f}, WTI 전일종가 = {2:.2f}\r'.format(WTI_전고, WTI_전저, WTI_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'WTI None...\r'
+                txt = 'WTI is None...\r'
                 self.textBrowser.append(txt)
         else:
             pass
@@ -51501,7 +51507,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'GOLD_전고 = {0:.1f}, GOLD_전저 = {1:.1f}, GOLD_전일종가 = {2:.1f}\r'.format(GOLD_전고, GOLD_전저, GOLD_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'GOLD None...\r'
+                txt = 'GOLD is None...\r'
                 self.textBrowser.append(txt)
         else:
             pass
@@ -51525,7 +51531,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'EURO 전고 = {0:.5f}, EURO 전저 = {1:.5f}, EURO 전일종가 = {2:.5f}\r'.format(EURO_전고, EURO_전저, EURO_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'EURO None...\r'
+                txt = 'EURO is None...\r'
                 self.textBrowser.append(txt)
         else:
             pass
@@ -51572,7 +51578,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'YEN_전고 = {0:.1f}, YEN_전저 = {1:.1f}, YEN_전일종가 = {2:.1f}\r'.format(YEN_전고, YEN_전저, YEN_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'YEN None...\r'
+                txt = 'YEN is None...\r'
                 self.textBrowser.append(txt)
         else:
             pass
@@ -51596,7 +51602,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 txt = 'ADI 전고 = {0:.5f}, ADI 전저 = {1:.5f}, ADI 전일종가 = {2:.5f}\r'.format(ADI_전고, ADI_전저, ADI_전일종가)
                 self.textBrowser.append(txt)
             else:
-                txt = 'ADI None...\r'
+                txt = 'ADI is None...\r'
                 self.textBrowser.append(txt)
         else:
             pass
@@ -52295,16 +52301,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if time_gap_abs < view_time_tolerance:
                 
                 self.update_2nd_process(tickdata)
-                tick_args_processing_time = args_processing_time
-
-                # 옵션호가 데이타가 많아서 옵션가격이 갱신될 경우만 처리
-                if DayTime:
-                    self.update_3rd_process(option_quote_tickdata)
-                    quote_args_processing_time = args_processing_time
-                else:
-                    quote_args_processing_time = 0
-
-                option_processing_time = tick_args_processing_time + quote_args_processing_time
 
                 if flag_2nd_process_queue_empty:
                     self.label_2nd.setStyleSheet("background-color: lime; color: black; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
@@ -52312,15 +52308,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.label_2nd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
                 if szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '201':
-                    txt = "{0}\n({1:.2f})".format('COC0', option_processing_time)
+                    txt = "{0}\n({1:.2f})".format('COC0', args_processing_time)
                 elif (szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '201'):
-                    txt = "{0}\n({1:.2f})".format('CEC0', option_processing_time)
+                    txt = "{0}\n({1:.2f})".format('CEC0', args_processing_time)
                 elif szTrCode == 'OC0' and tickdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('POC0', option_processing_time)
+                    txt = "{0}\n({1:.2f})".format('POC0', args_processing_time)
                 elif szTrCode == 'EC0' and tickdata['단축코드'][0:3] == '301':
-                    txt = "{0}\n({1:.2f})".format('PEC0', option_processing_time)            
+                    txt = "{0}\n({1:.2f})".format('PEC0', args_processing_time)            
                 elif szTrCode == 'YOC':
-                    txt = "{0}\n({1:.2f})".format('YOC', option_processing_time)
+                    txt = "{0}\n({1:.2f})".format('YOC', args_processing_time)
                 else:
                     pass
             else:
@@ -52538,9 +52534,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global option_tick_total_size, ovc_tick_total_size
         global total_packet_size
-        global option_quote_tickdata
+        global option_quote_tickdata, flag_receive_quote
 
         dt = datetime.now()
+
+        if not flag_receive_quote:
+            flag_receive_quote = True
+        else:
+            pass
 
         szTrCode = tickdata['tr_code']
 
@@ -52637,7 +52638,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.label_3rd.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
 
-                if DayTime:
+                if DayTime and TARGET_MONTH == 'CM':
                     option_quote_tickdata = tickdata
 
                     if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
@@ -52651,7 +52652,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                 else:
-                    self.update_3rd_process(tickdata)                    
+                    self.update_3rd_process(tickdata)
 
                     if szTrCode == 'OH0' and tickdata['단축코드'][0:3] == '201':
                         txt = "{0}\n({1:.2f})".format('COH0', args_processing_time)
@@ -52818,9 +52819,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.label_4th.setStyleSheet("background-color: black; color: lime; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")                
 
                 txt = "{0}\n({1:.2f})".format(tickdata['종목코드'], args_processing_time)
-
-                #if NightTime:
-                #    QApplication.processEvents()
             else:
                 self.label_4th.setStyleSheet("background-color: yellow; color: red; font-family: Consolas; font-size: 10pt; font: Normal; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px")
                 txt = "{0}\n({1})".format(tickdata['종목코드'], time_gap_abs)
@@ -53152,7 +53150,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global SP500_주간_시작가, DOW_주간_시작가, NASDAQ_주간_시작가, WTI_주간_시작가, ADI_주간_시작가
         global SP500_야간_시작가, DOW_야간_시작가, NASDAQ_야간_시작가, WTI_야간_시작가, ADI_야간_시작가
-        global flag_market_service, service_terminate, jugan_service_terminate, flag_option_start, receive_quote
+        global flag_market_service, service_terminate, jugan_service_terminate, flag_option_start, flag_receive_quote
         global flag_score_board_start, flag_telegram_send_start, flag_telegram_listen_start, dongsi_quote
 
         try:
@@ -53395,7 +53393,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         옵션_중심가 = call_atm_value                    
 
-                    receive_quote = False
+                    flag_receive_quote = False
 
                     if flag_search_moving_node:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -53431,7 +53429,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                     flag_market_service = False
                     service_terminate = True
-                    receive_quote = False
+                    flag_receive_quote = False
 
                     if flag_search_moving_node:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -53458,10 +53456,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.textBrowser.append(txt)
 
                 if flag_market_service:
-
-                    #flag_market_service = False
-                    #service_terminate = True
-                    #receive_quote = False
 
                     if flag_search_moving_node:
                         self.dialog['선물옵션전광판'].pushButton_start.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
@@ -55055,7 +55049,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def futures_tick_update(self, tickdata):
 
-        global pre_start, flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
+        global flag_pre_start, flag_fut_vs_sp500_drate_direction, plot_drate_scale_factor, fut_volume_power_energy_direction
         global fut_cm_volume_power, fut_nm_volume_power
         global 근월물_선물_종가대비_등락율, 근월물_선물_시가등락율, 근월물_선물_시가대비_등락율, kp200_시가등락율
         global df_futures_cm_graph, 근월물_선물_현재가, 근월물_선물_현재가_버퍼, flag_futures_cm_ohlc_open
@@ -55072,8 +55066,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             dt = datetime.now()
 
-            if pre_start:
-                pre_start = False
+            if flag_pre_start:
+                flag_pre_start = False
             else:
                 pass
 
@@ -55393,12 +55387,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         try:
             dt = datetime.now()
-        
-            if not flag_market_service:
-                pass
-                #flag_market_service = True
-            else:
-                pass
 
             if len(tickdata['수신시간']) == 5:
                 plot_time_index = (int(tickdata['수신시간'][0:1]) - DayTime_PreStart_Hour) * 60 + int(tickdata['수신시간'][1:3]) + 1
@@ -55737,7 +55725,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def option_tick_update(self, tickdata):
         
-        global flag_option_start, pre_start, receive_quote, flag_market_service
+        global flag_option_start, flag_pre_start, flag_market_service
         global df_call, call_tickdata, df_call_graph, df_call_information_graph, df_call_volume, call_volume_power, 콜_등가_등락율
         global df_put, put_tickdata, df_put_graph, df_put_information_graph, df_put_volume, put_volume_power, 풋_등가_등락율
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트, 콜잔량비, 풋잔량비
@@ -55754,8 +55742,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if pre_start:
-                pre_start = False
+            if flag_pre_start:
+                flag_pre_start = False
             else:
                 pass
 
@@ -56087,7 +56075,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def option_quote_update(self, tickdata):
 
-        global receive_quote, flag_market_service
+        #global flag_market_service
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
@@ -56098,12 +56086,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global call_quote, put_quote
 
         try:
-            dt = datetime.now()
-
-            if not receive_quote:
-                receive_quote = True
-            else:
-                pass
+            dt = datetime.now()           
 
             prev_plot_time_index = plot_time_index
 
@@ -56534,7 +56517,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.clear_ovc_ohlc_buffer()
 
-                if pre_start:
+                if flag_pre_start:
                     self.clear_fut_ohlc_buffer()
             else:
                 pass
@@ -56542,7 +56525,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if 해외선물_수신_초 != 0 and flag_ovc_zero_sec:
                 flag_ovc_zero_sec = False
 
-            if pre_start:
+            if flag_pre_start:
                 if 해외선물_수신_초 != 0 and flag_fut_zero_sec:
                     flag_fut_zero_sec = False
 
