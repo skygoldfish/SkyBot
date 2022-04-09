@@ -1103,11 +1103,13 @@ GuardTime = 60 * 2
 
 # 오전 6시 ~ 7시는 Break Time
 if SUMMER_TIME:
-    start_time = 6
+    market_start_time = 7
+    yagan_close_hour = 6
 else:
-    start_time = 7
+    market_start_time = 8
+    yagan_close_hour = 7
 
-if start_time <= dt.hour < NightTime_PreStart_Hour:
+if market_start_time <= dt.hour < NightTime_PreStart_Hour:
     # 오전 7시 ~ 오후 3시 59분
     DayTime = True
     NightTime = False        
@@ -1354,7 +1356,6 @@ flag_kp200_high = False
 해외선물_수신_시 = 0
 해외선물_수신_분 = 0
 해외선물_수신_초 = 0
-해외선물_장마감_시 = 6
 
 fut_plot_sec = 0
 
@@ -1581,8 +1582,6 @@ atm_val = 0
 ATM_INDEX = 0
 prev_atm_index = 0
 jgubun = ''
-
-start_time = 0
 
 COREVAL = []
 KP200_COREVAL = []
@@ -6657,17 +6656,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken_lst[-1] and not flag_service_provider_broken):
                 
-                if NightTime:                    
+                if NightTime:
 
-                    # 미국 주식장 종료 1분후에 프로그램을 오프라인으로 전환시킴
-                    if SUMMER_TIME:
-                        close_hour = 6
-                    else:
-                        close_hour = 7
+                    global yagan_service_terminate, service_terminate                   
 
-                    if yagan_service_terminate or 시스템시간_분 == (close_hour * 3600 + 1 * 60):
+                    if 시스템시간_분 == (yagan_close_hour * 3600 + 1 * 60):
 
-                        global service_terminate
+                        yagan_service_terminate = True
                         
                         if online_state:
 
@@ -6785,13 +6780,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 service_terminate = True
 
                                 self.SaveResult()
-
                                 self.parent.xing.main_connection.disconnect()
                             else:
                                 pass                         
                         else:
                             txt = '오프라인 : {0}'.format(drop_txt)
-                            self.parent.statusbar.showMessage(txt)                           
+                            self.parent.statusbar.showMessage(txt)
+                            self.parent.close()
                     else:
                         pass
                 else:
@@ -6844,7 +6839,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     pass
 
                                 self.SaveResult()
-
                                 self.parent.xing.main_connection.disconnect()                                    
                             else:
                                 pass
@@ -17183,8 +17177,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.now()
         now = time.localtime()
 
-        times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
-                (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
         # 저장전 전체 데이타를 다시 내려받음
         self.RunCode()        
@@ -17333,7 +17326,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-        if jugan_service_terminate:
+        if jugan_service_terminate or yagan_service_terminate:
+            
             if TARGET_MONTH == 'CM':
                 txt = 'CM SkyBot을 종료합니다.'
 
@@ -17341,30 +17335,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 txt = 'NM SkyBot을 종료합니다.'
 
             ToYourTelegram(txt)
+
+        realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
+        self.textBrowser.append(realdata_info_txt)
+
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)
+
+        if NightTime:
+            file = open('lastnight.log', 'w', encoding='UTF-8')
         else:
-            pass
-        
-        if True:
+            file = open('today.log', 'w', encoding='UTF-8')
 
-            realdata_info_txt = '수신된 실시간데이타 통계 : ' + drop_txt + '\r'
-            self.textBrowser.append(realdata_info_txt)
+        text = self.textBrowser.toPlainText()
+        file.write(text)
+        file.close()   
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(txt)
-
-            if NightTime:
-                file = open('lastnight.log', 'w', encoding='UTF-8')
-            else:
-                file = open('today.log', 'w', encoding='UTF-8')
-
-            text = self.textBrowser.toPlainText()
-            file.write(text)
-            file.close()
-        else:
-            pass              
+        txt = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(txt)              
 
     def RunTelegram(self):
 
@@ -17745,12 +17733,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 night_time = t0167_hour
 
-                if SUMMER_TIME:
-                    해외선물_장마감_시 = 6
-                else:
-                    해외선물_장마감_시 = 7
-
-                if 0 <= night_time <= 해외선물_장마감_시:
+                if 0 <= night_time <= yagan_close_hour:
                     night_time = night_time + 24
                 else:
                     pass
@@ -50761,12 +50744,7 @@ class Xing(object):
 
                 night_time = t0167_hour
 
-                if SUMMER_TIME:
-                    해외선물_장마감_시 = 6
-                else:
-                    해외선물_장마감_시 = 7
-
-                if 0 <= night_time <= 해외선물_장마감_시:
+                if 0 <= night_time <= yagan_close_hour:
                     night_time = night_time + 24
                 else:
                     pass
@@ -51958,12 +51936,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 night_time = t0167_hour
 
-                if SUMMER_TIME:
-                    해외선물_장마감_시 = 6
-                else:
-                    해외선물_장마감_시 = 7
-
-                if 0 <= night_time <= 해외선물_장마감_시:
+                if 0 <= night_time <= yagan_close_hour:
                     night_time = night_time + 24
                 else:
                     pass
@@ -55788,12 +55761,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 option_plot_hour = int(tickdata['수신시간'][0:2])
 
-                if SUMMER_TIME:
-                    해외선물_장마감_시 = 6
-                else:
-                    해외선물_장마감_시 = 7
-
-                if 0 <= option_plot_hour <= 해외선물_장마감_시:
+                if 0 <= option_plot_hour <= yagan_close_hour:
                     option_plot_hour = option_plot_hour + 24
                 else:
                     pass
@@ -56462,7 +56430,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SP500_시가_등락율, SP500_시가대비_등락율, SP500_FUT_시가_등락율비
         global sp500_fibonacci_levels, dow_fibonacci_levels, nasdaq_fibonacci_levels, hsi_fibonacci_levels
         global wti_fibonacci_levels, gold_fibonacci_levels, euro_fibonacci_levels, yen_fibonacci_levels, adi_fibonacci_levels
-        global 해외선물_장마감_시
         global df_sp500_tick, df_dow_tick, df_nasdaq_tick, df_hsi_tick, df_wti_tick, df_gold_tick, df_euro_tick, df_yen_tick, df_adi_tick
         global df_sp500_tick_ohlc, df_dow_tick_ohlc, df_nasdaq_tick_ohlc, df_hsi_tick_ohlc, df_wti_tick_ohlc, df_gold_tick_ohlc, df_euro_tick_ohlc, df_yen_tick_ohlc, df_adi_tick_ohlc
         global df_sp500_ohlc, df_dow_ohlc, df_nasdaq_ohlc, df_hsi_ohlc, df_wti_ohlc, df_gold_ohlc, df_euro_ohlc, df_yen_ohlc, df_adi_ohlc
@@ -56488,12 +56455,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # X축 시간좌표 계산, 해외선물 시간과 동기를 맞춤
             if NightTime:
 
-                if SUMMER_TIME:
-                    해외선물_장마감_시 = 6
-                else:
-                    해외선물_장마감_시 = 7
-
-                if 0 <= 해외선물_수신_시 <= 해외선물_장마감_시:
+                if 0 <= 해외선물_수신_시 <= yagan_close_hour:
                     해외선물_수신_시 = 해외선물_수신_시 + 24
                 else:
                     pass
