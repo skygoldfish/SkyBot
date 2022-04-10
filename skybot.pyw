@@ -52001,9 +52001,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global drop_txt, drop_percent, time_gap, main_totalsize, fh0_drop_percent, option_tick_total_size, ovc_tick_total_size
         global total_packet_size
         
-        dt = datetime.now()       
-
-        # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
+        dt = datetime.now()
         szTrCode = tickdata['tr_code']
 
         if self.mp_number == 1:
@@ -52056,6 +52054,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 time_gap = systime - system_server_time_gap - realtime
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
+            '''
             if FUTURES_REQUEST:
                 first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
@@ -52083,9 +52082,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
             else:
                 drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
+            '''
 
-            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7})\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap)
+            
 
             if szTrCode == 'NWS' or szTrCode == 'BM_':
                 if DARK_STYLESHEET:
@@ -52185,7 +52186,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global total_packet_size
 
         dt = datetime.now()
-
         szTrCode = tickdata['tr_code']
 
         if self.mp_number == 1:
@@ -52261,6 +52261,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
+        '''
         if FUTURES_REQUEST:
             first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
@@ -52288,9 +52289,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
-        
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+        '''
+
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7})\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap)        
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -52544,13 +52546,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global option_quote_tickdata, flag_receive_quote
 
         dt = datetime.now()
+        szTrCode = tickdata['tr_code']
 
         if not flag_receive_quote:
             flag_receive_quote = True
         else:
-            pass
-
-        szTrCode = tickdata['tr_code']
+            pass        
 
         if self.mp_number == 1:
 
@@ -52594,6 +52595,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
 
+        '''
         if FUTURES_REQUEST:
             first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
@@ -52621,9 +52623,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
-        
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+        '''
+
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7})\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap)        
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -52730,9 +52733,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global drop_txt, drop_percent, time_gap, main_totalsize, option_tick_total_size, ovc_tick_total_size
         global total_packet_size
         
-        dt = datetime.now()        
-
-        # 수신된 실시간데이타 정보표시(누락된 패킷수, 큐의 크기, 수신된 총 패킷수, 수신된 총 패킷크기)            
+        dt = datetime.now()                 
         szTrCode = tickdata['tr_code']
 
         if self.mp_number == 1:
