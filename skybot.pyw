@@ -56175,8 +56175,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if flag_market_service:
 
-                df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 콜잔량비
-                df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 풋잔량비
+                if 콜잔량비 > 5.0:
+                    df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 콜잔량비
+
+                if 풋잔량비 > 5.0:
+                    df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 5.0
+                else:
+                    df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 풋잔량비
 
                 옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
                 
@@ -56215,15 +56222,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass                                    
             else:
-                if 콜잔량비 > 5.0:
-                    df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 5.0
-                else:
-                    df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 콜잔량비
-
-                if 풋잔량비 > 5.0:
-                    df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 5.0
-                else:
-                    df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 풋잔량비            
+                pass           
 
             # 야간선물이 없어짐에 따른 텔레그램 기동 대응
             '''
