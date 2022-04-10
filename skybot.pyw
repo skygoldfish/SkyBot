@@ -53199,7 +53199,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 주간 선물/옵션장 시작
             elif tickdata['장구분'] == '5' and tickdata['장상태'] == '21':
 
-                flag_market_service = True
+                #flag_market_service = True
 
                 SP500_주간_시작가 = SP500_현재가
                 DOW_주간_시작가 = DOW_현재가
@@ -56078,7 +56078,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def option_quote_update(self, tickdata):
 
-        #global flag_market_service
+        global flag_market_service
         global df_call_quote, df_put_quote, 콜잔량비, 풋잔량비, call_remainder_ratio, put_remainder_ratio
         global df_call_information_graph, df_put_information_graph
         global flag_telegram_send_start, flag_telegram_listen_start
@@ -56089,7 +56089,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global call_quote, put_quote
 
         try:
-            dt = datetime.now()           
+            dt = datetime.now()
+
+            if not flag_market_service:                
+                flag_market_service = True
+            else:
+                pass
 
             prev_plot_time_index = plot_time_index
 
