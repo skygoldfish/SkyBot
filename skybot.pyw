@@ -50262,7 +50262,7 @@ class Xing(object):
 
             # 주요지표 계산
             #df_futures_cm_ta_graph['OE_CONV'], df_futures_cm_ta_graph['OE_BASE'], df_futures_cm_ta_graph['SPAN_A'], df_futures_cm_ta_graph['SPAN_B'], df_futures_cm_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_futures_cm_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            #df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], df_sp500_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+            df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], df_sp500_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
             df_dow_ta_graph['OE_CONV'], df_dow_ta_graph['OE_BASE'], df_dow_ta_graph['SPAN_A'], df_dow_ta_graph['SPAN_B'], df_dow_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_dow_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
             df_nasdaq_ta_graph['OE_CONV'], df_nasdaq_ta_graph['OE_BASE'], df_nasdaq_ta_graph['SPAN_A'], df_nasdaq_ta_graph['SPAN_B'], df_nasdaq_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_nasdaq_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
             df_hsi_ta_graph['OE_CONV'], df_hsi_ta_graph['OE_BASE'], df_hsi_ta_graph['SPAN_A'], df_hsi_ta_graph['SPAN_B'], df_hsi_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_hsi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
@@ -50270,7 +50270,7 @@ class Xing(object):
             df_gold_ta_graph['OE_CONV'], df_gold_ta_graph['OE_BASE'], df_gold_ta_graph['SPAN_A'], df_gold_ta_graph['SPAN_B'], df_gold_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_gold_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
             df_euro_ta_graph['OE_CONV'], df_euro_ta_graph['OE_BASE'], df_euro_ta_graph['SPAN_A'], df_euro_ta_graph['SPAN_B'], df_euro_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_euro_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
             df_yen_ta_graph['OE_CONV'], df_yen_ta_graph['OE_BASE'], df_yen_ta_graph['SPAN_A'], df_yen_ta_graph['SPAN_B'], df_yen_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_yen_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
-            #df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], df_adi_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)      
+            df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], df_adi_ta_graph['LAGGING_SPAN'] = self.caller.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)      
 
         # 여기에서 주기적인 갱신을 진행
         if self.caller.dialog['선물옵션전광판'] is not None:
@@ -56575,7 +56575,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # ICHIMOKU
-                df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], df_sp500_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_sp500_ta_graph['OE_CONV'], df_sp500_ta_graph['OE_BASE'], df_sp500_ta_graph['SPAN_A'], df_sp500_ta_graph['SPAN_B'], df_sp500_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_sp500_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
                 if df_sp500_ta_graph.at[plot_time_index, 'OE_CONV'] < df_sp500_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_sp500_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
@@ -58358,7 +58358,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     pass
 
                 # ICHIMOKU
-                df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], df_adi_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
+                #df_adi_ta_graph['OE_CONV'], df_adi_ta_graph['OE_BASE'], df_adi_ta_graph['SPAN_A'], df_adi_ta_graph['SPAN_B'], df_adi_ta_graph['LAGGING_SPAN'] = self.Calc_ICHIMOKU(df_adi_ta_graph, CONVERSION_LINE_PERIOD, BASE_LINE_PERIOD, SPAN_B_PERIOD)
                 
                 if df_adi_ta_graph.at[plot_time_index, 'OE_CONV'] < df_adi_ta_graph.at[plot_time_index, 'OE_BASE'] and \
                     df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_A'] < df_adi_ta_graph.at[plot_time_index+BASE_LINE_PERIOD, 'SPAN_B']:
