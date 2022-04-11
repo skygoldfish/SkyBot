@@ -50230,8 +50230,8 @@ class Xing(object):
             # 환율 스크랩
             #df = investpy.get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
-            df = yf.download('KRW=X', end = TODAY)
-            환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+            #df = yf.download('KRW=X', end = TODAY)
+            #환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
             #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
             #self.caller.textBrowser.append(txt)
@@ -56173,7 +56173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass
 
-            if flag_market_service:
+            if flag_pre_start:
 
                 if 콜잔량비 > 5.0:
                     df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 5.0
@@ -56184,116 +56184,46 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 5.0
                 else:
                     df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 풋잔량비
-
-                옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
-                
-                if 콜잔량비 < 콜_잔량비_최소:
-                    콜_잔량비_최소 = 콜잔량비
-                else:
-                    pass
-
-                if 콜잔량비 > 옵션_잔량비_최대:
-                    콜_잔량비_최대 = 콜잔량비
-                else:
-                    pass
-
-                if 풋잔량비 < 풋_잔량비_최소:
-                    풋_잔량비_최소 = 풋잔량비
-                else:
-                    pass
-
-                if 풋잔량비 > 풋_잔량비_최대:
-                    풋_잔량비_최대 = 풋잔량비
-                else:
-                    pass
-
-                if 콜_잔량비_최소 < 풋_잔량비_최소:
-                    옵션_잔량비_최소 = 콜_잔량비_최소
-                else:
-                    옵션_잔량비_최소 = 풋_잔량비_최소
-
-                if 콜_잔량비_최대 > 풋_잔량비_최대:
-                    옵션_잔량비_최대 = 콜_잔량비_최대
-                else:
-                    옵션_잔량비_최대 = 풋_잔량비_최대
-                
-                if 옵션_잔량비_최대 > 10.0:
-                    옵션_잔량비_최대 = 10.0
-                else:
-                    pass                                    
             else:
-                pass           
+                df_call_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 콜잔량비
+                df_put_information_graph.at[plot_time_index, 'quote_remainder_ratio'] = 풋잔량비
 
-            # 야간선물이 없어짐에 따른 텔레그램 기동 대응
-            '''
-            if NightTime:
-
-                global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-
-                dt = datetime.now()
-
-                opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-                if TELEGRAM_SERVICE and not flag_telegram_send_worker:
-
-                    #self.telegram_send_worker.start()
-                    flag_telegram_send_start = True
-
-                    telegram_send_worker_on_time = opt_time 
-
-                    txt = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-                    self.textBrowser.append(txt)
-                    print(txt) 
-
-                    if TARGET_MONTH == 'CM':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        ToYourTelegram(txt)
-
-                    elif TARGET_MONTH == 'NM':
-
-                        txt = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        ToYourTelegram(txt)
-                    else:
-                        pass         
-
-                    flag_telegram_send_worker = True             
-                else:
-                    pass
-
-                # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-                if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
-
-                    if TELEGRAM_SERVICE:
-
-                        #self.telegram_listen_worker.start()
-                        flag_telegram_listen_start = True
-
-                        if TARGET_MONTH == 'CM':                        
-
-                            if window.id == 'soojin65':
-                                txt = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                                #ToMyTelegram(txt)
-                            else:
-                                ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
-
-                        elif TARGET_MONTH == 'NM':
-
-                            ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
-                        else:
-                            pass
-
-                        self.pushButton_scrshot.setStyleSheet('QPushButton {background-color: lawngreen; color: black; font-family: Consolas; font-size: 10pt; font: Bold; border-style: solid; border-width: 1px; border-color: black; border-radius: 5px} \
-                                                                QPushButton:hover {background-color: black; color: white} \
-                                                                QPushButton:pressed {background-color: gold}')
-                        flag_telegram_listen_worker = True
-                    else:
-                        pass            
-                else:
-                    pass
+            옵션_잔량비차 = abs(콜잔량비 - 풋잔량비)
+            
+            if 콜잔량비 < 콜_잔량비_최소:
+                콜_잔량비_최소 = 콜잔량비
             else:
                 pass
-            '''
+
+            if 콜잔량비 > 옵션_잔량비_최대:
+                콜_잔량비_최대 = 콜잔량비
+            else:
+                pass
+
+            if 풋잔량비 < 풋_잔량비_최소:
+                풋_잔량비_최소 = 풋잔량비
+            else:
+                pass
+
+            if 풋잔량비 > 풋_잔량비_최대:
+                풋_잔량비_최대 = 풋잔량비
+            else:
+                pass
+
+            if 콜_잔량비_최소 < 풋_잔량비_최소:
+                옵션_잔량비_최소 = 콜_잔량비_최소
+            else:
+                옵션_잔량비_최소 = 풋_잔량비_최소
+
+            if 콜_잔량비_최대 > 풋_잔량비_최대:
+                옵션_잔량비_최대 = 콜_잔량비_최대
+            else:
+                옵션_잔량비_최대 = 풋_잔량비_최대
+            
+            if 옵션_잔량비_최대 > 10.0:
+                옵션_잔량비_최대 = 10.0
+            else:
+                pass
 
         except Exception as e:
 
