@@ -50232,9 +50232,9 @@ class Xing(object):
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             df = yf.download('KRW=X', end = TODAY)
             환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
 
-            self.caller.textBrowser.append(txt)
+            #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
+            #self.caller.textBrowser.append(txt)
 
             if self.main_connection is not None:
 
@@ -50254,6 +50254,7 @@ class Xing(object):
         # 옵션호가 데이타가 많아서(체결대비 약 5 ~ 7배) 주기적 갱신처리
         if flag_receive_quote and DayTime and TARGET_MONTH == 'CM':
                 self.caller.update_3rd_process(option_quote_tickdata)
+                QApplication.processEvents()
 
         if flag_t8433_response_ok:
 
@@ -52083,10 +52084,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
             '''
-
-            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7})\r'.format(szTrCode, \
-                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap)
             
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
             if szTrCode == 'NWS' or szTrCode == 'BM_':
                 if DARK_STYLESHEET:
@@ -52291,8 +52291,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         '''
 
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7})\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap)        
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)        
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -52625,8 +52625,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         '''
 
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7})\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap)        
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -54065,14 +54065,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if tickdata['전일대비구분'] == '5':
 
-                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                         elif tickdata['전일대비구분'] == '2':
 
-                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -54085,14 +54085,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if tickdata['전일대비구분'] == '5':
 
-                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                         elif tickdata['전일대비구분'] == '2':
 
-                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%), 환율: {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
