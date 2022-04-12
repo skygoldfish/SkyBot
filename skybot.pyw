@@ -477,6 +477,7 @@ MP_FUT_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP Fut High Speed Mod
 MP_OPTION_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP Option High Speed Mode')
 MP_CME_HIGH_SPEED_MODE = parser.getboolean('User Switch', 'MP CME High Speed Mode')
 WEB_SCRAP = parser.getboolean('User Switch', 'Web Scrap')
+OPTION_QUOTE_DISPLAY = parser.getboolean('User Switch', 'Option Quote Display')
 
 # [8]. << Real Time Request Item Switch = 'ON or OFF' >>
 FUTURES_REQUEST = parser.getboolean('RealTime Request Item Switch', 'Domestic Futures Request')
@@ -2577,6 +2578,7 @@ flag_ovc_zero_sec = False
 
 flag_df_ohlc = False
 flag_candle_chart = CANDLE_CHART
+flag_option_quote_display = OPTION_QUOTE_DISPLAY
 
 fut_cm_tick_list = []
 fut_nm_tick_list = []
@@ -23805,6 +23807,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_search_moving_node.setChecked(flag_search_moving_node)
         self.checkBox_df_ohlc.setChecked(flag_df_ohlc)
         self.checkBox_candle_chart.setChecked(flag_candle_chart)
+        self.checkBox_option_quote_display.setChecked(flag_option_quote_display)
 
         self.spinBox_call_itm.setValue(call_itm_number)
         self.spinBox_call_otm.setValue(call_otm_number)
@@ -23939,6 +23942,7 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
         self.checkBox_search_moving_node.stateChanged.connect(self.checkBox_search_moving_node_change)
         self.checkBox_df_ohlc.stateChanged.connect(self.checkBox_df_ohlc_state_change)
         self.checkBox_candle_chart.stateChanged.connect(self.checkBox_candle_chart_state_change)
+        self.checkBox_option_quote_display.stateChanged.connect(self.checkBox_option_quote_display_state_change)
 
         self.spinBox_call_itm.valueChanged.connect(self.change_call_itm)
         self.spinBox_call_otm.valueChanged.connect(self.change_call_otm)
@@ -25254,6 +25258,26 @@ class 화면_RealTimeItem(QDialog, Ui_RealTimeItem):
             flag_candle_chart = False
 
             txt = '[{0:02d}:{1:02d}:{2:02d}] CANDLE CHART 설정을 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+
+    def checkBox_option_quote_display_state_change(self):
+
+        dt = datetime.now()
+
+        global flag_option_quote_display
+
+        if self.checkBox_option_quote_display.isChecked() == True:
+
+            flag_option_quote_display = True
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 표시를 설정합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.parent.textBrowser.append(txt)
+            print(txt)
+        else:
+            flag_option_quote_display = False
+
+            txt = '[{0:02d}:{1:02d}:{2:02d}] 옵션호가 표시설정을 해지합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.parent.textBrowser.append(txt)
             print(txt)
 
@@ -50252,7 +50276,7 @@ class Xing(object):
             pass
 
         # 옵션호가 데이타가 많아서(체결대비 약 5 ~ 7배) 주기적 갱신처리
-        if flag_receive_quote and DayTime and TARGET_MONTH == 'CM':
+        if flag_option_quote_display and flag_receive_quote and DayTime and TARGET_MONTH == 'CM':
                 self.caller.update_3rd_process(option_quote_tickdata)
                 QApplication.processEvents()
 
