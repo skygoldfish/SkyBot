@@ -35,7 +35,7 @@
    <property name="flat">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>16</x>
@@ -723,12 +723,12 @@
    <property name="title">
     <string>User Switch</string>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>375</width>
+      <x>12</x>
+      <y>31</y>
+      <width>373</width>
       <height>161</height>
      </rect>
     </property>
@@ -789,6 +789,13 @@
         <widget class="QCheckBox" name="checkBox_candle_chart">
          <property name="text">
           <string>Candle Chart</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_option_quote_display">
+         <property name="text">
+          <string>Option Quote Display</string>
          </property>
         </widget>
        </item>
