@@ -6440,7 +6440,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                            self.call_low_node_coloring()
+                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                pass
+                            else:
+                                self.call_low_node_coloring()
                             
                             item = QTableWidgetItem('저가')
                             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6459,7 +6462,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            self.call_high_node_coloring()
+                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                pass
+                            else:
+                                self.call_high_node_coloring()
                             
                             item = QTableWidgetItem('저가')
                             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6479,7 +6485,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            self.put_low_node_coloring()
+                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                pass
+                            else:
+                                self.put_low_node_coloring()
 
                             item = QTableWidgetItem('저가')
                             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6498,7 +6507,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            self.put_high_node_coloring()
+                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                pass
+                            else:
+                                self.put_high_node_coloring()
                             
                             item = QTableWidgetItem('저가')
                             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
