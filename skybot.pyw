@@ -6440,7 +6440,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                            if DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
                                 pass
                             else:
                                 self.call_low_node_coloring()
@@ -6462,7 +6462,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                            if DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
                                 pass
                             else:
                                 self.call_high_node_coloring()
@@ -6485,7 +6485,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                            if DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
                                 pass
                             else:
                                 self.put_low_node_coloring()
@@ -6507,7 +6507,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            if dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                            if DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
                                 pass
                             else:
                                 self.put_high_node_coloring()
