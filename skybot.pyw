@@ -50268,10 +50268,10 @@ class Xing(object):
             global 환율
 
             # 환율 스크랩
-            df = investpy.get_currency_cross_recent_data('USD/KRW')
+            #df = investpy.get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             #df = yf.download('KRW=X', end = TODAY)
-            환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+            #환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
             #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
             #self.caller.textBrowser.append(txt)
@@ -51304,14 +51304,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 환율 스크랩
         print('\r')
-        print('환율\r')
-        df = investpy.get_currency_cross_recent_data('USD/KRW')
+        #print('환율\r')
+        #df = investpy.get_currency_cross_recent_data('USD/KRW')
         #df = fdr.DataReader('USD/KRW', YESTERDAY)
         #df = yf.download('KRW=X', end = TODAY)
-        환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+        #환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-        txt = '환율 = {0}\r'.format(환율)
-        self.textBrowser.append(txt)
+        #txt = '환율 = {0}\r'.format(환율)
+        #self.textBrowser.append(txt)
         print(txt)
         print('\r')
 
@@ -52843,8 +52843,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}, 환율: {9}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt, 환율)
+        if 환율 > 0:
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}, 환율: {9}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt, 환율)
+        else:
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
