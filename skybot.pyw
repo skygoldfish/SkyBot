@@ -50267,17 +50267,16 @@ class Xing(object):
             
             global 환율
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 환율요청\r'.format(dt.hour, dt.minute, dt.second)
-            self.caller.textBrowser.append(txt)
-
             # 환율 스크랩
             df = investpy.get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             #df = yf.download('KRW=X', end = TODAY)
-            환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-            txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
-            self.caller.textBrowser.append(txt)
+            if not df.empty:
+                환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+                txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
+                self.caller.textBrowser.append(txt)
 
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
