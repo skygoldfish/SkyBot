@@ -540,6 +540,7 @@ SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Se
 FEVER_TIME_DURATION = parser.getint('Initial Value', 'Fever Time Duration')
 OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
+CURRENCY_REFRESH_INTERVAL = parser.getint('Initial Value', 'Currency Refresh Interval(sec)')
 
 # [11]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500_CODE = parser.get('Code of the Foreign Futures', 'E-MINI S&P 500')
@@ -50263,7 +50264,7 @@ class Xing(object):
 
         self.caller.pushButton_reset.setText(' Clear ')
 
-        if self.clocktick and dt.second % 10 == 0:
+        if self.clocktick and dt.second % CURRENCY_REFRESH_INTERVAL == 0:
             
             global 환율
 
@@ -50275,8 +50276,8 @@ class Xing(object):
             if not df.empty:
                 환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-                txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
-                self.caller.textBrowser.append(txt)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
+                #self.caller.textBrowser.append(txt)
 
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
