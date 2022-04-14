@@ -4643,9 +4643,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             color: yellow; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: yellow; border-radius: 5px')
 
         if samsung_price > 0:
-            self.label_3rd_index.setText("SAMSUNG: {0}, 환율: {1}".format(format(samsung_price, ','), format(환율, ',')))
+            self.label_3rd_index.setText("SAMSUNG: {0}".format(format(samsung_price, ',')))
         else:
-            self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율), 환율")
+            self.label_3rd_index.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         
         self.label_4th_index.setStyleSheet('background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:0.995, y2:1, stop:0 rgba(218, 218, 218, 255), stop:0.305419 \
             rgba(0, 7, 11, 255), stop:0.935961 rgba(2, 11, 18, 255), stop:1 rgba(240, 240, 240, 255)); \
@@ -6268,7 +6268,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_kp200_low, flag_kp200_high
         global flag_offline            
 
-        global call_plot_data, put_plot_data, centerval_plot_data
+        global call_plot_data, put_plot_data
         global SP500_야간종가, DOW_야간종가, NASDAQ_야간종가, HANGSENG_야간종가, WTI_야간종가, GOLD_야간종가, EURO_야간종가, YEN_야간종가, ADI_야간종가
         global flag_broken_capture
         
@@ -6441,6 +6441,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                             
                             if TARGET_MONTH == 'CM' and DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                #self.call_open_check()
                                 pass
                             else:
                                 self.call_low_node_coloring()
@@ -6463,6 +6464,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
 
                             if TARGET_MONTH == 'CM' and DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                #self.call_open_check()
                                 pass
                             else:
                                 self.call_high_node_coloring()
@@ -6486,6 +6488,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
 
                             if TARGET_MONTH == 'CM' and DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                #self.put_open_check()
                                 pass
                             else:
                                 self.put_low_node_coloring()
@@ -6508,6 +6511,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
 
                             if TARGET_MONTH == 'CM' and DayTime and dt.hour == KSE_START_HOUR and 0 <= dt.minute < FEVER_TIME_DURATION:
+                                #self.put_open_check()
                                 pass
                             else:
                                 self.put_high_node_coloring()
@@ -50246,8 +50250,6 @@ class Xing(object):
 
     def OnClockTick(self):
 
-        global 환율
-
         dt = datetime.now()
 
         self.clocktick = not self.clocktick
@@ -50261,16 +50263,20 @@ class Xing(object):
 
         self.caller.pushButton_reset.setText(' Clear ')
 
-        if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
+        if self.clocktick and dt.second % 10 == 0:
+            
+            global 환율
 
             # 환율 스크랩
-            #df = investpy.get_currency_cross_recent_data('USD/KRW')
+            df = investpy.get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             #df = yf.download('KRW=X', end = TODAY)
-            #환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+            환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
             #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
             #self.caller.textBrowser.append(txt)
+
+        if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
             if self.main_connection is not None:
 
@@ -51299,9 +51305,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 환율 스크랩
         print('\r')
         print('환율\r')
-        #df = investpy.get_currency_cross_recent_data('USD/KRW')
+        df = investpy.get_currency_cross_recent_data('USD/KRW')
         #df = fdr.DataReader('USD/KRW', YESTERDAY)
-        df = yf.download('KRW=X', end = TODAY)
+        #df = yf.download('KRW=X', end = TODAY)
         환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
         txt = '환율 = {0}\r'.format(환율)
@@ -52837,8 +52843,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
         
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}, 환율: {9}\r'.format(szTrCode, \
+            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt, 환율)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -54101,14 +54107,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if tickdata['전일대비구분'] == '5':
 
-                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                         elif tickdata['전일대비구분'] == '2':
 
-                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: pink; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
@@ -54121,14 +54127,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                         if tickdata['전일대비구분'] == '5':
 
-                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: blue; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: blue; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
 
                         elif tickdata['전일대비구분'] == '2':
 
-                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%), {3}".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']), format(환율, ','))
+                            jisu_txt = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_txt, format(int(tickdata['전일대비']), ','), float(tickdata['등락율']))
 
                             self.dialog['선물옵션전광판'].label_3rd_index.setStyleSheet('background-color: lightskyblue; color: red; font-family: Consolas; font-size: 9pt; font: Bold; border-style: solid; border-width: 1px; border-color: red; border-radius: 5px')
                             self.dialog['선물옵션전광판'].label_3rd_index.setText(jisu_txt)
