@@ -50279,7 +50279,7 @@ class Xing(object):
                 #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
                 #self.caller.textBrowser.append(txt)
 
-                item_txt = '{0}'.format(환율)
+                item_txt = '{0:.2f}'.format(환율)
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.caller.tableWidget_cme.setHorizontalHeaderItem(0, item)
