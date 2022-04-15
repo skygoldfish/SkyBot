@@ -540,7 +540,7 @@ SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Se
 FEVER_TIME_DURATION = parser.getint('Initial Value', 'Fever Time Duration')
 OVER_SOLD_LIMIT_VAL = parser.getfloat('Initial Value', 'Oversold Limit Value')
 OVER_BOUGHT_LIMIT_VAL = parser.getfloat('Initial Value', 'Overbought Limit Value')
-CURRENCY_REFRESH_INTERVAL = parser.getint('Initial Value', 'Currency Refresh Interval(sec)')
+CURRENCY_UPDATE_INTERVAL = parser.getint('Initial Value', 'Currency Update Interval(sec)')
 
 # [11]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500_CODE = parser.get('Code of the Foreign Futures', 'E-MINI S&P 500')
@@ -50264,7 +50264,7 @@ class Xing(object):
 
         self.caller.pushButton_reset.setText(' Clear ')
 
-        if self.clocktick and dt.second % CURRENCY_REFRESH_INTERVAL == 0:
+        if self.clocktick and dt.second % CURRENCY_UPDATE_INTERVAL == 0:
             
             global 환율
 
@@ -52099,8 +52099,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 time_gap = systime - system_server_time_gap - realtime
                 time_gap_abs = abs((systime - system_server_time_gap) - realtime)
-
-            '''
+            
             if FUTURES_REQUEST:
                 first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
@@ -52123,15 +52122,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 drop_percent = (total_dropcount / totalcount) * 100
             else:
                 pass
-
+            
             if DayTime:
                 drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
             else:
-                drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
-            '''
+                drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)            
             
-            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+            if 환율 > 0:
+                txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}, 환율: {9}\r'.format(szTrCode, \
+                    dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt, 환율)
+            else:
+                txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                    dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
             if szTrCode == 'NWS' or szTrCode == 'BM_':
                 if DARK_STYLESHEET:
@@ -52305,8 +52307,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
-
-        '''
+        
         if FUTURES_REQUEST:
             first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
@@ -52329,15 +52330,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drop_percent = (total_dropcount / totalcount) * 100
         else:
             pass
-
+        
         if DayTime:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
-        '''
-
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)        
+        
+        if 환율 > 0:
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}, 환율: {9}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt, 환율)
+        else:
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)        
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
@@ -52639,8 +52643,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         time_gap = systime - system_server_time_gap - realtime
         time_gap_abs = abs((systime - system_server_time_gap) - realtime)
-
-        '''
+        
         if FUTURES_REQUEST:
             first_dropcount, first_sys_dropcount, first_qsize, first_totalcount, first_totalsize = self.realtime_futures_dataworker.get_packet_info()
 
@@ -52663,15 +52666,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             drop_percent = (total_dropcount / totalcount) * 100
         else:
             pass
-
+        
         if DayTime:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(option_tick_total_size/1000), ','), drop_percent)
         else:
             drop_txt = '{0}/{1}({2}k), {3}k, [{4:.1f}%]'.format(format(total_dropcount, ','), format(totalcount, ','), format(int(total_packet_size/1000), ','), format(int(ovc_tick_total_size/1000), ','), drop_percent)
-        '''
-
-        txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
-            dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
+        
+        if 환율 > 0:
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}, 환율: {9}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt, 환율)
+        else:
+            txt = ' [{0}]수신 = [{1:02d}:{2:02d}:{3:02d}/{4:02d}:{5:02d}:{6:02d}]({7}), {8}\r'.format(szTrCode, \
+                dt.hour, dt.minute, dt.second, int(tickdata['수신시간'][0:2]), int(tickdata['수신시간'][2:4]), int(tickdata['수신시간'][4:6]), time_gap, drop_txt)
 
         if time_gap_abs >= view_time_tolerance:
             self.statusbar.setStyleSheet("color : red")
