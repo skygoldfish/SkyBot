@@ -56,7 +56,8 @@ import functools
 import shutil
 import requests
 import yfinance as yf
-import investpy
+#import investpy
+from currency_crosses import *
 import FinanceDataReader as fdr
 
 #import pyttsx3
@@ -91,7 +92,7 @@ import qdarkstyle
 # 이베스트 모듈
 from XASessions import *
 from XAQueries import *
-from Utils import *
+from utils.Utils import *
 #from FileWatcher import *       
 #from xing_tick_writer import * 
 
@@ -50269,9 +50270,10 @@ class Xing(object):
             global 환율
 
             # 환율 스크랩
-            df = investpy.get_currency_cross_recent_data('USD/KRW')
+            df = get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             #df = yf.download('KRW=X', end = TODAY)
+            print(df.tail())
 
             if not df.empty:
                 환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
