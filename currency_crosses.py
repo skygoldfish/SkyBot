@@ -13,15 +13,15 @@ import requests
 from lxml.html import fromstring
 from unidecode import unidecode
 
-from .data.currency_crosses_data import (
+from data.currency_crosses_data import (
     available_currencies_as_list,
     currency_crosses_as_df,
     currency_crosses_as_dict,
     currency_crosses_as_list,
 )
-from .utils import constant as cst
-from .utils.data import Data
-from .utils.extra import random_user_agent
+from utils import constant as cst
+from utils.data import Data
+from utils.extra import random_user_agent
 
 
 def get_currency_crosses(base=None, second=None):
