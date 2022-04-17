@@ -2600,7 +2600,11 @@ djt_low = 0
 djt_close = 0
 
 option_quote_tickdata = {}
-환율 = 0
+
+환율_전저 = 0
+환율_전고 = 0
+환율_종가 = 0
+환율_현재가 = 0
 
 #####################################################################################################################################################################
 # UI 파일정의
@@ -50267,21 +50271,21 @@ class Xing(object):
 
         if self.clocktick and dt.second % CURRENCY_UPDATE_INTERVAL == 0:
             
-            global 환율
+            global 환율_현재가
 
-            # 환율 스크랩
+            # 환율_현재가 스크랩
             df = get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             #df = yf.download('KRW=X', end = TODAY)
             #print(df.tail())
 
             if not df.empty:
-                환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+                환율_현재가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율)
+                #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율_현재가 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율_현재가)
                 #self.caller.textBrowser.append(txt)
 
-                item_txt = '{0:.2f}'.format(환율)
+                item_txt = '{0:.2f}'.format(환율_현재가)
                 item = QTableWidgetItem(item_txt)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.caller.tableWidget_cme.setHorizontalHeaderItem(0, item)
@@ -51020,7 +51024,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 item.setForeground(QBrush(흰색))
                 self.tableWidget_cme.setItem(i, j, item)
 
-        item = QTableWidgetItem("{0}".format('환율'))
+        item = QTableWidgetItem("{0}".format('환율_종가'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
@@ -51279,7 +51283,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global EURO_전고, EURO_전저, EURO_전일종가
         global YEN_전고, YEN_전저, YEN_전일종가
         global ADI_전고, ADI_전저, ADI_전일종가
-        global 환율 
+        global 환율_전저, 환율_전고, 환율_종가
 
         txt = '***********************************************************************'
         self.textBrowser.append(txt)
@@ -51318,15 +51322,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(txt)
         print('\r')
 
-        # 환율 스크랩
+        # 환율_현재가 스크랩
         print('\r')
-        #print('환율\r')
+        print('환율\r')
         df = get_currency_cross_recent_data('USD/KRW')
         #df = fdr.DataReader('USD/KRW', YESTERDAY)
         #df = yf.download('KRW=X', end = TODAY)
-        환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-        txt = '환율 = {0}\r'.format(환율)
+        환율_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+        환율_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+        환율_종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+        txt = '환율 전고 = {0}, 환율 전저 = {1}, 환율 종가 = {2}\r'.format(환율_전고, 환율_전저, 환율_종가)
         self.textBrowser.append(txt)
         print(txt)
         print('\r')
