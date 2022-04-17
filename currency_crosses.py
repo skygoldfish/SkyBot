@@ -302,7 +302,7 @@ def get_currency_cross_recent_data(
         raise FileNotFoundError("ERR#0060: currency_crosses file not found or errored.")
     '''
     if os.path.exists('Resources/currency_crosses.csv'):
-        currency_crosses = pd.read_csv('Resources/currency_crosses.csv')
+        currency_crosses = pd.read_csv('Resources/currency_crosses.csv', keep_default_na=False,)
     else:
         raise FileNotFoundError("ERR#0060: currency_crosses file not found or errored.")
 
