@@ -5,6 +5,7 @@ import json
 import string
 from datetime import date, datetime, timedelta
 from random import randint, sample
+import os
 
 import pandas as pd
 import pkg_resources
@@ -13,7 +14,7 @@ import requests
 from lxml.html import fromstring
 from unidecode import unidecode
 
-from data.currency_crosses_data import (
+from currency_crosses_data import (
     available_currencies_as_list,
     currency_crosses_as_df,
     currency_crosses_as_dict,
@@ -289,14 +290,19 @@ def get_currency_cross_recent_data(
             "ERR#0073: interval value should be a str type and it can just be either"
             " 'Daily', 'Weekly' or 'Monthly'."
         )
-
-    resource_package = "investpy"
+    '''
+    resource_package = "skybot"
     resource_path = "/".join(("resources", "currency_crosses.csv"))
     if pkg_resources.resource_exists(resource_package, resource_path):
         currency_crosses = pd.read_csv(
             pkg_resources.resource_filename(resource_package, resource_path),
             keep_default_na=False,
         )
+    else:
+        raise FileNotFoundError("ERR#0060: currency_crosses file not found or errored.")
+    '''
+    if os.path.exists('Resources/currency_crosses.csv'):
+        currency_crosses = pd.read_csv('Resources/currency_crosses.csv')
     else:
         raise FileNotFoundError("ERR#0060: currency_crosses file not found or errored.")
 

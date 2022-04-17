@@ -51321,13 +51321,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 환율 스크랩
         print('\r')
         #print('환율\r')
-        #df = investpy.get_currency_cross_recent_data('USD/KRW')
+        df = get_currency_cross_recent_data('USD/KRW')
         #df = fdr.DataReader('USD/KRW', YESTERDAY)
         #df = yf.download('KRW=X', end = TODAY)
-        #환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+        환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-        #txt = '환율 = {0}\r'.format(환율)
-        #self.textBrowser.append(txt)
+        txt = '환율 = {0}\r'.format(환율)
+        self.textBrowser.append(txt)
         print(txt)
         print('\r')
 
