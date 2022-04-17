@@ -50273,7 +50273,7 @@ class Xing(object):
             df = get_currency_cross_recent_data('USD/KRW')
             #df = fdr.DataReader('USD/KRW', YESTERDAY)
             #df = yf.download('KRW=X', end = TODAY)
-            print(df.tail())
+            #print(df.tail())
 
             if not df.empty:
                 환율 = round(df.at[df.tail(1).index[0], 'Close'], 2)
