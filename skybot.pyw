@@ -50269,7 +50269,7 @@ class Xing(object):
 
         self.caller.pushButton_reset.setText(' Clear ')
 
-        if CURRENCY_UPDATE_INTERVAL > 0:
+        if TARGET_MONTH == 'CM' and CURRENCY_UPDATE_INTERVAL > 0:
 
             if self.clocktick and dt.second % CURRENCY_UPDATE_INTERVAL == 0:
 
@@ -51325,7 +51325,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('\r')
 
         # 환율_현재가 스크랩
-        if CURRENCY_UPDATE_INTERVAL > 0:
+        if TARGET_MONTH == 'CM' and CURRENCY_UPDATE_INTERVAL > 0:
             
             print('\r')
             print('환율\r')
