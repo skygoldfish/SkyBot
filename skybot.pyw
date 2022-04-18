@@ -50269,26 +50269,28 @@ class Xing(object):
 
         self.caller.pushButton_reset.setText(' Clear ')
 
-        if self.clocktick and dt.second % CURRENCY_UPDATE_INTERVAL == 0:
-            
-            global 환율_현재가
+        if CURRENCY_UPDATE_INTERVAL > 0:
 
-            # 환율_현재가 스크랩
-            df = get_currency_cross_recent_data('USD/KRW')
-            #df = fdr.DataReader('USD/KRW', YESTERDAY)
-            #df = yf.download('KRW=X', end = TODAY)
-            #print(df.tail())
+            if self.clocktick and dt.second % CURRENCY_UPDATE_INTERVAL == 0:
 
-            if not df.empty:
-                환율_현재가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+                global 환율_현재가
 
-                #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율_현재가 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율_현재가)
-                #self.caller.textBrowser.append(txt)
+                # 환율_현재가 스크랩
+                df = get_currency_cross_recent_data('USD/KRW')
+                #df = fdr.DataReader('USD/KRW', YESTERDAY)
+                #df = yf.download('KRW=X', end = TODAY)
+                #print(df.tail())
 
-                item_txt = '{0:.2f}'.format(환율_현재가)
-                item = QTableWidgetItem(item_txt)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.caller.tableWidget_cme.setHorizontalHeaderItem(0, item)
+                if not df.empty:
+                    환율_현재가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+
+                    #txt = '[{0:02d}:{1:02d}:{2:02d}] 환율_현재가 = {3}\r'.format(dt.hour, dt.minute, dt.second, 환율_현재가)
+                    #self.caller.textBrowser.append(txt)
+
+                    item_txt = '{0:.2f}'.format(환율_현재가)
+                    item = QTableWidgetItem(item_txt)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.caller.tableWidget_cme.setHorizontalHeaderItem(0, item)
 
         if self.clocktick and dt.second == 30: # 매 30초 마다(1분 주기)
 
@@ -51323,20 +51325,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('\r')
 
         # 환율_현재가 스크랩
-        print('\r')
-        print('환율\r')
-        df = get_currency_cross_recent_data('USD/KRW')
-        #df = fdr.DataReader('USD/KRW', YESTERDAY)
-        #df = yf.download('KRW=X', end = TODAY)
+        if CURRENCY_UPDATE_INTERVAL > 0:
+            
+            print('\r')
+            print('환율\r')
+            df = get_currency_cross_recent_data('USD/KRW')
+            #df = fdr.DataReader('USD/KRW', YESTERDAY)
+            #df = yf.download('KRW=X', end = TODAY)
 
-        환율_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
-        환율_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
-        환율_종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
+            환율_전고 = round(df.at[df.tail(1).index[0], 'High'], 2)
+            환율_전저 = round(df.at[df.tail(1).index[0], 'Low'], 2)
+            환율_종가 = round(df.at[df.tail(1).index[0], 'Close'], 2)
 
-        txt = '환율 전고 = {0}, 환율 전저 = {1}, 환율 종가 = {2}\r'.format(환율_전고, 환율_전저, 환율_종가)
-        self.textBrowser.append(txt)
-        print(txt)
-        print('\r')
+            txt = '환율 전고 = {0}, 환율 전저 = {1}, 환율 종가 = {2}\r'.format(환율_전고, 환율_전저, 환율_종가)
+            self.textBrowser.append(txt)
+            print(txt)
+            print('\r')
 
         print('\r')
         print('DJ Transportation\r')
