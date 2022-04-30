@@ -6681,10 +6681,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if (not flag_internet_connection_broken_lst[-1] and not flag_service_provider_broken):
-                
-                if NightTime:
 
-                    global yagan_service_terminate, service_terminate                   
+                global yagan_service_terminate, service_terminate
+                
+                if NightTime:                                       
 
                     if 시스템시간_분 == (yagan_close_hour * 3600 + 1 * 60):
 
@@ -6863,6 +6863,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         pass
                                 else:
                                     pass
+
+                                service_terminate = True
 
                                 self.SaveResult()
                                 self.parent.xing.main_connection.disconnect()                                    
@@ -51623,8 +51625,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print('\r')
             print('YEN\r')
             #df = yf.download('6J=F', end = TODAY)
-            #df = investpy.get_currency_cross_recent_data(currency_cross='JPY/USD')
-            '''
+            df = get_currency_cross_recent_data(currency_cross='JPY/USD')
+            
             if not df.empty:
 
                 print(df.tail(1))
@@ -51662,6 +51664,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 txt = 'YEN is None...\r'
                 self.textBrowser.append(txt)
+            '''
         else:
             pass
 
